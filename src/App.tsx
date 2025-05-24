@@ -1,7 +1,8 @@
 import { useState, useMemo, useEffect } from 'react';
 import './App.css';
-import { RecordType } from './types';
+import { type RecordType } from './types';
 import ComparisonView from './components/ComparisonView';
+import CodelistTest from './components/CodelistTest';
 import * as DataLoader from './utils/DataLoader';
 
 function App() {
@@ -10,6 +11,7 @@ function App() {
   const [selectedA, setSelectedA] = useState<string[]>([]);
   const [selectedB, setSelectedB] = useState<string[]>([]);
   const [scaleToOne, setScaleToOne] = useState(false);
+  const [showCodelistTest, setShowCodelistTest] = useState(false);
 
   // Load data when selected year changes
   useEffect(() => {
@@ -50,73 +52,88 @@ function App() {
 
   return (
     <div className="App">
-      <h1>Financial Comparison Tool</h1>
-      <div className="year-selector">
-        <label>Select Year: </label>
-        <select 
-          value={selectedYear}
-          onChange={(e) => setSelectedYear(e.target.value)}
+      <div className="app-header">
+        <h1>{showCodelistTest ? 'Codelist Mapper Test' : 'Financial Comparison Tool'}</h1>
+        <button
+          onClick={() => setShowCodelistTest(!showCodelistTest)}
+          style={{ marginLeft: '20px', padding: '5px 10px' }}
         >
-          {DataLoader.getAvailableYears().map((year) => (
-            <option key={year} value={year}>{year}</option>
-          ))}
-        </select>
-        <span className="year-info">
-          {selectedYear === DataLoader.getLatestYear() ? ' (Latest)' : ''}
-        </span>
+          {showCodelistTest ? 'Show Financial Comparison' : 'Show Codelist Test'}
+        </button>
       </div>
-      <div className="controls">
-        <div className="select-group">
-          <label>Select Group A:</label>
-          <select
-            multiple
-            size={5}
-            value={selectedA}
-            onChange={(e) =>
-              setSelectedA(
-                Array.from(e.target.selectedOptions, (o) => o.value)
-              )
-            }
-          >
-            {gemeinden.map((g) => (
-              <option key={g} value={g}>{g}</option>
-            ))}
-          </select>
-        </div>
-        <div className="select-group">
-          <label>Select Group B:</label>
-          <select
-            multiple
-            size={5}
-            value={selectedB}
-            onChange={(e) =>
-              setSelectedB(
-                Array.from(e.target.selectedOptions, (o) => o.value)
-              )
-            }
-          >
-            {gemeinden.map((g) => (
-              <option key={g} value={g}>{g}</option>
-            ))}
-          </select>
-        </div>
-        <div className="scale-control">
-          <label>
-            <input
-              type="checkbox"
-              checked={scaleToOne}
-              onChange={() => setScaleToOne(!scaleToOne)}
+
+      {showCodelistTest ? (
+        <CodelistTest />
+      ) : (
+        <>
+          <div className="year-selector">
+            <label>Select Year: </label>
+            <select
+              value={selectedYear}
+              onChange={(e) => setSelectedYear(e.target.value)}
+            >
+              {DataLoader.getAvailableYears().map((year) => (
+                <option key={year} value={year}>{year}</option>
+              ))}
+            </select>
+            <span className="year-info">
+              {selectedYear === DataLoader.getLatestYear() ? ' (Latest)' : ''}
+            </span>
+          </div>
+          <div className="controls">
+            <div className="select-group">
+              <label>Select Group A:</label>
+              <select
+                multiple
+                size={5}
+                value={selectedA}
+                onChange={(e) =>
+                  setSelectedA(
+                    Array.from(e.target.selectedOptions, (o) => o.value)
+                  )
+                }
+              >
+                {gemeinden.map((g) => (
+                  <option key={g} value={g}>{g}</option>
+                ))}
+              </select>
+            </div>
+            <div className="select-group">
+              <label>Select Group B:</label>
+              <select
+                multiple
+                size={5}
+                value={selectedB}
+                onChange={(e) =>
+                  setSelectedB(
+                    Array.from(e.target.selectedOptions, (o) => o.value)
+                  )
+                }
+              >
+                {gemeinden.map((g) => (
+                  <option key={g} value={g}>{g}</option>
+                ))}
+              </select>
+            </div>
+            <div className="scale-control">
+              <label>
+                <input
+                  type="checkbox"
+                  checked={scaleToOne}
+                  onChange={() => setScaleToOne(!scaleToOne)}
+                />
+                Scale to match totals
+              </label>
+            </div>
+          </div>
+          {dataA.length > 0 && dataB.length > 0 && (
+            <ComparisonView
+              dataA={dataA}
+              dataB={dataB}
+              scaleToOne={scaleToOne}
             />
-            Scale to match totals
-          </label>
-        </div>
-      </div>
-      {dataA.length > 0 && dataB.length > 0 && (
-        <ComparisonView
-          dataA={dataA}
-          dataB={dataB}
-          scaleToOne={scaleToOne}
-        />
+          )}
+        </>
       )}
     </div>
   );
