@@ -2,6 +2,10 @@
 
 This application allows users to compare financial data of different governmental entities in Switzerland (e.g., municipalities, cantons). The tool provides visual insights into how entities generate and allocate their resources, enabling transparent, accessible, and meaningful comparisons.
 
+## Live Demo
+
+The application is deployed and can be visited at: **https://gdn.gitu.cc/**
+
 ## Features
 
 - Compare financial data between different municipalities
@@ -119,3 +123,7 @@ export default tseslint.config({
   },
 })
 ```
+
+## Development Notes
+
+**AI-Generated Codebase**: This entire repository was generated using multiple AI agents with only slight modifications done by hand. The project demonstrates the capabilities of AI-assisted development for creating complete, functional web applications.
