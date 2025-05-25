@@ -1,0 +1,162 @@
+[
+  {
+    "dim": "aufwand",
+    "models": [
+      {
+        "model": "gfs",
+        "count": 33
+      },
+      {
+        "model": "fs",
+        "count": 119
+      }
+    ]
+  },
+  {
+    "dim": "ausgaben",
+    "models": [
+      {
+        "model": "fs",
+        "count": 181
+      }
+    ]
+  },
+  {
+    "dim": "ausgaben_funk",
+    "models": [
+      {
+        "model": "gfs",
+        "count": 80
+      },
+      {
+        "model": "fs",
+        "count": 81
+      }
+    ]
+  },
+  {
+    "dim": "bilanz",
+    "models": [
+      {
+        "model": "fs",
+        "count": 39
+      }
+    ]
+  },
+  {
+    "dim": "einnahmen",
+    "models": [
+      {
+        "model": "fs",
+        "count": 241
+      }
+    ]
+  },
+  {
+    "dim": "einnahmen_funk",
+    "models": [
+      {
+        "model": "gfs",
+        "count": 80
+      },
+      {
+        "model": "fs",
+        "count": 81
+      }
+    ]
+  },
+  {
+    "dim": "er",
+    "models": [
+      {
+        "model": "fs",
+        "count": 30
+      }
+    ]
+  },
+  {
+    "dim": "ertrag",
+    "models": [
+      {
+        "model": "gfs",
+        "count": 72
+      },
+      {
+        "model": "fs",
+        "count": 163
+      }
+    ]
+  },
+  {
+    "dim": "fir",
+    "models": [
+      {
+        "model": "fs",
+        "count": 54
+      }
+    ]
+  },
+  {
+    "dim": "ord_ausgaben_funk",
+    "models": [
+      {
+        "model": "fs",
+        "count": 81
+      }
+    ]
+  },
+  {
+    "dim": "ord_einnahmen_funk",
+    "models": [
+      {
+        "model": "fs",
+        "count": 81
+      }
+    ]
+  },
+  {
+    "dim": "schuld",
+    "models": [
+      {
+        "model": "gfs",
+        "count": 3
+      }
+    ]
+  },
+  {
+    "dim": "sws_preis",
+    "models": [
+      {
+        "model": "gfs",
+        "count": 68
+      }
+    ]
+  },
+  {
+    "dim": "sws_volumen",
+    "models": [
+      {
+        "model": "gfs",
+        "count": 68
+      }
+    ]
+  },
+  {
+    "dim": "transaktionen",
+    "models": [
+      {
+        "model": "gfs",
+        "count": 93
+      }
+    ]
+  },
+  {
+    "dim": "vermoegen",
+    "models": [
+      {
+        "model": "gfs",
+        "count": 77
+      }
+    ]
+  }
+]

@@ -7,14 +7,17 @@ console.log('Starting data processing...');
 // Paths to the input CSV files
 const gdnInputFilePath = path.resolve('data/gdn_ab_5000.csv');
 const stdInputFilePath = path.resolve('data/standardauswertung.csv');
+const codelistInputFilePath = path.resolve('data/standardauswertung_codelist.csv');
 
 // Base directories for output files
 const gdnOutputBaseDir = path.resolve('src/data/gdn');
 const stdOutputBaseDir = path.resolve('src/data/std');
+const codesOutputBaseDir = path.resolve('src/data/codes');
 
 // Paths for the info JSON files
 const gdnInfoPath = path.resolve('src/data/gdn-info.json');
 const stdInfoPath = path.resolve('src/data/std-info.json');
+const codesInfoPath = path.resolve('src/data/codes-info.json');
 
 // Ensure the base output directories exist
 if (!fs.existsSync(gdnOutputBaseDir)) {
@@ -23,6 +26,10 @@ if (!fs.existsSync(gdnOutputBaseDir)) {
 
 if (!fs.existsSync(stdOutputBaseDir)) {
   fs.mkdirSync(stdOutputBaseDir, { recursive: true });
+}
+
+if (!fs.existsSync(codesOutputBaseDir)) {
+  fs.mkdirSync(codesOutputBaseDir, { recursive: true });
 }
 
 // Process GDN data
@@ -312,8 +319,159 @@ function processStdData() {
   }
 }
 
-// Execute both processing functions
+// Process codelist data
+function processCodelistData() {
+  console.log('Processing codelist data...');
+
+  // Check if the input file exists
+  if (!fs.existsSync(codelistInputFilePath)) {
+    console.error(`ERROR: Input file does not exist: ${codelistInputFilePath}`);
+    return;
+  }
+
+  let data;
+
+  // Read and parse the CSV file
+  try {
+    const csvFile = fs.readFileSync(codelistInputFilePath, 'utf8');
+    console.log(`Successfully read file: ${codelistInputFilePath}`);
+
+    const parseResult = Papa.parse(csvFile, {
+      header: true,
+      delimiter: ',',
+      quoteChar: '"',
+    });
+
+    data = parseResult.data;
+  } catch (error) {
+    console.error(`Error reading or parsing file ${codelistInputFilePath}:`, error);
+    return;
+  }
+
+  // Group data by dim and model
+  const groupedByDimModel = new Map();
+  // Track distinct dim & model combinations
+  const codesInfoMap = new Map();
+
+  // Process each record
+  console.log(`Found ${data.length} records in standardauswertung_codelist.csv`);
+
+  // Log a few sample records to see their structure
+  if (data.length > 0) {
+    console.log(`Sample record 1:`, JSON.stringify(data[0]));
+  }
+  if (data.length > 1) {
+    console.log(`Sample record 2:`, JSON.stringify(data[1]));
+  }
+
+  let skippedCount = 0;
+  let processedCount = 0;
+
+  data.forEach((record) => {
+    // Log the record properties to debug
+    if (processedCount < 2) {
+      console.log(`Record ${processedCount} properties:`, Object.keys(record));
+      console.log(`Record ${processedCount} dim:`, record.dim);
+      console.log(`Record ${processedCount} model:`, record.model);
+    }
+
+    if (!record.dim || !record.model) {
+      skippedCount++;
+      return; // Skip records with missing dim or model
+    }
+
+    processedCount++;
+
+    // Group by dim
+    if (!groupedByDimModel.has(record.dim)) {
+      groupedByDimModel.set(record.dim, new Map());
+    }
+
+    // Group by model within dim
+    const modelMap = groupedByDimModel.get(record.dim);
+    if (!modelMap.has(record.model)) {
+      modelMap.set(record.model, []);
+    }
+
+    // Add record to the appropriate group
+    modelMap.get(record.model).push(record);
+
+    // Track distinct dim & model combinations for codes-info.json
+    if (!codesInfoMap.has(record.dim)) {
+      codesInfoMap.set(record.dim, {
+        dim: record.dim,
+        models: new Map()
+      });
+    }
+
+    const dimInfo = codesInfoMap.get(record.dim);
+    if (!dimInfo.models.has(record.model)) {
+      dimInfo.models.set(record.model, {
+        model: record.model,
+        count: 0
+      });
+    }
+
+    // Increment count for this model
+    dimInfo.models.get(record.model).count++;
+  });
+
+  console.log(`Processed ${processedCount} records, skipped ${skippedCount} records`);
+  console.log(`Found ${groupedByDimModel.size} dimensions`);
+
+  // Create output directories and files
+  groupedByDimModel.forEach((modelMap, dim) => {
+    console.log(`Processing dimension: ${dim} with ${modelMap.size} models`);
+
+    modelMap.forEach((records, model) => {
+      // Create directory structure for this dim/model
+      const dimModelDir = path.join(codesOutputBaseDir, dim);
+      if (!fs.existsSync(dimModelDir)) {
+        fs.mkdirSync(dimModelDir, { recursive: true });
+      }
+
+      // Create a file for this model
+      const outputFilePath = path.join(dimModelDir, `${model}.csv`);
+
+      // Convert records back to CSV
+      const csv = Papa.unparse(records, {
+        delimiter: ',',
+        header: true,
+        quotes: true
+      });
+
+      // Write to file
+      fs.writeFileSync(outputFilePath, csv);
+      console.log(`Created file: ${outputFilePath} with ${records.length} records`);
+    });
+  });
+
+  // Prepare the codesInfo array with the required format
+  // Format: { "dim": "aufwand", "models": [{"model":"gfs", "count": 123 }, ... ]}
+  const codesInfoArray = Array.from(codesInfoMap.values()).map(info => {
+    console.log(`Processing dim: ${info.dim}, models:`, Array.from(info.models.keys()));
+    return {
+      dim: info.dim,
+      models: Array.from(info.models.values()).map(modelInfo => ({
+        model: modelInfo.model,
+        count: modelInfo.count
+      }))
+    };
+  }).sort((a, b) => a.dim.localeCompare(b.dim));
+
+  console.log(`Generated ${codesInfoArray.length} entries for codes-info.json`);
+  if (codesInfoArray.length > 0) {
+    console.log(`Sample entry:`, codesInfoArray[0]);
+  }
+
+  // Write the codes-info.json file
+  fs.writeFileSync(codesInfoPath, JSON.stringify(codesInfoArray, null, 2));
+  console.log(`Created file: ${codesInfoPath}`);
+}
+
+// Execute all processing functions
 processGdnData();
 processStdData();
+processCodelistData();
 
 console.log('Processing complete!');
