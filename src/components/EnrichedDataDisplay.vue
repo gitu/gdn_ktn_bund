@@ -161,6 +161,49 @@
             {{ summary.currency }}
           </v-chip>
         </div>
+
+        <!-- CSV File Information -->
+        <v-card v-if="getCsvFileInfo" class="mt-4" variant="outlined">
+          <v-card-title class="d-flex justify-space-between align-center">
+            <span class="text-h6">Source CSV File</span>
+            <v-btn
+              @click="downloadOriginalCsv"
+              color="primary"
+              variant="outlined"
+              size="small"
+              prepend-icon="mdi-download"
+            >
+              Download Original CSV
+            </v-btn>
+          </v-card-title>
+          <v-card-text>
+            <v-row>
+              <v-col cols="12" md="3">
+                <div class="text-caption text-grey">File Name</div>
+                <div class="text-body-2 font-weight-bold">{{ getCsvFileInfo.fileName }}</div>
+              </v-col>
+              <v-col cols="12" md="3">
+                <div class="text-caption text-grey">Records</div>
+                <div class="text-body-2 font-weight-bold">{{ getCsvFileInfo.recordCount.toLocaleString() }}</div>
+              </v-col>
+              <v-col cols="12" md="3">
+                <div class="text-caption text-grey">File Size</div>
+                <div class="text-body-2 font-weight-bold">{{ formatFileSize(getCsvFileInfo.fileSize) }}</div>
+              </v-col>
+              <v-col cols="12" md="3">
+                <div class="text-caption text-grey">Status</div>
+                <v-chip
+                  :color="getCsvFileInfo.hasErrors ? 'warning' : 'success'"
+                  size="small"
+                  variant="tonal"
+                >
+                  <v-icon start>{{ getCsvFileInfo.hasErrors ? 'mdi-alert' : 'mdi-check' }}</v-icon>
+                  {{ getCsvFileInfo.hasErrors ? `${getCsvFileInfo.errorCount} errors` : 'Valid' }}
+                </v-chip>
+              </v-col>
+            </v-row>
+          </v-card-text>
+        </v-card>
       </v-card-text>
     </div>
   </v-card>
@@ -170,6 +213,16 @@
 import { ref, computed, watch, onMounted } from 'vue'
 import { enrichFinancialData, validateEnrichedData } from '../utils/DataEnricher'
 import type { EnrichedFinancialRecord } from '../utils/BalanceCalculator'
+import {
+  loadFinancialCsv,
+  loadGdnCsv,
+  convertGdnToFinancialFormat,
+  downloadCsvFile,
+  getAvailableCsvFiles,
+  type CsvLoadResult,
+  type FinancialCsvRecord,
+  type GdnCsvRecord
+} from '../utils/CsvLoader'
 
 // Props interface
 interface Props {
@@ -192,13 +245,17 @@ interface LoadingState {
   isLoading: boolean
   error: string | null
   data: EnrichedFinancialRecord[]
+  csvMetadata: CsvLoadResult<any> | null
+  availableCsvFiles: string[]
 }
 
 // Reactive state
 const state = ref<LoadingState>({
   isLoading: true,
   error: null,
-  data: []
+  data: [],
+  csvMetadata: null,
+  availableCsvFiles: []
 })
 
 const filterDimension = ref<string>('all')
@@ -265,6 +322,16 @@ const formatCurrency = (value: number, currency: string = 'CHF'): string => {
     minimumFractionDigits: 2,
     maximumFractionDigits: 2,
   }).format(value)
+}
+
+const formatFileSize = (bytes: number): string => {
+  if (bytes === 0) return '0 Bytes'
+
+  const k = 1024
+  const sizes = ['Bytes', 'KB', 'MB', 'GB']
+  const i = Math.floor(Math.log(bytes) / Math.log(k))
+
+  return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i]
 }
 
 const getEntityDisplayName = (entityId: string): string => {
@@ -379,65 +446,55 @@ const loadData = async () => {
   state.value.error = null
 
   try {
-    // For demo purposes, we'll create some mock data since the actual data loading
-    // would require the CSV files to be available
-    const mockRawData = [
-      {
-        arten: "4000",
-        funk: "",
-        jahr: props.year,
-        value: "2500000.00",
-        dim: "einnahmen",
-        hh: props.entityId,
-        unit: "CHF",
-        model: "fs"
-      },
-      {
-        arten: "4001",
-        funk: "",
-        jahr: props.year,
-        value: "800000.00",
-        dim: "einnahmen",
-        hh: props.entityId,
-        unit: "CHF",
-        model: "fs"
-      },
-      {
-        arten: "3000",
-        funk: "",
-        jahr: props.year,
-        value: "1800000.00",
-        dim: "ausgaben",
-        hh: props.entityId,
-        unit: "CHF",
-        model: "fs"
-      },
-      {
-        arten: "3100",
-        funk: "",
-        jahr: props.year,
-        value: "900000.00",
-        dim: "ausgaben",
-        hh: props.entityId,
-        unit: "CHF",
-        model: "fs"
-      },
-      {
-        arten: "4200",
-        funk: "01",
-        jahr: props.year,
-        value: "450000.00",
-        dim: "einnahmen_funk",
-        hh: props.entityId,
-        unit: "CHF",
-        model: "fs"
+    // Load available CSV files
+    state.value.availableCsvFiles = await getAvailableCsvFiles()
+
+    let csvResult: CsvLoadResult<FinancialCsvRecord | GdnCsvRecord>
+    let rawData: FinancialCsvRecord[]
+
+    // Try to load data based on entity type
+    if (props.entityId.startsWith('gdn_')) {
+      // Extract GDN ID from entity ID (e.g., "gdn_010176" -> "010176")
+      const gdnId = props.entityId.replace('gdn_', '')
+
+      try {
+        // Try to load GDN format CSV
+        const gdnResult = await loadGdnCsv(gdnId, props.year)
+        csvResult = gdnResult
+
+        // Convert GDN format to financial format
+        rawData = convertGdnToFinancialFormat(
+          gdnResult.data as GdnCsvRecord[],
+          props.entityId
+        )
+      } catch (gdnError) {
+        // Fallback: try to load as standard financial format
+        console.warn('Failed to load GDN format, trying financial format:', gdnError)
+        const financialResult = await loadFinancialCsv(props.entityId, props.year)
+        csvResult = financialResult
+        rawData = financialResult.data as FinancialCsvRecord[]
       }
-    ]
+    } else {
+      // Load standard financial format CSV
+      csvResult = await loadFinancialCsv(props.entityId, props.year)
+      rawData = csvResult.data as FinancialCsvRecord[]
+    }
 
-    // Enrich the mock data
-    const enrichedData = await enrichFinancialData(mockRawData, props.language)
+    // Store CSV metadata for later use
+    state.value.csvMetadata = csvResult
 
-    // Add mock descriptions for demo purposes
+    // Convert string values to numbers and ensure proper types
+    const processedRawData = rawData.map(record => ({
+      ...record,
+      value: parseFloat(record.value.replace(/[^0-9.-]/g, '')) || 0,
+      jahr: props.year, // Ensure year matches props
+      hh: props.entityId // Ensure entity ID matches props
+    }))
+
+    // Enrich the data with descriptions
+    const enrichedData = await enrichFinancialData(processedRawData, props.language)
+
+    // Add mock descriptions for demo purposes (in a real app, these would come from a codelist)
     const enrichedWithDescriptions = enrichedData.map(record => ({
       ...record,
       description_de: getDescriptionForCode(record.arten, 'de'),
@@ -456,10 +513,39 @@ const loadData = async () => {
     state.value.isLoading = false
 
   } catch (error) {
-    state.value.error = error instanceof Error ? error.message : 'Failed to load data'
+    console.error('Error loading CSV data:', error)
+    state.value.error = error instanceof Error ? error.message : 'Failed to load CSV data'
     state.value.isLoading = false
   }
 }
+
+// CSV file handling functions
+const downloadOriginalCsv = async () => {
+  if (!state.value.csvMetadata) {
+    console.warn('No CSV metadata available for download')
+    return
+  }
+
+  try {
+    const downloadName = `${props.entityId}_${props.year}_original.csv`
+    await downloadCsvFile(state.value.csvMetadata.fileName, downloadName)
+  } catch (error) {
+    console.error('Error downloading CSV file:', error)
+    state.value.error = error instanceof Error ? error.message : 'Failed to download CSV file'
+  }
+}
+
+const getCsvFileInfo = computed(() => {
+  if (!state.value.csvMetadata) return null
+
+  return {
+    fileName: state.value.csvMetadata.fileName,
+    recordCount: state.value.csvMetadata.data.length,
+    fileSize: new Blob([state.value.csvMetadata.originalCsvText]).size,
+    hasErrors: state.value.csvMetadata.errors.length > 0,
+    errorCount: state.value.csvMetadata.errors.length
+  }
+})
 
 // Watch for prop changes
 watch([() => props.entityId, () => props.year, () => props.language], () => {

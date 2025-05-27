@@ -2,9 +2,9 @@
   <v-app>
     <v-app-bar app color="primary" dark>
       <v-app-bar-title>Swiss Financial Data Viewer</v-app-bar-title>
-      
+
       <v-spacer></v-spacer>
-      
+
       <!-- Global Language Selector -->
       <v-select
         v-model="globalLanguage"
@@ -17,7 +17,7 @@
         style="max-width: 150px;"
         class="mr-4"
       ></v-select>
-      
+
       <v-btn
         @click="showEnrichedView = !showEnrichedView"
         variant="outlined"
@@ -233,12 +233,12 @@ const languageOptions = [
 ] as const
 
 // Financial data state
-const selectedYear = ref<string>(DataLoader.getLatestYear())
-const selectedEntity = ref<string>('gdn_zh')
+const selectedYear = ref<string>('2020') // Use a year we know has data
+const selectedEntity = ref<string>('ktn_zh')
 const selectedDimension = ref<string | undefined>(undefined)
 const enableComparison = ref(false)
-const comparisonEntityA = ref<string>('gdn_zh')
-const comparisonEntityB = ref<string>('gdn_be')
+const comparisonEntityA = ref<string>('ktn_zh')
+const comparisonEntityB = ref<string>('gdn_010176')
 
 // Original comparison tool state
 const selectedGroupA = ref<string[]>([])
@@ -248,11 +248,12 @@ const data = ref<RecordType[]>(DataLoader.getAllDataForYear(selectedYear.value))
 
 // Entity options for enriched data display
 const entityOptions = [
-  { id: 'gdn_zh', name: 'Municipality of Zurich (GDN ZH)', type: 'GDN' },
+  { id: 'gdn_010176', name: 'Municipality of Lindau (GDN 010176)', type: 'GDN' },
+  { id: 'ktn_zh', name: 'Canton of Zurich (KTN ZH)', type: 'STD' },
+  // Additional entities can be added as more CSV files become available
   { id: 'gdn_be', name: 'Municipality of Bern (GDN BE)', type: 'GDN' },
   { id: 'gdn_ge', name: 'Municipality of Geneva (GDN GE)', type: 'GDN' },
   { id: 'gdn_bs', name: 'Municipality of Basel (GDN BS)', type: 'GDN' },
-  { id: 'ktn_zh', name: 'Canton of Zurich (KTN ZH)', type: 'STD' },
   { id: 'ktn_be', name: 'Canton of Bern (KTN BE)', type: 'STD' },
   { id: 'ktn_ge', name: 'Canton of Geneva (KTN GE)', type: 'STD' },
   { id: 'ktn_bs', name: 'Canton of Basel (KTN BS)', type: 'STD' },
