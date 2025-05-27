@@ -109,10 +109,10 @@ export async function enrichSingleRecord(
 /**
  * Loads and enriches financial data from the data directory structure
  *
- * This function demonstrates how to integrate with the existing data loading
- * mechanism and enrich the data for balance calculations.
+ * This function integrates with the updated DataLoader to load CSV data
+ * from the correct directory structure and enrich it for display.
  *
- * @param entityId - Entity identifier (e.g., "gdn_zh", "ktn_be")
+ * @param entityId - Entity identifier (e.g., "010176", "ktn_zh", "bund")
  * @param year - Year to load data for
  * @param model - Model type (e.g., "fs", "gfs")
  * @param language - Language for descriptions
@@ -121,55 +121,57 @@ export async function enrichSingleRecord(
 export async function loadAndEnrichEntityData(
   entityId: string,
   year: string,
-  _model: string = 'fs',
+  model: string = 'fs',
   language: 'de' | 'fr' | 'it' | 'en' = 'de'
 ): Promise<EnrichedFinancialRecord[]> {
   try {
-    // Determine the data path based on entity type
-    const isGdn = entityId.startsWith('gdn_');
-    const basePath = isGdn ? '/data/std/fs' : '/data/std/fs';
-    const dataPath = `${basePath}/${entityId}/${year}.csv`;
+    // Import the loadEntityData function dynamically to avoid circular imports
+    const { loadEntityData } = await import('./DataLoader')
 
-    // Fetch the CSV data
-    const response = await fetch(dataPath);
-    if (!response.ok) {
-      throw new Error(`Failed to fetch data from ${dataPath}: ${response.status}`);
-    }
+    // Load the raw data using the updated DataLoader
+    const recordData = await loadEntityData(entityId, year, model)
 
-    const csvText = await response.text();
-
-    // Parse CSV data (simple parsing - in production, use a proper CSV parser)
-    const lines = csvText.split('\n');
-    const headers = lines[0].split(',').map(h => h.replace(/"/g, '').trim());
-
-    const rawData: RawFinancialRecord[] = [];
-
-    for (let i = 1; i < lines.length; i++) {
-      const line = lines[i].trim();
-      if (!line) continue;
-
-      const values = line.split(',').map(v => v.replace(/"/g, '').trim());
-      if (values.length !== headers.length) continue;
-
-      const record: Partial<RawFinancialRecord> = {};
-      headers.forEach((header, index) => {
-        if (header && index < values.length) {
-          record[header as keyof RawFinancialRecord] = values[index];
-        }
-      });
-
-      // Ensure required fields are present
-      if (record.arten && record.jahr && record.value && record.dim && record.hh) {
-        rawData.push(record as RawFinancialRecord);
-      }
-    }
+    // Convert RecordType data to RawFinancialRecord format for enrichment
+    const rawData: RawFinancialRecord[] = recordData.map(record => ({
+      arten: record.konto,
+      funk: record.funktion || '',
+      jahr: record.jahr,
+      value: record.betrag.toString(),
+      dim: inferDimensionFromKonto(record.konto),
+      hh: entityId,
+      unit: 'CHF',
+      model: model
+    }))
 
     // Enrich the data
-    return await enrichFinancialData(rawData, language);
+    return await enrichFinancialData(rawData, language)
 
   } catch (error) {
-    console.error(`Error loading and enriching data for ${entityId}/${year}:`, error);
-    return [];
+    console.error(`Error loading and enriching data for ${entityId}/${year}:`, error)
+    return []
+  }
+}
+
+/**
+ * Infers the dimension type from a financial code (konto)
+ * @param konto - Financial account code
+ * @returns Dimension string
+ */
+function inferDimensionFromKonto(konto: string): string {
+  const code = parseInt(konto)
+
+  if (code >= 1000 && code < 2000) {
+    return 'bilanz'
+  } else if (code >= 3000 && code < 4000) {
+    return 'aufwand'
+  } else if (code >= 4000 && code < 5000) {
+    return 'ertrag'
+  } else if (code >= 5000 && code < 6000) {
+    return 'ausgaben'
+  } else if (code >= 6000 && code < 7000) {
+    return 'einnahmen'
+  } else {
+    return 'sonstige'
   }
 }
 

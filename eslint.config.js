@@ -22,6 +22,8 @@ export default tseslint.config(
     rules: {
       'vue/multi-word-component-names': 'off',
       '@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
+      // Disable this rule as it incorrectly flags valid Vue 3 slot syntax
+      'vue/valid-v-slot': 'off',
     },
   },
 )

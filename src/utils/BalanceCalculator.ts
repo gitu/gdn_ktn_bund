@@ -167,7 +167,7 @@ function validateInputData(data: EnrichedFinancialRecord[]): void {
   // Check for required fields
   const requiredFields = ['arten', 'jahr', 'value', 'dim', 'hh', 'unit', 'model'];
   const missingFields = requiredFields.filter(field =>
-    !data.every(record => record.hasOwnProperty(field))
+    !data.every(record => Object.prototype.hasOwnProperty.call(record, field))
   );
 
   if (missingFields.length > 0) {

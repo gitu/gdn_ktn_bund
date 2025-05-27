@@ -1,10 +1,14 @@
 <template>
   <v-app>
-    <v-app-bar app color="primary" dark>
+    <v-app-bar
+      app
+      color="primary"
+      dark
+    >
       <v-app-bar-title>Swiss Financial Data Viewer</v-app-bar-title>
-      
-      <v-spacer></v-spacer>
-      
+
+      <v-spacer />
+
       <!-- Global Language Selector -->
       <v-select
         v-model="globalLanguage"
@@ -16,12 +20,12 @@
         density="compact"
         style="max-width: 150px;"
         class="mr-4"
-      ></v-select>
-      
+      />
+
       <v-btn
-        @click="showEnrichedView = !showEnrichedView"
         variant="outlined"
         color="white"
+        @click="showEnrichedView = !showEnrichedView"
       >
         {{ showEnrichedView ? 'Show Comparison' : 'Show Enriched Data' }}
       </v-btn>
@@ -29,6 +33,39 @@
 
     <v-main>
       <v-container fluid>
+        <!-- Entity Loading Status -->
+        <v-alert
+          v-if="entityLoadingError"
+          type="error"
+          variant="tonal"
+          class="mb-4"
+          closable
+          @click:close="entityLoadingError = null"
+        >
+          <v-alert-title>Entity Loading Error</v-alert-title>
+          {{ entityLoadingError }}
+        </v-alert>
+
+        <v-alert
+          v-if="isLoadingEntities"
+          type="info"
+          variant="tonal"
+          class="mb-4"
+        >
+          <v-alert-title>Loading Entity Options</v-alert-title>
+          Please wait while entity options are being loaded from JSON files...
+        </v-alert>
+
+        <v-alert
+          v-if="!isLoadingEntities && !entityLoadingError && entityOptions.length > 0"
+          type="success"
+          variant="tonal"
+          class="mb-4"
+          closable
+        >
+          <v-alert-title>Entity Options Loaded</v-alert-title>
+          Successfully loaded {{ entityOptions.length }} entity options ({{ entityOptions.filter(e => e.type === 'GDN').length }} municipalities, {{ entityOptions.filter(e => e.type === 'STD').length }} standard entities).
+        </v-alert>
         <!-- Enriched Data Display View -->
         <div v-if="showEnrichedView">
           <v-row class="mb-4">
@@ -37,7 +74,10 @@
                 <v-card-title>Financial Data Controls</v-card-title>
                 <v-card-text>
                   <v-row>
-                    <v-col cols="12" md="3">
+                    <v-col
+                      cols="12"
+                      md="3"
+                    >
                       <v-select
                         v-model="selectedEntity"
                         :items="entityOptions"
@@ -45,17 +85,27 @@
                         item-value="id"
                         label="Entity"
                         variant="outlined"
-                      ></v-select>
+                        :loading="isLoadingEntities"
+                        :disabled="isLoadingEntities || entityLoadingError !== null"
+                        :error="entityLoadingError !== null"
+                        :error-messages="entityLoadingError"
+                      />
                     </v-col>
-                    <v-col cols="12" md="3">
+                    <v-col
+                      cols="12"
+                      md="3"
+                    >
                       <v-select
                         v-model="selectedYear"
                         :items="availableYears"
                         label="Year"
                         variant="outlined"
-                      ></v-select>
+                      />
                     </v-col>
-                    <v-col cols="12" md="3">
+                    <v-col
+                      cols="12"
+                      md="3"
+                    >
                       <v-select
                         v-model="selectedDimension"
                         :items="dimensionOptions"
@@ -64,14 +114,17 @@
                         label="Dimension Filter"
                         variant="outlined"
                         clearable
-                      ></v-select>
+                      />
                     </v-col>
-                    <v-col cols="12" md="3">
+                    <v-col
+                      cols="12"
+                      md="3"
+                    >
                       <v-switch
                         v-model="enableComparison"
                         label="Enable Comparison"
                         color="primary"
-                      ></v-switch>
+                      />
                     </v-col>
                   </v-row>
                 </v-card-text>
@@ -92,7 +145,10 @@
           <!-- Comparison View -->
           <div v-else>
             <v-row>
-              <v-col cols="12" md="6">
+              <v-col
+                cols="12"
+                md="6"
+              >
                 <v-card class="mb-4">
                   <v-card-title>Entity A</v-card-title>
                   <v-card-text>
@@ -103,7 +159,9 @@
                       item-value="id"
                       label="Select Entity A"
                       variant="outlined"
-                    ></v-select>
+                      :loading="isLoadingEntities"
+                      :disabled="isLoadingEntities || entityLoadingError !== null"
+                    />
                   </v-card-text>
                 </v-card>
                 <EnrichedDataDisplay
@@ -114,7 +172,10 @@
                   :language="globalLanguage"
                 />
               </v-col>
-              <v-col cols="12" md="6">
+              <v-col
+                cols="12"
+                md="6"
+              >
                 <v-card class="mb-4">
                   <v-card-title>Entity B</v-card-title>
                   <v-card-text>
@@ -125,7 +186,9 @@
                       item-value="id"
                       label="Select Entity B"
                       variant="outlined"
-                    ></v-select>
+                      :loading="isLoadingEntities"
+                      :disabled="isLoadingEntities || entityLoadingError !== null"
+                    />
                   </v-card-text>
                 </v-card>
                 <EnrichedDataDisplay
@@ -148,13 +211,16 @@
                 <v-card-title>Financial Comparison Tool</v-card-title>
                 <v-card-text>
                   <v-row>
-                    <v-col cols="12" md="4">
+                    <v-col
+                      cols="12"
+                      md="4"
+                    >
                       <v-select
                         v-model="selectedYear"
                         :items="availableYears"
                         label="Select Year"
                         variant="outlined"
-                      ></v-select>
+                      />
                       <v-chip
                         v-if="selectedYear === latestYear"
                         color="success"
@@ -164,7 +230,10 @@
                         Latest
                       </v-chip>
                     </v-col>
-                    <v-col cols="12" md="4">
+                    <v-col
+                      cols="12"
+                      md="4"
+                    >
                       <v-select
                         v-model="selectedGroupA"
                         :items="municipalities"
@@ -172,9 +241,12 @@
                         variant="outlined"
                         multiple
                         chips
-                      ></v-select>
+                      />
                     </v-col>
-                    <v-col cols="12" md="4">
+                    <v-col
+                      cols="12"
+                      md="4"
+                    >
                       <v-select
                         v-model="selectedGroupB"
                         :items="municipalities"
@@ -182,7 +254,7 @@
                         variant="outlined"
                         multiple
                         chips
-                      ></v-select>
+                      />
                     </v-col>
                   </v-row>
                   <v-row>
@@ -191,7 +263,7 @@
                         v-model="scaleToOne"
                         label="Scale to match totals"
                         color="primary"
-                      ></v-switch>
+                      />
                     </v-col>
                   </v-row>
                 </v-card-text>
@@ -217,6 +289,7 @@
 import { ref, computed, watch, onMounted } from 'vue'
 import { type RecordType } from './types'
 import * as DataLoader from './utils/DataLoader'
+import { loadAllEntityOptions, type EntityOption, EntityLoadError } from './utils/EntityLoader'
 import EnrichedDataDisplay from './components/EnrichedDataDisplay.vue'
 import ComparisonView from './components/ComparisonView.vue'
 
@@ -233,12 +306,12 @@ const languageOptions = [
 ] as const
 
 // Financial data state
-const selectedYear = ref<string>(DataLoader.getLatestYear())
-const selectedEntity = ref<string>('gdn_zh')
+const selectedYear = ref<string>('2020') // Use a year we know has data
+const selectedEntity = ref<string>('ktn_zh')
 const selectedDimension = ref<string | undefined>(undefined)
 const enableComparison = ref(false)
-const comparisonEntityA = ref<string>('gdn_zh')
-const comparisonEntityB = ref<string>('gdn_be')
+const comparisonEntityA = ref<string>('ktn_zh')
+const comparisonEntityB = ref<string>('gdn_010176')
 
 // Original comparison tool state
 const selectedGroupA = ref<string[]>([])
@@ -246,18 +319,10 @@ const selectedGroupB = ref<string[]>([])
 const scaleToOne = ref(false)
 const data = ref<RecordType[]>(DataLoader.getAllDataForYear(selectedYear.value))
 
-// Entity options for enriched data display
-const entityOptions = [
-  { id: 'gdn_zh', name: 'Municipality of Zurich (GDN ZH)', type: 'GDN' },
-  { id: 'gdn_be', name: 'Municipality of Bern (GDN BE)', type: 'GDN' },
-  { id: 'gdn_ge', name: 'Municipality of Geneva (GDN GE)', type: 'GDN' },
-  { id: 'gdn_bs', name: 'Municipality of Basel (GDN BS)', type: 'GDN' },
-  { id: 'ktn_zh', name: 'Canton of Zurich (KTN ZH)', type: 'STD' },
-  { id: 'ktn_be', name: 'Canton of Bern (KTN BE)', type: 'STD' },
-  { id: 'ktn_ge', name: 'Canton of Geneva (KTN GE)', type: 'STD' },
-  { id: 'ktn_bs', name: 'Canton of Basel (KTN BS)', type: 'STD' },
-  { id: 'bund', name: 'Federal Government (BUND)', type: 'STD' },
-]
+// Entity options for enriched data display (loaded from JSON files)
+const entityOptions = ref<EntityOption[]>([])
+const entityLoadingError = ref<string | null>(null)
+const isLoadingEntities = ref(true)
 
 // Dimension filter options
 const dimensionOptions = [
@@ -290,10 +355,42 @@ watch(selectedYear, (newYear) => {
   data.value = DataLoader.getAllDataForYear(newYear)
 })
 
+// Load entity options from JSON files
+async function loadEntityOptions() {
+  try {
+    console.log('Starting entity options loading...')
+    isLoadingEntities.value = true
+    entityLoadingError.value = null
+
+    const options = await loadAllEntityOptions()
+    entityOptions.value = options
+
+    console.log(`✓ Successfully loaded ${options.length} entity options`)
+    console.log('Sample entities:', options.slice(0, 3))
+  } catch (error) {
+    console.error('✗ Failed to load entity options:', error)
+
+    if (error instanceof EntityLoadError) {
+      entityLoadingError.value = error.message
+    } else {
+      entityLoadingError.value = 'Unknown error occurred while loading entity options'
+    }
+
+    // Fallback to empty array
+    entityOptions.value = []
+  } finally {
+    isLoadingEntities.value = false
+    console.log('Entity loading completed. Loading state:', isLoadingEntities.value)
+  }
+}
+
 // Initialize component
-onMounted(() => {
+onMounted(async () => {
   // Set initial data
   data.value = DataLoader.getAllDataForYear(selectedYear.value)
+
+  // Load entity options
+  await loadEntityOptions()
 })
 </script>
 

@@ -27,3 +27,6 @@ dist-ssr
 # ignore big data files
 /data/gdn_ab_5000.csv
 /data/standardauswertung.csv
+
+# Coverage reports
+coverage/

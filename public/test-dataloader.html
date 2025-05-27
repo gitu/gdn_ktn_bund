@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DataLoader Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .test-container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        .test-result {
+            padding: 10px;
+            border-radius: 4px;
+            margin: 10px 0;
+        }
+        .success {
+            background-color: #d4edda;
+            border: 1px solid #c3e6cb;
+            color: #155724;
+        }
+        .error {
+            background-color: #f8d7da;
+            border: 1px solid #f5c6cb;
+            color: #721c24;
+        }
+        .info {
+            background-color: #d1ecf1;
+            border: 1px solid #bee5eb;
+            color: #0c5460;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        pre {
+            background-color: #f8f9fa;
+            padding: 10px;
+            border-radius: 4px;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+    <h1>DataLoader Test Page</h1>
+    <p>This page tests the updated DataLoader functionality with the correct directory structure.</p>
+
+    <div class="test-container">
+        <h2>Test Controls</h2>
+        <button onclick="testPathConstruction()">Test Path Construction</button>
+        <button onclick="testFileExistence()">Test File Existence</button>
+        <button onclick="testDataLoading()">Test Data Loading</button>
+        <button onclick="runAllTests()">Run All Tests</button>
+        <button onclick="clearResults()">Clear Results</button>
+    </div>
+
+    <div id="results"></div>
+
+    <script type="module">
+        // Test results container
+        const resultsContainer = document.getElementById('results');
+
+        function addResult(message, type = 'info') {
+            const div = document.createElement('div');
+            div.className = `test-result ${type}`;
+            div.innerHTML = message;
+            resultsContainer.appendChild(div);
+        }
+
+        function clearResults() {
+            resultsContainer.innerHTML = '';
+        }
+
+        // Test path construction
+        async function testPathConstruction() {
+            addResult('<h3>🔧 Testing Path Construction</h3>');
+            
+            try {
+                // Import the DataLoader module
+                const { constructDataPath } = await import('/src/utils/DataLoader.ts');
+                
+                // Test GDN path (6-digit entity ID)
+                const gdnPath = constructDataPath('010176', '2020', 'fs');
+                addResult(`GDN path: <code>${gdnPath}</code>`, 'info');
+                
+                if (gdnPath === '/data/gdn/010176/2020.csv') {
+                    addResult('✅ GDN path construction: PASSED', 'success');
+                } else {
+                    addResult('❌ GDN path construction: FAILED', 'error');
+                }
+                
+                // Test STD path (non-6-digit entity ID)
+                const stdPath = constructDataPath('ktn_zh', '2020', 'fs');
+                addResult(`STD path: <code>${stdPath}</code>`, 'info');
+                
+                if (stdPath === '/data/std/fs/ktn_zh/2020.csv') {
+                    addResult('✅ STD path construction: PASSED', 'success');
+                } else {
+                    addResult('❌ STD path construction: FAILED', 'error');
+                }
+                
+            } catch (error) {
+                addResult(`❌ Path construction test failed: ${error.message}`, 'error');
+            }
+        }
+
+        // Test file existence
+        async function testFileExistence() {
+            addResult('<h3>📁 Testing File Existence</h3>');
+            
+            try {
+                const { checkDataExists } = await import('/src/utils/DataLoader.ts');
+                
+                // Test GDN file
+                const gdnExists = await checkDataExists('010176', '2020');
+                addResult(`GDN file (010176/2020): ${gdnExists ? '✅ EXISTS' : '❌ NOT FOUND'}`, 
+                    gdnExists ? 'success' : 'error');
+                
+                // Test STD file
+                const stdExists = await checkDataExists('ktn_zh', '2020');
+                addResult(`STD file (ktn_zh/2020): ${stdExists ? '✅ EXISTS' : '❌ NOT FOUND'}`, 
+                    stdExists ? 'success' : 'error');
+                
+                // Test non-existent file
+                const nonExistent = await checkDataExists('nonexistent', '2020');
+                addResult(`Non-existent file: ${nonExistent ? '❌ UNEXPECTED' : '✅ CORRECTLY NOT FOUND'}`, 
+                    nonExistent ? 'error' : 'success');
+                
+            } catch (error) {
+                addResult(`❌ File existence test failed: ${error.message}`, 'error');
+            }
+        }
+
+        // Test data loading
+        async function testDataLoading() {
+            addResult('<h3>📊 Testing Data Loading</h3>');
+            
+            try {
+                const { loadEntityData } = await import('/src/utils/DataLoader.ts');
+                
+                // Test GDN data loading
+                try {
+                    const gdnData = await loadEntityData('010176', '2020');
+                    addResult(`✅ GDN data loaded: ${gdnData.length} records`, 'success');
+                    
+                    if (gdnData.length > 0) {
+                        addResult(`Sample GDN record: <pre>${JSON.stringify(gdnData[0], null, 2)}</pre>`, 'info');
+                    }
+                } catch (gdnError) {
+                    addResult(`❌ GDN data loading failed: ${gdnError.message}`, 'error');
+                }
+                
+                // Test STD data loading
+                try {
+                    const stdData = await loadEntityData('ktn_zh', '2020');
+                    addResult(`✅ STD data loaded: ${stdData.length} records`, 'success');
+                    
+                    if (stdData.length > 0) {
+                        addResult(`Sample STD record: <pre>${JSON.stringify(stdData[0], null, 2)}</pre>`, 'info');
+                    }
+                } catch (stdError) {
+                    addResult(`❌ STD data loading failed: ${stdError.message}`, 'error');
+                }
+                
+            } catch (error) {
+                addResult(`❌ Data loading test failed: ${error.message}`, 'error');
+            }
+        }
+
+        // Run all tests
+        async function runAllTests() {
+            clearResults();
+            addResult('<h2>🧪 Running All DataLoader Tests</h2>');
+            
+            await testPathConstruction();
+            await testFileExistence();
+            await testDataLoading();
+            
+            addResult('<h3>🎉 All tests completed!</h3>', 'success');
+        }
+
+        // Make functions available globally
+        window.testPathConstruction = testPathConstruction;
+        window.testFileExistence = testFileExistence;
+        window.testDataLoading = testDataLoading;
+        window.runAllTests = runAllTests;
+        window.clearResults = clearResults;
+
+        // Auto-run tests on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            addResult('<p>Page loaded. Click "Run All Tests" to start testing the DataLoader.</p>', 'info');
+        });
+    </script>
+</body>
+</html>
