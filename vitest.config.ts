@@ -8,11 +8,7 @@ export default defineConfig({
     globals: true,
     include: ['src/**/*.test.{ts,vue}'],
     setupFiles: ['src/test-setup.ts'],
-    css: {
-      modules: {
-        classNameStrategy: 'stable'
-      }
-    },
+    css: false, // Disable CSS processing for tests
     coverage: {
       provider: 'v8',
       reporter: ['text', 'json', 'html'],
@@ -23,6 +19,11 @@ export default defineConfig({
         'src/test-setup.ts',
       ],
     },
+    server: {
+      deps: {
+        inline: ['vuetify']
+      }
+    }
   },
   css: {
     preprocessorOptions: {
@@ -30,5 +31,9 @@ export default defineConfig({
         additionalData: `@import "vuetify/settings";`
       }
     }
+  },
+  // Define module mocks
+  define: {
+    'import.meta.vitest': undefined,
   }
 });
