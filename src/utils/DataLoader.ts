@@ -3,9 +3,12 @@ import { type RecordType } from '../types'
 
 // Data loading error class
 export class DataLoadError extends Error {
-  constructor(message: string, public cause?: Error) {
+  public cause?: Error
+
+  constructor(message: string, cause?: Error) {
     super(message)
     this.name = 'DataLoadError'
+    this.cause = cause
   }
 }
 
@@ -74,19 +77,19 @@ async function loadCsvFromPath(filePath: string, delimiter: string = ','): Promi
     const csvText = await response.text()
 
     return new Promise((resolve, reject) => {
-      Papa.parse(csvText, {
+      Papa.parse<any>(csvText, {
         header: true,
         delimiter,
         skipEmptyLines: true,
         transformHeader: (header: string) => header.trim().replace(/"/g, ''),
         transform: (value: string) => value.trim().replace(/"/g, ''),
-        complete: (results) => {
+        complete: (results: Papa.ParseResult<any>) => {
           if (results.errors.length > 0) {
             console.warn('CSV parsing warnings:', results.errors)
           }
           resolve(results.data)
         },
-        error: (error) => {
+        error: (error: Error) => {
           reject(new DataLoadError(`CSV parsing error: ${error.message}`, error))
         }
       })
@@ -268,21 +271,21 @@ export function getAvailableMunicipalities(): string[] {
 
 /**
  * Legacy function: Get data for a specific municipality (latest year)
- * @param municipality - Municipality name
+ * @param _municipality - Municipality name (unused)
  * @returns Array of RecordType records
  */
-export function getMunicipalityData(municipality: string): RecordType[] {
+export function getMunicipalityData(_municipality: string): RecordType[] {
   console.warn('getMunicipalityData is deprecated. Use loadEntityData instead.')
   return []
 }
 
 /**
  * Legacy function: Get data for a specific municipality and year
- * @param municipality - Municipality name
- * @param year - Year to load
+ * @param _municipality - Municipality name (unused)
+ * @param _year - Year to load (unused)
  * @returns Array of RecordType records
  */
-export function getMunicipalityDataForYear(municipality: string, year: string): RecordType[] {
+export function getMunicipalityDataForYear(_municipality: string, _year: string): RecordType[] {
   console.warn('getMunicipalityDataForYear is deprecated. Use loadEntityData instead.')
   return []
 }
@@ -298,10 +301,10 @@ export function getAllDataForLatestYear(): RecordType[] {
 
 /**
  * Legacy function: Get all data for a specific year
- * @param year - Year to load
+ * @param _year - Year to load (unused)
  * @returns Array of RecordType records
  */
-export function getAllDataForYear(year: string): RecordType[] {
+export function getAllDataForYear(_year: string): RecordType[] {
   console.warn('getAllDataForYear is deprecated. Use loadEntityData for specific entities instead.')
   return []
 }

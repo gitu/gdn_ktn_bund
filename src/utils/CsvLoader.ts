@@ -40,13 +40,13 @@ export async function loadCsvFile<T = any>(
 ): Promise<CsvLoadResult<T>> {
   try {
     const response = await fetch(`/data/csv/${fileName}`)
-    
+
     if (!response.ok) {
       throw new Error(`Failed to fetch CSV file: ${response.status} ${response.statusText}`)
     }
-    
+
     const csvText = await response.text()
-    
+
     return new Promise((resolve, reject) => {
       Papa.parse<T>(csvText, {
         header: true,
@@ -54,7 +54,7 @@ export async function loadCsvFile<T = any>(
         skipEmptyLines: true,
         transformHeader: (header: string) => header.trim().replace(/"/g, ''),
         transform: (value: string) => value.trim().replace(/"/g, ''),
-        complete: (results) => {
+        complete: (results: Papa.ParseResult<T>) => {
           resolve({
             data: results.data,
             errors: results.errors,
@@ -63,7 +63,7 @@ export async function loadCsvFile<T = any>(
             fileName
           })
         },
-        error: (error) => {
+        error: (error: Error) => {
           reject(new Error(`CSV parsing error: ${error.message}`))
         }
       })
@@ -130,7 +130,7 @@ export function convertGdnToFinancialFormat(
  */
 function inferDimensionFromKonto(konto: string): string {
   const code = parseInt(konto)
-  
+
   // Based on Swiss financial accounting standards
   if (code >= 4000 && code < 5000) {
     return 'einnahmen' // Revenue
@@ -159,9 +159,9 @@ export async function getAvailableCsvFiles(): Promise<string[]> {
       'gdn_010176_2020.csv',
       'gdn_010176_2021.csv'
     ]
-    
+
     const availableFiles: string[] = []
-    
+
     for (const file of knownFiles) {
       try {
         const response = await fetch(`/data/csv/${file}`, { method: 'HEAD' })
@@ -172,7 +172,7 @@ export async function getAvailableCsvFiles(): Promise<string[]> {
         // File doesn't exist, skip it
       }
     }
-    
+
     return availableFiles
   } catch (error) {
     console.error('Error checking available CSV files:', error)
@@ -188,21 +188,21 @@ export async function getAvailableCsvFiles(): Promise<string[]> {
 export async function downloadCsvFile(fileName: string, downloadName?: string): Promise<void> {
   try {
     const response = await fetch(`/data/csv/${fileName}`)
-    
+
     if (!response.ok) {
       throw new Error(`Failed to fetch CSV file: ${response.status} ${response.statusText}`)
     }
-    
+
     const blob = await response.blob()
     const url = window.URL.createObjectURL(blob)
-    
+
     const link = document.createElement('a')
     link.href = url
     link.download = downloadName || fileName
     document.body.appendChild(link)
     link.click()
     document.body.removeChild(link)
-    
+
     window.URL.revokeObjectURL(url)
   } catch (error) {
     throw new Error(`Failed to download CSV file ${fileName}: ${error instanceof Error ? error.message : 'Unknown error'}`)

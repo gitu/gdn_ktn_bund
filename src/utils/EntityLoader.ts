@@ -33,9 +33,12 @@ export interface EntityOption {
 
 // Define error types for better error handling
 export class EntityLoadError extends Error {
-  constructor(message: string, public cause?: Error) {
+  public cause?: Error
+
+  constructor(message: string, cause?: Error) {
     super(message);
     this.name = 'EntityLoadError';
+    this.cause = cause;
   }
 }
 
