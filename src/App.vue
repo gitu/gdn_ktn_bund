@@ -29,6 +29,39 @@
 
     <v-main>
       <v-container fluid>
+        <!-- Entity Loading Status -->
+        <v-alert
+          v-if="entityLoadingError"
+          type="error"
+          variant="tonal"
+          class="mb-4"
+          closable
+          @click:close="entityLoadingError = null"
+        >
+          <v-alert-title>Entity Loading Error</v-alert-title>
+          {{ entityLoadingError }}
+        </v-alert>
+
+        <v-alert
+          v-if="isLoadingEntities"
+          type="info"
+          variant="tonal"
+          class="mb-4"
+        >
+          <v-alert-title>Loading Entity Options</v-alert-title>
+          Please wait while entity options are being loaded from JSON files...
+        </v-alert>
+
+        <v-alert
+          v-if="!isLoadingEntities && !entityLoadingError && entityOptions.length > 0"
+          type="success"
+          variant="tonal"
+          class="mb-4"
+          closable
+        >
+          <v-alert-title>Entity Options Loaded</v-alert-title>
+          Successfully loaded {{ entityOptions.length }} entity options ({{ entityOptions.filter(e => e.type === 'GDN').length }} municipalities, {{ entityOptions.filter(e => e.type === 'STD').length }} standard entities).
+        </v-alert>
         <!-- Enriched Data Display View -->
         <div v-if="showEnrichedView">
           <v-row class="mb-4">
@@ -45,6 +78,10 @@
                         item-value="id"
                         label="Entity"
                         variant="outlined"
+                        :loading="isLoadingEntities"
+                        :disabled="isLoadingEntities || entityLoadingError !== null"
+                        :error="entityLoadingError !== null"
+                        :error-messages="entityLoadingError"
                       ></v-select>
                     </v-col>
                     <v-col cols="12" md="3">
@@ -103,6 +140,8 @@
                       item-value="id"
                       label="Select Entity A"
                       variant="outlined"
+                      :loading="isLoadingEntities"
+                      :disabled="isLoadingEntities || entityLoadingError !== null"
                     ></v-select>
                   </v-card-text>
                 </v-card>
@@ -125,6 +164,8 @@
                       item-value="id"
                       label="Select Entity B"
                       variant="outlined"
+                      :loading="isLoadingEntities"
+                      :disabled="isLoadingEntities || entityLoadingError !== null"
                     ></v-select>
                   </v-card-text>
                 </v-card>
@@ -217,6 +258,7 @@
 import { ref, computed, watch, onMounted } from 'vue'
 import { type RecordType } from './types'
 import * as DataLoader from './utils/DataLoader'
+import { loadAllEntityOptions, type EntityOption, EntityLoadError } from './utils/EntityLoader'
 import EnrichedDataDisplay from './components/EnrichedDataDisplay.vue'
 import ComparisonView from './components/ComparisonView.vue'
 
@@ -246,19 +288,10 @@ const selectedGroupB = ref<string[]>([])
 const scaleToOne = ref(false)
 const data = ref<RecordType[]>(DataLoader.getAllDataForYear(selectedYear.value))
 
-// Entity options for enriched data display
-const entityOptions = [
-  { id: 'gdn_010176', name: 'Municipality of Lindau (GDN 010176)', type: 'GDN' },
-  { id: 'ktn_zh', name: 'Canton of Zurich (KTN ZH)', type: 'STD' },
-  // Additional entities can be added as more CSV files become available
-  { id: 'gdn_be', name: 'Municipality of Bern (GDN BE)', type: 'GDN' },
-  { id: 'gdn_ge', name: 'Municipality of Geneva (GDN GE)', type: 'GDN' },
-  { id: 'gdn_bs', name: 'Municipality of Basel (GDN BS)', type: 'GDN' },
-  { id: 'ktn_be', name: 'Canton of Bern (KTN BE)', type: 'STD' },
-  { id: 'ktn_ge', name: 'Canton of Geneva (KTN GE)', type: 'STD' },
-  { id: 'ktn_bs', name: 'Canton of Basel (KTN BS)', type: 'STD' },
-  { id: 'bund', name: 'Federal Government (BUND)', type: 'STD' },
-]
+// Entity options for enriched data display (loaded from JSON files)
+const entityOptions = ref<EntityOption[]>([])
+const entityLoadingError = ref<string | null>(null)
+const isLoadingEntities = ref(true)
 
 // Dimension filter options
 const dimensionOptions = [
@@ -291,10 +324,42 @@ watch(selectedYear, (newYear) => {
   data.value = DataLoader.getAllDataForYear(newYear)
 })
 
+// Load entity options from JSON files
+async function loadEntityOptions() {
+  try {
+    console.log('Starting entity options loading...')
+    isLoadingEntities.value = true
+    entityLoadingError.value = null
+
+    const options = await loadAllEntityOptions()
+    entityOptions.value = options
+
+    console.log(`✓ Successfully loaded ${options.length} entity options`)
+    console.log('Sample entities:', options.slice(0, 3))
+  } catch (error) {
+    console.error('✗ Failed to load entity options:', error)
+
+    if (error instanceof EntityLoadError) {
+      entityLoadingError.value = error.message
+    } else {
+      entityLoadingError.value = 'Unknown error occurred while loading entity options'
+    }
+
+    // Fallback to empty array
+    entityOptions.value = []
+  } finally {
+    isLoadingEntities.value = false
+    console.log('Entity loading completed. Loading state:', isLoadingEntities.value)
+  }
+}
+
 // Initialize component
-onMounted(() => {
+onMounted(async () => {
   // Set initial data
   data.value = DataLoader.getAllDataForYear(selectedYear.value)
+
+  // Load entity options
+  await loadEntityOptions()
 })
 </script>
 

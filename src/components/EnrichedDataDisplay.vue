@@ -440,59 +440,28 @@ const summary = computed(() => {
   }
 })
 
-// Data loading function
+// Data loading function using the new DataLoader
 const loadData = async () => {
   state.value.isLoading = true
   state.value.error = null
 
   try {
-    // Load available CSV files
-    state.value.availableCsvFiles = await getAvailableCsvFiles()
+    console.log(`Loading data for entity: ${props.entityId}, year: ${props.year}`)
 
-    let csvResult: CsvLoadResult<FinancialCsvRecord | GdnCsvRecord>
-    let rawData: FinancialCsvRecord[]
+    // Use the new DataLoader to load entity data
+    const { loadAndEnrichEntityData } = await import('../utils/DataEnricher')
 
-    // Try to load data based on entity type
-    if (props.entityId.startsWith('gdn_')) {
-      // Extract GDN ID from entity ID (e.g., "gdn_010176" -> "010176")
-      const gdnId = props.entityId.replace('gdn_', '')
+    // Load and enrich the data directly
+    const enrichedData = await loadAndEnrichEntityData(
+      props.entityId,
+      props.year,
+      'fs', // Default model
+      props.language
+    )
 
-      try {
-        // Try to load GDN format CSV
-        const gdnResult = await loadGdnCsv(gdnId, props.year)
-        csvResult = gdnResult
-
-        // Convert GDN format to financial format
-        rawData = convertGdnToFinancialFormat(
-          gdnResult.data as GdnCsvRecord[],
-          props.entityId
-        )
-      } catch (gdnError) {
-        // Fallback: try to load as standard financial format
-        console.warn('Failed to load GDN format, trying financial format:', gdnError)
-        const financialResult = await loadFinancialCsv(props.entityId, props.year)
-        csvResult = financialResult
-        rawData = financialResult.data as FinancialCsvRecord[]
-      }
-    } else {
-      // Load standard financial format CSV
-      csvResult = await loadFinancialCsv(props.entityId, props.year)
-      rawData = csvResult.data as FinancialCsvRecord[]
+    if (enrichedData.length === 0) {
+      throw new Error(`No data found for entity ${props.entityId} in year ${props.year}`)
     }
-
-    // Store CSV metadata for later use
-    state.value.csvMetadata = csvResult
-
-    // Convert string values to numbers and ensure proper types
-    const processedRawData = rawData.map(record => ({
-      ...record,
-      value: parseFloat(record.value.replace(/[^0-9.-]/g, '')) || 0,
-      jahr: props.year, // Ensure year matches props
-      hh: props.entityId // Ensure entity ID matches props
-    }))
-
-    // Enrich the data with descriptions
-    const enrichedData = await enrichFinancialData(processedRawData, props.language)
 
     // Add mock descriptions for demo purposes (in a real app, these would come from a codelist)
     const enrichedWithDescriptions = enrichedData.map(record => ({
@@ -512,9 +481,65 @@ const loadData = async () => {
     state.value.data = enrichedWithDescriptions
     state.value.isLoading = false
 
+    console.log(`✅ Successfully loaded ${enrichedWithDescriptions.length} records`)
+
   } catch (error) {
-    console.error('Error loading CSV data:', error)
-    state.value.error = error instanceof Error ? error.message : 'Failed to load CSV data'
+    console.error('Error loading data:', error)
+    state.value.error = error instanceof Error ? error.message : 'Failed to load data'
+    state.value.isLoading = false
+
+    // Fallback to mock data for demonstration
+    console.log('Falling back to mock data for demonstration...')
+    await loadMockData()
+  }
+}
+
+// Fallback mock data function
+const loadMockData = async () => {
+  try {
+    const mockRawData = [
+      {
+        arten: "4200",
+        funk: "01",
+        jahr: props.year,
+        value: "450000.00",
+        dim: "einnahmen_funk",
+        hh: props.entityId,
+        unit: "CHF",
+        model: "fs"
+      },
+      {
+        arten: "3000",
+        funk: "01",
+        jahr: props.year,
+        value: "320000.00",
+        dim: "aufwand_funk",
+        hh: props.entityId,
+        unit: "CHF",
+        model: "fs"
+      }
+    ]
+
+    // Enrich the mock data
+    const enrichedData = await enrichFinancialData(mockRawData, props.language)
+
+    // Add mock descriptions
+    const enrichedWithDescriptions = enrichedData.map(record => ({
+      ...record,
+      description_de: getDescriptionForCode(record.arten, 'de'),
+      description_fr: getDescriptionForCode(record.arten, 'fr'),
+      description_it: getDescriptionForCode(record.arten, 'it'),
+      description_en: getDescriptionForCode(record.arten, 'en'),
+    }))
+
+    state.value.data = enrichedWithDescriptions
+    state.value.isLoading = false
+
+    console.log('✅ Loaded mock data successfully')
+
+  } catch (error) {
+    console.error('Even mock data failed:', error)
+    state.value.error = 'Failed to load any data'
     state.value.isLoading = false
   }
 }
