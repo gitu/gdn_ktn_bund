@@ -164,9 +164,9 @@ export async function loadEntityData(
 
     let records: RecordType[]
     if (isGdn) {
-      records = rawData.map((record: GdnCsvRecord) => convertGdnToRecordType(record))
+      records = rawData.map((record) => convertGdnToRecordType(record as GdnCsvRecord))
     } else {
-      records = rawData.map((record: StdCsvRecord) => convertStdToRecordType(record))
+      records = rawData.map((record) => convertStdToRecordType(record as StdCsvRecord))
     }
 
     // Cache the results

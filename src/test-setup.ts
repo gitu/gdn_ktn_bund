@@ -19,12 +19,19 @@ global.ResizeObserver = class ResizeObserver {
 
 // Mock IntersectionObserver
 if (!global.IntersectionObserver) {
-  global.IntersectionObserver = class {
+  const MockIntersectionObserver = class {
+    root = null;
+    rootMargin = '0px';
+    thresholds = [0];
+
     constructor() {}
     observe() {}
     unobserve() {}
     disconnect() {}
-  } as unknown as IntersectionObserver;
+    takeRecords() { return []; }
+  };
+
+  global.IntersectionObserver = MockIntersectionObserver as unknown as typeof IntersectionObserver;
 }
 
 // Mock window.matchMedia
