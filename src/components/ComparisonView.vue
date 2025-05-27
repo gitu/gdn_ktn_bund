@@ -1,15 +1,25 @@
 <template>
   <v-card class="comparison-view">
     <v-card-title>
-      <h2 class="text-h5">Financial Data Comparison</h2>
+      <h2 class="text-h5">
+        Financial Data Comparison
+      </h2>
     </v-card-title>
 
     <v-card-text>
       <!-- Summary Statistics -->
       <v-row class="mb-6">
-        <v-col cols="12" md="6">
-          <v-card variant="outlined" color="primary">
-            <v-card-title class="text-h6">Group A Summary</v-card-title>
+        <v-col
+          cols="12"
+          md="6"
+        >
+          <v-card
+            variant="outlined"
+            color="primary"
+          >
+            <v-card-title class="text-h6">
+              Group A Summary
+            </v-card-title>
             <v-card-text>
               <div class="d-flex justify-space-between">
                 <span>Total Records:</span>
@@ -26,9 +36,17 @@
             </v-card-text>
           </v-card>
         </v-col>
-        <v-col cols="12" md="6">
-          <v-card variant="outlined" color="secondary">
-            <v-card-title class="text-h6">Group B Summary</v-card-title>
+        <v-col
+          cols="12"
+          md="6"
+        >
+          <v-card
+            variant="outlined"
+            color="secondary"
+          >
+            <v-card-title class="text-h6">
+              Group B Summary
+            </v-card-title>
             <v-card-text>
               <div class="d-flex justify-space-between">
                 <span>Total Records:</span>
@@ -56,36 +74,44 @@
         item-value="id"
       >
         <!-- Category Column -->
-        <template v-slot:item.category="{ item }">
-          <div class="font-weight-medium">{{ item.category }}</div>
+        <template #item.category="{ item }">
+          <div class="font-weight-medium">
+            {{ item.category }}
+          </div>
         </template>
 
         <!-- Group A Value -->
-        <template v-slot:item.valueA="{ item }">
+        <template #item.valueA="{ item }">
           <div class="text-right">
             <div class="font-weight-bold text-primary">
               {{ formatCurrency(item.valueA) }}
             </div>
-            <div v-if="scaleToOne" class="text-caption text-grey">
+            <div
+              v-if="scaleToOne"
+              class="text-caption text-grey"
+            >
               ({{ formatCurrency(item.originalValueA) }} original)
             </div>
           </div>
         </template>
 
         <!-- Group B Value -->
-        <template v-slot:item.valueB="{ item }">
+        <template #item.valueB="{ item }">
           <div class="text-right">
             <div class="font-weight-bold text-secondary">
               {{ formatCurrency(item.valueB) }}
             </div>
-            <div v-if="scaleToOne" class="text-caption text-grey">
+            <div
+              v-if="scaleToOne"
+              class="text-caption text-grey"
+            >
               ({{ formatCurrency(item.originalValueB) }} original)
             </div>
           </div>
         </template>
 
         <!-- Difference -->
-        <template v-slot:item.difference="{ item }">
+        <template #item.difference="{ item }">
           <div class="text-right">
             <v-chip
               :color="item.difference >= 0 ? 'success' : 'error'"
@@ -98,7 +124,7 @@
         </template>
 
         <!-- Ratio -->
-        <template v-slot:item.ratio="{ item }">
+        <template #item.ratio="{ item }">
           <div class="text-center">
             <v-progress-linear
               :model-value="Math.min(Math.abs(item.ratio) * 100, 100)"

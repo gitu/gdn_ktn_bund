@@ -5,7 +5,12 @@
       <v-col cols="12">
         <v-card>
           <v-card-title class="d-flex align-center">
-            <v-icon color="primary" class="mr-3">mdi-chart-line</v-icon>
+            <v-icon
+              color="primary"
+              class="mr-3"
+            >
+              mdi-chart-line
+            </v-icon>
             Enriched Financial Data Display
           </v-card-title>
           <v-card-subtitle>
@@ -46,8 +51,8 @@
       closable
     >
       <v-alert-title>Entity Options Loaded</v-alert-title>
-      Successfully loaded {{ entityOptions.length }} entity options 
-      ({{ entityOptions.filter(e => e.type === 'GDN').length }} municipalities, 
+      Successfully loaded {{ entityOptions.length }} entity options
+      ({{ entityOptions.filter(e => e.type === 'GDN').length }} municipalities,
       {{ entityOptions.filter(e => e.type === 'STD').length }} standard entities).
     </v-alert>
 
@@ -58,7 +63,10 @@
           <v-card-title>Financial Data Controls</v-card-title>
           <v-card-text>
             <v-row>
-              <v-col cols="12" md="3">
+              <v-col
+                cols="12"
+                md="3"
+              >
                 <v-select
                   v-model="selectedEntity"
                   :items="entityOptions"
@@ -70,17 +78,23 @@
                   :disabled="isLoadingEntities || entityLoadingError !== null"
                   :error="entityLoadingError !== null"
                   :error-messages="entityLoadingError"
-                ></v-select>
+                />
               </v-col>
-              <v-col cols="12" md="3">
+              <v-col
+                cols="12"
+                md="3"
+              >
                 <v-select
                   v-model="selectedYear"
                   :items="availableYears"
                   label="Year"
                   variant="outlined"
-                ></v-select>
+                />
               </v-col>
-              <v-col cols="12" md="3">
+              <v-col
+                cols="12"
+                md="3"
+              >
                 <v-select
                   v-model="selectedDimension"
                   :items="dimensionOptions"
@@ -89,14 +103,17 @@
                   label="Dimension Filter"
                   variant="outlined"
                   clearable
-                ></v-select>
+                />
               </v-col>
-              <v-col cols="12" md="3">
+              <v-col
+                cols="12"
+                md="3"
+              >
                 <v-switch
                   v-model="enableComparison"
                   label="Enable Comparison"
                   color="primary"
-                ></v-switch>
+                />
               </v-col>
             </v-row>
           </v-card-text>
@@ -117,7 +134,10 @@
     <!-- Comparison View -->
     <div v-else>
       <v-row>
-        <v-col cols="12" md="6">
+        <v-col
+          cols="12"
+          md="6"
+        >
           <v-card class="mb-4">
             <v-card-title>Entity A</v-card-title>
             <v-card-text>
@@ -130,7 +150,7 @@
                 variant="outlined"
                 :loading="isLoadingEntities"
                 :disabled="isLoadingEntities || entityLoadingError !== null"
-              ></v-select>
+              />
             </v-card-text>
           </v-card>
           <EnrichedDataDisplay
@@ -141,7 +161,10 @@
             :language="globalLanguage"
           />
         </v-col>
-        <v-col cols="12" md="6">
+        <v-col
+          cols="12"
+          md="6"
+        >
           <v-card class="mb-4">
             <v-card-title>Entity B</v-card-title>
             <v-card-text>
@@ -154,7 +177,7 @@
                 variant="outlined"
                 :loading="isLoadingEntities"
                 :disabled="isLoadingEntities || entityLoadingError !== null"
-              ></v-select>
+              />
             </v-card-text>
           </v-card>
           <EnrichedDataDisplay
@@ -171,13 +194,13 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted, inject } from 'vue'
+import { ref, computed, onMounted, inject, type Ref } from 'vue'
 import * as DataLoader from '../utils/DataLoader'
 import { loadAllEntityOptions, type EntityOption, EntityLoadError } from '../utils/EntityLoader'
 import EnrichedDataDisplay from '../components/EnrichedDataDisplay.vue'
 
 // Inject global language from App.vue
-const globalLanguage = inject<any>('globalLanguage') || ref('de')
+const globalLanguage = inject<Ref<string>>('globalLanguage') || ref('de')
 
 // Financial data state
 const selectedYear = ref<string>('2020')

@@ -274,18 +274,18 @@ describe('BalanceCalculator', () => {
     });
 
     it('should throw error for invalid data structure', () => {
-      expect(() => calculateBalance(null as any)).toThrow('Input data must be an array');
+      expect(() => calculateBalance(null as unknown as EnrichedFinancialRecord[])).toThrow('Input data must be an array');
     });
 
     it('should throw error for missing required fields', () => {
-      const invalidData = [{ arten: "4000" }] as any;
+      const invalidData = [{ arten: "4000" }] as unknown as EnrichedFinancialRecord[];
       expect(() => calculateBalance(invalidData)).toThrow('Missing required fields');
     });
 
     it('should throw error for invalid numeric values', () => {
       const invalidData = [{
         ...mockEnrichedData[0],
-        value: "invalid" as any
+        value: "invalid" as unknown as number
       }];
       expect(() => calculateBalance(invalidData)).toThrow('invalid numeric values');
     });

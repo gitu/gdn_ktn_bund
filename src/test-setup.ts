@@ -14,5 +14,5 @@ if (!global.IntersectionObserver) {
     observe() {}
     unobserve() {}
     disconnect() {}
-  } as any;
+  } as unknown as IntersectionObserver;
 }

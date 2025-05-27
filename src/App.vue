@@ -1,9 +1,13 @@
 <template>
   <v-app>
-    <v-app-bar app color="primary" dark>
+    <v-app-bar
+      app
+      color="primary"
+      dark
+    >
       <v-app-bar-title>Swiss Financial Data Viewer</v-app-bar-title>
 
-      <v-spacer></v-spacer>
+      <v-spacer />
 
       <!-- Global Language Selector -->
       <v-select
@@ -16,12 +20,12 @@
         density="compact"
         style="max-width: 150px;"
         class="mr-4"
-      ></v-select>
+      />
 
       <v-btn
-        @click="showEnrichedView = !showEnrichedView"
         variant="outlined"
         color="white"
+        @click="showEnrichedView = !showEnrichedView"
       >
         {{ showEnrichedView ? 'Show Comparison' : 'Show Enriched Data' }}
       </v-btn>
@@ -70,7 +74,10 @@
                 <v-card-title>Financial Data Controls</v-card-title>
                 <v-card-text>
                   <v-row>
-                    <v-col cols="12" md="3">
+                    <v-col
+                      cols="12"
+                      md="3"
+                    >
                       <v-select
                         v-model="selectedEntity"
                         :items="entityOptions"
@@ -82,17 +89,23 @@
                         :disabled="isLoadingEntities || entityLoadingError !== null"
                         :error="entityLoadingError !== null"
                         :error-messages="entityLoadingError"
-                      ></v-select>
+                      />
                     </v-col>
-                    <v-col cols="12" md="3">
+                    <v-col
+                      cols="12"
+                      md="3"
+                    >
                       <v-select
                         v-model="selectedYear"
                         :items="availableYears"
                         label="Year"
                         variant="outlined"
-                      ></v-select>
+                      />
                     </v-col>
-                    <v-col cols="12" md="3">
+                    <v-col
+                      cols="12"
+                      md="3"
+                    >
                       <v-select
                         v-model="selectedDimension"
                         :items="dimensionOptions"
@@ -101,14 +114,17 @@
                         label="Dimension Filter"
                         variant="outlined"
                         clearable
-                      ></v-select>
+                      />
                     </v-col>
-                    <v-col cols="12" md="3">
+                    <v-col
+                      cols="12"
+                      md="3"
+                    >
                       <v-switch
                         v-model="enableComparison"
                         label="Enable Comparison"
                         color="primary"
-                      ></v-switch>
+                      />
                     </v-col>
                   </v-row>
                 </v-card-text>
@@ -129,7 +145,10 @@
           <!-- Comparison View -->
           <div v-else>
             <v-row>
-              <v-col cols="12" md="6">
+              <v-col
+                cols="12"
+                md="6"
+              >
                 <v-card class="mb-4">
                   <v-card-title>Entity A</v-card-title>
                   <v-card-text>
@@ -142,7 +161,7 @@
                       variant="outlined"
                       :loading="isLoadingEntities"
                       :disabled="isLoadingEntities || entityLoadingError !== null"
-                    ></v-select>
+                    />
                   </v-card-text>
                 </v-card>
                 <EnrichedDataDisplay
@@ -153,7 +172,10 @@
                   :language="globalLanguage"
                 />
               </v-col>
-              <v-col cols="12" md="6">
+              <v-col
+                cols="12"
+                md="6"
+              >
                 <v-card class="mb-4">
                   <v-card-title>Entity B</v-card-title>
                   <v-card-text>
@@ -166,7 +188,7 @@
                       variant="outlined"
                       :loading="isLoadingEntities"
                       :disabled="isLoadingEntities || entityLoadingError !== null"
-                    ></v-select>
+                    />
                   </v-card-text>
                 </v-card>
                 <EnrichedDataDisplay
@@ -189,13 +211,16 @@
                 <v-card-title>Financial Comparison Tool</v-card-title>
                 <v-card-text>
                   <v-row>
-                    <v-col cols="12" md="4">
+                    <v-col
+                      cols="12"
+                      md="4"
+                    >
                       <v-select
                         v-model="selectedYear"
                         :items="availableYears"
                         label="Select Year"
                         variant="outlined"
-                      ></v-select>
+                      />
                       <v-chip
                         v-if="selectedYear === latestYear"
                         color="success"
@@ -205,7 +230,10 @@
                         Latest
                       </v-chip>
                     </v-col>
-                    <v-col cols="12" md="4">
+                    <v-col
+                      cols="12"
+                      md="4"
+                    >
                       <v-select
                         v-model="selectedGroupA"
                         :items="municipalities"
@@ -213,9 +241,12 @@
                         variant="outlined"
                         multiple
                         chips
-                      ></v-select>
+                      />
                     </v-col>
-                    <v-col cols="12" md="4">
+                    <v-col
+                      cols="12"
+                      md="4"
+                    >
                       <v-select
                         v-model="selectedGroupB"
                         :items="municipalities"
@@ -223,7 +254,7 @@
                         variant="outlined"
                         multiple
                         chips
-                      ></v-select>
+                      />
                     </v-col>
                   </v-row>
                   <v-row>
@@ -232,7 +263,7 @@
                         v-model="scaleToOne"
                         label="Scale to match totals"
                         color="primary"
-                      ></v-switch>
+                      />
                     </v-col>
                   </v-row>
                 </v-card-text>

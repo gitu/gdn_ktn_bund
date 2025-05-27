@@ -5,60 +5,69 @@
         <v-card>
           <v-card-title>DataLoader Test Component</v-card-title>
           <v-card-subtitle>Testing the updated DataLoader with correct directory structure</v-card-subtitle>
-          
+
           <v-card-text>
             <v-row>
-              <v-col cols="12" md="6">
+              <v-col
+                cols="12"
+                md="6"
+              >
                 <v-text-field
                   v-model="testEntityId"
                   label="Entity ID"
                   hint="e.g., 010176 (GDN) or ktn_zh (STD)"
                   variant="outlined"
-                ></v-text-field>
+                />
               </v-col>
-              <v-col cols="12" md="3">
+              <v-col
+                cols="12"
+                md="3"
+              >
                 <v-text-field
                   v-model="testYear"
                   label="Year"
                   hint="e.g., 2020"
                   variant="outlined"
-                ></v-text-field>
+                />
               </v-col>
-              <v-col cols="12" md="3">
+              <v-col
+                cols="12"
+                md="3"
+              >
                 <v-text-field
                   v-model="testModel"
                   label="Model"
                   hint="e.g., fs"
                   variant="outlined"
-                ></v-text-field>
+                />
               </v-col>
             </v-row>
-            
+
             <v-row>
               <v-col cols="12">
                 <v-btn
-                  @click="testDataLoading"
                   color="primary"
                   :loading="isLoading"
                   :disabled="!testEntityId || !testYear"
+                  @click="testDataLoading"
                 >
                   Test Data Loading
                 </v-btn>
-                
+
                 <v-btn
-                  @click="testPathConstruction"
                   color="secondary"
                   class="ml-2"
                   :disabled="!testEntityId || !testYear"
+                  @click="testPathConstruction"
                 >
                   Test Path Construction
                 </v-btn>
-                
+
                 <v-btn
-                  @click="clearResults"
                   color="warning"
                   class="ml-2"
                   variant="outlined"
+                  @click="clearResults"
                 >
                   Clear Results
                 </v-btn>
@@ -74,7 +83,7 @@
       <v-col cols="12">
         <v-card>
           <v-card-title>Test Results</v-card-title>
-          
+
           <!-- Error Display -->
           <v-alert
             v-if="error"
@@ -85,7 +94,7 @@
             <v-alert-title>Error</v-alert-title>
             {{ error }}
           </v-alert>
-          
+
           <!-- Success Display -->
           <v-alert
             v-if="results.length > 0 && !error"
@@ -96,15 +105,21 @@
             <v-alert-title>Success</v-alert-title>
             Loaded {{ results.length }} records successfully!
           </v-alert>
-          
+
           <!-- Path Information -->
           <v-card-text v-if="constructedPath">
-            <v-chip color="info" variant="outlined" class="mb-4">
-              <v-icon left>mdi-folder</v-icon>
+            <v-chip
+              color="info"
+              variant="outlined"
+              class="mb-4"
+            >
+              <v-icon left>
+                mdi-folder
+              </v-icon>
               Path: {{ constructedPath }}
             </v-chip>
           </v-card-text>
-          
+
           <!-- Data Table -->
           <v-card-text v-if="results.length > 0">
             <v-data-table
@@ -113,13 +128,13 @@
               :items-per-page="10"
               class="elevation-1"
             >
-              <template v-slot:item.betrag="{ item }">
+              <template #item.betrag="{ item }">
                 <span class="font-weight-bold">
                   {{ formatCurrency(item.betrag) }}
                 </span>
               </template>
             </v-data-table>
-            
+
             <v-alert
               v-if="results.length > 10"
               type="info"
@@ -139,19 +154,26 @@
         <v-card>
           <v-card-title>Cache Information</v-card-title>
           <v-card-text>
-            <v-chip color="primary" variant="outlined" class="mr-2">
+            <v-chip
+              color="primary"
+              variant="outlined"
+              class="mr-2"
+            >
               Cache Size: {{ cacheStats.size }}
             </v-chip>
             <v-btn
-              @click="refreshCacheStats"
               color="primary"
               variant="text"
               size="small"
+              @click="refreshCacheStats"
             >
               Refresh
             </v-btn>
-            
-            <div v-if="cacheStats.keys.length > 0" class="mt-4">
+
+            <div
+              v-if="cacheStats.keys.length > 0"
+              class="mt-4"
+            >
               <h4>Cached Keys:</h4>
               <v-chip
                 v-for="key in cacheStats.keys"
@@ -172,7 +194,7 @@
 
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
-import { loadEntityData, constructDataPath, getCacheStats, type DataLoadError } from '../utils/DataLoader'
+import { loadEntityData, constructDataPath, getCacheStats } from '../utils/DataLoader'
 import type { RecordType } from '../types'
 
 // Test parameters
@@ -202,15 +224,15 @@ async function testDataLoading() {
   isLoading.value = true
   error.value = null
   results.value = []
-  
+
   try {
     console.log(`Testing data loading for: ${testEntityId.value}, ${testYear.value}, ${testModel.value}`)
-    
+
     const data = await loadEntityData(testEntityId.value, testYear.value, testModel.value)
     results.value = data
-    
+
     console.log(`✓ Successfully loaded ${data.length} records`)
-    
+
   } catch (err) {
     console.error('✗ Data loading failed:', err)
     if (err instanceof Error) {

@@ -1,6 +1,6 @@
 import Papa from 'papaparse'
 
-export interface CsvLoadResult<T = any> {
+export interface CsvLoadResult<T = unknown> {
   data: T[]
   errors: Papa.ParseError[]
   meta: Papa.ParseMeta
@@ -34,7 +34,7 @@ export interface GdnCsvRecord {
  * @param delimiter - CSV delimiter (default: ',')
  * @returns Promise with parsed CSV data and metadata
  */
-export async function loadCsvFile<T = any>(
+export async function loadCsvFile<T = unknown>(
   fileName: string,
   delimiter: string = ','
 ): Promise<CsvLoadResult<T>> {

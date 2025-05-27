@@ -19,7 +19,10 @@
     </v-row>
 
     <v-row>
-      <v-col cols="12" md="6">
+      <v-col
+        cols="12"
+        md="6"
+      >
         <v-card>
           <v-card-title>Test Standard Financial Data (ktn_zh)</v-card-title>
           <v-card-text>
@@ -29,7 +32,7 @@
               label="Year"
               variant="outlined"
               density="compact"
-            ></v-select>
+            />
             <EnrichedDataDisplay
               entity-id="ktn_zh"
               :year="selectedYear"
@@ -39,7 +42,10 @@
         </v-card>
       </v-col>
 
-      <v-col cols="12" md="6">
+      <v-col
+        cols="12"
+        md="6"
+      >
         <v-card>
           <v-card-title>Test GDN Data (gdn_010176)</v-card-title>
           <v-card-text>
@@ -49,7 +55,7 @@
               label="Year"
               variant="outlined"
               density="compact"
-            ></v-select>
+            />
             <EnrichedDataDisplay
               entity-id="gdn_010176"
               :year="selectedGdnYear"

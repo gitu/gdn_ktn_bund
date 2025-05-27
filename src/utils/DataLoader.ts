@@ -65,7 +65,7 @@ export function constructDataPath(entityId: string, year: string, model: string 
  * @param delimiter - CSV delimiter (';' for GDN, ',' for STD)
  * @returns Promise resolving to parsed CSV data
  */
-async function loadCsvFromPath(filePath: string, delimiter: string = ','): Promise<any[]> {
+async function loadCsvFromPath(filePath: string, delimiter: string = ','): Promise<unknown[]> {
   try {
     const response = await fetch(filePath)
 
@@ -77,13 +77,13 @@ async function loadCsvFromPath(filePath: string, delimiter: string = ','): Promi
     const csvText = await response.text()
 
     return new Promise((resolve, reject) => {
-      Papa.parse<any>(csvText, {
+      Papa.parse<unknown>(csvText, {
         header: true,
         delimiter,
         skipEmptyLines: true,
         transformHeader: (header: string) => header.trim().replace(/"/g, ''),
         transform: (value: string) => value.trim().replace(/"/g, ''),
-        complete: (results: Papa.ParseResult<any>) => {
+        complete: (results: Papa.ParseResult<unknown>) => {
           if (results.errors.length > 0) {
             console.warn('CSV parsing warnings:', results.errors)
           }

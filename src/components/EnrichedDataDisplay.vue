@@ -1,12 +1,15 @@
 <template>
   <v-card class="enriched-data-display">
     <!-- Loading State -->
-    <div v-if="state.isLoading" class="d-flex justify-center align-center pa-8">
+    <div
+      v-if="state.isLoading"
+      class="d-flex justify-center align-center pa-8"
+    >
       <v-progress-circular
         indeterminate
         color="primary"
         size="64"
-      ></v-progress-circular>
+      />
       <span class="ml-4 text-h6">Loading financial data...</span>
     </div>
 
@@ -22,9 +25,20 @@
     </v-alert>
 
     <!-- Empty State -->
-    <div v-else-if="state.data.length === 0" class="text-center pa-8">
-      <v-icon size="64" color="grey-lighten-1" class="mb-4">mdi-database-off</v-icon>
-      <h3 class="text-h5 mb-2">No Financial Data Found</h3>
+    <div
+      v-else-if="state.data.length === 0"
+      class="text-center pa-8"
+    >
+      <v-icon
+        size="64"
+        color="grey-lighten-1"
+        class="mb-4"
+      >
+        mdi-database-off
+      </v-icon>
+      <h3 class="text-h5 mb-2">
+        No Financial Data Found
+      </h3>
       <p class="text-body-1 text-grey">
         No financial records were found for {{ getEntityDisplayName(entityId) }} in {{ year }}.
       </p>
@@ -35,20 +49,34 @@
       <!-- Header with Summary -->
       <v-card-title class="d-flex justify-space-between align-center">
         <div>
-          <h2 class="text-h5">Financial Data: {{ getEntityDisplayName(entityId) }} ({{ year }})</h2>
+          <h2 class="text-h5">
+            Financial Data: {{ getEntityDisplayName(entityId) }} ({{ year }})
+          </h2>
         </div>
         <div class="d-flex gap-4">
           <div class="text-center">
-            <div class="text-caption text-grey">Income</div>
-            <div class="text-h6 text-success">{{ formatCurrency(summary.totalIncome, summary.currency) }}</div>
+            <div class="text-caption text-grey">
+              Income
+            </div>
+            <div class="text-h6 text-success">
+              {{ formatCurrency(summary.totalIncome, summary.currency) }}
+            </div>
           </div>
           <div class="text-center">
-            <div class="text-caption text-grey">Expenses</div>
-            <div class="text-h6 text-error">{{ formatCurrency(summary.totalExpenses, summary.currency) }}</div>
+            <div class="text-caption text-grey">
+              Expenses
+            </div>
+            <div class="text-h6 text-error">
+              {{ formatCurrency(summary.totalExpenses, summary.currency) }}
+            </div>
           </div>
           <div class="text-center">
-            <div class="text-caption text-grey">Balance</div>
-            <div class="text-h6 text-primary">{{ formatCurrency(summary.balance, summary.currency) }}</div>
+            <div class="text-caption text-grey">
+              Balance
+            </div>
+            <div class="text-h6 text-primary">
+              {{ formatCurrency(summary.balance, summary.currency) }}
+            </div>
           </div>
         </div>
       </v-card-title>
@@ -56,7 +84,10 @@
       <!-- Controls -->
       <v-card-text>
         <v-row class="mb-4">
-          <v-col cols="12" md="4">
+          <v-col
+            cols="12"
+            md="4"
+          >
             <v-select
               v-model="filterDimension"
               :items="availableDimensionOptions"
@@ -65,9 +96,12 @@
               label="Filter by Dimension"
               variant="outlined"
               density="compact"
-            ></v-select>
+            />
           </v-col>
-          <v-col cols="12" md="4">
+          <v-col
+            cols="12"
+            md="4"
+          >
             <v-select
               v-model="sortBy"
               :items="sortOptions"
@@ -76,9 +110,12 @@
               label="Sort by"
               variant="outlined"
               density="compact"
-            ></v-select>
+            />
           </v-col>
-          <v-col cols="12" md="4">
+          <v-col
+            cols="12"
+            md="4"
+          >
             <v-btn-toggle
               v-model="sortOrder"
               mandatory
@@ -107,7 +144,7 @@
           item-value="id"
         >
           <!-- Type Column -->
-          <template v-slot:item.type="{ item }">
+          <template #item.type="{ item }">
             <v-chip
               :color="getTypeColor(getDimensionType(item.dim))"
               size="small"
@@ -118,19 +155,22 @@
           </template>
 
           <!-- Code Column -->
-          <template v-slot:item.arten="{ item }">
+          <template #item.arten="{ item }">
             <code class="text-body-2 font-weight-bold">{{ item.arten }}</code>
           </template>
 
           <!-- Description Column -->
-          <template v-slot:item.description="{ item }">
-            <div class="text-wrap" style="max-width: 300px;">
+          <template #item.description="{ item }">
+            <div
+              class="text-wrap"
+              style="max-width: 300px;"
+            >
               {{ getDescription(item) }}
             </div>
           </template>
 
           <!-- Value Column -->
-          <template v-slot:item.value="{ item }">
+          <template #item.value="{ item }">
             <div
               class="text-right font-weight-bold"
               :class="getValueClass(getDimensionType(item.dim))"
@@ -140,14 +180,25 @@
           </template>
 
           <!-- Function Column -->
-          <template v-slot:item.funk="{ item }">
-            <code v-if="item.funk" class="text-caption">{{ item.funk }}</code>
-            <span v-else class="text-grey">-</span>
+          <template #item.funk="{ item }">
+            <code
+              v-if="item.funk"
+              class="text-caption"
+            >{{ item.funk }}</code>
+            <span
+              v-else
+              class="text-grey"
+            >-</span>
           </template>
 
           <!-- Dimension Column -->
-          <template v-slot:item.dim="{ item }">
-            <v-chip size="x-small" variant="outlined">{{ item.dim }}</v-chip>
+          <template #item.dim="{ item }">
+            <v-chip
+              size="x-small"
+              variant="outlined"
+            >
+              {{ item.dim }}
+            </v-chip>
           </template>
         </v-data-table>
 
@@ -157,47 +208,82 @@
             Showing {{ processedData.length }} of {{ state.data.length }} records
             <span v-if="filterDimension !== 'all'">(filtered by {{ filterDimension }})</span>
           </span>
-          <v-chip size="small" variant="outlined">
+          <v-chip
+            size="small"
+            variant="outlined"
+          >
             {{ summary.currency }}
           </v-chip>
         </div>
 
         <!-- CSV File Information -->
-        <v-card v-if="getCsvFileInfo" class="mt-4" variant="outlined">
+        <v-card
+          v-if="getCsvFileInfo"
+          class="mt-4"
+          variant="outlined"
+        >
           <v-card-title class="d-flex justify-space-between align-center">
             <span class="text-h6">Source CSV File</span>
             <v-btn
-              @click="downloadOriginalCsv"
               color="primary"
               variant="outlined"
               size="small"
               prepend-icon="mdi-download"
+              @click="downloadOriginalCsv"
             >
               Download Original CSV
             </v-btn>
           </v-card-title>
           <v-card-text>
             <v-row>
-              <v-col cols="12" md="3">
-                <div class="text-caption text-grey">File Name</div>
-                <div class="text-body-2 font-weight-bold">{{ getCsvFileInfo.fileName }}</div>
+              <v-col
+                cols="12"
+                md="3"
+              >
+                <div class="text-caption text-grey">
+                  File Name
+                </div>
+                <div class="text-body-2 font-weight-bold">
+                  {{ getCsvFileInfo.fileName }}
+                </div>
               </v-col>
-              <v-col cols="12" md="3">
-                <div class="text-caption text-grey">Records</div>
-                <div class="text-body-2 font-weight-bold">{{ getCsvFileInfo.recordCount.toLocaleString() }}</div>
+              <v-col
+                cols="12"
+                md="3"
+              >
+                <div class="text-caption text-grey">
+                  Records
+                </div>
+                <div class="text-body-2 font-weight-bold">
+                  {{ getCsvFileInfo.recordCount.toLocaleString() }}
+                </div>
               </v-col>
-              <v-col cols="12" md="3">
-                <div class="text-caption text-grey">File Size</div>
-                <div class="text-body-2 font-weight-bold">{{ formatFileSize(getCsvFileInfo.fileSize) }}</div>
+              <v-col
+                cols="12"
+                md="3"
+              >
+                <div class="text-caption text-grey">
+                  File Size
+                </div>
+                <div class="text-body-2 font-weight-bold">
+                  {{ formatFileSize(getCsvFileInfo.fileSize) }}
+                </div>
               </v-col>
-              <v-col cols="12" md="3">
-                <div class="text-caption text-grey">Status</div>
+              <v-col
+                cols="12"
+                md="3"
+              >
+                <div class="text-caption text-grey">
+                  Status
+                </div>
                 <v-chip
                   :color="getCsvFileInfo.hasErrors ? 'warning' : 'success'"
                   size="small"
                   variant="tonal"
                 >
-                  <v-icon start>{{ getCsvFileInfo.hasErrors ? 'mdi-alert' : 'mdi-check' }}</v-icon>
+                  <v-icon start>
+                    {{ getCsvFileInfo.hasErrors ? 'mdi-alert' : 'mdi-check' }}
+                  </v-icon>
                   {{ getCsvFileInfo.hasErrors ? `${getCsvFileInfo.errorCount} errors` : 'Valid' }}
                 </v-chip>
               </v-col>
@@ -214,14 +300,8 @@ import { ref, computed, watch, onMounted } from 'vue'
 import { enrichFinancialData, validateEnrichedData } from '../utils/DataEnricher'
 import type { EnrichedFinancialRecord } from '../utils/BalanceCalculator'
 import {
-  loadFinancialCsv,
-  loadGdnCsv,
-  convertGdnToFinancialFormat,
   downloadCsvFile,
-  getAvailableCsvFiles,
-  type CsvLoadResult,
-  type FinancialCsvRecord,
-  type GdnCsvRecord
+  type CsvLoadResult
 } from '../utils/CsvLoader'
 
 // Props interface
@@ -245,7 +325,7 @@ interface LoadingState {
   isLoading: boolean
   error: string | null
   data: EnrichedFinancialRecord[]
-  csvMetadata: CsvLoadResult<any> | null
+  csvMetadata: CsvLoadResult<unknown> | null
   availableCsvFiles: string[]
 }
 
