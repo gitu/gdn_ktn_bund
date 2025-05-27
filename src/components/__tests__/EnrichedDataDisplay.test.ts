@@ -4,7 +4,6 @@
 
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { mount } from '@vue/test-utils'
-import * as DataEnricher from '../../utils/DataEnricher'
 
 // Mock Vuetify components to avoid CSS import issues
 vi.mock('vuetify', () => ({
