@@ -24,7 +24,7 @@ global.fetch = mockFetch;
 // Mock Papa.parse
 vi.mock('papaparse', () => ({
   default: {
-    parse: vi.fn((csvText: string, options: any) => {
+    parse: vi.fn((csvText: string, options: { complete: (result: { data: Record<string, string>[]; errors: unknown[] }) => void }) => {
       // Simple mock implementation that returns parsed data
       const lines = csvText.split('\n');
       const headers = lines[0].split(',').map((h: string) => h.trim());
