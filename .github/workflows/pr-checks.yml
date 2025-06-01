@@ -41,9 +41,6 @@ jobs:
       - name: Run tests
         run: npm test:coverage
 
-      - name: Run e2e tests
-        run: npm run test:e2e
-
       - name: Upload build artifacts (on failure)
         if: failure()
         uses: actions/upload-artifact@v4
@@ -66,25 +63,48 @@ jobs:
           path: coverage/
           retention-days: 7
 
-      - name: Upload playwright report
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: playwright-report
-          path: playwright-report/
-          retention-days: 7
-
-      - name: Add playwright data to github step summary
-        if: always()
-        run: |
-          echo "## Playwright Test Results" >> $GITHUB_STEP_SUMMARY
-          echo "### Test Report" >> $GITHUB_STEP_SUMMARY
-          echo "[View Full Report](./playwright-report/index.html)" >> $GITHUB_STEP_SUMMARY
-          echo "### Test Summary" >> $GITHUB_STEP_SUMMARY
-
       - name: Add coverage data to github step summary
         if: success()
         run: |
           echo "## Test Coverage Results" >> $GITHUB_STEP_SUMMARY
           echo "### Coverage Report" >> $GITHUB_STEP_SUMMARY
           echo "[View Full Report](./coverage/index.html)" >> $GITHUB_STEP_SUMMARY
+
+  e2e-tests:
+    needs: test-and-build
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    strategy:
+      matrix:
+        browser: [chromium, firefox, webkit]
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          lfs: true
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: lts/*
+          cache: 'npm'
+      - name: Install dependencies
+        run: npm ci
+      - name: Install playwright browsers
+        run: npx playwright install ${{ matrix.browser }} --with-deps
+      - name: Run e2e tests (${{ matrix.browser }})
+        run: npx playwright test --project=${{ matrix.browser }}
+      - name: Upload playwright report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report-${{ matrix.browser }}
+          path: playwright-report/
+          retention-days: 7
+      - name: Add playwright data to github step summary
+        if: always()
+        run: |
+          echo "## Playwright Test Results (${{ matrix.browser }})" >> $GITHUB_STEP_SUMMARY
+          echo "### Test Report" >> $GITHUB_STEP_SUMMARY
+          echo "[View Full Report](./playwright-report/index.html)" >> $GITHUB_STEP_SUMMARY
+          echo "### Test Summary" >> $GITHUB_STEP_SUMMARY
+
