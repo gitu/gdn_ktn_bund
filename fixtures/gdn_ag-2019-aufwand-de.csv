@@ -1,0 +1,119 @@
+3;Aufwand;2,942,491
+30;Personalaufwand;732,369
+300;Behörden, Kommissionen und Richter;37,291
+301;Löhne des Verwaltungs- und Betriebspersonals;495,207
+302;Löhne der Lehrpersonen;78,548
+303;Temporäre Arbeitskräfte;828
+304;Zulagen;1,842
+305;Arbeitgeberbeiträge;101,689
+306;Arbeitgeberleistungen;2,615
+309;Übriger Personalaufwand;14,349
+31;Sach- und übriger Betriebsaufwand;789,862
+310;Material- und Warenaufwand;128,907
+311;Nicht aktivierbare Anlagen;37,481
+312;Ver- und Entsorgung Liegenschaften VV;73,022
+313;Dienstleistungen und Honorare;296,017
+314;Baulicher und betrieblicher Unterhalt;129,632
+315;Unterhalt Mobilien und immaterielle Anlagen;33,865
+316;Mieten, Leasing, Pachten, Benützungsgebühren;35,071
+317;Spesenentschädigungen;29,736
+318;Wertberichtigungen auf Forderungen;11,203
+319;Übriger Betriebsaufwand;14,928
+32;Rüstungsaufwand;
+320;Rüstungsaufwand;
+33;Abschreibungen auf das Verwaltungsvermögen;263,426
+331;Abschreibungen n.a.g.;
+337;Planmässige Abschreibungen;252,331
+338;Ausserplanmässige Abschreibungen;11,095
+34;Finanzaufwand;28,484
+340;Zinsaufwand;16,695
+341;Realisierte Verluste FV;682
+342;Kapitalbeschaffung und -verwaltung;359
+343;Liegenschaftenaufwand, FV;8,414
+344;Wertberichtigungen Anlagen, FV;2,125
+349;Übriger Finanzaufwand;208
+35;Einlagen in Fonds und Spezialfinanzierungen;46,245
+350;Einlagen in Fonds und Spezialfinanzierungen im Fremdkapital;1,006
+351;Einlagen in Fonds und Spezialfinanzierungen im Eigenkapital;45,239
+352;Einlagen in Fonds und Spezialfinanzierungen n.a.g.;
+36;Transferaufwand;1,060,675
+360;Ertragsanteile;
+3600;Ertragsanteile an Bund;
+3601;Ertragsanteile an Kantone und Konkordate;
+36010;Ertragsanteil direkte Bundessteuer;
+36011;Ertragsanteil Verrechnungssteuer;
+36012;Ertragsanteil Wehrpflichtersatzabgabe;
+36013;Ertraganteil Eidg. Alkoholverwaltung;
+36014;Ertraganteil Eidg. Bussen und Taxen;
+36015;Ertraganteil Eidg. Mineralölsteuer;
+36016;Ertraganteil Eidg. Stempelabgabe;
+36017;Ertraganteil EU-Zinsbesteuerung;
+36018;Ertraganteil LSVA;
+36019;Ertraganteil übriger Bundeseinnahmen;
+3602;Ertragsanteile Gemeinden und Gemeindezweckverbände;
+36021;Gemeindeanteile an kantonalen Steuern;
+36022;Gemeindeanteile an Regalien und Konzessionen;
+36023;Gemeindeanteile an kantonalen Gebühren;
+36029;Gemeindeanteile an übrigen kantonalen Erträgen;
+3603;Ertragsanteile an öffentlichen Sozialversicherungen;
+3604;Ertragsanteile an öffentlichen Unternehmen;
+361;Entschädigungen;5,066
+3610;Entschädigungen an Bund;
+3611;Entschädigungen an Kantone und Konkordate;4,673
+3612;Entschädigungen an Gemeinden und Gemeindezweckverbände;
+3613;Entschädigungen an öffentliche Sozialversicherungen;
+3614;Entschädigungen an öffentlichen Unternehmen;393
+362;Finanz- und Lastenausgleich;54,694
+3620;Finanz- und Lastenausgleich an Bund;
+3621;Finanz- und Lastenausgleich an Kantone;54,694
+36211;Ressourcenausgleich;
+36212;Sozio-demografischer Lastenausgleich;
+36213;Geografisch-topografischer Lastenausgleich;
+36214;Härteausgleich;
+36215;Vertikaler Finanzausgleich von Gemeinde an Kanton;54,694
+36216;Vertikaler Lastenausgleich von Gemeinde an Kanton;
+36217;Weitergabe Ressourcen- und Härteausgleich der Geberkantone;
+36219;Übrige Massnahmen des Finanzausgleichs;
+3622;Finanz- und Lastenausgleich an Gemeinden;
+36221;Weitergabe eines Anteils am Ressourcenausgleich an Gemeinden;
+36222;Weitergabe eines Anteils am sozio-demografischen Ausgleich an Gemeinden;
+36223;Weitergabe eines Anteils am geografisch-topografischen Ausgleich an Gemeinden;
+36224;Weitergabe eines Anteils am Härteausgleich an Gemeinden;
+36225;Innerkantonaler vertikaler Finanzausgleich;
+36226;Innerkantonaler vertikaler Lastenausgleich;
+36227;Horizontaler Finanzausgleich von Gemeinde an Gemeinde;
+36228;Horizontaler Lastenausgleich von Gemeinde an Gemeinde;
+3624;Finanz- und Lastenausgleich an öffentliche Unternehmen;
+3629;Finanzausgleich n.a.g.;
+363;Beiträge an Gemeinwesen und Dritte;962,778
+3630;Beiträge an den Bund;
+3631;Beiträge an Kantone und Konkordate;578,039
+3632;Beiträge an Gemeinden und Gemeindezweckverbände;
+3633;Beiträge an öffentliche Sozialversicherungen;
+3634;Beiträge an öffentliche Unternehmen;3,077
+3635;Beiträge an private Unternehmen;4,050
+3636;Beiträge an private Organisationen ohne Erwerbszweck;119,491
+3637;Beiträge an private Haushalte;257,994
+3638;Beiträge an das Ausland;116
+3639;Stipendien;11
+364;Wertberichtigungen Darlehen, VV;
+365;Wertberichtigungen Beteiligungen, VV;163
+366;Abschreibungen auf Investitionsbeiträge;37,975
+369;Übriger Transferaufwand;
+38;Ausserordentlicher Aufwand;21,430
+380;Ausserordentlicher Personalaufwand;
+381;Ausserordentlicher Sach- und Betriebsaufwand;396
+383;Zusätzliche Abschreibungen;
+384;Ausserordentlicher Finanzaufwand;
+386;Ausserordentlicher Transferaufwand;
+3860;Ausserordentlicher Transferaufwand; Bund;
+3861;Ausserordentlicher Transferaufwand; Kantone und Konkordate;
+3862;Ausserordentlicher Transferaufwand; Gemeinden und Gemeindezweckverbände;
+3863;Ausserordentlicher Transferaufwand; öffentliche Sozialversicherungen;
+3864;Ausserordentlicher Transferaufwand; öffentliche Unternehmen;
+3865;Ausserordentlicher Transferaufwand; private Unternehmen;
+3866;Ausserordentlicher Transferaufwand; private Organisationen ohne Erwerbszweck;
+3867;Ausserordentlicher Transferaufwand; private Haushalte;
+3868;Ausserordentlicher Transferaufwand; Ausland;
+387;Zusätzliche Abschreibungen auf Darlehen, Beteiligungen und Investitionsbeiträgen;
+389;Einlagen in das Eigenkapital;21,034

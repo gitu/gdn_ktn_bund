@@ -1,0 +1,29 @@
+;Betrieblicher Aufwand;2,892,577
+30;Personalaufwand;732,369
+31;Sach- und übriger Betriebsaufwand;789,862
+32;Rüstungsaufwand;
+33;Abschreibungen auf das Verwaltungsvermögen;263,426
+35;Einlagen in Fonds und Spezialfinanzierungen;46,245
+36;Transferaufwand;1,060,675
+;Betrieblicher Ertrag;2,998,489
+40;Fiskalertrag;1,925,552
+41;Regalien und Konzessionen;25,228
+42;Entgelte;688,898
+43;Übrige Erträge;5,514
+45;Entnahmen aus Fonds und Spezialfinanzierungen;39,227
+46;Transferertrag;314,069
+;Ergebnis aus betrieblicher Tätigkeit;105,912
+ ;;
+34;Finanzaufwand;28,484
+44;Finanzertrag;142,120
+;Finanzergebnis;113,636
+;Ordentliches Ergebnis;219,548
+ ;;
+38;Ausserordentlicher Aufwand;21,430
+48;Ausserordentlicher Ertrag;53,563
+;Ausserordentliches Ergebnis;32,133
+;Erfolg;251,682
+ ;;
+3;Aufwand;2,942,491
+4;Ertrag;3,194,172
+;Erfolg;251,682
