@@ -1,39 +1,14 @@
-import { defineConfig } from 'vitest/config';
-import vue from '@vitejs/plugin-vue';
+import { fileURLToPath } from 'node:url'
+import { mergeConfig, defineConfig, configDefaults } from 'vitest/config'
+import viteConfig from './vite.config'
 
-export default defineConfig({
-  plugins: [vue()],
-  test: {
-    environment: 'jsdom',
-    globals: true,
-    include: ['src/**/*.test.{ts,vue}'],
-    setupFiles: ['src/test-setup.ts'],
-    css: false, // Disable CSS processing for tests
-    coverage: {
-      provider: 'v8',
-      reporter: ['text', 'json', 'html'],
-      exclude: [
-        'node_modules/',
-        'src/**/*.d.ts',
-        'src/**/__tests__/**',
-        'src/test-setup.ts',
-      ],
+export default mergeConfig(
+  viteConfig,
+  defineConfig({
+    test: {
+      environment: 'jsdom',
+      exclude: [...configDefaults.exclude, 'e2e/**'],
+      root: fileURLToPath(new URL('./', import.meta.url)),
     },
-    server: {
-      deps: {
-        inline: ['vuetify']
-      }
-    }
-  },
-  css: {
-    preprocessorOptions: {
-      scss: {
-        additionalData: `@import "vuetify/settings";`
-      }
-    }
-  },
-  // Define module mocks
-  define: {
-    'import.meta.vitest': undefined,
-  }
-});
+  }),
+)

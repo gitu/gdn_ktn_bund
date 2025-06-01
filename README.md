@@ -1,193 +1,64 @@
-# Swiss Financial Data Comparison Tool
+# gdn_ktn_bund
 
-A Vue.js 3 web application with Vuetify UI framework for comparing financial data between Swiss municipalities (Gemeinden), cantons, and federal entities. The application provides interactive visualizations, detailed analysis, and enriched data display with multi-language support.
+This template should help get you started developing with Vue 3 in Vite.
 
-## Live Demo
+## Recommended IDE Setup
 
-The application is deployed and can be visited at: **https://gdn.gitu.cc/**
+[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
 
-## Features
+## Type Support for `.vue` Imports in TS
 
-- Compare financial data between different municipalities
-- View data for different years
-- Scale data to match totals for better comparison
-- Visual representation of financial data
-- **NEW**: Calculate financial balances (income - expenses) for GDN and STD entities
-- **NEW**: Multi-language support for financial descriptions (German, French, Italian, English)
-- **NEW**: Detailed category breakdowns for income and expenses
-- **NEW**: Entity comparison and year-over-year analysis
-- **NEW**: Comprehensive data enrichment with code descriptions
+TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) to make the TypeScript language service aware of `.vue` types.
 
-## Data Loading
+## Customize configuration
 
-The application loads data at compile time rather than through the GUI. This approach has several advantages:
+See [Vite Configuration Reference](https://vite.dev/config/).
 
-1. **Faster startup**: Data is bundled with the application, eliminating the need for users to upload files
-2. **Consistent data**: All users see the same data, ensuring consistent comparisons
-3. **Version control**: Data is versioned along with the code
-4. **Simplified user experience**: Users don't need to know which files to upload
+## Project Setup
 
-### Data Preparation
-
-The data is split into smaller files based on municipality and year to make it easier to manage and load. A Node.js script is provided to automate this process:
-
-```bash
-# Run the data splitting script
-node scripts/split-csv.js
+```sh
+npm install
 ```
 
-This script:
-1. Reads the source CSV files from `src/data/`
-2. Splits them by municipality and year
-3. Saves the resulting files in `src/data/split/`
+### Compile and Hot-Reload for Development
 
-The application then loads these split files at compile time using Vite's import mechanism.
-
-### Adding New Data
-
-To add new data to the application:
-
-1. Place the new CSV files in the `src/data/` directory
-2. Run the data splitting script to process the new files
-3. Update the `availableMunicipalities` and `availableYears` arrays in `src/utils/DataLoader.ts` if necessary
-4. Rebuild the application
-
-The application will automatically use the latest year's data by default, with the option to switch to older data.
-
-## Implementation Details
-
-### Data Loading Mechanism
-
-The application uses a compile-time data loading mechanism implemented in `src/utils/DataLoader.ts`. This module:
-
-1. Provides functions to access data for different municipalities and years
-2. Automatically determines the latest available year
-3. Loads data from pre-split CSV files
-
-In a production environment, you would use Vite's `import.meta.glob` feature to dynamically import all CSV files:
-
-```typescript
-// Example of how to dynamically import all municipality files
-const municipalityFiles = import.meta.glob('../data/split/gemeinde/*.csv', { eager: true });
-
-// Example of how to dynamically import all year-municipality files
-const yearMunicipalityFiles = import.meta.glob('../data/split/jahr_gemeinde/**/*.csv', { eager: true });
+```sh
+npm run dev
 ```
 
-### Project Structure
+### Type-Check, Compile and Minify for Production
 
-- `src/components/`: React components
-- `src/utils/`: Utility functions, including:
-  - `DataLoader.ts`: Data loading utilities
-  - `BalanceCalculator.ts`: **NEW** - Financial balance calculation functions
-  - `DataEnricher.ts`: **NEW** - Data enrichment with code descriptions
-  - `CodelistMapper.ts`: Code mapping and description utilities
-- `src/types/`: TypeScript type definitions
-- `src/data/`: Source data files
-  - `src/data/codes/`: Financial code descriptions in multiple languages
-  - `src/data/std/`: Standard financial data (GDN and STD entities)
-  - `src/data/gdn/`: Municipality-specific data
-- `src/examples/`: **NEW** - Usage examples and integration demos
-- `scripts/`: Utility scripts, including the data processing script
-
-## Balance Calculator
-
-The application now includes a comprehensive balance calculation system for Swiss financial data:
-
-### Key Features
-
-- **Automatic Classification**: Distinguishes between income and expense dimensions
-- **Entity Type Support**: Handles both GDN (municipalities) and STD (cantons/federal) entities
-- **Multi-language Descriptions**: Supports German, French, Italian, and English
-- **Category Breakdowns**: Detailed analysis of income and expense categories
-- **Comparison Tools**: Compare entities and analyze year-over-year changes
-- **Data Validation**: Comprehensive error handling and data validation
-
-### Quick Start
-
-```typescript
-import { calculateBalance, enrichFinancialData } from './utils/BalanceCalculator';
-
-// 1. Enrich raw data with descriptions
-const enrichedData = await enrichFinancialData(rawData, 'de');
-
-// 2. Calculate balances
-const result = calculateBalance(enrichedData, {
-  year: "2022",
-  language: 'de',
-  includeBreakdown: true
-});
-
-// 3. Access results
-console.log(`GDN Total Balance: ${result.aggregateTotals.gdnTotals.balance} CHF`);
-console.log(`STD Total Balance: ${result.aggregateTotals.stdTotals.balance} CHF`);
+```sh
+npm run build
 ```
 
-### Testing
+### Run Unit Tests with [Vitest](https://vitest.dev/)
 
-Run the comprehensive test suite:
-
-```bash
-npm test                 # Run all tests
-npm run test:watch      # Run tests in watch mode
-npm run test:ui         # Run tests with UI
-npm run test:coverage   # Run tests with coverage report
+```sh
+npm run test:unit
 ```
 
-### Examples
+### Run End-to-End Tests with [Playwright](https://playwright.dev)
 
-See `src/examples/` for detailed usage examples:
-- `BalanceCalculatorExample.ts` - Basic usage examples
-- `FullIntegrationExample.ts` - Complete workflow demonstration
+```sh
+# Install browsers for the first run
+npx playwright install
 
-For detailed documentation, see `src/utils/README.md`.
+# When testing on CI, must build the project first
+npm run build
 
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+# Runs the end-to-end tests
+npm run test:e2e
+# Runs the tests only on Chromium
+npm run test:e2e -- --project=chromium
+# Runs the tests of a specific file
+npm run test:e2e -- tests/example.spec.ts
+# Runs the tests in debug mode
+npm run test:e2e -- --debug
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### Lint with [ESLint](https://eslint.org/)
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
+```sh
+npm run lint
 ```
-
-## Development Notes
-
-**AI-Generated Codebase**: This entire repository was generated using multiple AI agents with only slight modifications done by hand. The project demonstrates the capabilities of AI-assisted development for creating complete, functional web applications.
