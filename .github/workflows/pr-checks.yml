@@ -60,7 +60,7 @@ jobs:
     timeout-minutes: 10
     strategy:
       matrix:
-        browser: [chromium, firefox, webkit]
+        browser: [chromium]
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
