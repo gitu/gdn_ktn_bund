@@ -1,0 +1,163 @@
+4;Ertrag;3,194,172
+40;Fiskalertrag;1,925,552
+400;Direkte Steuern natürliche Personen;1,755,482
+4000;Einkommenssteuern natürliche Personen;1,509,222
+4001;Vermögenssteuern natürliche Personen;160,189
+4002;Quellensteuern natürliche Personen;86,071
+4008;Personensteuern;
+4009;Übrige direkte Steuern natürliche Personen;
+401;Direkte Steuern juristische Personen;162,615
+4010;Gewinnsteuern juristische Personen;150,400
+4011;Kapitalsteuern juristische Personen;12,215
+4012;Quellensteuern juristische Personen;
+4019;Übrige direkte Steuern juristische Personen;
+402;Übrige direkte Steuern;3,291
+4020;Verrechnungssteuer (nur Bund);
+4021;Grundsteuern;
+4022;Vermögensgewinnsteuern;3,291
+4023;Vermögensverkehrssteuern;
+4024;Erbschafts- und Schenkungssteuern;
+4025;Spielbanken- und Spielautomatenabgabe;
+403;Besitz- und Aufwandsteuern;4,165
+4030;Motorfahrzeugsteuern;
+4031;Schiffssteuer;
+4032;Vergnügungssteuern;
+4033;Hundesteuer;4,165
+4039;Übrige Besitz- und Aufwandsteuer;
+404;Verbrauchssteuern (nur Bund);
+4040;Mehrwertsteuer;
+4041;Stempelabgabe;
+4042;Mineralölsteuer auf Treibstoffen;
+4043;Mineralölsteuerzuschlag auf Treibstoffen;
+4044;Mineralölsteuer auf Brennstoffen und and. Mineralölprodukten;
+4045;Tabaksteuer;
+4046;Biersteuer;
+4047;Besteuerung gebrannter Wasser (EAV);
+4049;Verbrauchssteuern n.a.g.;
+405;Verkehrsabgaben;
+4050;Automobilsteuer;
+4051;Nationalstrassenabgabe;
+4052;Schwerverkehrsabgabe;
+4053;Abgaben kombinierter Verkehr;
+4059;Verkehrsabgaben n.a.g.;
+406;Zölle (nur Bund);
+4060;Einfuhrzölle;
+407;Übrige Abgaben;
+4070;Lenkungsabgaben Umweltschutz;
+4071;Landwirtschaftliche Abgaben;
+4072;Sozialversicherungsbeiträge der Versicherten und Arbeitgeber;
+4079;Sonstiger Fiskalertrag;
+41;Regalien und Konzessionen;25,228
+410;Regalien;9
+411;Schweiz. Nationalbank;
+412;Konzessionen;25,220
+413;Ertragsanteile an Lotterien, Sport-Toto, Wetten;
+42;Entgelte;688,898
+420;Ersatzabgaben;21,131
+421;Gebühren für Amtshandlungen;51,223
+422;Spital- und Heimtaxen, Kostgelder;
+423;Schul- und Kursgelder;22,839
+424;Benützungsgebühren und Dienstleistungen;367,047
+425;Erlös aus Verkäufen;9,762
+426;Rückerstattungen;188,083
+427;Bussen;23,141
+429;Übrige Entgelte;5,673
+43;Übrige Erträge;5,514
+430;Übrige betriebliche Erträge;520
+431;Aktivierung Eigenleistungen;1,913
+432;Bestandesveränderungen;-4
+439;Übriger Ertrag;3,084
+44;Finanzertrag;142,120
+440;Zinsertrag;22,008
+441;Realisierte Gewinne, FV;8,947
+442;Beteiligungsertrag, FV;1,500
+443;Liegenschaftenertrag, FV;23,389
+444;Wertberichtigungen Anlagen, FV;20,996
+445;Finanzertrag aus Darlehen und Beteiligungen, VV;12,742
+446;Finanzertrag von öffentlichen Unternehmen;2,682
+447;Liegenschaftenertrag, VV;49,427
+448;Erträge von gemieteten Liegenschaften, VV;262
+449;Übriger Finanzertrag;166
+45;Entnahmen aus Fonds und Spezialfinanzierungen;39,227
+450;Entnahmen aus Fonds und Spezialfinanzierungen im Fremdkapital;4,465
+451;Entnahmen aus Fonds und Spezialfinanzierungen im Eigenkapital;34,762
+452;Entnahmen aus Fonds und Spezialfinanzierungen n.a.g.;
+46;Transferertrag;314,069
+460;Ertragsanteile;56,211
+4600;Anteil am Ertrag Bundeserträgen;
+46000;Anteil am Ertrag Direkter Bundessteuer;
+46001;Anteil am Ertrag Verrechnungssteuer;
+46002;Anteil am Ertrag Wehrpflichtersatz;
+46003;Anteil am Ertrag Eidg. Alkoholverwaltung;
+46004;Anteil am Ertrag Eidg. Bussen und Taxen;
+46005;Anteil am Ertrag Eidg. Mineralölsteuer;
+46006;Anteil am Ertrag Eidg. Stempelsteuer;
+46007;Anteil am Ertrag EU-Zinsbesteuerung;
+46008;Anteil am Ertrag LSVA;
+46009;Anteil am Ertrag übriger Bundeseinnahmen;
+4601;Anteil an Kantonserträgen und Konkordaten;56,211
+46010;Anteil am Ertrag kantonaler Steuern;50,755
+46011;Anteil am Ertrag kantonaler Regalien und Konzessionen;
+46012;Anteil an kantonalen Gebühren;
+46019;Anteil an übrigen kantonalen Erträgen;5,456
+4603;Anteil an Erträgen öffentlicher Sozialversicherungsanstalten;
+4604;Anteile an Erträgen öffentlicher Unternehmen;
+461;Entschädigungen;1,695
+4610;Entschädigungen vom Bund;
+4611;Entschädigungen von Kantonen und Konkordaten;1,477
+4612;Entschädigungen von Gemeinden und Gemeindezweckverbänden;
+4613;Entschädigungen von öffentlichen Sozialversicherungen;
+4614;Entschädigungen von öffentlichen Unternehmen;218
+462;Finanz- und Lastenausgleich;111,702
+4620;Finanz- und Lastenausgleich Bund;
+46201;Ressourcenausgleich;
+46202;Sozio-demografischer Ausgleich;
+46203;Geografisch-topografischer Ausgleich;
+46204;Härteausgleich;
+46209;Übrige Massnahmen des Finanzausgleichs;
+4621;Finanz- und Lastenausgleich von Kantonen;111,702
+46211;Ressourcenausgleich;
+46212;Anteil am sozio-demografischen Lastenausgleich des Kantons;
+46213;Anteil am geografisch-topografischen Lastenausgleich des Kantons;
+46214;Härteausgleich;
+46215;Vertikaler Finanzausgleich von Kanton zu Gemeinden;111,702
+46216;Vertikaler Lastenausgleich von Kanton zu Gemeinden;
+46217;Ressourcen- und Härteausgleich von Geberkantonen;
+4622;Finanz- und Lastenausgleich von Gemeinden;
+46225;Innerkantonaler vertikaler Finanzausgleich;
+46226;Innerkantonaler vertikaler Lastenausgleich;
+46227;Horizontaler Finanzausgleich von Gemeinde an Gemeinde;
+46228;Horizontaler Lastenausgleich von Gemeinde an Gemeinde;
+4624;Finanz- und Lastenausgleich von öffentlichen Unternehmen;
+4629;Finanzausgleich n.a.g.;
+463;Beiträge von Gemeinwesen und Dritten;122,187
+4630;Beiträge vom Bund;
+4631;Beiträge von Kantonen und Konkordaten;114,843
+4632;Beiträge von Gemeinden und Gemeindezweckverbänden;
+4633;Beiträge von öffentlichen Sozialversicherungen;
+4634;Beiträge von öffentlichen Unternehmen;5,921
+4635;Beiträge von privaten Unternehmen;942
+4636;Beiträge von privaten Organisationen ohne Erwerbszweck;481
+4637;Beiträge von privaten Haushalten;
+4638;Beiträge aus dem Ausland;
+466;Auflösung passivierte Investitionsbeiträge;21,698
+469;Übriger Transferertrag;576
+48;Ausserordentlicher Ertrag;53,563
+481;Ausserordentliche Erträge von Regalien, Konzessionen;
+482;Ausserordentliche Entgelte;
+483;Ausserordentliche verschiedene Erträge;383
+484;Ausserordentliche Finanzerträge;72
+485;;
+486;Ausserordentliche Transfererträge;
+4860;Ausserordentliche Transfererträge, Bund;
+4861;Ausserordentliche Transfererträge, Kantone;
+4862;Ausserordentliche Transfererträge, Gemeinden;
+4863;Ausserordentliche Transfererträge, öffentliche Sozialversicherungen;
+4864;Ausserordentliche Transfererträge, öffentliche Unternehmen;
+4865;Ausserordentliche Transfererträge, private Unternehmen;
+4866;Ausserordentliche Transfererträge, private Organisationen ohne Erwerbszweck;
+4867;Ausserordentliche Transfererträge, private Haushalte;
+4868;Ausserordentliche Transfererträge, Ausland;
+487;Zusätzliche Auflösung passivierter Investitionsbeiträge;
+4870;Zusätzliche Auflösung passivierter Investitionsbeiträge;
+489;Entnahmen aus dem Eigenkapital;53,108
