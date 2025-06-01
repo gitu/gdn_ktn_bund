@@ -1,0 +1,482 @@
+{
+  "metadata": {
+    "dimension": "fir",
+    "model": "fs",
+    "source": "codes/fir/fs.csv",
+    "generatedAt": "2025-06-01T18:53:11.910Z",
+    "totalNodes": 36,
+    "maxDepth": 2
+  },
+  "tree": {
+    "code": "root",
+    "labels": {
+      "de": "Gesamt",
+      "fr": "Total",
+      "it": "Totale",
+      "en": "Total"
+    },
+    "children": [
+      {
+        "code": "3",
+        "labels": {
+          "de": "Ausgaben",
+          "fr": "Dépenses",
+          "it": "Uscite",
+          "en": "Expenditure"
+        },
+        "children": [
+          {
+            "code": "30",
+            "labels": {
+              "de": "Personalausgaben",
+              "fr": "Dépenses de personnel",
+              "it": "Uscite per il personale",
+              "en": "Personnel expenditure"
+            },
+            "children": [],
+            "level": 2,
+            "hasValue": false,
+            "value": null
+          },
+          {
+            "code": "31",
+            "labels": {
+              "de": "Sach- und übrige Betriebsausgaben",
+              "fr": "Dépenses de biens et services et autres dépenses d'exploitation",
+              "it": "Uscite per beni e servizi e altre uscite d’esercizio",
+              "en": "General, administrative and operating expenditure"
+            },
+            "children": [],
+            "level": 2,
+            "hasValue": false,
+            "value": null
+          },
+          {
+            "code": "32",
+            "labels": {
+              "de": "Rüstungsausgaben",
+              "fr": "Dépenses d'armement",
+              "it": "Uscite per l'armamento",
+              "en": "Defense expenditure"
+            },
+            "children": [],
+            "level": 2,
+            "hasValue": false,
+            "value": null
+          },
+          {
+            "code": "34",
+            "labels": {
+              "de": "Finanzausgaben",
+              "fr": "Dépenses financières",
+              "it": "Uscite finanziarie",
+              "en": "Financial expenditure"
+            },
+            "children": [],
+            "level": 2,
+            "hasValue": false,
+            "value": null
+          },
+          {
+            "code": "36",
+            "labels": {
+              "de": "Transferausgaben",
+              "fr": "Dépenses de transfert",
+              "it": "Uscite di riversamento",
+              "en": "Transfer expenditure"
+            },
+            "children": [],
+            "level": 2,
+            "hasValue": false,
+            "value": null
+          },
+          {
+            "code": "38",
+            "labels": {
+              "de": "Ausserordentliche Ausgaben",
+              "fr": "Dépenses extraordinaires",
+              "it": "Uscite straordinarie",
+              "en": "Extraordinary expenditure"
+            },
+            "children": [],
+            "level": 2,
+            "hasValue": false,
+            "value": null
+          }
+        ],
+        "level": 1,
+        "hasValue": false,
+        "value": null
+      },
+      {
+        "code": "4",
+        "labels": {
+          "de": "Einnahmen",
+          "fr": "Recettes",
+          "it": "Entrate",
+          "en": "Receipts"
+        },
+        "children": [
+          {
+            "code": "40",
+            "labels": {
+              "de": "Fiskaleinnahmen",
+              "fr": "Recettes fiscales",
+              "it": "Entrate fiscali",
+              "en": "Tax receipts"
+            },
+            "children": [],
+            "level": 2,
+            "hasValue": false,
+            "value": null
+          },
+          {
+            "code": "41",
+            "labels": {
+              "de": "Regalien und Konzessionen",
+              "fr": "Patentes et concessions",
+              "it": "Regalie e concessioni",
+              "en": "Royalties and concessions"
+            },
+            "children": [],
+            "level": 2,
+            "hasValue": false,
+            "value": null
+          },
+          {
+            "code": "42",
+            "labels": {
+              "de": "Entgelte",
+              "fr": "Compensations",
+              "it": "Ricavi e tasse",
+              "en": "Receipts from exchange transactions"
+            },
+            "children": [],
+            "level": 2,
+            "hasValue": false,
+            "value": null
+          },
+          {
+            "code": "43",
+            "labels": {
+              "de": "Übrige Einnahmen",
+              "fr": "Autres recettes",
+              "it": "Rimanenti entrate",
+              "en": "Other receipts"
+            },
+            "children": [],
+            "level": 2,
+            "hasValue": false,
+            "value": null
+          },
+          {
+            "code": "44",
+            "labels": {
+              "de": "Finanzeinnahmen",
+              "fr": "Recettes financières",
+              "it": "Entrate finanziarie",
+              "en": "Financial receipts"
+            },
+            "children": [],
+            "level": 2,
+            "hasValue": false,
+            "value": null
+          },
+          {
+            "code": "46",
+            "labels": {
+              "de": "Transfereinnahmen",
+              "fr": "Recettes de transfert",
+              "it": "Entrate da riversamenti",
+              "en": "Transfer receipts"
+            },
+            "children": [],
+            "level": 2,
+            "hasValue": false,
+            "value": null
+          },
+          {
+            "code": "48",
+            "labels": {
+              "de": "Ausserordentliche Einnahmen",
+              "fr": "Recettes extraordinaires",
+              "it": "Entrate straordinarie",
+              "en": "Extraordinary receipts"
+            },
+            "children": [],
+            "level": 2,
+            "hasValue": false,
+            "value": null
+          }
+        ],
+        "level": 1,
+        "hasValue": false,
+        "value": null
+      },
+      {
+        "code": "5",
+        "labels": {
+          "de": "Investitionsausgaben",
+          "fr": "Dépenses d'investissement",
+          "it": "Uscite per investimenti",
+          "en": "Investment expenditure"
+        },
+        "children": [
+          {
+            "code": "50",
+            "labels": {
+              "de": "Sachanlagen",
+              "fr": "Immobilisations corporelles",
+              "it": "Investimenti materiali",
+              "en": "Tangible fixed assets"
+            },
+            "children": [],
+            "level": 2,
+            "hasValue": false,
+            "value": null
+          },
+          {
+            "code": "51",
+            "labels": {
+              "de": "Investitionen auf Rechnung Dritter",
+              "fr": "Investissements pour le compte de tiers",
+              "it": "Investimenti per conto di terzi",
+              "en": "Investments on behalf of third parties"
+            },
+            "children": [],
+            "level": 2,
+            "hasValue": false,
+            "value": null
+          },
+          {
+            "code": "52",
+            "labels": {
+              "de": "Investitionen, immaterielle Anlagen",
+              "fr": "Investissements, immobilisations incorporelles",
+              "it": "Investimenti immateriali",
+              "en": "Investments, intangible fixed assets"
+            },
+            "children": [],
+            "level": 2,
+            "hasValue": false,
+            "value": null
+          },
+          {
+            "code": "53",
+            "labels": {
+              "de": "Darlehen und Beteiligungen n.a.g.",
+              "fr": "Prêts et participations n.c.a.",
+              "it": "Mutui e partecipazioni n.m.a.",
+              "en": "Loans and financial interests n.e.c."
+            },
+            "children": [],
+            "level": 2,
+            "hasValue": false,
+            "value": null
+          },
+          {
+            "code": "54",
+            "labels": {
+              "de": "Darlehen",
+              "fr": "Prêts",
+              "it": "Mutui",
+              "en": "Loans"
+            },
+            "children": [],
+            "level": 2,
+            "hasValue": false,
+            "value": null
+          },
+          {
+            "code": "55",
+            "labels": {
+              "de": "Beteiligungen und Grundkapitalien",
+              "fr": "Participations et capital social",
+              "it": "Partecipazioni e capitali sociali",
+              "en": "Financial interests and share capital"
+            },
+            "children": [],
+            "level": 2,
+            "hasValue": false,
+            "value": null
+          },
+          {
+            "code": "57",
+            "labels": {
+              "de": "Investitionsbeiträge",
+              "fr": "Contributions à des investissements",
+              "it": "Contributi agli investimenti",
+              "en": "Investment contributions"
+            },
+            "children": [],
+            "level": 2,
+            "hasValue": false,
+            "value": null
+          },
+          {
+            "code": "58",
+            "labels": {
+              "de": "Ausserordentliche Investitionsausgaben",
+              "fr": "Dépenses d'investissement extraordinaires",
+              "it": "Uscite straordinarie per investimenti",
+              "en": "Extraordinary investment expenditure"
+            },
+            "children": [],
+            "level": 2,
+            "hasValue": false,
+            "value": null
+          }
+        ],
+        "level": 1,
+        "hasValue": false,
+        "value": null
+      },
+      {
+        "code": "6",
+        "labels": {
+          "de": "Investitionseinnahmen",
+          "fr": "Recettes d'investissement",
+          "it": "Entrate per investimenti",
+          "en": "Investment receipts"
+        },
+        "children": [
+          {
+            "code": "60",
+            "labels": {
+              "de": "Übertragung von Sachanlagen in das Finanzvermögen",
+              "fr": "Transfert d'immobilisations corporelles dans le patrimoine financier",
+              "it": "Riporto di investimenti materiali nei beni patrimoniali",
+              "en": "Transfer of tangible fixed assets to non-administrative assets"
+            },
+            "children": [],
+            "level": 2,
+            "hasValue": false,
+            "value": null
+          },
+          {
+            "code": "61",
+            "labels": {
+              "de": "Rückerstattungen",
+              "fr": "Remboursements",
+              "it": "Rimborsi",
+              "en": "Reimbursements"
+            },
+            "children": [],
+            "level": 2,
+            "hasValue": false,
+            "value": null
+          },
+          {
+            "code": "62",
+            "labels": {
+              "de": "Abgang immaterielle Sachanlagen",
+              "fr": "Sortie d'immobilisations incorporelles",
+              "it": "Diminuzione, investimenti immateriali",
+              "en": "Disposal of intangible fixed assets"
+            },
+            "children": [],
+            "level": 2,
+            "hasValue": false,
+            "value": null
+          },
+          {
+            "code": "63",
+            "labels": {
+              "de": "Rückzahlung von Darlehen und Beteiligungen n.a.g.",
+              "fr": "Remboursement de prêts et participations n.c.a.",
+              "it": "Restituzione di mutui e partecipazioni n.m.a.",
+              "en": "Repayment of loans and financial interests n.e.c."
+            },
+            "children": [],
+            "level": 2,
+            "hasValue": false,
+            "value": null
+          },
+          {
+            "code": "64",
+            "labels": {
+              "de": "Rückzahlung von Darlehen",
+              "fr": "Remboursement de prêts",
+              "it": "Restituzione di mutui",
+              "en": "Loan repayment"
+            },
+            "children": [],
+            "level": 2,
+            "hasValue": false,
+            "value": null
+          },
+          {
+            "code": "65",
+            "labels": {
+              "de": "Übertragung von Beteiligungen",
+              "fr": "Transfert de participations",
+              "it": "Riporto di partecipazioni",
+              "en": "Transfer of financial interests"
+            },
+            "children": [],
+            "level": 2,
+            "hasValue": false,
+            "value": null
+          },
+          {
+            "code": "66",
+            "labels": {
+              "de": "Rückzahlung eigener Investitionsbeiträge",
+              "fr": "Remboursement de propres contributions à des investissements",
+              "it": "Rimborso di contributi agli investimenti propri",
+              "en": "Repayment of own investment contributions"
+            },
+            "children": [],
+            "level": 2,
+            "hasValue": false,
+            "value": null
+          },
+          {
+            "code": "67",
+            "labels": {
+              "de": "Investitionsbeiträge",
+              "fr": "Contributions à des investissements",
+              "it": "Contributi agli investimenti",
+              "en": "Investment contributions"
+            },
+            "children": [],
+            "level": 2,
+            "hasValue": false,
+            "value": null
+          },
+          {
+            "code": "68",
+            "labels": {
+              "de": "Ausserordentliche Investitionseinnahmen",
+              "fr": "Recettes d'investissement extraordinaires",
+              "it": "Entrate straordinarie per investimenti",
+              "en": "Extraordinary investment receipts"
+            },
+            "children": [],
+            "level": 2,
+            "hasValue": false,
+            "value": null
+          }
+        ],
+        "level": 1,
+        "hasValue": false,
+        "value": null
+      },
+      {
+        "code": "empty",
+        "labels": {
+          "de": "",
+          "fr": "",
+          "it": "",
+          "en": ""
+        },
+        "children": [],
+        "level": 5,
+        "hasValue": false,
+        "value": null
+      }
+    ],
+    "level": 0,
+    "hasValue": false
+  }
+}

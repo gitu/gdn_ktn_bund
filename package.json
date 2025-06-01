@@ -9,7 +9,8 @@
     "build": "run-p type-check \"build-only {@}\" --",
     "preview": "vite preview",
     "tests": "run-p test:*",
-    "test:unit": "vitest",
+    "test:unit": "vitest run",
+    "test:unit:watch": "vitest",
     "test:e2e": "playwright test",
     "test": "run-s test:coverage test:e2e",
     "test:coverage": "vitest run --coverage",
@@ -21,6 +22,7 @@
     "format": "prettier --write src/"
   },
   "dependencies": {
+    "papaparse": "^5.5.3",
     "pinia": "^3.0.1",
     "vue": "^3.5.13",
     "vue-router": "^4.5.0"

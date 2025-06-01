@@ -1,0 +1,3180 @@
+{
+  "metadata": {
+    "dimension": "einnahmen",
+    "model": "fs",
+    "source": "codes/einnahmen/fs.csv",
+    "generatedAt": "2025-06-01T18:53:11.905Z",
+    "totalNodes": 241,
+    "maxDepth": 5
+  },
+  "tree": {
+    "code": "root",
+    "labels": {
+      "de": "Gesamt",
+      "fr": "Total",
+      "it": "Totale",
+      "en": "Total"
+    },
+    "children": [
+      {
+        "code": "4",
+        "labels": {
+          "de": "Einnahmen",
+          "fr": "Recettes",
+          "it": "Entrate",
+          "en": "Receipts"
+        },
+        "children": [
+          {
+            "code": "40",
+            "labels": {
+              "de": "Fiskaleinnahmen",
+              "fr": "Recettes fiscales",
+              "it": "Entrate fiscali",
+              "en": "Tax receipts"
+            },
+            "children": [
+              {
+                "code": "400",
+                "labels": {
+                  "de": "Direkte Steuern natürliche Personen",
+                  "fr": "Impôts directs, personnes physiques",
+                  "it": "Imposte dirette di persone fisiche",
+                  "en": "Direct taxes, natural persons"
+                },
+                "children": [
+                  {
+                    "code": "4000",
+                    "labels": {
+                      "de": "Einkommenssteuern natürliche Personen",
+                      "fr": "Impôts sur le revenu, personnes physiques",
+                      "it": "Imposte sul reddito di persone fisiche",
+                      "en": "Income tax, natural persons"
+                    },
+                    "children": [],
+                    "level": 4,
+                    "hasValue": false,
+                    "value": null
+                  },
+                  {
+                    "code": "4001",
+                    "labels": {
+                      "de": "Vermögenssteuern natürliche Personen",
+                      "fr": "Impôts sur la fortune, personnes physiques",
+                      "it": "Imposte sulla sostanza di persone fisiche",
+                      "en": "Wealth tax, natural persons"
+                    },
+                    "children": [],
+                    "level": 4,
+                    "hasValue": false,
+                    "value": null
+                  },
+                  {
+                    "code": "4002",
+                    "labels": {
+                      "de": "Quellensteuern natürliche Personen",
+                      "fr": "Impôts à la source, personnes physiques",
+                      "it": "Imposte alla fonte di persone fisiche",
+                      "en": "Withholding taxes, natural persons"
+                    },
+                    "children": [],
+                    "level": 4,
+                    "hasValue": false,
+                    "value": null
+                  },
+                  {
+                    "code": "4008",
+                    "labels": {
+                      "de": "Personensteuern",
+                      "fr": "Impôts sur les personnes",
+                      "it": "Imposte personali",
+                      "en": "Personal taxes"
+                    },
+                    "children": [],
+                    "level": 4,
+                    "hasValue": false,
+                    "value": null
+                  },
+                  {
+                    "code": "4009",
+                    "labels": {
+                      "de": "Übrige direkte Steuern natürliche Personen",
+                      "fr": "Autres impôts directs, personnes physiques",
+                      "it": "Rimanenti imposte dirette di persone fisiche",
+                      "en": "Other direct taxes, natural persons"
+                    },
+                    "children": [],
+                    "level": 4,
+                    "hasValue": false,
+                    "value": null
+                  }
+                ],
+                "level": 3,
+                "hasValue": false,
+                "value": null
+              },
+              {
+                "code": "401",
+                "labels": {
+                  "de": "Direkte Steuern juristische Personen",
+                  "fr": "Impôts directs, personnes morales",
+                  "it": "Imposte dirette di persone giuridiche",
+                  "en": "Direct taxes, legal entities"
+                },
+                "children": [
+                  {
+                    "code": "4010",
+                    "labels": {
+                      "de": "Gewinnsteuern juristische Personen",
+                      "fr": "Impôts sur le bénéfice, personnes morales",
+                      "it": "Imposte sull'utile di persone giuridiche",
+                      "en": "Profit taxes, legal entities"
+                    },
+                    "children": [],
+                    "level": 4,
+                    "hasValue": false,
+                    "value": null
+                  },
+                  {
+                    "code": "4011",
+                    "labels": {
+                      "de": "Kapitalsteuern juristische Personen",
+                      "fr": "Impôts sur le capital, personnes morales",
+                      "it": "Imposte sul capitale di persone giuridiche",
+                      "en": "Taxes on capital, legal entities"
+                    },
+                    "children": [],
+                    "level": 4,
+                    "hasValue": false,
+                    "value": null
+                  },
+                  {
+                    "code": "4012",
+                    "labels": {
+                      "de": "Quellensteuern juristische Personen",
+                      "fr": "Impôts à la source, personnes morales",
+                      "it": "Imposte alla fonte di persone giuridiche",
+                      "en": "Withholding taxes, legal entities"
+                    },
+                    "children": [],
+                    "level": 4,
+                    "hasValue": false,
+                    "value": null
+                  },
+                  {
+                    "code": "4019",
+                    "labels": {
+                      "de": "Übrige direkte Steuern juristische Personen",
+                      "fr": "Autres impôts directs, personnes morales",
+                      "it": "Rimanenti imposte dirette di persone giuridiche",
+                      "en": "Other direct taxes, legal entities"
+                    },
+                    "children": [],
+                    "level": 4,
+                    "hasValue": false,
+                    "value": null
+                  }
+                ],
+                "level": 3,
+                "hasValue": false,
+                "value": null
+              },
+              {
+                "code": "402",
+                "labels": {
+                  "de": "Übrige direkte Steuern",
+                  "fr": "Autres impôts directs",
+                  "it": "Rimanenti imposte dirette",
+                  "en": "Other direct taxes"
+                },
+                "children": [
+                  {
+                    "code": "4020",
+                    "labels": {
+                      "de": "Verrechnungssteuer (nur Bund)",
+                      "fr": "Impôt anticipé (uniquement Confédération)",
+                      "it": "Imposta preventiva (solo Confederazione)",
+                      "en": "Withholding tax (Confederation only)"
+                    },
+                    "children": [],
+                    "level": 4,
+                    "hasValue": false,
+                    "value": null
+                  },
+                  {
+                    "code": "4021",
+                    "labels": {
+                      "de": "Grundsteuern",
+                      "fr": "Impôts fonciers",
+                      "it": "Imposte fondiarie",
+                      "en": "Property tax"
+                    },
+                    "children": [],
+                    "level": 4,
+                    "hasValue": false,
+                    "value": null
+                  },
+                  {
+                    "code": "4022",
+                    "labels": {
+                      "de": "Vermögensgewinnsteuern",
+                      "fr": "Impôts sur les gains en capital",
+                      "it": "Imposte sugli utili patrimoniali",
+                      "en": "Capital gains tax"
+                    },
+                    "children": [],
+                    "level": 4,
+                    "hasValue": false,
+                    "value": null
+                  },
+                  {
+                    "code": "4023",
+                    "labels": {
+                      "de": "Vermögensverkehrssteuern",
+                      "fr": "Droits de mutation et timbre",
+                      "it": "Imposte sulle transazioni patrimoniali",
+                      "en": "Capital transfer tax"
+                    },
+                    "children": [],
+                    "level": 4,
+                    "hasValue": false,
+                    "value": null
+                  },
+                  {
+                    "code": "4024",
+                    "labels": {
+                      "de": "Erbschafts- und Schenkungssteuern",
+                      "fr": "Impôts sur les successions et donations",
+                      "it": "Imposte sulle successioni e sulle donazioni",
+                      "en": "Inheritance and gift tax"
+                    },
+                    "children": [],
+                    "level": 4,
+                    "hasValue": false,
+                    "value": null
+                  },
+                  {
+                    "code": "4025",
+                    "labels": {
+                      "de": "Spielbanken- und Spielautomatenabgabe",
+                      "fr": "Impôts sur les maisons de jeu et machines à sous",
+                      "it": "Tassa sulle case da gioco e sugli apparecchi automatici da gioco",
+                      "en": "Casino and slot machine tax"
+                    },
+                    "children": [],
+                    "level": 4,
+                    "hasValue": false,
+                    "value": null
+                  }
+                ],
+                "level": 3,
+                "hasValue": false,
+                "value": null
+              },
+              {
+                "code": "403",
+                "labels": {
+                  "de": "Besitz- und Ausgabensteuern",
+                  "fr": "Impôts sur la possession et la dépense",
+                  "it": "Imposte sul possesso e sulla spesa",
+                  "en": "Property and expenditure taxes"
+                },
+                "children": [
+                  {
+                    "code": "4030",
+                    "labels": {
+                      "de": "Motorfahrzeugsteuern",
+                      "fr": "Impôts sur les véhicules à moteur",
+                      "it": "Tasse sul traffico",
+                      "en": "Motor vehicle taxes"
+                    },
+                    "children": [],
+                    "level": 4,
+                    "hasValue": false,
+                    "value": null
+                  },
+                  {
+                    "code": "4031",
+                    "labels": {
+                      "de": "Schiffssteuer",
+                      "fr": "Impôt sur les bateaux",
+                      "it": "Imposta sui natanti",
+                      "en": "Boat tax"
+                    },
+                    "children": [],
+                    "level": 4,
+                    "hasValue": false,
+                    "value": null
+                  },
+                  {
+                    "code": "4032",
+                    "labels": {
+                      "de": "Vergnügungssteuern",
+                      "fr": "Impôts sur les divertissements",
+                      "it": "Imposte sugli spettacoli",
+                      "en": "Entertainment tax"
+                    },
+                    "children": [],
+                    "level": 4,
+                    "hasValue": false,
+                    "value": null
+                  },
+                  {
+                    "code": "4033",
+                    "labels": {
+                      "de": "Hundesteuer",
+                      "fr": "Impôt sur les chiens",
+                      "it": "Imposta sui cani",
+                      "en": "Dog license"
+                    },
+                    "children": [],
+                    "level": 4,
+                    "hasValue": false,
+                    "value": null
+                  },
+                  {
+                    "code": "4039",
+                    "labels": {
+                      "de": "Übrige Besitz- und Ausgabensteuer",
+                      "fr": "Autres impôts sur la possession et la dépense",
+                      "it": "Rimanenti imposte sul possesso e sulla spesa",
+                      "en": "Other property and expenditure taxes"
+                    },
+                    "children": [],
+                    "level": 4,
+                    "hasValue": false,
+                    "value": null
+                  }
+                ],
+                "level": 3,
+                "hasValue": false,
+                "value": null
+              },
+              {
+                "code": "404",
+                "labels": {
+                  "de": "Verbrauchssteuern (nur Bund)",
+                  "fr": "Impôts à la consommation (uniquement Confédération)",
+                  "it": "Imposte sul consumo (solo Confederazione)",
+                  "en": "Consumption taxes (Confederation only)"
+                },
+                "children": [
+                  {
+                    "code": "4040",
+                    "labels": {
+                      "de": "Mehrwertsteuer",
+                      "fr": "Taxe sur la valeur ajoutée",
+                      "it": "Imposta sul valore aggiunto",
+                      "en": "Value added tax"
+                    },
+                    "children": [],
+                    "level": 4,
+                    "hasValue": false,
+                    "value": null
+                  },
+                  {
+                    "code": "4041",
+                    "labels": {
+                      "de": "Stempelabgabe",
+                      "fr": "Droit de timbre",
+                      "it": "Tassa di bollo",
+                      "en": "Stamp duty"
+                    },
+                    "children": [],
+                    "level": 4,
+                    "hasValue": false,
+                    "value": null
+                  },
+                  {
+                    "code": "4042",
+                    "labels": {
+                      "de": "Mineralölsteuer auf Treibstoffen",
+                      "fr": "Impôt sur les huiles minérales grevant les carburants",
+                      "it": "Imposta sugli oli minerali gravante i carburanti",
+                      "en": "Mineral oil tax on fuel"
+                    },
+                    "children": [],
+                    "level": 4,
+                    "hasValue": false,
+                    "value": null
+                  },
+                  {
+                    "code": "4043",
+                    "labels": {
+                      "de": "Mineralölsteuerzuschlag auf Treibstoffen",
+                      "fr": "Surtaxe sur les huiles minérales grevant les carburants",
+                      "it": "Supplemento fiscale sugli oli minerali gravante i carburanti",
+                      "en": "Mineral oil surtax on motor fuel"
+                    },
+                    "children": [],
+                    "level": 4,
+                    "hasValue": false,
+                    "value": null
+                  },
+                  {
+                    "code": "4044",
+                    "labels": {
+                      "de": "Mineralölsteuer auf Brennstoffen und and. Mineralölprodukten",
+                      "fr": "Impôt sur les huiles minérales grevant les combustibles et les autres produits pétroliers",
+                      "it": "Imposta sugli oli minerali riscossa sui combustibili e altri prodotti derivati dagli oli minerali",
+                      "en": "Mineral oil tax on combustibles and other mineral oil products"
+                    },
+                    "children": [],
+                    "level": 4,
+                    "hasValue": false,
+                    "value": null
+                  },
+                  {
+                    "code": "4045",
+                    "labels": {
+                      "de": "Tabaksteuer",
+                      "fr": "Impôt sur le tabac",
+                      "it": "Imposta sul tabacco",
+                      "en": "Tobacco duty"
+                    },
+                    "children": [],
+                    "level": 4,
+                    "hasValue": false,
+                    "value": null
+                  },
+                  {
+                    "code": "4046",
+                    "labels": {
+                      "de": "Biersteuer",
+                      "fr": "Impôt sur la bière",
+                      "it": "Imposta sulla birra",
+                      "en": "Beer tax"
+                    },
+                    "children": [],
+                    "level": 4,
+                    "hasValue": false,
+                    "value": null
+                  },
+                  {
+                    "code": "4047",
+                    "labels": {
+                      "de": "Besteuerung gebrannter Wasser (EAV)",
+                      "fr": "Imposition des boissons distillées (RFA)",
+                      "it": "Imposizione dei bevande distillate (RFA)",
+                      "en": "Taxation of distilled spirits (SAB)"
+                    },
+                    "children": [],
+                    "level": 4,
+                    "hasValue": false,
+                    "value": null
+                  },
+                  {
+                    "code": "4049",
+                    "labels": {
+                      "de": "Verbrauchssteuern n.a.g.",
+                      "fr": "Impôts à la consommation n.c.a.",
+                      "it": "Imposte sul consumo n.m.a.",
+                      "en": "Consumption taxes n.e.c."
+                    },
+                    "children": [],
+                    "level": 4,
+                    "hasValue": false,
+                    "value": null
+                  }
+                ],
+                "level": 3,
+                "hasValue": false,
+                "value": null
+              },
+              {
+                "code": "405",
+                "labels": {
+                  "de": "Verkehrsabgaben",
+                  "fr": "Redevances sur la circulation",
+                  "it": "Tasse sul traffico",
+                  "en": "Transportation taxes"
+                },
+                "children": [
+                  {
+                    "code": "4050",
+                    "labels": {
+                      "de": "Automobilsteuer",
+                      "fr": "Impôt sur les véhicules automobiles",
+                      "it": "Imposta sugli autoveicoli",
+                      "en": "Automobile duty"
+                    },
+                    "children": [],
+                    "level": 4,
+                    "hasValue": false,
+                    "value": null
+                  },
+                  {
+                    "code": "4051",
+                    "labels": {
+                      "de": "Nationalstrassenabgabe",
+                      "fr": "Redevance pour l'utilisation des routes nationales",
+                      "it": "Tassa per l'utilizzazione delle strade nazionali",
+                      "en": "Motorway tax"
+                    },
+                    "children": [],
+                    "level": 4,
+                    "hasValue": false,
+                    "value": null
+                  },
+                  {
+                    "code": "4052",
+                    "labels": {
+                      "de": "Schwerverkehrsabgabe",
+                      "fr": "Redevance sur le trafic des poids lourds",
+                      "it": "Tassa sul traffico pesante ",
+                      "en": "Heavy vehicle charge"
+                    },
+                    "children": [],
+                    "level": 4,
+                    "hasValue": false,
+                    "value": null
+                  },
+                  {
+                    "code": "4053",
+                    "labels": {
+                      "de": "Abgaben kombinierter Verkehr",
+                      "fr": "Redevances sur le trafic combiné",
+                      "it": "Tasse sul traffico combinato",
+                      "en": "Combined traffic taxes"
+                    },
+                    "children": [],
+                    "level": 4,
+                    "hasValue": false,
+                    "value": null
+                  },
+                  {
+                    "code": "4059",
+                    "labels": {
+                      "de": "Verkehrsabgaben n.a.g.",
+                      "fr": "Redevances sur la circulation n.c.a.",
+                      "it": "Tasse sul traffico n.m.a.",
+                      "en": "Transportation taxes n.e.c."
+                    },
+                    "children": [],
+                    "level": 4,
+                    "hasValue": false,
+                    "value": null
+                  }
+                ],
+                "level": 3,
+                "hasValue": false,
+                "value": null
+              },
+              {
+                "code": "406",
+                "labels": {
+                  "de": "Zölle (nur Bund)",
+                  "fr": "Droits de douane (uniquement Confédération)",
+                  "it": "Dazi (solo Confederazione)",
+                  "en": "Customs duties (Confederation only)"
+                },
+                "children": [
+                  {
+                    "code": "4060",
+                    "labels": {
+                      "de": "Einfuhrzölle",
+                      "fr": "Droits de douane à l'importation",
+                      "it": "Dazi d'importazione",
+                      "en": "Import duties"
+                    },
+                    "children": [],
+                    "level": 4,
+                    "hasValue": false,
+                    "value": null
+                  }
+                ],
+                "level": 3,
+                "hasValue": false,
+                "value": null
+              },
+              {
+                "code": "407",
+                "labels": {
+                  "de": "Übrige Abgaben",
+                  "fr": "Autres taxes",
+                  "it": "Rimanenti tasse",
+                  "en": "Other duties"
+                },
+                "children": [
+                  {
+                    "code": "4070",
+                    "labels": {
+                      "de": "Lenkungsabgaben Umweltschutz",
+                      "fr": "Taxes d'incitation, protection de l'environnement",
+                      "it": "Tasse d'incentivazione per la protezione dell'ambiente",
+                      "en": "Environmental incentive fees"
+                    },
+                    "children": [],
+                    "level": 4,
+                    "hasValue": false,
+                    "value": null
+                  },
+                  {
+                    "code": "4071",
+                    "labels": {
+                      "de": "Landwirtschaftliche Abgaben",
+                      "fr": "Taxes agricoles",
+                      "it": "Tasse agricole",
+                      "en": "Agricultural duties"
+                    },
+                    "children": [],
+                    "level": 4,
+                    "hasValue": false,
+                    "value": null
+                  },
+                  {
+                    "code": "4072",
+                    "labels": {
+                      "de": "Sozialversicherungsbeiträge der Versicherten und Arbeitgeber",
+                      "fr": "Cotisations des assurés et des employeurs aux assurances sociales",
+                      "it": "Contributi degli assicurati e del datore di lavoro alle assicurazioni sociali",
+                      "en": "Social security contributions by employers and insured persons"
+                    },
+                    "children": [],
+                    "level": 4,
+                    "hasValue": false,
+                    "value": null
+                  },
+                  {
+                    "code": "4079",
+                    "labels": {
+                      "de": "Sonstige Fiskaleinnahmen",
+                      "fr": "Recettes fiscales distinctes",
+                      "it": "Altre entrate fiscali",
+                      "en": "Other tax receipts"
+                    },
+                    "children": [],
+                    "level": 4,
+                    "hasValue": false,
+                    "value": null
+                  }
+                ],
+                "level": 3,
+                "hasValue": false,
+                "value": null
+              }
+            ],
+            "level": 2,
+            "hasValue": false,
+            "value": null
+          },
+          {
+            "code": "41",
+            "labels": {
+              "de": "Regalien und Konzessionen",
+              "fr": "Patentes et concessions",
+              "it": "Regalie e concessioni",
+              "en": "Royalties and concessions"
+            },
+            "children": [
+              {
+                "code": "410",
+                "labels": {
+                  "de": "Regalien",
+                  "fr": "Patentes",
+                  "it": "Regalie",
+                  "en": "Royalties"
+                },
+                "children": [],
+                "level": 3,
+                "hasValue": false,
+                "value": null
+              },
+              {
+                "code": "411",
+                "labels": {
+                  "de": "Schweiz. Nationalbank",
+                  "fr": "Banque nationale suisse",
+                  "it": "Banca nazionale svizzera",
+                  "en": "Swiss National Bank"
+                },
+                "children": [],
+                "level": 3,
+                "hasValue": false,
+                "value": null
+              },
+              {
+                "code": "412",
+                "labels": {
+                  "de": "Konzessionen",
+                  "fr": "Concessions",
+                  "it": "Concessioni",
+                  "en": "Concessions"
+                },
+                "children": [],
+                "level": 3,
+                "hasValue": false,
+                "value": null
+              },
+              {
+                "code": "413",
+                "labels": {
+                  "de": "Einnahmensanteile an Lotterien, Sport-Toto, Wetten",
+                  "fr": "Parts de recettes de loteries, Sport-Toto, paris",
+                  "it": "Quote del prodotto di lotterie, Sport-Toto, scommesse",
+                  "en": "Receipt shares in lotteries, Sport-Toto, gambling"
+                },
+                "children": [],
+                "level": 3,
+                "hasValue": false,
+                "value": null
+              }
+            ],
+            "level": 2,
+            "hasValue": false,
+            "value": null
+          },
+          {
+            "code": "42",
+            "labels": {
+              "de": "Entgelte",
+              "fr": "Compensations",
+              "it": "Ricavi e tasse",
+              "en": "Receipts from exchange transactions"
+            },
+            "children": [
+              {
+                "code": "420",
+                "labels": {
+                  "de": "Ersatzabgaben",
+                  "fr": "Taxes de compensation",
+                  "it": "Tasse di compensazione",
+                  "en": "Exemption taxes"
+                },
+                "children": [],
+                "level": 3,
+                "hasValue": false,
+                "value": null
+              },
+              {
+                "code": "421",
+                "labels": {
+                  "de": "Gebühren für Amtshandlungen",
+                  "fr": "Emoluments pour actes administratifs",
+                  "it": "Emolumenti per atti ufficiali",
+                  "en": "Fees for administrative acts"
+                },
+                "children": [],
+                "level": 3,
+                "hasValue": false,
+                "value": null
+              },
+              {
+                "code": "422",
+                "labels": {
+                  "de": "Spital- und Heimtaxen, Kostgelder",
+                  "fr": "Taxes pour hôpitaux et établissements médicaux sociaux, subventions aux frais de pension",
+                  "it": "Tasse di ospedali e ospizi, rette",
+                  "en": "Hospital and care home taxes, meal subsidies"
+                },
+                "children": [],
+                "level": 3,
+                "hasValue": false,
+                "value": null
+              },
+              {
+                "code": "423",
+                "labels": {
+                  "de": "Schul- und Kursgelder",
+                  "fr": "Frais d'écolage et taxes de cours",
+                  "it": "Tasse scolastiche e per corsi",
+                  "en": "School and course fees"
+                },
+                "children": [],
+                "level": 3,
+                "hasValue": false,
+                "value": null
+              },
+              {
+                "code": "424",
+                "labels": {
+                  "de": "Benützungsgebühren und Dienstleistungen",
+                  "fr": "Emoluments d'utilisation et prestations de service",
+                  "it": "Tasse di utilizzazione e prestazioni di servizi",
+                  "en": "User charges and services"
+                },
+                "children": [],
+                "level": 3,
+                "hasValue": false,
+                "value": null
+              },
+              {
+                "code": "425",
+                "labels": {
+                  "de": "Erlös aus Verkäufen",
+                  "fr": "Recettes provenant de ventes",
+                  "it": "Ricavi da vendite",
+                  "en": "Proceeds from sales"
+                },
+                "children": [],
+                "level": 3,
+                "hasValue": false,
+                "value": null
+              },
+              {
+                "code": "426",
+                "labels": {
+                  "de": "Rückerstattungen",
+                  "fr": "Remboursements",
+                  "it": "Rimborsi",
+                  "en": "Reimbursements"
+                },
+                "children": [],
+                "level": 3,
+                "hasValue": false,
+                "value": null
+              },
+              {
+                "code": "427",
+                "labels": {
+                  "de": "Bussen",
+                  "fr": "Amendes",
+                  "it": "Multe",
+                  "en": "Fines"
+                },
+                "children": [],
+                "level": 3,
+                "hasValue": false,
+                "value": null
+              },
+              {
+                "code": "429",
+                "labels": {
+                  "de": "Übrige Entgelte",
+                  "fr": "Autres compensations",
+                  "it": "Diversi ricavi e tasse",
+                  "en": "Other receipts from exchange transactions"
+                },
+                "children": [],
+                "level": 3,
+                "hasValue": false,
+                "value": null
+              }
+            ],
+            "level": 2,
+            "hasValue": false,
+            "value": null
+          },
+          {
+            "code": "43",
+            "labels": {
+              "de": "Übrige Einnahmen",
+              "fr": "Autres recettes",
+              "it": "Rimanenti entrate",
+              "en": "Other receipts"
+            },
+            "children": [
+              {
+                "code": "430",
+                "labels": {
+                  "de": "Übrige betriebliche Einnahmen",
+                  "fr": "Autres recettes d'exploitation",
+                  "it": "Rimanenti entrate d'esercizio",
+                  "en": "Other operating receipts"
+                },
+                "children": [],
+                "level": 3,
+                "hasValue": false,
+                "value": null
+              },
+              {
+                "code": "431",
+                "labels": {
+                  "de": "Aktivierung Eigenleistungen",
+                  "fr": "Inscription de prestations propres à l'actif",
+                  "it": "Iscrizione all'attivo di prestazioni proprie",
+                  "en": "Own work capitalized"
+                },
+                "children": [],
+                "level": 3,
+                "hasValue": false,
+                "value": null
+              },
+              {
+                "code": "432",
+                "labels": {
+                  "de": "Bestandesveränderungen",
+                  "fr": "Variations de stocks",
+                  "it": "Variazioni del saldo",
+                  "en": "Changes in inventories"
+                },
+                "children": [],
+                "level": 3,
+                "hasValue": false,
+                "value": null
+              },
+              {
+                "code": "439",
+                "labels": {
+                  "de": "Übrige Einnahmen",
+                  "fr": "Autres recettes",
+                  "it": "Rimanenti entrate",
+                  "en": "Other receipts"
+                },
+                "children": [],
+                "level": 3,
+                "hasValue": false,
+                "value": null
+              }
+            ],
+            "level": 2,
+            "hasValue": false,
+            "value": null
+          },
+          {
+            "code": "44",
+            "labels": {
+              "de": "Finanzeinnahmen",
+              "fr": "Recettes financières",
+              "it": "Entrate finanziarie",
+              "en": "Financial receipts"
+            },
+            "children": [
+              {
+                "code": "440",
+                "labels": {
+                  "de": "Zinseinnahmen",
+                  "fr": "Recettes des intérêts",
+                  "it": "Entrate a titolo di interessi",
+                  "en": "Interest income"
+                },
+                "children": [],
+                "level": 3,
+                "hasValue": false,
+                "value": null
+              },
+              {
+                "code": "441",
+                "labels": {
+                  "de": "Realisierte Gewinne, FV",
+                  "fr": "Gains réalisés, PF",
+                  "it": "Utili realizzati, beni patrimoniali",
+                  "en": "Realized gains, NAA"
+                },
+                "children": [],
+                "level": 3,
+                "hasValue": false,
+                "value": null
+              },
+              {
+                "code": "442",
+                "labels": {
+                  "de": "Beteiligungseinnahmen, FV",
+                  "fr": "Recettes de participations, PF",
+                  "it": "Entrate da partecipazioni, beni patrimoniali",
+                  "en": "Receipts from financial interests, NAA"
+                },
+                "children": [],
+                "level": 3,
+                "hasValue": false,
+                "value": null
+              },
+              {
+                "code": "443",
+                "labels": {
+                  "de": "Liegenschafteneinnahmen, FV",
+                  "fr": "Recettes des immeubles, PF",
+                  "it": "Entrate immobiliari, beni patrimoniali",
+                  "en": "Building receipts, NAA"
+                },
+                "children": [],
+                "level": 3,
+                "hasValue": false,
+                "value": null
+              },
+              {
+                "code": "445",
+                "labels": {
+                  "de": "Finanzeinnahmen aus Darlehen und Beteiligungen, VV",
+                  "fr": "Recettes financières de prêts et de participations du PA",
+                  "it": "Entrate finanziarie da mutui e partecipazioni, beni amministrativi",
+                  "en": "Financial receipts from loans and financial interests, AA"
+                },
+                "children": [],
+                "level": 3,
+                "hasValue": false,
+                "value": null
+              },
+              {
+                "code": "446",
+                "labels": {
+                  "de": "Finanzeinnahmen von öffentlichen Unternehmen",
+                  "fr": "Recettes financières d'entreprises publiques",
+                  "it": "Entrate finanziarie di imprese pubbliche",
+                  "en": "Financial receipts of public corporations"
+                },
+                "children": [],
+                "level": 3,
+                "hasValue": false,
+                "value": null
+              },
+              {
+                "code": "447",
+                "labels": {
+                  "de": "Liegenschafteneinnahmen, VV",
+                  "fr": "Recettes des immeubles, PA",
+                  "it": "Entrate immobiliari, beni amministrativi",
+                  "en": "Building receipts, AA"
+                },
+                "children": [],
+                "level": 3,
+                "hasValue": false,
+                "value": null
+              },
+              {
+                "code": "448",
+                "labels": {
+                  "de": "Einnahmen von gemieteten Liegenschaften, VV",
+                  "fr": "Recettes des immeubles loués, PA",
+                  "it": "Entrate da immobili in locazione, beni amministrativi",
+                  "en": "Receipts from rented buildings, AA"
+                },
+                "children": [],
+                "level": 3,
+                "hasValue": false,
+                "value": null
+              },
+              {
+                "code": "449",
+                "labels": {
+                  "de": "Übrige Finanzeinnahmen",
+                  "fr": "Autres recettes financières",
+                  "it": "Rimanenti entrate finanziarie",
+                  "en": "Other financial receipts"
+                },
+                "children": [],
+                "level": 3,
+                "hasValue": false,
+                "value": null
+              }
+            ],
+            "level": 2,
+            "hasValue": false,
+            "value": null
+          },
+          {
+            "code": "46",
+            "labels": {
+              "de": "Transfereinnahmen",
+              "fr": "Recettes de transfert",
+              "it": "Entrate da riversamenti",
+              "en": "Transfer receipts"
+            },
+            "children": [
+              {
+                "code": "460",
+                "labels": {
+                  "de": "Einnahmensanteile",
+                  "fr": "Parts de recettes",
+                  "it": "Partecipazioni a entrate",
+                  "en": "Receipt shares"
+                },
+                "children": [
+                  {
+                    "code": "4600",
+                    "labels": {
+                      "de": "Anteil an Einnahmen Bundeseinnahmen",
+                      "fr": "Part des recettes de la Confédération",
+                      "it": "Partecipazione a entrate della Confederazione",
+                      "en": "Share in receipts, Confederation receipts"
+                    },
+                    "children": [
+                      {
+                        "code": "46000",
+                        "labels": {
+                          "de": "Anteil an Einnahmen Direkter Bundessteuer",
+                          "fr": "Part des recettes de l'impôt fédéral direct",
+                          "it": "Partecipazione a entrate dell'imposta federale diretta",
+                          "en": "Share in receipts of direct federal tax"
+                        },
+                        "children": [],
+                        "level": 5,
+                        "hasValue": false,
+                        "value": null
+                      },
+                      {
+                        "code": "46001",
+                        "labels": {
+                          "de": "Anteil an Einnahmen Verrechnungssteuer",
+                          "fr": "Part des recettes de l'impôt anticipé",
+                          "it": "Partecipazione a entrate dell’imposta preventiva",
+                          "en": "Share in receipts of withholding tax"
+                        },
+                        "children": [],
+                        "level": 5,
+                        "hasValue": false,
+                        "value": null
+                      },
+                      {
+                        "code": "46002",
+                        "labels": {
+                          "de": "Anteil an Einnahmen Wehrpflichtersatz",
+                          "fr": "Part des recettes de la taxe d'exemption de l'obligation de servir",
+                          "it": "Partecipazione a entrate della tassa d’esenzione dall’obbligo militare",
+                          "en": "Share in receipts of military service exemption tax"
+                        },
+                        "children": [],
+                        "level": 5,
+                        "hasValue": false,
+                        "value": null
+                      },
+                      {
+                        "code": "46003",
+                        "labels": {
+                          "de": "Anteil an Einnahmen Eidg. Alkoholverwaltung",
+                          "fr": "Part des recettes de la Régie fédérale des alcools",
+                          "it": "Partecipazione a entrate della Regìa federale degli alcool",
+                          "en": "Share in receipts of the Swiss Alcohol Board"
+                        },
+                        "children": [],
+                        "level": 5,
+                        "hasValue": false,
+                        "value": null
+                      },
+                      {
+                        "code": "46004",
+                        "labels": {
+                          "de": "Anteil an Einnahmen Eidg. Bussen und Taxen",
+                          "fr": "Part des recettes des amendes et taxes fédérales",
+                          "it": "Partecipazione a entrate di tasse e multe della Confederazione",
+                          "en": "Share in receipts from federal fines and duties"
+                        },
+                        "children": [],
+                        "level": 5,
+                        "hasValue": false,
+                        "value": null
+                      },
+                      {
+                        "code": "46005",
+                        "labels": {
+                          "de": "Anteil an Einnahmen Eidg. Mineralölsteuer",
+                          "fr": "Part des recettes de l'impôt fédéral sur les huiles minérales",
+                          "it": "Partecipazione a entrate dell’imposta federale sugli oli minerali",
+                          "en": "Share in federal mineral oil tax receipts"
+                        },
+                        "children": [],
+                        "level": 5,
+                        "hasValue": false,
+                        "value": null
+                      },
+                      {
+                        "code": "46006",
+                        "labels": {
+                          "de": "Anteil an Einnahmen Eidg. Stempelsteuer",
+                          "fr": "Part des recettes des droits de timbre fédéraux",
+                          "it": "Partecipazione a entrate della tassa di bollo",
+                          "en": "Share in federal stamp duty receipts"
+                        },
+                        "children": [],
+                        "level": 5,
+                        "hasValue": false,
+                        "value": null
+                      },
+                      {
+                        "code": "46007",
+                        "labels": {
+                          "de": "Anteil an Einnahmen EU-Zinsbesteuerung",
+                          "fr": "Part des recettes de la fiscalité de l'épargne UE",
+                          "it": "Partecipazione a entrate della fiscalità del risparmio dell’UE",
+                          "en": "Share in EU savings tax receipts"
+                        },
+                        "children": [],
+                        "level": 5,
+                        "hasValue": false,
+                        "value": null
+                      },
+                      {
+                        "code": "46008",
+                        "labels": {
+                          "de": "Anteil an Einnahmen LSVA",
+                          "fr": "Part des recettes de la RPLP",
+                          "it": "Partecipazione a entrate della TTPCP",
+                          "en": "Share in mileage-related heavy vehicle charge receipts"
+                        },
+                        "children": [],
+                        "level": 5,
+                        "hasValue": false,
+                        "value": null
+                      },
+                      {
+                        "code": "46009",
+                        "labels": {
+                          "de": "Anteil an Einnahmen übriger Bundeseinnahmen",
+                          "fr": "Part des autres recettes de la Confédération",
+                          "it": "Partecipazione alle rimanenti entrate della Confederazione",
+                          "en": "Share in receipts from other federal receipts"
+                        },
+                        "children": [],
+                        "level": 5,
+                        "hasValue": false,
+                        "value": null
+                      }
+                    ],
+                    "level": 4,
+                    "hasValue": false,
+                    "value": null
+                  },
+                  {
+                    "code": "4601",
+                    "labels": {
+                      "de": "Anteil an Kantonseinnahmen und Konkordaten",
+                      "fr": "Part des recettes des cantons et concordats",
+                      "it": "Partecipazioni a entrate di Cantoni e concordati",
+                      "en": "Share in receipts of cantons and concordats"
+                    },
+                    "children": [
+                      {
+                        "code": "46010",
+                        "labels": {
+                          "de": "Anteil an Einnahmen kantonaler Steuern",
+                          "fr": "Part des recettes des impôts cantonaux",
+                          "it": "Partecipazione a entrate delle imposte cantonali",
+                          "en": "Share in cantonal tax receipts"
+                        },
+                        "children": [],
+                        "level": 5,
+                        "hasValue": false,
+                        "value": null
+                      },
+                      {
+                        "code": "46011",
+                        "labels": {
+                          "de": "Anteil an Einnahmen kantonaler Regalien und Konzessionen",
+                          "fr": "Part des recettes des patentes et concessions cantonales",
+                          "it": "Partecipazione a entrate di regalie e concessioni cantonali",
+                          "en": "Share in receipts from cantonal royalties and concessions"
+                        },
+                        "children": [],
+                        "level": 5,
+                        "hasValue": false,
+                        "value": null
+                      },
+                      {
+                        "code": "46012",
+                        "labels": {
+                          "de": "Anteil an kantonalen Gebühren",
+                          "fr": "Part des émoluments cantonaux",
+                          "it": "Partecipazione a tasse cantonali",
+                          "en": "Share in cantonal fees"
+                        },
+                        "children": [],
+                        "level": 5,
+                        "hasValue": false,
+                        "value": null
+                      },
+                      {
+                        "code": "46019",
+                        "labels": {
+                          "de": "Anteil an übrigen kantonalen einnahmen",
+                          "fr": "Part des autres recettes cantonales",
+                          "it": "Partecipazione ai rimanenti entrate cantonali",
+                          "en": "Share in other cantonal receipts"
+                        },
+                        "children": [],
+                        "level": 5,
+                        "hasValue": false,
+                        "value": null
+                      }
+                    ],
+                    "level": 4,
+                    "hasValue": false,
+                    "value": null
+                  },
+                  {
+                    "code": "4603",
+                    "labels": {
+                      "de": "Anteil an Einnahmen öffentlicher Sozialversicherungsanstalten",
+                      "fr": "Part des recettes des institutions publiques d'assurance sociale",
+                      "it": "Partecipazioni a entrate di istituti di assicurazioni sociali pubbliche",
+                      "en": "Share in receipts of social security funds"
+                    },
+                    "children": [],
+                    "level": 4,
+                    "hasValue": false,
+                    "value": null
+                  },
+                  {
+                    "code": "4604",
+                    "labels": {
+                      "de": "Anteile an Einnahmen öffentlicher Unternehmen",
+                      "fr": "Parts des recettes des entreprises publiques",
+                      "it": "Partecipazioni a entrate di imprese pubbliche",
+                      "en": "Share in receipts of public corporations"
+                    },
+                    "children": [],
+                    "level": 4,
+                    "hasValue": false,
+                    "value": null
+                  }
+                ],
+                "level": 3,
+                "hasValue": false,
+                "value": null
+              },
+              {
+                "code": "461",
+                "labels": {
+                  "de": "Entschädigungen",
+                  "fr": "Indemnités",
+                  "it": "Indennizzi",
+                  "en": "Compensation"
+                },
+                "children": [
+                  {
+                    "code": "4610",
+                    "labels": {
+                      "de": "Entschädigungen vom Bund",
+                      "fr": "Indemnités de la Confédération",
+                      "it": "Indennizzi della Confederazione",
+                      "en": "Compensation from the Confederation"
+                    },
+                    "children": [],
+                    "level": 4,
+                    "hasValue": false,
+                    "value": null
+                  },
+                  {
+                    "code": "4611",
+                    "labels": {
+                      "de": "Entschädigungen von Kantonen und Konkordaten",
+                      "fr": "Indemnités des cantons et concordats",
+                      "it": "Indennizzi di Cantoni e concordati",
+                      "en": "Compensation from cantons and concordats"
+                    },
+                    "children": [],
+                    "level": 4,
+                    "hasValue": false,
+                    "value": null
+                  },
+                  {
+                    "code": "4612",
+                    "labels": {
+                      "de": "Entschädigungen von Gemeinden und Gemeindezweckverbänden",
+                      "fr": "Indemnités des communes et syndicats intercommunaux",
+                      "it": "Indennizzi di Comuni e consorzi comunali",
+                      "en": "Compensation from municipalities and special purpose entities"
+                    },
+                    "children": [],
+                    "level": 4,
+                    "hasValue": false,
+                    "value": null
+                  },
+                  {
+                    "code": "4613",
+                    "labels": {
+                      "de": "Entschädigungen von öffentlichen Sozialversicherungen",
+                      "fr": "Indemnités des assurances sociales publiques",
+                      "it": "Indennizzi di assicurazioni sociali pubbliche",
+                      "en": "Compensation from social security funds"
+                    },
+                    "children": [],
+                    "level": 4,
+                    "hasValue": false,
+                    "value": null
+                  },
+                  {
+                    "code": "4614",
+                    "labels": {
+                      "de": "Entschädigungen von öffentlichen Unternehmen",
+                      "fr": "Indemnités des entreprises publiques",
+                      "it": "Indennizzi di imprese pubbliche",
+                      "en": "Compensation from public corporations"
+                    },
+                    "children": [],
+                    "level": 4,
+                    "hasValue": false,
+                    "value": null
+                  }
+                ],
+                "level": 3,
+                "hasValue": false,
+                "value": null
+              },
+              {
+                "code": "462",
+                "labels": {
+                  "de": "Finanz- und Lastenausgleich",
+                  "fr": "Péréquation financière et compensation des charges",
+                  "it": "Perequazione finanziaria e compensazione degli oneri",
+                  "en": "Fiscal equalization and cost compensation"
+                },
+                "children": [
+                  {
+                    "code": "4620",
+                    "labels": {
+                      "de": "Finanz- und Lastenausgleich Bund",
+                      "fr": "Péréquation financière et compensation des charges de la Confédération",
+                      "it": "Perequazione finanziaria e compensazione degli oneri, Confederazione",
+                      "en": "Fiscal equalization and cost compensation, Confederation"
+                    },
+                    "children": [
+                      {
+                        "code": "46201",
+                        "labels": {
+                          "de": "Ressourcenausgleich",
+                          "fr": "Péréquation des ressources",
+                          "it": "Perequazione delle risorse",
+                          "en": "Resource equalization"
+                        },
+                        "children": [],
+                        "level": 5,
+                        "hasValue": false,
+                        "value": null
+                      },
+                      {
+                        "code": "46202",
+                        "labels": {
+                          "de": "Sozio-demografischer Ausgleich",
+                          "fr": "Compensation des charges excessives dues à des facteurs socio-démographiques",
+                          "it": "Perequazione sociodemografica",
+                          "en": "Socio-demographic equalization"
+                        },
+                        "children": [],
+                        "level": 5,
+                        "hasValue": false,
+                        "value": null
+                      },
+                      {
+                        "code": "46203",
+                        "labels": {
+                          "de": "Geografisch-topografischer Ausgleich",
+                          "fr": "Compensation des charges excessives dues à des facteurs géo-topographiques",
+                          "it": "Perequazione geotopografica",
+                          "en": "Geographical/topographic equalization"
+                        },
+                        "children": [],
+                        "level": 5,
+                        "hasValue": false,
+                        "value": null
+                      },
+                      {
+                        "code": "46204",
+                        "labels": {
+                          "de": "Härteausgleich",
+                          "fr": "Compensation des cas de rigueur",
+                          "it": "Compensazione dei casi di rigore",
+                          "en": "Cohesion fund"
+                        },
+                        "children": [],
+                        "level": 5,
+                        "hasValue": false,
+                        "value": null
+                      },
+                      {
+                        "code": "46209",
+                        "labels": {
+                          "de": "Übrige Massnahmen des Finanzausgleichs",
+                          "fr": "Autres mesures liées à la péréquation financière",
+                          "it": "Rimanenti misure della perequazione finanziaria",
+                          "en": "Other measures of the fiscal equalization"
+                        },
+                        "children": [],
+                        "level": 5,
+                        "hasValue": false,
+                        "value": null
+                      }
+                    ],
+                    "level": 4,
+                    "hasValue": false,
+                    "value": null
+                  },
+                  {
+                    "code": "4621",
+                    "labels": {
+                      "de": "Finanz- und Lastenausgleich von Kantonen",
+                      "fr": "Péréquation financière et compensation des charges des cantons",
+                      "it": "Perequazione finanziaria e compensazione degli oneri di Cantoni",
+                      "en": "Fiscal equalization and cost compensation from cantons"
+                    },
+                    "children": [
+                      {
+                        "code": "46211",
+                        "labels": {
+                          "de": "Ressourcenausgleich",
+                          "fr": "Péréquation des ressources",
+                          "it": "Perequazione delle risorse",
+                          "en": "Resource equalization"
+                        },
+                        "children": [],
+                        "level": 5,
+                        "hasValue": false,
+                        "value": null
+                      },
+                      {
+                        "code": "46212",
+                        "labels": {
+                          "de": "Anteil am sozio-demografischen Lastenausgleich des Kantons",
+                          "fr": "Part de la compensation des charges excessives dues à des facteurs socio-démographiques du canton",
+                          "it": "Quota alla compensazione degli oneri eccessivi dovuti a fattori sociodemografici del Cantone",
+                          "en": "Share in the socio-demographic equalization of the canton"
+                        },
+                        "children": [],
+                        "level": 5,
+                        "hasValue": false,
+                        "value": null
+                      },
+                      {
+                        "code": "46213",
+                        "labels": {
+                          "de": "Anteil am geografisch-topografischen Lastenausgleich des Kantons",
+                          "fr": "Part de la compensation des charges excessives dues à des facteurs géo-topographiques du canton",
+                          "it": "Quota alla compensazione degli oneri eccessivi dovuti a fattori geotopografici del Cantone",
+                          "en": "Share in the geographical & topographic equalization of the canton"
+                        },
+                        "children": [],
+                        "level": 5,
+                        "hasValue": false,
+                        "value": null
+                      },
+                      {
+                        "code": "46214",
+                        "labels": {
+                          "de": "Härteausgleich",
+                          "fr": "Compensation des cas de rigueur",
+                          "it": "Compensazione dei casi di rigore",
+                          "en": "Cohesion fund"
+                        },
+                        "children": [],
+                        "level": 5,
+                        "hasValue": false,
+                        "value": null
+                      },
+                      {
+                        "code": "46215",
+                        "labels": {
+                          "de": "Vertikaler Finanzausgleich von Kanton zu Gemeinden",
+                          "fr": "Péréquation financière verticale du canton aux communes",
+                          "it": "Perequazione finanziaria verticale da Cantone a Comuni",
+                          "en": "Vertical fiscal equalization between canton and municipalities"
+                        },
+                        "children": [],
+                        "level": 5,
+                        "hasValue": false,
+                        "value": null
+                      },
+                      {
+                        "code": "46216",
+                        "labels": {
+                          "de": "Vertikaler Lastenausgleich von Kanton zu Gemeinden",
+                          "fr": "Compensation verticale des charges du canton aux communes",
+                          "it": "Compensazione verticale degli oneri da Cantone a Comuni",
+                          "en": "Vertical cost compensation between canton and municipalities"
+                        },
+                        "children": [],
+                        "level": 5,
+                        "hasValue": false,
+                        "value": null
+                      },
+                      {
+                        "code": "46217",
+                        "labels": {
+                          "de": "Ressourcen- und Härteausgleich von Geberkantonen",
+                          "fr": "Péréquation des ressources et compensation des cas de rigueur des cantons contributeurs",
+                          "it": "Perequazione delle risorse e compensazione dei casi di rigore dei Cantoni donatori",
+                          "en": "Resource equalization and cohesion fund from donor cantons"
+                        },
+                        "children": [],
+                        "level": 5,
+                        "hasValue": false,
+                        "value": null
+                      }
+                    ],
+                    "level": 4,
+                    "hasValue": false,
+                    "value": null
+                  },
+                  {
+                    "code": "4622",
+                    "labels": {
+                      "de": "Finanz- und Lastenausgleich von Gemeinden",
+                      "fr": "Péréquation financière et compensation des charges des communes",
+                      "it": "Perequazione finanziaria e compensazione degli oneri di Comuni",
+                      "en": "Fiscal equalization and cost compensation from municipalities"
+                    },
+                    "children": [
+                      {
+                        "code": "46225",
+                        "labels": {
+                          "de": "Innerkantonaler vertikaler Finanzausgleich",
+                          "fr": "Péréquation financière intracantonale verticale",
+                          "it": "Perequazione finanziaria intracantonale verticale",
+                          "en": "Intra-cantonal vertical fiscal equalization"
+                        },
+                        "children": [],
+                        "level": 5,
+                        "hasValue": false,
+                        "value": null
+                      },
+                      {
+                        "code": "46226",
+                        "labels": {
+                          "de": "Innerkantonaler vertikaler Lastenausgleich",
+                          "fr": "Compensation des charges intracantonale verticale",
+                          "it": "Compensazione degli oneri intracantonale verticale",
+                          "en": "Intra-cantonal vertical cost compensation"
+                        },
+                        "children": [],
+                        "level": 5,
+                        "hasValue": false,
+                        "value": null
+                      },
+                      {
+                        "code": "46227",
+                        "labels": {
+                          "de": "Horizontaler Finanzausgleich von Gemeinde an Gemeinde",
+                          "fr": "Péréquation financière horizontale : transferts entre communes",
+                          "it": "Perequazione finanziaria horizontale da Comune a Comune",
+                          "en": "Horizontal fiscal equalization between municipalities"
+                        },
+                        "children": [],
+                        "level": 5,
+                        "hasValue": false,
+                        "value": null
+                      },
+                      {
+                        "code": "46228",
+                        "labels": {
+                          "de": "Horizontaler Lastenausgleich von Gemeinde an Gemeinde",
+                          "fr": "Compensation horizontale des charges : transferts entre communes",
+                          "it": "Compensazione horizontale degli oneri da Comune a Comune",
+                          "en": "Horizontal cost compensation between municipalities"
+                        },
+                        "children": [],
+                        "level": 5,
+                        "hasValue": false,
+                        "value": null
+                      }
+                    ],
+                    "level": 4,
+                    "hasValue": false,
+                    "value": null
+                  },
+                  {
+                    "code": "4624",
+                    "labels": {
+                      "de": "Finanz- und Lastenausgleich von öffentlichen Unternehmen",
+                      "fr": "Péréquation financière et compensation des charges des entreprises publiques",
+                      "it": "Perequazione finanziaria e compensazione degli oneri dalle imprese pubbliche",
+                      "en": "Fiscal equalization and cost compensation from public corporations"
+                    },
+                    "children": [],
+                    "level": 4,
+                    "hasValue": false,
+                    "value": null
+                  },
+                  {
+                    "code": "4629",
+                    "labels": {
+                      "de": "Finanzausgleich n.a.g.",
+                      "fr": "Péréquation financière n.c.a.",
+                      "it": "Perequazione finanziaria n.m.a.",
+                      "en": "Fiscal equalization n.e.c."
+                    },
+                    "children": [],
+                    "level": 4,
+                    "hasValue": false,
+                    "value": null
+                  }
+                ],
+                "level": 3,
+                "hasValue": false,
+                "value": null
+              },
+              {
+                "code": "463",
+                "labels": {
+                  "de": "Beiträge von Gemeinwesen und Dritten",
+                  "fr": "Contributions de collectivités publiques et tiers",
+                  "it": "Contributi di enti pubblici e terzi",
+                  "en": "Contributions from public authorities and third parties"
+                },
+                "children": [
+                  {
+                    "code": "4630",
+                    "labels": {
+                      "de": "Beiträge vom Bund",
+                      "fr": "Contributions de la Confédération",
+                      "it": "Contributi della Confederazione",
+                      "en": "Contributions from the Confederation"
+                    },
+                    "children": [],
+                    "level": 4,
+                    "hasValue": false,
+                    "value": null
+                  },
+                  {
+                    "code": "4631",
+                    "labels": {
+                      "de": "Beiträge von Kantonen und Konkordaten",
+                      "fr": "Contributions des cantons et concordats",
+                      "it": "Contributi di Cantoni e concordati",
+                      "en": "Contributions from cantons and concordats"
+                    },
+                    "children": [],
+                    "level": 4,
+                    "hasValue": false,
+                    "value": null
+                  },
+                  {
+                    "code": "4632",
+                    "labels": {
+                      "de": "Beiträge von Gemeinden und Gemeindezweckverbänden",
+                      "fr": "Contributions des communes et syndicats intercommunaux",
+                      "it": "Contributi di Comuni e consorzi comunali",
+                      "en": "Contributions from municipalities and special purpose entities"
+                    },
+                    "children": [],
+                    "level": 4,
+                    "hasValue": false,
+                    "value": null
+                  },
+                  {
+                    "code": "4633",
+                    "labels": {
+                      "de": "Beiträge von öffentlichen Sozialversicherungen",
+                      "fr": "Contributions des assurances sociales publiques",
+                      "it": "Contributi di assicurazioni sociali pubbliche",
+                      "en": "Contributions from social security funds"
+                    },
+                    "children": [],
+                    "level": 4,
+                    "hasValue": false,
+                    "value": null
+                  },
+                  {
+                    "code": "4634",
+                    "labels": {
+                      "de": "Beiträge von öffentlichen Unternehmen",
+                      "fr": "Contributions des entreprises publiques",
+                      "it": "Contributi di imprese pubbliche",
+                      "en": "Contributions from public corporations"
+                    },
+                    "children": [],
+                    "level": 4,
+                    "hasValue": false,
+                    "value": null
+                  },
+                  {
+                    "code": "4635",
+                    "labels": {
+                      "de": "Beiträge von privaten Unternehmen",
+                      "fr": "Contributions des entreprises privées",
+                      "it": "Contributi di imprese private",
+                      "en": "Contributions from private corporations"
+                    },
+                    "children": [],
+                    "level": 4,
+                    "hasValue": false,
+                    "value": null
+                  },
+                  {
+                    "code": "4636",
+                    "labels": {
+                      "de": "Beiträge von privaten Organisationen ohne Erwerbszweck",
+                      "fr": "Contributions des organisations privées à but non lucratif",
+                      "it": "Contributi di organizzazioni private senza scopo di lucro",
+                      "en": "Contributions from private non-profit organizations"
+                    },
+                    "children": [],
+                    "level": 4,
+                    "hasValue": false,
+                    "value": null
+                  },
+                  {
+                    "code": "4637",
+                    "labels": {
+                      "de": "Beiträge von privaten Haushalten",
+                      "fr": "Contributions des ménages privés",
+                      "it": "Contributi di economie domestiche private",
+                      "en": "Contributions from households"
+                    },
+                    "children": [],
+                    "level": 4,
+                    "hasValue": false,
+                    "value": null
+                  },
+                  {
+                    "code": "4638",
+                    "labels": {
+                      "de": "Beiträge aus dem Ausland",
+                      "fr": "Contributions provenant de l'étranger",
+                      "it": "Contributi dall’estero",
+                      "en": "Contributions from abroad"
+                    },
+                    "children": [],
+                    "level": 4,
+                    "hasValue": false,
+                    "value": null
+                  }
+                ],
+                "level": 3,
+                "hasValue": false,
+                "value": null
+              },
+              {
+                "code": "469",
+                "labels": {
+                  "de": "Übrige Transfereinnahmen",
+                  "fr": "Autres recettes de transfert",
+                  "it": "Rimanenti entrate da riversamenti",
+                  "en": "Other transfer receipts"
+                },
+                "children": [],
+                "level": 3,
+                "hasValue": false,
+                "value": null
+              }
+            ],
+            "level": 2,
+            "hasValue": false,
+            "value": null
+          },
+          {
+            "code": "48",
+            "labels": {
+              "de": "Ausserordentliche Einnahmen",
+              "fr": "Recettes extraordinaires",
+              "it": "Entrate straordinarie",
+              "en": "Extraordinary receipts"
+            },
+            "children": [
+              {
+                "code": "481",
+                "labels": {
+                  "de": "Ausserordentliche Einnahmen von Regalien, Konzessionen",
+                  "fr": "Recettes extraordinaires de patentes, concessions",
+                  "it": "Entrate straordinarie da regalie e concessioni",
+                  "en": "Extraordinary receipts from royalties, concessions"
+                },
+                "children": [],
+                "level": 3,
+                "hasValue": false,
+                "value": null
+              },
+              {
+                "code": "482",
+                "labels": {
+                  "de": "Ausserordentliche Entgelte",
+                  "fr": "Compensations extraordinaires",
+                  "it": "Ricavi e tasse straordinari",
+                  "en": "Extraordinary receipts from exchange transactions"
+                },
+                "children": [],
+                "level": 3,
+                "hasValue": false,
+                "value": null
+              },
+              {
+                "code": "483",
+                "labels": {
+                  "de": "Ausserordentliche verschiedene Einnahmen",
+                  "fr": "Recettes diverses extraordinaires",
+                  "it": "Diverse entrate straordinarie",
+                  "en": "Extraordinary miscellaneous receipts"
+                },
+                "children": [],
+                "level": 3,
+                "hasValue": false,
+                "value": null
+              },
+              {
+                "code": "484",
+                "labels": {
+                  "de": "Ausserordentliche Finanzeinnahmen",
+                  "fr": "Recettes financières extraordinaires",
+                  "it": "Entrate finanziarie straordinarie",
+                  "en": "Extraordinary financial receipts"
+                },
+                "children": [],
+                "level": 3,
+                "hasValue": false,
+                "value": null
+              },
+              {
+                "code": "486",
+                "labels": {
+                  "de": "Ausserordentliche Transfereinnahmen",
+                  "fr": "Recettes de transfert extraordinaires",
+                  "it": "Entrate straordinarie da riversamenti",
+                  "en": "Extraordinary transfer receipts"
+                },
+                "children": [
+                  {
+                    "code": "4860",
+                    "labels": {
+                      "de": "Ausserordentliche Transfereinnahmen, Bund",
+                      "fr": "Recettes de transfert extraordinaires, Confédération",
+                      "it": "Entrate straordinarie da riversamenti, Confederazione",
+                      "en": "Extraordinary transfer receipts, Confederation"
+                    },
+                    "children": [],
+                    "level": 4,
+                    "hasValue": false,
+                    "value": null
+                  },
+                  {
+                    "code": "4861",
+                    "labels": {
+                      "de": "Ausserordentliche Transfereinnahmen, Kantone",
+                      "fr": "Recettes de transfert extraordinaires, cantons",
+                      "it": "Entrate straordinarie da riversamenti, Cantoni",
+                      "en": "Extraordinary transfer receipts, cantons"
+                    },
+                    "children": [],
+                    "level": 4,
+                    "hasValue": false,
+                    "value": null
+                  },
+                  {
+                    "code": "4862",
+                    "labels": {
+                      "de": "Ausserordentliche Transfereinnahmen, Gemeinden",
+                      "fr": "Recettes de transfert extraordinaires, communes",
+                      "it": "Entrate straordinarie da riversamenti, Comuni",
+                      "en": "Extraordinary transfer receipts, municipalities"
+                    },
+                    "children": [],
+                    "level": 4,
+                    "hasValue": false,
+                    "value": null
+                  },
+                  {
+                    "code": "4863",
+                    "labels": {
+                      "de": "Ausserordentliche Transfereinnahmen, öffentliche Sozialversicherungen",
+                      "fr": "Recettes de transfert extraordinaires, assurances sociales publiques",
+                      "it": "Entrate straordinarie da riversamenti, assicurazioni sociali pubbliche",
+                      "en": "Extraordinary transfer receipts, social security funds"
+                    },
+                    "children": [],
+                    "level": 4,
+                    "hasValue": false,
+                    "value": null
+                  },
+                  {
+                    "code": "4864",
+                    "labels": {
+                      "de": "Ausserordentliche Transfereinnahmen, öffentliche Unternehmen",
+                      "fr": "Recettes de transfert extraordinaires, entreprises publiques",
+                      "it": "Entrate straordinarie da riversamenti, imprese pubbliche",
+                      "en": "Extraordinary transfer receipts, public corporations"
+                    },
+                    "children": [],
+                    "level": 4,
+                    "hasValue": false,
+                    "value": null
+                  },
+                  {
+                    "code": "4865",
+                    "labels": {
+                      "de": "Ausserordentliche Transfereinnahmen, private Unternehmen",
+                      "fr": "Recettes de transfert extraordinaires, entreprises privées",
+                      "it": "Entrate straordinarie da riversamenti, imprese private",
+                      "en": "Extraordinary transfer receipts, private corporations"
+                    },
+                    "children": [],
+                    "level": 4,
+                    "hasValue": false,
+                    "value": null
+                  },
+                  {
+                    "code": "4866",
+                    "labels": {
+                      "de": "Ausserordentliche Transfereinnahmen, private Organisationen ohne Erwerbszweck",
+                      "fr": "Recettes de transfert extraordinaires, organisations privées à but non lucratif",
+                      "it": "Entrate straordinarie da riversamenti, organizzazioni private senza scopo di lucro",
+                      "en": "Extraordinary transfer receipts, private non-profit organizations"
+                    },
+                    "children": [],
+                    "level": 4,
+                    "hasValue": false,
+                    "value": null
+                  },
+                  {
+                    "code": "4867",
+                    "labels": {
+                      "de": "Ausserordentliche Transfereinnahmen, private Haushalte",
+                      "fr": "Recettes de transfert extraordinaires, ménages privés",
+                      "it": "Entrate straordinarie da riversamenti, economie domestiche private",
+                      "en": "Extraordinary transfer receipts, households"
+                    },
+                    "children": [],
+                    "level": 4,
+                    "hasValue": false,
+                    "value": null
+                  },
+                  {
+                    "code": "4868",
+                    "labels": {
+                      "de": "Ausserordentliche Transfereinnahmen, Ausland",
+                      "fr": "Recettes de transfert extraordinaires, étranger",
+                      "it": "Entrate straordinarie da riversamenti, estero",
+                      "en": "Extraordinary transfer receipts, abroad"
+                    },
+                    "children": [],
+                    "level": 4,
+                    "hasValue": false,
+                    "value": null
+                  }
+                ],
+                "level": 3,
+                "hasValue": false,
+                "value": null
+              }
+            ],
+            "level": 2,
+            "hasValue": false,
+            "value": null
+          }
+        ],
+        "level": 1,
+        "hasValue": false,
+        "value": null
+      },
+      {
+        "code": "6",
+        "labels": {
+          "de": "Investitionseinnahmen",
+          "fr": "Recettes d'investissement",
+          "it": "Entrate per investimenti",
+          "en": "Investment receipts"
+        },
+        "children": [
+          {
+            "code": "60",
+            "labels": {
+              "de": "Übertragung von Sachanlagen in das Finanzvermögen",
+              "fr": "Transfert d'immobilisations corporelles dans le patrimoine financier",
+              "it": "Riporto di investimenti materiali nei beni patrimoniali",
+              "en": "Transfer of tangible fixed assets to non-administrative assets"
+            },
+            "children": [
+              {
+                "code": "600",
+                "labels": {
+                  "de": "Übertragung von Grundstücken",
+                  "fr": "Transfert de biens-fonds",
+                  "it": "Riporto di fondi",
+                  "en": "Transfer of land"
+                },
+                "children": [],
+                "level": 3,
+                "hasValue": false,
+                "value": null
+              },
+              {
+                "code": "603",
+                "labels": {
+                  "de": "Übertragung Tiefbauten",
+                  "fr": "Transfert de travaux de génie civil",
+                  "it": "Riporto, rimanenti opere del genio civile",
+                  "en": "Transfer, civil engineering works"
+                },
+                "children": [],
+                "level": 3,
+                "hasValue": false,
+                "value": null
+              },
+              {
+                "code": "604",
+                "labels": {
+                  "de": "Übertragung Hochbauten",
+                  "fr": "Transfert de terrains bâtis",
+                  "it": "Riporto, opere edili",
+                  "en": "Transfer, building construction"
+                },
+                "children": [],
+                "level": 3,
+                "hasValue": false,
+                "value": null
+              },
+              {
+                "code": "605",
+                "labels": {
+                  "de": "Übertragung Waldungen",
+                  "fr": "Transfert de forêts",
+                  "it": "Riporto, foreste",
+                  "en": "Transfer, forests"
+                },
+                "children": [],
+                "level": 3,
+                "hasValue": false,
+                "value": null
+              },
+              {
+                "code": "606",
+                "labels": {
+                  "de": "Übertragung Mobilien",
+                  "fr": "Transfert de biens meubles",
+                  "it": "Riporto, beni mobili",
+                  "en": "Transfer, property, plant and equipment"
+                },
+                "children": [],
+                "level": 3,
+                "hasValue": false,
+                "value": null
+              },
+              {
+                "code": "609",
+                "labels": {
+                  "de": "Übertragung übrige Sachanlagen",
+                  "fr": "Transfert d'autres immobilisations corporelles",
+                  "it": "Riporto, rimanenti investimenti materiali",
+                  "en": "Transfer, other tangible fixed assets"
+                },
+                "children": [],
+                "level": 3,
+                "hasValue": false,
+                "value": null
+              }
+            ],
+            "level": 2,
+            "hasValue": false,
+            "value": null
+          },
+          {
+            "code": "61",
+            "labels": {
+              "de": "Rückerstattungen",
+              "fr": "Remboursements",
+              "it": "Rimborsi",
+              "en": "Reimbursements"
+            },
+            "children": [
+              {
+                "code": "610",
+                "labels": {
+                  "de": "Rückerstattungen Grundstücke",
+                  "fr": "Remboursements, biens-fonds",
+                  "it": "Rimborsi, fondi",
+                  "en": "Reimbursements, land"
+                },
+                "children": [],
+                "level": 3,
+                "hasValue": false,
+                "value": null
+              },
+              {
+                "code": "613",
+                "labels": {
+                  "de": "Rückerstattungen Tiefbau",
+                  "fr": "Remboursements, travaux de génie civil",
+                  "it": "Rimborsi, opere del genio civile",
+                  "en": "Reimbursements, civil engineering works"
+                },
+                "children": [],
+                "level": 3,
+                "hasValue": false,
+                "value": null
+              },
+              {
+                "code": "614",
+                "labels": {
+                  "de": "Rückerstattungen Hochbauten",
+                  "fr": "Remboursements, terrains bâtis",
+                  "it": "Rimborsi, opere edili",
+                  "en": "Reimbursements, building construction"
+                },
+                "children": [],
+                "level": 3,
+                "hasValue": false,
+                "value": null
+              },
+              {
+                "code": "615",
+                "labels": {
+                  "de": "Rückerstattungen Waldungen",
+                  "fr": "Remboursements, forêts",
+                  "it": "Rimborsi, foreste",
+                  "en": "Reimbursements, forests"
+                },
+                "children": [],
+                "level": 3,
+                "hasValue": false,
+                "value": null
+              },
+              {
+                "code": "616",
+                "labels": {
+                  "de": "Rückerstattungen Mobilien",
+                  "fr": "Remboursements, biens meubles",
+                  "it": "Rimborsi, beni mobili",
+                  "en": "Reimbursements, property, plant and equipment"
+                },
+                "children": [],
+                "level": 3,
+                "hasValue": false,
+                "value": null
+              },
+              {
+                "code": "619",
+                "labels": {
+                  "de": "Rückerstattungen Verschiedene Sachanlagen",
+                  "fr": "Remboursements, immobilisations corporelles diverses",
+                  "it": "Rimborsi, investimenti materiali diversi",
+                  "en": "Reimbursements, miscellaneous tangible fixed assets"
+                },
+                "children": [],
+                "level": 3,
+                "hasValue": false,
+                "value": null
+              }
+            ],
+            "level": 2,
+            "hasValue": false,
+            "value": null
+          },
+          {
+            "code": "62",
+            "labels": {
+              "de": "Abgang immaterielle Sachanlagen",
+              "fr": "Sortie d'immobilisations incorporelles",
+              "it": "Diminuzione, investimenti immateriali",
+              "en": "Disposal of intangible fixed assets"
+            },
+            "children": [
+              {
+                "code": "620",
+                "labels": {
+                  "de": "Abgang Software",
+                  "fr": "Sortie de logiciels",
+                  "it": "Diminuzione, software",
+                  "en": "Disposal, software"
+                },
+                "children": [],
+                "level": 3,
+                "hasValue": false,
+                "value": null
+              },
+              {
+                "code": "621",
+                "labels": {
+                  "de": "Abgang Lizenzen, Nutzungsrechte, Markenrechte",
+                  "fr": "Sortie de licences, droits d'utilisation, droit des marques",
+                  "it": "Diminuzione, licenze, diritti d'uso, diritti di marchio",
+                  "en": "Disposal, licenses, rights of use, brand rights"
+                },
+                "children": [],
+                "level": 3,
+                "hasValue": false,
+                "value": null
+              },
+              {
+                "code": "629",
+                "labels": {
+                  "de": "Abgang übrige immaterielle Anlagen",
+                  "fr": "Sortie d'autres immobilisations incorporelles",
+                  "it": "Diminuzione rimanenti investimenti immateriali",
+                  "en": "Disposal, other intangible fixed assets"
+                },
+                "children": [],
+                "level": 3,
+                "hasValue": false,
+                "value": null
+              }
+            ],
+            "level": 2,
+            "hasValue": false,
+            "value": null
+          },
+          {
+            "code": "63",
+            "labels": {
+              "de": "Rückzahlung von Darlehen und Beteiligungen n.a.g.",
+              "fr": "Remboursement de prêts et participations n.c.a.",
+              "it": "Restituzione di mutui e partecipazioni n.m.a.",
+              "en": "Repayment of loans and financial interests n.e.c."
+            },
+            "children": [
+              {
+                "code": "630",
+                "labels": {
+                  "de": "Rückzahlung Darlehen und Beteiligungen n.a.g., Bund",
+                  "fr": "Remboursement de prêts et participations n.c.a., Confédération",
+                  "it": "Restituzione di mutui e partecipazioni n.m.a., Confederazione",
+                  "en": "Repayment of loans and financial interests n.e.c., Confederation"
+                },
+                "children": [],
+                "level": 3,
+                "hasValue": false,
+                "value": null
+              },
+              {
+                "code": "631",
+                "labels": {
+                  "de": "Rückzahlung Darlehen und Beteiligungen n.a.g., Kantone und Konkordate",
+                  "fr": "Remboursement de prêts et participations n.c.a., cantons et concordats",
+                  "it": "Restituzione di mutui e partecipazioni n.m.a., Cantoni e Concordati",
+                  "en": "Repayment of loans/financial interests n.e.c., cantons and concordats"
+                },
+                "children": [],
+                "level": 3,
+                "hasValue": false,
+                "value": null
+              },
+              {
+                "code": "632",
+                "labels": {
+                  "de": "Rückzahlung Darlehen und Beteiligungen n.a.g., Gemeinden und Gemeindezweckverbände",
+                  "fr": "Remboursement de prêts et participations n.c.a., communes et syndicats intercommunaux",
+                  "it": "Restituzione di mutui e partecipazioni n.m.a., Comuni e consorzi comunali",
+                  "en": "Repayment of loans/financial interests n.e.c., municipalities and special purpose entities"
+                },
+                "children": [],
+                "level": 3,
+                "hasValue": false,
+                "value": null
+              },
+              {
+                "code": "633",
+                "labels": {
+                  "de": "Rückzahlung Darlehen und Beteiligungen n.a.g., öffentliche Sozialversicherungen",
+                  "fr": "Remboursement de prêts et participations n.c.a., assurances sociales publiques",
+                  "it": "Restituzione di mutui e partecipazioni n.m.a., assicurazioni sociali pubbliche",
+                  "en": "Repayment of loans and financial interests n.e.c., social security funds"
+                },
+                "children": [],
+                "level": 3,
+                "hasValue": false,
+                "value": null
+              },
+              {
+                "code": "634",
+                "labels": {
+                  "de": "Rückzahlung Darlehen und Beteiligungen n.a.g., öffentliche Unternehmen",
+                  "fr": "Remboursement de prêts et participations n.c.a., entreprises publiques",
+                  "it": "Restituzione di mutui e partecipazioni n.m.a., imprese pubbliche",
+                  "en": "Repayment of loans and financial interests n.e.c., public corporations"
+                },
+                "children": [],
+                "level": 3,
+                "hasValue": false,
+                "value": null
+              },
+              {
+                "code": "635",
+                "labels": {
+                  "de": "Rückzahlung Darlehen und Beteiligungen n.a.g., private Unternehmen",
+                  "fr": "Remboursement de prêts et participations n.c.a., entreprises privées",
+                  "it": "Restituzione di mutui e partecipazioni n.m.a., imprese private",
+                  "en": "Repayment of loans and financial interests n.e.c., private corporations"
+                },
+                "children": [],
+                "level": 3,
+                "hasValue": false,
+                "value": null
+              },
+              {
+                "code": "636",
+                "labels": {
+                  "de": "Rückzahlung Darlehen und Beteiligungen n.a.g., private Organisationen ohne Erwerbszweck",
+                  "fr": "Remboursement de prêts et participations n.c.a., organisations privées à but non lucratif",
+                  "it": "Restituzione di mutui e partecipazioni n.m.a., organizzazioni private senza scopo di lucro",
+                  "en": "Repayment of loans and financial interests n.e.c., private non-profit organizations"
+                },
+                "children": [],
+                "level": 3,
+                "hasValue": false,
+                "value": null
+              },
+              {
+                "code": "637",
+                "labels": {
+                  "de": "Rückzahlung Darlehen und Beteiligungen n.a.g., private Haushalte",
+                  "fr": "Remboursement de prêts et participations n.c.a., ménages privés",
+                  "it": "Restituzione di mutui e partecipazioni n.m.a., economie domestiche private",
+                  "en": "Repayment of loans and financial interests n.e.c., households"
+                },
+                "children": [],
+                "level": 3,
+                "hasValue": false,
+                "value": null
+              },
+              {
+                "code": "638",
+                "labels": {
+                  "de": "Rückzahlung Darlehen und Beteiligungen n.a.g., Ausland",
+                  "fr": "Remboursement de prêts et participations n.c.a., étranger",
+                  "it": "Restituzione di mutui e partecipazioni n.m.a., estero",
+                  "en": "Repayment of loans and financial interests n.e.c., abroad"
+                },
+                "children": [],
+                "level": 3,
+                "hasValue": false,
+                "value": null
+              }
+            ],
+            "level": 2,
+            "hasValue": false,
+            "value": null
+          },
+          {
+            "code": "64",
+            "labels": {
+              "de": "Rückzahlung von Darlehen",
+              "fr": "Remboursement de prêts",
+              "it": "Restituzione di mutui",
+              "en": "Loan repayment"
+            },
+            "children": [
+              {
+                "code": "640",
+                "labels": {
+                  "de": "Rückzahlung Darlehen, Bund",
+                  "fr": "Remboursement de prêts, Confédération",
+                  "it": "Restituzione di mutui, Confederazione",
+                  "en": "Loan repayment, Confederation"
+                },
+                "children": [],
+                "level": 3,
+                "hasValue": false,
+                "value": null
+              },
+              {
+                "code": "641",
+                "labels": {
+                  "de": "Rückzahlung Darlehen, Kantone und Konkordate",
+                  "fr": "Remboursement de prêts, cantons et concordats",
+                  "it": "Restituzione di mutui, Cantoni e concordati",
+                  "en": "Loan repayment, cantons and concordats"
+                },
+                "children": [],
+                "level": 3,
+                "hasValue": false,
+                "value": null
+              },
+              {
+                "code": "642",
+                "labels": {
+                  "de": "Rückzahlung Darlehen, Gemeinden und Gemeindezweckverbände",
+                  "fr": "Remboursement de prêts, communes et syndicats intercommunaux",
+                  "it": "Restituzione di mutui, Comuni e consorzi comunali",
+                  "en": "Loan repayment, municipalities and special purpose entities"
+                },
+                "children": [],
+                "level": 3,
+                "hasValue": false,
+                "value": null
+              },
+              {
+                "code": "643",
+                "labels": {
+                  "de": "Rückzahlung Darlehen, öffentliche Sozialversicherungen",
+                  "fr": "Remboursement de prêts, assurances sociales publiques",
+                  "it": "Restituzione di mutui, assicurazioni sociali pubbliche",
+                  "en": "Loan repayment, social security funds"
+                },
+                "children": [],
+                "level": 3,
+                "hasValue": false,
+                "value": null
+              },
+              {
+                "code": "644",
+                "labels": {
+                  "de": "Rückzahlung Darlehen, öffentliche Unternehmen",
+                  "fr": "Remboursement de prêts, entreprises publiques",
+                  "it": "Restituzione di mutui, imprese pubbliche",
+                  "en": "Loan repayment, public corporations"
+                },
+                "children": [],
+                "level": 3,
+                "hasValue": false,
+                "value": null
+              },
+              {
+                "code": "645",
+                "labels": {
+                  "de": "Rückzahlung Darlehen, private Unternehmen",
+                  "fr": "Remboursement de prêts, entreprises privées",
+                  "it": "Restituzione di mutui, imprese private",
+                  "en": "Loan repayment, private corporations"
+                },
+                "children": [],
+                "level": 3,
+                "hasValue": false,
+                "value": null
+              },
+              {
+                "code": "646",
+                "labels": {
+                  "de": "Rückzahlung Darlehen, private Organisationen ohne Erwerbszweck",
+                  "fr": "Remboursement de prêts, organisations privées à but non lucratif",
+                  "it": "Restituzione di mutui, organizzazioni private senza scopo di lucro",
+                  "en": "Loan repayment, private non-profit organizations"
+                },
+                "children": [],
+                "level": 3,
+                "hasValue": false,
+                "value": null
+              },
+              {
+                "code": "647",
+                "labels": {
+                  "de": "Rückzahlung Darlehen, private Haushalte",
+                  "fr": "Remboursement de prêts, ménages privés",
+                  "it": "Restituzione di mutui, economie domestiche private",
+                  "en": "Loan repayment, households"
+                },
+                "children": [],
+                "level": 3,
+                "hasValue": false,
+                "value": null
+              },
+              {
+                "code": "648",
+                "labels": {
+                  "de": "Rückzahlung Darlehen, Ausland",
+                  "fr": "Remboursement de prêts, étranger",
+                  "it": "Restituzione di mutui, estero",
+                  "en": "Loan repayment, abroad"
+                },
+                "children": [],
+                "level": 3,
+                "hasValue": false,
+                "value": null
+              },
+              {
+                "code": "649",
+                "labels": {
+                  "de": "Studiendarlehen",
+                  "fr": "Prêts d'études",
+                  "it": "Prestiti di studio",
+                  "en": "Study loans"
+                },
+                "children": [],
+                "level": 3,
+                "hasValue": false,
+                "value": null
+              }
+            ],
+            "level": 2,
+            "hasValue": false,
+            "value": null
+          },
+          {
+            "code": "65",
+            "labels": {
+              "de": "Übertragung von Beteiligungen",
+              "fr": "Transfert de participations",
+              "it": "Riporto di partecipazioni",
+              "en": "Transfer of financial interests"
+            },
+            "children": [
+              {
+                "code": "650",
+                "labels": {
+                  "de": "Übertragung Beteiligungen, Bund",
+                  "fr": "Transfert de participations, Confédération",
+                  "it": "Riporto di partecipazioni, Confederazione",
+                  "en": "Transfer of financial interests, Confederation"
+                },
+                "children": [],
+                "level": 3,
+                "hasValue": false,
+                "value": null
+              },
+              {
+                "code": "651",
+                "labels": {
+                  "de": "Übertragung von Beteiligungen, Kantone und Konkordate",
+                  "fr": "Transfert de participations, cantons et concordats",
+                  "it": "Riporto di partecipazioni, Cantoni e Concordati",
+                  "en": "Transfer of financial interests, cantons and concordats"
+                },
+                "children": [],
+                "level": 3,
+                "hasValue": false,
+                "value": null
+              },
+              {
+                "code": "652",
+                "labels": {
+                  "de": "Übertragung von Beteiligungen, Gemeinden und Gemeindezweckverbände",
+                  "fr": "Transfert de participations, communes et syndicats intercommunaux",
+                  "it": "Riporto di partecipazioni, Comuni e consorzi comunali",
+                  "en": "Transfer of financial interests, municipalities and special purpose entities"
+                },
+                "children": [],
+                "level": 3,
+                "hasValue": false,
+                "value": null
+              },
+              {
+                "code": "653",
+                "labels": {
+                  "de": "Übertragung von Beteiligungen, öffentliche Sozialversicherungen",
+                  "fr": "Transfert de participations, assurances sociales publiques",
+                  "it": "Riporto di partecipazioni, assicurazioni sociali pubbliche",
+                  "en": "Transfer of financial interests, social security funds"
+                },
+                "children": [],
+                "level": 3,
+                "hasValue": false,
+                "value": null
+              },
+              {
+                "code": "654",
+                "labels": {
+                  "de": "Übertragung von Beteiligungen, öffentliche Unternehmen",
+                  "fr": "Transfert de participations, entreprises publiques",
+                  "it": "Riporto di partecipazioni, imprese pubbliche",
+                  "en": "Transfer of financial interests, public corporations"
+                },
+                "children": [],
+                "level": 3,
+                "hasValue": false,
+                "value": null
+              },
+              {
+                "code": "655",
+                "labels": {
+                  "de": "Übertragung von Beteiligungen, private Unternehmen",
+                  "fr": "Transfert de participations, entreprises privées",
+                  "it": "Riporto di partecipazioni, imprese private",
+                  "en": "Transfer of financial interests, private corporations"
+                },
+                "children": [],
+                "level": 3,
+                "hasValue": false,
+                "value": null
+              },
+              {
+                "code": "656",
+                "labels": {
+                  "de": "Übertragung von Beteiligungen, private Organisationen ohne Erwerbszweck",
+                  "fr": "Transfert de participations, organisations privées à but non lucratif",
+                  "it": "Riporto di partecipazioni, organizzazioni private senza scopo di lucro",
+                  "en": "Transfer of financial interests, private non-profit organizations"
+                },
+                "children": [],
+                "level": 3,
+                "hasValue": false,
+                "value": null
+              },
+              {
+                "code": "657",
+                "labels": {
+                  "de": "Übertragung von Beteiligungen, private Haushalte",
+                  "fr": "Transfert de participations, ménages privés",
+                  "it": "Riporto di partecipazioni, economie domestiche private",
+                  "en": "Transfer of financial interests, households"
+                },
+                "children": [],
+                "level": 3,
+                "hasValue": false,
+                "value": null
+              },
+              {
+                "code": "658",
+                "labels": {
+                  "de": "Übertragung von Beteiligungen, Ausland",
+                  "fr": "Transfert de participations, étranger",
+                  "it": "Riporto di partecipazioni, estero",
+                  "en": "Transfer of financial interests, abroad"
+                },
+                "children": [],
+                "level": 3,
+                "hasValue": false,
+                "value": null
+              }
+            ],
+            "level": 2,
+            "hasValue": false,
+            "value": null
+          },
+          {
+            "code": "66",
+            "labels": {
+              "de": "Rückzahlung eigener Investitionsbeiträge",
+              "fr": "Remboursement de propres contributions à des investissements",
+              "it": "Rimborso di contributi agli investimenti propri",
+              "en": "Repayment of own investment contributions"
+            },
+            "children": [
+              {
+                "code": "660",
+                "labels": {
+                  "de": "Rückzahlung eigener Investitionsbeiträge, Bund",
+                  "fr": "Remboursement de propres contributions à des investissements, Confédération",
+                  "it": "Rimborso di contributi agli investimenti propri, Confederazione",
+                  "en": "Repayment of own investment contributions, Confederation"
+                },
+                "children": [],
+                "level": 3,
+                "hasValue": false,
+                "value": null
+              },
+              {
+                "code": "661",
+                "labels": {
+                  "de": "Rückzahlung eigener Investitionsbeiträge, Kantone und Konkordate",
+                  "fr": "Remboursement de propres contributions à des investissements, cantons et concordats",
+                  "it": "Rimborso di contributi agli investimenti propri, Cantoni e Concordati",
+                  "en": "Repayment of own investment contributions, cantons and concordats"
+                },
+                "children": [],
+                "level": 3,
+                "hasValue": false,
+                "value": null
+              },
+              {
+                "code": "662",
+                "labels": {
+                  "de": "Rückzahlung eigener Investitionsbeiträge, Gemeinden und Gemeindezweckverbände",
+                  "fr": "Remboursement de propres contributions à des investissements, communes et syndicats intercommunaux",
+                  "it": "Rimborso di contributi agli investimenti propri, Comuni e consorzi comunali",
+                  "en": "Repayment of own investment contributions, municipalities and special purpose entities"
+                },
+                "children": [],
+                "level": 3,
+                "hasValue": false,
+                "value": null
+              },
+              {
+                "code": "663",
+                "labels": {
+                  "de": "Rückzahlung eigener Investitionsbeiträge, öffentliche Sozialversicherungen",
+                  "fr": "Remboursement de propres contributions à des investissements, assurances sociales publiques",
+                  "it": "Rimborso di contributi agli investimenti propri, assicurazioni sociali pubbliche",
+                  "en": "Repayment of own investment contributions, social security funds"
+                },
+                "children": [],
+                "level": 3,
+                "hasValue": false,
+                "value": null
+              },
+              {
+                "code": "664",
+                "labels": {
+                  "de": "Rückzahlung eigener Investitionsbeiträge, öffentliche Unternehmen",
+                  "fr": "Remboursement de propres contributions à des investissements, entreprises publiques",
+                  "it": "Rimborso di contributi agli investimenti propri, imprese pubbliche",
+                  "en": "Repayment of own investment contributions, public corporations"
+                },
+                "children": [],
+                "level": 3,
+                "hasValue": false,
+                "value": null
+              },
+              {
+                "code": "665",
+                "labels": {
+                  "de": "Rückzahlung eigener Investitionsbeiträge, private Unternehmen",
+                  "fr": "Remboursement de propres contributions à des investissements, entreprises privées",
+                  "it": "Rimborso di contributi agli investimenti propri, imprese private",
+                  "en": "Repayment of own investment contributions, private corporations"
+                },
+                "children": [],
+                "level": 3,
+                "hasValue": false,
+                "value": null
+              },
+              {
+                "code": "666",
+                "labels": {
+                  "de": "Rückzahlung eigener Investitionsbeiträge, private Organisationen ohne Erwerbszweck",
+                  "fr": "Remboursement de propres contributions à des investissements, organisations privées à but non lucratif",
+                  "it": "Rimborso di contributi agli investimenti propri, organizzazioni private senza scopo di lucro",
+                  "en": "Repayment of own investment contributions, private non-profit organizations"
+                },
+                "children": [],
+                "level": 3,
+                "hasValue": false,
+                "value": null
+              },
+              {
+                "code": "667",
+                "labels": {
+                  "de": "Rückzahlung eigener Investitionsbeiträge, private Haushalte",
+                  "fr": "Remboursement de propres contributions à des investissements, ménages privés",
+                  "it": "Rimborso di contributi agli investimenti propri, economie domestiche private",
+                  "en": "Repayment of own investment contributions, households"
+                },
+                "children": [],
+                "level": 3,
+                "hasValue": false,
+                "value": null
+              },
+              {
+                "code": "668",
+                "labels": {
+                  "de": "Rückzahlung eigener Investitionsbeiträge, Ausland",
+                  "fr": "Remboursement de propres contributions à des investissements, étranger",
+                  "it": "Rimborso di contributi agli investimenti propri, estero",
+                  "en": "Repayment of own investment contributions, abroad"
+                },
+                "children": [],
+                "level": 3,
+                "hasValue": false,
+                "value": null
+              }
+            ],
+            "level": 2,
+            "hasValue": false,
+            "value": null
+          },
+          {
+            "code": "67",
+            "labels": {
+              "de": "Investitionsbeiträge",
+              "fr": "Contributions à des investissements",
+              "it": "Contributi agli investimenti",
+              "en": "Investment contributions"
+            },
+            "children": [
+              {
+                "code": "670",
+                "labels": {
+                  "de": "Investitionsbeiträge, Bund",
+                  "fr": "Contributions à des investissements, Confédération",
+                  "it": "Contributi agli investimenti, Confederazione",
+                  "en": "Investment contributions, Confederation"
+                },
+                "children": [],
+                "level": 3,
+                "hasValue": false,
+                "value": null
+              },
+              {
+                "code": "671",
+                "labels": {
+                  "de": "Investitionsbeiträge, Kantone und Konkordate",
+                  "fr": "Contributions à des investissements, cantons et concordats",
+                  "it": "Contributi agli investimenti, Cantoni e Concordati",
+                  "en": "Investment contributions, cantons and concordats"
+                },
+                "children": [],
+                "level": 3,
+                "hasValue": false,
+                "value": null
+              },
+              {
+                "code": "672",
+                "labels": {
+                  "de": "Investitionsbeiträge, Gemeinden und Gemeindezweckverbände",
+                  "fr": "Contributions à des investissements, communes et syndicats intercommunaux",
+                  "it": "Contributi agli investimenti, Comuni e consorzi comunali",
+                  "en": "Investment contributions, municipalities and special purpose entities"
+                },
+                "children": [],
+                "level": 3,
+                "hasValue": false,
+                "value": null
+              },
+              {
+                "code": "673",
+                "labels": {
+                  "de": "Investitionsbeiträge, öffentliche Sozialversicherungen",
+                  "fr": "Contributions à des investissements, assurances sociales publiques",
+                  "it": "Contributi agli investimenti, assicurazioni sociali pubbliche",
+                  "en": "Investment contributions, social security funds"
+                },
+                "children": [],
+                "level": 3,
+                "hasValue": false,
+                "value": null
+              },
+              {
+                "code": "674",
+                "labels": {
+                  "de": "Investitionsbeiträge, öffentliche Unternehmen",
+                  "fr": "Contributions à des investissements, entreprises publiques",
+                  "it": "Contributi agli investimenti, imprese pubbliche",
+                  "en": "Investment contributions, public corporations"
+                },
+                "children": [],
+                "level": 3,
+                "hasValue": false,
+                "value": null
+              },
+              {
+                "code": "675",
+                "labels": {
+                  "de": "Investitionsbeiträge, private Unternehmen",
+                  "fr": "Contributions à des investissements, entreprises privées",
+                  "it": "Contributi agli investimenti, imprese private",
+                  "en": "Investment contributions, private corporations"
+                },
+                "children": [],
+                "level": 3,
+                "hasValue": false,
+                "value": null
+              },
+              {
+                "code": "676",
+                "labels": {
+                  "de": "Investitionsbeiträge, private Organisationen ohne Erwerbszweck",
+                  "fr": "Contributions à des investissements, organisations privées à but non lucratif",
+                  "it": "Contributi agli investimenti, organizzazioni private senza scopo di lucro",
+                  "en": "Investment contributions, private non-profit organizations"
+                },
+                "children": [],
+                "level": 3,
+                "hasValue": false,
+                "value": null
+              },
+              {
+                "code": "677",
+                "labels": {
+                  "de": "Investitionsbeiträge, private Haushalte",
+                  "fr": "Contributions à des investissements, ménages privés",
+                  "it": "Contributi agli investimenti, economie domestiche private",
+                  "en": "Investment contributions, households"
+                },
+                "children": [],
+                "level": 3,
+                "hasValue": false,
+                "value": null
+              },
+              {
+                "code": "678",
+                "labels": {
+                  "de": "Investitionsbeiträge, Ausland",
+                  "fr": "Contributions à des investissements, étranger",
+                  "it": "Contributi agli investimenti, estero",
+                  "en": "Investment contributions, abroad"
+                },
+                "children": [],
+                "level": 3,
+                "hasValue": false,
+                "value": null
+              }
+            ],
+            "level": 2,
+            "hasValue": false,
+            "value": null
+          },
+          {
+            "code": "68",
+            "labels": {
+              "de": "Ausserordentliche Investitionseinnahmen",
+              "fr": "Recettes d'investissement extraordinaires",
+              "it": "Entrate straordinarie per investimenti",
+              "en": "Extraordinary investment receipts"
+            },
+            "children": [
+              {
+                "code": "680",
+                "labels": {
+                  "de": "Ausserordentliche Investitionseinnahmen für Sachanlagen",
+                  "fr": "Recettes d'investissement extraordinaires pour les immobilisations corporelles",
+                  "it": "Entrate straordinarie per investimenti materiali",
+                  "en": "Extraordinary investment receipts for tangible fixed assets"
+                },
+                "children": [],
+                "level": 3,
+                "hasValue": false,
+                "value": null
+              },
+              {
+                "code": "682",
+                "labels": {
+                  "de": "Ausserordentliche Investitionseinnahmen für immaterielle Anlagen",
+                  "fr": "Recettes d'investissement extraordinaires pour les immobilisations incorporelles",
+                  "it": "Entrate straordinarie per investimenti immateriali",
+                  "en": "Extraordinary investment receipts for intangible fixed assets"
+                },
+                "children": [],
+                "level": 3,
+                "hasValue": false,
+                "value": null
+              },
+              {
+                "code": "684",
+                "labels": {
+                  "de": "Ausserordentliche Rückzahlung von Darlehen",
+                  "fr": "Remboursement extraordinaire de prêts",
+                  "it": "Restituzione straordinaria di mutui",
+                  "en": "Extraordinary loan repayment"
+                },
+                "children": [],
+                "level": 3,
+                "hasValue": false,
+                "value": null
+              },
+              {
+                "code": "685",
+                "labels": {
+                  "de": "Ausserordentliche Übertragung von Beteiligungen",
+                  "fr": "Transfert extraordinaire de participations",
+                  "it": "Riporto straordinario di partecipazioni",
+                  "en": "Extraordinary transfer of financial interests"
+                },
+                "children": [],
+                "level": 3,
+                "hasValue": false,
+                "value": null
+              },
+              {
+                "code": "686",
+                "labels": {
+                  "de": "Ausserordentliche Rückzahlung Investitionsbeiträge",
+                  "fr": "Remboursement extraordinaire de contributions à des investissements",
+                  "it": "Restituzione straordinaria di contributi agli investimenti",
+                  "en": "Extraordinary repayment of investment contributions"
+                },
+                "children": [],
+                "level": 3,
+                "hasValue": false,
+                "value": null
+              },
+              {
+                "code": "687",
+                "labels": {
+                  "de": "Ausserordentliche Investitionsbeiträge",
+                  "fr": "Contributions extraordinaires à des investissements",
+                  "it": "Contributi straordinari agli investimenti",
+                  "en": "Extraordinary investment contributions"
+                },
+                "children": [
+                  {
+                    "code": "6870",
+                    "labels": {
+                      "de": "Ausserordentliche Investitionsbeiträge, Bund",
+                      "fr": "Contributions extraordinaires à des investissements, Confédération",
+                      "it": "Contributi straordinari agli investimenti, Confederazione",
+                      "en": "Extraordinary investment contributions, Confederation"
+                    },
+                    "children": [],
+                    "level": 4,
+                    "hasValue": false,
+                    "value": null
+                  },
+                  {
+                    "code": "6871",
+                    "labels": {
+                      "de": "Ausserordentliche Investitionsbeiträge, Kantone und Konkordate",
+                      "fr": "Contributions extraordinaires à des investissements, cantons et concordats",
+                      "it": "Contributi straordinari agli investimenti, Cantoni e Concordati",
+                      "en": "Extraordinary investment contributions, cantons and concordats"
+                    },
+                    "children": [],
+                    "level": 4,
+                    "hasValue": false,
+                    "value": null
+                  },
+                  {
+                    "code": "6872",
+                    "labels": {
+                      "de": "Ausserordentliche Investitionsbeiträge, Gemeinden und Gemeindezweckverbände",
+                      "fr": "Contributions extraordinaires à des investissements, communes et syndicats intercommunaux",
+                      "it": "Contributi straordinari agli investimenti, Comuni e consorzi comunali",
+                      "en": "Extraordinary investment contributions, municipalities and special purpose entities"
+                    },
+                    "children": [],
+                    "level": 4,
+                    "hasValue": false,
+                    "value": null
+                  },
+                  {
+                    "code": "6873",
+                    "labels": {
+                      "de": "Ausserordentliche Investitionsbeiträge, öffentliche Sozialversicherungen",
+                      "fr": "Contributions extraordinaires à des investissements, assurances sociales publiques",
+                      "it": "Contributi straordinari agli investimenti, assicurazioni sociali pubbliche",
+                      "en": "Extraordinary investment contributions, social security funds"
+                    },
+                    "children": [],
+                    "level": 4,
+                    "hasValue": false,
+                    "value": null
+                  },
+                  {
+                    "code": "6874",
+                    "labels": {
+                      "de": "Ausserordentliche Investitionsbeiträge, öffentliche Unternehmen",
+                      "fr": "Contributions extraordinaires à des investissements, entreprises publiques",
+                      "it": "Contributi straordinari agli investimenti, imprese pubbliche",
+                      "en": "Extraordinary investment contributions, public corporations"
+                    },
+                    "children": [],
+                    "level": 4,
+                    "hasValue": false,
+                    "value": null
+                  },
+                  {
+                    "code": "6875",
+                    "labels": {
+                      "de": "Ausserordentliche Investitionsbeiträge, private Unternehmen",
+                      "fr": "Contributions extraordinaires à des investissements, entreprises privées",
+                      "it": "Contributi straordinari agli investimenti, imprese private",
+                      "en": "Extraordinary investment contributions, private corporations"
+                    },
+                    "children": [],
+                    "level": 4,
+                    "hasValue": false,
+                    "value": null
+                  },
+                  {
+                    "code": "6876",
+                    "labels": {
+                      "de": "Ausserordentliche Investitionsbeiträge, private Organisationen",
+                      "fr": "Contributions extraordinaires à des investissements, organisations privées",
+                      "it": "Contributi straordinari agli investimenti, organizzazioni private",
+                      "en": "Extraordinary investment contributions, private organizations"
+                    },
+                    "children": [],
+                    "level": 4,
+                    "hasValue": false,
+                    "value": null
+                  },
+                  {
+                    "code": "6877",
+                    "labels": {
+                      "de": "Ausserordentliche Investitionsbeiträge, private Haushalte",
+                      "fr": "Contributions extraordinaires à des investissements, ménages privés",
+                      "it": "Contributi straordinari agli investimenti, economie domestiche private",
+                      "en": "Extraordinary investment contributions, households"
+                    },
+                    "children": [],
+                    "level": 4,
+                    "hasValue": false,
+                    "value": null
+                  },
+                  {
+                    "code": "6878",
+                    "labels": {
+                      "de": "Ausserordentliche Investitionsbeiträge, Ausland",
+                      "fr": "Contributions extraordinaires à des investissements, étranger",
+                      "it": "Contributi straordinari agli investimenti, estero",
+                      "en": "Extraordinary investment contributions, abroad"
+                    },
+                    "children": [],
+                    "level": 4,
+                    "hasValue": false,
+                    "value": null
+                  }
+                ],
+                "level": 3,
+                "hasValue": false,
+                "value": null
+              },
+              {
+                "code": "689",
+                "labels": {
+                  "de": "Übrige ausserordentliche Investitionseinnahmen",
+                  "fr": "Autres recettes d'investissement extraordinaires",
+                  "it": "Rimanenti entrate straordinarie per investimenti",
+                  "en": "Other extraordinary investment receipts"
+                },
+                "children": [],
+                "level": 3,
+                "hasValue": false,
+                "value": null
+              }
+            ],
+            "level": 2,
+            "hasValue": false,
+            "value": null
+          }
+        ],
+        "level": 1,
+        "hasValue": false,
+        "value": null
+      }
+    ],
+    "level": 0,
+    "hasValue": false
+  }
+}

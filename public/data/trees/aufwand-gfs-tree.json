@@ -1,0 +1,463 @@
+{
+  "metadata": {
+    "dimension": "aufwand",
+    "model": "gfs",
+    "source": "codes/aufwand/gfs.csv",
+    "generatedAt": "2025-06-01T18:53:11.898Z",
+    "totalNodes": 34,
+    "maxDepth": 4
+  },
+  "tree": {
+    "code": "root",
+    "labels": {
+      "de": "Gesamt",
+      "fr": "Total",
+      "it": "Totale",
+      "en": "Total"
+    },
+    "children": [
+      {
+        "code": "2",
+        "labels": {
+          "de": "Aufwand",
+          "fr": "Charges",
+          "it": "Spese",
+          "en": "Expense"
+        },
+        "children": [
+          {
+            "code": "21",
+            "labels": {
+              "de": "Arbeitsentgelte",
+              "fr": "Rémunération",
+              "it": "Redditi da lavoro",
+              "en": "Compensation of employees"
+            },
+            "children": [
+              {
+                "code": "211",
+                "labels": {
+                  "de": "Bruttolöhne und -gehälter",
+                  "fr": "Salaires et traitements",
+                  "it": "Retribuzioni lorde",
+                  "en": "Wages and salaries"
+                },
+                "children": [],
+                "level": 3,
+                "hasValue": false,
+                "value": null
+              },
+              {
+                "code": "212",
+                "labels": {
+                  "de": "Sozialbeiträge der Arbeitgeber",
+                  "fr": "Cotisations sociales",
+                  "it": "Contributi sociali a carico dei datori di lavoro",
+                  "en": "Employers' social contributions"
+                },
+                "children": [
+                  {
+                    "code": "2121",
+                    "labels": {
+                      "de": "Tatsächliche Sozialbeiträge der Arbeitgeber",
+                      "fr": "Cotisations sociales effectives",
+                      "it": "Contributi sociali effettivi a carico dei datori di lavoro",
+                      "en": "Actual employers' social contributions"
+                    },
+                    "children": [],
+                    "level": 4,
+                    "hasValue": false,
+                    "value": null
+                  },
+                  {
+                    "code": "2122",
+                    "labels": {
+                      "de": "Unterstellte Sozialbeiträge der Arbeitgeber",
+                      "fr": "Cotisations sociales imputées",
+                      "it": "Contributi sociali figurativi a carico dei datori di lavoro",
+                      "en": "Imputed employers' social contributions"
+                    },
+                    "children": [],
+                    "level": 4,
+                    "hasValue": false,
+                    "value": null
+                  }
+                ],
+                "level": 3,
+                "hasValue": false,
+                "value": null
+              }
+            ],
+            "level": 2,
+            "hasValue": false,
+            "value": null
+          },
+          {
+            "code": "22",
+            "labels": {
+              "de": "Verwendung von Waren und Diensten ",
+              "fr": "Utilisation de biens et services",
+              "it": "Utilizzo di beni e servizi",
+              "en": "Use of goods and services"
+            },
+            "children": [],
+            "level": 2,
+            "hasValue": false,
+            "value": null
+          },
+          {
+            "code": "23",
+            "labels": {
+              "de": "Wertverzehr von Vermögensgütern",
+              "fr": "Consommation de capital fixe",
+              "it": "Consumo di attività reali",
+              "en": "Consumption of fixed capital"
+            },
+            "children": [],
+            "level": 2,
+            "hasValue": false,
+            "value": null
+          },
+          {
+            "code": "24",
+            "labels": {
+              "de": "Zinsaufwand",
+              "fr": "Charges d'intérêts",
+              "it": "Spese a titolo di interessi",
+              "en": "Interest"
+            },
+            "children": [],
+            "level": 2,
+            "hasValue": false,
+            "value": null
+          },
+          {
+            "code": "25",
+            "labels": {
+              "de": "Subventionen",
+              "fr": "Subventions",
+              "it": "Contributi",
+              "en": "Subsidies"
+            },
+            "children": [
+              {
+                "code": "251",
+                "labels": {
+                  "de": "An öffentliche Unternehmen",
+                  "fr": "Aux entreprises publiques",
+                  "it": "Contributi a imprese pubbliche",
+                  "en": "To public corporations"
+                },
+                "children": [],
+                "level": 3,
+                "hasValue": false,
+                "value": null
+              },
+              {
+                "code": "252",
+                "labels": {
+                  "de": "An private Unternehmen",
+                  "fr": "Aux entreprises privées",
+                  "it": "Contributi a imprese private",
+                  "en": "To private enterprises"
+                },
+                "children": [],
+                "level": 3,
+                "hasValue": false,
+                "value": null
+              },
+              {
+                "code": "253",
+                "labels": {
+                  "de": "An andere Wirtschaftssektoren",
+                  "fr": "Aux autres secteurs économiques",
+                  "it": "Contributi ad altri settori dell'economia",
+                  "en": "To other sectors"
+                },
+                "children": [],
+                "level": 3,
+                "hasValue": false,
+                "value": null
+              }
+            ],
+            "level": 2,
+            "hasValue": false,
+            "value": null
+          },
+          {
+            "code": "26",
+            "labels": {
+              "de": "Öffentliche Transfers",
+              "fr": "Transferts publics",
+              "it": "Trasferimenti pubblici",
+              "en": "Grants"
+            },
+            "children": [
+              {
+                "code": "261",
+                "labels": {
+                  "de": "An öffentliche Haushalte des Auslandes",
+                  "fr": "Aux administrations publiques étrangères",
+                  "it": "Trasferimenti al settore pubblico estero",
+                  "en": "To foreign governments"
+                },
+                "children": [
+                  {
+                    "code": "2611",
+                    "labels": {
+                      "de": "Laufende Transfers",
+                      "fr": "Transferts courants",
+                      "it": "Trasferimenti correnti",
+                      "en": "Current"
+                    },
+                    "children": [],
+                    "level": 4,
+                    "hasValue": false,
+                    "value": null
+                  },
+                  {
+                    "code": "2612",
+                    "labels": {
+                      "de": "Kapital- oder Investitionszuschüsse",
+                      "fr": "Transferts en capital ou aides à l'investissement",
+                      "it": "Conferimenti di capitale o contributi agli investimenti",
+                      "en": "Capital"
+                    },
+                    "children": [],
+                    "level": 4,
+                    "hasValue": false,
+                    "value": null
+                  }
+                ],
+                "level": 3,
+                "hasValue": false,
+                "value": null
+              },
+              {
+                "code": "262",
+                "labels": {
+                  "de": "An internationale Organisationen",
+                  "fr": "Aux organisations internationales",
+                  "it": "Trasferimenti a organizzazioni internazionali",
+                  "en": "To international organizations"
+                },
+                "children": [
+                  {
+                    "code": "2621",
+                    "labels": {
+                      "de": "Laufende Transfers",
+                      "fr": "Transferts courants",
+                      "it": "Trasferimenti correnti",
+                      "en": "Current"
+                    },
+                    "children": [],
+                    "level": 4,
+                    "hasValue": false,
+                    "value": null
+                  },
+                  {
+                    "code": "2622",
+                    "labels": {
+                      "de": "Kapital- oder Investitionszuschüsse",
+                      "fr": "Transferts en capital ou aides à l'investissement",
+                      "it": "Conferimenti di capitale o contributi agli investimenti",
+                      "en": "Capital"
+                    },
+                    "children": [],
+                    "level": 4,
+                    "hasValue": false,
+                    "value": null
+                  }
+                ],
+                "level": 3,
+                "hasValue": false,
+                "value": null
+              },
+              {
+                "code": "263",
+                "labels": {
+                  "de": "An andere öffentlichen Haushalte des Inlandes",
+                  "fr": "Aux autres unités d'administration publique",
+                  "it": "Trasferimenti al settore pubblico interno",
+                  "en": "To other general government units"
+                },
+                "children": [
+                  {
+                    "code": "2631",
+                    "labels": {
+                      "de": "Laufende Transfers",
+                      "fr": "Transferts courants",
+                      "it": "Trasferimenti correnti",
+                      "en": "Current"
+                    },
+                    "children": [],
+                    "level": 4,
+                    "hasValue": false,
+                    "value": null
+                  },
+                  {
+                    "code": "2632",
+                    "labels": {
+                      "de": "Kapital- oder Investitionszuschüsse",
+                      "fr": "Transferts en capital ou aides à l'investissement",
+                      "it": "Conferimenti di capitale o contributi agli investimenti",
+                      "en": "Capital"
+                    },
+                    "children": [],
+                    "level": 4,
+                    "hasValue": false,
+                    "value": null
+                  }
+                ],
+                "level": 3,
+                "hasValue": false,
+                "value": null
+              }
+            ],
+            "level": 2,
+            "hasValue": false,
+            "value": null
+          },
+          {
+            "code": "27",
+            "labels": {
+              "de": "Sozialleistungen",
+              "fr": "Prestations sociales",
+              "it": "Prestazioni sociali",
+              "en": "Social benefits"
+            },
+            "children": [
+              {
+                "code": "271",
+                "labels": {
+                  "de": "Leistungen der sozialen Sicherung",
+                  "fr": "Prestations de sécurité sociale",
+                  "it": "Prestazioni della previdenza e assistenza sociale",
+                  "en": "Social security benefits"
+                },
+                "children": [],
+                "level": 3,
+                "hasValue": false,
+                "value": null
+              },
+              {
+                "code": "272",
+                "labels": {
+                  "de": "Sozialhilfe",
+                  "fr": "Prestations d'assistance sociale",
+                  "it": "Assistenza sociale",
+                  "en": "Social assistance benefits"
+                },
+                "children": [],
+                "level": 3,
+                "hasValue": false,
+                "value": null
+              },
+              {
+                "code": "273",
+                "labels": {
+                  "de": "Sozialleistungen des Arbeitsgebers",
+                  "fr": "Prestations sociales de l'employeur",
+                  "it": "Prestazioni sociali a carico dei datori di lavoro",
+                  "en": "Employment-related social benefits"
+                },
+                "children": [],
+                "level": 3,
+                "hasValue": false,
+                "value": null
+              }
+            ],
+            "level": 2,
+            "hasValue": false,
+            "value": null
+          },
+          {
+            "code": "28",
+            "labels": {
+              "de": "Übriger Aufwand",
+              "fr": "Autres charges",
+              "it": "Rimanenti oneri",
+              "en": "Other expense"
+            },
+            "children": [
+              {
+                "code": "281",
+                "labels": {
+                  "de": "Vermögensaufwand, ohne Zinsen",
+                  "fr": "Charges liées à la propriété autres que les intérêts",
+                  "it": "Rimanenti oneri patrimoniali, senza interessi",
+                  "en": "Property expense other than interest"
+                },
+                "children": [],
+                "level": 3,
+                "hasValue": false,
+                "value": null
+              },
+              {
+                "code": "282",
+                "labels": {
+                  "de": "Transferaufwand, n.a.g.",
+                  "fr": "Charges liées aux transferts, n.c.a.",
+                  "it": "Spese di riversamento, n.m.a.",
+                  "en": "Transfers not elsewhere classified"
+                },
+                "children": [
+                  {
+                    "code": "2821",
+                    "labels": {
+                      "de": "Laufender Transferaufwand, n.a.g.",
+                      "fr": "Charges liées aux transferts courants, n.c.a.",
+                      "it": "Spese di riversamento correnti, n.m.a.",
+                      "en": "Current transfers not elsewhere classified"
+                    },
+                    "children": [],
+                    "level": 4,
+                    "hasValue": false,
+                    "value": null
+                  },
+                  {
+                    "code": "2822",
+                    "labels": {
+                      "de": "Kapital- oder Investitionszuschüsse, n.a.g.",
+                      "fr": "Tranferts en capital ou aides à l'investissement, n.c.a.",
+                      "it": "Conferimenti di capitale o contributi agli investimenti, n.m.a.",
+                      "en": "Capital transfers not elsewhere classified"
+                    },
+                    "children": [],
+                    "level": 4,
+                    "hasValue": false,
+                    "value": null
+                  }
+                ],
+                "level": 3,
+                "hasValue": false,
+                "value": null
+              },
+              {
+                "code": "283",
+                "labels": {
+                  "de": "Prämien, Gebühren und Ansprüche aus Nichtlebensversicherungs - und Standardgarantie-Systemen",
+                  "fr": "Primes, émoluments et droits relatifs aux systèmes d'assurances autres que sur la vie et de garanties standard",
+                  "it": "Assicurazioni contro i danni e garanzie standard: premi, tasse e diritti",
+                  "en": "Premiums, fees, and claims related to nonlife insurance and standardized guarantee schemes"
+                },
+                "children": [],
+                "level": 3,
+                "hasValue": false,
+                "value": null
+              }
+            ],
+            "level": 2,
+            "hasValue": false,
+            "value": null
+          }
+        ],
+        "level": 1,
+        "hasValue": false,
+        "value": null
+      }
+    ],
+    "level": 0,
+    "hasValue": false
+  }
+}

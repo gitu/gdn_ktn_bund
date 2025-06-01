@@ -1,0 +1,536 @@
+{
+  "metadata": {
+    "dimension": "bilanz",
+    "model": "fs",
+    "source": "codes/bilanz/fs.csv",
+    "generatedAt": "2025-06-01T18:53:11.904Z",
+    "totalNodes": 40,
+    "maxDepth": 3
+  },
+  "tree": {
+    "code": "root",
+    "labels": {
+      "de": "Gesamt",
+      "fr": "Total",
+      "it": "Totale",
+      "en": "Total"
+    },
+    "children": [
+      {
+        "code": "1",
+        "labels": {
+          "de": "Aktiven",
+          "fr": "Actif",
+          "it": "Attivi",
+          "en": "Assets"
+        },
+        "children": [
+          {
+            "code": "10",
+            "labels": {
+              "de": "Finanzvermögen",
+              "fr": "Patrimoine financier",
+              "it": "Beni patrimoniali",
+              "en": "Non-administrative assets"
+            },
+            "children": [
+              {
+                "code": "100",
+                "labels": {
+                  "de": "Flüssige Mittel und kurzfristige Geldanlagen",
+                  "fr": "Liquidités et placements à court terme",
+                  "it": "Liquidità e investimenti di denaro a breve termine",
+                  "en": "Cash and cash equivalents"
+                },
+                "children": [],
+                "level": 3,
+                "hasValue": false,
+                "value": null
+              },
+              {
+                "code": "101",
+                "labels": {
+                  "de": "Forderungen",
+                  "fr": "Créances",
+                  "it": "Crediti",
+                  "en": "Receivables"
+                },
+                "children": [],
+                "level": 3,
+                "hasValue": false,
+                "value": null
+              },
+              {
+                "code": "102",
+                "labels": {
+                  "de": "Kurzfristige Finanzanlagen",
+                  "fr": "Placements financiers à court terme",
+                  "it": "Investimenti finanziari a breve termine",
+                  "en": "Short-term financial investments"
+                },
+                "children": [],
+                "level": 3,
+                "hasValue": false,
+                "value": null
+              },
+              {
+                "code": "104",
+                "labels": {
+                  "de": "Aktive Rechnungsabgrenzungen",
+                  "fr": "Comptes de régularisation actifs",
+                  "it": "Delimitazioni contabili attive",
+                  "en": "Prepaid expenses and accrued income"
+                },
+                "children": [],
+                "level": 3,
+                "hasValue": false,
+                "value": null
+              },
+              {
+                "code": "106",
+                "labels": {
+                  "de": "Vorräte und angefangene Arbeiten",
+                  "fr": "Stocks et travaux en cours",
+                  "it": "Scorte e lavori in corso",
+                  "en": "Inventories and work in progress"
+                },
+                "children": [],
+                "level": 3,
+                "hasValue": false,
+                "value": null
+              },
+              {
+                "code": "107",
+                "labels": {
+                  "de": "Langfristige Finanzanlagen",
+                  "fr": "Placements financiers à long terme",
+                  "it": "Investimenti finanziari a lungo termine",
+                  "en": "Long-term financial investments"
+                },
+                "children": [],
+                "level": 3,
+                "hasValue": false,
+                "value": null
+              },
+              {
+                "code": "108",
+                "labels": {
+                  "de": "Sachanlagen, FV",
+                  "fr": "Immobilisations corporelles, PF",
+                  "it": "Investimenti materiali, beni patrimoniali",
+                  "en": "Tangible fixed assets, NAA"
+                },
+                "children": [],
+                "level": 3,
+                "hasValue": false,
+                "value": null
+              },
+              {
+                "code": "109",
+                "labels": {
+                  "de": "Forderungen gegenüber Spezialfinanzierungen und Fonds im Fremdkapital",
+                  "fr": "Créances sur les financements spéciaux et fonds enregistrés sous les capitaux de tiers",
+                  "it": "Crediti nei confronti di finanziamenti speciali e di fondi nel capitale di terzi",
+                  "en": "Receivables from special financing and funds in liabilities"
+                },
+                "children": [],
+                "level": 3,
+                "hasValue": false,
+                "value": null
+              }
+            ],
+            "level": 2,
+            "hasValue": false,
+            "value": null
+          },
+          {
+            "code": "14",
+            "labels": {
+              "de": "Verwaltungsvermögen",
+              "fr": "Patrimoine administratif",
+              "it": "Beni amministrativi",
+              "en": "Administrative assets"
+            },
+            "children": [
+              {
+                "code": "140",
+                "labels": {
+                  "de": "Sachanlagen, VV",
+                  "fr": "Immobilisations corporelles, PA",
+                  "it": "Investimenti materiali, beni amministrativi",
+                  "en": "Tangible fixed assets, AA"
+                },
+                "children": [],
+                "level": 3,
+                "hasValue": false,
+                "value": null
+              },
+              {
+                "code": "141",
+                "labels": {
+                  "de": "Vorräte, VV",
+                  "fr": "Stocks, PA",
+                  "it": "Scorte, beni amministrativi",
+                  "en": "Inventories, AA"
+                },
+                "children": [],
+                "level": 3,
+                "hasValue": false,
+                "value": null
+              },
+              {
+                "code": "142",
+                "labels": {
+                  "de": "Immaterielle Anlagen",
+                  "fr": "Immobilisations incorporelles",
+                  "it": "Investimenti immateriali",
+                  "en": "Intangible fixed assets"
+                },
+                "children": [],
+                "level": 3,
+                "hasValue": false,
+                "value": null
+              },
+              {
+                "code": "143",
+                "labels": {
+                  "de": "Darlehen und Beteiligungen n.a.g.",
+                  "fr": "Prêts et participations n.c.a.",
+                  "it": "Mutui e partecipazioni n.m.a.",
+                  "en": "Loans and financial interests n.e.c."
+                },
+                "children": [],
+                "level": 3,
+                "hasValue": false,
+                "value": null
+              },
+              {
+                "code": "144",
+                "labels": {
+                  "de": "Darlehen",
+                  "fr": "Prêts",
+                  "it": "Mutui",
+                  "en": "Loans"
+                },
+                "children": [],
+                "level": 3,
+                "hasValue": false,
+                "value": null
+              },
+              {
+                "code": "145",
+                "labels": {
+                  "de": "Beteiligungen, Grundkapitalien",
+                  "fr": "Participations, capital social",
+                  "it": "Partecipazioni, capitali sociali",
+                  "en": "Financial interests, share capital"
+                },
+                "children": [],
+                "level": 3,
+                "hasValue": false,
+                "value": null
+              },
+              {
+                "code": "146",
+                "labels": {
+                  "de": "Investitionsbeiträge",
+                  "fr": "Contributions à des investissements",
+                  "it": "Contributi agli investimenti",
+                  "en": "Investment contributions"
+                },
+                "children": [],
+                "level": 3,
+                "hasValue": false,
+                "value": null
+              },
+              {
+                "code": "147",
+                "labels": {
+                  "de": "Guthaben gegenüber öffentlichen Haushalten",
+                  "fr": "Créances sur les administrations publiques",
+                  "it": "Averi verso le amministrazioni pubbliche",
+                  "en": "Assets due from government units"
+                },
+                "children": [],
+                "level": 3,
+                "hasValue": false,
+                "value": null
+              },
+              {
+                "code": "148",
+                "labels": {
+                  "de": "Kumulierte zusätzliche Abschreibungen",
+                  "fr": "Amortissements supplémentaires cumulés",
+                  "it": "Ammortamenti supplementari cumulati",
+                  "en": "Accumulated additional depreciation and amortization"
+                },
+                "children": [],
+                "level": 3,
+                "hasValue": false,
+                "value": null
+              }
+            ],
+            "level": 2,
+            "hasValue": false,
+            "value": null
+          }
+        ],
+        "level": 1,
+        "hasValue": false,
+        "value": null
+      },
+      {
+        "code": "2",
+        "labels": {
+          "de": "Passiven",
+          "fr": "Passif",
+          "it": "Passivi",
+          "en": "Liabilities and equity"
+        },
+        "children": [
+          {
+            "code": "20",
+            "labels": {
+              "de": "Fremdkapital",
+              "fr": "Capitaux de tiers",
+              "it": "Capitale di terzi",
+              "en": "Liabilities"
+            },
+            "children": [
+              {
+                "code": "200",
+                "labels": {
+                  "de": "Laufende Verbindlichkeiten",
+                  "fr": "Engagements courants",
+                  "it": "Impegni correnti",
+                  "en": "Current liabilities"
+                },
+                "children": [],
+                "level": 3,
+                "hasValue": false,
+                "value": null
+              },
+              {
+                "code": "201",
+                "labels": {
+                  "de": "Kurzfristige Finanzverbindlichkeiten",
+                  "fr": "Engagements financiers à court terme",
+                  "it": "Impegni finanziari a breve termine",
+                  "en": "Short-term financial liabilities"
+                },
+                "children": [],
+                "level": 3,
+                "hasValue": false,
+                "value": null
+              },
+              {
+                "code": "204",
+                "labels": {
+                  "de": "Passive Rechnungsabgrenzungen",
+                  "fr": "Comptes de régularisation passifs",
+                  "it": "Delimitazioni contabili passive",
+                  "en": "Accrued expenses and deferred income"
+                },
+                "children": [],
+                "level": 3,
+                "hasValue": false,
+                "value": null
+              },
+              {
+                "code": "205",
+                "labels": {
+                  "de": "Kurzfristige Rückstellungen",
+                  "fr": "Provisions à court terme",
+                  "it": "Accantonamenti a breve termine",
+                  "en": "Short-term provisions"
+                },
+                "children": [],
+                "level": 3,
+                "hasValue": false,
+                "value": null
+              },
+              {
+                "code": "206",
+                "labels": {
+                  "de": "Langfristige Finanzverbindlichkeiten",
+                  "fr": "Engagements financiers à long terme",
+                  "it": "Impegni a lungo termine",
+                  "en": "Long-term financial liabilities"
+                },
+                "children": [],
+                "level": 3,
+                "hasValue": false,
+                "value": null
+              },
+              {
+                "code": "207",
+                "labels": {
+                  "de": "Verbindlichkeiten gegenüber öffentlichen Haushalten",
+                  "fr": "Engagements envers les administrations publiques",
+                  "it": "Impegni nei confronti delle amministrazioni pubbliche",
+                  "en": "Liabilities toward government units"
+                },
+                "children": [],
+                "level": 3,
+                "hasValue": false,
+                "value": null
+              },
+              {
+                "code": "208",
+                "labels": {
+                  "de": "Langfristige Rückstellungen",
+                  "fr": "Provisions à long terme",
+                  "it": "Accantonamenti a lungo termine",
+                  "en": "Long-term provisions"
+                },
+                "children": [],
+                "level": 3,
+                "hasValue": false,
+                "value": null
+              },
+              {
+                "code": "209",
+                "labels": {
+                  "de": "Zweckgebundene Mittel/Fonds",
+                  "fr": "Fonds affectés",
+                  "it": "Mezzi/Fondi a destinazione vincolata",
+                  "en": "Restricted funds"
+                },
+                "children": [],
+                "level": 3,
+                "hasValue": false,
+                "value": null
+              }
+            ],
+            "level": 2,
+            "hasValue": false,
+            "value": null
+          },
+          {
+            "code": "29",
+            "labels": {
+              "de": "Eigenkapital",
+              "fr": "Capital propre",
+              "it": "Capitale proprio",
+              "en": "Net assets/equity"
+            },
+            "children": [
+              {
+                "code": "290",
+                "labels": {
+                  "de": "Spezialfinanzierungen und Fonds und Eigenkapital",
+                  "fr": "Financements spéciaux et fonds enregistrés sous le capital propre",
+                  "it": "Finanziamenti speciali e di fondi nel capitale proprio",
+                  "en": "Special financing and funds in net assets/equity"
+                },
+                "children": [],
+                "level": 3,
+                "hasValue": false,
+                "value": null
+              },
+              {
+                "code": "292",
+                "labels": {
+                  "de": "Rücklagen der Globalbudgetbereiche",
+                  "fr": "Réserves des domaines de l'enveloppe budgétaire",
+                  "it": "Riserve dei settori del preventivo globale",
+                  "en": "Global budget area reserves"
+                },
+                "children": [],
+                "level": 3,
+                "hasValue": false,
+                "value": null
+              },
+              {
+                "code": "293",
+                "labels": {
+                  "de": "Vorfinanzierungen",
+                  "fr": "Préfinancements",
+                  "it": "Prefinanziamenti",
+                  "en": "Advance financing"
+                },
+                "children": [],
+                "level": 3,
+                "hasValue": false,
+                "value": null
+              },
+              {
+                "code": "294",
+                "labels": {
+                  "de": "Finanzpolitische Reserven",
+                  "fr": "Réserves de politique budgétaire",
+                  "it": "Riserve di politica finanziaria",
+                  "en": "Fiscal policy reserves"
+                },
+                "children": [],
+                "level": 3,
+                "hasValue": false,
+                "value": null
+              },
+              {
+                "code": "295",
+                "labels": {
+                  "de": "Aufwertungsreserve",
+                  "fr": "Réserve liée au retraitement",
+                  "it": "Riserva di rivalutazione",
+                  "en": "Restatement reserve"
+                },
+                "children": [],
+                "level": 3,
+                "hasValue": false,
+                "value": null
+              },
+              {
+                "code": "296",
+                "labels": {
+                  "de": "Neubewertungsreserve Finanzvermögen",
+                  "fr": "Réserve liée à la réévaluation du patrimoine financier",
+                  "it": "Riserva di nuova valutazione dei beni patrimoniali",
+                  "en": "Revaluation reserve, non-administrative assets"
+                },
+                "children": [],
+                "level": 3,
+                "hasValue": false,
+                "value": null
+              },
+              {
+                "code": "298",
+                "labels": {
+                  "de": "Übriges Eigenkapital",
+                  "fr": "Autre capital propre",
+                  "it": "Rimanente capitale proprio",
+                  "en": "Other net assets/equity"
+                },
+                "children": [],
+                "level": 3,
+                "hasValue": false,
+                "value": null
+              },
+              {
+                "code": "299",
+                "labels": {
+                  "de": "Bilanzüberschuss/-fehlbetrag",
+                  "fr": "Excédent/découvert du bilan",
+                  "it": "Eccedenza/Disavanzo di bilancio",
+                  "en": "Accumulated surplus/deficit"
+                },
+                "children": [],
+                "level": 3,
+                "hasValue": false,
+                "value": null
+              }
+            ],
+            "level": 2,
+            "hasValue": false,
+            "value": null
+          }
+        ],
+        "level": 1,
+        "hasValue": false,
+        "value": null
+      }
+    ],
+    "level": 0,
+    "hasValue": false
+  }
+}

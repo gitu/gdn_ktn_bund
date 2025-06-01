@@ -1,0 +1,22 @@
+{
+  "metadata": {
+    "dimension": "ausgaben_funk",
+    "model": "fs",
+    "source": "codes/ausgaben_funk/fs.csv",
+    "generatedAt": "2025-06-01T18:53:11.903Z",
+    "totalNodes": 1,
+    "maxDepth": 0
+  },
+  "tree": {
+    "code": "root",
+    "labels": {
+      "de": "Gesamt",
+      "fr": "Total",
+      "it": "Totale",
+      "en": "Total"
+    },
+    "children": [],
+    "level": 0,
+    "hasValue": false
+  }
+}

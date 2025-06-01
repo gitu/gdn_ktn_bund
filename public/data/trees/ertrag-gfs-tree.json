@@ -1,0 +1,978 @@
+{
+  "metadata": {
+    "dimension": "ertrag",
+    "model": "gfs",
+    "source": "codes/ertrag/gfs.csv",
+    "generatedAt": "2025-06-01T18:53:11.910Z",
+    "totalNodes": 73,
+    "maxDepth": 5
+  },
+  "tree": {
+    "code": "root",
+    "labels": {
+      "de": "Gesamt",
+      "fr": "Total",
+      "it": "Totale",
+      "en": "Total"
+    },
+    "children": [
+      {
+        "code": "1",
+        "labels": {
+          "de": "Ertrag",
+          "fr": "Revenus",
+          "it": "Ricavi",
+          "en": "Revenue"
+        },
+        "children": [
+          {
+            "code": "11",
+            "labels": {
+              "de": "Steuern",
+              "fr": "Impôts",
+              "it": "Imposte",
+              "en": "Taxes"
+            },
+            "children": [
+              {
+                "code": "111",
+                "labels": {
+                  "de": "Einkommens-, Gewinn- und Kapitalgewinnsteuern",
+                  "fr": "Impôts sur le revenu, les bénéfices et les gains en capital",
+                  "it": "Imposte sul reddito, sull'utile e sul capitale",
+                  "en": "Taxes on income, profits, and capital gains"
+                },
+                "children": [
+                  {
+                    "code": "1111",
+                    "labels": {
+                      "de": "Von privaten Haushalten bezahlt",
+                      "fr": "À la charge des personnes physiques",
+                      "it": "Pagate da economie domestiche private",
+                      "en": "Payable by individuals"
+                    },
+                    "children": [],
+                    "level": 4,
+                    "hasValue": false,
+                    "value": null
+                  },
+                  {
+                    "code": "1112",
+                    "labels": {
+                      "de": "Von Kapitalgesellschaften und anderen Unternehmen bezahlt",
+                      "fr": "À la charge des sociétés et autres entreprises",
+                      "it": "Pagate da società di capitali e altre imprese",
+                      "en": "Payable by corporations and other enterprises"
+                    },
+                    "children": [],
+                    "level": 4,
+                    "hasValue": false,
+                    "value": null
+                  },
+                  {
+                    "code": "1113",
+                    "labels": {
+                      "de": "Übrige Einkommens-, Gewinn- und Kapitalsteuern",
+                      "fr": "Autres impôts sur le revenu, les bénéfices et les gains en capital",
+                      "it": "Rimanenti imposte sul reddito, sull'utile e sul capitale",
+                      "en": "Other taxes on income, profits, and capital gains"
+                    },
+                    "children": [],
+                    "level": 4,
+                    "hasValue": false,
+                    "value": null
+                  }
+                ],
+                "level": 3,
+                "hasValue": false,
+                "value": null
+              },
+              {
+                "code": "112",
+                "labels": {
+                  "de": "Lohnsteuern",
+                  "fr": "Impôts sur les salaires et la main-d'oeuvre",
+                  "it": "Imposte sulla massa salariale totale",
+                  "en": "Taxes on payroll and workforce"
+                },
+                "children": [],
+                "level": 3,
+                "hasValue": false,
+                "value": null
+              },
+              {
+                "code": "113",
+                "labels": {
+                  "de": "Vermögenssteuern",
+                  "fr": "Impôts sur le patrimoine",
+                  "it": "Imposte sul patrimonio",
+                  "en": "Taxes on property"
+                },
+                "children": [
+                  {
+                    "code": "1131",
+                    "labels": {
+                      "de": "Wiederkehrende Steuern auf Immobilien",
+                      "fr": "Impôts périodiques sur la propriété immobilière",
+                      "it": "Imposte periodiche sui beni immobili",
+                      "en": "Recurrent taxes on immovable property"
+                    },
+                    "children": [],
+                    "level": 4,
+                    "hasValue": false,
+                    "value": null
+                  },
+                  {
+                    "code": "1132",
+                    "labels": {
+                      "de": "Wiederkehrende Vermögenssteuern",
+                      "fr": "Impôts périodiques sur le patrimoine net",
+                      "it": "Imposte periodiche sul patrimonio",
+                      "en": "Recurrent taxes on net wealth"
+                    },
+                    "children": [],
+                    "level": 4,
+                    "hasValue": false,
+                    "value": null
+                  },
+                  {
+                    "code": "1133",
+                    "labels": {
+                      "de": "Grund-, Erbschafts- und Schenkungssteuern",
+                      "fr": "Impôts sur les mutations par décès, les successions et les donations entre vifs et les legs",
+                      "it": "Imposte fondiarie, sulle successioni e sulle donazioni",
+                      "en": "Estate, inheritance, and gift taxes"
+                    },
+                    "children": [],
+                    "level": 4,
+                    "hasValue": false,
+                    "value": null
+                  },
+                  {
+                    "code": "1135",
+                    "labels": {
+                      "de": "Sonstige nicht wiederkehrende Vermögenssteuern",
+                      "fr": "Autres impôts non périodiques sur le patrimoine",
+                      "it": "Altre imposte una tantum sul patrimonio",
+                      "en": "Capital levies"
+                    },
+                    "children": [],
+                    "level": 4,
+                    "hasValue": false,
+                    "value": null
+                  },
+                  {
+                    "code": "1136",
+                    "labels": {
+                      "de": "Sonstige wiederkehrende Vermögenssteuern",
+                      "fr": "Autres impôts périodiques sur le patrimoine",
+                      "it": "Altre imposte periodiche sul patrimonio",
+                      "en": "Other recurrent taxes on property"
+                    },
+                    "children": [],
+                    "level": 4,
+                    "hasValue": false,
+                    "value": null
+                  }
+                ],
+                "level": 3,
+                "hasValue": false,
+                "value": null
+              },
+              {
+                "code": "114",
+                "labels": {
+                  "de": "Steuern auf Waren und Dienstleistungen",
+                  "fr": "Impôts sur les biens et services",
+                  "it": "Imposte su beni e servizi",
+                  "en": "Taxes on goods and services"
+                },
+                "children": [
+                  {
+                    "code": "1141",
+                    "labels": {
+                      "de": "Allgemeine Steuern auf Waren und Dienstleistungen",
+                      "fr": "Impôts généraux sur les biens et services",
+                      "it": "Imposte generali su beni e servizi",
+                      "en": "General taxes on goods and services"
+                    },
+                    "children": [
+                      {
+                        "code": "11411",
+                        "labels": {
+                          "de": "Mehrwertsteuer (MWSt)",
+                          "fr": "Taxe sur la valeur ajoutée (TVA)",
+                          "it": "Imposta sul valore aggiunto (IVA)",
+                          "en": "Value-added taxes (VAT)"
+                        },
+                        "children": [],
+                        "level": 5,
+                        "hasValue": false,
+                        "value": null
+                      },
+                      {
+                        "code": "11412",
+                        "labels": {
+                          "de": "Verkaufs- oder Handelssteuern",
+                          "fr": "Impôts sur la vente",
+                          "it": "Imposte sulla vendita o sugli scambi",
+                          "en": "Sales taxes"
+                        },
+                        "children": [],
+                        "level": 5,
+                        "hasValue": false,
+                        "value": null
+                      },
+                      {
+                        "code": "11413",
+                        "labels": {
+                          "de": "Warenumsatzsteuer und weitere allgemeine Steuern auf Waren und Dienstleistungen",
+                          "fr": "Impôts sur le chiffre d'affaires et autres impôts généraux sur les biens et services",
+                          "it": "Imposta sulla cifra d’affari e altre imposte generali su beni e servizi",
+                          "en": "Turnover and other general taxes on goods and services"
+                        },
+                        "children": [],
+                        "level": 5,
+                        "hasValue": false,
+                        "value": null
+                      },
+                      {
+                        "code": "11414",
+                        "labels": {
+                          "de": "Kapitalverkehrssteuern",
+                          "fr": "Impôts sur les transactions financières et en capital",
+                          "it": "Imposta sui movimenti di capitale ",
+                          "en": "Taxes on financial and capital transactions"
+                        },
+                        "children": [],
+                        "level": 5,
+                        "hasValue": false,
+                        "value": null
+                      }
+                    ],
+                    "level": 4,
+                    "hasValue": false,
+                    "value": null
+                  },
+                  {
+                    "code": "1142",
+                    "labels": {
+                      "de": "Verbrauchssteuern",
+                      "fr": "Impôts à la consommation",
+                      "it": "Imposte sul consumo",
+                      "en": "Excises"
+                    },
+                    "children": [],
+                    "level": 4,
+                    "hasValue": false,
+                    "value": null
+                  },
+                  {
+                    "code": "1143",
+                    "labels": {
+                      "de": "Einnahmen aus Staatsmonopolen",
+                      "fr": "Bénéfices des monopoles fiscaux",
+                      "it": "Entrate da monopoli statali",
+                      "en": "Profits of fiscal monopolies"
+                    },
+                    "children": [],
+                    "level": 4,
+                    "hasValue": false,
+                    "value": null
+                  },
+                  {
+                    "code": "1144",
+                    "labels": {
+                      "de": "Steuern auf spezifische Dienstleistungen",
+                      "fr": "Taxes sur des services déterminés",
+                      "it": "Imposte su servizi specifici",
+                      "en": "Taxes on specific services"
+                    },
+                    "children": [],
+                    "level": 4,
+                    "hasValue": false,
+                    "value": null
+                  },
+                  {
+                    "code": "1145",
+                    "labels": {
+                      "de": "Gütersteuern und Bewilligungen",
+                      "fr": "Taxes sur l'utilisation ou la permission d'utiliser des biens ou d'exercer des activités",
+                      "it": "Imposte sui prodotti e autorizzazioni",
+                      "en": "Taxes on use of goods and on permission to use goods or perform activities"
+                    },
+                    "children": [
+                      {
+                        "code": "11451",
+                        "labels": {
+                          "de": "Motorfahrzeugsteuer",
+                          "fr": "Taxes sur les véhicules à moteur",
+                          "it": "Tassa sui veicoli a motore",
+                          "en": "Motor vehicle taxes"
+                        },
+                        "children": [],
+                        "level": 5,
+                        "hasValue": false,
+                        "value": null
+                      },
+                      {
+                        "code": "11452",
+                        "labels": {
+                          "de": "Sonstige Gütersteuern und Bewilligungen",
+                          "fr": "Autres taxes sur l'utilisation ou la permission d'utiliser des biens ou d'exercer des activités",
+                          "it": "Altre imposte sui prodotti e autorizzazioni",
+                          "en": "Other taxes on use of goods and on permission to use goods or perform activities"
+                        },
+                        "children": [],
+                        "level": 5,
+                        "hasValue": false,
+                        "value": null
+                      }
+                    ],
+                    "level": 4,
+                    "hasValue": false,
+                    "value": null
+                  },
+                  {
+                    "code": "1146",
+                    "labels": {
+                      "de": "Sonstige Steuern auf Waren und Dienstleistungen",
+                      "fr": "Autres impôts sur les biens et services",
+                      "it": "Altre imposte su beni e servizi",
+                      "en": "Other taxes on goods and services"
+                    },
+                    "children": [],
+                    "level": 4,
+                    "hasValue": false,
+                    "value": null
+                  }
+                ],
+                "level": 3,
+                "hasValue": false,
+                "value": null
+              },
+              {
+                "code": "115",
+                "labels": {
+                  "de": "Zölle und andere Abgaben auf internationale Transaktionen",
+                  "fr": "Impôts sur le commerce extérieur et les transactions internationales",
+                  "it": "Dazi e altre tasse su transazioni internazionali",
+                  "en": "Taxes on international trade and transactions"
+                },
+                "children": [
+                  {
+                    "code": "1151",
+                    "labels": {
+                      "de": "Importzölle und -abgaben",
+                      "fr": "Droits de douane et autres droits à l'importation",
+                      "it": "Dazi e tasse sulle importazioni",
+                      "en": "Customs and other import duties"
+                    },
+                    "children": [],
+                    "level": 4,
+                    "hasValue": false,
+                    "value": null
+                  },
+                  {
+                    "code": "1152",
+                    "labels": {
+                      "de": "Exportabgaben",
+                      "fr": "Taxes à l'exportation",
+                      "it": "Tasse di esportazione",
+                      "en": "Taxes on exports"
+                    },
+                    "children": [],
+                    "level": 4,
+                    "hasValue": false,
+                    "value": null
+                  },
+                  {
+                    "code": "1153",
+                    "labels": {
+                      "de": "Gewinne aus Export- oder Importmonopolen",
+                      "fr": "Bénéfices des monopoles d'exportation ou d'importation",
+                      "it": "Utili da monopoli di esportazione o importazione",
+                      "en": "Profits of export or import monopolies"
+                    },
+                    "children": [],
+                    "level": 4,
+                    "hasValue": false,
+                    "value": null
+                  },
+                  {
+                    "code": "1154",
+                    "labels": {
+                      "de": "Steuern auf Handelsgewinnen",
+                      "fr": "Bénéfices de change",
+                      "it": "Imposte sugli utili da scambi",
+                      "en": "Exchange profits"
+                    },
+                    "children": [],
+                    "level": 4,
+                    "hasValue": false,
+                    "value": null
+                  },
+                  {
+                    "code": "1155",
+                    "labels": {
+                      "de": "Handelssteuern",
+                      "fr": "Taxes sur les opérations de change",
+                      "it": "Imposte sugli scambi",
+                      "en": "Exchange taxes"
+                    },
+                    "children": [],
+                    "level": 4,
+                    "hasValue": false,
+                    "value": null
+                  },
+                  {
+                    "code": "1156",
+                    "labels": {
+                      "de": "Weitere Abgaben auf internationalen Transaktionen",
+                      "fr": "Autres impôts sur le commerce extérieur et les transactions internationales",
+                      "it": "Altri tributi su transazioni internazionali",
+                      "en": "Other taxes on international trade and transactions"
+                    },
+                    "children": [],
+                    "level": 4,
+                    "hasValue": false,
+                    "value": null
+                  }
+                ],
+                "level": 3,
+                "hasValue": false,
+                "value": null
+              },
+              {
+                "code": "116",
+                "labels": {
+                  "de": "Übrige Abgaben und Steuern",
+                  "fr": "Autres recettes fiscales",
+                  "it": "Rimanenti tasse e imposte",
+                  "en": "Other taxes"
+                },
+                "children": [],
+                "level": 3,
+                "hasValue": false,
+                "value": null
+              }
+            ],
+            "level": 2,
+            "hasValue": false,
+            "value": null
+          },
+          {
+            "code": "12",
+            "labels": {
+              "de": "Sozialabgaben",
+              "fr": "Cotisations sociales",
+              "it": "Oneri sociali",
+              "en": "Social contributions"
+            },
+            "children": [
+              {
+                "code": "121",
+                "labels": {
+                  "de": "Beiträge an die soziale Sicherung",
+                  "fr": "Cotisations de sécurité sociale",
+                  "it": "Entrate da contributi alla previdenza e assistenza sociale",
+                  "en": "Social security contributions"
+                },
+                "children": [
+                  {
+                    "code": "1211",
+                    "labels": {
+                      "de": "Sozialbeiträge der Arbeitnehmer",
+                      "fr": "Cotisations de sécurité sociale à la charge des salariés",
+                      "it": "Contributi sociali a carico dei lavoratori dipendenti",
+                      "en": "Employee contributions"
+                    },
+                    "children": [],
+                    "level": 4,
+                    "hasValue": false,
+                    "value": null
+                  },
+                  {
+                    "code": "1212",
+                    "labels": {
+                      "de": "Sozialbeiträge der Arbeitgeber",
+                      "fr": "Cotisations de sécurité sociale à la charge des employeurs",
+                      "it": "Contributi sociali a carico dei datori di lavoro",
+                      "en": "Employer contributions"
+                    },
+                    "children": [],
+                    "level": 4,
+                    "hasValue": false,
+                    "value": null
+                  },
+                  {
+                    "code": "1213",
+                    "labels": {
+                      "de": "Sozialbeiträge der Selbständigerwerbenden und Erwerbslosen",
+                      "fr": "Cotisations de sécurité sociale à la charge des travailleurs indépendants ou des personnes sans emploi",
+                      "it": "Contributi sociali a carico dei lavoratori indipendenti e dei disoccupati",
+                      "en": "Self-employed or nonemployed contributions"
+                    },
+                    "children": [],
+                    "level": 4,
+                    "hasValue": false,
+                    "value": null
+                  },
+                  {
+                    "code": "1214",
+                    "labels": {
+                      "de": "Nicht zuteilbare Sozialbeiträge",
+                      "fr": "Cotisations de sécurité sociale non ventilables",
+                      "it": "Contributi sociali non classificabili",
+                      "en": "Unallocable contributions"
+                    },
+                    "children": [],
+                    "level": 4,
+                    "hasValue": false,
+                    "value": null
+                  }
+                ],
+                "level": 3,
+                "hasValue": false,
+                "value": null
+              },
+              {
+                "code": "122",
+                "labels": {
+                  "de": "Andere Sozialabgaben",
+                  "fr": "Autres cotisations sociales",
+                  "it": "Altri oneri sociali",
+                  "en": "Other social contributions"
+                },
+                "children": [
+                  {
+                    "code": "1221",
+                    "labels": {
+                      "de": "Andere Sozialabgaben der Arbeitnehmer",
+                      "fr": "Autres cotisations sociales à la charge des salariés",
+                      "it": "Altri oneri sociali a carico dei lavoratori dipendenti",
+                      "en": "Employee contributions"
+                    },
+                    "children": [],
+                    "level": 4,
+                    "hasValue": false,
+                    "value": null
+                  },
+                  {
+                    "code": "1222",
+                    "labels": {
+                      "de": "Andere Sozialabgaben der Arbeitgeber",
+                      "fr": "Autres cotisations sociales à la charge des employeurs",
+                      "it": "Altri oneri sociali a carico dei datori di lavoro",
+                      "en": "Employer contributions"
+                    },
+                    "children": [],
+                    "level": 4,
+                    "hasValue": false,
+                    "value": null
+                  },
+                  {
+                    "code": "1223",
+                    "labels": {
+                      "de": "Unterstellte Sozialabgaben",
+                      "fr": "Autres cotisations sociales imputées",
+                      "it": "Contributi sociali assoggettati",
+                      "en": "Imputed contributions"
+                    },
+                    "children": [],
+                    "level": 4,
+                    "hasValue": false,
+                    "value": null
+                  }
+                ],
+                "level": 3,
+                "hasValue": false,
+                "value": null
+              }
+            ],
+            "level": 2,
+            "hasValue": false,
+            "value": null
+          },
+          {
+            "code": "13",
+            "labels": {
+              "de": "Öffentliche Transfers",
+              "fr": "Transferts publics",
+              "it": "Trasferimenti pubblici",
+              "en": "Grants"
+            },
+            "children": [
+              {
+                "code": "131",
+                "labels": {
+                  "de": "Transfers von öffentlichen Haushalten des Auslandes",
+                  "fr": "Transferts reçus d'administrations publiques étrangères",
+                  "it": "Trasferimenti dal settore pubblico estero",
+                  "en": "From foreign governments"
+                },
+                "children": [
+                  {
+                    "code": "1311",
+                    "labels": {
+                      "de": "Laufende Transfers",
+                      "fr": "Transferts courants",
+                      "it": "Trasferimenti correnti",
+                      "en": "Current"
+                    },
+                    "children": [],
+                    "level": 4,
+                    "hasValue": false,
+                    "value": null
+                  },
+                  {
+                    "code": "1312",
+                    "labels": {
+                      "de": "Kapital- oder Investitionszuschüsse",
+                      "fr": "Transferts en capital ou aides à l'investissement",
+                      "it": "Conferimenti di capitale o contributi agli investimenti",
+                      "en": "Capital"
+                    },
+                    "children": [],
+                    "level": 4,
+                    "hasValue": false,
+                    "value": null
+                  }
+                ],
+                "level": 3,
+                "hasValue": false,
+                "value": null
+              },
+              {
+                "code": "132",
+                "labels": {
+                  "de": "Transfers von internationalen Organisationen",
+                  "fr": "Transferts reçus d'organisations internationales",
+                  "it": "Trasferimenti da organizzazioni internazionali",
+                  "en": "From international organizations"
+                },
+                "children": [
+                  {
+                    "code": "1321",
+                    "labels": {
+                      "de": "Laufende Transfers",
+                      "fr": "Transferts courants",
+                      "it": "Trasferimenti correnti",
+                      "en": "Current"
+                    },
+                    "children": [],
+                    "level": 4,
+                    "hasValue": false,
+                    "value": null
+                  },
+                  {
+                    "code": "1322",
+                    "labels": {
+                      "de": "Kapital- oder Investitionszuschüsse",
+                      "fr": "Transferts en capital ou aides à l'investissement",
+                      "it": "Conferimenti di capitale o contributi agli investimenti",
+                      "en": "Capital"
+                    },
+                    "children": [],
+                    "level": 4,
+                    "hasValue": false,
+                    "value": null
+                  }
+                ],
+                "level": 3,
+                "hasValue": false,
+                "value": null
+              },
+              {
+                "code": "133",
+                "labels": {
+                  "de": "Transfers von anderen öffentlichen Haushalten des Inlandes",
+                  "fr": "Transferts reçus d'autres unités d'administration publique",
+                  "it": "Trasferimenti dal settore pubblico interno",
+                  "en": "From other general government units"
+                },
+                "children": [
+                  {
+                    "code": "1331",
+                    "labels": {
+                      "de": "Laufende Transfers",
+                      "fr": "Transferts courants ",
+                      "it": "Trasferimenti correnti",
+                      "en": "Current"
+                    },
+                    "children": [],
+                    "level": 4,
+                    "hasValue": false,
+                    "value": null
+                  },
+                  {
+                    "code": "1332",
+                    "labels": {
+                      "de": "Kapital- oder Investitionszuschüsse",
+                      "fr": "Transferts en capital ou aides à l'investissement",
+                      "it": "Conferimenti di capitale o contributi agli investimenti",
+                      "en": "Capital"
+                    },
+                    "children": [],
+                    "level": 4,
+                    "hasValue": false,
+                    "value": null
+                  }
+                ],
+                "level": 3,
+                "hasValue": false,
+                "value": null
+              }
+            ],
+            "level": 2,
+            "hasValue": false,
+            "value": null
+          },
+          {
+            "code": "14",
+            "labels": {
+              "de": "Sonstige nichtfiskalische Einnahmen",
+              "fr": "Autres recettes non fiscales",
+              "it": "Altre entrate non fiscali",
+              "en": "Other revenue"
+            },
+            "children": [
+              {
+                "code": "141",
+                "labels": {
+                  "de": "Vermögenseinkommen",
+                  "fr": "Revenus de la propriété",
+                  "it": "Redditi da capitale",
+                  "en": "Property income"
+                },
+                "children": [
+                  {
+                    "code": "1411",
+                    "labels": {
+                      "de": "Zinsertrag",
+                      "fr": "Intérêts",
+                      "it": "Ricavi a titolo di interessi",
+                      "en": "Interest"
+                    },
+                    "children": [],
+                    "level": 4,
+                    "hasValue": false,
+                    "value": null
+                  },
+                  {
+                    "code": "1412",
+                    "labels": {
+                      "de": "Dividenden",
+                      "fr": "Dividendes",
+                      "it": "Dividendi",
+                      "en": "Dividends"
+                    },
+                    "children": [],
+                    "level": 4,
+                    "hasValue": false,
+                    "value": null
+                  },
+                  {
+                    "code": "1413",
+                    "labels": {
+                      "de": "Gewinnentnahmen aus Quasi-Kapitalgesellschaften",
+                      "fr": "Prélèvements sur les revenus des quasi-sociétés",
+                      "it": "Redditi prelevati dai membri delle quasi-società",
+                      "en": "Withdrawals from income of quasi-corporations"
+                    },
+                    "children": [],
+                    "level": 4,
+                    "hasValue": false,
+                    "value": null
+                  },
+                  {
+                    "code": "1414",
+                    "labels": {
+                      "de": "Kapitalerträge aus Beteiligungsgesellschaften",
+                      "fr": "Revenus de capitaux de sociétés d'investissement",
+                      "it": "Redditi da investimenti di società di partecipazione",
+                      "en": "Property income from investment income disbursements"
+                    },
+                    "children": [],
+                    "level": 4,
+                    "hasValue": false,
+                    "value": null
+                  },
+                  {
+                    "code": "1415",
+                    "labels": {
+                      "de": "Pacht- und Mietzinseinkommen",
+                      "fr": "Loyers",
+                      "it": "Pigioni e fitti",
+                      "en": "Rent"
+                    },
+                    "children": [],
+                    "level": 4,
+                    "hasValue": false,
+                    "value": null
+                  },
+                  {
+                    "code": "1416",
+                    "labels": {
+                      "de": "Reinvestierte Gewinne aus Direktinvestitionen",
+                      "fr": "Bénéfices réinvestis d'investissements directs",
+                      "it": "Utili reinvestiti di investimenti diretti all’estero",
+                      "en": "Reinvested earnings on foreign direct investment"
+                    },
+                    "children": [],
+                    "level": 4,
+                    "hasValue": false,
+                    "value": null
+                  }
+                ],
+                "level": 3,
+                "hasValue": false,
+                "value": null
+              },
+              {
+                "code": "142",
+                "labels": {
+                  "de": "Verkäufe von Waren und Diensten",
+                  "fr": "Ventes de biens et services",
+                  "it": "Vendite di beni e servizi",
+                  "en": "Sales of goods and services"
+                },
+                "children": [
+                  {
+                    "code": "1421",
+                    "labels": {
+                      "de": "Einnahmen aus Marktproduktion",
+                      "fr": "Ventes des établissements marchands",
+                      "it": "Entrate dalla produzione di beni e servizi destinabili alla vendita",
+                      "en": "Sales by market establishments"
+                    },
+                    "children": [],
+                    "level": 4,
+                    "hasValue": false,
+                    "value": null
+                  },
+                  {
+                    "code": "1422",
+                    "labels": {
+                      "de": "Gebühren",
+                      "fr": "Emoluments",
+                      "it": "Onorari",
+                      "en": "Administrative fees"
+                    },
+                    "children": [],
+                    "level": 4,
+                    "hasValue": false,
+                    "value": null
+                  },
+                  {
+                    "code": "1423",
+                    "labels": {
+                      "de": "Nebeneinkünfte aus Verkäufen von Nicht-Marktproduzenten",
+                      "fr": "Ventes résiduelles des établissements non marchands",
+                      "it": "Redditi accessori dalle vendite di produttori di beni e servizi non destinabili alla vendita",
+                      "en": "Incidental sales by nonmarket establishments"
+                    },
+                    "children": [],
+                    "level": 4,
+                    "hasValue": false,
+                    "value": null
+                  },
+                  {
+                    "code": "1424",
+                    "labels": {
+                      "de": "Unterstellte Einnahmen aus dem Verkauf von Waren und Dienstleistungen",
+                      "fr": "Ventes imputées de biens et services",
+                      "it": "Proventi figurativi dalla vendita di beni e servizi",
+                      "en": "Imputed sales of goods and services"
+                    },
+                    "children": [],
+                    "level": 4,
+                    "hasValue": false,
+                    "value": null
+                  }
+                ],
+                "level": 3,
+                "hasValue": false,
+                "value": null
+              },
+              {
+                "code": "143",
+                "labels": {
+                  "de": "Bussen, Strafsteuern und Pfandveräusserungen",
+                  "fr": "Amendes, pénalités et confiscations",
+                  "it": "Multe, imposte sanzionatorie e confische",
+                  "en": "Fines, penalties, and forfeits"
+                },
+                "children": [],
+                "level": 3,
+                "hasValue": false,
+                "value": null
+              },
+              {
+                "code": "144",
+                "labels": {
+                  "de": "Transfers, n.a.g.",
+                  "fr": "Transferts, n.c.a.",
+                  "it": "Trasferimenti, n.m.a.",
+                  "en": "Transfers not elsewhere classified"
+                },
+                "children": [
+                  {
+                    "code": "1441",
+                    "labels": {
+                      "de": "Laufende Transfers, n.a.g.",
+                      "fr": "Transferts courants, n.c.a.",
+                      "it": "Trasferimenti correnti, n.m.a.",
+                      "en": "Current transfers not elsewhere classified"
+                    },
+                    "children": [],
+                    "level": 4,
+                    "hasValue": false,
+                    "value": null
+                  },
+                  {
+                    "code": "1442",
+                    "labels": {
+                      "de": "Kapital- oder Investitionszuschüsse, n.a.g.",
+                      "fr": "Transferts en capital ou aides à l'investissement, n.c.a.",
+                      "it": "Conferimenti di capitale o contributi agli investimenti, n.m.a.",
+                      "en": "Capital transfers not elsewhere classified"
+                    },
+                    "children": [],
+                    "level": 4,
+                    "hasValue": false,
+                    "value": null
+                  }
+                ],
+                "level": 3,
+                "hasValue": false,
+                "value": null
+              },
+              {
+                "code": "145",
+                "labels": {
+                  "de": "Prämien, Gebühren und Ansprüche aus Nichtlebensversicherungs - und Standardgarantie-Systemen",
+                  "fr": "Primes, émoluments et droits relatifs aux systèmes d'assurances autres que sur la vie et de garanties standard",
+                  "it": "Assicurazioni contro i danni e garanzie standard: premi, tasse e diritti",
+                  "en": "Premiums, fees, and claims related to nonlife insurance and standardized guarantee schemes"
+                },
+                "children": [],
+                "level": 3,
+                "hasValue": false,
+                "value": null
+              }
+            ],
+            "level": 2,
+            "hasValue": false,
+            "value": null
+          }
+        ],
+        "level": 1,
+        "hasValue": false,
+        "value": null
+      }
+    ],
+    "level": 0,
+    "hasValue": false
+  }
+}

@@ -1,0 +1,1587 @@
+{
+  "metadata": {
+    "dimension": "aufwand",
+    "source": "gdn_ag-2019-aufwand-de.csv",
+    "generatedAt": "2025-06-01T18:53:11.884Z",
+    "totalNodes": 120,
+    "maxDepth": 5
+  },
+  "tree": {
+    "code": "root",
+    "labels": {
+      "de": "Gesamt",
+      "fr": "Total",
+      "it": "Totale",
+      "en": "Total"
+    },
+    "children": [
+      {
+        "code": "3",
+        "labels": {
+          "de": "Aufwand",
+          "fr": "Charges",
+          "it": "Spese",
+          "en": "Expenses"
+        },
+        "children": [
+          {
+            "code": "30",
+            "labels": {
+              "de": "Personalaufwand",
+              "fr": "Charges de personnel",
+              "it": "Spese per il personale",
+              "en": "Personnel expenses"
+            },
+            "children": [
+              {
+                "code": "300",
+                "labels": {
+                  "de": "Behörden, Kommissionen und Richter",
+                  "fr": "Autorités, commissions et juges",
+                  "it": "Autorità, commissioni e giudici",
+                  "en": "Authorities, commissions and judges"
+                },
+                "children": [],
+                "level": 3,
+                "hasValue": true,
+                "value": "37,291"
+              },
+              {
+                "code": "301",
+                "labels": {
+                  "de": "Löhne des Verwaltungs- und Betriebspersonals",
+                  "fr": "Salaires du personnel administratif et d'exploitation",
+                  "it": "Stipendi del personale amministrativo e d'esercizio",
+                  "en": "Salaries of administrative and operating personnel"
+                },
+                "children": [],
+                "level": 3,
+                "hasValue": true,
+                "value": "495,207"
+              },
+              {
+                "code": "302",
+                "labels": {
+                  "de": "Löhne der Lehrpersonen",
+                  "fr": "Salaires des enseignants",
+                  "it": "Stipendi del corpo docenti",
+                  "en": "Salaries of teaching staff"
+                },
+                "children": [],
+                "level": 3,
+                "hasValue": true,
+                "value": "78,548"
+              },
+              {
+                "code": "303",
+                "labels": {
+                  "de": "Temporäre Arbeitskräfte",
+                  "fr": "Travailleurs temporaires",
+                  "it": "Personale temporaneo",
+                  "en": "Temporary staff"
+                },
+                "children": [],
+                "level": 3,
+                "hasValue": true,
+                "value": "828"
+              },
+              {
+                "code": "304",
+                "labels": {
+                  "de": "Zulagen",
+                  "fr": "Allocations",
+                  "it": "Assegni e indennità",
+                  "en": "Allowances"
+                },
+                "children": [],
+                "level": 3,
+                "hasValue": true,
+                "value": "1,842"
+              },
+              {
+                "code": "305",
+                "labels": {
+                  "de": "Arbeitgeberbeiträge",
+                  "fr": "Cotisations de l'employeur",
+                  "it": "Contributi del datore di lavoro",
+                  "en": "Employer contributions"
+                },
+                "children": [],
+                "level": 3,
+                "hasValue": true,
+                "value": "101,689"
+              },
+              {
+                "code": "306",
+                "labels": {
+                  "de": "Arbeitgeberleistungen",
+                  "fr": "Prestations de l'employeur",
+                  "it": "Prestazioni del datore di lavoro",
+                  "en": "Employer benefits"
+                },
+                "children": [],
+                "level": 3,
+                "hasValue": true,
+                "value": "2,615"
+              },
+              {
+                "code": "309",
+                "labels": {
+                  "de": "Übriger Personalaufwand",
+                  "fr": "Autres charges de personnel",
+                  "it": "Rimanenti spese per il personale",
+                  "en": "Other personnel expenses"
+                },
+                "children": [],
+                "level": 3,
+                "hasValue": true,
+                "value": "14,349"
+              }
+            ],
+            "level": 2,
+            "hasValue": true,
+            "value": "732,369"
+          },
+          {
+            "code": "31",
+            "labels": {
+              "de": "Sach- und übriger Betriebsaufwand",
+              "fr": "Charges de biens et services et autres charges d'exploitation",
+              "it": "Spese per beni e servizi e altre spese d’esercizio",
+              "en": "General, administrative and operating expenses"
+            },
+            "children": [
+              {
+                "code": "310",
+                "labels": {
+                  "de": "Material- und Warenaufwand",
+                  "fr": "Charges de matériel et de marchandises",
+                  "it": "Spese per materiale e merci",
+                  "en": "Cost of goods and materials"
+                },
+                "children": [],
+                "level": 3,
+                "hasValue": true,
+                "value": "128,907"
+              },
+              {
+                "code": "311",
+                "labels": {
+                  "de": "Nicht aktivierbare Anlagen",
+                  "fr": "Immobilisations non portées à l'actif",
+                  "it": "Investimenti non attivabili",
+                  "en": "Non-capitalized assets"
+                },
+                "children": [],
+                "level": 3,
+                "hasValue": true,
+                "value": "37,481"
+              },
+              {
+                "code": "312",
+                "labels": {
+                  "de": "Ver- und Entsorgung Liegenschaften VV",
+                  "fr": "Approvisionnement et élimination",
+                  "it": "Approvvigionamento e smaltimento di immobili beni amministrativi",
+                  "en": "Supply and disposal"
+                },
+                "children": [],
+                "level": 3,
+                "hasValue": true,
+                "value": "73,022"
+              },
+              {
+                "code": "313",
+                "labels": {
+                  "de": "Dienstleistungen und Honorare",
+                  "fr": "Prestations de service et honoraires",
+                  "it": "Prestazioni di servizi e onorari",
+                  "en": "Services and fees"
+                },
+                "children": [],
+                "level": 3,
+                "hasValue": true,
+                "value": "296,017"
+              },
+              {
+                "code": "314",
+                "labels": {
+                  "de": "Baulicher und betrieblicher Unterhalt",
+                  "fr": "Travaux d'entretien",
+                  "it": "Manutenzione edile e d'esercizio",
+                  "en": "Building maintenance"
+                },
+                "children": [],
+                "level": 3,
+                "hasValue": true,
+                "value": "129,632"
+              },
+              {
+                "code": "315",
+                "labels": {
+                  "de": "Unterhalt Mobilien und immaterielle Anlagen",
+                  "fr": "Entretien des biens meubles et immobilisations incorporelles",
+                  "it": "Manutenzione di beni mobili e investimenti immateriali",
+                  "en": "Upkeep of movables and intangible fixed assets"
+                },
+                "children": [],
+                "level": 3,
+                "hasValue": true,
+                "value": "33,865"
+              },
+              {
+                "code": "316",
+                "labels": {
+                  "de": "Mieten, Leasing, Pachten, Benützungsgebühren",
+                  "fr": "Loyers, leasing, fermages, émoluments d'utilisation",
+                  "it": "Pigioni, leasing, fitti, emolumenti di utilizzazione",
+                  "en": "Rental, lease, tenancy, user charges"
+                },
+                "children": [],
+                "level": 3,
+                "hasValue": true,
+                "value": "35,071"
+              },
+              {
+                "code": "317",
+                "labels": {
+                  "de": "Spesenentschädigungen",
+                  "fr": "Remboursement des frais",
+                  "it": "Indennità per il rimborso spese",
+                  "en": "Compensation for expenses"
+                },
+                "children": [],
+                "level": 3,
+                "hasValue": true,
+                "value": "29,736"
+              },
+              {
+                "code": "318",
+                "labels": {
+                  "de": "Wertberichtigungen auf Forderungen",
+                  "fr": "Réévaluation de créances",
+                  "it": "Rettificazioni di valore su crediti",
+                  "en": "Value adjustments on receivables"
+                },
+                "children": [],
+                "level": 3,
+                "hasValue": true,
+                "value": "11,203"
+              },
+              {
+                "code": "319",
+                "labels": {
+                  "de": "Übriger Betriebsaufwand",
+                  "fr": "Autres charges d'exploitation",
+                  "it": "Rimanenti spese d'esercizio",
+                  "en": "Other operating expenses"
+                },
+                "children": [],
+                "level": 3,
+                "hasValue": true,
+                "value": "14,928"
+              }
+            ],
+            "level": 2,
+            "hasValue": true,
+            "value": "789,862"
+          },
+          {
+            "code": "32",
+            "labels": {
+              "de": "Rüstungsaufwand",
+              "fr": "Charges d'armement",
+              "it": "Spese per l'armamento",
+              "en": "Defense expenses"
+            },
+            "children": [
+              {
+                "code": "320",
+                "labels": {
+                  "de": "Rüstungsaufwand",
+                  "fr": "Charges d'armement",
+                  "it": "Spese per l'armamento",
+                  "en": "Defense expenses"
+                },
+                "children": [],
+                "level": 3,
+                "hasValue": false,
+                "value": null
+              }
+            ],
+            "level": 2,
+            "hasValue": false,
+            "value": null
+          },
+          {
+            "code": "33",
+            "labels": {
+              "de": "Abschreibungen auf das Verwaltungsvermögen",
+              "fr": "Amortissement du patrimoine administratif",
+              "it": "Ammortamenti sui beni amministrativi",
+              "en": "Depreciation, administrative assets"
+            },
+            "children": [
+              {
+                "code": "331",
+                "labels": {
+                  "de": "Abschreibungen n.a.g.",
+                  "fr": "Amortissements n.c.a.",
+                  "it": "Ammortamenti n.m.a.",
+                  "en": "Depreciation and amortization n.e.c."
+                },
+                "children": [],
+                "level": 3,
+                "hasValue": false,
+                "value": null
+              },
+              {
+                "code": "337",
+                "labels": {
+                  "de": "Planmässige Abschreibungen",
+                  "fr": "Amortissements planifiés",
+                  "it": "Ammortamenti pianificati",
+                  "en": "Planned depreciation and amortization"
+                },
+                "children": [],
+                "level": 3,
+                "hasValue": true,
+                "value": "252,331"
+              },
+              {
+                "code": "338",
+                "labels": {
+                  "de": "Ausserplanmässige Abschreibungen",
+                  "fr": "Amortissements non planifiés",
+                  "it": "Ammortamenti non pianificati",
+                  "en": "Unplanned depreciation and amortization"
+                },
+                "children": [],
+                "level": 3,
+                "hasValue": true,
+                "value": "11,095"
+              }
+            ],
+            "level": 2,
+            "hasValue": true,
+            "value": "263,426"
+          },
+          {
+            "code": "34",
+            "labels": {
+              "de": "Finanzaufwand",
+              "fr": "Charges financières",
+              "it": "Spese finanziarie",
+              "en": "Financial expense"
+            },
+            "children": [
+              {
+                "code": "340",
+                "labels": {
+                  "de": "Zinsaufwand",
+                  "fr": "Charges d'intérêts",
+                  "it": "Spese a titolo di interessi",
+                  "en": "Interest expense"
+                },
+                "children": [],
+                "level": 3,
+                "hasValue": true,
+                "value": "16,695"
+              },
+              {
+                "code": "341",
+                "labels": {
+                  "de": "Realisierte Verluste FV",
+                  "fr": "Pertes réalisées PF",
+                  "it": "Perdite conseguite beni patrimoniali",
+                  "en": "Realized losses NAA"
+                },
+                "children": [],
+                "level": 3,
+                "hasValue": true,
+                "value": "682"
+              },
+              {
+                "code": "342",
+                "labels": {
+                  "de": "Kapitalbeschaffung und -verwaltung",
+                  "fr": "Acquisition et administration de capital",
+                  "it": "Raccolta e gestione di capitale",
+                  "en": "Capital procurement and administration"
+                },
+                "children": [],
+                "level": 3,
+                "hasValue": true,
+                "value": "359"
+              },
+              {
+                "code": "343",
+                "labels": {
+                  "de": "Liegenschaftenaufwand, FV",
+                  "fr": "Charges d'immeubles, PF",
+                  "it": "Spese per immobili, beni patrimoniali",
+                  "en": "Real estate expense, NAA"
+                },
+                "children": [],
+                "level": 3,
+                "hasValue": true,
+                "value": "8,414"
+              },
+              {
+                "code": "344",
+                "labels": {
+                  "de": "Wertberichtigungen Anlagen, FV",
+                  "fr": "Réévaluation d'immobilisations, PF",
+                  "it": "Rettificazioni di valore su investimenti, beni patrimoniali",
+                  "en": "Value adjustments on investments, NAA"
+                },
+                "children": [],
+                "level": 3,
+                "hasValue": true,
+                "value": "2,125"
+              },
+              {
+                "code": "349",
+                "labels": {
+                  "de": "Übriger Finanzaufwand",
+                  "fr": "Autres charges financières",
+                  "it": "Rimanenti spese finanziarie",
+                  "en": "Other financial expense"
+                },
+                "children": [],
+                "level": 3,
+                "hasValue": true,
+                "value": "208"
+              }
+            ],
+            "level": 2,
+            "hasValue": true,
+            "value": "28,484"
+          },
+          {
+            "code": "35",
+            "labels": {
+              "de": "Einlagen in Fonds und Spezialfinanzierungen",
+              "fr": "Apports aux fonds et financements spéciaux",
+              "it": "Versamenti a fondi e a finanziamenti speciali",
+              "en": "Net expense for funds and special financing"
+            },
+            "children": [
+              {
+                "code": "350",
+                "labels": {
+                  "de": "Einlagen in Fonds und Spezialfinanzierungen im Fremdkapital",
+                  "fr": "Apports aux fonds et financements spéciaux enregistrés sous capitaux de tiers",
+                  "it": "Versamenti a fondi e a finanziamenti speciali nel capitale di terzi",
+                  "en": "Net expense for funds and special financing in liabilities"
+                },
+                "children": [],
+                "level": 3,
+                "hasValue": true,
+                "value": "1,006"
+              },
+              {
+                "code": "351",
+                "labels": {
+                  "de": "Einlagen in Fonds und Spezialfinanzierungen im Eigenkapital",
+                  "fr": "Apports aux fonds et financements spéciaux enregistrés sous le capital propre",
+                  "it": "Versamenti a fondi e a finanziamenti speciali nel capitale proprio",
+                  "en": "Net expense for funds and special financing in net assets/equity"
+                },
+                "children": [],
+                "level": 3,
+                "hasValue": true,
+                "value": "45,239"
+              },
+              {
+                "code": "352",
+                "labels": {
+                  "de": "Einlagen in Fonds und Spezialfinanzierungen n.a.g.",
+                  "fr": "Apports aux fonds et financements spéciaux n.c.a.",
+                  "it": "Versamenti a fondi e a finanziamenti speciali n.m.a.",
+                  "en": "Net expense for funds and special financing n.e.c."
+                },
+                "children": [],
+                "level": 3,
+                "hasValue": false,
+                "value": null
+              }
+            ],
+            "level": 2,
+            "hasValue": true,
+            "value": "46,245"
+          },
+          {
+            "code": "36",
+            "labels": {
+              "de": "Transferaufwand",
+              "fr": "Charges de transfert",
+              "it": "Spese di riversamento",
+              "en": "Transfer expenses"
+            },
+            "children": [
+              {
+                "code": "360",
+                "labels": {
+                  "de": "Ertragsanteile",
+                  "fr": "Parts de revenus",
+                  "it": "Partecipazioni a ricavi",
+                  "en": "Revenue shares"
+                },
+                "children": [
+                  {
+                    "code": "3600",
+                    "labels": {
+                      "de": "Ertragsanteile an Bund",
+                      "fr": "Parts de revenus destinées à la Confédération",
+                      "it": "Partecipazioni della Confederazione a ricavi",
+                      "en": "Revenue shares for the Confederation"
+                    },
+                    "children": [],
+                    "level": 4,
+                    "hasValue": false,
+                    "value": null
+                  },
+                  {
+                    "code": "3601",
+                    "labels": {
+                      "de": "Ertragsanteile an Kantone und Konkordate",
+                      "fr": "Parts de revenus destinées aux cantons et aux concordats",
+                      "it": "Partecipazioni di Cantoni e Concordati a ricavi",
+                      "en": "Revenue shares for cantons and concordats"
+                    },
+                    "children": [
+                      {
+                        "code": "36010",
+                        "labels": {
+                          "de": "Ertragsanteil direkte Bundessteuer",
+                          "fr": "Part des revenus de l'impôt fédéral direct",
+                          "it": "Partecipazioni a ricavi, imposta federale diretta",
+                          "en": "Share in direct federal tax revenue"
+                        },
+                        "children": [],
+                        "level": 5,
+                        "hasValue": false,
+                        "value": null
+                      },
+                      {
+                        "code": "36011",
+                        "labels": {
+                          "de": "Ertragsanteil Verrechnungssteuer",
+                          "fr": "Part des revenus de l'impôt anticipé",
+                          "it": "Partecipazioni a ricavi, imposta preventiva",
+                          "en": "Share in withholding tax revenue"
+                        },
+                        "children": [],
+                        "level": 5,
+                        "hasValue": false,
+                        "value": null
+                      },
+                      {
+                        "code": "36012",
+                        "labels": {
+                          "de": "Ertragsanteil Wehrpflichtersatzabgabe",
+                          "fr": "Part des revenus de la taxe d'exemption de l'obligation de servir",
+                          "it": "Partecipazioni a ricavi, tassa d'esenzione dall'obbligo militare",
+                          "en": "Share in military service exemption tax revenue"
+                        },
+                        "children": [],
+                        "level": 5,
+                        "hasValue": false,
+                        "value": null
+                      },
+                      {
+                        "code": "36013",
+                        "labels": {
+                          "de": "Ertraganteil Eidg. Alkoholverwaltung",
+                          "fr": "Part des revenus de la Régie fédérale des alcools",
+                          "it": "Partecipazioni a ricavi, Regìa federale degli alcool",
+                          "en": "Share in Swiss Alcohol Board revenue"
+                        },
+                        "children": [],
+                        "level": 5,
+                        "hasValue": false,
+                        "value": null
+                      },
+                      {
+                        "code": "36014",
+                        "labels": {
+                          "de": "Ertraganteil Eidg. Bussen und Taxen",
+                          "fr": "Part des revenus des amendes et taxes fédérales",
+                          "it": "Partecipazioni a ricavi, multe e tasse federali",
+                          "en": "Share in revenue from federal fines and duties"
+                        },
+                        "children": [],
+                        "level": 5,
+                        "hasValue": false,
+                        "value": null
+                      },
+                      {
+                        "code": "36015",
+                        "labels": {
+                          "de": "Ertraganteil Eidg. Mineralölsteuer",
+                          "fr": "Part des revenus de l'impôt fédéral sur les huiles minérales",
+                          "it": "Partecipazioni a ricavi, imposta federale sugli oli minerali",
+                          "en": "Share in federal mineral oil tax revenue"
+                        },
+                        "children": [],
+                        "level": 5,
+                        "hasValue": false,
+                        "value": null
+                      },
+                      {
+                        "code": "36016",
+                        "labels": {
+                          "de": "Ertraganteil Eidg. Stempelabgabe",
+                          "fr": "Part des revenus des droits de timbre fédéraux",
+                          "it": "Partecipazioni a ricavi, tasse di bollo federali",
+                          "en": "Share in federal stamp duty revenue"
+                        },
+                        "children": [],
+                        "level": 5,
+                        "hasValue": false,
+                        "value": null
+                      },
+                      {
+                        "code": "36017",
+                        "labels": {
+                          "de": "Ertraganteil EU-Zinsbesteuerung",
+                          "fr": "Part des revenus de la fiscalité de l'épargne UE",
+                          "it": "Partecipazioni a ricavi, fiscalità del risparmio UE",
+                          "en": "Share in EU savings tax revenue"
+                        },
+                        "children": [],
+                        "level": 5,
+                        "hasValue": false,
+                        "value": null
+                      },
+                      {
+                        "code": "36018",
+                        "labels": {
+                          "de": "Ertraganteil LSVA",
+                          "fr": "Part des revenus de la RPLP",
+                          "it": "Partecipazioni a ricavi, TTPCP",
+                          "en": "Share in mileage-related heavy vehicle charge revenue"
+                        },
+                        "children": [],
+                        "level": 5,
+                        "hasValue": false,
+                        "value": null
+                      },
+                      {
+                        "code": "36019",
+                        "labels": {
+                          "de": "Ertraganteil übriger Bundeseinnahmen",
+                          "fr": "Part des autres recettes de la Confédération",
+                          "it": "Partecipazioni a ricavi, rimanenti entrate della Confederazione",
+                          "en": "Share in revenue from other federal receipts"
+                        },
+                        "children": [],
+                        "level": 5,
+                        "hasValue": false,
+                        "value": null
+                      }
+                    ],
+                    "level": 4,
+                    "hasValue": false,
+                    "value": null
+                  },
+                  {
+                    "code": "3602",
+                    "labels": {
+                      "de": "Ertragsanteile Gemeinden und Gemeindezweckverbände",
+                      "fr": "Parts de revenus destinées aux communes et syndicats intercommunaux",
+                      "it": "Partecipazioni di Comuni e consorzi comunali a ricavi",
+                      "en": "Revenue shares for municipalities and special purpose entities"
+                    },
+                    "children": [
+                      {
+                        "code": "36021",
+                        "labels": {
+                          "de": "Gemeindeanteile an kantonalen Steuern",
+                          "fr": "Parts des impôts cantonaux revenant aux communes",
+                          "it": "Partecipazioni di Comuni alle imposte cantonali",
+                          "en": "Municipalities' share in cantonal taxes"
+                        },
+                        "children": [],
+                        "level": 5,
+                        "hasValue": false,
+                        "value": null
+                      },
+                      {
+                        "code": "36022",
+                        "labels": {
+                          "de": "Gemeindeanteile an Regalien und Konzessionen",
+                          "fr": "Parts des patentes et concessions revenant aux communes",
+                          "it": "Partecipazioni di Comuni a regalie e concessioni",
+                          "en": "Municipalities' share in royalties and concessions"
+                        },
+                        "children": [],
+                        "level": 5,
+                        "hasValue": false,
+                        "value": null
+                      },
+                      {
+                        "code": "36023",
+                        "labels": {
+                          "de": "Gemeindeanteile an kantonalen Gebühren",
+                          "fr": "Parts des émoluments cantonaux revenant aux communes",
+                          "it": "Partecipazioni di Comuni a emolumenti cantonali",
+                          "en": "Municipalities' share in cantonal fees"
+                        },
+                        "children": [],
+                        "level": 5,
+                        "hasValue": false,
+                        "value": null
+                      },
+                      {
+                        "code": "36029",
+                        "labels": {
+                          "de": "Gemeindeanteile an übrigen kantonalen Erträgen",
+                          "fr": "Parts des autres revenus cantonaux revenant aux communes",
+                          "it": "Partecipazioni di Comuni ai rimanenti ricavi cantonali",
+                          "en": "Municipalities' share in other cantonal revenue"
+                        },
+                        "children": [],
+                        "level": 5,
+                        "hasValue": false,
+                        "value": null
+                      }
+                    ],
+                    "level": 4,
+                    "hasValue": false,
+                    "value": null
+                  },
+                  {
+                    "code": "3603",
+                    "labels": {
+                      "de": "Ertragsanteile an öffentlichen Sozialversicherungen",
+                      "fr": "Parts de revenus destinées aux assurances sociales publiques",
+                      "it": "Partecipazioni di assicurazioni sociali pubbliche a ricavi",
+                      "en": "Revenue shares for social security funds"
+                    },
+                    "children": [],
+                    "level": 4,
+                    "hasValue": false,
+                    "value": null
+                  },
+                  {
+                    "code": "3604",
+                    "labels": {
+                      "de": "Ertragsanteile an öffentlichen Unternehmen",
+                      "fr": "Parts de revenus destinées aux entreprises publiques",
+                      "it": "Partecipazioni di imprese pubbliche a ricavi",
+                      "en": "Revenue shares for public corporations"
+                    },
+                    "children": [],
+                    "level": 4,
+                    "hasValue": false,
+                    "value": null
+                  }
+                ],
+                "level": 3,
+                "hasValue": false,
+                "value": null
+              },
+              {
+                "code": "361",
+                "labels": {
+                  "de": "Entschädigungen",
+                  "fr": "Indemnités",
+                  "it": "Indennizzi",
+                  "en": "Compensation"
+                },
+                "children": [
+                  {
+                    "code": "3610",
+                    "labels": {
+                      "de": "Entschädigungen an Bund",
+                      "fr": "Indemnités à la Confédération",
+                      "it": "Indennizzi alla Confederazione",
+                      "en": "Compensation for the Confederation"
+                    },
+                    "children": [],
+                    "level": 4,
+                    "hasValue": false,
+                    "value": null
+                  },
+                  {
+                    "code": "3611",
+                    "labels": {
+                      "de": "Entschädigungen an Kantone und Konkordate",
+                      "fr": "Indemnités aux cantons et aux concordats",
+                      "it": "Indennizzi a Cantoni e Concordati",
+                      "en": "Compensation for cantons and concordats"
+                    },
+                    "children": [],
+                    "level": 4,
+                    "hasValue": true,
+                    "value": "4,673"
+                  },
+                  {
+                    "code": "3612",
+                    "labels": {
+                      "de": "Entschädigungen an Gemeinden und Gemeindezweckverbände",
+                      "fr": "Indemnités aux communes et aux syndicats intercommunaux",
+                      "it": "Indennizzi a Comuni e consorzi comunali",
+                      "en": "Compensation for municipalities and special purpose entities"
+                    },
+                    "children": [],
+                    "level": 4,
+                    "hasValue": false,
+                    "value": null
+                  },
+                  {
+                    "code": "3613",
+                    "labels": {
+                      "de": "Entschädigungen an öffentliche Sozialversicherungen",
+                      "fr": "Indemnités aux assurances sociales publiques",
+                      "it": "Indennizzi ad assicurazioni sociali pubbliche",
+                      "en": "Compensation for social security funds"
+                    },
+                    "children": [],
+                    "level": 4,
+                    "hasValue": false,
+                    "value": null
+                  },
+                  {
+                    "code": "3614",
+                    "labels": {
+                      "de": "Entschädigungen an öffentlichen Unternehmen",
+                      "fr": "Indemnités aux entreprises publiques",
+                      "it": "Indennizzi a imprese pubbliche",
+                      "en": "Compensation for public corporations"
+                    },
+                    "children": [],
+                    "level": 4,
+                    "hasValue": true,
+                    "value": "393"
+                  }
+                ],
+                "level": 3,
+                "hasValue": true,
+                "value": "5,066"
+              },
+              {
+                "code": "362",
+                "labels": {
+                  "de": "Finanz- und Lastenausgleich",
+                  "fr": "Péréquation financière et compensation des charges",
+                  "it": "Perequazione finanziaria e compensazione degli oneri",
+                  "en": "Fiscal equalization and cost compensation"
+                },
+                "children": [
+                  {
+                    "code": "3620",
+                    "labels": {
+                      "de": "Finanz- und Lastenausgleich an Bund",
+                      "fr": "Péréquation financière et compensation des charges à la Confédération",
+                      "it": "Perequazione finanziaria e compensazione degli oneri alla Confederazione",
+                      "en": "Fiscal equalization and cost compensation for the Confederation"
+                    },
+                    "children": [],
+                    "level": 4,
+                    "hasValue": false,
+                    "value": null
+                  },
+                  {
+                    "code": "3621",
+                    "labels": {
+                      "de": "Finanz- und Lastenausgleich an Kantone",
+                      "fr": "Péréquation financière et compensation des charges aux cantons",
+                      "it": "Perequazione finanziaria e compensazione degli oneri a Cantoni e concordati",
+                      "en": "Fiscal equalization and cost compensation for cantons"
+                    },
+                    "children": [
+                      {
+                        "code": "36211",
+                        "labels": {
+                          "de": "Ressourcenausgleich",
+                          "fr": "Péréquation des ressources",
+                          "it": "Perequazione delle risorse",
+                          "en": "Resource equalization"
+                        },
+                        "children": [],
+                        "level": 5,
+                        "hasValue": false,
+                        "value": null
+                      },
+                      {
+                        "code": "36212",
+                        "labels": {
+                          "de": "Sozio-demografischer Lastenausgleich",
+                          "fr": "Compensation des charges excessives dues à des facteurs socio-démographiques",
+                          "it": "Compensazione degli oneri eccessivi dovuti a fattori sociodemografici",
+                          "en": "Socio-demographic cost compensation"
+                        },
+                        "children": [],
+                        "level": 5,
+                        "hasValue": false,
+                        "value": null
+                      },
+                      {
+                        "code": "36213",
+                        "labels": {
+                          "de": "Geografisch-topografischer Lastenausgleich",
+                          "fr": "Compensation des charges excessives dues à des facteurs géo-topographiques",
+                          "it": "Compensazione degli oneri eccessivi dovuti a fattori geotopografici",
+                          "en": "Geographical/topographic cost compensation"
+                        },
+                        "children": [],
+                        "level": 5,
+                        "hasValue": false,
+                        "value": null
+                      },
+                      {
+                        "code": "36214",
+                        "labels": {
+                          "de": "Härteausgleich",
+                          "fr": "Compensation des cas de rigueur",
+                          "it": "Compensazione dei casi di rigore",
+                          "en": "Cohesion fund"
+                        },
+                        "children": [],
+                        "level": 5,
+                        "hasValue": false,
+                        "value": null
+                      },
+                      {
+                        "code": "36215",
+                        "labels": {
+                          "de": "Vertikaler Finanzausgleich von Gemeinde an Kanton",
+                          "fr": "Péréquation financière verticale des communes au canton",
+                          "it": "Perequazione finanziaria verticale da Comuni a Cantone",
+                          "en": "Vertical fiscal equalization between municipalities and cantons"
+                        },
+                        "children": [],
+                        "level": 5,
+                        "hasValue": true,
+                        "value": "54,694"
+                      },
+                      {
+                        "code": "36216",
+                        "labels": {
+                          "de": "Vertikaler Lastenausgleich von Gemeinde an Kanton",
+                          "fr": "Compensation verticale des charges des communes au canton",
+                          "it": "Compensazione verticale degli oneri da Comuni a Cantone",
+                          "en": "Vertical cost compensation between municipalities and cantons"
+                        },
+                        "children": [],
+                        "level": 5,
+                        "hasValue": false,
+                        "value": null
+                      },
+                      {
+                        "code": "36217",
+                        "labels": {
+                          "de": "Weitergabe Ressourcen- und Härteausgleich der Geberkantone",
+                          "fr": "Transmission de la péréquation des ressources et compensation des cas de rigueur des cantons contributeurs",
+                          "it": "Trasferimento dai Cantoni donatori della perequazione delle risorse e compensazione dei casi di rigore",
+                          "en": "Forwarding of resource equalization and cohesion fund from donor cantons"
+                        },
+                        "children": [],
+                        "level": 5,
+                        "hasValue": false,
+                        "value": null
+                      },
+                      {
+                        "code": "36219",
+                        "labels": {
+                          "de": "Übrige Massnahmen des Finanzausgleichs",
+                          "fr": "Autres mesures liées à la péréquation financière",
+                          "it": "Rimanenti misure della perequazione finanziaria",
+                          "en": "Other measures of the fiscal equalization"
+                        },
+                        "children": [],
+                        "level": 5,
+                        "hasValue": false,
+                        "value": null
+                      }
+                    ],
+                    "level": 4,
+                    "hasValue": true,
+                    "value": "54,694"
+                  },
+                  {
+                    "code": "3622",
+                    "labels": {
+                      "de": "Finanz- und Lastenausgleich an Gemeinden",
+                      "fr": "Péréquation financière et compensation des charges aux communes",
+                      "it": "Perequazione finanziaria e compensazione degli oneri a Comuni",
+                      "en": "Fiscal equalization and cost compensation for municipalities"
+                    },
+                    "children": [
+                      {
+                        "code": "36221",
+                        "labels": {
+                          "de": "Weitergabe eines Anteils am Ressourcenausgleich an Gemeinden",
+                          "fr": "Transmission d'une part de la péréquation des ressources aux communes",
+                          "it": "Trasferimento ai Comuni di una percentuale della perequazione delle risorse",
+                          "en": "Forwarding of a share in resource equalization to municipalities"
+                        },
+                        "children": [],
+                        "level": 5,
+                        "hasValue": false,
+                        "value": null
+                      },
+                      {
+                        "code": "36222",
+                        "labels": {
+                          "de": "Weitergabe eines Anteils am sozio-demografischen Ausgleich an Gemeinden",
+                          "fr": "Transmission d'une part de la compensation des charges excessives dues à des facteurs socio-démographiques aux communes",
+                          "it": "Trasferimento ai Comuni di una percentuale della perequazione sociodemografica",
+                          "en": "Forwarding of a share in socio-demographic equalization to municipalities"
+                        },
+                        "children": [],
+                        "level": 5,
+                        "hasValue": false,
+                        "value": null
+                      },
+                      {
+                        "code": "36223",
+                        "labels": {
+                          "de": "Weitergabe eines Anteils am geografisch-topografischen Ausgleich an Gemeinden",
+                          "fr": "Transmission d'une part de la compensation des charges excessives dues à des facteurs géo-topographiques aux communes",
+                          "it": "Trasferimento ai Comuni di una percentuale della perequazione geotopografica",
+                          "en": "Forwarding of a share in geographical/topographic equalization to municipalities"
+                        },
+                        "children": [],
+                        "level": 5,
+                        "hasValue": false,
+                        "value": null
+                      },
+                      {
+                        "code": "36224",
+                        "labels": {
+                          "de": "Weitergabe eines Anteils am Härteausgleich an Gemeinden",
+                          "fr": "Transmission d'une part de la compensation des cas de rigueur aux communes",
+                          "it": "Trasferimento ai Comuni di una percentuale della compensazione dei casi di rigore",
+                          "en": "Forwarding of a share in cohesion fund to municipalities"
+                        },
+                        "children": [],
+                        "level": 5,
+                        "hasValue": false,
+                        "value": null
+                      },
+                      {
+                        "code": "36225",
+                        "labels": {
+                          "de": "Innerkantonaler vertikaler Finanzausgleich",
+                          "fr": "Péréquation financière intracantonale verticale",
+                          "it": "Perequazione finanziaria intracantonale verticale",
+                          "en": "Intra-cantonal vertical fiscal equalization"
+                        },
+                        "children": [],
+                        "level": 5,
+                        "hasValue": false,
+                        "value": null
+                      },
+                      {
+                        "code": "36226",
+                        "labels": {
+                          "de": "Innerkantonaler vertikaler Lastenausgleich",
+                          "fr": "Compensation des charges intracantonale verticale",
+                          "it": "Compensazione degli oneri intracantonale verticale",
+                          "en": "Intra-cantonal vertical cost compensation"
+                        },
+                        "children": [],
+                        "level": 5,
+                        "hasValue": false,
+                        "value": null
+                      },
+                      {
+                        "code": "36227",
+                        "labels": {
+                          "de": "Horizontaler Finanzausgleich von Gemeinde an Gemeinde",
+                          "fr": "Péréquation financière horizontale : transferts entre communes",
+                          "it": "Perequazione finanziaria horizontale da Comune a Comune",
+                          "en": "Horizontal fiscal equalization between municipalities"
+                        },
+                        "children": [],
+                        "level": 5,
+                        "hasValue": false,
+                        "value": null
+                      },
+                      {
+                        "code": "36228",
+                        "labels": {
+                          "de": "Horizontaler Lastenausgleich von Gemeinde an Gemeinde",
+                          "fr": "Compensation horizontale des charges : transferts entre communes",
+                          "it": "Compensazione horizontale degli oneri da Comune a Comune",
+                          "en": "Horizontal cost compensation between municipalities"
+                        },
+                        "children": [],
+                        "level": 5,
+                        "hasValue": false,
+                        "value": null
+                      }
+                    ],
+                    "level": 4,
+                    "hasValue": false,
+                    "value": null
+                  },
+                  {
+                    "code": "3624",
+                    "labels": {
+                      "de": "Finanz- und Lastenausgleich an öffentliche Unternehmen",
+                      "fr": "Péréquation financière et compensation des charges aux entreprises publiques",
+                      "it": "Perequazione finanziaria e compensazione degli oneri a imprese pubbliche",
+                      "en": "Fiscal equalization and cost compensation for public corporations"
+                    },
+                    "children": [],
+                    "level": 4,
+                    "hasValue": false,
+                    "value": null
+                  },
+                  {
+                    "code": "3629",
+                    "labels": {
+                      "de": "Finanzausgleich n.a.g.",
+                      "fr": "Péréquation financière n.c.a.",
+                      "it": "Perequazione finanziaria n.m.a.",
+                      "en": "Fiscal equalization n.e.c."
+                    },
+                    "children": [],
+                    "level": 4,
+                    "hasValue": false,
+                    "value": null
+                  }
+                ],
+                "level": 3,
+                "hasValue": true,
+                "value": "54,694"
+              },
+              {
+                "code": "363",
+                "labels": {
+                  "de": "Beiträge an Gemeinwesen und Dritte",
+                  "fr": "Contributions aux collectivités publiques et tiers",
+                  "it": "Contributi a enti pubblici e a terzi",
+                  "en": "Contributions to public authorities and third parties"
+                },
+                "children": [
+                  {
+                    "code": "3630",
+                    "labels": {
+                      "de": "Beiträge an den Bund",
+                      "fr": "Contributions à la Confédération",
+                      "it": "Contributi alla Confederazione",
+                      "en": "Contributions to the Confederation"
+                    },
+                    "children": [],
+                    "level": 4,
+                    "hasValue": false,
+                    "value": null
+                  },
+                  {
+                    "code": "3631",
+                    "labels": {
+                      "de": "Beiträge an Kantone und Konkordate",
+                      "fr": "Contributions aux cantons et concordats",
+                      "it": "Contributi a Cantoni e Concordati",
+                      "en": "Contributions to cantons and concordats"
+                    },
+                    "children": [],
+                    "level": 4,
+                    "hasValue": true,
+                    "value": "578,039"
+                  },
+                  {
+                    "code": "3632",
+                    "labels": {
+                      "de": "Beiträge an Gemeinden und Gemeindezweckverbände",
+                      "fr": "Contributions aux communes et syndicats intercommunaux",
+                      "it": "Contributi a Comuni e consorzi comunali",
+                      "en": "Contributions to municipalities and special purpose entities"
+                    },
+                    "children": [],
+                    "level": 4,
+                    "hasValue": false,
+                    "value": null
+                  },
+                  {
+                    "code": "3633",
+                    "labels": {
+                      "de": "Beiträge an öffentliche Sozialversicherungen",
+                      "fr": "Contributions aux assurances sociales publiques",
+                      "it": "Contributi ad assicurazioni sociali pubbliche",
+                      "en": "Contributions to social security funds"
+                    },
+                    "children": [],
+                    "level": 4,
+                    "hasValue": false,
+                    "value": null
+                  },
+                  {
+                    "code": "3634",
+                    "labels": {
+                      "de": "Beiträge an öffentliche Unternehmen",
+                      "fr": "Contributions aux entreprises publiques",
+                      "it": "Contributi a imprese pubbliche",
+                      "en": "Contributions to public corporations"
+                    },
+                    "children": [],
+                    "level": 4,
+                    "hasValue": true,
+                    "value": "3,077"
+                  },
+                  {
+                    "code": "3635",
+                    "labels": {
+                      "de": "Beiträge an private Unternehmen",
+                      "fr": "Contributions aux entreprises privées",
+                      "it": "Contributi a imprese private",
+                      "en": "Contributions to private corporations"
+                    },
+                    "children": [],
+                    "level": 4,
+                    "hasValue": true,
+                    "value": "4,050"
+                  },
+                  {
+                    "code": "3636",
+                    "labels": {
+                      "de": "Beiträge an private Organisationen ohne Erwerbszweck",
+                      "fr": "Contributions aux organisations privées à but non lucratif",
+                      "it": "Contributi a organizzazioni private senza scopo di lucro",
+                      "en": "Contributions to private non-profit organizations"
+                    },
+                    "children": [],
+                    "level": 4,
+                    "hasValue": true,
+                    "value": "119,491"
+                  },
+                  {
+                    "code": "3637",
+                    "labels": {
+                      "de": "Beiträge an private Haushalte",
+                      "fr": "Contributions aux ménages privés",
+                      "it": "Contributi a economie domestiche private",
+                      "en": "Contributions to households"
+                    },
+                    "children": [],
+                    "level": 4,
+                    "hasValue": true,
+                    "value": "257,994"
+                  },
+                  {
+                    "code": "3638",
+                    "labels": {
+                      "de": "Beiträge an das Ausland",
+                      "fr": "Contributions à l'étranger",
+                      "it": "Contributi all’estero",
+                      "en": "Contributions abroad"
+                    },
+                    "children": [],
+                    "level": 4,
+                    "hasValue": true,
+                    "value": "116"
+                  },
+                  {
+                    "code": "3639",
+                    "labels": {
+                      "de": "Stipendien",
+                      "fr": "Bourses",
+                      "it": "Borse di studio",
+                      "en": "Scholarships"
+                    },
+                    "children": [],
+                    "level": 4,
+                    "hasValue": true,
+                    "value": "11"
+                  }
+                ],
+                "level": 3,
+                "hasValue": true,
+                "value": "962,778"
+              },
+              {
+                "code": "364",
+                "labels": {
+                  "de": "Wertberichtigungen Darlehen, VV",
+                  "fr": "Réévaluation de prêts, PA",
+                  "it": "Rettificazioni di valore su mutui, beni amministrativi",
+                  "en": "Value adjustments on loans, AA"
+                },
+                "children": [],
+                "level": 3,
+                "hasValue": false,
+                "value": null
+              },
+              {
+                "code": "365",
+                "labels": {
+                  "de": "Wertberichtigungen Beteiligungen, VV",
+                  "fr": "Réévaluation de participations, PA",
+                  "it": "Rettificazioni di valore su partecipazioni, beni amministrativi",
+                  "en": "Value adjustments on financial interests, AA"
+                },
+                "children": [],
+                "level": 3,
+                "hasValue": true,
+                "value": "163"
+              },
+              {
+                "code": "366",
+                "labels": {
+                  "de": "Abschreibungen auf Investitionsbeiträge",
+                  "fr": "Amortissement de contributions à des investissements",
+                  "it": "Ammortamenti su contributi agli investimenti",
+                  "en": "Depreciation of investment contributions"
+                },
+                "children": [],
+                "level": 3,
+                "hasValue": true,
+                "value": "37,975"
+              },
+              {
+                "code": "369",
+                "labels": {
+                  "de": "Übriger Transferaufwand",
+                  "fr": "Autres charges de transfert",
+                  "it": "Rimanenti spese inconto capitale",
+                  "en": "Other transfer expenses"
+                },
+                "children": [],
+                "level": 3,
+                "hasValue": false,
+                "value": null
+              }
+            ],
+            "level": 2,
+            "hasValue": true,
+            "value": "1,060,675"
+          },
+          {
+            "code": "38",
+            "labels": {
+              "de": "Ausserordentlicher Aufwand",
+              "fr": "Charges extraordinaires",
+              "it": "Spese straordinarie",
+              "en": "Extraordinary expenses"
+            },
+            "children": [
+              {
+                "code": "380",
+                "labels": {
+                  "de": "Ausserordentlicher Personalaufwand",
+                  "fr": "Charges de personnel extraordinaires",
+                  "it": "Spese straordinarie per il personale",
+                  "en": "Extraordinary personnel expenses"
+                },
+                "children": [],
+                "level": 3,
+                "hasValue": false,
+                "value": null
+              },
+              {
+                "code": "381",
+                "labels": {
+                  "de": "Ausserordentlicher Sach- und Betriebsaufwand",
+                  "fr": "Charges de biens et services et charges d'exploitation extraordinaires",
+                  "it": "Spese straordinarie per beni e servizi e d’esercizio",
+                  "en": "Extraordinary general, administrative and operating expenses"
+                },
+                "children": [],
+                "level": 3,
+                "hasValue": true,
+                "value": "396"
+              },
+              {
+                "code": "383",
+                "labels": {
+                  "de": "Zusätzliche Abschreibungen",
+                  "fr": "Amortissements supplémentaires",
+                  "it": "Ammortamenti supplementari",
+                  "en": "Additional depreciation"
+                },
+                "children": [],
+                "level": 3,
+                "hasValue": false,
+                "value": null
+              },
+              {
+                "code": "384",
+                "labels": {
+                  "de": "Ausserordentlicher Finanzaufwand",
+                  "fr": "Charges financières extraordinaires",
+                  "it": "Spese finanziarie straordinarie",
+                  "en": "Extraordinary financial expense"
+                },
+                "children": [],
+                "level": 3,
+                "hasValue": false,
+                "value": null
+              },
+              {
+                "code": "386",
+                "labels": {
+                  "de": "Ausserordentlicher Transferaufwand",
+                  "fr": "Charges de transfert extraordinaires",
+                  "it": "Spese di riversamento straordinarie",
+                  "en": "Extraordinary transfer expenses"
+                },
+                "children": [
+                  {
+                    "code": "3860",
+                    "labels": {
+                      "de": "Ausserordentlicher Transferaufwand; Bund",
+                      "fr": "Charges de transfert extraordinaires; Confédération",
+                      "it": "Spese di riversamento straordinarie; Confederazione",
+                      "en": "Extraordinary transfer expenses; Confederation"
+                    },
+                    "children": [],
+                    "level": 4,
+                    "hasValue": true,
+                    "value": " Bund"
+                  },
+                  {
+                    "code": "3861",
+                    "labels": {
+                      "de": "Ausserordentlicher Transferaufwand; Kantone und Konkordate",
+                      "fr": "Charges de transfert extraordinaires; cantons et concordats",
+                      "it": "Spese di riversamento straordinarie; Cantoni e Concordati",
+                      "en": "Extraordinary transfer expenses; cantons and concordats"
+                    },
+                    "children": [],
+                    "level": 4,
+                    "hasValue": true,
+                    "value": " Kantone und Konkordate"
+                  },
+                  {
+                    "code": "3862",
+                    "labels": {
+                      "de": "Ausserordentlicher Transferaufwand; Gemeinden und Gemeindezweckverbände",
+                      "fr": "Charges de transfert extraordinaires; communes et syndicats intercommunaux",
+                      "it": "Spese di riversamento straordinarie; Comuni e consorzi comunali",
+                      "en": "Extraordinary transfer expenses; municipalities and special purpose entities"
+                    },
+                    "children": [],
+                    "level": 4,
+                    "hasValue": true,
+                    "value": " Gemeinden und Gemeindezweckverbände"
+                  },
+                  {
+                    "code": "3863",
+                    "labels": {
+                      "de": "Ausserordentlicher Transferaufwand; öffentliche Sozialversicherungen",
+                      "fr": "Charges de transfert extraordinaires; assurances sociales publiques",
+                      "it": "Spese di riversamento straordinarie; assicurazioni sociali pubbliche",
+                      "en": "Extraordinary transfer expenses; social security funds"
+                    },
+                    "children": [],
+                    "level": 4,
+                    "hasValue": true,
+                    "value": " öffentliche Sozialversicherungen"
+                  },
+                  {
+                    "code": "3864",
+                    "labels": {
+                      "de": "Ausserordentlicher Transferaufwand; öffentliche Unternehmen",
+                      "fr": "Charges de transfert extraordinaires; entreprises publiques",
+                      "it": "Spese di riversamento straordinarie; imprese pubbliche",
+                      "en": "Extraordinary transfer expenses; public corporations"
+                    },
+                    "children": [],
+                    "level": 4,
+                    "hasValue": true,
+                    "value": " öffentliche Unternehmen"
+                  },
+                  {
+                    "code": "3865",
+                    "labels": {
+                      "de": "Ausserordentlicher Transferaufwand; private Unternehmen",
+                      "fr": "Charges de transfert extraordinaires; entreprises privées",
+                      "it": "Spese di riversamento straordinarie; imprese private",
+                      "en": "Extraordinary transfer expenses; private corporations"
+                    },
+                    "children": [],
+                    "level": 4,
+                    "hasValue": true,
+                    "value": " private Unternehmen"
+                  },
+                  {
+                    "code": "3866",
+                    "labels": {
+                      "de": "Ausserordentlicher Transferaufwand; private Organisationen ohne Erwerbszweck",
+                      "fr": "Charges de transfert extraordinaires; organisations privées à but non lucratif",
+                      "it": "Spese di riversamentoe straordinarie; organizzazioni private senza scopo di lucro",
+                      "en": "Extraordinary transfer expenses; private non-profit organizations"
+                    },
+                    "children": [],
+                    "level": 4,
+                    "hasValue": true,
+                    "value": " private Organisationen ohne Erwerbszweck"
+                  },
+                  {
+                    "code": "3867",
+                    "labels": {
+                      "de": "Ausserordentlicher Transferaufwand; private Haushalte",
+                      "fr": "Charges de transfert extraordinaires; ménages privés",
+                      "it": "Spese di riversamento straordinarie; economie domestiche private",
+                      "en": "Extraordinary transfer expenses; households"
+                    },
+                    "children": [],
+                    "level": 4,
+                    "hasValue": true,
+                    "value": " private Haushalte"
+                  },
+                  {
+                    "code": "3868",
+                    "labels": {
+                      "de": "Ausserordentlicher Transferaufwand; Ausland",
+                      "fr": "Charges de transfert extraordinaires; étranger",
+                      "it": "Spese di riversamento straordinarie; estero",
+                      "en": "Extraordinary transfer expenses; abroad"
+                    },
+                    "children": [],
+                    "level": 4,
+                    "hasValue": true,
+                    "value": " Ausland"
+                  }
+                ],
+                "level": 3,
+                "hasValue": false,
+                "value": null
+              },
+              {
+                "code": "387",
+                "labels": {
+                  "de": "Zusätzliche Abschreibungen auf Darlehen, Beteiligungen und Investitionsbeiträgen",
+                  "fr": "Amortissement supplémentaire des prêts, participations et contribution à des investissements",
+                  "it": "Ammortamenti supplementari su mutui, partecipazioni e contributi agli investimenti",
+                  "en": "Additional depreciation on loans, financial interests, and investment contributions"
+                },
+                "children": [],
+                "level": 3,
+                "hasValue": false,
+                "value": null
+              },
+              {
+                "code": "389",
+                "labels": {
+                  "de": "Einlagen in das Eigenkapital",
+                  "fr": "Attributions au capital propre",
+                  "it": "Versamenti al capitale proprio",
+                  "en": "Net expenditure for net assets/equity"
+                },
+                "children": [],
+                "level": 3,
+                "hasValue": true,
+                "value": "21,034"
+              }
+            ],
+            "level": 2,
+            "hasValue": true,
+            "value": "21,430"
+          }
+        ],
+        "level": 1,
+        "hasValue": true,
+        "value": "2,942,491"
+      }
+    ],
+    "level": 0,
+    "hasValue": false
+  }
+}
