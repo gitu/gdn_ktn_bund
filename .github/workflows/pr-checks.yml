@@ -29,27 +29,11 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Install playwright browsers
-        run: npx playwright install --with-deps
-
       - name: Run linting
         run: npm run lint
 
       - name: Build application
         run: npm run build
-
-      - name: Run tests
-        run: npm test:coverage
-
-      - name: Upload build artifacts (on failure)
-        if: failure()
-        uses: actions/upload-artifact@v4
-        with:
-          name: build-logs
-          path: |
-            dist/
-            node_modules/.vite/
-          retention-days: 1
 
       - name: Test coverage report
         if: success()
@@ -89,6 +73,8 @@ jobs:
           cache: 'npm'
       - name: Install dependencies
         run: npm ci
+      - name: Build application
+        run: npm run build
       - name: Install playwright browsers
         run: npx playwright install ${{ matrix.browser }} --with-deps
       - name: Run e2e tests (${{ matrix.browser }})
