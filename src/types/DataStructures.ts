@@ -219,3 +219,59 @@ export interface DataLoadingContext {
   timeout: number;
   retryAttempts: number;
 }
+
+/**
+ * Tree table row data for hierarchical display
+ */
+export interface TreeTableRow {
+  id: string;
+  code: string;
+  label: string;
+  value: number | null;
+  level: number;
+  hasChildren: boolean;
+  isExpanded: boolean;
+  isVisible: boolean;
+  parentId?: string;
+  children?: TreeTableRow[];
+  unit?: string;
+}
+
+/**
+ * Tree table configuration
+ */
+export interface TreeTableConfig {
+  showValues: boolean;
+  showCodes: boolean;
+  expandAll: boolean;
+  language: keyof MultiLanguageLabels;
+  numberFormat: 'de-CH' | 'fr-CH' | 'it-CH' | 'en-US';
+  maxDepth?: number;
+}
+
+/**
+ * Data path specification for loading hierarchical data
+ */
+export interface DataPath {
+  type: 'gdn' | 'std';
+  entityId: string;
+  year: string;
+  dimension?: string;
+  model?: string;
+}
+
+/**
+ * Tree aggregation result containing aggregated data and metadata
+ */
+export interface TreeAggregationResult {
+  aggregatedData: AggregatedDataPoint[];
+  metadata: {
+    treeStructure?: TreeStructure;
+    totalRecords: number;
+    processedAt: string;
+    dimension: string;
+    model?: string;
+    entityId?: string;
+    year?: string;
+  };
+}

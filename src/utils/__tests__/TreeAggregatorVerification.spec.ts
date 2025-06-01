@@ -19,7 +19,7 @@ function parseFixtureCSV(csvContent: string) {
   const records = [];
 
   for (const line of lines) {
-    const [konto, label, betrag] = line.split(';');
+    const [konto, _label, betrag] = line.split(';');
     if (konto && betrag) {
       // Convert Swiss number format (with apostrophes) to standard format
       const cleanBetrag = betrag.replace(/'/g, '').replace(/,/g, '');
