@@ -29,14 +29,31 @@
       </div>
 
       <div class="tree-nodes">
+        <!-- Custom TreeNode implementation -->
         <TreeNode
+          v-if="!usePrimeVueTree"
           :node="treeData.tree"
           :language="selectedLanguage"
           :search-query="searchQuery"
           :expanded-nodes="expandedNodes"
           :selected-nodes="selectedNodes"
+          :show-icons="showIcons"
+          :selection-mode="selectionMode"
           @toggle-expand="toggleExpand"
           @select-node="selectNode"
+          @node-click="handleNodeClick"
+        />
+
+        <!-- PrimeVue Tree implementation -->
+        <Tree
+          v-else
+          :value="primeVueTreeData"
+          :selection-mode="selectionMode || undefined"
+          v-model:selection-keys="primeVueSelection"
+          @node-select="handlePrimeVueNodeSelect"
+          @node-unselect="handlePrimeVueNodeUnselect"
+          @node-expand="handlePrimeVueNodeExpand"
+          @node-collapse="handlePrimeVueNodeCollapse"
         />
       </div>
     </div>
@@ -56,16 +73,24 @@ import { ref, onMounted, computed, watch } from 'vue';
 import { DataLoader } from '../utils/DataLoader';
 import type { TreeStructure, MultiLanguageLabels } from '../types/DataStructures';
 import TreeNode from './TreeNode.vue';
+import Tree from 'primevue/tree';
+import { TreeNodeAdapter, type PrimeVueTreeNode } from '../utils/TreeNodeAdapter';
 
 interface Props {
   dimension: string;
   model?: string;
   title?: string;
+  usePrimeVueTree?: boolean;
+  showIcons?: boolean;
+  selectionMode?: 'single' | 'multiple' | 'checkbox' | null;
 }
 
 const props = withDefaults(defineProps<Props>(), {
   model: 'fs',
-  title: 'Data Tree'
+  title: 'Data Tree',
+  usePrimeVueTree: false,
+  showIcons: false,
+  selectionMode: null
 });
 
 const emit = defineEmits<{
@@ -82,8 +107,19 @@ const searchQuery = ref('');
 const expandedNodes = ref<Set<string>>(new Set(['root']));
 const selectedNodes = ref<Set<string>>(new Set());
 
+// PrimeVue Tree state
+const primeVueTreeData = ref<PrimeVueTreeNode[]>([]);
+const primeVueSelection = ref<Record<string, boolean>>({});
+
 // Data loader instance
 const dataLoader = new DataLoader();
+
+// Tree adapter instance
+const treeAdapter = new TreeNodeAdapter({
+  language: selectedLanguage.value,
+  showIcons: props.showIcons,
+  includeValues: true
+});
 
 // Computed properties
 const filteredTreeData = computed(() => {
@@ -109,6 +145,15 @@ const loadTreeData = async () => {
   try {
     const data = await dataLoader.loadTreeStructure(props.dimension, props.model);
     treeData.value = data;
+
+    // Convert to PrimeVue format if needed
+    if (props.usePrimeVueTree && data) {
+      treeAdapter.updateConfig({
+        language: selectedLanguage.value,
+        showIcons: props.showIcons
+      });
+      primeVueTreeData.value = treeAdapter.convertTreeStructure(data);
+    }
   } catch (err) {
     error.value = err instanceof Error ? err.message : 'Unknown error';
     console.error('Failed to load tree data:', err);
@@ -179,10 +224,48 @@ const collapseAll = () => {
   expandedNodes.value.add('root');
 };
 
+// New event handlers
+const handleNodeClick = (nodeCode: string, nodeData: any) => {
+  emit('nodeSelected', nodeCode, nodeData);
+};
+
+// PrimeVue Tree event handlers
+const handlePrimeVueNodeSelect = (node: any) => {
+  const nodeData = node.data?.originalNode || node.data;
+  emit('nodeSelected', node.key, nodeData);
+};
+
+const handlePrimeVueNodeUnselect = (node: any) => {
+  // Handle unselection if needed
+  console.log('Node unselected:', node.key);
+};
+
+const handlePrimeVueNodeExpand = (node: any) => {
+  expandedNodes.value.add(node.key);
+};
+
+const handlePrimeVueNodeCollapse = (node: any) => {
+  expandedNodes.value.delete(node.key);
+};
+
 // Watchers
 watch([() => props.dimension, () => props.model], () => {
   loadTreeData();
 }, { immediate: false });
+
+watch(selectedLanguage, (newLanguage) => {
+  if (props.usePrimeVueTree && treeData.value) {
+    treeAdapter.updateConfig({ language: newLanguage });
+    primeVueTreeData.value = treeAdapter.convertTreeStructure(treeData.value);
+  }
+});
+
+watch(() => props.showIcons, (newShowIcons) => {
+  if (props.usePrimeVueTree && treeData.value) {
+    treeAdapter.updateConfig({ showIcons: newShowIcons });
+    primeVueTreeData.value = treeAdapter.convertTreeStructure(treeData.value);
+  }
+});
 
 // Lifecycle
 onMounted(() => {

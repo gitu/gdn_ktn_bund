@@ -15,6 +15,10 @@
         <span class="toggle-icon">{{ isExpanded ? '▼' : '▶' }}</span>
       </div>
 
+      <div class="node-icon" v-if="showIcons">
+        <i :class="getNodeIcon" class="node-icon-element"></i>
+      </div>
+
       <div class="node-info">
         <div class="node-header">
           <span class="node-code">{{ node.code }}</span>
@@ -40,8 +44,12 @@
         :expanded-nodes="expandedNodes"
         :selected-nodes="selectedNodes"
         :level="level + 1"
+        :show-details="showDetails"
+        :selection-mode="selectionMode"
+        :show-icons="showIcons"
         @toggle-expand="$emit('toggleExpand', $event)"
         @select-node="$emit('selectNode', $event, child)"
+        @node-click="$emit('nodeClick', $event, child)"
       />
     </div>
   </div>
@@ -59,16 +67,21 @@ interface Props {
   selectedNodes: Set<string>;
   level?: number;
   showDetails?: boolean;
+  selectionMode?: 'single' | 'multiple' | 'checkbox' | null;
+  showIcons?: boolean;
 }
 
 const props = withDefaults(defineProps<Props>(), {
   level: 0,
-  showDetails: false
+  showDetails: false,
+  selectionMode: null,
+  showIcons: false
 });
 
 const emit = defineEmits<{
   toggleExpand: [nodeCode: string];
   selectNode: [nodeCode: string, nodeData: TreeNodeType];
+  nodeClick: [nodeCode: string, nodeData: TreeNodeType];
 }>();
 
 // Computed properties
@@ -92,6 +105,18 @@ const isHighlighted = computed(() => {
   const code = props.node.code.toLowerCase();
 
   return label.includes(query) || code.includes(query);
+});
+
+const getNodeIcon = computed(() => {
+  if (!props.showIcons) return '';
+
+  if (hasChildren.value) {
+    return isExpanded.value ? 'pi pi-folder-open' : 'pi pi-folder';
+  } else if (props.node.hasValue) {
+    return 'pi pi-file';
+  } else {
+    return 'pi pi-circle';
+  }
 });
 
 // Methods
@@ -120,7 +145,13 @@ const toggleExpand = () => {
 };
 
 const handleClick = () => {
-  emit('selectNode', props.node.code, props.node);
+  // Emit both events for compatibility
+  emit('nodeClick', props.node.code, props.node);
+
+  // Handle selection based on mode
+  if (props.selectionMode) {
+    emit('selectNode', props.node.code, props.node);
+  }
 };
 </script>
 
@@ -173,6 +204,20 @@ const handleClick = () => {
 
 .toggle-icon {
   font-size: 0.75rem;
+  color: #666;
+}
+
+.node-icon {
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 0.25rem;
+}
+
+.node-icon-element {
+  font-size: 0.875rem;
   color: #666;
 }
 
