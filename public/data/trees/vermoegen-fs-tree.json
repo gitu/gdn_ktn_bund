@@ -1,10 +1,10 @@
 {
   "metadata": {
-    "dimension": "transaktionen",
-    "model": "gfs",
-    "source": "codes/transaktionen/gfs.csv",
-    "generatedAt": "2025-06-01T18:53:11.915Z",
-    "totalNodes": 89,
+    "dimension": "vermoegen",
+    "model": "fs",
+    "source": "codes/vermoegen/fs.csv",
+    "generatedAt": "2025-06-02T15:07:58.379Z",
+    "totalNodes": 75,
     "maxDepth": 3
   },
   "tree": {
@@ -17,7 +17,113 @@
     },
     "children": [
       {
-        "code": "320",
+        "code": "61",
+        "labels": {
+          "de": "Vermögensgüter",
+          "fr": "Actifs non financiers",
+          "it": "Attività non finanziarie",
+          "en": "Non-financial assets"
+        },
+        "children": [
+          {
+            "code": "611",
+            "labels": {
+              "de": "Anlagegüter",
+              "fr": "Actifs fixes",
+              "it": "Capitale fisso",
+              "en": "Fixed assets"
+            },
+            "children": [
+              {
+                "code": "6111",
+                "labels": {
+                  "de": "Hoch- und Tiefbauten",
+                  "fr": "Bâtiments et ouvrages de génie civil",
+                  "it": "Opere edili e del genio civile",
+                  "en": "Buildings and structures"
+                },
+                "children": [],
+                "level": 4,
+                "hasValue": false,
+                "value": null
+              },
+              {
+                "code": "6112",
+                "labels": {
+                  "de": "Ausrüstungsgüter",
+                  "fr": "Machines et équipement",
+                  "it": "Impianti e macchinari",
+                  "en": "Machinery and equipment"
+                },
+                "children": [],
+                "level": 4,
+                "hasValue": false,
+                "value": null
+              }
+            ],
+            "level": 3,
+            "hasValue": false,
+            "value": null
+          },
+          {
+            "code": "612",
+            "labels": {
+              "de": "Vorräte",
+              "fr": "Stocks",
+              "it": "Scorte",
+              "en": "Inventories"
+            },
+            "children": [],
+            "level": 3,
+            "hasValue": false,
+            "value": null
+          },
+          {
+            "code": "613",
+            "labels": {
+              "de": "Wertsachen",
+              "fr": "Objets de valeur",
+              "it": "Oggetti di valore",
+              "en": "Valuables"
+            },
+            "children": [],
+            "level": 3,
+            "hasValue": false,
+            "value": null
+          },
+          {
+            "code": "614",
+            "labels": {
+              "de": "Nichtproduzierte Vermögensgüter",
+              "fr": "Actifs non produits",
+              "it": "Attività non prodotte",
+              "en": "Nonproduced assets"
+            },
+            "children": [],
+            "level": 3,
+            "hasValue": false,
+            "value": null
+          }
+        ],
+        "level": 2,
+        "hasValue": false,
+        "value": null
+      },
+      {
+        "code": "69",
+        "labels": {
+          "de": "Reinvermögen",
+          "fr": "Patrimoine net",
+          "it": "Patrimonio netto",
+          "en": "Net worth"
+        },
+        "children": [],
+        "level": 2,
+        "hasValue": false,
+        "value": null
+      },
+      {
+        "code": "620",
         "labels": {
           "de": "Forderungen",
           "fr": "Créances ",
@@ -26,7 +132,7 @@
         },
         "children": [
           {
-            "code": "3201",
+            "code": "6201",
             "labels": {
               "de": "Währungsgold und Sonderziehungsrechte",
               "fr": "Or monétaire et DTS",
@@ -39,7 +145,7 @@
             "value": null
           },
           {
-            "code": "3202",
+            "code": "6202",
             "labels": {
               "de": "Bargeld und Einlagen ",
               "fr": "Numéraire et dépôts ",
@@ -52,7 +158,7 @@
             "value": null
           },
           {
-            "code": "3203",
+            "code": "6203",
             "labels": {
               "de": "Schuldtitel",
               "fr": "Titres de créance",
@@ -65,7 +171,7 @@
             "value": null
           },
           {
-            "code": "3204",
+            "code": "6204",
             "labels": {
               "de": "Kredite",
               "fr": "Crédits ",
@@ -78,7 +184,7 @@
             "value": null
           },
           {
-            "code": "3205",
+            "code": "6205",
             "labels": {
               "de": "Anteilsrechte und Anteile an Investmentfonds",
               "fr": "Actions et parts de fonds d'investissement",
@@ -91,7 +197,7 @@
             "value": null
           },
           {
-            "code": "3206",
+            "code": "6206",
             "labels": {
               "de": "Versicherungs-, Alterssicherungs- und Standardgarantie-Systeme",
               "fr": "Systèmes d'assurances, d'assurance-vieillesse et de garanties standard ",
@@ -104,7 +210,7 @@
             "value": null
           },
           {
-            "code": "3207",
+            "code": "6207",
             "labels": {
               "de": "Finanzderivate und Mitarbeiteraktienoptionen",
               "fr": "Produits financiers dérivés et options sur titres des salariés",
@@ -117,16 +223,16 @@
             "value": null
           },
           {
-            "code": "3208",
+            "code": "6208",
             "labels": {
               "de": "Sonstige Forderungen",
-              "fr": "Autres comptes à recevoir",
+              "fr": "Autres comptes à recevoir ",
               "it": "Altri conti attivi",
               "en": "Other accounts receivable"
             },
             "children": [
               {
-                "code": "32081",
+                "code": "62081",
                 "labels": {
                   "de": "Handelskredite und Anzahlungen",
                   "fr": "Crédits commerciaux et avances",
@@ -139,7 +245,7 @@
                 "value": null
               },
               {
-                "code": "32082",
+                "code": "62082",
                 "labels": {
                   "de": "Sonstige Forderungen, n.a.g.",
                   "fr": "Autres comptes à recevoir, n.c.a.",
@@ -162,7 +268,7 @@
         "value": null
       },
       {
-        "code": "321",
+        "code": "621",
         "labels": {
           "de": "Forderungen, Inland",
           "fr": "Créances, intérieur",
@@ -171,7 +277,7 @@
         },
         "children": [
           {
-            "code": "3211",
+            "code": "6211",
             "labels": {
               "de": "Währungsgold und Sonderziehungsrechte, Inland",
               "fr": "Or monétaire et DTS, intérieur",
@@ -184,7 +290,7 @@
             "value": null
           },
           {
-            "code": "3212",
+            "code": "6212",
             "labels": {
               "de": "Bargeld und Einlagen, Inland",
               "fr": "Numéraire et dépôts, intérieur",
@@ -197,7 +303,7 @@
             "value": null
           },
           {
-            "code": "3213",
+            "code": "6213",
             "labels": {
               "de": "Schuldtitel, Inland",
               "fr": "Titres de créance, intérieur",
@@ -210,7 +316,7 @@
             "value": null
           },
           {
-            "code": "3214",
+            "code": "6214",
             "labels": {
               "de": "Kredite, Inland",
               "fr": "Crédits, intérieur",
@@ -223,7 +329,7 @@
             "value": null
           },
           {
-            "code": "3215",
+            "code": "6215",
             "labels": {
               "de": "Anteilsrechte und Anteile an Investmentfonds, Inland",
               "fr": "Actions et parts de fonds d'investissement, intérieur",
@@ -236,7 +342,7 @@
             "value": null
           },
           {
-            "code": "3216",
+            "code": "6216",
             "labels": {
               "de": "Versicherungs-, Alterssicherungs- und Standardgarantie-Systeme, Inland",
               "fr": "Systèmes d'assurances, d'assurance-vieillesse et de garanties standard, intérieur ",
@@ -249,7 +355,7 @@
             "value": null
           },
           {
-            "code": "3217",
+            "code": "6217",
             "labels": {
               "de": "Finanzderivate und Mitarbeiteraktienoptionen, Inland",
               "fr": "Produits financiers dérivés et options sur titres des salariés, intérieur",
@@ -262,7 +368,7 @@
             "value": null
           },
           {
-            "code": "3218",
+            "code": "6218",
             "labels": {
               "de": "Sonstige Forderungen, Inland",
               "fr": "Autres comptes à recevoir, intérieur",
@@ -271,7 +377,7 @@
             },
             "children": [
               {
-                "code": "32181",
+                "code": "62181",
                 "labels": {
                   "de": "Handelskredite und Anzahlungen, Inland",
                   "fr": "Crédits commerciaux et avances, intérieur",
@@ -284,7 +390,7 @@
                 "value": null
               },
               {
-                "code": "32182",
+                "code": "62182",
                 "labels": {
                   "de": "Sonstige Forderungen, n.a.g., Inland",
                   "fr": "Autres comptes à recevoir, n.c.a., intérieur",
@@ -307,7 +413,7 @@
         "value": null
       },
       {
-        "code": "322",
+        "code": "622",
         "labels": {
           "de": "Forderungen, Ausland",
           "fr": "Créances, extérieur",
@@ -316,7 +422,7 @@
         },
         "children": [
           {
-            "code": "3221",
+            "code": "6221",
             "labels": {
               "de": "Währungsgold und Sonderziehungsrechte, Ausland",
               "fr": "Or monétaire et DTS, extérieur",
@@ -329,7 +435,7 @@
             "value": null
           },
           {
-            "code": "3222",
+            "code": "6222",
             "labels": {
               "de": "Bargeld und Einlagen, Ausland",
               "fr": "Numéraire et dépôts, extérieur",
@@ -342,7 +448,7 @@
             "value": null
           },
           {
-            "code": "3223",
+            "code": "6223",
             "labels": {
               "de": "Schuldtitel, Ausland",
               "fr": "Titres de créance, extérieur",
@@ -355,7 +461,7 @@
             "value": null
           },
           {
-            "code": "3224",
+            "code": "6224",
             "labels": {
               "de": "Kredite, Ausland",
               "fr": "Crédits, extérieur",
@@ -368,7 +474,7 @@
             "value": null
           },
           {
-            "code": "3225",
+            "code": "6225",
             "labels": {
               "de": "Anteilsrechte und Anteile an Investmentfonds, Ausland",
               "fr": "Actions et parts de fonds d'investissement, extérieur",
@@ -381,7 +487,7 @@
             "value": null
           },
           {
-            "code": "3226",
+            "code": "6226",
             "labels": {
               "de": "Versicherungs-, Alterssicherungs- und Standardgarantie-Systeme, Ausland",
               "fr": "Systèmes d'assurances, d'assurance-vieillesse et de garanties standard, extérieur",
@@ -394,7 +500,7 @@
             "value": null
           },
           {
-            "code": "3227",
+            "code": "6227",
             "labels": {
               "de": "Finanzderivate und Mitarbeiteraktienoptionen, Ausland",
               "fr": "Produits financiers dérivés et options sur titres des salariés, extérieur",
@@ -407,7 +513,7 @@
             "value": null
           },
           {
-            "code": "3228",
+            "code": "6228",
             "labels": {
               "de": "Sonstige Forderungen, Ausland",
               "fr": "Autres comptes à recevoir, extérieur",
@@ -416,7 +522,7 @@
             },
             "children": [
               {
-                "code": "32281",
+                "code": "62281",
                 "labels": {
                   "de": "Handelskredite und Anzahlungen, Ausland",
                   "fr": "Crédits commerciaux et avances, extérieur",
@@ -429,7 +535,7 @@
                 "value": null
               },
               {
-                "code": "32282",
+                "code": "62282",
                 "labels": {
                   "de": "Sonstige Forderungen, n.a.g., Ausland",
                   "fr": "Autres comptes à recevoir, n.c.a., extérieur",
@@ -452,7 +558,7 @@
         "value": null
       },
       {
-        "code": "330",
+        "code": "630",
         "labels": {
           "de": "Verbindlichkeiten",
           "fr": "Engagements ",
@@ -461,7 +567,7 @@
         },
         "children": [
           {
-            "code": "3301",
+            "code": "6301",
             "labels": {
               "de": "Währungsgold und Sonderziehungsrechte",
               "fr": "Or monétaire et DTS",
@@ -474,7 +580,7 @@
             "value": null
           },
           {
-            "code": "3302",
+            "code": "6302",
             "labels": {
               "de": "Bargeld und Einlagen ",
               "fr": "Numéraire et dépôts ",
@@ -487,7 +593,7 @@
             "value": null
           },
           {
-            "code": "3303",
+            "code": "6303",
             "labels": {
               "de": "Schuldtitel",
               "fr": "Titres de créance",
@@ -500,7 +606,7 @@
             "value": null
           },
           {
-            "code": "3304",
+            "code": "6304",
             "labels": {
               "de": "Kredite",
               "fr": "Crédits ",
@@ -513,7 +619,7 @@
             "value": null
           },
           {
-            "code": "3305",
+            "code": "6305",
             "labels": {
               "de": "Anteilsrechte und Anteile an Investmentfonds",
               "fr": "Actions et parts de fonds d'investissement",
@@ -526,7 +632,7 @@
             "value": null
           },
           {
-            "code": "3306",
+            "code": "6306",
             "labels": {
               "de": "Versicherungs-, Alterssicherungs- und Standardgarantie-Systeme",
               "fr": "Systèmes d'assurances, d'assurance-vieillesse et de garanties standard",
@@ -539,7 +645,7 @@
             "value": null
           },
           {
-            "code": "3307",
+            "code": "6307",
             "labels": {
               "de": "Finanzderivate und Mitarbeiteraktienoptionen",
               "fr": "Produits financiers dérivés et options sur titres des salariés",
@@ -552,7 +658,7 @@
             "value": null
           },
           {
-            "code": "3308",
+            "code": "6308",
             "labels": {
               "de": "Sonstige Verbindlichkeiten",
               "fr": "Autres comptes à payer ",
@@ -561,7 +667,7 @@
             },
             "children": [
               {
-                "code": "33081",
+                "code": "63081",
                 "labels": {
                   "de": "Handelskredite und Anzahlungen",
                   "fr": "Crédits commerciaux et avances",
@@ -574,7 +680,7 @@
                 "value": null
               },
               {
-                "code": "33082",
+                "code": "63082",
                 "labels": {
                   "de": "Sonstige Verbindlichkeiten, n.a.g.",
                   "fr": "Autres comptes à payer, n.c.a.",
@@ -597,7 +703,7 @@
         "value": null
       },
       {
-        "code": "331",
+        "code": "631",
         "labels": {
           "de": "Verbindlichkeiten, Inland",
           "fr": "Engagements, intérieur",
@@ -606,7 +712,7 @@
         },
         "children": [
           {
-            "code": "3311",
+            "code": "6311",
             "labels": {
               "de": "Währungsgold und Sonderziehungsrechte, Inland",
               "fr": "Or monétaire et DTS, intérieur",
@@ -619,7 +725,7 @@
             "value": null
           },
           {
-            "code": "3312",
+            "code": "6312",
             "labels": {
               "de": "Bargeld und Einlagen, Inland",
               "fr": "Numéraire et dépôts, intérieur",
@@ -632,7 +738,7 @@
             "value": null
           },
           {
-            "code": "3313",
+            "code": "6313",
             "labels": {
               "de": "Schuldtitel, Inland",
               "fr": "Titres de créance, intérieur",
@@ -645,7 +751,7 @@
             "value": null
           },
           {
-            "code": "3314",
+            "code": "6314",
             "labels": {
               "de": "Kredite, Inland",
               "fr": "Crédits, intérieur",
@@ -658,7 +764,7 @@
             "value": null
           },
           {
-            "code": "3315",
+            "code": "6315",
             "labels": {
               "de": "Anteilsrechte und Anteile an Investmentfonds, Inland",
               "fr": "Actions et parts de fonds d'investissement, intérieur",
@@ -671,7 +777,7 @@
             "value": null
           },
           {
-            "code": "3316",
+            "code": "6316",
             "labels": {
               "de": "Versicherungs-, Alterssicherungs- und Standardgarantie-Systeme, Inland",
               "fr": "Systèmes d'assurances, d'assurance-vieillesse et de garanties standard, intérieur ",
@@ -684,7 +790,7 @@
             "value": null
           },
           {
-            "code": "3317",
+            "code": "6317",
             "labels": {
               "de": "Finanzderivate und Mitarbeiteraktienoptionen, Inland",
               "fr": "Produits financiers dérivés et options sur titres des salariés, intérieur",
@@ -697,7 +803,7 @@
             "value": null
           },
           {
-            "code": "3318",
+            "code": "6318",
             "labels": {
               "de": "Sonstige Verbindlichkeiten, Inland",
               "fr": "Autres comptes à payer, intérieur",
@@ -706,7 +812,7 @@
             },
             "children": [
               {
-                "code": "33181",
+                "code": "63181",
                 "labels": {
                   "de": "Handelskredite und Anzahlungen, Inland",
                   "fr": "Crédits commerciaux et avances, intérieur",
@@ -719,7 +825,7 @@
                 "value": null
               },
               {
-                "code": "33182",
+                "code": "63182",
                 "labels": {
                   "de": "Sonstige Verbindlichkeiten, n.a.g., Inland",
                   "fr": "Autres comptes à payer, n.c.a., intérieur",
@@ -742,7 +848,7 @@
         "value": null
       },
       {
-        "code": "332",
+        "code": "632",
         "labels": {
           "de": "Verbindlichkeiten, Ausland",
           "fr": "Engagements, extérieur",
@@ -751,7 +857,7 @@
         },
         "children": [
           {
-            "code": "3321",
+            "code": "6321",
             "labels": {
               "de": "Währungsgold und Sonderziehungsrechte, Ausland",
               "fr": "Or monétaire et DTS, extérieur",
@@ -764,7 +870,7 @@
             "value": null
           },
           {
-            "code": "3322",
+            "code": "6322",
             "labels": {
               "de": "Bargeld und Einlagen, Ausland",
               "fr": "Numéraire et dépôts, extérieur",
@@ -777,7 +883,7 @@
             "value": null
           },
           {
-            "code": "3323",
+            "code": "6323",
             "labels": {
               "de": "Schuldtitel, Ausland",
               "fr": "Titres de créance, extérieur",
@@ -790,7 +896,7 @@
             "value": null
           },
           {
-            "code": "3324",
+            "code": "6324",
             "labels": {
               "de": "Kredite, Ausland",
               "fr": "Crédits, extérieur",
@@ -803,7 +909,7 @@
             "value": null
           },
           {
-            "code": "3325",
+            "code": "6325",
             "labels": {
               "de": "Anteilsrechte und Anteile an Investmentfonds, Ausland",
               "fr": "Actions et parts de fonds d'investissement, extérieur",
@@ -816,7 +922,7 @@
             "value": null
           },
           {
-            "code": "3326",
+            "code": "6326",
             "labels": {
               "de": "Versicherungs-, Alterssicherungs- und Standardgarantie-Systeme, Ausland",
               "fr": "Systèmes d'assurances, d'assurance-vieillesse et de garanties standard, extérieur ",
@@ -829,7 +935,7 @@
             "value": null
           },
           {
-            "code": "3327",
+            "code": "6327",
             "labels": {
               "de": "Finanzderivate und Mitarbeiteraktienoptionen, Ausland",
               "fr": "Produits financiers dérivés et options sur titres des salariés, extérieur",
@@ -842,7 +948,7 @@
             "value": null
           },
           {
-            "code": "3328",
+            "code": "6328",
             "labels": {
               "de": "Sonstige Verbindlichkeiten, Ausland",
               "fr": "Autres comptes à payer, extérieur",
@@ -851,7 +957,7 @@
             },
             "children": [
               {
-                "code": "33281",
+                "code": "63281",
                 "labels": {
                   "de": "Handelskredite und Anzahlungen, Ausland",
                   "fr": "Crédits commerciaux et avances, extérieur",
@@ -864,7 +970,7 @@
                 "value": null
               },
               {
-                "code": "33282",
+                "code": "63282",
                 "labels": {
                   "de": "Sonstige Verbindlichkeiten, n.a.g., Ausland",
                   "fr": "Autres comptes à payer, n.c.a., extérieur",
@@ -883,292 +989,6 @@
           }
         ],
         "level": 3,
-        "hasValue": false,
-        "value": null
-      },
-      {
-        "code": "31.0",
-        "labels": {
-          "de": "Nettozugang an Vermögensgütern",
-          "fr": "Acquisition nette d'actifs non financiers",
-          "it": "Acquisizioni nette di attività non finanziarie",
-          "en": "Net acquisition: non-financial assets"
-        },
-        "children": [],
-        "level": 4,
-        "hasValue": false,
-        "value": null
-      },
-      {
-        "code": "31.1",
-        "labels": {
-          "de": "Erwerb: Vermögensgüter",
-          "fr": "Acquisition d'actifs non financiers",
-          "it": "Acquisizione: attività non finanziarie",
-          "en": "Acquisition: non-financial assets"
-        },
-        "children": [],
-        "level": 4,
-        "hasValue": false,
-        "value": null
-      },
-      {
-        "code": "31.2",
-        "labels": {
-          "de": "Veräusserung: Vermögensgüter",
-          "fr": "Cession d'actifs non financiers",
-          "it": "Cessione: attività non finanziarie",
-          "en": "Disposal: non-financial assets"
-        },
-        "children": [],
-        "level": 4,
-        "hasValue": false,
-        "value": null
-      },
-      {
-        "code": "31.3",
-        "labels": {
-          "de": "Wertverzehr: Vermögensgüter",
-          "fr": "Consommation de capital fixe",
-          "it": "CAR: attività reali",
-          "en": "CFC: non-financial assets"
-        },
-        "children": [],
-        "level": 4,
-        "hasValue": false,
-        "value": null
-      },
-      {
-        "code": "311.1",
-        "labels": {
-          "de": "Erwerb: Anlagegüter",
-          "fr": "Acquisition d'actifs fixes",
-          "it": "Acquisizione: capitale fisso",
-          "en": "Acquisition: Fixed assets"
-        },
-        "children": [],
-        "level": 5,
-        "hasValue": false,
-        "value": null
-      },
-      {
-        "code": "311.2",
-        "labels": {
-          "de": "Veräusserung: Anlagegüter",
-          "fr": "Cession d'actifs fixes",
-          "it": "Cessione: capitale fisso",
-          "en": "Disposal: Fixed assets"
-        },
-        "children": [],
-        "level": 5,
-        "hasValue": false,
-        "value": null
-      },
-      {
-        "code": "311.3",
-        "labels": {
-          "de": "Wertverzehr: Anlagegüter",
-          "fr": "CCF: actifs fixes",
-          "it": "CAR: capitale fisso",
-          "en": "CFC: Fixed assets"
-        },
-        "children": [],
-        "level": 5,
-        "hasValue": false,
-        "value": null
-      },
-      {
-        "code": "312.1",
-        "labels": {
-          "de": "Erwerb: Vorräte",
-          "fr": "Acquisition de stocks",
-          "it": "Acquisizione: scorte",
-          "en": "Acquisition: Inventories"
-        },
-        "children": [],
-        "level": 5,
-        "hasValue": false,
-        "value": null
-      },
-      {
-        "code": "312.2",
-        "labels": {
-          "de": "Veräusserung: Vorräte",
-          "fr": "Cession de stocks",
-          "it": "Cessione: scorte",
-          "en": "Disposal: Inventories"
-        },
-        "children": [],
-        "level": 5,
-        "hasValue": false,
-        "value": null
-      },
-      {
-        "code": "312.3",
-        "labels": {
-          "de": "Wertverzehr: Vorräte",
-          "fr": "CCF: stocks",
-          "it": "CAR: scorte",
-          "en": "CFC: Inventories"
-        },
-        "children": [],
-        "level": 5,
-        "hasValue": false,
-        "value": null
-      },
-      {
-        "code": "313.1",
-        "labels": {
-          "de": "Erwerb: Wertsachen",
-          "fr": "Acquisition d'objets de valeur",
-          "it": "Acquisizione: oggetti di valore",
-          "en": "Acquisition: Valuables"
-        },
-        "children": [],
-        "level": 5,
-        "hasValue": false,
-        "value": null
-      },
-      {
-        "code": "313.2",
-        "labels": {
-          "de": "Veräusserung: Wertsachen",
-          "fr": "Cession d'objets de valeur",
-          "it": "Cessione: oggetti di valore",
-          "en": "Disposal: Valuables"
-        },
-        "children": [],
-        "level": 5,
-        "hasValue": false,
-        "value": null
-      },
-      {
-        "code": "313.3",
-        "labels": {
-          "de": "Wertverzehr: Wertsachen",
-          "fr": "CCF: objets de valeur",
-          "it": "CAR: oggetti di valore",
-          "en": "CFC: Valuables"
-        },
-        "children": [],
-        "level": 5,
-        "hasValue": false,
-        "value": null
-      },
-      {
-        "code": "314.1",
-        "labels": {
-          "de": "Erwerb: nichtproduzierte Vermögensgüter",
-          "fr": "Acquisition d'actifs non produits",
-          "it": "Acquisizione: attività non finanziarie non prodotte",
-          "en": "Acquisition: Nonproduced assets"
-        },
-        "children": [],
-        "level": 5,
-        "hasValue": false,
-        "value": null
-      },
-      {
-        "code": "314.2",
-        "labels": {
-          "de": "Veräusserung: nichtproduzierte Vermögensgüter",
-          "fr": "Cession d'actifs non produits",
-          "it": "Cessione: attività non finanziarie non prodotte",
-          "en": "Disposal: Nonproduced assets"
-        },
-        "children": [],
-        "level": 5,
-        "hasValue": false,
-        "value": null
-      },
-      {
-        "code": "314.3",
-        "labels": {
-          "de": "Wertverzehr: nichtproduzierte Vermögensgüter",
-          "fr": "CCF: actifs non produits",
-          "it": "CAR: beni materiali non prodotti",
-          "en": "CFC: Nonproduced assets"
-        },
-        "children": [],
-        "level": 5,
-        "hasValue": false,
-        "value": null
-      },
-      {
-        "code": "3111.1",
-        "labels": {
-          "de": "Erwerb: Hoch- und Tiefbauten",
-          "fr": "Acquisition de bâtiments et ouvrages de génie civil",
-          "it": "Acquisizione: opere edili e del genio civile",
-          "en": "Acquisition: Buildings and structures"
-        },
-        "children": [],
-        "level": 6,
-        "hasValue": false,
-        "value": null
-      },
-      {
-        "code": "3111.2",
-        "labels": {
-          "de": "Veräusserung: Hoch- und Tiefbauten",
-          "fr": "Cession de bâtiments et ouvrages de génie civil",
-          "it": "Cessione: opere edili e del genio civile",
-          "en": "Disposal: Buildings and structures"
-        },
-        "children": [],
-        "level": 6,
-        "hasValue": false,
-        "value": null
-      },
-      {
-        "code": "3111.3",
-        "labels": {
-          "de": "Wertverzehr: Hoch- und Tiefbauten",
-          "fr": "CCF: bâtiments et ouvrages de génie civil",
-          "it": "CAR: opere edili e del genio civile",
-          "en": "CFC: Buildings and structures"
-        },
-        "children": [],
-        "level": 6,
-        "hasValue": false,
-        "value": null
-      },
-      {
-        "code": "3112.1",
-        "labels": {
-          "de": "Erwerb: Ausrüstungsgüter",
-          "fr": "Acquisition de machines et équipement",
-          "it": "Acquisizione: impianti e macchinari",
-          "en": "Acquisition: Machinery and equipment"
-        },
-        "children": [],
-        "level": 6,
-        "hasValue": false,
-        "value": null
-      },
-      {
-        "code": "3112.2",
-        "labels": {
-          "de": "Veräusserung: Ausrüstungsgüter",
-          "fr": "Cession de machines et équipement",
-          "it": "Cessione: impianti e macchinari",
-          "en": "Disposal: Machinery and equipment"
-        },
-        "children": [],
-        "level": 6,
-        "hasValue": false,
-        "value": null
-      },
-      {
-        "code": "3112.3",
-        "labels": {
-          "de": "Wertverzehr: Ausrüstungsgüter",
-          "fr": "CCF: machines et équipement",
-          "it": "CAR: impianti e macchinari",
-          "en": "CFC: Machinery and equipment"
-        },
-        "children": [],
-        "level": 6,
         "hasValue": false,
         "value": null
       }

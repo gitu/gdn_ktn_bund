@@ -3,7 +3,7 @@
     "dimension": "ausgaben",
     "model": "fs",
     "source": "codes/ausgaben/fs.csv",
-    "generatedAt": "2025-06-01T18:53:11.901Z",
+    "generatedAt": "2025-06-02T15:07:58.367Z",
     "totalNodes": 181,
     "maxDepth": 5
   },

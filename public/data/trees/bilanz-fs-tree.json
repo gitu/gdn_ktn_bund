@@ -3,7 +3,7 @@
     "dimension": "bilanz",
     "model": "fs",
     "source": "codes/bilanz/fs.csv",
-    "generatedAt": "2025-06-01T18:53:11.904Z",
+    "generatedAt": "2025-06-02T15:07:58.369Z",
     "totalNodes": 40,
     "maxDepth": 3
   },

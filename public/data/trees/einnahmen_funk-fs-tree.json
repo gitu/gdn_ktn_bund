@@ -3,7 +3,7 @@
     "dimension": "einnahmen_funk",
     "model": "fs",
     "source": "codes/einnahmen_funk/fs.csv",
-    "generatedAt": "2025-06-01T18:53:11.907Z",
+    "generatedAt": "2025-06-02T15:07:58.372Z",
     "totalNodes": 1,
     "maxDepth": 0
   },
