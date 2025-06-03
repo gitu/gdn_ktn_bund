@@ -181,8 +181,11 @@ const loadData = async () => {
     let aggregationResult: TreeAggregationResult;
 
     if (path.type === 'gdn') {
-      // Load GDN data
-      const dataResult = await dataLoader.loadGdnData(path.entityId, path.year);
+      // Load GDN data - model is now required for GDN data too
+      if (!path.model) {
+        throw new Error('Model is required for GDN data');
+      }
+      const dataResult = await dataLoader.loadGdnData(path.model, path.entityId, path.year);
       aggregationResult = await treeAggregator.aggregateGdnData(
         dataResult.data,
         props.dimension,
@@ -235,7 +238,7 @@ const convertToTableRows = (result: TreeAggregationResult): TreeTableRow[] => {
       level,
       hasChildren: node.children.length > 0,
       isExpanded: level === 0 || config.value.expandAll,
-      isVisible: level === 0 || (parentId ? isParentExpanded(parentId) : true),
+      isVisible: level === 0, // Initially, only show root level
       parentId,
       unit: aggregatedData?.unit
     };
@@ -252,6 +255,9 @@ const convertToTableRows = (result: TreeAggregationResult): TreeTableRow[] => {
     processNode(result.metadata.treeStructure.tree);
   }
 
+  // After all rows are created, update visibility based on expansion state
+  updateRowsVisibility(rows);
+
   return rows;
 };
 
@@ -260,14 +266,29 @@ const isParentExpanded = (parentId: string): boolean => {
   return parent ? parent.isExpanded : false;
 };
 
-const updateVisibility = () => {
-  tableRows.value.forEach(row => {
+const updateRowsVisibility = (rows: TreeTableRow[]) => {
+  const isRowVisibleInArray = (rowId: string, rowsArray: TreeTableRow[]): boolean => {
+    const row = rowsArray.find(r => r.id === rowId);
+    if (!row) return false;
+
+    if (row.level === 0) return true;
+    if (!row.parentId) return true;
+
+    const parent = rowsArray.find(r => r.id === row.parentId);
+    return parent ? parent.isExpanded && isRowVisibleInArray(parent.id, rowsArray) : false;
+  };
+
+  rows.forEach(row => {
     if (row.level === 0) {
       row.isVisible = true;
     } else if (row.parentId) {
-      row.isVisible = isRowVisible(row.parentId);
+      row.isVisible = isRowVisibleInArray(row.parentId, rows);
     }
   });
+};
+
+const updateVisibility = () => {
+  updateRowsVisibility(tableRows.value);
 };
 
 const isRowVisible = (rowId: string): boolean => {

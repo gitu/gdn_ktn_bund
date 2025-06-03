@@ -66,10 +66,10 @@ export class DataLoader {
   }
 
   /**
-   * Load GDN data for a specific entity and year
+   * Load GDN data for a specific model, entity and year
    */
-  async loadGdnData(entityId: string, year: string): Promise<DataLoadingResult<GdnDataRecord>> {
-    const cacheKey = `gdn-${entityId}-${year}`;
+  async loadGdnData(model: string, entityId: string, year: string): Promise<DataLoadingResult<GdnDataRecord>> {
+    const cacheKey = `gdn-${model}-${entityId}-${year}`;
 
     if (this.context.cache.enabled) {
       const cached = this.getCachedData(cacheKey);
@@ -77,9 +77,9 @@ export class DataLoader {
     }
 
     try {
-      const url = `${this.context.baseUrl}/gdn/${entityId}/${year}.csv`;
+      const url = `${this.context.baseUrl}/gdn/${model}/${entityId}/${year}.csv`;
       const csvText = await this.fetchCsvText(url);
-      const data = this.parseCsv(csvText, ';', true) as GdnDataRecord[];
+      const data = this.parseCsv(csvText, ',', true) as GdnDataRecord[];
 
       const result: DataLoadingResult<GdnDataRecord> = {
         data,
@@ -88,7 +88,8 @@ export class DataLoader {
           loadedAt: new Date().toISOString(),
           recordCount: data.length,
           entityId,
-          year
+          year,
+          model
         }
       };
 
@@ -98,7 +99,7 @@ export class DataLoader {
 
       return result;
     } catch (error) {
-      console.error(`Error loading GDN data for ${entityId}/${year}:`, error);
+      console.error(`Error loading GDN data for ${model}/${entityId}/${year}:`, error);
       throw error;
     }
   }
@@ -106,7 +107,7 @@ export class DataLoader {
   /**
    * Load STD data for a specific model, entity and year
    */
-  async loadStdData(model: string, entityId: string, year: string): Promise<DataLoadingResult<StdDataRecord>> {
+  async loadStdData(entityId: string, year: string, model: string = 'fs'): Promise<DataLoadingResult<StdDataRecord>> {
     const cacheKey = `std-${model}-${entityId}-${year}`;
 
     if (this.context.cache.enabled) {
@@ -204,7 +205,8 @@ export class DataLoader {
           type: 'gdn' as const,
           entityId: item.nr,
           entityName: item.gemeinde,
-          availableYears: item.jahre
+          availableYears: item.models.flatMap((m: any) => m.jahre),
+          models: item.models.map((m: any) => m.model)
         })),
         std: stdInfo.map((item: any) => ({
           type: 'std' as const,

@@ -129,11 +129,12 @@ describe('HierarchicalTreeTable', () => {
       loadGdnData: vi.fn().mockResolvedValue({
         data: mockGdnData,
         metadata: {
-          source: '/data/gdn/001/2023.csv',
+          source: '/data/gdn/fs/001/2023.csv',
           loadedAt: '2024-01-01T00:00:00.000Z',
           recordCount: 2,
           entityId: '001',
-          year: '2023'
+          year: '2023',
+          model: 'fs'
         }
       }),
       loadStdData: vi.fn().mockResolvedValue({
@@ -200,7 +201,7 @@ describe('HierarchicalTreeTable', () => {
     it('should parse GDN data path correctly', async () => {
       wrapper = mount(HierarchicalTreeTable, {
         props: {
-          dataPath: 'gdn/001/2023'
+          dataPath: 'gdn/fs/001/2023'
         }
       });
 
@@ -209,9 +210,9 @@ describe('HierarchicalTreeTable', () => {
 
       const parsedPath = wrapper.vm.parsedDataPath;
       expect(parsedPath.type).toBe('gdn');
+      expect(parsedPath.model).toBe('fs');
       expect(parsedPath.entityId).toBe('001');
       expect(parsedPath.year).toBe('2023');
-      expect(parsedPath.model).toBeUndefined();
     });
 
     it('should parse STD data path correctly', async () => {

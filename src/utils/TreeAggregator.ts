@@ -133,9 +133,9 @@ export class TreeAggregator {
   async aggregateStdData(
     data: StdDataRecord[],
     dimension: string,
-    model: string,
     entityId: string,
-    year: string
+    year: string,
+    model: string = 'fs'
   ): Promise<TreeAggregationResult> {
     const treeStructure = await this.loadTreeStructure(dimension, model);
     const errors: string[] = [];
@@ -330,11 +330,11 @@ export async function aggregateGdnData(
 export async function aggregateStdData(
   data: StdDataRecord[],
   dimension: string,
-  model: string,
   entityId: string,
   year: string,
-  config?: TreeAggregationConfig
+  config?: TreeAggregationConfig,
+  model: string = 'fs'
 ): Promise<TreeAggregationResult> {
   const aggregator = config ? new TreeAggregator(config) : defaultTreeAggregator;
-  return aggregator.aggregateStdData(data, dimension, model, entityId, year);
+  return aggregator.aggregateStdData(data, dimension, entityId, year, model);
 }

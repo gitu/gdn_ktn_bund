@@ -118,17 +118,18 @@ function processGdnData() {
     }
   });
 
-  // Create output directories and files
+  // Create output directories and files with model subfolder structure
+  const gdnModel = 'fs'; // GDN data is consolidated under 'fs' model
   groupedByNrAndJahr.forEach((jahrMap, nr) => {
-    // Create directory for this nr
-    const nrDir = path.join(gdnOutputBaseDir, nr);
-    if (!fs.existsSync(nrDir)) {
-      fs.mkdirSync(nrDir, { recursive: true });
+    // Create directory structure: gdn/fs/nr
+    const modelNrDir = path.join(gdnOutputBaseDir, gdnModel, nr);
+    if (!fs.existsSync(modelNrDir)) {
+      fs.mkdirSync(modelNrDir, { recursive: true });
     }
 
     // Create a file for each jahr
     jahrMap.forEach((records, jahr) => {
-      const outputFilePath = path.join(nrDir, `${jahr}.csv`);
+      const outputFilePath = path.join(modelNrDir, `${jahr}.csv`);
 
       // Convert records back to CSV with standardized column order
       const csv = Papa.unparse(records, {
@@ -144,10 +145,14 @@ function processGdnData() {
     });
   });
 
-  // Sort the gdnInfo array by nr
+  // Sort the gdnInfo array by nr and structure it similar to STD data with models
   const gdnInfoArray = Array.from(gdnInfoMap.values()).map(info => ({
-    ...info,
-    jahre: info.jahre.sort() // Sort jahre array
+    nr: info.nr,
+    gemeinde: info.gemeinde,
+    models: [{
+      model: gdnModel,
+      jahre: info.jahre.sort() // Sort jahre array
+    }]
   })).sort((a, b) => a.nr.localeCompare(b.nr));
 
   // Write the gdn-info.json file

@@ -221,6 +221,72 @@ export interface DataLoadingContext {
 }
 
 /**
+ * Standard data information entry
+ */
+export interface StdDataInfo {
+  hh: string; // Entity code (e.g., "gdn_ag", "sv", "bund")
+  models: StdModelInfo[];
+}
+
+/**
+ * Standard data model information
+ */
+export interface StdModelInfo {
+  model: string; // Model type (e.g., "fs", "gfs")
+  jahre: string[]; // Available years
+}
+
+/**
+ * GDN (municipality) data information entry
+ */
+export interface GdnDataInfo {
+  nr: string; // Municipality number
+  gemeinde: string; // Municipality name
+  models: Array<{
+    model: string;
+    jahre: string[];
+  }>; // Available models and their years
+}
+
+/**
+ * Data browser search result
+ */
+export interface DataBrowserSearchResult {
+  id: string;
+  type: 'std' | 'gdn';
+  entityCode: string;
+  displayName: MultiLanguageLabels;
+  description: MultiLanguageLabels;
+  availableYears: string[];
+  availableModels?: string[];
+  municipalityNumber?: string; // For GDN entries
+}
+
+/**
+ * Data browser filter options
+ */
+export interface DataBrowserFilters {
+  searchQuery: string;
+  dataType: 'all' | 'std' | 'gdn';
+  yearRange: {
+    start?: string;
+    end?: string;
+  };
+  models: string[];
+}
+
+/**
+ * Data browser configuration
+ */
+export interface DataBrowserConfig {
+  language: keyof MultiLanguageLabels;
+  showDescriptions: boolean;
+  showYearRange: boolean;
+  showModelInfo: boolean;
+  maxResults: number;
+}
+
+/**
  * Tree table row data for hierarchical display
  */
 export interface TreeTableRow {

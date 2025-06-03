@@ -1,6 +1,6 @@
-import { describe, it, expect, beforeEach, vi, afterEach } from 'vitest';
-import { TreeAggregator, aggregateGdnData, aggregateStdData } from '../TreeAggregator';
-import type { TreeStructure, GdnDataRecord, StdDataRecord } from '../../types/DataStructures';
+import {describe, it, expect, beforeEach, vi, afterEach} from 'vitest';
+import {TreeAggregator, aggregateGdnData, aggregateStdData} from '../TreeAggregator';
+import type {TreeStructure, GdnDataRecord, StdDataRecord} from '../../types/DataStructures';
 
 // Mock fetch globally
 const mockFetch = vi.fn();
@@ -405,9 +405,9 @@ describe('TreeAggregator', () => {
       const result = await aggregator.aggregateStdData(
         mockStdData,
         'aufwand',
-        'fs',
         'test_entity',
-        '2023'
+        '2023',
+        'fs'
       );
 
       expect(result.aggregatedData).toHaveLength(6);
@@ -444,12 +444,13 @@ describe('TreeAggregator', () => {
       ];
 
       const result = await aggregator.aggregateStdData(
-        mixedData,
-        'aufwand',
-        'fs',
-        'test_entity',
-        '2023'
-      );
+          mixedData,
+          'aufwand',
+          'test_entity',
+          '2023',
+          'fs'
+        )
+      ;
 
       // Should only process records matching the criteria
       expect(result.metadata.totalRecords).toBe(3);
@@ -480,9 +481,9 @@ describe('TreeAggregator', () => {
       const result = await aggregateStdData(
         mockStdData,
         'aufwand',
-        'fs',
         'test_entity',
-        '2023'
+        '2023',
+        'fs'
       );
 
       expect(result.aggregatedData).toHaveLength(6);
@@ -495,7 +496,7 @@ describe('TreeAggregator', () => {
         'aufwand',
         'test_entity',
         '2023',
-        { language: 'en', includeZeroValues: true }
+        {language: 'en', includeZeroValues: true}
       );
 
       // Check that English labels are used
@@ -646,7 +647,7 @@ describe('TreeAggregator', () => {
     });
 
     it('should respect includeZeroValues configuration', async () => {
-      const aggregatorWithZeros = new TreeAggregator({ includeZeroValues: true });
+      const aggregatorWithZeros = new TreeAggregator({includeZeroValues: true});
 
       const result = await aggregatorWithZeros.aggregateGdnData(
         [], // Empty data should result in zero values
@@ -662,7 +663,7 @@ describe('TreeAggregator', () => {
     });
 
     it('should handle different languages', async () => {
-      const aggregatorFrench = new TreeAggregator({ language: 'fr' });
+      const aggregatorFrench = new TreeAggregator({language: 'fr'});
 
       const result = await aggregatorFrench.aggregateGdnData(
         mockGdnData,
