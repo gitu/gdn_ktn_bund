@@ -403,16 +403,15 @@ const onDataBrowserSelection = (result: DataBrowserSearchResult) => {
   const currentLang = (tableConfig.language || 'de') as keyof typeof result.displayName;
 
   if (result.type === 'std') {
-    // For STD data: std/model/entityCode/year
+    // For STD data: std/fs/entityCode/year (always use 'fs' model)
     const latestYear = result.availableYears[result.availableYears.length - 1];
-    const preferredModel = result.availableModels?.includes('fs') ? 'fs' : result.availableModels?.[0] || 'fs';
-    const dataPath = `std/${preferredModel}/${result.entityCode}/${latestYear}`;
-    const title = `${result.displayName[currentLang] || result.displayName.de} ${latestYear} (${preferredModel.toUpperCase()})`;
+    const dataPath = `std/fs/${result.entityCode}/${latestYear}`;
+    const title = `${result.displayName[currentLang] || result.displayName.de} ${latestYear} (FS)`;
     loadDataFromSelection(dataPath, title);
   } else if (result.type === 'gdn') {
-    // For GDN data: gdn/entityCode/year
+    // For GDN data: gdn/fs/entityCode/year (always use 'fs' model)
     const latestYear = result.availableYears[result.availableYears.length - 1];
-    const dataPath = `gdn/${result.entityCode}/${latestYear}`;
+    const dataPath = `gdn/fs/${result.entityCode}/${latestYear}`;
     const title = `${result.displayName[currentLang] || result.displayName.de} ${latestYear}`;
     loadDataFromSelection(dataPath, title);
   }

@@ -153,14 +153,15 @@ const visibleRows = computed(() => {
 const parsedDataPath = computed((): DataPath => {
   const parts = props.dataPath.split('/');
   if (parts.length === 3) {
-    // Format: "type/entityId/year"
+    // Format: "type/entityId/year" - default to 'fs' model
     return {
       type: parts[0] as 'gdn' | 'std',
+      model: 'fs',
       entityId: parts[1],
       year: parts[2]
     };
   } else if (parts.length === 4) {
-    // Format: "type/model/entityId/year"
+    // Format: "type/model/entityId/year" - use provided model (should always be 'fs')
     return {
       type: parts[0] as 'gdn' | 'std',
       model: parts[1],

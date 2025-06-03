@@ -34,17 +34,32 @@ const mockGdnData: GdnDataInfo[] = [
   {
     nr: '010002',
     gemeinde: 'Affoltern a.A.',
-    jahre: ['2019', '2020', '2021']
+    models: [
+      {
+        model: 'fs',
+        jahre: ['2019', '2020', '2021']
+      }
+    ]
   },
   {
     nr: '010003',
     gemeinde: 'Bonstetten',
-    jahre: ['2020', '2021', '2022']
+    models: [
+      {
+        model: 'fs',
+        jahre: ['2020', '2021', '2022']
+      }
+    ]
   },
   {
     nr: '010009',
     gemeinde: 'Mettmenstetten',
-    jahre: ['2018', '2019', '2020']
+    models: [
+      {
+        model: 'fs',
+        jahre: ['2018', '2019', '2020']
+      }
+    ]
   }
 ];
 

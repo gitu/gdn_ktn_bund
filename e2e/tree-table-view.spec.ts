@@ -97,7 +97,7 @@ const mockTreeStructure = {
 test.describe('TreeTableView', () => {
   test.beforeEach(async ({ page }) => {
     // Mock the fetch requests for CSV data and tree structure
-    await page.route('**/data/gdn/ag/2019.csv', async route => {
+    await page.route('**/data/gdn/fs/ag/2019.csv', async route => {
       await route.fulfill({
         status: 200,
         contentType: 'text/csv',
@@ -105,7 +105,113 @@ test.describe('TreeTableView', () => {
       });
     });
 
+    // Mock all possible tree structure files
     await page.route('**/data/trees/aufwand-fs-tree.json', async route => {
+      await route.fulfill({
+        status: 200,
+        contentType: 'application/json',
+        body: JSON.stringify(mockTreeStructure)
+      });
+    });
+
+    await page.route('**/data/trees/ertrag-fs-tree.json', async route => {
+      await route.fulfill({
+        status: 200,
+        contentType: 'application/json',
+        body: JSON.stringify(mockTreeStructure)
+      });
+    });
+
+    await page.route('**/data/trees/bilanz-fs-tree.json', async route => {
+      await route.fulfill({
+        status: 200,
+        contentType: 'application/json',
+        body: JSON.stringify(mockTreeStructure)
+      });
+    });
+
+    await page.route('**/data/trees/einnahmen-fs-tree.json', async route => {
+      await route.fulfill({
+        status: 200,
+        contentType: 'application/json',
+        body: JSON.stringify(mockTreeStructure)
+      });
+    });
+
+    await page.route('**/data/trees/ausgaben-fs-tree.json', async route => {
+      await route.fulfill({
+        status: 200,
+        contentType: 'application/json',
+        body: JSON.stringify(mockTreeStructure)
+      });
+    });
+
+    // Mock data info files for DataBrowser
+    await page.route('**/data/std-info.json', async route => {
+      await route.fulfill({
+        status: 200,
+        contentType: 'application/json',
+        body: JSON.stringify([
+          {
+            hh: 'ag',
+            models: [{ model: 'fs', jahre: ['2019', '2020', '2021'] }]
+          }
+        ])
+      });
+    });
+
+    await page.route('**/data/gdn-info.json', async route => {
+      await route.fulfill({
+        status: 200,
+        contentType: 'application/json',
+        body: JSON.stringify([
+          {
+            nr: 'ag',
+            gemeinde: 'Aargau',
+            models: [{ model: 'fs', jahre: ['2019', '2020', '2021'] }]
+          }
+        ])
+      });
+    });
+
+    // Mock STD data CSV files
+    await page.route('**/data/std/fs/ag/2019.csv', async route => {
+      await route.fulfill({
+        status: 200,
+        contentType: 'text/csv',
+        body: mockGdnData
+      });
+    });
+
+    await page.route('**/data/std/fs/ag/2020.csv', async route => {
+      await route.fulfill({
+        status: 200,
+        contentType: 'text/csv',
+        body: mockGdnData
+      });
+    });
+
+    await page.route('**/data/std/fs/ag/2021.csv', async route => {
+      await route.fulfill({
+        status: 200,
+        contentType: 'text/csv',
+        body: mockGdnData
+      });
+    });
+
+    // Catch-all for any other CSV files
+    await page.route('**/data/**/*.csv', async route => {
+      console.log('Mocking CSV file:', route.request().url());
+      await route.fulfill({
+        status: 200,
+        contentType: 'text/csv',
+        body: mockGdnData
+      });
+    });
+
+    // Catch-all for any other tree files
+    await page.route('**/data/trees/**/*.json', async route => {
+      console.log('Mocking tree file:', route.request().url());
       await route.fulfill({
         status: 200,
         contentType: 'application/json',
@@ -121,8 +227,8 @@ test.describe('TreeTableView', () => {
     // Check that the page loads with the correct title (now localized)
     await expect(page.locator('.tree-table-view h1')).toContainText('Hierarchische Baumtabelle');
 
-    // Check that the description is present
-    await expect(page.locator('.tree-table-view p')).toContainText('Erkunden Sie Finanzdaten');
+    // Check that the description is present (be more specific with selector)
+    await expect(page.locator('.header p')).toContainText('Erkunden Sie Finanzdaten');
   });
 
   test('should display demo controls', async ({ page }) => {
@@ -139,7 +245,10 @@ test.describe('TreeTableView', () => {
   test('should display data browser', async ({ page }) => {
     // Check that data browser section is present
     await expect(page.locator('.data-browser-section')).toBeVisible();
-    await expect(page.locator('.data-browser-section h3')).toContainText('Datenbrowser');
+    await expect(page.locator('.data-browser-section > h3')).toContainText('Datenbrowser');
+
+    // Check that data browser component is present
+    await expect(page.locator('.data-browser')).toBeVisible();
 
     // Check that search input is present
     await expect(page.locator('.search-input')).toBeVisible();
@@ -182,17 +291,17 @@ test.describe('TreeTableView', () => {
       // Check table header
       await expect(page.locator('.table-header h3')).toBeVisible();
 
-      // Check language selector
-      await expect(page.locator('.controls select')).toBeVisible();
+      // Check language selector (now inside the tree table component)
+      await expect(page.locator('.hierarchical-tree-table .controls select')).toBeVisible();
 
       // Check expand/collapse button
       await expect(page.locator('.expand-button')).toBeVisible();
 
       // Check show codes checkbox
-      await expect(page.locator('input[type="checkbox"]').first()).toBeVisible();
+      await expect(page.locator('.hierarchical-tree-table input[type="checkbox"]').first()).toBeVisible();
 
       // Check show values checkbox
-      await expect(page.locator('input[type="checkbox"]').nth(1)).toBeVisible();
+      await expect(page.locator('.hierarchical-tree-table input[type="checkbox"]').nth(1)).toBeVisible();
     }
   });
 
@@ -283,8 +392,8 @@ test.describe('TreeTableView', () => {
     const dataLoaded = await loadDataViaBrowser(page);
 
     if (dataLoaded) {
-      // Find show codes checkbox
-      const showCodesCheckbox = page.locator('input[type="checkbox"]').first();
+      // Find show codes checkbox (now inside the tree table component)
+      const showCodesCheckbox = page.locator('.hierarchical-tree-table input[type="checkbox"]').first();
 
       // Initially codes should be hidden (2 columns: label and value)
       await expect(page.locator('.tree-table th')).toHaveCount(2);
@@ -307,8 +416,8 @@ test.describe('TreeTableView', () => {
     const dataLoaded = await loadDataViaBrowser(page);
 
     if (dataLoaded) {
-      // Find language selector
-      const languageSelect = page.locator('.controls select');
+      // Find language selector (now inside the tree table component)
+      const languageSelect = page.locator('.hierarchical-tree-table .controls select');
 
       // Check initial language (German)
       await expect(page.locator('.tree-table th').first()).toContainText('Bezeichnung');
@@ -353,6 +462,9 @@ test.describe('TreeTableView', () => {
       const metadataItems = page.locator('.metadata-item');
       const itemCount = await metadataItems.count();
       expect(itemCount).toBeGreaterThan(0);
+
+      // Check that dimension is shown
+      await expect(page.locator('.metadata-item').first()).toContainText('Dimension');
     }
   });
 
@@ -364,6 +476,10 @@ test.describe('TreeTableView', () => {
     // Check that documentation content is present
     await expect(page.locator('.doc-content')).toBeVisible();
     await expect(page.locator('.doc-content h4').first()).toContainText('Datenpfad-Format');
+
+    // Check that the documentation mentions the new data path format
+    await expect(page.locator('.doc-content')).toContainText('gdn/{entityId}/{year}');
+    await expect(page.locator('.doc-content')).toContainText('std/{model}/{entityId}/{year}');
   });
 
   test('should allow custom title input', async ({ page }) => {
@@ -388,8 +504,8 @@ test.describe('TreeTableView', () => {
       await expect(page.locator('.hierarchical-tree-table')).toBeVisible();
       await expect(page.locator('.tree-table')).toBeVisible();
 
-      // Check that controls are still accessible
-      await expect(page.locator('.controls')).toBeVisible();
+      // Check that controls are still accessible (be specific to tree table controls)
+      await expect(page.locator('.hierarchical-tree-table .controls')).toBeVisible();
     }
   });
 });

@@ -483,6 +483,7 @@ describe('TreeAggregator', () => {
         'aufwand',
         'test_entity',
         '2023',
+        undefined,
         'fs'
       );
 

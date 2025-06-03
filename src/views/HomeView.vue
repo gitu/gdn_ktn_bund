@@ -3,7 +3,6 @@ import { ref } from 'vue';
 import TreeNavigator from '../components/TreeNavigator.vue';
 
 const selectedDimension = ref('ertrag');
-const selectedModel = ref('fs');
 const selectedNode = ref<string | null>(null);
 const searchResults = ref<any[]>([]);
 
@@ -13,11 +12,6 @@ const dimensions = [
   { value: 'bilanz', label: 'Bilanz (Balance Sheet)' },
   { value: 'einnahmen', label: 'Einnahmen (Income)' },
   { value: 'ausgaben', label: 'Ausgaben (Expenses)' }
-];
-
-const models = [
-  { value: 'fs', label: 'FS (Financial Statistics)' },
-  { value: 'gfs', label: 'GFS (Government Finance Statistics)' }
 ];
 
 const handleNodeSelected = (nodeCode: string, nodeData: any) => {
@@ -47,24 +41,14 @@ const handleSearchResults = (results: any[]) => {
           </option>
         </select>
       </div>
-
-      <div class="control-group">
-        <label for="model-select">Model:</label>
-        <select id="model-select" v-model="selectedModel">
-          <option v-for="model in models" :key="model.value" :value="model.value">
-            {{ model.label }}
-          </option>
-        </select>
-      </div>
     </div>
 
     <div class="content">
       <div class="tree-section">
         <TreeNavigator
-          :key="`${selectedDimension}-${selectedModel}`"
+          :key="selectedDimension"
           :dimension="selectedDimension"
-          :model="selectedModel"
-          :title="`${selectedDimension.toUpperCase()} - ${selectedModel.toUpperCase()}`"
+          :title="`${selectedDimension.toUpperCase()} - FS`"
           @node-selected="handleNodeSelected"
           @search-results="handleSearchResults"
         />

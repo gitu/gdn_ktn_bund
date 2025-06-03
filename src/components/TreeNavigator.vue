@@ -78,7 +78,6 @@ import { TreeNodeAdapter, type PrimeVueTreeNode } from '../utils/TreeNodeAdapter
 
 interface Props {
   dimension: string;
-  model?: string;
   title?: string;
   usePrimeVueTree?: boolean;
   showIcons?: boolean;
@@ -86,7 +85,6 @@ interface Props {
 }
 
 const props = withDefaults(defineProps<Props>(), {
-  model: 'fs',
   title: 'Data Tree',
   usePrimeVueTree: false,
   showIcons: false,
@@ -143,7 +141,7 @@ const loadTreeData = async () => {
   searchQuery.value = '';
 
   try {
-    const data = await dataLoader.loadTreeStructure(props.dimension, props.model);
+    const data = await dataLoader.loadTreeStructure(props.dimension, 'fs');
     treeData.value = data;
 
     // Convert to PrimeVue format if needed
@@ -249,7 +247,7 @@ const handlePrimeVueNodeCollapse = (node: any) => {
 };
 
 // Watchers
-watch([() => props.dimension, () => props.model], () => {
+watch(() => props.dimension, () => {
   loadTreeData();
 }, { immediate: false });
 

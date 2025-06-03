@@ -88,8 +88,7 @@ export class DataLoader {
           loadedAt: new Date().toISOString(),
           recordCount: data.length,
           entityId,
-          year,
-          model
+          year
         }
       };
 

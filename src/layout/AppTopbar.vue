@@ -1,8 +1,12 @@
 <script setup lang="ts">
 import { useLayout } from '@/layout/composables/layout';
+import { useLanguage } from '@/composables/useLanguage';
+import { translations } from '@/utils/i18n';
 import AppConfigurator from './AppConfigurator.vue';
+import LanguageSelector from '@/components/LanguageSelector.vue';
 
 const { toggleMenu, toggleDarkMode, isDarkTheme } = useLayout();
+const { getTranslation } = useLanguage();
 </script>
 
 <template>
@@ -36,6 +40,7 @@ const { toggleMenu, toggleDarkMode, isDarkTheme } = useLayout();
 
         <div class="layout-topbar-actions">
             <div class="layout-config-menu">
+                <LanguageSelector />
                 <button type="button" class="layout-topbar-action" @click="toggleDarkMode">
                     <i :class="['pi', { 'pi-moon': isDarkTheme, 'pi-sun': !isDarkTheme }]"></i>
                 </button>
@@ -62,15 +67,15 @@ const { toggleMenu, toggleDarkMode, isDarkTheme } = useLayout();
                 <div class="layout-topbar-menu-content">
                     <button type="button" class="layout-topbar-action">
                         <i class="pi pi-calendar"></i>
-                        <span>Calendar</span>
+                        <span>{{ getTranslation(translations.navigation.calendar) }}</span>
                     </button>
                     <button type="button" class="layout-topbar-action">
                         <i class="pi pi-inbox"></i>
-                        <span>Messages</span>
+                        <span>{{ getTranslation(translations.navigation.messages) }}</span>
                     </button>
                     <button type="button" class="layout-topbar-action">
                         <i class="pi pi-user"></i>
-                        <span>Profile</span>
+                        <span>{{ getTranslation(translations.navigation.profile) }}</span>
                     </button>
                 </div>
             </div>

@@ -36,20 +36,7 @@
           </select>
         </div>
 
-        <div class="filter-group" v-if="availableModels.length > 0">
-          <label>{{ getFilterLabel('models') }}:</label>
-          <div class="checkbox-group">
-            <label v-for="model in availableModels" :key="model" class="checkbox-label">
-              <input
-                type="checkbox"
-                :value="model"
-                v-model="filters.models"
-                @change="handleFilterChange"
-              />
-              {{ model.toUpperCase() }}
-            </label>
-          </div>
-        </div>
+
 
         <div class="filter-group">
           <label>{{ getFilterLabel('yearRange') }}:</label>
@@ -92,10 +79,7 @@
             <input type="checkbox" v-model="config.showYearRange" />
             {{ getViewOptionLabel('showYearRange') }}
           </label>
-          <label class="checkbox-label">
-            <input type="checkbox" v-model="config.showModelInfo" />
-            {{ getViewOptionLabel('showModelInfo') }}
-          </label>
+
         </div>
       </div>
 
@@ -133,9 +117,6 @@
           <div class="result-metadata">
             <span v-if="config.showYearRange" class="year-range">
               {{ getYearRangeText(result.availableYears) }}
-            </span>
-            <span v-if="config.showModelInfo && result.availableModels" class="models">
-              {{ getModelsText(result.availableModels) }}
             </span>
             <span v-if="result.municipalityNumber" class="municipality-number">
               Nr. {{ result.municipalityNumber }}
@@ -208,7 +189,6 @@ const config = ref<DataBrowserConfig>({
   language: 'de',
   showDescriptions: true,
   showYearRange: true,
-  showModelInfo: true,
   maxResults: 100,
   ...props.initialConfig
 });
@@ -217,33 +197,16 @@ const config = ref<DataBrowserConfig>({
 const filters = ref<DataBrowserFilters>({
   searchQuery: '',
   dataType: 'all',
-  yearRange: {},
-  models: []
+  yearRange: {}
 });
 
 // Computed properties
-const availableModels = computed(() => {
-  const models = new Set<string>();
-  stdData.value.forEach(entry => {
-    entry.models.forEach(model => models.add(model.model));
-  });
-  return Array.from(models).sort();
-});
-
 const filteredResults = computed(() => {
   let results = searchResults.value;
 
   // Apply data type filter
   if (filters.value.dataType !== 'all') {
     results = results.filter(result => result.type === filters.value.dataType);
-  }
-
-  // Apply model filter
-  if (filters.value.models.length > 0) {
-    results = results.filter(result => {
-      if (!result.availableModels) return false;
-      return result.availableModels.some(model => filters.value.models.includes(model));
-    });
   }
 
   // Apply year range filter
@@ -306,14 +269,16 @@ const loadData = async () => {
 const processDataIntoResults = () => {
   const results: DataBrowserSearchResult[] = [];
 
-  // Process STD data
+  // Process STD data - only include 'fs' model data
   stdData.value.forEach(entry => {
+    if (!entry.models || !Array.isArray(entry.models)) return; // Skip entries without models array
+
+    const fsModel = entry.models.find(model => model.model === 'fs');
+    if (!fsModel) return; // Skip entries without 'fs' model
+
     const displayName = EntitySemanticMapper.getEntityDisplayName(entry.hh);
     const description = EntitySemanticMapper.getEntityDescription(entry.hh);
-    const availableYears = Array.from(new Set(
-      entry.models.flatMap(model => model.jahre)
-    )).sort();
-    const availableModels = entry.models.map(model => model.model);
+    const availableYears = fsModel.jahre ? fsModel.jahre.sort() : [];
 
     results.push({
       id: `std-${entry.hh}`,
@@ -321,13 +286,17 @@ const processDataIntoResults = () => {
       entityCode: entry.hh,
       displayName,
       description,
-      availableYears,
-      availableModels
+      availableYears
     });
   });
 
-  // Process GDN data
+  // Process GDN data - only include 'fs' model data
   gdnData.value.forEach(entry => {
+    if (!entry.models || !Array.isArray(entry.models)) return; // Skip entries without models array
+
+    const fsModel = entry.models.find((m: any) => m.model === 'fs');
+    if (!fsModel) return; // Skip entries without 'fs' model
+
     const displayName: MultiLanguageLabels = {
       de: entry.gemeinde,
       fr: entry.gemeinde,
@@ -347,8 +316,7 @@ const processDataIntoResults = () => {
       entityCode: entry.nr,
       displayName,
       description,
-      availableYears: entry.models.flatMap((m: any) => m.jahre).sort(),
-      availableModels: entry.models.map((m: any) => m.model),
+      availableYears: fsModel.jahre ? fsModel.jahre.sort() : [],
       municipalityNumber: entry.nr
     });
   });
@@ -419,22 +387,18 @@ const getFilterLabel = (type: string): string => {
   const labels = {
     de: {
       dataType: 'Datentyp',
-      models: 'Modelle',
       yearRange: 'Jahresbereich'
     },
     fr: {
       dataType: 'Type de données',
-      models: 'Modèles',
       yearRange: 'Plage d\'années'
     },
     it: {
       dataType: 'Tipo di dati',
-      models: 'Modelli',
       yearRange: 'Intervallo anni'
     },
     en: {
       dataType: 'Data Type',
-      models: 'Models',
       yearRange: 'Year Range'
     }
   };
@@ -465,23 +429,19 @@ const getViewOptionLabel = (option: string): string => {
   const labels = {
     de: {
       showDescriptions: 'Beschreibungen',
-      showYearRange: 'Jahresbereich',
-      showModelInfo: 'Modell-Info'
+      showYearRange: 'Jahresbereich'
     },
     fr: {
       showDescriptions: 'Descriptions',
-      showYearRange: 'Plage d\'années',
-      showModelInfo: 'Info modèle'
+      showYearRange: 'Plage d\'années'
     },
     it: {
       showDescriptions: 'Descrizioni',
-      showYearRange: 'Intervallo anni',
-      showModelInfo: 'Info modello'
+      showYearRange: 'Intervallo anni'
     },
     en: {
       showDescriptions: 'Descriptions',
-      showYearRange: 'Year Range',
-      showModelInfo: 'Model Info'
+      showYearRange: 'Year Range'
     }
   };
   return labels[config.value.language][option as keyof typeof labels.de];
@@ -528,9 +488,7 @@ const getYearRangeText = (years: string[]): string => {
   return first === last ? first : `${first}-${last}`;
 };
 
-const getModelsText = (models: string[]): string => {
-  return models.map(m => m.toUpperCase()).join(', ');
-};
+
 
 // Watchers
 watch(() => filters.value.searchQuery, () => {

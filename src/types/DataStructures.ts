@@ -258,7 +258,6 @@ export interface DataBrowserSearchResult {
   displayName: MultiLanguageLabels;
   description: MultiLanguageLabels;
   availableYears: string[];
-  availableModels?: string[];
   municipalityNumber?: string; // For GDN entries
 }
 
@@ -272,7 +271,6 @@ export interface DataBrowserFilters {
     start?: string;
     end?: string;
   };
-  models: string[];
 }
 
 /**
@@ -282,7 +280,6 @@ export interface DataBrowserConfig {
   language: keyof MultiLanguageLabels;
   showDescriptions: boolean;
   showYearRange: boolean;
-  showModelInfo: boolean;
   maxResults: number;
 }
 

@@ -105,9 +105,10 @@ export async function exampleStdAggregation() {
     const result = await aggregateStdData(
       stdData,
       'aufwand', // dimension
-      'fs', // model
       'ktn_example', // entity ID
-      '2023' // year
+      '2023', // year
+      undefined, // config
+      'fs' // model
     );
 
     console.log('STD Aggregation Result:');
