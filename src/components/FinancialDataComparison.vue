@@ -3,24 +3,24 @@
     <div class="comparison-header">
       <h2>{{ $t('financialDataComparison.title') }}</h2>
       <div class="controls">
-        <button 
-          type="button" 
+        <button
+          type="button"
           class="p-button p-button-sm p-button-outlined"
           @click="toggleExpandAll"
           :disabled="loading || !hasData"
         >
           {{ allExpanded ? $t('financialDataComparison.collapseAll') : $t('financialDataComparison.expandAll') }}
         </button>
-        <button 
-          type="button" 
+        <button
+          type="button"
           class="p-button p-button-sm p-button-outlined"
           @click="showCodes = !showCodes"
           :disabled="loading || !hasData"
         >
           {{ $t('financialDataComparison.showCodes') }}
         </button>
-        <button 
-          type="button" 
+        <button
+          type="button"
           class="p-button p-button-sm p-button-outlined"
           @click="hideZeroValues = !hideZeroValues"
           :disabled="loading || !hasData"
@@ -51,17 +51,17 @@
         <span>{{ $t('financialDataComparison.totalRows', { count: filteredNodes.length }) }}</span>
       </div>
 
-      <TreeTable 
-        :value="filteredNodes" 
+      <TreeTable
+        :value="filteredNodes"
         :expandedKeys="expandedKeys"
         @node-expand="onNodeExpand"
         @node-collapse="onNodeCollapse"
         tableStyle="min-width: 50rem"
         class="comparison-tree-table"
       >
-        <Column 
-          field="label" 
-          :header="$t('financialDataComparison.columns.category')" 
+        <Column
+          field="label"
+          :header="$t('financialDataComparison.columns.category')"
           :expander="true"
           headerStyle="width: 300px"
         >
@@ -72,17 +72,17 @@
             </div>
           </template>
         </Column>
-        
-        <Column 
-          v-for="column in dataColumns" 
-          :key="column.field" 
-          :field="column.field" 
+
+        <Column
+          v-for="column in dataColumns"
+          :key="column.field"
+          :field="column.field"
           :header="column.header"
           headerStyle="width: 150px; text-align: right"
           bodyStyle="text-align: right"
         >
           <template #body="{ node }">
-            <span v-if="node.data[column.field] !== null && node.data[column.field] !== undefined" 
+            <span v-if="node.data[column.field] !== null && node.data[column.field] !== undefined"
                   class="value-cell">
               {{ formatCurrency(node.data[column.field]) }}
             </span>
@@ -144,7 +144,8 @@ const { locale, t } = useI18n();
 // Reactive state
 const loading = ref(false);
 const error = ref<string | null>(null);
-const aggregatedData = ref<Map<string, AggregatedDataPoint[]>>(new Map());
+const balanceSheetData = ref<Map<string, AggregatedDataPoint[]>>(new Map());
+const incomeStatementData = ref<Map<string, AggregatedDataPoint[]>>(new Map());
 const expandedKeys = ref<Record<string, boolean>>({});
 const allExpanded = ref(false);
 const showCodes = ref(false);
@@ -155,17 +156,17 @@ const dataLoader = new DataLoader();
 const treeAggregator = new TreeAggregator();
 
 // Computed properties
-const hasData = computed(() => aggregatedData.value.size > 0);
+const hasData = computed(() => balanceSheetData.value.size > 0 || incomeStatementData.value.size > 0);
 
 const dataColumns = computed(() => {
   const columns: Array<{ field: string; header: string }> = [];
-  
+
   for (const dataset of props.datasets) {
     try {
       const { entity } = parseDatasetIdentifier(dataset);
       const displayName = EntitySemanticMapper.getEntityDisplayName(entity);
       const header = displayName[locale.value as keyof MultiLanguageLabels] || entity;
-      
+
       columns.push({
         field: `dataset_${dataset}`,
         header
@@ -174,7 +175,7 @@ const dataColumns = computed(() => {
       console.warn(`Invalid dataset format: ${dataset}`);
     }
   }
-  
+
   return columns;
 });
 
@@ -186,14 +187,28 @@ const filteredNodes = computed(() => {
   const codeToLabel = new Map<string, string>();
   const codeToLevel = new Map<string, number>();
 
-  for (const [, dataPoints] of aggregatedData.value) {
+  // Process balance sheet data
+  for (const [, dataPoints] of balanceSheetData.value) {
     for (const point of dataPoints) {
-      // Filter to only include allowed dimensions
-      if (['bilanz', 'aufwand', 'ertrag'].includes(point.dimension)) {
-        allCodes.add(point.code);
-        codeToLabel.set(point.code, point.label);
-        // Estimate level based on code length (simple heuristic)
-        codeToLevel.set(point.code, point.code === 'root' ? 0 : point.code.length);
+      allCodes.add(point.code);
+      codeToLabel.set(point.code, point.label);
+      // Estimate level based on code length (simple heuristic)
+      codeToLevel.set(point.code, point.code === 'root' ? 0 : point.code.length);
+    }
+  }
+
+  // Process income statement data
+  for (const [, dataPoints] of incomeStatementData.value) {
+    for (const point of dataPoints) {
+      allCodes.add(point.code);
+      codeToLabel.set(point.code, point.label);
+      // Special handling for profit/loss and income statement structure
+      if (point.code === 'profit_loss') {
+        codeToLevel.set(point.code, 0);
+      } else if (point.code === 'income_statement') {
+        codeToLevel.set(point.code, 0);
+      } else {
+        codeToLevel.set(point.code, point.code === 'root' ? 1 : point.code.length + 1);
       }
     }
   }
@@ -201,7 +216,7 @@ const filteredNodes = computed(() => {
   // Build tree nodes
   const nodes: TreeTableNode[] = [];
   const nodeMap = new Map<string, TreeTableNode>();
-  
+
   // Sort codes by level and code value
   const sortedCodes = Array.from(allCodes).sort((a, b) => {
     const levelA = codeToLevel.get(a) || 0;
@@ -209,38 +224,46 @@ const filteredNodes = computed(() => {
     if (levelA !== levelB) return levelA - levelB;
     return a.localeCompare(b);
   });
-  
+
   for (const code of sortedCodes) {
     const nodeData: TreeTableNodeData = {
       code,
       label: codeToLabel.get(code) || code,
       level: codeToLevel.get(code) || 0
     };
-    
+
     // Add data from each dataset
     for (const dataset of props.datasets) {
-      const dataPoints = aggregatedData.value.get(dataset);
-      const point = dataPoints?.find(p => p.code === code);
+      // Check balance sheet data first
+      const balanceSheetPoints = balanceSheetData.value.get(dataset);
+      const balanceSheetPoint = balanceSheetPoints?.find(p => p.code === code);
+
+      // Check income statement data
+      const incomeStatementPoints = incomeStatementData.value.get(dataset);
+      const incomeStatementPoint = incomeStatementPoints?.find(p => p.code === code);
+
+      // Use whichever data point exists
+      const point = balanceSheetPoint || incomeStatementPoint;
       nodeData[`dataset_${dataset}`] = point?.value || null;
     }
-    
+
     // Filter out zero values if requested
     if (hideZeroValues.value) {
       const hasNonZeroValue = props.datasets.some(dataset => {
         const value = nodeData[`dataset_${dataset}`];
         return value !== null && value !== 0;
       });
-      if (!hasNonZeroValue && code !== 'root') continue;
+      if (!hasNonZeroValue && !['root', 'profit_loss', 'income_statement'].includes(code)) continue;
     }
-    
+
     const node = {
       key: code,
       data: nodeData,
       children: []
     };
-    
+
     nodeMap.set(code, node);
-    
+
     // Find parent and add to tree
     if (code === 'root') {
       nodes.push(node);
@@ -256,7 +279,7 @@ const filteredNodes = computed(() => {
           break;
         }
       }
-      
+
       // If no parent found, add to root
       if (!parentFound) {
         const rootNode = nodeMap.get('root');
@@ -268,7 +291,7 @@ const filteredNodes = computed(() => {
       }
     }
   }
-  
+
   return nodes;
 });
 
@@ -278,7 +301,7 @@ const parseDatasetIdentifier = (dataset: string) => {
   if (!match) {
     throw new Error(`Invalid dataset format: ${dataset}`);
   }
-  
+
   const [, source, model, entity, year] = match;
   return { source, model, entity, year };
 };
@@ -286,26 +309,27 @@ const parseDatasetIdentifier = (dataset: string) => {
 const loadDataset = async (dataset: string) => {
   try {
     const { source, model, entity, year } = parseDatasetIdentifier(dataset);
-    
+
     if (source === 'gdn') {
       const result = await dataLoader.loadGdnData(entity, year, model);
+      console.log('Loaded GDN data:', result);
       return await treeAggregator.aggregateGdnData(
-        result.data as GdnDataRecord[], 
-        'bilanz', // We'll process all dimensions
-        entity, 
-        year
+        result.data as GdnDataRecord[],
+        entity,
+        year,
+        model
       );
     } else if (source === 'std') {
       const result = await dataLoader.loadStdData(entity, year, model);
+      console.log('Loaded STD data:', result);
       return await treeAggregator.aggregateStdData(
-        result.data as StdDataRecord[], 
-        'bilanz', // We'll process all dimensions
-        entity, 
-        year, 
+        result.data as StdDataRecord[],
+        entity,
+        year,
         model
       );
     }
-    
+
     throw new Error(`Unsupported source: ${source}`);
   } catch (err) {
     const errorMessage = err instanceof Error ? err.message : 'Unknown error';
@@ -315,29 +339,32 @@ const loadDataset = async (dataset: string) => {
 
 const loadAllDatasets = async () => {
   if (props.datasets.length === 0) return;
-  
+
   loading.value = true;
   error.value = null;
-  aggregatedData.value.clear();
-  
+  balanceSheetData.value.clear();
+  incomeStatementData.value.clear();
+
   try {
     const loadPromises = props.datasets.map(async (dataset) => {
       try {
         const result = await loadDataset(dataset);
-        aggregatedData.value.set(dataset, result.aggregatedData);
+        console.log(`Loaded dataset ${dataset} with ${result.balanceSheet.length} balance sheet and ${result.incomeStatement.length} income statement data points`);
+        balanceSheetData.value.set(dataset, result.balanceSheet);
+        incomeStatementData.value.set(dataset, result.incomeStatement);
       } catch (err) {
         console.error(`Error loading dataset ${dataset}:`, err);
         const errorMessage = err instanceof Error ? err.message : 'Unknown error';
         emit('error', errorMessage);
       }
     });
-    
+
     await Promise.all(loadPromises);
-    
-    if (aggregatedData.value.size === 0) {
+
+    if (balanceSheetData.value.size === 0 && incomeStatementData.value.size === 0) {
       error.value = t('financialDataComparison.noValidData');
     } else {
-      emit('dataLoaded', aggregatedData.value.size);
+      emit('dataLoaded', Math.max(balanceSheetData.value.size, incomeStatementData.value.size));
     }
   } catch (err) {
     const errorMessage = err instanceof Error ? err.message : 'Unknown error';
@@ -378,14 +405,14 @@ const onNodeCollapse = (node: { key: string }) => {
 
 const formatCurrency = (value: number): string => {
   if (value === null || value === undefined) return '-';
-  
+
   const formatter = new Intl.NumberFormat(locale.value, {
     style: 'currency',
     currency: 'CHF',
     minimumFractionDigits: 0,
     maximumFractionDigits: 0
   });
-  
+
   return formatter.format(value);
 };
 
@@ -489,12 +516,12 @@ onMounted(() => {
     gap: 1rem;
     align-items: stretch;
   }
-  
+
   .controls {
     justify-content: center;
     flex-wrap: wrap;
   }
-  
+
   .info-bar {
     flex-direction: column;
     gap: 0.25rem;

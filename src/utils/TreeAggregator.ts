@@ -21,12 +21,13 @@ export interface TreeAggregationConfig {
  * Result of tree aggregation operation
  */
 export interface TreeAggregationResult {
-  aggregatedData: AggregatedDataPoint[];
+  balanceSheet: AggregatedDataPoint[];
+  incomeStatement: AggregatedDataPoint[];
   metadata: {
-    treeStructure: TreeStructure;
+    balanceSheetStructure: TreeStructure;
+    incomeStatementStructure: TreeStructure;
     totalRecords: number;
     processedAt: string;
-    dimension: string;
     model?: string;
   };
   errors?: string[];
@@ -52,15 +53,15 @@ export class TreeAggregator {
   /**
    * Load tree structure from file
    */
-  async loadTreeStructure(dimension: string, model?: string): Promise<TreeStructure> {
-    const cacheKey = model ? `${dimension}-${model}` : dimension;
+  async loadTreeStructure(dimension: string, model: string = 'fs'): Promise<TreeStructure> {
+    const cacheKey = `${dimension}-${model}`;
 
     if (this.treeCache.has(cacheKey)) {
       return this.treeCache.get(cacheKey)!;
     }
 
     try {
-      const filename = model ? `${dimension}-${model}-tree.json` : `${dimension}-tree.json`;
+      const filename = `${dimension}-${model}-tree.json`;
       const url = `${this.config.baseUrl}/trees/${filename}`;
 
       const response = await fetch(url);
@@ -73,32 +74,52 @@ export class TreeAggregator {
 
       return treeStructure;
     } catch (error) {
-      throw new Error(`Error loading tree structure for ${dimension}${model ? `-${model}` : ''}: ${error}`);
+      throw new Error(`Error loading tree structure for ${dimension}-${model}: ${error}`);
     }
   }
 
   /**
-   * Aggregate GDN data using tree structure
+   * Aggregate GDN data into consolidated financial statements
    */
   async aggregateGdnData(
     data: GdnDataRecord[],
-    dimension: string,
     entityId: string,
-    year: string
+    year: string,
+    model: string = 'fs'
   ): Promise<TreeAggregationResult> {
-    const treeStructure = await this.loadTreeStructure(dimension);
     const errors: string[] = [];
 
-    // Create a map of account codes to values
-    const dataMap = new Map<string, number>();
+    // Load tree structures for all dimensions
+    const [bilanzStructure, ertragStructure, aufwandStructure] = await Promise.all([
+      this.loadTreeStructure('bilanz', model),
+      this.loadTreeStructure('ertrag', model),
+      this.loadTreeStructure('aufwand', model)
+    ]);
+
+    // Process data by dimension and function
+    const bilanzData = new Map<string, number>();
+    const ertragData = new Map<string, number>();
+    const aufwandData = new Map<string, number>();
     let totalRecords = 0;
 
     for (const record of data) {
       try {
         const value = this.parseNumericValue(record.betrag);
         if (value !== null) {
+          const dimension = this.determineDimensionFromKonto(record.konto);
           const key = record.funktion ? `${record.konto}-${record.funktion}` : record.konto;
-          dataMap.set(key, (dataMap.get(key) || 0) + value);
+
+          switch (dimension) {
+            case 'bilanz':
+              bilanzData.set(key, (bilanzData.get(key) || 0) + value);
+              break;
+            case 'ertrag':
+              ertragData.set(key, (ertragData.get(key) || 0) + value);
+              break;
+            case 'aufwand':
+              aufwandData.set(key, (aufwandData.get(key) || 0) + value);
+              break;
+          }
           totalRecords++;
         }
       } catch (error) {
@@ -106,51 +127,81 @@ export class TreeAggregator {
       }
     }
 
-    // Calculate aggregated values for each tree node
-    const aggregatedData = this.calculateTreeAggregation(
-      treeStructure.tree,
-      dataMap,
+    // Generate balance sheet
+    const balanceSheet = this.calculateTreeAggregation(
+      bilanzStructure.tree,
+      bilanzData,
       entityId,
       year,
-      dimension
+      'bilanz'
+    );
+
+    // Generate combined income statement
+    const incomeStatement = this.generateCombinedIncomeStatement(
+      ertragStructure,
+      aufwandStructure,
+      ertragData,
+      aufwandData,
+      entityId,
+      year
     );
 
     return {
-      aggregatedData,
+      balanceSheet,
+      incomeStatement,
       metadata: {
-        treeStructure,
+        balanceSheetStructure: bilanzStructure,
+        incomeStatementStructure: this.createCombinedIncomeStructure(ertragStructure, aufwandStructure),
         totalRecords,
         processedAt: new Date().toISOString(),
-        dimension
+        model
       },
       errors: errors.length > 0 ? errors : undefined
     };
   }
 
   /**
-   * Aggregate STD data using tree structure
+   * Aggregate STD data into consolidated financial statements
    */
   async aggregateStdData(
     data: StdDataRecord[],
-    dimension: string,
     entityId: string,
     year: string,
     model: string = 'fs'
   ): Promise<TreeAggregationResult> {
-    const treeStructure = await this.loadTreeStructure(dimension, model);
     const errors: string[] = [];
 
-    // Create a map of account codes to values
-    const dataMap = new Map<string, number>();
+    // Load tree structures for all dimensions
+    const [bilanzStructure, ertragStructure, aufwandStructure] = await Promise.all([
+      this.loadTreeStructure('bilanz', model),
+      this.loadTreeStructure('ertrag', model),
+      this.loadTreeStructure('aufwand', model)
+    ]);
+
+    // Process data by dimension and function
+    const bilanzData = new Map<string, number>();
+    const ertragData = new Map<string, number>();
+    const aufwandData = new Map<string, number>();
     let totalRecords = 0;
 
     for (const record of data) {
       try {
-        if (record.dim === dimension && record.model === model && record.jahr === year) {
+        if (record.model === model && record.jahr === year) {
           const value = this.parseNumericValue(record.value);
           if (value !== null) {
             const key = record.funk ? `${record.arten}-${record.funk}` : record.arten;
-            dataMap.set(key, (dataMap.get(key) || 0) + value);
+
+            switch (record.dim) {
+              case 'bilanz':
+                bilanzData.set(key, (bilanzData.get(key) || 0) + value);
+                break;
+              case 'ertrag':
+                ertragData.set(key, (ertragData.get(key) || 0) + value);
+                break;
+              case 'aufwand':
+                aufwandData.set(key, (aufwandData.get(key) || 0) + value);
+                break;
+            }
             totalRecords++;
           }
         }
@@ -159,23 +210,33 @@ export class TreeAggregator {
       }
     }
 
-    // Calculate aggregated values for each tree node
-    const aggregatedData = this.calculateTreeAggregation(
-      treeStructure.tree,
-      dataMap,
+    // Generate balance sheet
+    const balanceSheet = this.calculateTreeAggregation(
+      bilanzStructure.tree,
+      bilanzData,
       entityId,
       year,
-      dimension,
-      record => record.unit
+      'bilanz'
+    );
+
+    // Generate combined income statement
+    const incomeStatement = this.generateCombinedIncomeStatement(
+      ertragStructure,
+      aufwandStructure,
+      ertragData,
+      aufwandData,
+      entityId,
+      year
     );
 
     return {
-      aggregatedData,
+      balanceSheet,
+      incomeStatement,
       metadata: {
-        treeStructure,
+        balanceSheetStructure: bilanzStructure,
+        incomeStatementStructure: this.createCombinedIncomeStructure(ertragStructure, aufwandStructure),
         totalRecords,
         processedAt: new Date().toISOString(),
-        dimension,
         model
       },
       errors: errors.length > 0 ? errors : undefined
@@ -183,15 +244,138 @@ export class TreeAggregator {
   }
 
   /**
-   * Calculate aggregated values for tree nodes recursively
+   * Determine dimension from account code (konto)
+   */
+  private determineDimensionFromKonto(konto: string): string {
+    const firstDigit = konto.charAt(0);
+    switch (firstDigit) {
+      case '1':
+      case '2':
+        return 'bilanz';
+      case '3':
+        return 'aufwand';
+      case '4':
+        return 'ertrag';
+      default:
+        return 'bilanz'; // Default fallback
+    }
+  }
+
+  /**
+   * Generate combined income statement with profit/loss calculation
+   */
+  private generateCombinedIncomeStatement(
+    ertragStructure: TreeStructure,
+    aufwandStructure: TreeStructure,
+    ertragData: Map<string, number>,
+    aufwandData: Map<string, number>,
+    entityId: string,
+    year: string
+  ): AggregatedDataPoint[] {
+    const results: AggregatedDataPoint[] = [];
+
+    // Calculate revenue (positive values)
+    const ertragResults = this.calculateTreeAggregation(
+      ertragStructure.tree,
+      ertragData,
+      entityId,
+      year,
+      'ertrag'
+    );
+
+    // Calculate expenses (negative values)
+    const aufwandResults = this.calculateTreeAggregation(
+      aufwandStructure.tree,
+      aufwandData,
+      entityId,
+      year,
+      'aufwand'
+    ).map(item => ({
+      ...item,
+      value: -Math.abs(item.value) // Ensure expenses are negative
+    }));
+
+    // Calculate totals
+    const totalErtrag = ertragResults.find(r => r.code === 'root')?.value || 0;
+    const totalAufwand = aufwandResults.find(r => r.code === 'root')?.value || 0;
+    const profitLoss = totalErtrag + totalAufwand; // aufwand is already negative
+
+    // Add profit/loss at the top
+    results.push({
+      entityId,
+      entityName: '',
+      year,
+      code: 'profit_loss',
+      label: 'Profit/Loss (Gewinn/Verlust)',
+      value: profitLoss,
+      dimension: 'income_statement',
+      unit: 'CHF'
+    });
+
+    // Add revenue section
+    results.push(...ertragResults);
+
+    // Add expenses section
+    results.push(...aufwandResults);
+
+    return results;
+  }
+
+  /**
+   * Create combined income statement structure
+   */
+  private createCombinedIncomeStructure(
+    ertragStructure: TreeStructure,
+    aufwandStructure: TreeStructure
+  ): TreeStructure {
+    return {
+      metadata: {
+        dimension: 'income_statement',
+        model: ertragStructure.metadata.model,
+        source: 'combined',
+        generatedAt: new Date().toISOString(),
+        totalNodes: ertragStructure.metadata.totalNodes + aufwandStructure.metadata.totalNodes + 1,
+        maxDepth: Math.max(ertragStructure.metadata.maxDepth, aufwandStructure.metadata.maxDepth)
+      },
+      tree: {
+        code: 'income_statement',
+        labels: {
+          de: 'Erfolgsrechnung',
+          fr: 'Compte de résultat',
+          it: 'Conto economico',
+          en: 'Income Statement'
+        },
+        children: [
+          {
+            code: 'profit_loss',
+            labels: {
+              de: 'Gewinn/Verlust',
+              fr: 'Bénéfice/Perte',
+              it: 'Utile/Perdita',
+              en: 'Profit/Loss'
+            },
+            children: [],
+            level: 1,
+            hasValue: true
+          },
+          ertragStructure.tree,
+          aufwandStructure.tree
+        ],
+        level: 0,
+        hasValue: true
+      }
+    };
+  }
+
+  /**
+   * Calculate aggregated values for tree nodes recursively with funk-based splitting
    */
   private calculateTreeAggregation(
     node: TreeNode,
     dataMap: Map<string, number>,
     entityId: string,
     year: string,
-    dimension: string,
-    unitExtractor?: (record: StdDataRecord) => string
+    dimension: string
   ): AggregatedDataPoint[] {
     const results: AggregatedDataPoint[] = [];
 
@@ -199,10 +383,21 @@ export class TreeAggregator {
     let nodeValue = 0;
     let hasDirectValue = false;
 
-    // Check if this node has a direct value in the data
+    // Check for direct value (without funk)
     if (dataMap.has(node.code)) {
-      nodeValue = dataMap.get(node.code)!;
+      nodeValue += dataMap.get(node.code)!;
       hasDirectValue = true;
+    }
+
+    // Check for funk-based values (only at specific account level)
+    const funkValues = new Map<string, number>();
+    for (const [key, value] of dataMap.entries()) {
+      if (key.startsWith(`${node.code}-`) && key.includes('-')) {
+        const funk = key.split('-')[1];
+        funkValues.set(funk, (funkValues.get(funk) || 0) + value);
+        nodeValue += value;
+        hasDirectValue = true;
+      }
     }
 
     // Recursively calculate values for children
@@ -213,8 +408,7 @@ export class TreeAggregator {
         dataMap,
         entityId,
         year,
-        dimension,
-        unitExtractor
+        dimension
       );
       results.push(...childResults);
 
@@ -238,8 +432,24 @@ export class TreeAggregator {
         label: node.labels[this.config.language],
         value: nodeValue,
         dimension,
-        unit: 'CHF' // Default unit, can be enhanced later
+        unit: 'CHF'
       });
+    }
+
+    // Add funk-based sub-entries if they exist
+    if (funkValues.size > 0) {
+      for (const [funk, value] of funkValues.entries()) {
+        results.push({
+          entityId,
+          entityName: '',
+          year,
+          code: `${node.code}-${funk}`,
+          label: `${node.labels[this.config.language]} (${funk})`,
+          value,
+          dimension,
+          unit: 'CHF'
+        });
+      }
     }
 
     return results;
@@ -315,13 +525,13 @@ export const defaultTreeAggregator = new TreeAggregator();
  */
 export async function aggregateGdnData(
   data: GdnDataRecord[],
-  dimension: string,
   entityId: string,
   year: string,
-  config?: TreeAggregationConfig
+  config?: TreeAggregationConfig,
+  model: string = 'fs'
 ): Promise<TreeAggregationResult> {
   const aggregator = config ? new TreeAggregator(config) : defaultTreeAggregator;
-  return aggregator.aggregateGdnData(data, dimension, entityId, year);
+  return aggregator.aggregateGdnData(data, entityId, year, model);
 }
 
 /**
@@ -329,12 +539,11 @@ export async function aggregateGdnData(
  */
 export async function aggregateStdData(
   data: StdDataRecord[],
-  dimension: string,
   entityId: string,
   year: string,
   config?: TreeAggregationConfig,
   model: string = 'fs'
 ): Promise<TreeAggregationResult> {
   const aggregator = config ? new TreeAggregator(config) : defaultTreeAggregator;
-  return aggregator.aggregateStdData(data, dimension, entityId, year, model);
+  return aggregator.aggregateStdData(data, entityId, year, model);
 }

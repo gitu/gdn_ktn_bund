@@ -241,15 +241,6 @@ npm run test:unit
 
 Test files are located in `src/utils/__tests__/TreeAggregator.spec.ts`.
 
-## Examples
-
-See `src/utils/TreeAggregatorExample.ts` for complete usage examples including:
-
-- Basic GDN and STD data aggregation
-- Custom configuration usage
-- Error handling patterns
-- Getting available tree structures
-
 ## Performance Considerations
 
 - Tree structures are cached after first load
