@@ -19,6 +19,8 @@
   "navigation": {
     "home": "Home",
     "about": "Informazioni",
+    "tools": "Strumenti",
+    "financialComparison": "Confronto finanziario",
     "treeTable": "Tabella gerarchica",
     "treeExplorer": "Esploratore ad albero",
     "calendar": "Calendario",
@@ -186,7 +188,9 @@
     "cta": {
       "title": "Inizia a esplorare i dati",
       "description": "Inizia ad analizzare i dati finanziari di vari comuni e cantoni svizzeri.",
-      "buttonText": "Apri esploratore ad albero"
+      "buttonText": "Apri esploratore ad albero",
+      "comparisonButtonText": "Confronta dati finanziari",
+      "learnMoreButtonText": "Scopri di più"
     },
     "dimensionLabel": "Dimensione:",
     "dimensions": {
@@ -206,5 +210,28 @@
       "bilanz": "Voci di bilancio (attività e passività)"
     },
     "aboutFooter": "Ogni nodo mostra il codice conto, le etichette multilingue e i valori disponibili. Utilizza la funzione di ricerca per trovare rapidamente conti o categorie specifiche."
+  },
+  "financialDataComparison": {
+    "title": "Confronto dati finanziari",
+    "subtitle": "Confronta i set di dati finanziari affiancati utilizzando una struttura ad albero gerarchica",
+    "loading": "Caricamento dati finanziari...",
+    "error": "Errore nel caricamento dei dati",
+    "noData": "Nessun dato disponibile per il confronto",
+    "columns": {
+      "category": "Categoria",
+      "code": "Codice"
+    },
+    "loadingDataset": "Caricamento dataset {dataset}...",
+    "datasetError": "Errore nel caricamento del dataset {dataset}: {error}",
+    "expandAll": "Espandi tutto",
+    "collapseAll": "Comprimi tutto",
+    "showCodes": "Mostra codici",
+    "hideValues": "Nascondi valori zero",
+    "currency": "CHF",
+    "totalRows": "Righe totali: {count}",
+    "filteredCategories": "Visualizzazione: Bilancio, Ricavi, Spese",
+    "parseError": "Formato dataset non valido: {dataset}",
+    "aggregationError": "Errore nell'aggregazione dei dati per {dataset}",
+    "noValidData": "Nessun dato valido trovato nei dataset"
   }
 }

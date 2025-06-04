@@ -80,17 +80,17 @@ test.describe('HomeView Translation Functionality', () => {
     await expect(page.locator('.cta-button')).toContainText('Open Tree Explorer');
 
     // Verify content actually changed (not just showing placeholder text)
-    const newTitle = await page.locator('.header h1').textContent();
-    const newSubtitle = await page.locator('.header p').textContent();
-    const newDescTitle = await page.locator('.description-section h2').textContent();
-    const newCtaTitle = await page.locator('.cta-section h3').textContent();
-    const newCtaButton = await page.locator('.cta-button').textContent();
+    const newTitle = page.locator('.header h1');
+    const newSubtitle = page.locator('.header p');
+    const newDescTitle = page.locator('.description-section h2');
+    const newCtaTitle = page.locator('.cta-section h3');
+    const newCtaButton = page.locator('.cta-button');
 
-    expect(newTitle).not.toBe(initialTitle);
-    expect(newSubtitle).not.toBe(initialSubtitle);
-    expect(newDescTitle).not.toBe(initialDescTitle);
-    expect(newCtaTitle).not.toBe(initialCtaTitle);
-    expect(newCtaButton).not.toBe(initialCtaButton);
+    await expect(newTitle).not.toHaveText(initialTitle);
+    await expect(newSubtitle).not.toHaveText(initialSubtitle);
+    await expect(newDescTitle).not.toHaveText(initialDescTitle);
+    await expect(newCtaTitle).not.toHaveText(initialCtaTitle);
+    await expect(newCtaButton).not.toHaveText(initialCtaButton);
   });
 
   test('should switch to French and display French content', async ({ page }) => {
@@ -125,11 +125,11 @@ test.describe('HomeView Translation Functionality', () => {
     await expect(page.locator('.cta-button')).toContainText('Ouvrir l\'explorateur d\'arbre');
 
     // Verify content actually changed
-    const newTitle = await page.locator('.header h1').textContent();
-    const newDescTitle = await page.locator('.description-section h2').textContent();
+    const newTitle = page.locator('.header h1');
+    const newDescTitle = page.locator('.description-section h2');
 
-    expect(newTitle).not.toBe(initialTitle);
-    expect(newDescTitle).not.toBe(initialDescTitle);
+    await expect(newTitle).not.toHaveText(initialTitle);
+    await expect(newDescTitle).not.toHaveText(initialDescTitle);
   });
 
   test('should switch to Italian and display Italian content', async ({ page }) => {
@@ -164,11 +164,11 @@ test.describe('HomeView Translation Functionality', () => {
     await expect(page.locator('.cta-button')).toContainText('Apri esploratore ad albero');
 
     // Verify content actually changed
-    const newTitle = await page.locator('.header h1').textContent();
-    const newCtaButton = await page.locator('.cta-button').textContent();
+    const newTitle = page.locator('.header h1');
+    const newCtaButton = page.locator('.cta-button');
 
-    expect(newTitle).not.toBe(initialTitle);
-    expect(newCtaButton).not.toBe(initialCtaButton);
+    await expect(newTitle).not.toHaveText(initialTitle);
+    await expect(newCtaButton).not.toHaveText(initialCtaButton);
   });
 
   test('should maintain language selection when navigating back to German', async ({ page }) => {
@@ -220,7 +220,7 @@ test.describe('HomeView Translation Functionality', () => {
     await page.locator('.language-backdrop').click();
 
     // Dropdown should be closed
-    await expect(page.locator('.language-dropdown')).not.toBeVisible();
+    await expect(page.locator('.language-dropdown')).toBeHidden();
   });
 
   test('should show active language in dropdown', async ({ page }) => {

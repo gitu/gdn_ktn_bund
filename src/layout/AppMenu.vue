@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { computed } from 'vue';
+import { useI18n } from 'vue-i18n';
 
 import AppMenuItem from './AppMenuItem.vue';
 
@@ -11,20 +12,22 @@ interface MenuItem {
   items?: MenuItem[];
 }
 
-const model = ref<MenuItem[]>([
+const { t } = useI18n();
+
+const model = computed<MenuItem[]>(() => [
     {
-        label: 'Home',
-        items: [{ label: 'Home', icon: 'pi pi-fw pi-home', to: '/' }]
+        label: t('navigation.home'),
+        items: [{ label: t('navigation.home'), icon: 'pi pi-fw pi-home', to: '/' }]
     },
     {
-        label: 'Utilities',
+        label: t('navigation.tools'),
         items: [
-            { label: 'Tree Navigator', icon: 'pi pi-fw pi-id-card', to: '/tree-table' },
+            { label: t('navigation.financialComparison'), icon: 'pi pi-fw pi-chart-line', to: '/financial-comparison' },
         ]
     },
     {
-        label: 'About',
-        items: [{ label: 'About', icon: 'pi pi-fw pi-info-circle', to: '/about' }]
+        label: t('navigation.about'),
+        items: [{ label: t('navigation.about'), icon: 'pi pi-fw pi-info-circle', to: '/about' }]
     }
 ]);
 </script>

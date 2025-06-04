@@ -19,6 +19,8 @@
   "navigation": {
     "home": "Accueil",
     "about": "À propos",
+    "tools": "Outils",
+    "financialComparison": "Comparaison financière",
     "treeTable": "Tableau hiérarchique",
     "treeExplorer": "Explorateur d'arbre",
     "calendar": "Calendrier",
@@ -186,7 +188,9 @@
     "cta": {
       "title": "Commencer l'exploration des données",
       "description": "Commencez à analyser les données financières de diverses communes et cantons suisses.",
-      "buttonText": "Ouvrir l'explorateur d'arbre"
+      "buttonText": "Ouvrir l'explorateur d'arbre",
+      "comparisonButtonText": "Comparer les données financières",
+      "learnMoreButtonText": "En savoir plus"
     },
     "dimensionLabel": "Dimension :",
     "dimensions": {
@@ -206,5 +210,28 @@
       "bilanz": "Éléments du bilan (actifs et passifs)"
     },
     "aboutFooter": "Chaque nœud affiche le code de compte, les libellés multilingues et les valeurs disponibles. Utilisez la fonction de recherche pour trouver rapidement des comptes ou catégories spécifiques."
+  },
+  "financialDataComparison": {
+    "title": "Comparaison des données financières",
+    "subtitle": "Comparez les jeux de données financières côte à côte en utilisant une structure arborescente hiérarchique",
+    "loading": "Chargement des données financières...",
+    "error": "Erreur lors du chargement des données",
+    "noData": "Aucune donnée disponible pour la comparaison",
+    "columns": {
+      "category": "Catégorie",
+      "code": "Code"
+    },
+    "loadingDataset": "Chargement du jeu de données {dataset}...",
+    "datasetError": "Erreur lors du chargement du jeu de données {dataset}: {error}",
+    "expandAll": "Tout développer",
+    "collapseAll": "Tout réduire",
+    "showCodes": "Afficher les codes",
+    "hideValues": "Masquer les valeurs nulles",
+    "currency": "CHF",
+    "totalRows": "Total des lignes: {count}",
+    "filteredCategories": "Affichage: Bilan, Revenus, Dépenses",
+    "parseError": "Format de jeu de données invalide: {dataset}",
+    "aggregationError": "Erreur d'agrégation des données pour {dataset}",
+    "noValidData": "Aucune donnée valide trouvée dans les jeux de données"
   }
 }

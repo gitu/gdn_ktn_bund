@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n';
 
-// Vue i18n
+// Vue i18n (used in template)
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const { t } = useI18n();
 </script>
 
@@ -42,10 +43,18 @@ const { t } = useI18n();
     <div class="cta-section">
       <h3>{{ $t('homeView.cta.title') }}</h3>
       <p>{{ $t('homeView.cta.description') }}</p>
-      <router-link to="/tree-explorer" class="cta-button">
-        <i class="pi pi-search"></i>
-        {{ $t('homeView.cta.buttonText') }}
-      </router-link>
+
+      <div class="cta-buttons">
+        <router-link to="/financial-comparison" class="cta-button primary">
+          <i class="pi pi-chart-line"></i>
+          {{ $t('homeView.cta.comparisonButtonText') }}
+        </router-link>
+
+        <router-link to="/about" class="cta-button secondary">
+          <i class="pi pi-info-circle"></i>
+          {{ $t('homeView.cta.learnMoreButtonText') }}
+        </router-link>
+      </div>
     </div>
 
   </main>
@@ -177,24 +186,50 @@ const { t } = useI18n();
   font-size: 1.1rem;
 }
 
+.cta-buttons {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
 .cta-button {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
   padding: 1rem 2rem;
-  background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
   color: white;
   text-decoration: none;
   border-radius: 8px;
   font-weight: 600;
   font-size: 1.1rem;
   transition: all 0.3s ease;
-  box-shadow: 0 2px 8px rgba(0, 123, 255, 0.3);
+  min-width: 200px;
+  justify-content: center;
 }
 
-.cta-button:hover {
+.cta-button.primary {
+  background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+  box-shadow: 0 4px 12px rgba(0, 123, 255, 0.3);
+}
+
+.cta-button.primary:hover {
   transform: translateY(-2px);
-  box-shadow: 0 4px 16px rgba(0, 123, 255, 0.4);
+  box-shadow: 0 6px 20px rgba(0, 123, 255, 0.4);
+  background: linear-gradient(135deg, #0056b3 0%, #004085 100%);
+  text-decoration: none;
+  color: white;
+}
+
+.cta-button.secondary {
+  background: linear-gradient(135deg, #6c757d 0%, #495057 100%);
+  box-shadow: 0 4px 12px rgba(108, 117, 125, 0.3);
+}
+
+.cta-button.secondary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(108, 117, 125, 0.4);
+  background: linear-gradient(135deg, #495057 0%, #343a40 100%);
   text-decoration: none;
   color: white;
 }
@@ -232,9 +267,15 @@ const { t } = useI18n();
     padding: 1.5rem;
   }
 
+  .cta-buttons {
+    flex-direction: column;
+    align-items: center;
+  }
+
   .cta-button {
     padding: 0.8rem 1.5rem;
     font-size: 1rem;
+    min-width: 250px;
   }
 }
 </style>

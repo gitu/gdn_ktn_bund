@@ -19,6 +19,8 @@
   "navigation": {
     "home": "Startseite",
     "about": "Über",
+    "tools": "Werkzeuge",
+    "financialComparison": "Finanzvergleich",
     "treeTable": "Hierarchische Tabelle",
     "treeExplorer": "Baum-Explorer",
     "calendar": "Kalender",
@@ -186,7 +188,9 @@
     "cta": {
       "title": "Jetzt Daten erkunden",
       "description": "Beginnen Sie mit der Analyse von Finanzdaten verschiedener Schweizer Gemeinden und Kantone.",
-      "buttonText": "Baum-Explorer öffnen"
+      "buttonText": "Baum-Explorer öffnen",
+      "comparisonButtonText": "Finanzdaten vergleichen",
+      "learnMoreButtonText": "Mehr erfahren"
     },
     "dimensionLabel": "Dimension:",
     "dimensions": {
@@ -206,5 +210,28 @@
       "bilanz": "Bilanzpositionen (Aktiva und Passiva)"
     },
     "aboutFooter": "Jeder Knoten zeigt den Kontocode, mehrsprachige Bezeichnungen und verfügbare Werte an. Verwenden Sie die Suchfunktion, um schnell bestimmte Konten oder Kategorien zu finden."
+  },
+  "financialDataComparison": {
+    "title": "Finanzdatenvergleich",
+    "subtitle": "Vergleichen Sie Finanzdatensätze nebeneinander mit hierarchischer Baumstruktur",
+    "loading": "Lade Finanzdaten...",
+    "error": "Fehler beim Laden der Daten",
+    "noData": "Keine Daten für Vergleich verfügbar",
+    "columns": {
+      "category": "Kategorie",
+      "code": "Code"
+    },
+    "loadingDataset": "Lade Datensatz {dataset}...",
+    "datasetError": "Fehler beim Laden von Datensatz {dataset}: {error}",
+    "expandAll": "Alle erweitern",
+    "collapseAll": "Alle zuklappen",
+    "showCodes": "Codes anzeigen",
+    "hideValues": "Nullwerte ausblenden",
+    "currency": "CHF",
+    "totalRows": "Zeilen gesamt: {count}",
+    "filteredCategories": "Angezeigt: Bilanz, Ertrag, Aufwand",
+    "parseError": "Ungültiges Datensatzformat: {dataset}",
+    "aggregationError": "Fehler bei der Datenaggregation für {dataset}",
+    "noValidData": "Keine gültigen Daten in den Datensätzen gefunden"
   }
 }

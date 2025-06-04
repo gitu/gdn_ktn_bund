@@ -19,6 +19,8 @@
   "navigation": {
     "home": "Home",
     "about": "About",
+    "tools": "Tools",
+    "financialComparison": "Financial Comparison",
     "treeTable": "Tree Table",
     "treeExplorer": "Tree Explorer",
     "calendar": "Calendar",
@@ -186,7 +188,9 @@
     "cta": {
       "title": "Start Exploring Data",
       "description": "Begin analyzing financial data from various Swiss municipalities and cantons.",
-      "buttonText": "Open Tree Explorer"
+      "buttonText": "Open Tree Explorer",
+      "comparisonButtonText": "Compare Financial Data",
+      "learnMoreButtonText": "Learn More"
     },
     "dimensionLabel": "Dimension:",
     "dimensions": {
@@ -206,5 +210,28 @@
       "bilanz": "Balance sheet items (assets and liabilities)"
     },
     "aboutFooter": "Each node shows the account code, multilingual labels, and values where available. Use the search function to quickly find specific accounts or categories."
+  },
+  "financialDataComparison": {
+    "title": "Financial Data Comparison",
+    "subtitle": "Compare financial datasets side-by-side using hierarchical tree structure",
+    "loading": "Loading financial data...",
+    "error": "Error loading data",
+    "noData": "No data available for comparison",
+    "columns": {
+      "category": "Category",
+      "code": "Code"
+    },
+    "loadingDataset": "Loading dataset {dataset}...",
+    "datasetError": "Error loading dataset {dataset}: {error}",
+    "expandAll": "Expand All",
+    "collapseAll": "Collapse All",
+    "showCodes": "Show Codes",
+    "hideValues": "Hide Zero Values",
+    "currency": "CHF",
+    "totalRows": "Total rows: {count}",
+    "filteredCategories": "Showing: Balance Sheet, Revenue, Expenditure",
+    "parseError": "Invalid dataset format: {dataset}",
+    "aggregationError": "Error aggregating data for {dataset}",
+    "noValidData": "No valid data found in any dataset"
   }
 }
