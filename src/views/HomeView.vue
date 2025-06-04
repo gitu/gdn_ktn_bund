@@ -1,35 +1,8 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue';
 import { useI18n } from 'vue-i18n';
-import TreeNavigator from '../components/TreeNavigator.vue';
-import type { TreeNode } from '../types/DataStructures';
-
-// Define allowed dimensions type to match TreeNavigator
-type AllowedDimension = 'bilanz' | 'aufwand' | 'ertrag';
 
 // Vue i18n
 const { t } = useI18n();
-
-const selectedDimension = ref<AllowedDimension>('ertrag');
-const selectedNode = ref<string | null>(null);
-const searchResults = ref<TreeNode[]>([]);
-
-// Only show the allowed dimensions - using computed for reactive translations
-const dimensions = computed(() => [
-  { value: 'ertrag' as AllowedDimension, label: t('homeView.dimensions.ertrag') },
-  { value: 'aufwand' as AllowedDimension, label: t('homeView.dimensions.aufwand') },
-  { value: 'bilanz' as AllowedDimension, label: t('homeView.dimensions.bilanz') }
-]);
-
-const handleNodeSelected = (nodeCode: string, nodeData: TreeNode | unknown) => {
-  selectedNode.value = nodeCode;
-  console.log('Selected node:', nodeCode, nodeData);
-};
-
-const handleSearchResults = (results: TreeNode[]) => {
-  searchResults.value = results;
-  console.log('Search results:', results);
-};
 </script>
 
 <template>
@@ -39,62 +12,42 @@ const handleSearchResults = (results: TreeNode[]) => {
       <p>{{ $t('homeView.subtitle') }}</p>
     </div>
 
-    <div class="controls">
-      <div class="control-group">
-        <label for="dimension-select">{{ $t('homeView.dimensionLabel') }}</label>
-        <select id="dimension-select" v-model="selectedDimension">
-          <option v-for="dim in dimensions" :key="dim.value" :value="dim.value">
-            {{ dim.label }}
-          </option>
-        </select>
-      </div>
-    </div>
+    <div class="description-section">
+      <h2>{{ $t('homeView.description.title') }}</h2>
+      <p class="intro">{{ $t('homeView.description.intro') }}</p>
 
-    <div class="content">
-      <div class="tree-section">
-        <TreeNavigator
-          :key="selectedDimension"
-          :dimension="selectedDimension"
-          :title="`${selectedDimension.toUpperCase()} - FS`"
-          @node-selected="handleNodeSelected"
-          @search-results="handleSearchResults"
-        />
-      </div>
-
-      <div class="info-section" v-if="selectedNode || searchResults.length > 0">
-        <div v-if="selectedNode" class="selected-info">
-          <h3>{{ $t('homeView.selectedNode') }}</h3>
-          <p><strong>{{ $t('homeView.code') }}:</strong> {{ selectedNode }}</p>
-        </div>
-
-        <div v-if="searchResults.length > 0" class="search-info">
-          <h3>{{ $t('homeView.searchResults') }} ({{ searchResults.length }})</h3>
-          <ul>
-            <li v-for="result in searchResults.slice(0, 10)" :key="result.code">
-              <strong>{{ result.code }}</strong>: {{ result.labels.de }}
-            </li>
-          </ul>
-          <p v-if="searchResults.length > 10">
-            {{ $t('homeView.moreResults', { count: searchResults.length - 10 }) }}
-          </p>
+      <div class="capabilities">
+        <p class="capabilities-title">{{ $t('homeView.description.capabilities') }}</p>
+        <div class="data-types">
+          <div class="data-type">
+            <h3>
+              <i class="pi pi-chart-bar"></i>
+              {{ $t('homeView.dimensions.bilanz') }}
+            </h3>
+            <p>{{ $t('homeView.description.bilanzDescription') }}</p>
+          </div>
+          <div class="data-type">
+            <h3>
+              <i class="pi pi-trending-up"></i>
+              {{ $t('homeView.dimensions.ertrag') }} / {{ $t('homeView.dimensions.aufwand') }}
+            </h3>
+            <p>{{ $t('homeView.description.incomeDescription') }}</p>
+          </div>
         </div>
       </div>
+
+      <p class="footer">{{ $t('homeView.description.footer') }}</p>
     </div>
 
-    <div class="info-box">
-      <h3>{{ $t('homeView.aboutTitle') }}</h3>
-      <p>
-        {{ $t('homeView.aboutDescription') }}
-      </p>
-      <ul>
-        <li><strong>{{ $t('treeNavigator.dimensions.ertrag') }}:</strong> {{ $t('homeView.aboutItems.ertrag') }}</li>
-        <li><strong>{{ $t('treeNavigator.dimensions.aufwand') }}:</strong> {{ $t('homeView.aboutItems.aufwand') }}</li>
-        <li><strong>{{ $t('treeNavigator.dimensions.bilanz') }}:</strong> {{ $t('homeView.aboutItems.bilanz') }}</li>
-      </ul>
-      <p>
-        {{ $t('homeView.aboutFooter') }}
-      </p>
+    <div class="cta-section">
+      <h3>{{ $t('homeView.cta.title') }}</h3>
+      <p>{{ $t('homeView.cta.description') }}</p>
+      <router-link to="/tree-explorer" class="cta-button">
+        <i class="pi pi-search"></i>
+        {{ $t('homeView.cta.buttonText') }}
+      </router-link>
     </div>
+
   </main>
 </template>
 
@@ -120,104 +73,168 @@ const handleSearchResults = (results: TreeNode[]) => {
   font-size: 1.1rem;
 }
 
-.controls {
-  display: flex;
-  gap: 2rem;
+.description-section {
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  padding: 2rem;
+  border-radius: 12px;
   margin-bottom: 2rem;
-  justify-content: center;
-  flex-wrap: wrap;
+  border: 1px solid #dee2e6;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
-.control-group {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
-
-.control-group label {
-  font-weight: 600;
-  color: #333;
-}
-
-.control-group select {
-  padding: 0.5rem;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  background: white;
-  min-width: 200px;
-}
-
-.content {
-  display: grid;
-  grid-template-columns: 2fr 1fr;
-  gap: 2rem;
-  margin-bottom: 2rem;
-}
-
-.tree-section {
-  min-height: 400px;
-}
-
-.info-section {
-  background: #f9f9f9;
-  padding: 1.5rem;
-  border-radius: 8px;
-  border: 1px solid #e0e0e0;
-}
-
-.selected-info, .search-info {
-  margin-bottom: 1.5rem;
-}
-
-.selected-info h3, .search-info h3 {
-  margin-bottom: 0.5rem;
+.description-section h2 {
   color: #2c3e50;
-}
-
-.search-info ul {
-  list-style: none;
-  padding: 0;
-  margin: 0.5rem 0;
-}
-
-.search-info li {
-  padding: 0.25rem 0;
-  border-bottom: 1px solid #e0e0e0;
-}
-
-.info-box {
-  background: #e3f2fd;
-  padding: 1.5rem;
-  border-radius: 8px;
-  border-left: 4px solid #2196f3;
-}
-
-.info-box h3 {
   margin-bottom: 1rem;
-  color: #1976d2;
+  font-size: 1.5rem;
+  text-align: center;
 }
 
-.info-box ul {
+.description-section .intro {
+  font-size: 1.1rem;
+  color: #495057;
+  text-align: center;
+  margin-bottom: 1.5rem;
+  line-height: 1.6;
+}
+
+.capabilities {
+  margin: 1.5rem 0;
+}
+
+.capabilities-title {
+  font-weight: 600;
+  color: #343a40;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.data-types {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
   margin: 1rem 0;
 }
 
-.info-box li {
-  margin-bottom: 0.5rem;
+.data-type {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 8px;
+  border: 1px solid #e9ecef;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
+
+.data-type:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.data-type h3 {
+  color: #2c3e50;
+  margin-bottom: 0.75rem;
+  font-size: 1.1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.data-type h3 i {
+  color: #007bff;
+  font-size: 1.2rem;
+}
+
+.data-type p {
+  color: #6c757d;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.description-section .footer {
+  text-align: center;
+  color: #6c757d;
+  font-style: italic;
+  margin-top: 1.5rem;
+  margin-bottom: 0;
+}
+
+.cta-section {
+  text-align: center;
+  padding: 2rem;
+  background: #f8f9fa;
+  border-radius: 8px;
+  border: 1px solid #e9ecef;
+}
+
+.cta-section h3 {
+  color: #2c3e50;
+  margin-bottom: 1rem;
+  font-size: 1.4rem;
+}
+
+.cta-section p {
+  color: #6c757d;
+  margin-bottom: 1.5rem;
+  font-size: 1.1rem;
+}
+
+.cta-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1rem 2rem;
+  background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+  color: white;
+  text-decoration: none;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 1.1rem;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0, 123, 255, 0.3);
+}
+
+.cta-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(0, 123, 255, 0.4);
+  text-decoration: none;
+  color: white;
+}
+
+.cta-button i {
+  font-size: 1.2rem;
+}
+
+
 
 @media (max-width: 768px) {
   .home-view {
     padding: 1rem;
   }
 
-  .content {
+  .description-section {
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .description-section h2 {
+    font-size: 1.3rem;
+  }
+
+  .data-types {
     grid-template-columns: 1fr;
     gap: 1rem;
   }
 
-  .controls {
-    flex-direction: column;
-    align-items: center;
+  .data-type {
+    padding: 1rem;
+  }
+
+  .cta-section {
+    padding: 1.5rem;
+  }
+
+  .cta-button {
+    padding: 0.8rem 1.5rem;
+    font-size: 1rem;
   }
 }
 </style>

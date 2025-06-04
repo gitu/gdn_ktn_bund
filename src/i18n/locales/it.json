@@ -20,6 +20,7 @@
     "home": "Home",
     "about": "Informazioni",
     "treeTable": "Tabella gerarchica",
+    "treeExplorer": "Esploratore ad albero",
     "calendar": "Calendario",
     "messages": "Messaggi",
     "profile": "Profilo"
@@ -174,6 +175,19 @@
   "homeView": {
     "title": "Navigatore ad albero dei dati finanziari svizzeri",
     "subtitle": "Esplora le strutture gerarchiche dei dati finanziari per comuni e cantoni svizzeri",
+    "description": {
+      "title": "Confronta i dati finanziari comunali",
+      "intro": "Questo sito web ti consente di analizzare e confrontare i dati finanziari di diverse entità comunali. Scopri le tendenze finanziarie e le differenze tra comuni e cantoni svizzeri.",
+      "capabilities": "Puoi analizzare e confrontare i seguenti tipi di dati:",
+      "bilanzDescription": "Dati di bilancio - Attività, passività e patrimonio netto dei comuni",
+      "incomeDescription": "Dati del conto economico - Confronto tra ricavi (entrate) e spese (uscite)",
+      "footer": "Seleziona una dimensione e naviga attraverso la struttura gerarchica per esplorare i dati finanziari dettagliati."
+    },
+    "cta": {
+      "title": "Inizia a esplorare i dati",
+      "description": "Inizia ad analizzare i dati finanziari di vari comuni e cantoni svizzeri.",
+      "buttonText": "Apri esploratore ad albero"
+    },
     "dimensionLabel": "Dimensione:",
     "dimensions": {
       "ertrag": "Ricavi (Entrate)",

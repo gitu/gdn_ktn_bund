@@ -20,6 +20,7 @@
     "home": "Startseite",
     "about": "Über",
     "treeTable": "Hierarchische Tabelle",
+    "treeExplorer": "Baum-Explorer",
     "calendar": "Kalender",
     "messages": "Nachrichten",
     "profile": "Profil"
@@ -174,6 +175,19 @@
   "homeView": {
     "title": "Schweizer Finanzdaten-Baum-Navigator",
     "subtitle": "Erkunden Sie hierarchische Finanzdatenstrukturen für Schweizer Gemeinden und Kantone",
+    "description": {
+      "title": "Finanzdaten von Gemeinden vergleichen",
+      "intro": "Diese Website ermöglicht es Ihnen, Finanzdaten verschiedener kommunaler Einheiten zu analysieren und zu vergleichen. Entdecken Sie finanzielle Trends und Unterschiede zwischen Schweizer Gemeinden und Kantonen.",
+      "capabilities": "Sie können folgende Datentypen analysieren und vergleichen:",
+      "bilanzDescription": "Bilanzpositionen - Vermögen, Schulden und Eigenkapital der Gemeinden",
+      "incomeDescription": "Erfolgsrechnung - Einnahmen (Ertrag) und Ausgaben (Aufwand) im Vergleich",
+      "footer": "Wählen Sie eine Dimension aus und navigieren Sie durch die hierarchische Struktur, um detaillierte Finanzdaten zu erkunden."
+    },
+    "cta": {
+      "title": "Jetzt Daten erkunden",
+      "description": "Beginnen Sie mit der Analyse von Finanzdaten verschiedener Schweizer Gemeinden und Kantone.",
+      "buttonText": "Baum-Explorer öffnen"
+    },
     "dimensionLabel": "Dimension:",
     "dimensions": {
       "ertrag": "Ertrag (Einnahmen)",

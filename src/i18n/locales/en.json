@@ -20,6 +20,7 @@
     "home": "Home",
     "about": "About",
     "treeTable": "Tree Table",
+    "treeExplorer": "Tree Explorer",
     "calendar": "Calendar",
     "messages": "Messages",
     "profile": "Profile"
@@ -174,6 +175,19 @@
   "homeView": {
     "title": "Swiss Financial Data Tree Navigator",
     "subtitle": "Explore hierarchical financial data structures for Swiss municipalities and cantons",
+    "description": {
+      "title": "Compare Municipal Financial Data",
+      "intro": "This website enables you to analyze and compare financial data across different municipal entities. Discover financial trends and differences between Swiss municipalities and cantons.",
+      "capabilities": "You can analyze and compare the following data types:",
+      "bilanzDescription": "Balance sheet data - Assets, liabilities, and equity of municipalities",
+      "incomeDescription": "Income statement data - Revenue (income) and expenditure (expenses) comparison",
+      "footer": "Select a dimension and navigate through the hierarchical structure to explore detailed financial data."
+    },
+    "cta": {
+      "title": "Start Exploring Data",
+      "description": "Begin analyzing financial data from various Swiss municipalities and cantons.",
+      "buttonText": "Open Tree Explorer"
+    },
     "dimensionLabel": "Dimension:",
     "dimensions": {
       "ertrag": "Revenue (Income)",

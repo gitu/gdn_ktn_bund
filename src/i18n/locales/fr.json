@@ -20,6 +20,7 @@
     "home": "Accueil",
     "about": "À propos",
     "treeTable": "Tableau hiérarchique",
+    "treeExplorer": "Explorateur d'arbre",
     "calendar": "Calendrier",
     "messages": "Messages",
     "profile": "Profil"
@@ -174,6 +175,19 @@
   "homeView": {
     "title": "Navigateur d'arbre de données financières suisses",
     "subtitle": "Explorez les structures de données financières hiérarchiques pour les communes et cantons suisses",
+    "description": {
+      "title": "Comparer les données financières communales",
+      "intro": "Ce site web vous permet d'analyser et de comparer les données financières de différentes entités communales. Découvrez les tendances financières et les différences entre les communes et cantons suisses.",
+      "capabilities": "Vous pouvez analyser et comparer les types de données suivants :",
+      "bilanzDescription": "Données de bilan - Actifs, passifs et capitaux propres des communes",
+      "incomeDescription": "Données de compte de résultat - Comparaison des revenus (recettes) et des dépenses (charges)",
+      "footer": "Sélectionnez une dimension et naviguez dans la structure hiérarchique pour explorer les données financières détaillées."
+    },
+    "cta": {
+      "title": "Commencer l'exploration des données",
+      "description": "Commencez à analyser les données financières de diverses communes et cantons suisses.",
+      "buttonText": "Ouvrir l'explorateur d'arbre"
+    },
     "dimensionLabel": "Dimension :",
     "dimensions": {
       "ertrag": "Revenus (Recettes)",
