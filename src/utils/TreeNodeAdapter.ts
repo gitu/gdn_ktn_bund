@@ -122,14 +122,16 @@ export class TreeNodeAdapter {
     // Otherwise reconstruct from available data
     const node: TreeNode = {
       code: primeVueNode.key,
-      labels: data.labels || this.createLabelsFromString(primeVueNode.label),
+      labels: data.labels as MultiLanguageLabels || this.createLabelsFromString(primeVueNode.label),
       children: primeVueNode.children
         ? primeVueNode.children.map(child => this.fromPrimeVueFormat(child))
         : [],
-      level: data.level || 0,
-      hasValue: data.hasValue || false,
-      value: data.value || null,
-      funk: data.funk
+      level: typeof data.level === 'number' ? data.level : 0,
+      hasValue: typeof data.hasValue === 'boolean' ? data.hasValue : false,
+      value: (data.value !== undefined && data.value !== null) ?
+             (typeof data.value === 'string' || typeof data.value === 'number' ? data.value : null) :
+             null,
+      funk: typeof data.funk === 'string' ? data.funk : undefined
     };
 
     return node;

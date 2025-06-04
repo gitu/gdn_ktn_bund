@@ -21,7 +21,7 @@ const dimensions = computed(() => [
   { value: 'bilanz' as AllowedDimension, label: t('homeView.dimensions.bilanz') }
 ]);
 
-const handleNodeSelected = (nodeCode: string, nodeData: TreeNode) => {
+const handleNodeSelected = (nodeCode: string, nodeData: TreeNode | unknown) => {
   selectedNode.value = nodeCode;
   console.log('Selected node:', nodeCode, nodeData);
 };

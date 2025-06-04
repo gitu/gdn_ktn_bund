@@ -63,7 +63,7 @@ describe('TreeNodeAdapter', () => {
       expect(primeVueNode.label).toBe('Test Node German');
       expect(primeVueNode.leaf).toBe(false);
       expect(primeVueNode.children).toHaveLength(1);
-      expect(primeVueNode.data.originalNode).toBe(mockTreeNode);
+      expect(primeVueNode.data?.originalNode).toBe(mockTreeNode);
     });
 
     it('should include values in label when configured', () => {

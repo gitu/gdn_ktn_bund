@@ -355,7 +355,12 @@ export class DataLoader {
         });
         return obj;
       }
-      return values;
+      // If no headers, create a record with numeric keys
+      const obj: Record<string, string> = {};
+      values.forEach((value, index) => {
+        obj[String(index)] = value;
+      });
+      return obj;
     });
   }
 

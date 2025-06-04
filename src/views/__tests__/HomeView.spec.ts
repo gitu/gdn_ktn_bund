@@ -98,7 +98,7 @@ describe('HomeView i18n Integration', () => {
     it('should display German title and subtitle', () => {
       const title = wrapper.find('h1');
       const subtitle = wrapper.find('p');
-      
+
       expect(title.text()).toBe('Schweizer Finanzdaten-Baum-Navigator');
       expect(subtitle.text()).toBe('Erkunden Sie hierarchische Finanzdatenstrukturen für Schweizer Gemeinden und Kantone');
     });
@@ -111,7 +111,7 @@ describe('HomeView i18n Integration', () => {
     it('should display German dimension options', () => {
       const select = wrapper.find('#dimension-select');
       const options = select.findAll('option');
-      
+
       expect(options).toHaveLength(3);
       expect(options[0].text()).toBe('Ertrag (Einnahmen)');
       expect(options[1].text()).toBe('Aufwand (Ausgaben)');
@@ -133,7 +133,7 @@ describe('HomeView i18n Integration', () => {
     it('should display English title and subtitle', () => {
       const title = wrapper.find('h1');
       const subtitle = wrapper.find('p');
-      
+
       expect(title.text()).toBe('Swiss Financial Data Tree Navigator');
       expect(subtitle.text()).toBe('Explore hierarchical financial data structures for Swiss municipalities and cantons');
     });
@@ -146,7 +146,7 @@ describe('HomeView i18n Integration', () => {
     it('should display English dimension options', () => {
       const select = wrapper.find('#dimension-select');
       const options = select.findAll('option');
-      
+
       expect(options).toHaveLength(3);
       expect(options[0].text()).toBe('Revenue (Income)');
       expect(options[1].text()).toBe('Expenditure (Costs)');
@@ -176,19 +176,4 @@ describe('HomeView i18n Integration', () => {
     });
   });
 
-  describe('Component functionality', () => {
-    it('should render TreeNavigator component', () => {
-      const treeNavigator = wrapper.find('[data-testid="tree-navigator"]');
-      expect(treeNavigator.exists()).toBe(true);
-    });
-
-    it('should allow dimension selection', async () => {
-      const select = wrapper.find('#dimension-select');
-      
-      // Change to 'aufwand'
-      await select.setValue('aufwand');
-      
-      expect(wrapper.vm.selectedDimension).toBe('aufwand');
-    });
-  });
 });

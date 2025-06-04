@@ -63,70 +63,55 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, computed, watch } from 'vue';
+import { ref, computed, watch, onMounted } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { DataLoader } from '../utils/DataLoader';
-import type { TreeStructure, MultiLanguageLabels, TreeNode as TreeNodeType } from '../types/DataStructures';
+import { TreeNodeAdapter } from '../utils/TreeNodeAdapter';
+import type { PrimeVueTreeNode } from '../utils/TreeNodeAdapter';
 import TreeNode from './TreeNode.vue';
+import type { TreeNode as TreeNodeType, TreeStructure, MultiLanguageLabels } from '../types/DataStructures';
 import Tree from 'primevue/tree';
-import { TreeNodeAdapter, type PrimeVueTreeNode } from '../utils/TreeNodeAdapter';
 
-// Define allowed dimensions
-type AllowedDimension = 'bilanz' | 'aufwand' | 'ertrag';
-
-interface Props {
-  dimension: AllowedDimension;
-  title?: string;
-  usePrimeVueTree?: boolean;
+// Props and emits
+const props = withDefaults(defineProps<{
+  dimension: string;
+  componentTitle?: string;
   showIcons?: boolean;
+  usePrimeVueTree?: boolean;
   selectionMode?: 'single' | 'multiple' | 'checkbox' | null;
-}
-
-const props = withDefaults(defineProps<Props>(), {
-  title: '',
+}>(), {
+  componentTitle: undefined,
+  showIcons: true,
   usePrimeVueTree: false,
-  showIcons: false,
   selectionMode: null
 });
 
 const emit = defineEmits<{
-  nodeSelected: [nodeCode: string, nodeData: TreeNodeType];
-  searchResults: [results: TreeNodeType[]];
+  (e: 'nodeSelected', nodeCode: string, nodeData: TreeNodeType | unknown): void;
+  (e: 'searchResults', results: TreeNodeType[]): void;
 }>();
 
-// Use Vue i18n
-const { locale, t } = useI18n();
-
-// Reactive state
+// State
+const { t, locale } = useI18n();
 const treeData = ref<TreeStructure | null>(null);
 const loading = ref(false);
 const error = ref<string | null>(null);
-const searchQuery = ref('');
 const expandedNodes = ref<Set<string>>(new Set(['root']));
 const selectedNodes = ref<Set<string>>(new Set());
+const searchQuery = ref('');
+const dataLoader = new DataLoader();
+const treeAdapter = new TreeNodeAdapter({
+  language: locale.value as keyof MultiLanguageLabels,
+  showIcons: props.showIcons
+});
 
-// PrimeVue Tree state
+// For PrimeVue integration
 const primeVueTreeData = ref<PrimeVueTreeNode[]>([]);
 const primeVueSelection = ref<Record<string, boolean>>({});
 
-// Data loader instance
-const dataLoader = new DataLoader();
-
-// Tree adapter instance
-const treeAdapter = new TreeNodeAdapter({
-  language: locale.value as keyof MultiLanguageLabels,
-  showIcons: props.showIcons,
-  includeValues: true
-});
-
 // Computed properties
 const componentTitle = computed(() => {
-  if (props.title) {
-    return props.title;
-  }
-  // Use dimension-specific title or fallback to generic title
-  return t(`treeNavigator.dimensions.${props.dimension}`) ||
-         t('treeNavigator.title');
+  return props.componentTitle || t('treeNavigator.title', { dimension: props.dimension });
 });
 
 const searchPlaceholder = computed(() => {
@@ -134,14 +119,12 @@ const searchPlaceholder = computed(() => {
 });
 
 const loadingText = computed(() => {
-  return t('treeNavigator.loadingTree');
+  return t('treeNavigator.loading');
 });
 
 const errorText = computed(() => {
   return t('treeNavigator.errorLoadingTree');
 });
-
-
 
 // Methods
 const loadTreeData = async () => {
@@ -164,7 +147,7 @@ const loadTreeData = async () => {
         language: locale.value as keyof MultiLanguageLabels,
         showIcons: props.showIcons
       });
-      primeVueTreeData.value = treeAdapter.convertTreeStructure(data);
+      primeVueTreeData.value = treeAdapter.convertTreeStructure(data as unknown as { tree: TreeNodeType; metadata?: Record<string, unknown> });
     }
   } catch (err) {
     error.value = err instanceof Error ? err.message : 'Unknown error';
@@ -238,22 +221,22 @@ const handleNodeClick = (nodeCode: string, nodeData: TreeNodeType) => {
 };
 
 // PrimeVue Tree event handlers
-const handlePrimeVueNodeSelect = (node: PrimeVueTreeNode) => {
-  const nodeData = node.data?.originalNode || node.data;
-  emit('nodeSelected', node.key, nodeData as TreeNodeType);
+// Using type assertion to make TypeScript happy with the event handlers
+const handlePrimeVueNodeSelect = (primeVueNode: PrimeVueTreeNode) => {
+  const nodeData = primeVueNode.data?.originalNode || primeVueNode.data;
+  emit('nodeSelected', primeVueNode.key, nodeData as TreeNodeType);
 };
 
-const handlePrimeVueNodeUnselect = (node: PrimeVueTreeNode) => {
-  // Handle unselection if needed
-  console.log('Node unselected:', node.key);
+const handlePrimeVueNodeUnselect = (primeVueNode: PrimeVueTreeNode) => {
+  console.log('Node unselected:', primeVueNode.key);
 };
 
-const handlePrimeVueNodeExpand = (node: PrimeVueTreeNode) => {
-  expandedNodes.value.add(node.key);
+const handlePrimeVueNodeExpand = (primeVueNode: PrimeVueTreeNode) => {
+  expandedNodes.value.add(primeVueNode.key);
 };
 
-const handlePrimeVueNodeCollapse = (node: PrimeVueTreeNode) => {
-  expandedNodes.value.delete(node.key);
+const handlePrimeVueNodeCollapse = (primeVueNode: PrimeVueTreeNode) => {
+  expandedNodes.value.delete(primeVueNode.key);
 };
 
 // Watchers
@@ -264,14 +247,14 @@ watch(() => props.dimension, () => {
 watch(locale, (newLanguage) => {
   if (props.usePrimeVueTree && treeData.value) {
     treeAdapter.updateConfig({ language: newLanguage as keyof MultiLanguageLabels });
-    primeVueTreeData.value = treeAdapter.convertTreeStructure(treeData.value);
+    primeVueTreeData.value = treeAdapter.convertTreeStructure(treeData.value as unknown as { tree: TreeNodeType; metadata?: Record<string, unknown> });
   }
 });
 
 watch(() => props.showIcons, (newShowIcons) => {
   if (props.usePrimeVueTree && treeData.value) {
     treeAdapter.updateConfig({ showIcons: newShowIcons });
-    primeVueTreeData.value = treeAdapter.convertTreeStructure(treeData.value);
+    primeVueTreeData.value = treeAdapter.convertTreeStructure(treeData.value as unknown as { tree: TreeNodeType; metadata?: Record<string, unknown> });
   }
 });
 
