@@ -1,25 +1,32 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
+import { useI18n } from 'vue-i18n';
 import TreeNavigator from '../components/TreeNavigator.vue';
+import type { TreeNode } from '../types/DataStructures';
 
-const selectedDimension = ref('ertrag');
+// Define allowed dimensions type to match TreeNavigator
+type AllowedDimension = 'bilanz' | 'aufwand' | 'ertrag';
+
+// Vue i18n
+const { t } = useI18n();
+
+const selectedDimension = ref<AllowedDimension>('ertrag');
 const selectedNode = ref<string | null>(null);
-const searchResults = ref<any[]>([]);
+const searchResults = ref<TreeNode[]>([]);
 
-const dimensions = [
-  { value: 'ertrag', label: 'Ertrag (Revenue)' },
-  { value: 'aufwand', label: 'Aufwand (Expenditure)' },
-  { value: 'bilanz', label: 'Bilanz (Balance Sheet)' },
-  { value: 'einnahmen', label: 'Einnahmen (Income)' },
-  { value: 'ausgaben', label: 'Ausgaben (Expenses)' }
-];
+// Only show the allowed dimensions - using computed for reactive translations
+const dimensions = computed(() => [
+  { value: 'ertrag' as AllowedDimension, label: t('homeView.dimensions.ertrag') },
+  { value: 'aufwand' as AllowedDimension, label: t('homeView.dimensions.aufwand') },
+  { value: 'bilanz' as AllowedDimension, label: t('homeView.dimensions.bilanz') }
+]);
 
-const handleNodeSelected = (nodeCode: string, nodeData: any) => {
+const handleNodeSelected = (nodeCode: string, nodeData: TreeNode) => {
   selectedNode.value = nodeCode;
   console.log('Selected node:', nodeCode, nodeData);
 };
 
-const handleSearchResults = (results: any[]) => {
+const handleSearchResults = (results: TreeNode[]) => {
   searchResults.value = results;
   console.log('Search results:', results);
 };
@@ -28,13 +35,13 @@ const handleSearchResults = (results: any[]) => {
 <template>
   <main class="home-view">
     <div class="header">
-      <h1>Swiss Financial Data Tree Navigator</h1>
-      <p>Explore hierarchical financial data structures for Swiss municipalities and cantons</p>
+      <h1>{{ $t('homeView.title') }}</h1>
+      <p>{{ $t('homeView.subtitle') }}</p>
     </div>
 
     <div class="controls">
       <div class="control-group">
-        <label for="dimension-select">Dimension:</label>
+        <label for="dimension-select">{{ $t('homeView.dimensionLabel') }}</label>
         <select id="dimension-select" v-model="selectedDimension">
           <option v-for="dim in dimensions" :key="dim.value" :value="dim.value">
             {{ dim.label }}
@@ -56,41 +63,36 @@ const handleSearchResults = (results: any[]) => {
 
       <div class="info-section" v-if="selectedNode || searchResults.length > 0">
         <div v-if="selectedNode" class="selected-info">
-          <h3>Selected Node</h3>
-          <p><strong>Code:</strong> {{ selectedNode }}</p>
+          <h3>{{ $t('homeView.selectedNode') }}</h3>
+          <p><strong>{{ $t('homeView.code') }}:</strong> {{ selectedNode }}</p>
         </div>
 
         <div v-if="searchResults.length > 0" class="search-info">
-          <h3>Search Results ({{ searchResults.length }})</h3>
+          <h3>{{ $t('homeView.searchResults') }} ({{ searchResults.length }})</h3>
           <ul>
             <li v-for="result in searchResults.slice(0, 10)" :key="result.code">
               <strong>{{ result.code }}</strong>: {{ result.labels.de }}
             </li>
           </ul>
           <p v-if="searchResults.length > 10">
-            ... and {{ searchResults.length - 10 }} more results
+            {{ $t('homeView.moreResults', { count: searchResults.length - 10 }) }}
           </p>
         </div>
       </div>
     </div>
 
     <div class="info-box">
-      <h3>About the Tree Structure</h3>
+      <h3>{{ $t('homeView.aboutTitle') }}</h3>
       <p>
-        This tree navigator displays the hierarchical structure of Swiss financial data.
-        The data is organized by account codes where longer codes represent more specific
-        sub-categories of shorter codes.
+        {{ $t('homeView.aboutDescription') }}
       </p>
       <ul>
-        <li><strong>Ertrag:</strong> Revenue and income categories</li>
-        <li><strong>Aufwand:</strong> Expenditure and cost categories</li>
-        <li><strong>Bilanz:</strong> Balance sheet items (assets and liabilities)</li>
-        <li><strong>Einnahmen:</strong> Receipt categories</li>
-        <li><strong>Ausgaben:</strong> Expense categories</li>
+        <li><strong>{{ $t('treeNavigator.dimensions.ertrag') }}:</strong> {{ $t('homeView.aboutItems.ertrag') }}</li>
+        <li><strong>{{ $t('treeNavigator.dimensions.aufwand') }}:</strong> {{ $t('homeView.aboutItems.aufwand') }}</li>
+        <li><strong>{{ $t('treeNavigator.dimensions.bilanz') }}:</strong> {{ $t('homeView.aboutItems.bilanz') }}</li>
       </ul>
       <p>
-        Each node shows the account code, multilingual labels, and values where available.
-        Use the search function to quickly find specific accounts or categories.
+        {{ $t('homeView.aboutFooter') }}
       </p>
     </div>
   </main>

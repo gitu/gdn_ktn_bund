@@ -1,18 +1,12 @@
 <template>
   <div class="tree-navigator">
     <div class="tree-header">
-      <h3>{{ title }}</h3>
+      <h3>{{ componentTitle }}</h3>
       <div class="controls">
-        <select v-model="selectedLanguage" @change="updateLanguage">
-          <option value="de">Deutsch</option>
-          <option value="fr">Français</option>
-          <option value="it">Italiano</option>
-          <option value="en">English</option>
-        </select>
         <input
           v-model="searchQuery"
           type="text"
-          placeholder="Search..."
+          :placeholder="searchPlaceholder"
           class="search-input"
           @input="handleSearch"
         />
@@ -22,9 +16,9 @@
     <div class="tree-content" v-if="treeData">
       <div class="tree-metadata">
         <small>
-          {{ treeData.metadata.totalNodes }} nodes,
-          max depth: {{ treeData.metadata.maxDepth }},
-          source: {{ treeData.metadata.source }}
+          {{ treeData.metadata.totalNodes }} {{ t('treeNavigator.nodesCount') }},
+          {{ t('treeNavigator.maxDepth') }}: {{ treeData.metadata.maxDepth }},
+          {{ t('treeNavigator.source') }}: {{ treeData.metadata.source }}
         </small>
       </div>
 
@@ -33,7 +27,7 @@
         <TreeNode
           v-if="!usePrimeVueTree"
           :node="treeData.tree"
-          :language="selectedLanguage"
+          :language="locale as keyof MultiLanguageLabels"
           :search-query="searchQuery"
           :expanded-nodes="expandedNodes"
           :selected-nodes="selectedNodes"
@@ -59,25 +53,29 @@
     </div>
 
     <div v-else-if="loading" class="loading">
-      Loading tree structure...
+      {{ loadingText }}
     </div>
 
     <div v-else-if="error" class="error">
-      Error loading tree: {{ error }}
+      {{ errorText }}: {{ error }}
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import { ref, onMounted, computed, watch } from 'vue';
+import { useI18n } from 'vue-i18n';
 import { DataLoader } from '../utils/DataLoader';
-import type { TreeStructure, MultiLanguageLabels } from '../types/DataStructures';
+import type { TreeStructure, MultiLanguageLabels, TreeNode as TreeNodeType } from '../types/DataStructures';
 import TreeNode from './TreeNode.vue';
 import Tree from 'primevue/tree';
 import { TreeNodeAdapter, type PrimeVueTreeNode } from '../utils/TreeNodeAdapter';
 
+// Define allowed dimensions
+type AllowedDimension = 'bilanz' | 'aufwand' | 'ertrag';
+
 interface Props {
-  dimension: string;
+  dimension: AllowedDimension;
   title?: string;
   usePrimeVueTree?: boolean;
   showIcons?: boolean;
@@ -85,22 +83,24 @@ interface Props {
 }
 
 const props = withDefaults(defineProps<Props>(), {
-  title: 'Data Tree',
+  title: '',
   usePrimeVueTree: false,
   showIcons: false,
   selectionMode: null
 });
 
 const emit = defineEmits<{
-  nodeSelected: [nodeCode: string, nodeData: any];
-  searchResults: [results: any[]];
+  nodeSelected: [nodeCode: string, nodeData: TreeNodeType];
+  searchResults: [results: TreeNodeType[]];
 }>();
+
+// Use Vue i18n
+const { locale, t } = useI18n();
 
 // Reactive state
 const treeData = ref<TreeStructure | null>(null);
 const loading = ref(false);
 const error = ref<string | null>(null);
-const selectedLanguage = ref<keyof MultiLanguageLabels>('de');
 const searchQuery = ref('');
 const expandedNodes = ref<Set<string>>(new Set(['root']));
 const selectedNodes = ref<Set<string>>(new Set());
@@ -114,20 +114,34 @@ const dataLoader = new DataLoader();
 
 // Tree adapter instance
 const treeAdapter = new TreeNodeAdapter({
-  language: selectedLanguage.value,
+  language: locale.value as keyof MultiLanguageLabels,
   showIcons: props.showIcons,
   includeValues: true
 });
 
 // Computed properties
-const filteredTreeData = computed(() => {
-  if (!treeData.value || !searchQuery.value) {
-    return treeData.value;
+const componentTitle = computed(() => {
+  if (props.title) {
+    return props.title;
   }
-
-  // Implement search filtering logic here
-  return treeData.value;
+  // Use dimension-specific title or fallback to generic title
+  return t(`treeNavigator.dimensions.${props.dimension}`) ||
+         t('treeNavigator.title');
 });
+
+const searchPlaceholder = computed(() => {
+  return t('treeNavigator.searchPlaceholder');
+});
+
+const loadingText = computed(() => {
+  return t('treeNavigator.loadingTree');
+});
+
+const errorText = computed(() => {
+  return t('treeNavigator.errorLoadingTree');
+});
+
+
 
 // Methods
 const loadTreeData = async () => {
@@ -147,7 +161,7 @@ const loadTreeData = async () => {
     // Convert to PrimeVue format if needed
     if (props.usePrimeVueTree && data) {
       treeAdapter.updateConfig({
-        language: selectedLanguage.value,
+        language: locale.value as keyof MultiLanguageLabels,
         showIcons: props.showIcons
       });
       primeVueTreeData.value = treeAdapter.convertTreeStructure(data);
@@ -160,10 +174,6 @@ const loadTreeData = async () => {
   }
 };
 
-const updateLanguage = () => {
-  // Language change is handled reactively through the selectedLanguage ref
-};
-
 const handleSearch = () => {
   if (!treeData.value || !searchQuery.value) {
     return;
@@ -172,7 +182,7 @@ const handleSearch = () => {
   const results = dataLoader.searchTreeNodes(
     treeData.value.tree,
     searchQuery.value,
-    selectedLanguage.value
+    locale.value as keyof MultiLanguageLabels
   );
 
   emit('searchResults', results);
@@ -196,7 +206,7 @@ const toggleExpand = (nodeCode: string) => {
   }
 };
 
-const selectNode = (nodeCode: string, nodeData: any) => {
+const selectNode = (nodeCode: string, nodeData: TreeNodeType) => {
   if (selectedNodes.value.has(nodeCode)) {
     selectedNodes.value.delete(nodeCode);
   } else {
@@ -209,7 +219,7 @@ const selectNode = (nodeCode: string, nodeData: any) => {
 const expandAll = () => {
   if (!treeData.value) return;
 
-  const addAllNodes = (node: any) => {
+  const addAllNodes = (node: TreeNodeType) => {
     expandedNodes.value.add(node.code);
     node.children?.forEach(addAllNodes);
   };
@@ -223,26 +233,26 @@ const collapseAll = () => {
 };
 
 // New event handlers
-const handleNodeClick = (nodeCode: string, nodeData: any) => {
+const handleNodeClick = (nodeCode: string, nodeData: TreeNodeType) => {
   emit('nodeSelected', nodeCode, nodeData);
 };
 
 // PrimeVue Tree event handlers
-const handlePrimeVueNodeSelect = (node: any) => {
+const handlePrimeVueNodeSelect = (node: PrimeVueTreeNode) => {
   const nodeData = node.data?.originalNode || node.data;
-  emit('nodeSelected', node.key, nodeData);
+  emit('nodeSelected', node.key, nodeData as TreeNodeType);
 };
 
-const handlePrimeVueNodeUnselect = (node: any) => {
+const handlePrimeVueNodeUnselect = (node: PrimeVueTreeNode) => {
   // Handle unselection if needed
   console.log('Node unselected:', node.key);
 };
 
-const handlePrimeVueNodeExpand = (node: any) => {
+const handlePrimeVueNodeExpand = (node: PrimeVueTreeNode) => {
   expandedNodes.value.add(node.key);
 };
 
-const handlePrimeVueNodeCollapse = (node: any) => {
+const handlePrimeVueNodeCollapse = (node: PrimeVueTreeNode) => {
   expandedNodes.value.delete(node.key);
 };
 
@@ -251,9 +261,9 @@ watch(() => props.dimension, () => {
   loadTreeData();
 }, { immediate: false });
 
-watch(selectedLanguage, (newLanguage) => {
+watch(locale, (newLanguage) => {
   if (props.usePrimeVueTree && treeData.value) {
-    treeAdapter.updateConfig({ language: newLanguage });
+    treeAdapter.updateConfig({ language: newLanguage as keyof MultiLanguageLabels });
     primeVueTreeData.value = treeAdapter.convertTreeStructure(treeData.value);
   }
 });
@@ -305,13 +315,6 @@ defineExpose({
   display: flex;
   gap: 0.5rem;
   align-items: center;
-}
-
-.controls select {
-  padding: 0.25rem 0.5rem;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  background: white;
 }
 
 .search-input {

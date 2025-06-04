@@ -1,0 +1,196 @@
+{
+  "common": {
+    "loading": "Chargement...",
+    "error": "Erreur",
+    "noData": "Aucune donnée disponible",
+    "search": "Rechercher",
+    "clear": "Effacer",
+    "select": "Sélectionner",
+    "cancel": "Annuler",
+    "confirm": "Confirmer",
+    "save": "Enregistrer",
+    "close": "Fermer",
+    "back": "Retour",
+    "next": "Suivant",
+    "previous": "Précédent",
+    "all": "Tous",
+    "none": "Aucun"
+  },
+  "navigation": {
+    "home": "Accueil",
+    "about": "À propos",
+    "treeTable": "Tableau hiérarchique",
+    "calendar": "Calendrier",
+    "messages": "Messages",
+    "profile": "Profil"
+  },
+  "dataBrowser": {
+    "title": "Navigateur de données",
+    "selectEntity": "Sélectionner une entité",
+    "selectYear": "Sélectionner une année",
+    "selectDimension": "Sélectionner une dimension",
+    "loadData": "Charger les données",
+    "noEntitySelected": "Aucune entité sélectionnée",
+    "noYearSelected": "Aucune année sélectionnée",
+    "noDimensionSelected": "Aucune dimension sélectionnée",
+    "loadingEntities": "Chargement des entités...",
+    "loadingYears": "Chargement des années...",
+    "errorLoadingEntities": "Erreur lors du chargement des entités",
+    "errorLoadingYears": "Erreur lors du chargement des années",
+    "availableYears": "Années disponibles",
+    "availableEntities": "Entités disponibles",
+    "entityCount": "entités",
+    "yearCount": "années",
+    "searchPlaceholder": "Rechercher des entités, communes ou codes...",
+    "filters": {
+      "dataType": "Type de données",
+      "yearRange": "Plage d'années",
+      "yearFrom": "De",
+      "yearTo": "À"
+    },
+    "filterOptions": {
+      "all": "Tous",
+      "std": "Standard",
+      "gdn": "Communes"
+    },
+    "viewOptions": {
+      "showDescriptions": "Descriptions",
+      "showYearRange": "Plage d'années"
+    },
+    "resultsCount": "{count} sur {total} résultats",
+    "loading": "Chargement des données...",
+    "noResults": "Aucun résultat trouvé",
+    "municipalityData": "Données communales pour {name}",
+    "semanticLabels": {
+      "allMunicipalities": "Toutes les communes du canton",
+      "socialInsurance": "Assurance sociale",
+      "confederation": "Confédération",
+      "canton": "Canton"
+    }
+  },
+  "treeTable": {
+    "title": "Tableau hiérarchique",
+    "expandAll": "Tout développer",
+    "collapseAll": "Tout réduire",
+    "noDataSelected": "Aucune donnée sélectionnée",
+    "loadingData": "Chargement des données...",
+    "errorLoadingData": "Erreur lors du chargement des données",
+    "realTimeAggregation": "Agrégation en temps réel",
+    "labelColumn": "Libellé",
+    "codeColumn": "Code",
+    "valueColumn": "Valeur",
+    "loading": "Chargement des données...",
+    "error": "Erreur",
+    "noData": "Aucune donnée disponible",
+    "showCodes": "Afficher les codes",
+    "showValues": "Afficher les valeurs",
+    "expand": "Développer",
+    "collapse": "Réduire",
+    "recordsProcessed": "{count} enregistrements traités",
+    "rowsDisplayed": "{count} lignes affichées",
+    "loadedAt": "chargé {date}"
+  },
+  "treeTableView": {
+    "title": "Table arborescente hiérarchique",
+    "description": "Explorez les données financières dans un format de table hiérarchique avec structure arborescente pliable",
+    "dimension": "Dimension",
+    "tableTitle": "Titre du tableau",
+    "titlePlaceholder": "Entrer le titre du tableau",
+    "dataBrowser": "Navigateur de données",
+    "dataBrowserDescription": "Rechercher et parcourir les entités de données disponibles:",
+    "availableEntities": "Entités de données disponibles",
+    "loading": "Chargement des données...",
+    "dataInformation": "Informations sur les données",
+    "model": "Modèle",
+    "totalRecords": "Total des enregistrements",
+    "treeNodes": "Nœuds d'arbre",
+    "maxDepth": "Profondeur maximale",
+    "processedAt": "Traité le",
+    "error": "Erreur",
+    "dataBrowserError": "Erreur du navigateur de données",
+    "usageDocumentation": "Documentation d'utilisation",
+    "dataPathFormat": "Format du chemin de données",
+    "gdnData": "Données GDN",
+    "stdData": "Données STD",
+    "example": "p.ex.",
+    "availableDimensions": "Dimensions disponibles",
+    "expenditure": "Dépenses/Charges",
+    "revenue": "Revenus",
+    "income": "Recettes",
+    "expenses": "Dépenses",
+    "balanceSheet": "Bilan",
+    "features": "Fonctionnalités",
+    "hierarchicalStructure": "Structure arborescente hiérarchique avec nœuds pliables",
+    "multiLanguageSupport": "Support multilingue (allemand, français, italien, anglais)",
+    "configurableDisplay": "Options d'affichage configurables (afficher/masquer codes et valeurs)",
+    "responsiveDesign": "Design réactif pour mobile et bureau",
+    "realTimeAggregation": "Agrégation de données en temps réel avec TreeAggregator",
+    "noDataSelected": "Veuillez sélectionner des données dans le navigateur ci-dessus pour afficher le tableau hiérarchique."
+  },
+  "aboutView": {
+    "title": "À propos de cette application",
+    "subtitle": "Explorateur de données financières suisses",
+    "description": "Cette application vous permet d'explorer et d'analyser les données financières suisses dans divers formats interactifs.",
+    "features": {
+      "title": "Fonctionnalités principales",
+      "treeNavigation": "Navigation arborescente hiérarchique pour les données financières",
+      "tableView": "Vue tableau interactive avec fonctionnalité de drill-down",
+      "dataBrowser": "Navigateur de données complet pour toutes les entités disponibles",
+      "multiLanguage": "Support multilingue (DE, FR, IT, EN)",
+      "responsive": "Design réactif pour tous les appareils"
+    },
+    "dataInfo": {
+      "title": "Informations sur les données",
+      "description": "L'application utilise des données financières officielles suisses des communes et cantons.",
+      "sources": "Sources de données: Administration fédérale des finances et offices statistiques cantonaux",
+      "coverage": "Couverture: 2015-2023, toutes les communes et cantons suisses"
+    },
+    "technology": {
+      "title": "Technologie",
+      "description": "Construit avec des technologies web modernes pour une performance optimale et une expérience utilisateur.",
+      "frontend": "Frontend: Vue 3, TypeScript, PrimeVue",
+      "testing": "Tests: Vitest, Vue Test Utils",
+      "build": "Build: Vite, ESLint"
+    }
+  },
+  "treeNavigator": {
+    "title": "Arbre de données",
+    "loadingTree": "Chargement de la structure arborescente...",
+    "errorLoadingTree": "Erreur lors du chargement de l'arbre",
+    "searchPlaceholder": "Rechercher...",
+    "nodesCount": "nœuds",
+    "maxDepth": "profondeur max",
+    "source": "source",
+    "dimensions": {
+      "bilanz": "Bilan",
+      "aufwand": "Dépenses",
+      "ertrag": "Revenus"
+    }
+  },
+  "languageSelector": {
+    "selectLanguage": "Sélectionner la langue",
+    "currentLanguage": "Langue actuelle"
+  },
+  "homeView": {
+    "title": "Navigateur d'arbre de données financières suisses",
+    "subtitle": "Explorez les structures de données financières hiérarchiques pour les communes et cantons suisses",
+    "dimensionLabel": "Dimension :",
+    "dimensions": {
+      "ertrag": "Revenus (Recettes)",
+      "aufwand": "Dépenses (Coûts)",
+      "bilanz": "Bilan"
+    },
+    "selectedNode": "Nœud sélectionné",
+    "code": "Code",
+    "searchResults": "Résultats de recherche",
+    "moreResults": "... et {{count}} résultats supplémentaires",
+    "aboutTitle": "À propos de la structure arborescente",
+    "aboutDescription": "Ce navigateur d'arbre affiche la structure hiérarchique des données financières suisses. Les données sont organisées par codes de compte où les codes plus longs représentent des sous-catégories plus spécifiques de codes plus courts.",
+    "aboutItems": {
+      "ertrag": "Catégories de revenus et recettes",
+      "aufwand": "Catégories de dépenses et coûts",
+      "bilanz": "Éléments du bilan (actifs et passifs)"
+    },
+    "aboutFooter": "Chaque nœud affiche le code de compte, les libellés multilingues et les valeurs disponibles. Utilisez la fonction de recherche pour trouver rapidement des comptes ou catégories spécifiques."
+  }
+}

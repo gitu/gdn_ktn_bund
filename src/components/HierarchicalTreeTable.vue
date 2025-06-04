@@ -3,32 +3,26 @@
     <div class="table-header">
       <h3>{{ title }}</h3>
       <div class="controls">
-        <select v-model="config.language" @change="updateLanguage">
-          <option value="de">Deutsch</option>
-          <option value="fr">Français</option>
-          <option value="it">Italiano</option>
-          <option value="en">English</option>
-        </select>
         <button @click="toggleExpandAll" class="expand-button">
-          {{ config.expandAll ? 'Collapse All' : 'Expand All' }}
+          {{ config.expandAll ? t('treeTable.collapseAll') : t('treeTable.expandAll') }}
         </button>
         <label class="checkbox-label">
           <input type="checkbox" v-model="config.showCodes" />
-          Show Codes
+          {{ t('treeTable.showCodes') }}
         </label>
         <label class="checkbox-label">
           <input type="checkbox" v-model="config.showValues" />
-          Show Values
+          {{ t('treeTable.showValues') }}
         </label>
       </div>
     </div>
 
     <div v-if="loading" class="loading">
-      Loading data...
+      {{ t('treeTable.loading') }}
     </div>
 
     <div v-else-if="error" class="error">
-      Error: {{ error }}
+      {{ t('treeTable.error') }}: {{ error }}
     </div>
 
     <div v-else-if="tableRows.length > 0" class="table-container">
@@ -57,7 +51,7 @@
                   v-if="row.hasChildren"
                   @click="toggleRow(row.id)"
                   class="expand-toggle"
-                  :aria-label="row.isExpanded ? 'Collapse' : 'Expand'"
+                  :aria-label="row.isExpanded ? t('treeTable.collapse') : t('treeTable.expand')"
                 >
                   {{ row.isExpanded ? '▼' : '▶' }}
                 </button>
@@ -77,15 +71,15 @@
     </div>
 
     <div v-else class="no-data">
-      No data available
+      {{ t('treeTable.noData') }}
     </div>
 
     <div v-if="metadata" class="table-metadata">
       <small>
-        {{ metadata.totalRecords }} records processed,
-        {{ visibleRows.length }} rows displayed
+        {{ t('treeTable.recordsProcessed', { count: metadata.totalRecords }) }},
+        {{ t('treeTable.rowsDisplayed', { count: visibleRows.length }) }}
         <span v-if="metadata.processedAt">
-          (loaded {{ formatDate(metadata.processedAt) }})
+          ({{ t('treeTable.loadedAt', { date: formatDate(metadata.processedAt) }) }})
         </span>
       </small>
     </div>
@@ -94,6 +88,7 @@
 
 <script setup lang="ts">
 import { ref, computed, onMounted, watch } from 'vue';
+import { useI18n } from 'vue-i18n';
 import { DataLoader } from '../utils/DataLoader';
 import { TreeAggregator } from '../utils/TreeAggregator';
 import type {
@@ -102,7 +97,8 @@ import type {
   DataPath,
   AggregatedDataPoint,
   TreeNode,
-  TreeAggregationResult
+  TreeAggregationResult,
+  MultiLanguageLabels
 } from '../types/DataStructures';
 
 interface Props {
@@ -123,17 +119,20 @@ const emit = defineEmits<{
   error: [error: string];
 }>();
 
+// Use Vue i18n
+const { locale, t } = useI18n();
+
 // Reactive state
 const loading = ref(false);
 const error = ref<string | null>(null);
 const tableRows = ref<TreeTableRow[]>([]);
 const metadata = ref<TreeAggregationResult['metadata'] | null>(null);
 
-const config = ref<TreeTableConfig>({
+// Configuration (removed language since it's now handled by i18n)
+const config = ref<Omit<TreeTableConfig, 'language'>>({
   showValues: true,
   showCodes: false,
   expandAll: false,
-  language: 'de',
   numberFormat: 'de-CH',
   maxDepth: 10,
   ...props.initialConfig
@@ -141,9 +140,9 @@ const config = ref<TreeTableConfig>({
 
 // Instances
 const dataLoader = new DataLoader();
-const treeAggregator = new TreeAggregator({
-  language: config.value.language
-});
+const treeAggregator = ref(new TreeAggregator({
+  language: locale.value as keyof MultiLanguageLabels
+}));
 
 // Computed properties
 const visibleRows = computed(() => {
@@ -186,8 +185,8 @@ const loadData = async () => {
       if (!path.model) {
         throw new Error('Model is required for GDN data');
       }
-      const dataResult = await dataLoader.loadGdnData(path.model, path.entityId, path.year);
-      aggregationResult = await treeAggregator.aggregateGdnData(
+      const dataResult = await dataLoader.loadGdnData(path.entityId, path.year);
+      aggregationResult = await treeAggregator.value.aggregateGdnData(
         dataResult.data,
         props.dimension,
         path.entityId,
@@ -199,10 +198,9 @@ const loadData = async () => {
         throw new Error('Model is required for STD data');
       }
       const dataResult = await dataLoader.loadStdData(path.model, path.entityId, path.year);
-      aggregationResult = await treeAggregator.aggregateStdData(
+      aggregationResult = await treeAggregator.value.aggregateStdData(
         dataResult.data,
         props.dimension,
-        path.model,
         path.entityId,
         path.year
       );
@@ -234,7 +232,7 @@ const convertToTableRows = (result: TreeAggregationResult): TreeTableRow[] => {
     const row: TreeTableRow = {
       id: node.code,
       code: node.code,
-      label: node.labels[config.value.language] || node.labels.de,
+      label: node.labels[locale.value as keyof MultiLanguageLabels] || node.labels.de,
       value: aggregatedData?.value || null,
       level,
       hasChildren: node.children.length > 0,
@@ -262,10 +260,7 @@ const convertToTableRows = (result: TreeAggregationResult): TreeTableRow[] => {
   return rows;
 };
 
-const isParentExpanded = (parentId: string): boolean => {
-  const parent = tableRows.value.find(row => row.id === parentId);
-  return parent ? parent.isExpanded : false;
-};
+
 
 const updateRowsVisibility = (rows: TreeTableRow[]) => {
   const isRowVisibleInArray = (rowId: string, rowsArray: TreeTableRow[]): boolean => {
@@ -292,16 +287,7 @@ const updateVisibility = () => {
   updateRowsVisibility(tableRows.value);
 };
 
-const isRowVisible = (rowId: string): boolean => {
-  const row = tableRows.value.find(r => r.id === rowId);
-  if (!row) return false;
 
-  if (row.level === 0) return true;
-  if (!row.parentId) return true;
-
-  const parent = tableRows.value.find(r => r.id === row.parentId);
-  return parent ? parent.isExpanded && isRowVisible(parent.id) : false;
-};
 
 const toggleRow = (rowId: string) => {
   const row = tableRows.value.find(r => r.id === rowId);
@@ -338,7 +324,7 @@ const updateLanguage = () => {
 
       const node = findNode(aggregatedData);
       if (node) {
-        row.label = node.labels[config.value.language] || node.labels.de;
+        row.label = node.labels[locale.value as keyof MultiLanguageLabels] || node.labels.de;
       }
     }
   });
@@ -357,17 +343,11 @@ const formatValue = (value: number | null, unit?: string): string => {
 };
 
 const formatDate = (dateString: string): string => {
-  return new Date(dateString).toLocaleString(config.value.language);
+  return new Date(dateString).toLocaleString(locale.value || 'de-CH');
 };
 
 const getHeaderLabel = (type: 'label' | 'code' | 'value'): string => {
-  const labels = {
-    de: { label: 'Bezeichnung', code: 'Code', value: 'Wert' },
-    fr: { label: 'Désignation', code: 'Code', value: 'Valeur' },
-    it: { label: 'Denominazione', code: 'Codice', value: 'Valore' },
-    en: { label: 'Label', code: 'Code', value: 'Value' }
-  };
-  return labels[config.value.language][type];
+  return t(`treeTable.${type}Column`);
 };
 
 // Watchers
@@ -377,6 +357,14 @@ watch(() => props.dataPath, () => {
 
 watch(() => config.value.expandAll, () => {
   updateVisibility();
+});
+
+watch(locale, () => {
+  // Create new TreeAggregator with updated language and refresh labels
+  treeAggregator.value = new TreeAggregator({
+    language: locale.value as keyof MultiLanguageLabels
+  });
+  updateLanguage();
 });
 
 // Lifecycle
@@ -413,12 +401,7 @@ onMounted(() => {
   flex-wrap: wrap;
 }
 
-.controls select {
-  padding: 0.5rem;
-  border: 1px solid var(--color-border, #ddd);
-  border-radius: 4px;
-  background-color: white;
-}
+
 
 .expand-button {
   padding: 0.5rem 1rem;

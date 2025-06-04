@@ -1,15 +1,7 @@
 <template>
   <div class="data-browser">
     <div class="browser-header">
-      <h3>{{ title }}</h3>
-      <div class="controls">
-        <select v-model="config.language" @change="updateLanguage">
-          <option value="de">Deutsch</option>
-          <option value="fr">Français</option>
-          <option value="it">Italiano</option>
-          <option value="en">English</option>
-        </select>
-      </div>
+      <h3>{{ title || t('dataBrowser.title') }}</h3>
     </div>
 
     <div class="search-section">
@@ -17,7 +9,7 @@
         <input
           v-model="filters.searchQuery"
           type="text"
-          :placeholder="getSearchPlaceholder()"
+          :placeholder="t('dataBrowser.searchPlaceholder')"
           class="search-input"
           @input="handleSearch"
         />
@@ -28,23 +20,21 @@
 
       <div class="filter-controls">
         <div class="filter-group">
-          <label>{{ getFilterLabel('dataType') }}:</label>
+          <label>{{ t('dataBrowser.filters.dataType') }}:</label>
           <select v-model="filters.dataType" @change="handleFilterChange">
-            <option value="all">{{ getFilterOption('all') }}</option>
-            <option value="std">{{ getFilterOption('std') }}</option>
-            <option value="gdn">{{ getFilterOption('gdn') }}</option>
+            <option value="all">{{ t('dataBrowser.filterOptions.all') }}</option>
+            <option value="std">{{ t('dataBrowser.filterOptions.std') }}</option>
+            <option value="gdn">{{ t('dataBrowser.filterOptions.gdn') }}</option>
           </select>
         </div>
 
-
-
         <div class="filter-group">
-          <label>{{ getFilterLabel('yearRange') }}:</label>
+          <label>{{ t('dataBrowser.filters.yearRange') }}:</label>
           <div class="year-range">
             <input
               v-model="filters.yearRange.start"
               type="number"
-              :placeholder="getYearPlaceholder('start')"
+              :placeholder="t('dataBrowser.filters.yearFrom')"
               min="2015"
               max="2023"
               class="year-input"
@@ -54,7 +44,7 @@
             <input
               v-model="filters.yearRange.end"
               type="number"
-              :placeholder="getYearPlaceholder('end')"
+              :placeholder="t('dataBrowser.filters.yearTo')"
               min="2015"
               max="2023"
               class="year-input"
@@ -68,23 +58,22 @@
     <div class="results-section">
       <div class="results-header">
         <span class="results-count">
-          {{ getResultsCountText() }}
+          {{ t('dataBrowser.resultsCount', { count: filteredResults.length, total: searchResults.length }) }}
         </span>
         <div class="view-options">
           <label class="checkbox-label">
             <input type="checkbox" v-model="config.showDescriptions" />
-            {{ getViewOptionLabel('showDescriptions') }}
+            {{ t('dataBrowser.viewOptions.showDescriptions') }}
           </label>
           <label class="checkbox-label">
             <input type="checkbox" v-model="config.showYearRange" />
-            {{ getViewOptionLabel('showYearRange') }}
+            {{ t('dataBrowser.viewOptions.showYearRange') }}
           </label>
-
         </div>
       </div>
 
       <div v-if="loading" class="loading">
-        {{ getLoadingText() }}
+        {{ t('dataBrowser.loading') }}
       </div>
 
       <div v-else-if="error" class="error">
@@ -92,7 +81,7 @@
       </div>
 
       <div v-else-if="filteredResults.length === 0" class="no-results">
-        {{ getNoResultsText() }}
+        {{ t('dataBrowser.noResults') }}
       </div>
 
       <div v-else class="results-list">
@@ -105,13 +94,13 @@
         >
           <div class="result-header">
             <h4 class="result-title">
-              {{ result.displayName[config.language] }}
+              {{ result.displayName[locale as keyof MultiLanguageLabels] }}
             </h4>
             <span class="result-type">{{ result.type.toUpperCase() }}</span>
           </div>
 
           <div v-if="config.showDescriptions" class="result-description">
-            {{ result.description[config.language] }}
+            {{ result.description[locale as keyof MultiLanguageLabels] }}
           </div>
 
           <div class="result-metadata">
@@ -150,6 +139,7 @@
 
 <script setup lang="ts">
 import { ref, computed, onMounted, watch } from 'vue';
+import { useI18n } from 'vue-i18n';
 import type {
   StdDataInfo,
   GdnDataInfo,
@@ -176,6 +166,9 @@ const emit = defineEmits<{
   error: [error: string];
 }>();
 
+// Use Vue i18n
+const { locale, t } = useI18n();
+
 // Reactive state
 const loading = ref(false);
 const error = ref<string | null>(null);
@@ -184,9 +177,8 @@ const gdnData = ref<GdnDataInfo[]>([]);
 const searchResults = ref<DataBrowserSearchResult[]>([]);
 const currentPage = ref(1);
 
-// Configuration
-const config = ref<DataBrowserConfig>({
-  language: 'de',
+// Configuration (removed language since it's now handled by i18n)
+const config = ref<Omit<DataBrowserConfig, 'language'>>({
   showDescriptions: true,
   showYearRange: true,
   maxResults: 100,
@@ -294,7 +286,7 @@ const processDataIntoResults = () => {
   gdnData.value.forEach(entry => {
     if (!entry.models || !Array.isArray(entry.models)) return; // Skip entries without models array
 
-    const fsModel = entry.models.find((m: any) => m.model === 'fs');
+    const fsModel = entry.models.find(m => m.model === 'fs');
     if (!fsModel) return; // Skip entries without 'fs' model
 
     const displayName: MultiLanguageLabels = {
@@ -304,10 +296,10 @@ const processDataIntoResults = () => {
       en: entry.gemeinde
     };
     const description: MultiLanguageLabels = {
-      de: `Gemeindedaten für ${entry.gemeinde}`,
-      fr: `Données communales pour ${entry.gemeinde}`,
-      it: `Dati comunali per ${entry.gemeinde}`,
-      en: `Municipal data for ${entry.gemeinde}`
+      de: t('dataBrowser.municipalityData', { name: entry.gemeinde }),
+      fr: t('dataBrowser.municipalityData', { name: entry.gemeinde }),
+      it: t('dataBrowser.municipalityData', { name: entry.gemeinde }),
+      en: t('dataBrowser.municipalityData', { name: entry.gemeinde })
     };
 
     results.push({
@@ -337,11 +329,11 @@ const performSearch = () => {
   const query = filters.value.searchQuery.toLowerCase();
   searchResults.value = searchResults.value.filter(result => {
     // Search in display name
-    const displayName = result.displayName[config.value.language].toLowerCase();
+    const displayName = result.displayName[locale.value as keyof MultiLanguageLabels].toLowerCase();
     if (displayName.includes(query)) return true;
 
     // Search in description
-    const description = result.description[config.value.language].toLowerCase();
+    const description = result.description[locale.value as keyof MultiLanguageLabels].toLowerCase();
     if (description.includes(query)) return true;
 
     // Search in entity code
@@ -364,120 +356,8 @@ const handleFilterChange = () => {
   currentPage.value = 1;
 };
 
-const updateLanguage = () => {
-  // Language change is handled reactively through computed properties
-};
-
 const selectResult = (result: DataBrowserSearchResult) => {
   emit('resultSelected', result);
-};
-
-// Localization methods
-const getSearchPlaceholder = (): string => {
-  const placeholders = {
-    de: 'Suche nach Entitäten, Gemeinden oder Codes...',
-    fr: 'Rechercher des entités, communes ou codes...',
-    it: 'Cerca entità, comuni o codici...',
-    en: 'Search for entities, municipalities or codes...'
-  };
-  return placeholders[config.value.language];
-};
-
-const getFilterLabel = (type: string): string => {
-  const labels = {
-    de: {
-      dataType: 'Datentyp',
-      yearRange: 'Jahresbereich'
-    },
-    fr: {
-      dataType: 'Type de données',
-      yearRange: 'Plage d\'années'
-    },
-    it: {
-      dataType: 'Tipo di dati',
-      yearRange: 'Intervallo anni'
-    },
-    en: {
-      dataType: 'Data Type',
-      yearRange: 'Year Range'
-    }
-  };
-  return labels[config.value.language][type as keyof typeof labels.de];
-};
-
-const getFilterOption = (option: string): string => {
-  const options = {
-    de: { all: 'Alle', std: 'Standard', gdn: 'Gemeinden' },
-    fr: { all: 'Tous', std: 'Standard', gdn: 'Communes' },
-    it: { all: 'Tutti', std: 'Standard', gdn: 'Comuni' },
-    en: { all: 'All', std: 'Standard', gdn: 'Municipalities' }
-  };
-  return options[config.value.language][option as keyof typeof options.de];
-};
-
-const getYearPlaceholder = (type: 'start' | 'end'): string => {
-  const placeholders = {
-    de: { start: 'Von', end: 'Bis' },
-    fr: { start: 'De', end: 'À' },
-    it: { start: 'Da', end: 'A' },
-    en: { start: 'From', end: 'To' }
-  };
-  return placeholders[config.value.language][type];
-};
-
-const getViewOptionLabel = (option: string): string => {
-  const labels = {
-    de: {
-      showDescriptions: 'Beschreibungen',
-      showYearRange: 'Jahresbereich'
-    },
-    fr: {
-      showDescriptions: 'Descriptions',
-      showYearRange: 'Plage d\'années'
-    },
-    it: {
-      showDescriptions: 'Descrizioni',
-      showYearRange: 'Intervallo anni'
-    },
-    en: {
-      showDescriptions: 'Descriptions',
-      showYearRange: 'Year Range'
-    }
-  };
-  return labels[config.value.language][option as keyof typeof labels.de];
-};
-
-const getResultsCountText = (): string => {
-  const count = filteredResults.value.length;
-  const total = searchResults.value.length;
-
-  const texts = {
-    de: `${count} von ${total} Ergebnissen`,
-    fr: `${count} sur ${total} résultats`,
-    it: `${count} di ${total} risultati`,
-    en: `${count} of ${total} results`
-  };
-  return texts[config.value.language];
-};
-
-const getLoadingText = (): string => {
-  const texts = {
-    de: 'Lade Daten...',
-    fr: 'Chargement des données...',
-    it: 'Caricamento dati...',
-    en: 'Loading data...'
-  };
-  return texts[config.value.language];
-};
-
-const getNoResultsText = (): string => {
-  const texts = {
-    de: 'Keine Ergebnisse gefunden',
-    fr: 'Aucun résultat trouvé',
-    it: 'Nessun risultato trovato',
-    en: 'No results found'
-  };
-  return texts[config.value.language];
 };
 
 const getYearRangeText = (years: string[]): string => {
@@ -499,7 +379,7 @@ watch(() => filters.value.searchQuery, () => {
   }
 });
 
-watch(() => config.value.language, () => {
+watch(locale, () => {
   // Re-process results when language changes to update display names
   processDataIntoResults();
 });

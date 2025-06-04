@@ -10,11 +10,28 @@ import type {
   DataLoadingContext
 } from '../types/DataStructures';
 
+interface GdnInfoItem {
+  nr: string;
+  gemeinde: string;
+  models: Array<{
+    model: string;
+    jahre: string[];
+  }>;
+}
+
+interface StdInfoItem {
+  hh: string;
+  models: Array<{
+    model: string;
+    jahre: string[];
+  }>;
+}
+
 /**
  * Data loader utility for CSV and tree structure data
  */
 export class DataLoader {
-  private cache: Map<string, { data: any; timestamp: number }> = new Map();
+  private cache: Map<string, { data: unknown; timestamp: number }> = new Map();
   private context: DataLoadingContext;
 
   constructor(context?: Partial<DataLoadingContext>) {
@@ -41,7 +58,7 @@ export class DataLoader {
 
     if (this.context.cache.enabled) {
       const cached = this.getCachedData(cacheKey);
-      if (cached) return cached;
+      if (cached) return cached as TreeStructure;
     }
 
     try {
@@ -68,18 +85,19 @@ export class DataLoader {
   /**
    * Load GDN data for a specific model, entity and year
    */
-  async loadGdnData(model: string, entityId: string, year: string): Promise<DataLoadingResult<GdnDataRecord>> {
+  async loadGdnData(entityId: string, year: string, model: string = 'fs'): Promise<DataLoadingResult<GdnDataRecord>> {
+
     const cacheKey = `gdn-${model}-${entityId}-${year}`;
 
     if (this.context.cache.enabled) {
       const cached = this.getCachedData(cacheKey);
-      if (cached) return cached;
+      if (cached) return cached as DataLoadingResult<GdnDataRecord>;
     }
 
     try {
       const url = `${this.context.baseUrl}/gdn/${model}/${entityId}/${year}.csv`;
       const csvText = await this.fetchCsvText(url);
-      const data = this.parseCsv(csvText, ',', true) as GdnDataRecord[];
+      const data = this.parseCsv(csvText, ',', true) as unknown as GdnDataRecord[];
 
       const result: DataLoadingResult<GdnDataRecord> = {
         data,
@@ -111,13 +129,13 @@ export class DataLoader {
 
     if (this.context.cache.enabled) {
       const cached = this.getCachedData(cacheKey);
-      if (cached) return cached;
+      if (cached) return cached as DataLoadingResult<StdDataRecord>;
     }
 
     try {
       const url = `${this.context.baseUrl}/std/${model}/${entityId}/${year}.csv`;
       const csvText = await this.fetchCsvText(url);
-      const data = this.parseCsv(csvText, ',', true) as StdDataRecord[];
+      const data = this.parseCsv(csvText, ',', true) as unknown as StdDataRecord[];
 
       const result: DataLoadingResult<StdDataRecord> = {
         data,
@@ -150,7 +168,7 @@ export class DataLoader {
 
     if (this.context.cache.enabled) {
       const cached = this.getCachedData(cacheKey);
-      if (cached) return cached;
+      if (cached) return cached as CodeDefinition[];
     }
 
     try {
@@ -158,7 +176,7 @@ export class DataLoader {
       const csvText = await this.fetchCsvText(url);
       const rawData = this.parseCsv(csvText, ',', true);
 
-      const codeDefinitions: CodeDefinition[] = rawData.map((row: any) => ({
+      const codeDefinitions: CodeDefinition[] = rawData.map((row: Record<string, string>) => ({
         code: row.arten || '',
         funk: row.funk || '',
         labels: {
@@ -190,7 +208,7 @@ export class DataLoader {
 
     if (this.context.cache.enabled) {
       const cached = this.getCachedData(cacheKey);
-      if (cached) return cached;
+      if (cached) return cached as { gdn: DataSourceInfo[]; std: DataSourceInfo[]; };
     }
 
     try {
@@ -200,18 +218,18 @@ export class DataLoader {
       ]);
 
       const result = {
-        gdn: gdnInfo.map((item: any) => ({
+        gdn: (gdnInfo as GdnInfoItem[]).map((item) => ({
           type: 'gdn' as const,
           entityId: item.nr,
           entityName: item.gemeinde,
-          availableYears: item.models.flatMap((m: any) => m.jahre),
-          models: item.models.map((m: any) => m.model)
+          availableYears: item.models.flatMap((m) => m.jahre),
+          models: item.models.map((m) => m.model)
         })),
-        std: stdInfo.map((item: any) => ({
+        std: (stdInfo as StdInfoItem[]).map((item) => ({
           type: 'std' as const,
           entityId: item.hh,
-          availableYears: item.models.flatMap((m: any) => m.jahre),
-          models: item.models.map((m: any) => m.model)
+          availableYears: item.models.flatMap((m) => m.jahre),
+          models: item.models.map((m) => m.model)
         }))
       };
 
@@ -282,7 +300,7 @@ export class DataLoader {
       const controller = new AbortController();
       const timeoutId = setTimeout(() => controller.abort(), this.context.timeout);
 
-      const response = await fetch(url, { signal: controller.signal });
+      const response = await fetch(url, {signal: controller.signal});
       clearTimeout(timeoutId);
 
       return response;
@@ -310,7 +328,7 @@ export class DataLoader {
   /**
    * Fetch JSON content
    */
-  private async fetchJson(url: string): Promise<any> {
+  private async fetchJson(url: string): Promise<unknown> {
     const response = await this.fetchWithRetry(url);
     if (!response.ok) {
       throw new Error(`Failed to fetch JSON: ${response.statusText}`);
@@ -321,7 +339,7 @@ export class DataLoader {
   /**
    * Parse CSV content
    */
-  private parseCsv(csvText: string, delimiter: string = ',', hasHeader: boolean = true): any[] {
+  private parseCsv(csvText: string, delimiter: string = ',', hasHeader: boolean = true): Record<string, string>[] {
     const lines = csvText.trim().split('\n');
     if (lines.length === 0) return [];
 
@@ -331,7 +349,7 @@ export class DataLoader {
     return dataLines.map(line => {
       const values = this.parseCsvLine(line, delimiter);
       if (headers) {
-        const obj: any = {};
+        const obj: Record<string, string> = {};
         headers.forEach((header, index) => {
           obj[header] = values[index] || '';
         });
@@ -374,7 +392,7 @@ export class DataLoader {
   /**
    * Get cached data if valid
    */
-  private getCachedData(key: string): any | null {
+  private getCachedData(key: string): unknown | null {
     const cached = this.cache.get(key);
     if (!cached) return null;
 
@@ -390,7 +408,7 @@ export class DataLoader {
   /**
    * Set cached data with cleanup if needed
    */
-  private setCachedData(key: string, data: any): void {
+  private setCachedData(key: string, data: unknown): void {
     // Clean up cache if it's too large
     if (this.cache.size >= this.context.cache.maxSize) {
       const firstKey = this.cache.keys().next().value;

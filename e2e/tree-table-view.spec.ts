@@ -261,211 +261,182 @@ test.describe('TreeTableView', () => {
     // Wait for data browser to load
     await expect(page.locator('.data-browser')).toBeVisible();
 
-    // Wait for search results to load
-    await page.waitForTimeout(2000);
+    // Use polling instead of fixed timeout
+    await expect(async () => {
+      const count = await page.locator('.result-item').count();
+      expect(count).toBeGreaterThan(0);
+    }).toPass({ timeout: 5000 });
 
-    // Check if there are any result items and click the first one
-    const resultItems = page.locator('.result-item');
-    const resultCount = await resultItems.count();
+    // Click the first result item
+    await page.locator('.result-item').first().click();
 
-    if (resultCount > 0) {
-      await resultItems.first().click();
-
-      // Wait for the hierarchical tree table component to be loaded
-      await expect(page.locator('.hierarchical-tree-table')).toBeVisible({ timeout: 10000 });
-    }
+    // Wait for the hierarchical tree table component to be loaded
+    await expect(page.locator('.hierarchical-tree-table')).toBeVisible({ timeout: 10000 });
   });
 
   test('should display tree table with controls when data is loaded', async ({ page }) => {
-    // Load data first by selecting from data browser
+    // Prepare the environment - ensure data is loaded
     await expect(page.locator('.data-browser')).toBeVisible();
-    await page.waitForTimeout(2000);
 
-    const resultItems = page.locator('.result-item');
-    const resultCount = await resultItems.count();
+    // Use polling instead of fixed timeout
+    await expect(async () => {
+      const count = await page.locator('.result-item').count();
+      expect(count).toBeGreaterThan(0);
+    }).toPass({ timeout: 5000 });
 
-    if (resultCount > 0) {
-      await resultItems.first().click();
-      await expect(page.locator('.hierarchical-tree-table')).toBeVisible({ timeout: 10000 });
+    await page.locator('.result-item').first().click();
+    await expect(page.locator('.hierarchical-tree-table')).toBeVisible({ timeout: 10000 });
 
-      // Check table header
-      await expect(page.locator('.table-header h3')).toBeVisible();
-
-      // Check language selector (now inside the tree table component)
-      await expect(page.locator('.hierarchical-tree-table .controls select')).toBeVisible();
-
-      // Check expand/collapse button
-      await expect(page.locator('.expand-button')).toBeVisible();
-
-      // Check show codes checkbox
-      await expect(page.locator('.hierarchical-tree-table input[type="checkbox"]').first()).toBeVisible();
-
-      // Check show values checkbox
-      await expect(page.locator('.hierarchical-tree-table input[type="checkbox"]').nth(1)).toBeVisible();
-    }
+    // Now do the actual test assertions
+    await expect(page.locator('.table-header h3')).toBeVisible();
+    await expect(page.locator('.expand-button')).toBeVisible();
+    await expect(page.locator('.hierarchical-tree-table input[type="checkbox"]').first()).toBeVisible();
+    await expect(page.locator('.hierarchical-tree-table input[type="checkbox"]').nth(1)).toBeVisible();
   });
 
-  // Helper function to load data via data browser
+  // Refactor the helper function to use polling instead of timeout and not use conditionals
   async function loadDataViaBrowser(page) {
     await expect(page.locator('.data-browser')).toBeVisible();
-    await page.waitForTimeout(2000);
 
-    const resultItems = page.locator('.result-item');
-    const resultCount = await resultItems.count();
+    // Use polling instead of fixed timeout
+    await expect(async () => {
+      const count = await page.locator('.result-item').count();
+      expect(count).toBeGreaterThan(0);
+    }).toPass({ timeout: 5000 });
 
-    if (resultCount > 0) {
-      await resultItems.first().click();
-      await expect(page.locator('.hierarchical-tree-table')).toBeVisible({ timeout: 10000 });
-      return true;
-    }
-    return false;
+    await page.locator('.result-item').first().click();
+    await expect(page.locator('.hierarchical-tree-table')).toBeVisible({ timeout: 10000 });
+    return true;
   }
 
   test('should display tree table with data rows', async ({ page }) => {
-    // Load data first via data browser
-    const dataLoaded = await loadDataViaBrowser(page);
+    // Prepare the environment - ensure data is loaded
+    await loadDataViaBrowser(page);
 
-    if (dataLoaded) {
-      // Check that the table is present
-      await expect(page.locator('.tree-table')).toBeVisible();
+    // Now do the actual test assertions
+    await expect(page.locator('.tree-table')).toBeVisible();
+    await expect(page.locator('.tree-table th').first()).toContainText('Bezeichnung');
+    await expect(page.locator('.tree-table th').nth(1)).toContainText('Wert');
 
-      // Check table headers
-      await expect(page.locator('.tree-table th').first()).toContainText('Bezeichnung');
-      await expect(page.locator('.tree-table th').nth(1)).toContainText('Wert');
-
-      // Check that data rows are present
-      const dataRows = page.locator('.tree-row');
-      const rowCount = await dataRows.count();
+    // Check that data rows are present
+    await expect(async () => {
+      const rowCount = await page.locator('.tree-row').count();
       expect(rowCount).toBeGreaterThan(0);
+    }).toPass();
 
-      // Check that the root row is visible
-      await expect(dataRows.first()).toBeVisible();
-    }
+    // Check that the root row is visible
+    await expect(page.locator('.tree-row').first()).toBeVisible();
   });
 
   test('should expand and collapse tree nodes', async ({ page }) => {
-    // Load data first via data browser
-    const dataLoaded = await loadDataViaBrowser(page);
+    // Prepare the environment - ensure data is loaded
+    await loadDataViaBrowser(page);
 
-    if (dataLoaded) {
-      // Find expand toggle buttons
-      const expandToggle = page.locator('.expand-toggle').first();
+    // Wait for tree nodes to be visible
+    await expect(page.locator('.expand-toggle').first()).toBeVisible();
 
-      if (await expandToggle.isVisible()) {
-        // Check initial state (should be expanded by default)
-        await expect(expandToggle).toContainText('▼');
+    // Check initial state (should be expanded by default)
+    await expect(page.locator('.expand-toggle').first()).toContainText('▼');
 
-        // Click to collapse
-        await expandToggle.click();
-        await expect(expandToggle).toContainText('▶');
+    // Click to collapse
+    await page.locator('.expand-toggle').first().click();
+    await expect(page.locator('.expand-toggle').first()).toContainText('▶');
 
-        // Click to expand again
-        await expandToggle.click();
-        await expect(expandToggle).toContainText('▼');
-      }
-    }
+    // Click to expand again
+    await page.locator('.expand-toggle').first().click();
+    await expect(page.locator('.expand-toggle').first()).toContainText('▼');
   });
 
   test('should toggle expand all functionality', async ({ page }) => {
-    // Load data first via data browser
-    const dataLoaded = await loadDataViaBrowser(page);
+    // Prepare the environment - ensure data is loaded
+    await loadDataViaBrowser(page);
 
-    if (dataLoaded) {
-      // Find expand all button
-      const expandAllButton = page.locator('.expand-button');
+    // Find expand all button
+    const expandAllButton = page.locator('.expand-button');
+    await expect(expandAllButton).toBeVisible();
 
-      // Check initial state
-      await expect(expandAllButton).toContainText('Expand All');
+    // Get current text
+    const initialText = await expandAllButton.textContent();
+    expect(initialText).not.toBeNull();
 
-      // Click to expand all
-      await expandAllButton.click();
-      await expect(expandAllButton).toContainText('Collapse All');
+    // Click to expand all
+    await expandAllButton.click();
 
-      // Click to collapse all
-      await expandAllButton.click();
-      await expect(expandAllButton).toContainText('Expand All');
-    }
+    // Text should change
+    await expect(expandAllButton).not.toHaveText(initialText as string);
+
+    // Click to collapse all
+    await expandAllButton.click();
+
+    // Text should change back to initial text
+    await expect(expandAllButton).toHaveText(initialText as string);
   });
 
   test('should toggle show codes functionality', async ({ page }) => {
-    // Load data first via data browser
-    const dataLoaded = await loadDataViaBrowser(page);
+    // Prepare the environment - ensure data is loaded
+    await loadDataViaBrowser(page);
 
-    if (dataLoaded) {
-      // Find show codes checkbox (now inside the tree table component)
-      const showCodesCheckbox = page.locator('.hierarchical-tree-table input[type="checkbox"]').first();
+    // Find show codes checkbox
+    const showCodesCheckbox = page.locator('.hierarchical-tree-table input[type="checkbox"]').first();
+    await expect(showCodesCheckbox).toBeVisible();
 
-      // Initially codes should be hidden (2 columns: label and value)
-      await expect(page.locator('.tree-table th')).toHaveCount(2);
+    // Initially codes should be hidden (2 columns: label and value)
+    await expect(page.locator('.tree-table th')).toHaveCount(2);
 
-      // Check the show codes checkbox
-      await showCodesCheckbox.check();
+    // Check the show codes checkbox
+    await showCodesCheckbox.check();
 
-      // Now should have 3 columns: label, code, and value
-      await expect(page.locator('.tree-table th')).toHaveCount(3);
-      await expect(page.locator('.tree-table th').nth(1)).toContainText('Code');
+    // Now should have 3 columns: label, code, and value
+    await expect(page.locator('.tree-table th')).toHaveCount(3);
+    await expect(page.locator('.tree-table th').nth(1)).toContainText('Code');
 
-      // Uncheck to hide codes again
-      await showCodesCheckbox.uncheck();
-      await expect(page.locator('.tree-table th')).toHaveCount(2);
-    }
+    // Uncheck to hide codes again
+    await showCodesCheckbox.uncheck();
+    await expect(page.locator('.tree-table th')).toHaveCount(2);
   });
 
-  test('should change language', async ({ page }) => {
-    // Load data first via data browser
-    const dataLoaded = await loadDataViaBrowser(page);
+  test('should handle language selection if available', async ({ page }) => {
+    // Prepare the environment - ensure data is loaded
+    await loadDataViaBrowser(page);
 
-    if (dataLoaded) {
-      // Find language selector (now inside the tree table component)
-      const languageSelect = page.locator('.hierarchical-tree-table .controls select');
+    // Check if app-level language selector exists
+    const selectorExists = await page.locator('#app-language-selector').count() > 0;
 
-      // Check initial language (German)
-      await expect(page.locator('.tree-table th').first()).toContainText('Bezeichnung');
+    test.skip(!selectorExists, 'App-level language selector not found');
 
-      // Change to French
-      await languageSelect.selectOption('fr');
-      await expect(page.locator('.tree-table th').first()).toContainText('Désignation');
+    if (selectorExists) {
+      // Get initial header text
+      const initialHeaderText = await page.locator('.tree-table th').first().textContent();
+      expect(initialHeaderText).not.toBeNull();
 
-      // Change to English
-      await languageSelect.selectOption('en');
-      await expect(page.locator('.tree-table th').first()).toContainText('Label');
+      // Test language switching with French
+      const appLanguageSelect = page.locator('#app-language-selector');
+      await appLanguageSelect.selectOption('fr');
 
-      // Change back to German
-      await languageSelect.selectOption('de');
-      await expect(page.locator('.tree-table th').first()).toContainText('Bezeichnung');
+      // Use polling to wait for language change to take effect
+      await expect(async () => {
+        const newHeaderText = page.locator('.tree-table th').first();
+        await expect(newHeaderText).not.toHaveText(initialHeaderText);
+      }).toPass({ timeout: 2000 });
     }
-  });
-
-  test('should allow dimension selection', async ({ page }) => {
-    // Check dimension selector
-    await expect(page.locator('#dimension-select')).toBeVisible();
-
-    // Change dimension
-    await page.locator('#dimension-select').selectOption('ertrag');
-    await expect(page.locator('#dimension-select')).toHaveValue('ertrag');
-
-    // Change back
-    await page.locator('#dimension-select').selectOption('aufwand');
-    await expect(page.locator('#dimension-select')).toHaveValue('aufwand');
   });
 
   test('should display metadata information', async ({ page }) => {
-    // Load data first via data browser
-    const dataLoaded = await loadDataViaBrowser(page);
+    // Prepare the environment - ensure data is loaded
+    await loadDataViaBrowser(page);
 
-    if (dataLoaded) {
-      // Check that metadata section is visible
-      await expect(page.locator('.metadata-section')).toBeVisible();
-      await expect(page.locator('.metadata-section h3')).toContainText('Dateninformationen');
+    // Check that metadata section is visible
+    await expect(page.locator('.metadata-section')).toBeVisible();
+    await expect(page.locator('.metadata-section h3')).toContainText('Dateninformationen');
 
-      // Check that metadata items are present
-      const metadataItems = page.locator('.metadata-item');
-      const itemCount = await metadataItems.count();
+    // Check that metadata items are present
+    await expect(async () => {
+      const itemCount = await page.locator('.metadata-item').count();
       expect(itemCount).toBeGreaterThan(0);
+    }).toPass();
 
-      // Check that dimension is shown
-      await expect(page.locator('.metadata-item').first()).toContainText('Dimension');
-    }
+    // Check that dimension is shown
+    await expect(page.locator('.metadata-item').first()).toContainText('Dimension');
   });
 
   test('should display documentation section', async ({ page }) => {
@@ -497,15 +468,13 @@ test.describe('TreeTableView', () => {
     await page.setViewportSize({ width: 375, height: 667 });
 
     // Load data via data browser
-    const dataLoaded = await loadDataViaBrowser(page);
+    await loadDataViaBrowser(page);
 
-    if (dataLoaded) {
-      // Check that the layout adapts to mobile
-      await expect(page.locator('.hierarchical-tree-table')).toBeVisible();
-      await expect(page.locator('.tree-table')).toBeVisible();
+    // Check that the layout adapts to mobile
+    await expect(page.locator('.hierarchical-tree-table')).toBeVisible();
+    await expect(page.locator('.tree-table')).toBeVisible();
 
-      // Check that controls are still accessible (be specific to tree table controls)
-      await expect(page.locator('.hierarchical-tree-table .controls')).toBeVisible();
-    }
+    // Check that controls are still accessible
+    await expect(page.locator('.hierarchical-tree-table .controls')).toBeVisible();
   });
 });

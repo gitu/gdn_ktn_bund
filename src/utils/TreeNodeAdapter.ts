@@ -10,7 +10,7 @@ import type { TreeNode, MultiLanguageLabels } from '../types/DataStructures';
 export interface PrimeVueTreeNode {
   key: string;
   label: string;
-  data?: any;
+  data?: Record<string, unknown>;
   icon?: string;
   children?: PrimeVueTreeNode[];
   leaf?: boolean;
@@ -138,7 +138,7 @@ export class TreeNodeAdapter {
   /**
    * Convert tree structure for PrimeVue Tree component
    */
-  convertTreeStructure(treeStructure: { tree: TreeNode; metadata?: any }): PrimeVueTreeNode[] {
+  convertTreeStructure(treeStructure: { tree: TreeNode; metadata?: Record<string, unknown> }): PrimeVueTreeNode[] {
     return [this.toPrimeVueFormat(treeStructure.tree)];
   }
 
@@ -239,7 +239,7 @@ export const convertFromPrimeVue = (
 };
 
 export const convertTreeStructureToPrimeVue = (
-  treeStructure: { tree: TreeNode; metadata?: any },
+  treeStructure: { tree: TreeNode; metadata?: Record<string, unknown> },
   config?: Partial<TreeConversionConfig>
 ): PrimeVueTreeNode[] => {
   const adapter = config ? new TreeNodeAdapter(config) : defaultTreeNodeAdapter;

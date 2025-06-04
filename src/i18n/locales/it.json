@@ -1,0 +1,196 @@
+{
+  "common": {
+    "loading": "Caricamento...",
+    "error": "Errore",
+    "noData": "Nessun dato disponibile",
+    "search": "Cerca",
+    "clear": "Cancella",
+    "select": "Seleziona",
+    "cancel": "Annulla",
+    "confirm": "Conferma",
+    "save": "Salva",
+    "close": "Chiudi",
+    "back": "Indietro",
+    "next": "Avanti",
+    "previous": "Precedente",
+    "all": "Tutti",
+    "none": "Nessuno"
+  },
+  "navigation": {
+    "home": "Home",
+    "about": "Informazioni",
+    "treeTable": "Tabella gerarchica",
+    "calendar": "Calendario",
+    "messages": "Messaggi",
+    "profile": "Profilo"
+  },
+  "dataBrowser": {
+    "title": "Browser dati",
+    "selectEntity": "Seleziona entità",
+    "selectYear": "Seleziona anno",
+    "selectDimension": "Seleziona dimensione",
+    "loadData": "Carica dati",
+    "noEntitySelected": "Nessuna entità selezionata",
+    "noYearSelected": "Nessun anno selezionato",
+    "noDimensionSelected": "Nessuna dimensione selezionata",
+    "loadingEntities": "Caricamento entità...",
+    "loadingYears": "Caricamento anni...",
+    "errorLoadingEntities": "Errore nel caricamento delle entità",
+    "errorLoadingYears": "Errore nel caricamento degli anni",
+    "availableYears": "Anni disponibili",
+    "availableEntities": "Entità disponibili",
+    "entityCount": "entità",
+    "yearCount": "anni",
+    "searchPlaceholder": "Cerca entità, comuni o codici...",
+    "filters": {
+      "dataType": "Tipo di dati",
+      "yearRange": "Intervallo anni",
+      "yearFrom": "Da",
+      "yearTo": "A"
+    },
+    "filterOptions": {
+      "all": "Tutti",
+      "std": "Standard",
+      "gdn": "Comuni"
+    },
+    "viewOptions": {
+      "showDescriptions": "Descrizioni",
+      "showYearRange": "Intervallo anni"
+    },
+    "resultsCount": "{count} di {total} risultati",
+    "loading": "Caricamento dati...",
+    "noResults": "Nessun risultato trovato",
+    "municipalityData": "Dati comunali per {name}",
+    "semanticLabels": {
+      "allMunicipalities": "Tutti i comuni del cantone",
+      "socialInsurance": "Assicurazione sociale",
+      "confederation": "Confederazione",
+      "canton": "Cantone"
+    }
+  },
+  "treeTable": {
+    "title": "Tabella gerarchica",
+    "expandAll": "Espandi tutto",
+    "collapseAll": "Comprimi tutto",
+    "noDataSelected": "Nessun dato selezionato",
+    "loadingData": "Caricamento dati...",
+    "errorLoadingData": "Errore nel caricamento dei dati",
+    "realTimeAggregation": "Aggregazione in tempo reale",
+    "labelColumn": "Etichetta",
+    "codeColumn": "Codice",
+    "valueColumn": "Valore",
+    "loading": "Caricamento dati...",
+    "error": "Errore",
+    "noData": "Nessun dato disponibile",
+    "showCodes": "Mostra codici",
+    "showValues": "Mostra valori",
+    "expand": "Espandi",
+    "collapse": "Comprimi",
+    "recordsProcessed": "{count} record elaborati",
+    "rowsDisplayed": "{count} righe visualizzate",
+    "loadedAt": "caricato {date}"
+  },
+  "treeTableView": {
+    "title": "Tabella ad albero gerarchica",
+    "description": "Esplora i dati finanziari in un formato di tabella gerarchica con struttura ad albero pieghevole",
+    "dimension": "Dimensione",
+    "tableTitle": "Titolo della tabella",
+    "titlePlaceholder": "Inserire il titolo della tabella",
+    "dataBrowser": "Browser dati",
+    "dataBrowserDescription": "Cerca e sfoglia le entità dati disponibili:",
+    "availableEntities": "Entità dati disponibili",
+    "loading": "Caricamento dati...",
+    "dataInformation": "Informazioni sui dati",
+    "model": "Modello",
+    "totalRecords": "Totale record",
+    "treeNodes": "Nodi albero",
+    "maxDepth": "Profondità massima",
+    "processedAt": "Elaborato il",
+    "error": "Errore",
+    "dataBrowserError": "Errore browser dati",
+    "usageDocumentation": "Documentazione d'uso",
+    "dataPathFormat": "Formato percorso dati",
+    "gdnData": "Dati GDN",
+    "stdData": "Dati STD",
+    "example": "ad es.",
+    "availableDimensions": "Dimensioni disponibili",
+    "expenditure": "Spese/Costi",
+    "revenue": "Ricavi",
+    "income": "Entrate",
+    "expenses": "Spese",
+    "balanceSheet": "Bilancio",
+    "features": "Funzionalità",
+    "hierarchicalStructure": "Struttura ad albero gerarchica con nodi pieghevoli",
+    "multiLanguageSupport": "Supporto multilingue (tedesco, francese, italiano, inglese)",
+    "configurableDisplay": "Opzioni di visualizzazione configurabili (mostra/nascondi codici e valori)",
+    "responsiveDesign": "Design responsivo per mobile e desktop",
+    "realTimeAggregation": "Aggregazione dati in tempo reale con TreeAggregator",
+    "noDataSelected": "Seleziona i dati dal browser sopra per visualizzare la tabella gerarchica."
+  },
+  "aboutView": {
+    "title": "Informazioni su questa applicazione",
+    "subtitle": "Esploratore di dati finanziari svizzeri",
+    "description": "Questa applicazione ti permette di esplorare e analizzare i dati finanziari svizzeri in vari formati interattivi.",
+    "features": {
+      "title": "Funzionalità principali",
+      "treeNavigation": "Navigazione ad albero gerarchica per dati finanziari",
+      "tableView": "Vista tabella interattiva con funzionalità drill-down",
+      "dataBrowser": "Browser dati completo per tutte le entità disponibili",
+      "multiLanguage": "Supporto multilingue (DE, FR, IT, EN)",
+      "responsive": "Design responsivo per tutti i dispositivi"
+    },
+    "dataInfo": {
+      "title": "Informazioni sui dati",
+      "description": "L'applicazione utilizza dati finanziari ufficiali svizzeri di comuni e cantoni.",
+      "sources": "Fonti dati: Amministrazione federale delle finanze e uffici statistici cantonali",
+      "coverage": "Copertura: 2015-2023, tutti i comuni e cantoni svizzeri"
+    },
+    "technology": {
+      "title": "Tecnologia",
+      "description": "Costruito con tecnologie web moderne per prestazioni ottimali e esperienza utente.",
+      "frontend": "Frontend: Vue 3, TypeScript, PrimeVue",
+      "testing": "Testing: Vitest, Vue Test Utils",
+      "build": "Build: Vite, ESLint"
+    }
+  },
+  "treeNavigator": {
+    "title": "Albero dati",
+    "loadingTree": "Caricamento struttura ad albero...",
+    "errorLoadingTree": "Errore nel caricamento dell'albero",
+    "searchPlaceholder": "Cerca...",
+    "nodesCount": "nodi",
+    "maxDepth": "profondità max",
+    "source": "fonte",
+    "dimensions": {
+      "bilanz": "Bilancio",
+      "aufwand": "Spese",
+      "ertrag": "Ricavi"
+    }
+  },
+  "languageSelector": {
+    "selectLanguage": "Seleziona lingua",
+    "currentLanguage": "Lingua attuale"
+  },
+  "homeView": {
+    "title": "Navigatore ad albero dei dati finanziari svizzeri",
+    "subtitle": "Esplora le strutture gerarchiche dei dati finanziari per comuni e cantoni svizzeri",
+    "dimensionLabel": "Dimensione:",
+    "dimensions": {
+      "ertrag": "Ricavi (Entrate)",
+      "aufwand": "Spese (Costi)",
+      "bilanz": "Bilancio"
+    },
+    "selectedNode": "Nodo selezionato",
+    "code": "Codice",
+    "searchResults": "Risultati di ricerca",
+    "moreResults": "... e altri {{count}} risultati",
+    "aboutTitle": "Informazioni sulla struttura ad albero",
+    "aboutDescription": "Questo navigatore ad albero mostra la struttura gerarchica dei dati finanziari svizzeri. I dati sono organizzati per codici conto dove i codici più lunghi rappresentano sottocategorie più specifiche di codici più brevi.",
+    "aboutItems": {
+      "ertrag": "Categorie di ricavi e entrate",
+      "aufwand": "Categorie di spese e costi",
+      "bilanz": "Voci di bilancio (attività e passività)"
+    },
+    "aboutFooter": "Ogni nodo mostra il codice conto, le etichette multilingue e i valori disponibili. Utilizza la funzione di ricerca per trovare rapidamente conti o categorie specifiche."
+  }
+}

@@ -271,7 +271,7 @@ describe('TreeAggregator', () => {
           nr: '001',
           gemeinde: 'Test',
           konto: '300',
-          betrag: 150000 // numeric value
+          betrag: '150000' // numeric value
         }
       ];
 

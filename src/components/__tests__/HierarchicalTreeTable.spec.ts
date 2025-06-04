@@ -1,7 +1,96 @@
 import { describe, it, expect, beforeEach, vi, afterEach } from 'vitest';
 import { mount, VueWrapper } from '@vue/test-utils';
+import { createI18n } from 'vue-i18n';
 import HierarchicalTreeTable from '../HierarchicalTreeTable.vue';
 import type { TreeStructure, GdnDataRecord, TreeAggregationResult } from '../../types/DataStructures';
+
+// Create i18n instance for tests
+const i18n = createI18n({
+  legacy: false,
+  locale: 'de',
+  messages: {
+    de: {
+      treeTable: {
+        title: 'Hierarchische Tabelle',
+        expandAll: 'Alle erweitern',
+        collapseAll: 'Alle einklappen',
+        loading: 'Lade Daten...',
+        error: 'Fehler',
+        noData: 'Keine Daten verfügbar',
+        showCodes: 'Codes anzeigen',
+        showValues: 'Werte anzeigen',
+        expand: 'Erweitern',
+        collapse: 'Einklappen',
+        labelColumn: 'Bezeichnung',
+        codeColumn: 'Code',
+        valueColumn: 'Wert',
+        recordsProcessed: '{count} Datensätze verarbeitet',
+        rowsDisplayed: '{count} Zeilen angezeigt',
+        loadedAt: 'geladen {date}'
+      }
+    },
+    fr: {
+      treeTable: {
+        title: 'Tableau hiérarchique',
+        expandAll: 'Tout développer',
+        collapseAll: 'Tout réduire',
+        loading: 'Chargement des données...',
+        error: 'Erreur',
+        noData: 'Aucune donnée disponible',
+        showCodes: 'Afficher les codes',
+        showValues: 'Afficher les valeurs',
+        expand: 'Développer',
+        collapse: 'Réduire',
+        labelColumn: 'Libellé',
+        codeColumn: 'Code',
+        valueColumn: 'Valeur',
+        recordsProcessed: '{count} enregistrements traités',
+        rowsDisplayed: '{count} lignes affichées',
+        loadedAt: 'chargé {date}'
+      }
+    },
+    it: {
+      treeTable: {
+        title: 'Tabella gerarchica',
+        expandAll: 'Espandi tutto',
+        collapseAll: 'Comprimi tutto',
+        loading: 'Caricamento dati...',
+        error: 'Errore',
+        noData: 'Nessun dato disponibile',
+        showCodes: 'Mostra codici',
+        showValues: 'Mostra valori',
+        expand: 'Espandi',
+        collapse: 'Comprimi',
+        labelColumn: 'Denominazione',
+        codeColumn: 'Codice',
+        valueColumn: 'Valore',
+        recordsProcessed: '{count} record elaborati',
+        rowsDisplayed: '{count} righe visualizzate',
+        loadedAt: 'caricato il {date}'
+      }
+    },
+    en: {
+      treeTable: {
+        title: 'Hierarchical Table',
+        expandAll: 'Expand All',
+        collapseAll: 'Collapse All',
+        loading: 'Loading data...',
+        error: 'Error',
+        noData: 'No data available',
+        showCodes: 'Show Codes',
+        showValues: 'Show Values',
+        expand: 'Expand',
+        collapse: 'Collapse',
+        labelColumn: 'Label',
+        codeColumn: 'Code',
+        valueColumn: 'Value',
+        recordsProcessed: '{count} records processed',
+        rowsDisplayed: '{count} rows displayed',
+        loadedAt: 'loaded {date}'
+      }
+    }
+  }
+});
 
 // Mock the DataLoader and TreeAggregator
 vi.mock('../../utils/DataLoader');
@@ -117,7 +206,7 @@ const mockAggregationResult: TreeAggregationResult = {
 };
 
 describe('HierarchicalTreeTable', () => {
-  let wrapper: VueWrapper<any>;
+  let wrapper: VueWrapper;
 
   beforeEach(async () => {
     // Reset all mocks
@@ -147,14 +236,14 @@ describe('HierarchicalTreeTable', () => {
           year: '2023'
         }
       })
-    } as any));
+    } as ReturnType<typeof DataLoader>));
 
     // Mock TreeAggregator
     const { TreeAggregator } = await import('../../utils/TreeAggregator');
     vi.mocked(TreeAggregator).mockImplementation(() => ({
       aggregateGdnData: vi.fn().mockResolvedValue(mockAggregationResult),
       aggregateStdData: vi.fn().mockResolvedValue(mockAggregationResult)
-    } as any));
+    } as ReturnType<typeof TreeAggregator>));
   });
 
   afterEach(() => {
@@ -168,6 +257,9 @@ describe('HierarchicalTreeTable', () => {
       wrapper = mount(HierarchicalTreeTable, {
         props: {
           dataPath: 'gdn/001/2023'
+        },
+        global: {
+          plugins: [i18n]
         }
       });
 
@@ -180,6 +272,9 @@ describe('HierarchicalTreeTable', () => {
         props: {
           dataPath: 'gdn/001/2023',
           title: 'Test Table'
+        },
+        global: {
+          plugins: [i18n]
         }
       });
 
@@ -190,6 +285,9 @@ describe('HierarchicalTreeTable', () => {
       wrapper = mount(HierarchicalTreeTable, {
         props: {
           dataPath: 'gdn/001/2023'
+        },
+        global: {
+          plugins: [i18n]
         }
       });
 
@@ -202,6 +300,9 @@ describe('HierarchicalTreeTable', () => {
       wrapper = mount(HierarchicalTreeTable, {
         props: {
           dataPath: 'gdn/fs/001/2023'
+        },
+        global: {
+          plugins: [i18n]
         }
       });
 
@@ -219,6 +320,9 @@ describe('HierarchicalTreeTable', () => {
       wrapper = mount(HierarchicalTreeTable, {
         props: {
           dataPath: 'std/fs/001/2023'
+        },
+        global: {
+          plugins: [i18n]
         }
       });
 
@@ -237,6 +341,9 @@ describe('HierarchicalTreeTable', () => {
       wrapper = mount(HierarchicalTreeTable, {
         props: {
           dataPath: 'gdn/001/2023'
+        },
+        global: {
+          plugins: [i18n]
         }
       });
 
@@ -245,22 +352,10 @@ describe('HierarchicalTreeTable', () => {
       await wrapper.vm.$nextTick();
     });
 
-    it('should render language selector', () => {
-      const languageSelect = wrapper.find('.controls select');
-      expect(languageSelect.exists()).toBe(true);
-
-      const options = languageSelect.findAll('option');
-      expect(options).toHaveLength(4);
-      expect(options[0].text()).toBe('Deutsch');
-      expect(options[1].text()).toBe('Français');
-      expect(options[2].text()).toBe('Italiano');
-      expect(options[3].text()).toBe('English');
-    });
-
     it('should render expand/collapse button', () => {
       const expandButton = wrapper.find('.expand-button');
       expect(expandButton.exists()).toBe(true);
-      expect(expandButton.text()).toBe('Expand All');
+      expect(expandButton.text()).toBe('Alle erweitern'); // Default locale is 'de'
     });
 
     it('should render show codes checkbox', () => {
@@ -271,12 +366,12 @@ describe('HierarchicalTreeTable', () => {
     it('should toggle expand all when button is clicked', async () => {
       const expandButton = wrapper.find('.expand-button');
 
-      expect(expandButton.text()).toBe('Expand All');
+      expect(expandButton.text()).toBe('Alle erweitern'); // Default locale is 'de'
 
       await expandButton.trigger('click');
       await wrapper.vm.$nextTick();
 
-      expect(expandButton.text()).toBe('Collapse All');
+      expect(expandButton.text()).toBe('Alle einklappen'); // Default locale is 'de'
     });
 
     it('should toggle show codes when checkbox is clicked', async () => {
@@ -296,6 +391,9 @@ describe('HierarchicalTreeTable', () => {
       wrapper = mount(HierarchicalTreeTable, {
         props: {
           dataPath: 'gdn/001/2023'
+        },
+        global: {
+          plugins: [i18n]
         }
       });
 
@@ -339,6 +437,9 @@ describe('HierarchicalTreeTable', () => {
       wrapper = mount(HierarchicalTreeTable, {
         props: {
           dataPath: 'gdn/001/2023'
+        },
+        global: {
+          plugins: [i18n]
         }
       });
 
@@ -366,6 +467,9 @@ describe('HierarchicalTreeTable', () => {
       wrapper = mount(HierarchicalTreeTable, {
         props: {
           dataPath: 'gdn/001/2023'
+        },
+        global: {
+          plugins: [i18n]
         }
       });
 
@@ -396,6 +500,9 @@ describe('HierarchicalTreeTable', () => {
       wrapper = mount(HierarchicalTreeTable, {
         props: {
           dataPath: 'gdn/001/2023'
+        },
+        global: {
+          plugins: [i18n]
         }
       });
 
@@ -405,39 +512,55 @@ describe('HierarchicalTreeTable', () => {
     });
 
     it('should change header labels when language changes', async () => {
-      const languageSelect = wrapper.find('.controls select');
+      // Initial state (de)
+      let headers = wrapper.findAll('.tree-table th');
+      expect(headers[0].text()).toBe('Bezeichnung');
+      expect(headers[1].text()).toBe('Wert');
 
       // Change to French
-      await languageSelect.setValue('fr');
+      i18n.global.locale.value = 'fr';
       await wrapper.vm.$nextTick();
+      // Adding a minimal timeout to ensure DOM updates related to i18n take effect
+      await new Promise(resolve => setTimeout(resolve, 0));
 
-      const headers = wrapper.findAll('.tree-table th');
-      expect(headers[0].text()).toBe('Désignation'); // French label
-      expect(headers[1].text()).toBe('Valeur'); // French value
+      headers = wrapper.findAll('.tree-table th');
+      expect(headers[0].text()).toBe('Libellé');
+      expect(headers[1].text()).toBe('Valeur');
     });
 
-    it('should provide correct header labels for all languages', () => {
+    it('should provide correct header labels for all languages', async () => {
       const getHeaderLabel = wrapper.vm.getHeaderLabel;
 
       // Test German
-      wrapper.vm.config.language = 'de';
+      i18n.global.locale.value = 'de';
+      await wrapper.vm.$nextTick();
+      await new Promise(resolve => setTimeout(resolve, 0));
       expect(getHeaderLabel('label')).toBe('Bezeichnung');
       expect(getHeaderLabel('code')).toBe('Code');
       expect(getHeaderLabel('value')).toBe('Wert');
 
       // Test French
-      wrapper.vm.config.language = 'fr';
-      expect(getHeaderLabel('label')).toBe('Désignation');
+      i18n.global.locale.value = 'fr';
+      await wrapper.vm.$nextTick();
+      await new Promise(resolve => setTimeout(resolve, 0));
+      expect(getHeaderLabel('label')).toBe('Libellé');
+      expect(getHeaderLabel('code')).toBe('Code');
       expect(getHeaderLabel('value')).toBe('Valeur');
 
       // Test Italian
-      wrapper.vm.config.language = 'it';
+      i18n.global.locale.value = 'it';
+      await wrapper.vm.$nextTick();
+      await new Promise(resolve => setTimeout(resolve, 0));
       expect(getHeaderLabel('label')).toBe('Denominazione');
+      expect(getHeaderLabel('code')).toBe('Codice');
       expect(getHeaderLabel('value')).toBe('Valore');
 
       // Test English
-      wrapper.vm.config.language = 'en';
+      i18n.global.locale.value = 'en';
+      await wrapper.vm.$nextTick();
+      await new Promise(resolve => setTimeout(resolve, 0));
       expect(getHeaderLabel('label')).toBe('Label');
+      expect(getHeaderLabel('code')).toBe('Code');
       expect(getHeaderLabel('value')).toBe('Value');
     });
   });
@@ -448,11 +571,14 @@ describe('HierarchicalTreeTable', () => {
       const { DataLoader } = await import('../../utils/DataLoader');
       vi.mocked(DataLoader).mockImplementation(() => ({
         loadGdnData: vi.fn().mockRejectedValue(new Error('Network error'))
-      } as any));
+      } as ReturnType<typeof DataLoader>));
 
       wrapper = mount(HierarchicalTreeTable, {
         props: {
           dataPath: 'gdn/001/2023'
+        },
+        global: {
+          plugins: [i18n]
         }
       });
 
@@ -469,11 +595,14 @@ describe('HierarchicalTreeTable', () => {
       const { DataLoader } = await import('../../utils/DataLoader');
       vi.mocked(DataLoader).mockImplementation(() => ({
         loadGdnData: vi.fn().mockRejectedValue(new Error('Test error'))
-      } as any));
+      } as ReturnType<typeof DataLoader>));
 
       wrapper = mount(HierarchicalTreeTable, {
         props: {
           dataPath: 'gdn/001/2023'
+        },
+        global: {
+          plugins: [i18n]
         }
       });
 
@@ -491,6 +620,9 @@ describe('HierarchicalTreeTable', () => {
       wrapper = mount(HierarchicalTreeTable, {
         props: {
           dataPath: 'gdn/001/2023'
+        },
+        global: {
+          plugins: [i18n]
         }
       });
 

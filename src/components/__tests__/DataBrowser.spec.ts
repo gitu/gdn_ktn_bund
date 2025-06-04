@@ -1,7 +1,66 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest';
 import { mount } from '@vue/test-utils';
+import { createI18n } from 'vue-i18n';
 import DataBrowser from '../DataBrowser.vue';
 import type { StdDataInfo, GdnDataInfo } from '../../types/DataStructures';
+
+// Create i18n instance for tests
+const i18n = createI18n({
+  legacy: false,
+  locale: 'de',
+  messages: {
+    de: {
+      dataBrowser: {
+        title: 'Daten-Browser',
+        searchPlaceholder: 'Suche nach Entitäten, Gemeinden oder Codes...',
+        filters: {
+          dataType: 'Datentyp',
+          yearRange: 'Jahresbereich',
+          yearFrom: 'Von',
+          yearTo: 'Bis'
+        },
+        filterOptions: {
+          all: 'Alle',
+          std: 'Standard',
+          gdn: 'Gemeinden'
+        },
+        viewOptions: {
+          showDescriptions: 'Beschreibungen',
+          showYearRange: 'Jahresbereich'
+        },
+        resultsCount: '{count} von {total} Ergebnissen',
+        loading: 'Lade Daten...',
+        noResults: 'Keine Ergebnisse gefunden',
+        municipalityData: 'Gemeindedaten für {name}'
+      }
+    },
+    fr: {
+      dataBrowser: {
+        title: 'Navigateur de données',
+        searchPlaceholder: 'Rechercher des entités, communes ou codes...',
+        filters: {
+          dataType: 'Type de données',
+          yearRange: 'Plage d\'années',
+          yearFrom: 'De',
+          yearTo: 'À'
+        },
+        filterOptions: {
+          all: 'Tous',
+          std: 'Standard',
+          gdn: 'Communes'
+        },
+        viewOptions: {
+          showDescriptions: 'Descriptions',
+          showYearRange: 'Plage d\'années'
+        },
+        resultsCount: '{count} sur {total} résultats',
+        loading: 'Chargement des données...',
+        noResults: 'Aucun résultat trouvé',
+        municipalityData: 'Données communales pour {name}'
+      }
+    }
+  }
+});
 
 // Mock fetch globally
 global.fetch = vi.fn();
@@ -68,7 +127,7 @@ describe('DataBrowser', () => {
     vi.clearAllMocks();
 
     // Setup fetch mock
-    (global.fetch as any).mockImplementation((url: string) => {
+    (global.fetch as ReturnType<typeof vi.fn>).mockImplementation((url: string) => {
       if (url.includes('std-info.json')) {
         return Promise.resolve({
           ok: true,
@@ -87,12 +146,20 @@ describe('DataBrowser', () => {
 
   describe('Component Mounting and Data Loading', () => {
     it('should mount successfully', () => {
-      const wrapper = mount(DataBrowser);
+      const wrapper = mount(DataBrowser, {
+        global: {
+          plugins: [i18n]
+        }
+      });
       expect(wrapper.exists()).toBe(true);
     });
 
     it('should handle loading state properly', async () => {
-      const wrapper = mount(DataBrowser);
+      const wrapper = mount(DataBrowser, {
+        global: {
+          plugins: [i18n]
+        }
+      });
 
       // Wait for data to load
       await new Promise(resolve => setTimeout(resolve, 150));
@@ -104,7 +171,11 @@ describe('DataBrowser', () => {
     });
 
     it('should load data on mount', async () => {
-      const wrapper = mount(DataBrowser);
+      const wrapper = mount(DataBrowser, {
+        global: {
+          plugins: [i18n]
+        }
+      });
 
       // Wait for data loading
       await new Promise(resolve => setTimeout(resolve, 100));
@@ -115,9 +186,13 @@ describe('DataBrowser', () => {
     });
 
     it('should display error when data loading fails', async () => {
-      (global.fetch as any).mockRejectedValueOnce(new Error('Network error'));
+      (global.fetch as ReturnType<typeof vi.fn>).mockRejectedValueOnce(new Error('Network error'));
 
-      const wrapper = mount(DataBrowser);
+      const wrapper = mount(DataBrowser, {
+        global: {
+          plugins: [i18n]
+        }
+      });
 
       await new Promise(resolve => setTimeout(resolve, 100));
       await wrapper.vm.$nextTick();
@@ -128,10 +203,14 @@ describe('DataBrowser', () => {
   });
 
   describe('Search Functionality', () => {
-    let wrapper: any;
+    let wrapper: ReturnType<typeof mount>;
 
     beforeEach(async () => {
-      wrapper = mount(DataBrowser);
+      wrapper = mount(DataBrowser, {
+        global: {
+          plugins: [i18n]
+        }
+      });
 
       // Wait for data to load
       await new Promise(resolve => setTimeout(resolve, 100));
@@ -155,7 +234,7 @@ describe('DataBrowser', () => {
       expect(resultItems.length).toBeGreaterThan(0);
 
       // Should find the gdn_ag entry
-      const titles = resultItems.map((item: any) => item.find('.result-title').text());
+      const titles = resultItems.map((item) => item.find('.result-title').text());
       expect(titles.some((title: string) => title.includes('Aargau'))).toBe(true);
     });
 
@@ -188,7 +267,7 @@ describe('DataBrowser', () => {
       await wrapper.vm.$nextTick();
 
       const resultItems = wrapper.findAll('.result-item');
-      const titles = resultItems.map((item: any) => item.find('.result-title').text());
+      const titles = resultItems.map((item) => item.find('.result-title').text());
       expect(titles.some((title: string) => title.includes('Affoltern'))).toBe(true);
     });
 
@@ -204,10 +283,14 @@ describe('DataBrowser', () => {
   });
 
   describe('Filtering', () => {
-    let wrapper: any;
+    let wrapper: ReturnType<typeof mount>;
 
     beforeEach(async () => {
-      wrapper = mount(DataBrowser);
+      wrapper = mount(DataBrowser, {
+        global: {
+          plugins: [i18n]
+        }
+      });
 
       // Wait for data to load
       await new Promise(resolve => setTimeout(resolve, 100));
@@ -221,7 +304,7 @@ describe('DataBrowser', () => {
 
       for (const select of selects) {
         const options = select.findAll('option');
-        const hasAllOption = options.some((option: any) =>
+        const hasAllOption = options.some((option) =>
           option.text().includes('Alle') || option.text().includes('All'));
         if (hasAllOption) {
           dataTypeSelect = select;
@@ -235,7 +318,7 @@ describe('DataBrowser', () => {
 
         const resultItems = wrapper.findAll('.result-item');
         if (resultItems.length > 0) {
-          resultItems.forEach((item: any) => {
+          resultItems.forEach((item) => {
             expect(item.find('.result-type').text()).toBe('STD');
           });
         }
@@ -260,7 +343,7 @@ describe('DataBrowser', () => {
     });
 
     it('should filter by models', async () => {
-      const modelCheckboxes = wrapper.findAll('input[type="checkbox"]').filter((checkbox: any) => {
+      const modelCheckboxes = wrapper.findAll('input[type="checkbox"]').filter((checkbox) => {
         const label = checkbox.element.parentElement?.textContent;
         return label && (label.includes('FS') || label.includes('GFS'));
       });
@@ -277,51 +360,56 @@ describe('DataBrowser', () => {
   });
 
   describe('Language Support', () => {
-    let wrapper: any;
-
-    beforeEach(async () => {
-      wrapper = mount(DataBrowser);
+    it('should use global i18n language settings', async () => {
+      // Test with German (default)
+      const wrapper = mount(DataBrowser, {
+        global: {
+          plugins: [i18n]
+        }
+      });
 
       // Wait for data to load
       await new Promise(resolve => setTimeout(resolve, 100));
       await wrapper.vm.$nextTick();
+
+      // Check if search placeholder is in German
+      const searchInput = wrapper.find('.search-input');
+      expect(searchInput.attributes('placeholder')).toContain('Suche');
     });
 
-    it('should change language when language selector is used', async () => {
-      const languageSelect = wrapper.find('.controls select');
+    it('should update display when global language changes', async () => {
+      const wrapper = mount(DataBrowser, {
+        global: {
+          plugins: [i18n]
+        }
+      });
 
-      await languageSelect.setValue('fr');
+      // Wait for data to load
+      await new Promise(resolve => setTimeout(resolve, 100));
+      await wrapper.vm.$nextTick();
+
+      // Change global language to French
+      i18n.global.locale.value = 'fr';
       await wrapper.vm.$nextTick();
 
       // Check if search placeholder changed to French
       const searchInput = wrapper.find('.search-input');
       expect(searchInput.attributes('placeholder')).toContain('Rechercher');
-    });
 
-    it('should update entity display names when language changes', async () => {
-      const languageSelect = wrapper.find('.controls select');
-
-      // Change to French
-      await languageSelect.setValue('fr');
-      await wrapper.vm.$nextTick();
-
-      const resultItems = wrapper.findAll('.result-item');
-      if (resultItems.length > 0) {
-        // Should show French translations for entity names
-        const titles = resultItems.map((item: any) => item.find('.result-title').text());
-        // At least one title should contain French terms
-        expect(titles.some((title: string) =>
-          title.includes('Communes') || title.includes('Confédération')
-        )).toBe(true);
-      }
+      // Reset to German for other tests
+      i18n.global.locale.value = 'de';
     });
   });
 
   describe('Semantic Mapping', () => {
-    let wrapper: any;
+    let wrapper: ReturnType<typeof mount>;
 
     beforeEach(async () => {
-      wrapper = mount(DataBrowser);
+      wrapper = mount(DataBrowser, {
+        global: {
+          plugins: [i18n]
+        }
+      });
 
       // Wait for data to load
       await new Promise(resolve => setTimeout(resolve, 100));
@@ -330,7 +418,7 @@ describe('DataBrowser', () => {
 
     it('should display semantic names for entity codes', async () => {
       const resultItems = wrapper.findAll('.result-item');
-      const titles = resultItems.map((item: any) => item.find('.result-title').text());
+      const titles = resultItems.map((item) => item.find('.result-title').text());
 
       // Should show "Gemeinden Aargau" instead of "gdn_ag"
       expect(titles.some((title: string) => title.includes('Aargau'))).toBe(true);
@@ -341,7 +429,7 @@ describe('DataBrowser', () => {
 
     it('should show descriptive text for entities', async () => {
       // Enable descriptions
-      const descriptionCheckbox = wrapper.findAll('input[type="checkbox"]').find((checkbox: any) => {
+      const descriptionCheckbox = wrapper.findAll('input[type="checkbox"]').find((checkbox) => {
         const label = checkbox.element.parentElement?.textContent;
         return label && label.includes('Beschreibungen');
       });
@@ -354,7 +442,7 @@ describe('DataBrowser', () => {
         expect(descriptions.length).toBeGreaterThan(0);
 
         // Should contain descriptive text
-        const descriptionTexts = descriptions.map((desc: any) => desc.text());
+        const descriptionTexts = descriptions.map((desc) => desc.text());
         expect(descriptionTexts.some((text: string) =>
           text.includes('Gemeinden') || text.includes('Sozialversicherung')
         )).toBe(true);
@@ -363,10 +451,14 @@ describe('DataBrowser', () => {
   });
 
   describe('Result Selection', () => {
-    let wrapper: any;
+    let wrapper: ReturnType<typeof mount>;
 
     beforeEach(async () => {
-      wrapper = mount(DataBrowser);
+      wrapper = mount(DataBrowser, {
+        global: {
+          plugins: [i18n]
+        }
+      });
 
       // Wait for data to load
       await new Promise(resolve => setTimeout(resolve, 100));
@@ -409,6 +501,9 @@ describe('DataBrowser', () => {
       const wrapper = mount(DataBrowser, {
         props: {
           maxResultsPerPage: 2
+        },
+        global: {
+          plugins: [i18n]
         }
       });
 

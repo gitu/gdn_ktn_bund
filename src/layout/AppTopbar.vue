@@ -1,12 +1,11 @@
 <script setup lang="ts">
 import { useLayout } from '@/layout/composables/layout';
-import { useLanguage } from '@/composables/useLanguage';
-import { translations } from '@/utils/i18n';
+import { useI18n } from 'vue-i18n';
 import AppConfigurator from './AppConfigurator.vue';
 import LanguageSelector from '@/components/LanguageSelector.vue';
 
 const { toggleMenu, toggleDarkMode, isDarkTheme } = useLayout();
-const { getTranslation } = useLanguage();
+const { t } = useI18n();
 </script>
 
 <template>
@@ -67,15 +66,15 @@ const { getTranslation } = useLanguage();
                 <div class="layout-topbar-menu-content">
                     <button type="button" class="layout-topbar-action">
                         <i class="pi pi-calendar"></i>
-                        <span>{{ getTranslation(translations.navigation.calendar) }}</span>
+                        <span>{{ t('navigation.calendar') }}</span>
                     </button>
                     <button type="button" class="layout-topbar-action">
                         <i class="pi pi-inbox"></i>
-                        <span>{{ getTranslation(translations.navigation.messages) }}</span>
+                        <span>{{ t('navigation.messages') }}</span>
                     </button>
                     <button type="button" class="layout-topbar-action">
                         <i class="pi pi-user"></i>
-                        <span>{{ getTranslation(translations.navigation.profile) }}</span>
+                        <span>{{ t('navigation.profile') }}</span>
                     </button>
                 </div>
             </div>

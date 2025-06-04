@@ -164,7 +164,7 @@ export function createMockFetchResponse(data: unknown, ok = true, status = 200) 
 /**
  * Setup fetch mock for tree structure loading
  */
-export function setupTreeStructureMock(mockFetch: any, treeStructures: Record<string, unknown>) {
+export function setupTreeStructureMock(mockFetch: ReturnType<typeof vi.fn>, treeStructures: Record<string, unknown>) {
   mockFetch.mockImplementation((url: string) => {
     const filename = url.split('/').pop();
     const key = filename?.replace('-tree.json', '') || '';
@@ -180,7 +180,7 @@ export function setupTreeStructureMock(mockFetch: any, treeStructures: Record<st
 /**
  * Assert aggregated data structure
  */
-export function assertAggregatedDataStructure(data: any[]) {
+export function assertAggregatedDataStructure(data: unknown[]) {
   expect(Array.isArray(data)).toBe(true);
 
   data.forEach(item => {
@@ -197,7 +197,7 @@ export function assertAggregatedDataStructure(data: any[]) {
 /**
  * Assert tree aggregation result structure
  */
-export function assertTreeAggregationResult(result: any) {
+export function assertTreeAggregationResult(result: unknown) {
   expect(result).toHaveProperty('aggregatedData');
   expect(result).toHaveProperty('metadata');
   expect(Array.isArray(result.aggregatedData)).toBe(true);

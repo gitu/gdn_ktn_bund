@@ -118,7 +118,7 @@ export interface NavigationTreeNode {
 /**
  * Data loading result
  */
-export interface DataLoadingResult<T = any> {
+export interface DataLoadingResult<T = Record<string, unknown>> {
   data: T[];
   metadata: {
     source: string;

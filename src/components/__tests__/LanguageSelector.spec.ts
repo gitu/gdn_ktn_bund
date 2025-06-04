@@ -1,43 +1,59 @@
-import { describe, it, expect, beforeEach, vi } from 'vitest';
+import { describe, it, expect, beforeEach } from 'vitest';
 import { mount } from '@vue/test-utils';
-import { computed } from 'vue';
+import { createI18n } from 'vue-i18n';
 import LanguageSelector from '../LanguageSelector.vue';
-import { useLanguage, type SupportedLanguage } from '@/composables/useLanguage';
 
-// Mock the useLanguage composable
-vi.mock('@/composables/useLanguage', () => ({
-  useLanguage: vi.fn()
-}));
+// Create i18n instance for tests
+const i18n = createI18n({
+  legacy: false,
+  locale: 'de',
+  messages: {
+    de: {
+      languageSelector: {
+        selectLanguage: 'Sprache auswählen',
+        currentLanguage: 'Aktuelle Sprache'
+      }
+    },
+    en: {
+      languageSelector: {
+        selectLanguage: 'Select language',
+        currentLanguage: 'Current language'
+      }
+    },
+    fr: {
+      languageSelector: {
+        selectLanguage: 'Sélectionner la langue',
+        currentLanguage: 'Langue actuelle'
+      }
+    },
+    it: {
+      languageSelector: {
+        selectLanguage: 'Seleziona lingua',
+        currentLanguage: 'Lingua attuale'
+      }
+    }
+  }
+});
 
-const mockUseLanguage = vi.mocked(useLanguage);
+// Helper function to mount component with i18n
+const mountComponent = (options = {}) => {
+  return mount(LanguageSelector, {
+    global: {
+      plugins: [i18n]
+    },
+    ...options
+  });
+};
 
 describe('LanguageSelector', () => {
-  const mockLanguageComposable = {
-    currentLanguage: computed(() => 'de' as SupportedLanguage),
-    currentLanguageOption: computed(() => ({
-      code: 'de' as const,
-      label: 'German',
-      nativeLabel: 'Deutsch'
-    })),
-    availableLanguages: [
-      { code: 'de' as SupportedLanguage, label: 'German', nativeLabel: 'Deutsch' },
-      { code: 'en' as SupportedLanguage, label: 'English', nativeLabel: 'English' },
-      { code: 'fr' as SupportedLanguage, label: 'French', nativeLabel: 'Français' },
-      { code: 'it' as SupportedLanguage, label: 'Italian', nativeLabel: 'Italiano' }
-    ],
-    setLanguage: vi.fn(),
-    getTranslation: vi.fn((translations) => translations.de || 'Default'),
-    isLanguageSupported: vi.fn((language: string): language is SupportedLanguage => ['de', 'en', 'fr', 'it'].includes(language))
-  };
-
   beforeEach(() => {
-    vi.clearAllMocks();
-    mockUseLanguage.mockReturnValue(mockLanguageComposable as unknown as ReturnType<typeof useLanguage>);
+    // Reset i18n locale before each test
+    i18n.global.locale.value = 'de';
   });
 
   describe('rendering', () => {
     it('should render the language selector trigger button', () => {
-      const wrapper = mount(LanguageSelector);
+      const wrapper = mountComponent();
 
       const trigger = wrapper.find('.language-trigger');
       expect(trigger.exists()).toBe(true);
@@ -47,14 +63,14 @@ describe('LanguageSelector', () => {
     });
 
     it('should not show dropdown initially', () => {
-      const wrapper = mount(LanguageSelector);
+      const wrapper = mountComponent();
 
       const dropdown = wrapper.find('.language-dropdown');
       expect(dropdown.isVisible()).toBe(false);
     });
 
     it('should have proper accessibility attributes', () => {
-      const wrapper = mount(LanguageSelector);
+      const wrapper = mountComponent();
 
       const trigger = wrapper.find('.language-trigger');
       expect(trigger.attributes('aria-expanded')).toBe('false');
@@ -65,7 +81,7 @@ describe('LanguageSelector', () => {
 
   describe('dropdown interaction', () => {
     it('should open dropdown when trigger is clicked', async () => {
-      const wrapper = mount(LanguageSelector);
+      const wrapper = mountComponent();
 
       const trigger = wrapper.find('.language-trigger');
       await trigger.trigger('click');
@@ -76,7 +92,7 @@ describe('LanguageSelector', () => {
     });
 
     it('should close dropdown when trigger is clicked again', async () => {
-      const wrapper = mount(LanguageSelector);
+      const wrapper = mountComponent();
 
       const trigger = wrapper.find('.language-trigger');
       await trigger.trigger('click');
@@ -88,7 +104,7 @@ describe('LanguageSelector', () => {
     });
 
     it('should close dropdown when backdrop is clicked', async () => {
-      const wrapper = mount(LanguageSelector);
+      const wrapper = mountComponent();
 
       const trigger = wrapper.find('.language-trigger');
       await trigger.trigger('click');
@@ -101,7 +117,7 @@ describe('LanguageSelector', () => {
     });
 
     it('should close dropdown when escape key is pressed', async () => {
-      const wrapper = mount(LanguageSelector);
+      const wrapper = mountComponent();
 
       const trigger = wrapper.find('.language-trigger');
       await trigger.trigger('click');
@@ -114,7 +130,7 @@ describe('LanguageSelector', () => {
 
   describe('language options', () => {
     it('should render all available language options', async () => {
-      const wrapper = mount(LanguageSelector);
+      const wrapper = mountComponent();
 
       const trigger = wrapper.find('.language-trigger');
       await trigger.trigger('click');
@@ -129,7 +145,7 @@ describe('LanguageSelector', () => {
     });
 
     it('should mark current language as active', async () => {
-      const wrapper = mount(LanguageSelector);
+      const wrapper = mountComponent();
 
       const trigger = wrapper.find('.language-trigger');
       await trigger.trigger('click');
@@ -139,8 +155,8 @@ describe('LanguageSelector', () => {
       expect(options[0].find('.pi-check').exists()).toBe(true);
     });
 
-    it('should call setLanguage when option is clicked', async () => {
-      const wrapper = mount(LanguageSelector);
+    it('should change language when option is clicked', async () => {
+      const wrapper = mountComponent();
 
       const trigger = wrapper.find('.language-trigger');
       await trigger.trigger('click');
@@ -148,11 +164,12 @@ describe('LanguageSelector', () => {
       const frenchOption = wrapper.findAll('.language-option')[2];
       await frenchOption.trigger('click');
 
-      expect(mockLanguageComposable.setLanguage).toHaveBeenCalledWith('fr');
+      // Check that the locale was changed
+      expect(i18n.global.locale.value).toBe('fr');
     });
 
     it('should close dropdown after selecting language', async () => {
-      const wrapper = mount(LanguageSelector);
+      const wrapper = mountComponent();
 
       const trigger = wrapper.find('.language-trigger');
       await trigger.trigger('click');
@@ -167,7 +184,7 @@ describe('LanguageSelector', () => {
 
   describe('accessibility', () => {
     it('should have proper ARIA attributes on dropdown', async () => {
-      const wrapper = mount(LanguageSelector);
+      const wrapper = mountComponent();
 
       const trigger = wrapper.find('.language-trigger');
       await trigger.trigger('click');
@@ -177,7 +194,7 @@ describe('LanguageSelector', () => {
     });
 
     it('should have proper ARIA attributes on options', async () => {
-      const wrapper = mount(LanguageSelector);
+      const wrapper = mountComponent();
 
       const trigger = wrapper.find('.language-trigger');
       await trigger.trigger('click');
@@ -190,7 +207,7 @@ describe('LanguageSelector', () => {
     });
 
     it('should manage tabindex correctly', async () => {
-      const wrapper = mount(LanguageSelector);
+      const wrapper = mountComponent();
 
       const trigger = wrapper.find('.language-trigger');
       await trigger.trigger('click');
@@ -204,7 +221,7 @@ describe('LanguageSelector', () => {
 
   describe('responsive behavior', () => {
     it('should render language flags', async () => {
-      const wrapper = mount(LanguageSelector);
+      const wrapper = mountComponent();
 
       const trigger = wrapper.find('.language-trigger');
       await trigger.trigger('click');
@@ -217,7 +234,7 @@ describe('LanguageSelector', () => {
     });
 
     it('should show language code in trigger', () => {
-      const wrapper = mount(LanguageSelector);
+      const wrapper = mountComponent();
 
       const languageCode = wrapper.find('.language-code');
       expect(languageCode.text()).toBe('DE');
@@ -226,11 +243,9 @@ describe('LanguageSelector', () => {
 
   describe('error handling', () => {
     it('should handle missing translations gracefully', () => {
-      mockLanguageComposable.getTranslation.mockReturnValue('');
+      const wrapper = mountComponent();
 
-      const wrapper = mount(LanguageSelector);
-
-      // Should not throw error even with empty translations
+      // Should not throw error even with missing translations
       expect(wrapper.exists()).toBe(true);
     });
   });

@@ -12,7 +12,7 @@
       :aria-label="getAriaLabel()"
     >
       <i class="pi pi-globe"></i>
-      <span class="language-code">{{ currentLanguageOption.code.toUpperCase() }}</span>
+      <span class="language-code">{{ $i18n.locale.toUpperCase() }}</span>
       <i class="pi pi-chevron-down dropdown-icon" :class="{ 'rotate-180': isOpen }"></i>
     </button>
 
@@ -29,24 +29,24 @@
       @keydown.space.prevent="selectFocusedOption"
     >
       <button
-        v-for="(option, index) in availableLanguages"
-        :key="option.code"
+        v-for="(locale, index) in $i18n.availableLocales"
+        :key="locale"
         ref="optionButtons"
         type="button"
         class="language-option"
         :class="{
-          'active': option.code === currentLanguage,
+          'active': locale === $i18n.locale,
           'focused': focusedIndex === index
         }"
         role="menuitem"
         :tabindex="focusedIndex === index ? 0 : -1"
-        @click="selectLanguage(option.code)"
+        @click="selectLanguage(locale as SupportedLanguage)"
         @mouseenter="focusedIndex = index"
-        :aria-label="getOptionAriaLabel(option)"
+        :aria-label="getOptionAriaLabel(locale)"
       >
-        <span class="language-flag">{{ getLanguageFlag(option.code) }}</span>
-        <span class="language-name">{{ option.nativeLabel }}</span>
-        <i v-if="option.code === currentLanguage" class="pi pi-check check-icon"></i>
+        <span class="language-flag">{{ getLanguageFlag(locale as SupportedLanguage) }}</span>
+        <span class="language-name">{{ getLanguageNativeName(locale as SupportedLanguage) }}</span>
+        <i v-if="locale === $i18n.locale" class="pi pi-check check-icon"></i>
       </button>
     </div>
 
@@ -60,17 +60,15 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, nextTick, onMounted, onUnmounted } from 'vue';
-import { useLanguage, type SupportedLanguage } from '@/composables/useLanguage';
+import { ref, nextTick, onMounted, onUnmounted } from 'vue';
+import { useI18n } from 'vue-i18n';
+import i18n from "@/i18n";
 
-// Language composable
-const {
-  currentLanguage,
-  currentLanguageOption,
-  availableLanguages,
-  setLanguage,
-  getTranslation
-} = useLanguage();
+// Define supported languages type
+type SupportedLanguage = 'de' | 'en' | 'fr' | 'it';
+
+// Vue i18n
+const { locale, availableLocales, t } = useI18n();
 
 // Component state
 const isOpen = ref(false);
@@ -82,28 +80,19 @@ const optionButtons = ref<HTMLButtonElement[]>([]);
 // Generate unique ID for accessibility
 const triggerId = `language-trigger-${Math.random().toString(36).substr(2, 9)}`;
 
-// Translations for the component
-const translations = {
-  selectLanguage: {
-    de: 'Sprache auswählen',
-    en: 'Select language',
-    fr: 'Sélectionner la langue',
-    it: 'Seleziona lingua'
-  },
-  currentLanguage: {
-    de: 'Aktuelle Sprache',
-    en: 'Current language',
-    fr: 'Langue actuelle',
-    it: 'Lingua attuale'
-  }
-};
-
-// Language flag emojis
+// Language configuration
 const languageFlags: Record<SupportedLanguage, string> = {
   de: 'DE',
   en: 'EN',
   fr: 'FR',
   it: 'IT'
+};
+
+const languageNativeNames: Record<SupportedLanguage, string> = {
+  de: 'Deutsch',
+  en: 'English',
+  fr: 'Français',
+  it: 'Italiano'
 };
 
 // Methods
@@ -117,7 +106,7 @@ const toggleDropdown = (): void => {
 
 const openDropdown = async (): Promise<void> => {
   isOpen.value = true;
-  focusedIndex.value = availableLanguages.findIndex(opt => opt.code === currentLanguage.value);
+  focusedIndex.value = availableLocales.findIndex(loc => loc === locale.value);
 
   await nextTick();
 
@@ -134,7 +123,9 @@ const closeDropdown = (): void => {
 };
 
 const selectLanguage = (language: SupportedLanguage): void => {
-  setLanguage(language);
+  // Update both the global i18n locale and the local reactive locale
+  (i18n.global.locale as unknown as { value: string }).value = language;
+  locale.value = language;
   closeDropdown();
 };
 
@@ -151,7 +142,7 @@ const focusPreviousOption = (): void => {
 };
 
 const focusNextOption = (): void => {
-  if (focusedIndex.value < availableLanguages.length - 1) {
+  if (focusedIndex.value < availableLocales.length - 1) {
     focusedIndex.value++;
     optionButtons.value[focusedIndex.value]?.focus();
   }
@@ -159,8 +150,8 @@ const focusNextOption = (): void => {
 
 const selectFocusedOption = (): void => {
   if (focusedIndex.value >= 0) {
-    const option = availableLanguages[focusedIndex.value];
-    selectLanguage(option.code);
+    const selectedLocale = availableLocales[focusedIndex.value] as SupportedLanguage;
+    selectLanguage(selectedLocale);
   }
 };
 
@@ -168,15 +159,21 @@ const getLanguageFlag = (code: SupportedLanguage): string => {
   return languageFlags[code] || '🌐';
 };
 
-const getAriaLabel = (): string => {
-  const selectText = getTranslation(translations.selectLanguage);
-  const currentText = getTranslation(translations.currentLanguage);
-  return `${selectText}. ${currentText}: ${currentLanguageOption.value.nativeLabel}`;
+const getLanguageNativeName = (code: SupportedLanguage): string => {
+  return languageNativeNames[code] || code;
 };
 
-const getOptionAriaLabel = (option: typeof availableLanguages[0]): string => {
-  const isSelected = option.code === currentLanguage.value;
-  return `${option.nativeLabel}${isSelected ? ' (selected)' : ''}`;
+const getAriaLabel = (): string => {
+  const selectText = t('languageSelector.selectLanguage');
+  const currentText = t('languageSelector.currentLanguage');
+  const currentName = getLanguageNativeName(locale.value as SupportedLanguage);
+  return `${selectText}. ${currentText}: ${currentName}`;
+};
+
+const getOptionAriaLabel = (localeCode: string): string => {
+  const isSelected = localeCode === locale.value;
+  const nativeName = getLanguageNativeName(localeCode as SupportedLanguage);
+  return `${nativeName}${isSelected ? ' (selected)' : ''}`;
 };
 
 // Handle clicks outside the dropdown
