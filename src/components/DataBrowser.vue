@@ -143,7 +143,7 @@ import { useI18n } from 'vue-i18n';
 import type {
   StdDataInfo,
   GdnDataInfo,
-  DataBrowserSearchResult,
+  AvailableDataEntry,
   DataBrowserFilters,
   DataBrowserConfig,
   MultiLanguageLabels
@@ -162,7 +162,7 @@ const props = withDefaults(defineProps<Props>(), {
 });
 
 const emit = defineEmits<{
-  resultSelected: [result: DataBrowserSearchResult];
+  resultSelected: [result: AvailableDataEntry];
   error: [error: string];
 }>();
 
@@ -174,7 +174,7 @@ const loading = ref(false);
 const error = ref<string | null>(null);
 const stdData = ref<StdDataInfo[]>([]);
 const gdnData = ref<GdnDataInfo[]>([]);
-const searchResults = ref<DataBrowserSearchResult[]>([]);
+const searchResults = ref<AvailableDataEntry[]>([]);
 const currentPage = ref(1);
 
 // Configuration (removed language since it's now handled by i18n)
@@ -198,13 +198,13 @@ const filteredResults = computed(() => {
 
   // Apply data type filter
   if (filters.value.dataType !== 'all') {
-    results = results.filter(result => result.type === filters.value.dataType);
+    results = results.filter((result: AvailableDataEntry) => result.type === filters.value.dataType);
   }
 
   // Apply year range filter
   if (filters.value.yearRange.start || filters.value.yearRange.end) {
-    results = results.filter(result => {
-      const years = result.availableYears.map(y => parseInt(y));
+    results = results.filter((result: AvailableDataEntry) => {
+      const years = result.availableYears.map((y: string) => parseInt(y));
       const minYear = Math.min(...years);
       const maxYear = Math.max(...years);
 
@@ -259,7 +259,7 @@ const loadData = async () => {
 };
 
 const processDataIntoResults = () => {
-  const results: DataBrowserSearchResult[] = [];
+  const results: AvailableDataEntry[] = [];
 
   // Process STD data - only include 'fs' model data
   stdData.value.forEach(entry => {
@@ -327,7 +327,7 @@ const performSearch = () => {
   }
 
   const query = filters.value.searchQuery.toLowerCase();
-  searchResults.value = searchResults.value.filter(result => {
+  searchResults.value = searchResults.value.filter((result: AvailableDataEntry) => {
     // Search in display name
     const displayName = result.displayName[locale.value as keyof MultiLanguageLabels].toLowerCase();
     if (displayName.includes(query)) return true;
@@ -356,7 +356,7 @@ const handleFilterChange = () => {
   currentPage.value = 1;
 };
 
-const selectResult = (result: DataBrowserSearchResult) => {
+const selectResult = (result: AvailableDataEntry) => {
   emit('resultSelected', result);
 };
 
@@ -394,315 +394,8 @@ defineExpose({
   loadData,
   clearSearch,
   selectResult: (id: string) => {
-    const result = searchResults.value.find(r => r.id === id);
+    const result = searchResults.value.find((r: AvailableDataEntry) => r.id === id);
     if (result) selectResult(result);
   }
 });
 </script>
-
-<style scoped>
-.data-browser {
-  width: 100%;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  background: #fff;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-}
-
-.browser-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1rem 1.5rem;
-  border-bottom: 1px solid #e5e7eb;
-  background: #f9fafb;
-  border-radius: 8px 8px 0 0;
-}
-
-.browser-header h3 {
-  margin: 0;
-  color: #1f2937;
-  font-size: 1.25rem;
-  font-weight: 600;
-}
-
-.controls select {
-  padding: 0.5rem;
-  border: 1px solid #d1d5db;
-  border-radius: 4px;
-  background: white;
-  font-size: 0.875rem;
-}
-
-.search-section {
-  padding: 1.5rem;
-  border-bottom: 1px solid #e5e7eb;
-}
-
-.search-input-group {
-  position: relative;
-  margin-bottom: 1rem;
-}
-
-.search-input {
-  width: 100%;
-  padding: 0.75rem 1rem;
-  border: 2px solid #d1d5db;
-  border-radius: 8px;
-  font-size: 1rem;
-  transition: border-color 0.2s;
-}
-
-.search-input:focus {
-  outline: none;
-  border-color: #3b82f6;
-  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
-}
-
-.clear-button {
-  position: absolute;
-  right: 0.75rem;
-  top: 50%;
-  transform: translateY(-50%);
-  background: #6b7280;
-  color: white;
-  border: none;
-  border-radius: 50%;
-  width: 1.5rem;
-  height: 1.5rem;
-  cursor: pointer;
-  font-size: 1rem;
-  line-height: 1;
-}
-
-.clear-button:hover {
-  background: #4b5563;
-}
-
-.filter-controls {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 1rem;
-}
-
-.filter-group {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
-
-.filter-group label {
-  font-weight: 500;
-  color: #374151;
-  font-size: 0.875rem;
-}
-
-.filter-group select {
-  padding: 0.5rem;
-  border: 1px solid #d1d5db;
-  border-radius: 4px;
-  background: white;
-}
-
-.checkbox-group {
-  display: flex;
-  gap: 1rem;
-  flex-wrap: wrap;
-}
-
-.checkbox-label {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-size: 0.875rem;
-  cursor: pointer;
-}
-
-.checkbox-label input[type="checkbox"] {
-  margin: 0;
-}
-
-.year-range {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-.year-input {
-  width: 80px;
-  padding: 0.5rem;
-  border: 1px solid #d1d5db;
-  border-radius: 4px;
-  text-align: center;
-}
-
-.results-section {
-  padding: 1.5rem;
-}
-
-.results-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 1rem;
-  flex-wrap: wrap;
-  gap: 1rem;
-}
-
-.results-count {
-  font-weight: 500;
-  color: #6b7280;
-}
-
-.view-options {
-  display: flex;
-  gap: 1rem;
-  flex-wrap: wrap;
-}
-
-.loading, .error, .no-results {
-  text-align: center;
-  padding: 2rem;
-  color: #6b7280;
-}
-
-.error {
-  color: #dc2626;
-  background: #fef2f2;
-  border: 1px solid #fecaca;
-  border-radius: 4px;
-}
-
-.results-list {
-  display: grid;
-  gap: 0.75rem;
-}
-
-.result-item {
-  padding: 1rem;
-  border: 1px solid #e5e7eb;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: all 0.2s;
-  background: white;
-}
-
-.result-item:hover {
-  border-color: #3b82f6;
-  box-shadow: 0 2px 8px rgba(59, 130, 246, 0.1);
-}
-
-.std-item {
-  border-left: 4px solid #10b981;
-}
-
-.gdn-item {
-  border-left: 4px solid #f59e0b;
-}
-
-.result-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  margin-bottom: 0.5rem;
-}
-
-.result-title {
-  margin: 0;
-  font-size: 1rem;
-  font-weight: 600;
-  color: #1f2937;
-  flex: 1;
-}
-
-.result-type {
-  background: #f3f4f6;
-  color: #6b7280;
-  padding: 0.25rem 0.5rem;
-  border-radius: 4px;
-  font-size: 0.75rem;
-  font-weight: 500;
-  margin-left: 1rem;
-}
-
-.result-description {
-  color: #6b7280;
-  font-size: 0.875rem;
-  margin-bottom: 0.5rem;
-  line-height: 1.4;
-}
-
-.result-metadata {
-  display: flex;
-  gap: 1rem;
-  flex-wrap: wrap;
-  font-size: 0.75rem;
-  color: #9ca3af;
-}
-
-.result-metadata span {
-  background: #f9fafb;
-  padding: 0.25rem 0.5rem;
-  border-radius: 4px;
-}
-
-.pagination {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 1rem;
-  margin-top: 1.5rem;
-  padding-top: 1rem;
-  border-top: 1px solid #e5e7eb;
-}
-
-.pagination-button {
-  padding: 0.5rem 0.75rem;
-  border: 1px solid #d1d5db;
-  border-radius: 4px;
-  background: white;
-  cursor: pointer;
-  font-size: 1rem;
-  transition: all 0.2s;
-}
-
-.pagination-button:hover:not(:disabled) {
-  background: #f3f4f6;
-  border-color: #9ca3af;
-}
-
-.pagination-button:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-}
-
-.page-info {
-  font-weight: 500;
-  color: #6b7280;
-}
-
-@media (max-width: 768px) {
-  .filter-controls {
-    grid-template-columns: 1fr;
-  }
-
-  .results-header {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .view-options {
-    width: 100%;
-  }
-
-  .result-header {
-    flex-direction: column;
-    gap: 0.5rem;
-  }
-
-  .result-type {
-    margin-left: 0;
-    align-self: flex-start;
-  }
-}
-</style>

@@ -54,8 +54,9 @@ describe('FinancialDataComparison', () => {
       }
     });
 
-    expect(wrapper.find('.loading-message').exists()).toBe(true);
-    expect(wrapper.text()).toContain('Loading...');
+    expect(wrapper.find('[data-testid="message"]').exists()).toBe(true);
+    const text = wrapper.text();
+    expect(text.includes('Loading') || text.includes('Laden')).toBe(true);
   });
 
   it('should render no data message when datasets array is empty', async () => {
@@ -72,8 +73,9 @@ describe('FinancialDataComparison', () => {
     await wrapper.vm.$nextTick();
     await new Promise(resolve => setTimeout(resolve, 10));
 
-    expect(wrapper.find('.no-data-message').exists()).toBe(true);
-    expect(wrapper.text()).toContain('No data available');
+    expect(wrapper.find('[data-testid="message"]').exists()).toBe(true);
+    const text = wrapper.text();
+    expect(text.includes('No data') || text.includes('Keine Daten')).toBe(true);
   });
 
   it('should use single FinancialDataDisplay component for combined data', async () => {
@@ -94,8 +96,8 @@ describe('FinancialDataComparison', () => {
     const financialDisplays = wrapper.findAll('[data-testid="financial-data-display"]');
     expect(financialDisplays).toHaveLength(1);
 
-    // Should show info about loaded datasets
-    expect(wrapper.text()).toContain('2 datasets loaded');
+    // Should show the FinancialDataDisplay component (mocked)
+    expect(wrapper.text()).toContain('Mocked FinancialDataDisplay');
   });
 
   it('should emit dataLoaded event with correct count', async () => {

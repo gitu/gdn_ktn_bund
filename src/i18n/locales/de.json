@@ -232,10 +232,25 @@
     "filteredCategories": "Angezeigt: Bilanz, Ertrag, Aufwand",
     "parseError": "Ungültiges Datensatzformat: {dataset}",
     "aggregationError": "Fehler bei der Datenaggregation für {dataset}",
-    "noValidData": "Keine gültigen Daten in den Datensätzen gefunden"
+    "noValidData": "Keine gültigen Daten in den Datensätzen gefunden",
+    "comparisonResults": "Vergleichsergebnisse",
+    "comparisonDescription": "Vergleich von {count} ausgewählten Datensätzen",
+    "demoTitle": "Demo-Vergleich",
+    "demoResults": "Demo-Ergebnisse",
+    "demoDescription": "Dieses Beispiel vergleicht drei Datensätze aus 2016:",
+    "demoDataset1": "Gemeinde 010002",
+    "demoDataset1Description": "Spezifische Gemeindedaten",
+    "demoDataset2": "Gemeinde 010009",
+    "demoDataset2Description": "Weitere spezifische Gemeindedaten",
+    "demoDataset3": "Kanton Zürich (gdn_zh)",
+    "demoDataset3Description": "Alle Gemeinden im Kanton Zürich",
+    "loadDemoData": "Demo-Daten laden",
+    "openFullView": "Vollansicht öffnen",
+    "openFullViewTooltip": "Öffnet die aktuelle Vergleichsansicht in einem dedizierten Vollbildmodus"
   },
   "financialDataDisplay": {
     "title": "Finanzdaten-Anzeige",
+    "financialData": "Finanzdaten",
     "balanceSheet": "Bilanz",
     "incomeStatement": "Erfolgsrechnung",
     "loading": "Lade Finanzdaten...",
@@ -272,5 +287,58 @@
       "missingIncomeStatement": "Erfolgsrechnung fehlt",
       "processingError": "Fehler bei der Datenverarbeitung"
     }
+  },
+  "datasetSelector": {
+    "title": "Datensatz-Auswahl",
+    "subtitle": "Wählen Sie Datensätze für den Vergleich aus",
+    "searchPlaceholder": "Nach Datensätzen suchen...",
+    "availableDatasets": "Verfügbare Datensätze",
+    "selectedDatasets": "Ausgewählte Datensätze",
+    "resultsCount": "{count} von {total} Datensätzen",
+    "selectedCount": "{count} ausgewählt",
+    "yearCount": "{count} Jahre",
+    "latestYear": "Neueste",
+    "loading": "Lade Datenkatalog...",
+    "selectYear": "Jahr wählen",
+    "addDataset": "Hinzufügen",
+    "addDatasetWithYear": "Hinzufügen ({year})",
+    "addLatestYear": "Neueste hinzufügen ({year})",
+    "removeDataset": "{name} entfernen",
+    "clearAll": "Alle entfernen",
+    "compareDatasets": "Datensätze vergleichen",
+    "pageReportTemplate": "Zeige {first} bis {last} von {totalRecords} Einträgen",
+    "filters": {
+      "dataType": "Datentyp",
+      "year": "Jahr",
+      "all": "Alle",
+      "allYears": "Alle Jahre",
+      "gdn": "Gemeinden",
+      "std": "Standard"
+    },
+    "types": {
+      "gdn": "Gemeinde",
+      "std": "Standard"
+    },
+    "columns": {
+      "name": "Name",
+      "description": "Beschreibung",
+      "years": "Verfügbare Jahre",
+      "year": "Jahr",
+      "actions": "Aktionen"
+    },
+    "errors": {
+      "loadingFailed": "Fehler beim Laden des Datenkatalogs",
+      "duplicateDataset": "Dieser Datensatz ist bereits ausgewählt"
+    }
+  },
+  "financialDataFullView": {
+    "title": "Finanzdaten - Vollansicht",
+    "subtitle": "Vollbildansicht der Finanzdatenvergleiche",
+    "backToComparison": "Zurück zum Vergleich",
+    "backToComparisonTooltip": "Zurück zur Hauptvergleichsansicht",
+    "noDatasets": "Keine Datensätze ausgewählt",
+    "noDataMessage": "Bitte wählen Sie Datensätze in der Hauptvergleichsansicht aus, bevor Sie die Vollansicht öffnen.",
+    "loadingDatasets": "Lade Datensätze...",
+    "datasetsLoaded": "{count} Datensätze geladen"
   }
 }

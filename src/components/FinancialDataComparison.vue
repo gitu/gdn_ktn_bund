@@ -1,32 +1,27 @@
 <template>
-  <div class="financial-data-comparison">
+  <div class="w-full max-w-full">
     <!-- Loading state -->
-    <div v-if="loading" class="loading-message" role="status" :aria-label="$t('financialDataComparison.loading')">
-      <i class="pi pi-spin pi-spinner"></i>
-      <span>{{ $t('financialDataComparison.loading') }}</span>
-    </div>
+    <Message v-if="loading" severity="info" :closable="false" class="mb-4">
+      <template #icon>
+        <i class="pi pi-spin pi-spinner"></i>
+      </template>
+      {{ $t('financialDataComparison.loading') }}
+    </Message>
 
     <!-- Error state -->
-    <div v-else-if="error" class="error-message" role="alert">
-      <i class="pi pi-exclamation-triangle"></i>
-      <span>{{ error }}</span>
-    </div>
+    <Message v-else-if="error" severity="error" :closable="false" class="mb-4">
+      {{ error }}
+    </Message>
 
     <!-- No data state -->
-    <div v-else-if="!hasValidData" class="no-data-message">
-      <i class="pi pi-info-circle"></i>
-      <span>{{ $t('financialDataComparison.noData') }}</span>
-    </div>
+    <Message v-else-if="!hasValidData" severity="warn" :closable="false" class="mb-4">
+      {{ $t('financialDataComparison.noData') }}
+    </Message>
 
     <!-- Main comparison content -->
-    <div v-else class="comparison-content">
-      <div class="info-bar">
-        <span>{{ $t('financialDataComparison.filteredCategories') }}</span>
-        <span>{{ $t('financialDataComparison.totalRows', { count: loadedDatasetCount }) }} datasets loaded</span>
-      </div>
-
+    <div v-else class="w-full">
       <!-- Single FinancialDataDisplay for combined data -->
-      <div class="combined-data-container">
+      <div class="w-full">
         <FinancialDataDisplay
           :financial-data="combinedFinancialData!"
           :loading="false"
@@ -44,6 +39,7 @@
 <script setup lang="ts">
 import { ref, computed, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
+import Message from 'primevue/message';
 import FinancialDataDisplay from './FinancialDataDisplay.vue';
 import { DataLoader } from '@/utils/DataLoader';
 import { createEmptyFinancialDataStructure } from '@/data/emptyFinancialDataStructure';
@@ -73,7 +69,7 @@ const error = ref<string | null>(null);
 const combinedFinancialData = ref<FinancialData | null>(null);
 const loadedDatasetCount = ref(0);
 const expandedAll = ref(false);
-const showCodes = ref(true);
+const showCodes = ref(false);
 const hideZeroValues = ref(true);
 
 // Computed properties
@@ -154,88 +150,12 @@ const handleDatasetError = (errorMessage: string) => {
   emit('error', errorMessage);
 };
 
+
+
 // Watch for dataset changes
 watch(() => props.datasets, () => {
   loadDatasets();
 }, { immediate: true });
 </script>
 
-<style scoped>
-.financial-data-comparison {
-  width: 100%;
-  max-width: 100%;
-}
 
-/* Messages */
-.loading-message,
-.error-message,
-.no-data-message {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 1rem;
-  border-radius: var(--border-radius);
-  margin-bottom: 1rem;
-}
-
-.loading-message {
-  background: var(--blue-50);
-  color: var(--blue-700);
-  border: 1px solid var(--blue-200);
-}
-
-.error-message {
-  background: var(--red-50);
-  color: var(--red-700);
-  border: 1px solid var(--red-200);
-}
-
-.no-data-message {
-  background: var(--surface-100);
-  color: var(--text-color-secondary);
-  border: 1px solid var(--surface-border);
-}
-
-/* Info bar */
-.info-bar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0.75rem 1rem;
-  background: var(--surface-section);
-  border: 1px solid var(--surface-border);
-  border-radius: var(--border-radius);
-  margin-bottom: 1.5rem;
-  font-size: 0.875rem;
-  color: var(--text-color-secondary);
-}
-
-/* Combined data container */
-.combined-data-container {
-  width: 100%;
-}
-
-/* Responsive design */
-@media (max-width: 768px) {
-  .info-bar {
-    flex-direction: column;
-    gap: 0.5rem;
-    text-align: center;
-  }
-}
-
-/* Dark mode support */
-@media (prefers-color-scheme: dark) {
-  .loading-message {
-    background: var(--blue-900);
-    color: var(--blue-100);
-    border-color: var(--blue-700);
-  }
-
-  .error-message {
-    background: var(--red-900);
-    color: var(--red-100);
-    border-color: var(--red-700);
-  }
-}
-</style>

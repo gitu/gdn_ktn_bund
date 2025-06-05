@@ -172,34 +172,34 @@ const CANTON_CODES: Record<string, MultiLanguageLabels> = {
  */
 const ENTITY_TYPES: Record<string, MultiLanguageLabels> = {
   bund: {
-    de: 'Bund',
-    fr: 'Confédération',
-    it: 'Confederazione',
-    en: 'Federal Government'
+    de: 'Bund (CH)',
+    fr: 'Confédération (CH)',
+    it: 'Confederazione (CH)',
+    en: 'Federal Government (CH)'
   },
   ktn: {
-    de: 'Kantone',
-    fr: 'Cantons',
-    it: 'Cantoni',
-    en: 'Cantons'
+    de: 'Kantone (KTN)',
+    fr: 'Cantons (CT)',
+    it: 'Cantoni (CT)',
+    en: 'Cantons (CT)'
   },
   gdn: {
-    de: 'Gemeinden',
-    fr: 'Communes',
-    it: 'Comuni',
-    en: 'Municipalities'
+    de: 'Gemeinden (GDN)',
+    fr: 'Communes (COM)',
+    it: 'Comuni (COM)',
+    en: 'Municipalities (MUN)'
   },
   sv: {
-    de: 'Sozialversicherung',
-    fr: 'Assurances sociales',
-    it: 'Assicurazioni sociali',
-    en: 'Social Insurance'
+    de: 'Sozialversicherung (SV)',
+    fr: 'Assurances sociales (AS)',
+    it: 'Assicurazioni sociali (AS)',
+    en: 'Social Insurance (SI)'
   },
   staat: {
-    de: 'Staat',
-    fr: 'État',
-    it: 'Stato',
-    en: 'State'
+    de: 'Staat (ST)',
+    fr: 'État (ET)',
+    it: 'Stato (ST)',
+    en: 'State (ST)'
   }
 };
 
@@ -208,40 +208,40 @@ const ENTITY_TYPES: Record<string, MultiLanguageLabels> = {
  */
 const SOCIAL_INSURANCE_TYPES: Record<string, MultiLanguageLabels> = {
   ahv: {
-    de: 'Alters- und Hinterlassenenversicherung',
-    fr: 'Assurance-vieillesse et survivants',
-    it: 'Assicurazione vecchiaia e superstiti',
-    en: 'Old Age and Survivors Insurance'
+    de: 'Alters- und Hinterlassenenversicherung (AHV)',
+    fr: 'Assurance-vieillesse et survivants (AVS)',
+    it: 'Assicurazione vecchiaia e superstiti (AVS)',
+    en: 'Old Age and Survivors Insurance (AHV/AVS)'
   },
   alv: {
-    de: 'Arbeitslosenversicherung',
-    fr: 'Assurance-chômage',
-    it: 'Assicurazione contro la disoccupazione',
-    en: 'Unemployment Insurance'
+    de: 'Arbeitslosenversicherung (ALV)',
+    fr: 'Assurance-chômage (AC)',
+    it: 'Assicurazione contro la disoccupazione (AD)',
+    en: 'Unemployment Insurance (ALV)'
   },
   eo: {
-    de: 'Erwerbsersatzordnung',
-    fr: 'Régime des allocations pour perte de gain',
-    it: 'Ordinamento delle indennità per perdita di guadagno',
-    en: 'Income Compensation Scheme'
+    de: 'Erwerbsersatzordnung (EO)',
+    fr: 'Allocations pour perte de gain (APG)',
+    it: 'Indennità per perdita di guadagno (IPG)',
+    en: 'Income Compensation (EO/APG)'
   },
   fl: {
-    de: 'Familienzulagen',
-    fr: 'Allocations familiales',
-    it: 'Assegni familiari',
-    en: 'Family Allowances'
+    de: 'Familienzulagen (FZ)',
+    fr: 'Allocations familiales (AF)',
+    it: 'Assegni familiari (AF)',
+    en: 'Family Allowances (FZ/AF)'
   },
   iv: {
-    de: 'Invalidenversicherung',
-    fr: 'Assurance-invalidité',
-    it: 'Assicurazione invalidità',
-    en: 'Disability Insurance'
+    de: 'Invalidenversicherung (IV)',
+    fr: 'Assurance-invalidité (AI)',
+    it: 'Assicurazione invalidità (AI)',
+    en: 'Disability Insurance (IV/AI)'
   },
   mat_ge: {
-    de: 'Mutterschaftsentschädigung',
-    fr: 'Allocation de maternité',
-    it: 'Indennità di maternità',
-    en: 'Maternity Benefits'
+    de: 'Allocation de maternité Genève',
+    fr: 'Allocation de maternité Genève',
+    it: 'Allocation de maternité Genève',
+    en: 'Allocation de maternité Genève'
   }
 };
 
@@ -255,20 +255,20 @@ export class EntitySemanticMapper {
   static getEntityDisplayName(entityCode: string): MultiLanguageLabels {
     // Handle complex entity codes like "gdn_ag", "ktn_zh", "sv_ahv", etc.
     const parts = entityCode.toLowerCase().split('_');
-    
+
     if (parts.length === 1) {
       // Simple entity codes
       return ENTITY_TYPES[parts[0]] || this.createFallbackLabels(entityCode);
     }
-    
+
     if (parts.length === 2) {
       const [entityType, subType] = parts;
-      
+
       // Handle canton-specific entities
       if ((entityType === 'gdn' || entityType === 'ktn') && CANTON_CODES[subType]) {
         const cantonName = CANTON_CODES[subType];
         const entityTypeName = ENTITY_TYPES[entityType];
-        
+
         return {
           de: `${entityTypeName?.de || entityType} ${cantonName.de}`,
           fr: `${entityTypeName?.fr || entityType} ${cantonName.fr}`,
@@ -276,16 +276,16 @@ export class EntitySemanticMapper {
           en: `${entityTypeName?.en || entityType} ${cantonName.en}`
         };
       }
-      
+
       // Handle social insurance types
       if (entityType === 'sv' && SOCIAL_INSURANCE_TYPES[subType]) {
         return SOCIAL_INSURANCE_TYPES[subType];
       }
-      
+
       // Handle other combinations
       const baseEntity = ENTITY_TYPES[entityType];
       const subEntity = ENTITY_TYPES[subType] || CANTON_CODES[subType];
-      
+
       if (baseEntity && subEntity) {
         return {
           de: `${baseEntity.de} ${subEntity.de}`,
@@ -295,11 +295,11 @@ export class EntitySemanticMapper {
         };
       }
     }
-    
+
     if (parts.length === 3) {
-      // Handle complex codes like "ktn_gdn_ag"
+      // Handle complex codes like "ktn_gdn_ag" and "sv_mat_ge"
       const [level1, level2, level3] = parts;
-      
+
       if (level1 === 'ktn' && level2 === 'gdn' && CANTON_CODES[level3]) {
         const cantonName = CANTON_CODES[level3];
         return {
@@ -309,8 +309,16 @@ export class EntitySemanticMapper {
           en: `Municipalities Canton ${cantonName.en}`
         };
       }
+
+      // Handle social insurance with compound codes like "sv_mat_ge"
+      if (level1 === 'sv') {
+        const compoundKey = `${level2}_${level3}`;
+        if (SOCIAL_INSURANCE_TYPES[compoundKey]) {
+          return SOCIAL_INSURANCE_TYPES[compoundKey];
+        }
+      }
     }
-    
+
     // Fallback to original code
     return this.createFallbackLabels(entityCode);
   }
@@ -320,7 +328,7 @@ export class EntitySemanticMapper {
    */
   static getEntityDescription(entityCode: string): MultiLanguageLabels {
     const parts = entityCode.toLowerCase().split('_');
-    
+
     if (parts.length === 2 && parts[0] === 'gdn' && CANTON_CODES[parts[1]]) {
       const cantonName = CANTON_CODES[parts[1]];
       return {
@@ -330,7 +338,7 @@ export class EntitySemanticMapper {
         en: `All municipalities of Canton ${cantonName.en}`
       };
     }
-    
+
     if (parts[0] === 'sv') {
       return {
         de: 'Sozialversicherungsdaten der Schweiz',
@@ -339,7 +347,7 @@ export class EntitySemanticMapper {
         en: 'Swiss social insurance data'
       };
     }
-    
+
     if (parts[0] === 'bund') {
       return {
         de: 'Bundesdaten der Schweiz',
@@ -348,7 +356,7 @@ export class EntitySemanticMapper {
         en: 'Swiss federal data'
       };
     }
-    
+
     // Default description
     return {
       de: `Daten für ${entityCode}`,

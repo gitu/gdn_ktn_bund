@@ -4,33 +4,27 @@
     <div class="header">
       <h2 class="title">{{ $t('financialDataDisplay.title') }}</h2>
       <div class="controls">
-        <button
-          type="button"
-          class="control-button"
+        <Button
           @click="toggleExpandAll"
           :aria-label="expandedAll ? $t('financialDataDisplay.collapseAll') : $t('financialDataDisplay.expandAll')"
         >
           <i :class="expandedAll ? 'pi pi-minus' : 'pi pi-plus'"></i>
           {{ expandedAll ? $t('financialDataDisplay.collapseAll') : $t('financialDataDisplay.expandAll') }}
-        </button>
-        <button
-          type="button"
-          class="control-button"
+        </Button>
+        <Button
           @click="toggleShowCodes"
           :aria-label="showCodes ? $t('financialDataDisplay.hideCodes') : $t('financialDataDisplay.showCodes')"
         >
           <i class="pi pi-code"></i>
           {{ showCodes ? $t('financialDataDisplay.hideCodes') : $t('financialDataDisplay.showCodes') }}
-        </button>
-        <button
-          type="button"
-          class="control-button"
+        </Button>
+        <Button
           @click="toggleShowZeroValues"
           :aria-label="showZeroValues ? $t('financialDataDisplay.hideZeroValues') : $t('financialDataDisplay.showZeroValues')"
         >
           <i class="pi pi-eye"></i>
           {{ showZeroValues ? $t('financialDataDisplay.hideZeroValues') : $t('financialDataDisplay.showZeroValues') }}
-        </button>
+        </Button>
       </div>
     </div>
 
@@ -55,28 +49,20 @@
     <!-- Main content -->
     <div v-else class="content">
       <!-- Metadata section -->
-      <div v-if="financialData?.metadata" class="metadata-section">
-        <h3>{{ $t('financialDataDisplay.metadata.source') }}: {{ financialData.metadata.source }}</h3>
-        <div class="metadata-details">
-          <span>{{ $t('financialDataDisplay.metadata.loadedAt') }}: {{ formatDate(financialData.metadata.loadedAt) }}</span>
-          <span>{{ $t('financialDataDisplay.metadata.recordCount') }}: {{ financialData.metadata.recordCount }}</span>
-          <span>{{ $t('financialDataDisplay.metadata.entities') }}: {{ entityCount }}</span>
-        </div>
-      </div>
 
-      <!-- Balance Sheet Section -->
-      <div v-if="balanceSheetData.length > 0" class="section">
-        <h3 class="section-title">{{ $t('financialDataDisplay.balanceSheet') }}</h3>
+      <!-- Combined Financial Data Section -->
+      <div v-if="combinedFinancialData.length > 0" class="section">
+        <h3 class="section-title">{{ $t('financialDataDisplay.financialData') }}</h3>
         <TreeTable
-          :value="balanceSheetData"
+          :value="combinedFinancialData"
           :expandedKeys="expandedKeys"
           @node-expand="onNodeExpand"
           @node-collapse="onNodeCollapse"
           class="financial-tree-table"
-          :scrollable="true"
-          scrollHeight="400px"
+          :scrollable="false"
           :resizableColumns="true"
           columnResizeMode="expand"
+          showGridlines
         >
           <!-- Account column -->
           <Column field="label" :header="$t('financialDataDisplay.columns.account')" :expander="true" class="account-column">
@@ -101,61 +87,7 @@
                 <span
                   v-if="hasValue(node.data || node, entityCode as string)"
                   class="financial-value"
-                  :aria-label="$t('financialDataDisplay.accessibility.financialValue', { entity: getEntityDisplayName(entity) })"
-                >
-                  {{ formatCurrency(getValue(node.data || node, entityCode as string)) }}
-                </span>
-                <span
-                  v-else
-                  class="no-value"
-                  :aria-label="$t('financialDataDisplay.accessibility.noValue')"
-                >
-                  -
-                </span>
-              </div>
-            </template>
-          </Column>
-        </TreeTable>
-      </div>
-
-      <!-- Income Statement Section -->
-      <div v-if="incomeStatementData.length > 0" class="section">
-        <h3 class="section-title">{{ $t('financialDataDisplay.incomeStatement') }}</h3>
-        <TreeTable
-          :value="incomeStatementData"
-          :expandedKeys="expandedKeys"
-          @node-expand="onNodeExpand"
-          @node-collapse="onNodeCollapse"
-          class="financial-tree-table"
-          :scrollable="true"
-          scrollHeight="400px"
-          :resizableColumns="true"
-          columnResizeMode="expand"
-          :size="'small'"
-        >
-          <!-- Account column -->
-          <Column field="label" :header="$t('financialDataDisplay.columns.account')" :expander="true" class="account-column">
-            <template #body="{ node }">
-              <div class="account-cell">
-                <span class="account-label">{{ getNodeLabel(node.data || node) }}</span>
-                <span v-if="showCodes && (node.data?.code || node.code)" class="account-code">({{ node.data?.code || node.code }})</span>
-              </div>
-            </template>
-          </Column>
-
-          <!-- Entity value columns -->
-          <Column
-            v-for="[entityCode, entity] in entityColumns"
-            :key="entityCode"
-            :field="`values.${entityCode}`"
-            :header="getEntityDisplayName(entity)"
-            class="value-column"
-          >
-            <template #body="{ node }">
-              <div class="value-cell">
-                <span
-                  v-if="hasValue(node.data || node, entityCode as string)"
-                  class="financial-value"
+                  :class="{ 'pnl-value': (node.data?.code || node.code) === 'pnl' }"
                   :aria-label="$t('financialDataDisplay.accessibility.financialValue', { entity: getEntityDisplayName(entity) })"
                 >
                   {{ formatCurrency(getValue(node.data || node, entityCode as string)) }}
@@ -228,9 +160,7 @@ const hasValidData = computed(() => {
          props.financialData.entities.size > 0;
 });
 
-const entityCount = computed(() => {
-  return props.financialData?.entities?.size || 0;
-});
+
 
 const entityColumns = computed(() => {
   if (!props.financialData?.entities) return new Map();
@@ -245,18 +175,70 @@ interface TreeTableNode {
   children: TreeTableNode[];
 }
 
-// Transform financial data nodes to TreeTable format
-const balanceSheetData = computed(() => {
-  if (!props.financialData?.balanceSheet) return [];
-  return transformNodeToTreeTableData(props.financialData.balanceSheet);
-});
+// Transform financial data nodes to TreeTable format - Combined view
+const combinedFinancialData = computed(() => {
+  if (!props.financialData?.balanceSheet || !props.financialData?.incomeStatement) return [];
 
-const incomeStatementData = computed(() => {
-  if (!props.financialData?.incomeStatement) return [];
-  return transformNodeToTreeTableData(props.financialData.incomeStatement);
+  const combinedNodes: TreeTableNode[] = [];
+
+  // Extract Assets from balance sheet (code "1")
+  const assetsNode = props.financialData.balanceSheet.children.find(child => child.code === "1");
+  if (assetsNode) {
+    const transformedAssets = transformNodeToTreeTableData(assetsNode);
+    combinedNodes.push(...transformedAssets);
+  }
+
+  // Extract Liabilities from balance sheet (code "2")
+  const liabilitiesNode = props.financialData.balanceSheet.children.find(child => child.code === "2");
+  if (liabilitiesNode) {
+    const transformedLiabilities = transformNodeToTreeTableData(liabilitiesNode);
+    combinedNodes.push(...transformedLiabilities);
+  }
+
+  // Extract Revenue from income statement (code "4")
+  const revenueNode = props.financialData.incomeStatement.children.find(child => child.code === "4");
+  if (revenueNode) {
+    const transformedRevenue = transformNodeToTreeTableData(revenueNode);
+    combinedNodes.push(...transformedRevenue);
+  }
+
+  // Extract Expenses from income statement (code "3")
+  const expensesNode = props.financialData.incomeStatement.children.find(child => child.code === "3");
+  if (expensesNode) {
+    const transformedExpenses = transformNodeToTreeTableData(expensesNode);
+    combinedNodes.push(...transformedExpenses);
+  }
+
+  // Calculate and add P&L section
+  const pnlNode = calculateProfitLossNode(props.financialData.incomeStatement);
+  if (pnlNode) {
+    const transformedPnl = transformNodeToTreeTableData(pnlNode);
+    combinedNodes.push(...transformedPnl);
+  }
+
+  return combinedNodes;
 });
 
 // Methods
+const calculateProfitLossNode = (node: FinancialDataNode): FinancialDataNode | null => {
+  // Create a P&L node with calculated values
+  const pnlNode: FinancialDataNode = {
+    code: "pnl",
+    labels: {
+      de: "Gewinn/Verlust",
+      fr: "Bénéfice/Perte",
+      it: "Utile/Perdita",
+      en: "Profit/Loss"
+    },
+    values: node.values,
+    children: []
+  };
+
+  return pnlNode;
+};
+
+
+
 const transformNodeToTreeTableData = (node: FinancialDataNode): TreeTableNode[] => {
   const transformNode = (n: FinancialDataNode, parentKey = ''): TreeTableNode | null => {
     const key = parentKey ? `${parentKey}-${n.code}` : n.code;
@@ -321,20 +303,7 @@ const formatCurrency = (value: number): string => {
   }).format(value);
 };
 
-const formatDate = (dateString: string): string => {
-  try {
-    const date = new Date(dateString);
-    return new Intl.DateTimeFormat(locale.value, {
-      year: 'numeric',
-      month: '2-digit',
-      day: '2-digit',
-      hour: '2-digit',
-      minute: '2-digit',
-    }).format(date);
-  } catch {
-    return dateString;
-  }
-};
+
 
 // Event handlers
 const onNodeExpand = (node: TreeTableNode | { key: string }) => {
@@ -359,7 +328,7 @@ const toggleExpandAll = () => {
       });
     };
 
-    expandAllNodes([...balanceSheetData.value, ...incomeStatementData.value]);
+    expandAllNodes(combinedFinancialData.value);
   } else {
     // Collapse all nodes
     expandedKeys.value = {};
@@ -407,179 +376,6 @@ onMounted(() => {
 </script>
 
 <style scoped>
-.financial-data-display {
-  width: 100%;
-  max-width: 100%;
-  margin: 0 auto;
-  padding: 1rem;
-}
-
-/* Header */
-.header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 1.5rem;
-  flex-wrap: wrap;
-  gap: 1rem;
-}
-
-.title {
-  color: var(--text-color);
-  margin: 0;
-  font-size: 1.5rem;
-  font-weight: 600;
-}
-
-.controls {
-  display: flex;
-  gap: 0.5rem;
-  flex-wrap: wrap;
-}
-
-.control-button {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.5rem 1rem;
-  border: 1px solid var(--surface-border);
-  border-radius: var(--border-radius);
-  background: var(--surface-card);
-  color: var(--text-color);
-  cursor: pointer;
-  transition: all 0.2s ease;
-  font-size: 0.875rem;
-}
-
-.control-button:hover {
-  background: var(--surface-hover);
-  border-color: var(--primary-color);
-}
-
-.control-button:focus {
-  outline: 2px solid var(--primary-color);
-  outline-offset: 2px;
-}
-
-/* Messages */
-.error-message,
-.loading-message,
-.no-data-message {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 1rem;
-  border-radius: var(--border-radius);
-  margin-bottom: 1rem;
-}
-
-.error-message {
-  background: var(--red-50);
-  color: var(--red-700);
-  border: 1px solid var(--red-200);
-}
-
-.loading-message {
-  background: var(--blue-50);
-  color: var(--blue-700);
-  border: 1px solid var(--blue-200);
-}
-
-.no-data-message {
-  background: var(--surface-100);
-  color: var(--text-color-secondary);
-  border: 1px solid var(--surface-border);
-}
-
-/* Content */
-.content {
-  width: 100%;
-}
-
-/* Metadata */
-.metadata-section {
-  background: var(--surface-card);
-  border: 1px solid var(--surface-border);
-  border-radius: var(--border-radius);
-  padding: 1rem;
-  margin-bottom: 1.5rem;
-}
-
-.metadata-section h3 {
-  margin: 0 0 0.5rem 0;
-  color: var(--text-color);
-  font-size: 1rem;
-  font-weight: 600;
-}
-
-.metadata-details {
-  display: flex;
-  gap: 1rem;
-  flex-wrap: wrap;
-  font-size: 0.875rem;
-  color: var(--text-color-secondary);
-}
-
-/* Sections */
-.section {
-  margin-bottom: 2rem;
-}
-
-.section-title {
-  color: var(--text-color);
-  margin: 0 0 1rem 0;
-  font-size: 1.25rem;
-  font-weight: 600;
-  padding-bottom: 0.5rem;
-  border-bottom: 2px solid var(--primary-color);
-}
-
-/* TreeTable customization */
-.financial-tree-table {
-  border: 1px solid var(--surface-border);
-  border-radius: var(--border-radius);
-  overflow: hidden;
-}
-
-:deep(.p-treetable-header) {
-  background: var(--surface-section);
-  border-bottom: 1px solid var(--surface-border);
-}
-
-:deep(.p-treetable-thead > tr > th) {
-  background: var(--surface-section);
-  color: var(--text-color);
-  font-weight: 600;
-  padding: 0.75rem;
-  border-right: 1px solid var(--surface-border);
-}
-
-:deep(.p-treetable-tbody > tr > td) {
-  padding: 0.5rem 0.75rem;
-  border-right: 1px solid var(--surface-border);
-  border-bottom: 1px solid var(--surface-border);
-}
-
-:deep(.p-treetable-tbody > tr:hover) {
-  background: var(--surface-hover);
-}
-
-/* Column specific styles */
-.account-column {
-  min-width: 300px;
-}
-
-.value-column {
-  min-width: 120px;
-  text-align: right;
-}
-
-/* Cell content */
-.account-cell {
-  display: flex;
-  flex-direction: column;
-  gap: 0.25rem;
-}
 
 .account-label {
   font-weight: 500;
@@ -594,6 +390,7 @@ onMounted(() => {
 
 .value-cell {
   text-align: right;
+  width: 100%;
 }
 
 .financial-value {
@@ -602,86 +399,13 @@ onMounted(() => {
   font-family: monospace;
 }
 
-.no-value {
-  color: var(--text-color-secondary);
-  font-style: italic;
+.financial-value.pnl-value {
+  font-weight: 700;
 }
 
-/* Responsive design */
-@media (max-width: 768px) {
-  .financial-data-display {
-    padding: 0.5rem;
-  }
-
-  .header {
-    flex-direction: column;
-    align-items: stretch;
-  }
-
-  .controls {
-    justify-content: center;
-  }
-
-  .control-button {
-    flex: 1;
-    justify-content: center;
-  }
-
-  .metadata-details {
-    flex-direction: column;
-    gap: 0.5rem;
-  }
-
-  .account-column {
-    min-width: 200px;
-  }
-
-  .value-column {
-    min-width: 100px;
-  }
-
-  :deep(.p-treetable-thead > tr > th),
-  :deep(.p-treetable-tbody > tr > td) {
-    padding: 0.5rem;
-    font-size: 0.875rem;
-  }
+.value-column {
+  min-width: 120px;
+  text-align: right;
 }
 
-/* Dark mode support */
-@media (prefers-color-scheme: dark) {
-  .error-message {
-    background: var(--red-900);
-    color: var(--red-100);
-    border-color: var(--red-700);
-  }
-
-  .loading-message {
-    background: var(--blue-900);
-    color: var(--blue-100);
-    border-color: var(--blue-700);
-  }
-}
-
-/* Accessibility improvements */
-@media (prefers-reduced-motion: reduce) {
-  .control-button {
-    transition: none;
-  }
-}
-
-/* High contrast mode */
-@media (prefers-contrast: high) {
-  .control-button {
-    border-width: 2px;
-  }
-
-  .financial-tree-table {
-    border-width: 2px;
-  }
-
-  :deep(.p-treetable-thead > tr > th),
-  :deep(.p-treetable-tbody > tr > td) {
-    border-width: 2px;
-  }
-}
 </style>

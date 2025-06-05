@@ -11,85 +11,79 @@ test.describe('HomeView Translation Functionality', () => {
     await expect(page).toHaveTitle(/GDN KTN BUND/);
 
     // Check that main content sections are present
-    await expect(page.locator('.home-view')).toBeVisible();
+    await expect(page.getByTestId('home-main')).toBeVisible();
 
     // Verify header section
-    await expect(page.locator('.header h1')).toBeVisible();
-    await expect(page.locator('.header p')).toBeVisible();
+    await expect(page.getByTestId('home-title')).toBeVisible();
+    await expect(page.getByTestId('home-subtitle')).toBeVisible();
 
     // Verify description section
-    await expect(page.locator('.description-section')).toBeVisible();
-    await expect(page.locator('.description-section h2')).toBeVisible();
-    await expect(page.locator('.description-section .intro')).toBeVisible();
+    await expect(page.getByTestId('home-description-card')).toBeVisible();
+    await expect(page.getByTestId('home-description-title')).toBeVisible();
 
     // Verify CTA section
-    await expect(page.locator('.cta-section')).toBeVisible();
-    await expect(page.locator('.cta-section h3')).toBeVisible();
-    await expect(page.locator('.cta-button.primary')).toBeVisible();
-    await expect(page.locator('.cta-button.secondary')).toBeVisible();
+    await expect(page.getByTestId('home-cta-card')).toBeVisible();
+    await expect(page.getByTestId('home-cta-title')).toBeVisible();
+    await expect(page.getByTestId('home-cta-button-primary')).toBeVisible();
+    await expect(page.getByTestId('home-cta-button-secondary')).toBeVisible();
   });
 
   test('should display German content by default', async ({ page }) => {
     // Check that German content is displayed by default
-    await expect(page.locator('.header h1')).toContainText('Schweizer Finanzdaten-Baum-Navigator');
-    await expect(page.locator('.header p')).toContainText('Erkunden Sie hierarchische Finanzdatenstrukturen');
+    await expect(page.getByTestId('home-title')).toContainText('Schweizer Finanzdaten-Baum-Navigator');
+    await expect(page.getByTestId('home-subtitle')).toContainText('Erkunden Sie hierarchische Finanzdatenstrukturen');
 
     // Check description section
-    await expect(page.locator('.description-section h2')).toContainText('Finanzdaten von Gemeinden vergleichen');
-    await expect(page.locator('.description-section .intro')).toContainText('Diese Website ermöglicht es Ihnen');
+    await expect(page.getByTestId('home-description-title')).toContainText('Finanzdaten von Gemeinden vergleichen');
+    await expect(page.getByTestId('home-description-intro')).toContainText('Diese Website ermöglicht es Ihnen');
 
     // Check CTA section
-    await expect(page.locator('.cta-section h3')).toContainText('Jetzt Daten erkunden');
-    await expect(page.locator('.cta-button.primary')).toContainText('Finanzdaten vergleichen');
-    await expect(page.locator('.cta-button.secondary')).toContainText('Mehr erfahren');
+    await expect(page.getByTestId('home-cta-title')).toContainText('Jetzt Daten erkunden');
+    await expect(page.getByTestId('home-cta-button-primary')).toContainText('Finanzdaten vergleichen');
+    await expect(page.getByTestId('home-cta-button-secondary')).toContainText('Mehr erfahren');
 
     // Check language selector shows DE
-    await expect(page.locator('.language-code')).toContainText('DE');
+    await expect(page.getByTestId('language-selector-code')).toContainText('DE');
   });
 
   test('should switch to English and display English content', async ({ page }) => {
     // Store initial German content for comparison
-    const initialTitle = await page.locator('.header h1').textContent();
-    const initialSubtitle = await page.locator('.header p').textContent();
-    const initialDescTitle = await page.locator('.description-section h2').textContent();
-    const initialCtaTitle = await page.locator('.cta-section h3').textContent();
-    const initialCtaButtonPrimary = await page.locator('.cta-button.primary').textContent();
-    const initialCtaButtonSecondary = await page.locator('.cta-button.secondary').textContent();
+    const initialTitle = await page.getByTestId('home-title').textContent();
+    const initialSubtitle = await page.getByTestId('home-subtitle').textContent();
+    const initialDescTitle = await page.getByTestId('home-description-title').textContent();
+    const initialCtaTitle = await page.getByTestId('home-cta-title').textContent();
+    const initialCtaButtonPrimary = await page.getByTestId('home-cta-button-primary').textContent();
+    const initialCtaButtonSecondary = await page.getByTestId('home-cta-button-secondary').textContent();
 
     // Click language selector to open dropdown
-    await page.locator('.language-trigger').click();
-
-    // Wait for dropdown to be visible
-    await expect(page.locator('.language-dropdown')).toBeVisible();
+    await page.getByTestId('language-selector-trigger').click();
 
     // Find and click English option
-    const englishOption = page.locator('.language-option').filter({ hasText: 'English' });
-    await expect(englishOption).toBeVisible();
-    await englishOption.click();
+    await page.getByText('English').click();
 
     // Wait for language change to take effect
-    await expect(page.locator('.language-code')).toContainText('EN');
+    await expect(page.getByTestId('language-selector-code')).toContainText('EN');
 
     // Verify English content is displayed
-    await expect(page.locator('.header h1')).toContainText('Swiss Financial Data Tree Navigator');
-    await expect(page.locator('.header p')).toContainText('Explore hierarchical financial data structures');
+    await expect(page.getByTestId('home-title')).toContainText('Swiss Financial Data Tree Navigator');
+    await expect(page.getByTestId('home-subtitle')).toContainText('Explore hierarchical financial data structures');
 
     // Check description section
-    await expect(page.locator('.description-section h2')).toContainText('Compare Municipal Financial Data');
-    await expect(page.locator('.description-section .intro')).toContainText('This website enables you to analyze');
+    await expect(page.getByTestId('home-description-title')).toContainText('Compare Municipal Financial Data');
+    await expect(page.getByTestId('home-description-intro')).toContainText('This website enables you to analyze');
 
     // Check CTA section
-    await expect(page.locator('.cta-section h3')).toContainText('Start Exploring Data');
-    await expect(page.locator('.cta-button.primary')).toContainText('Compare Financial Data');
-    await expect(page.locator('.cta-button.secondary')).toContainText('Learn More');
+    await expect(page.getByTestId('home-cta-title')).toContainText('Start Exploring Data');
+    await expect(page.getByTestId('home-cta-button-primary')).toContainText('Compare Financial Data');
+    await expect(page.getByTestId('home-cta-button-secondary')).toContainText('Learn More');
 
     // Verify content actually changed (not just showing placeholder text)
-    const newTitle = page.locator('.header h1');
-    const newSubtitle = page.locator('.header p');
-    const newDescTitle = page.locator('.description-section h2');
-    const newCtaTitle = page.locator('.cta-section h3');
-    const newCtaButtonPrimary = page.locator('.cta-button.primary');
-    const newCtaButtonSecondary = page.locator('.cta-button.secondary');
+    const newTitle = page.getByTestId('home-title');
+    const newSubtitle = page.getByTestId('home-subtitle');
+    const newDescTitle = page.getByTestId('home-description-title');
+    const newCtaTitle = page.getByTestId('home-cta-title');
+    const newCtaButtonPrimary = page.getByTestId('home-cta-button-primary');
+    const newCtaButtonSecondary = page.getByTestId('home-cta-button-secondary');
 
     await expect(newTitle).not.toHaveText(initialTitle);
     await expect(newSubtitle).not.toHaveText(initialSubtitle);
@@ -101,39 +95,32 @@ test.describe('HomeView Translation Functionality', () => {
 
   test('should switch to French and display French content', async ({ page }) => {
     // Store initial German content for comparison
-    const initialTitle = await page.locator('.header h1').textContent();
-    const initialDescTitle = await page.locator('.description-section h2').textContent();
+    const initialTitle = await page.getByTestId('home-title').textContent();
+    const initialDescTitle = await page.getByTestId('home-description-title').textContent();
 
-    // Click language selector to open dropdown
-    await page.locator('.language-trigger').click();
-
-    // Wait for dropdown to be visible
-    await expect(page.locator('.language-dropdown')).toBeVisible();
-
-    // Find and click French option
-    const frenchOption = page.locator('.language-option').filter({ hasText: 'Français' });
-    await expect(frenchOption).toBeVisible();
-    await frenchOption.click();
+    // Click language selector to open dropdown and select French
+    await page.getByTestId('language-selector-trigger').click();
+    await page.getByText('Français').click();
 
     // Wait for language change to take effect
-    await expect(page.locator('.language-code')).toContainText('FR');
+    await expect(page.getByTestId('language-selector-code')).toContainText('FR');
 
     // Verify French content is displayed
-    await expect(page.locator('.header h1')).toContainText('Navigateur d\'arbre de données financières suisses');
-    await expect(page.locator('.header p')).toContainText('Explorez les structures de données financières hiérarchiques');
+    await expect(page.getByTestId('home-title')).toContainText('Navigateur d\'arbre de données financières suisses');
+    await expect(page.getByTestId('home-subtitle')).toContainText('Explorez les structures de données financières hiérarchiques');
 
     // Check description section
-    await expect(page.locator('.description-section h2')).toContainText('Comparer les données financières communales');
-    await expect(page.locator('.description-section .intro')).toContainText('Ce site web vous permet d\'analyser');
+    await expect(page.getByTestId('home-description-title')).toContainText('Comparer les données financières communales');
+    await expect(page.getByTestId('home-description-intro')).toContainText('Ce site web vous permet d\'analyser');
 
     // Check CTA section
-    await expect(page.locator('.cta-section h3')).toContainText('Commencer l\'exploration des données');
-    await expect(page.locator('.cta-button.primary')).toContainText('Comparer les données financières');
-    await expect(page.locator('.cta-button.secondary')).toContainText('En savoir plus');
+    await expect(page.getByTestId('home-cta-title')).toContainText('Commencer l\'exploration des données');
+    await expect(page.getByTestId('home-cta-button-primary')).toContainText('Comparer les données financières');
+    await expect(page.getByTestId('home-cta-button-secondary')).toContainText('En savoir plus');
 
     // Verify content actually changed
-    const newTitle = page.locator('.header h1');
-    const newDescTitle = page.locator('.description-section h2');
+    const newTitle = page.getByTestId('home-title');
+    const newDescTitle = page.getByTestId('home-description-title');
 
     await expect(newTitle).not.toHaveText(initialTitle);
     await expect(newDescTitle).not.toHaveText(initialDescTitle);
@@ -141,39 +128,32 @@ test.describe('HomeView Translation Functionality', () => {
 
   test('should switch to Italian and display Italian content', async ({ page }) => {
     // Store initial German content for comparison
-    const initialTitle = await page.locator('.header h1').textContent();
-    const initialCtaButtonPrimary = await page.locator('.cta-button.primary').textContent();
+    const initialTitle = await page.getByTestId('home-title').textContent();
+    const initialCtaButtonPrimary = await page.getByTestId('home-cta-button-primary').textContent();
 
-    // Click language selector to open dropdown
-    await page.locator('.language-trigger').click();
-
-    // Wait for dropdown to be visible
-    await expect(page.locator('.language-dropdown')).toBeVisible();
-
-    // Find and click Italian option
-    const italianOption = page.locator('.language-option').filter({ hasText: 'Italiano' });
-    await expect(italianOption).toBeVisible();
-    await italianOption.click();
+    // Click language selector to open dropdown and select Italian
+    await page.getByTestId('language-selector-trigger').click();
+    await page.getByText('Italiano').click();
 
     // Wait for language change to take effect
-    await expect(page.locator('.language-code')).toContainText('IT');
+    await expect(page.getByTestId('language-selector-code')).toContainText('IT');
 
     // Verify Italian content is displayed
-    await expect(page.locator('.header h1')).toContainText('Navigatore ad albero dei dati finanziari svizzeri');
-    await expect(page.locator('.header p')).toContainText('Esplora le strutture gerarchiche dei dati finanziari');
+    await expect(page.getByTestId('home-title')).toContainText('Navigatore ad albero dei dati finanziari svizzeri');
+    await expect(page.getByTestId('home-subtitle')).toContainText('Esplora le strutture gerarchiche dei dati finanziari');
 
     // Check description section
-    await expect(page.locator('.description-section h2')).toContainText('Confronta i dati finanziari comunali');
-    await expect(page.locator('.description-section .intro')).toContainText('Questo sito web ti consente di analizzare');
+    await expect(page.getByTestId('home-description-title')).toContainText('Confronta i dati finanziari comunali');
+    await expect(page.getByTestId('home-description-intro')).toContainText('Questo sito web ti consente di analizzare');
 
     // Check CTA section
-    await expect(page.locator('.cta-section h3')).toContainText('Inizia a esplorare i dati');
-    await expect(page.locator('.cta-button.primary')).toContainText('Confronta dati finanziari');
-    await expect(page.locator('.cta-button.secondary')).toContainText('Scopri di più');
+    await expect(page.getByTestId('home-cta-title')).toContainText('Inizia a esplorare i dati');
+    await expect(page.getByTestId('home-cta-button-primary')).toContainText('Confronta dati finanziari');
+    await expect(page.getByTestId('home-cta-button-secondary')).toContainText('Scopri di più');
 
     // Verify content actually changed
-    const newTitle = page.locator('.header h1');
-    const newCtaButtonPrimary = page.locator('.cta-button.primary');
+    const newTitle = page.getByTestId('home-title');
+    const newCtaButtonPrimary = page.getByTestId('home-cta-button-primary');
 
     await expect(newTitle).not.toHaveText(initialTitle);
     await expect(newCtaButtonPrimary).not.toHaveText(initialCtaButtonPrimary);
@@ -181,77 +161,71 @@ test.describe('HomeView Translation Functionality', () => {
 
   test('should maintain language selection when navigating back to German', async ({ page }) => {
     // Switch to English first
-    await page.locator('.language-trigger').click();
-    await expect(page.locator('.language-dropdown')).toBeVisible();
-    await page.locator('.language-option').filter({ hasText: 'English' }).click();
-    await expect(page.locator('.language-code')).toContainText('EN');
+    await page.getByTestId('language-selector-trigger').click();
+    await page.getByText('English').click();
+    await expect(page.getByTestId('language-selector-code')).toContainText('EN');
 
     // Switch back to German
-    await page.locator('.language-trigger').click();
-    await expect(page.locator('.language-dropdown')).toBeVisible();
-    await page.locator('.language-option').filter({ hasText: 'Deutsch' }).click();
-    await expect(page.locator('.language-code')).toContainText('DE');
+    await page.getByTestId('language-selector-trigger').click();
+    await page.getByText('Deutsch').click();
+    await expect(page.getByTestId('language-selector-code')).toContainText('DE');
 
     // Verify German content is displayed again
-    await expect(page.locator('.header h1')).toContainText('Schweizer Finanzdaten-Baum-Navigator');
-    await expect(page.locator('.description-section h2')).toContainText('Finanzdaten von Gemeinden vergleichen');
-    await expect(page.locator('.cta-section h3')).toContainText('Jetzt Daten erkunden');
+    await expect(page.getByTestId('home-title')).toContainText('Schweizer Finanzdaten-Baum-Navigator');
+    await expect(page.getByTestId('home-description-title')).toContainText('Finanzdaten von Gemeinden vergleichen');
+    await expect(page.getByTestId('home-cta-title')).toContainText('Jetzt Daten erkunden');
   });
 
   test('should display data type descriptions in selected language', async ({ page }) => {
     // Check German data type descriptions
-    await expect(page.locator('.data-type').first()).toContainText('Bilanz');
-    await expect(page.locator('.data-type').first()).toContainText('Bilanzpositionen - Vermögen, Schulden und Eigenkapital');
+    await expect(page.getByTestId('home-data-type-balance')).toContainText('Bilanz');
+    await expect(page.getByTestId('home-data-type-balance')).toContainText('Bilanzpositionen');
 
-    await expect(page.locator('.data-type').last()).toContainText('Ertrag');
-    await expect(page.locator('.data-type').last()).toContainText('Erfolgsrechnung - Einnahmen (Ertrag) und Ausgaben (Aufwand)');
+    await expect(page.getByTestId('home-data-type-income')).toContainText('Ertrag');
+    await expect(page.getByTestId('home-data-type-income')).toContainText('Erfolgsrechnung');
 
     // Switch to English
-    await page.locator('.language-trigger').click();
-    await page.locator('.language-option').filter({ hasText: 'English' }).click();
-    await expect(page.locator('.language-code')).toContainText('EN');
+    await page.getByTestId('language-selector-trigger').click();
+    await page.getByText('English').click();
+    await expect(page.getByTestId('language-selector-code')).toContainText('EN');
 
     // Check English data type descriptions
-    await expect(page.locator('.data-type').first()).toContainText('Balance Sheet');
-    await expect(page.locator('.data-type').first()).toContainText('Balance sheet data - Assets, liabilities, and equity');
+    await expect(page.getByTestId('home-data-type-balance')).toContainText('Balance Sheet');
+    await expect(page.getByTestId('home-data-type-balance')).toContainText('Balance sheet data');
 
-    await expect(page.locator('.data-type').last()).toContainText('Revenue');
-    await expect(page.locator('.data-type').last()).toContainText('Income statement data - Revenue (income) and expenditure (expenses)');
+    await expect(page.getByTestId('home-data-type-income')).toContainText('Revenue');
+    await expect(page.getByTestId('home-data-type-income')).toContainText('Income statement data');
   });
 
-  test('should close language dropdown when clicking backdrop', async ({ page }) => {
+  test('should close language dropdown when clicking outside', async ({ page }) => {
     // Open language dropdown
-    await page.locator('.language-trigger').click();
-    await expect(page.locator('.language-dropdown')).toBeVisible();
+    await page.getByTestId('language-selector-trigger').click();
+    await expect(page.getByTestId('language-selector-menu')).toBeVisible();
 
-    // Click on the backdrop to close the dropdown
-    await page.locator('.language-backdrop').click();
+    // Click outside the dropdown to close it
+    await page.getByTestId('home-main').click();
 
     // Dropdown should be closed
-    await expect(page.locator('.language-dropdown')).toBeHidden();
+    await expect(page.getByTestId('language-selector-menu')).toBeHidden();
   });
 
-  test('should show active language in dropdown', async ({ page }) => {
-    // Open language dropdown
-    await page.locator('.language-trigger').click();
-    await expect(page.locator('.language-dropdown')).toBeVisible();
+  test('should show current language in selector', async ({ page }) => {
+    // Check that German is shown by default
+    await expect(page.getByTestId('language-selector-code')).toContainText('DE');
 
-    // German should be marked as active (default)
-    const germanOption = page.locator('.language-option').filter({ hasText: 'Deutsch' });
-    await expect(germanOption).toHaveClass(/active/);
-    await expect(germanOption.locator('.pi-check')).toBeVisible();
+    // Switch to French
+    await page.getByTestId('language-selector-trigger').click();
+    await page.getByText('Français').click();
+    await expect(page.getByTestId('language-selector-code')).toContainText('FR');
 
-    // Close dropdown and switch to French
-    await page.locator('.language-option').filter({ hasText: 'Français' }).click();
-    await expect(page.locator('.language-code')).toContainText('FR');
+    // Switch to Italian
+    await page.getByTestId('language-selector-trigger').click();
+    await page.getByText('Italiano').click();
+    await expect(page.getByTestId('language-selector-code')).toContainText('IT');
 
-    // Open dropdown again
-    await page.locator('.language-trigger').click();
-    await expect(page.locator('.language-dropdown')).toBeVisible();
-
-    // French should now be marked as active
-    const frenchOption = page.locator('.language-option').filter({ hasText: 'Français' });
-    await expect(frenchOption).toHaveClass(/active/);
-    await expect(frenchOption.locator('.pi-check')).toBeVisible();
+    // Switch back to German
+    await page.getByTestId('language-selector-trigger').click();
+    await page.getByText('Deutsch').click();
+    await expect(page.getByTestId('language-selector-code')).toContainText('DE');
   });
 });

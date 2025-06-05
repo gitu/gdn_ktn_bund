@@ -5,14 +5,19 @@
 import * as Papa from 'papaparse';
 import type {
   FinancialData,
+  FinancialDataEntity,
   FinancialDataNode,
   FinancialDataMetadata,
   FinacialDataValue
 } from '../types/FinancialDataStructure';
 
 import type {
-  DataRecord
+  DataRecord,
+  GdnDataInfo,
+  MultiLanguageLabels
 } from '../types/DataStructures';
+
+import {EntitySemanticMapper} from './EntitySemanticMapper';
 
 export interface DataLoaderResult {
   data: DataRecord[];
@@ -267,7 +272,7 @@ export class DataLoader {
     }, 0);
 
     // Use the first record as base and update the value
-    const aggregated = { ...records[0] };
+    const aggregated = {...records[0]};
     aggregated.value = totalValue.toString();
     aggregated.funk = ''; // Clear funk since we're aggregating across different funk values
 
@@ -289,17 +294,67 @@ export class DataLoader {
 
     // Create entity entry if it doesn't exist
     if (!financialData.entities.has(fullEntityCode)) {
-      financialData.entities.set(fullEntityCode, {
+      // Generate appropriate entity name based on source type
+      let entityName: MultiLanguageLabels;
+      let entityDescription: MultiLanguageLabels;
+
+      if (source === 'gdn') {
+        // For GDN data, use the municipality name from the gemeinde field
+        const gdnEntity = (gdnInfo as GdnDataInfo[]).find(info => info.nr === entityCode);
+        if (gdnEntity && gdnEntity.gemeinde) {
+          // Use the municipality name for all languages
+          entityName = {
+            de: gdnEntity.gemeinde,
+            fr: gdnEntity.gemeinde,
+            it: gdnEntity.gemeinde,
+            en: gdnEntity.gemeinde
+          };
+          // Generate description for municipality
+          entityDescription = {
+            de: `Gemeinde ${gdnEntity.gemeinde} (${entityCode})`,
+            fr: `Commune ${gdnEntity.gemeinde} (${entityCode})`,
+            it: `Comune ${gdnEntity.gemeinde} (${entityCode})`,
+            en: `Municipality ${gdnEntity.gemeinde} (${entityCode})`
+          };
+        } else {
+          // Fallback to entity code if municipality not found
+          entityName = {
+            de: entityCode,
+            fr: entityCode,
+            it: entityCode,
+            en: entityCode
+          };
+          entityDescription = {
+            de: `Gemeinde ${entityCode}`,
+            fr: `Commune ${entityCode}`,
+            it: `Comune ${entityCode}`,
+            en: `Municipality ${entityCode}`
+          };
+        }
+      } else {
+        // For STD data, use EntitySemanticMapper to get human-readable names
+        entityName = EntitySemanticMapper.getEntityDisplayName(entityCode);
+        // Generate description for STD entities
+        entityDescription = {
+          de: `${entityName.de} (${entityCode})`,
+          fr: `${entityName.fr} (${entityCode})`,
+          it: `${entityName.it} (${entityCode})`,
+          en: `${entityName.en} (${entityCode})`
+        };
+      }
+
+      const entity: FinancialDataEntity = {
         code: fullEntityCode,
-        name: {
-          de: entityCode,
-          fr: entityCode,
-          it: entityCode,
-          en: entityCode
-        },
+        name: entityName,
         scalingFactor: 1,
-        metadata: metadata
-      });
+        metadata: metadata,
+        year: year,
+        model: model,
+        source: source,
+        description: entityDescription
+      };
+
+      financialData.entities.set(fullEntityCode, entity);
     }
 
     // Update main metadata
@@ -375,58 +430,6 @@ export class DataLoader {
   }
 
   /**
-   * Parse dataset identifier and load financial data
-   *
-   * @param datasetIdentifier - Dataset identifier in format 'source/model/entity:year' (e.g., 'gdn/fs/010002:2016')
-   * @returns FinancialData structure with loaded data
-   */
-  async loadFinancialData(datasetIdentifier: string): Promise<FinancialData> {
-    // Parse the dataset identifier
-    const parts = datasetIdentifier.split('/');
-    if (parts.length !== 3) {
-      throw new Error(`Invalid dataset identifier format: ${datasetIdentifier}. Expected format: source/model/entity:year`);
-    }
-
-    const source = parts[0] as 'gdn' | 'std';
-    const model = parts[1];
-    const entityAndYear = parts[2];
-
-    const [entity, year] = entityAndYear.split(':');
-    if (!entity || !year) {
-      throw new Error(`Invalid entity:year format in dataset identifier: ${datasetIdentifier}`);
-    }
-
-    if (source !== 'gdn' && source !== 'std') {
-      throw new Error(`Invalid source '${source}' in dataset identifier: ${datasetIdentifier}. Must be 'gdn' or 'std'`);
-    }
-
-    // Create a basic financial data structure (this would normally come from a template)
-    const financialData: FinancialData = {
-      balanceSheet: {
-        code: '1',
-        labels: { de: 'Bilanz', fr: 'Bilan', it: 'Bilancio', en: 'Balance Sheet' },
-        values: new Map(),
-        children: []
-      },
-      incomeStatement: {
-        code: '4',
-        labels: { de: 'Erfolgsrechnung', fr: 'Compte de résultat', it: 'Conto economico', en: 'Income Statement' },
-        values: new Map(),
-        children: []
-      },
-      entities: new Map(),
-      metadata: {
-        source: '',
-        loadedAt: new Date().toISOString(),
-        recordCount: 0
-      }
-    };
-
-    // Load and integrate the data
-    return await this.loadAndIntegrateFinancialData(entity, model, year, financialData, source);
-  }
-
-  /**
    * Main utility function to load financial data and integrate it into existing tree structure
    *
    * @param financialCode - Financial code (e.g., municipality number like "010002")
@@ -473,10 +476,144 @@ export class DataLoader {
         source
       );
 
+      // Step 4: Calculate and add sums directly to the tree
+      const fullEntityCode = `${source}/${model}/${financialCode}:${year}`;
+      this.calculateEntitySum(financialData, fullEntityCode);
+      console.log(`Calculated sums for ${fullEntityCode} in ${financialData.metadata.source}`, financialData);
+
       return financialData;
 
     } catch (error) {
       throw new Error(`Failed to load and integrate financial data for ${source}/${model}/${financialCode}:${year}: ${error instanceof Error ? error.message : 'Unknown error'}`);
     }
   }
+
+  /**
+   * Calculate the sum of all financial values for a specific entity and add them directly to the tree structure
+   *
+   * @param financialData - FinancialData tree structure
+   * @param entityCode - Full entity code (e.g., "gdn/fs/010002:2016")
+   * @returns EntitySumResult with calculated sums
+   */
+  calculateEntitySum(financialData: FinancialData, entityCode: string) {
+    // Get unit from first available value (assuming all values use same unit)
+    let unit = 'CHF';
+    const firstValue = this.getFirstValueFromTree(financialData.balanceSheet, entityCode) ||
+      this.getFirstValueFromTree(financialData.incomeStatement, entityCode);
+    if (firstValue) {
+      unit = firstValue.unit;
+    }
+
+    // Calculate and add sums to balance sheet tree
+   const balanceSheetResult = this.calculateAndAddSumsToTree(financialData.balanceSheet, entityCode, unit);
+
+    // Calculate and add sums to income statement tree
+    const incomeStatementResult = this.calculateAndAddSumsToTree(financialData.incomeStatement, entityCode, unit);
+
+    // print statistics
+    console.log(`Calculated sums for ${entityCode} in ${financialData.metadata.source}. Balance sheet: ${balanceSheetResult.sum} (${balanceSheetResult.nodeCount} nodes), Income statement: ${incomeStatementResult.sum} (${incomeStatementResult.nodeCount} nodes)`);
+  }
+
+  /**
+   * Calculate sums for a tree and add them directly to each node
+   *
+   * @param node - FinancialDataNode to traverse
+   * @param entityCode - Entity code to sum values for
+   * @param unit - Unit for the calculated sum values
+   * @returns Object with sum and node count
+   */
+  private calculateAndAddSumsToTree(node: FinancialDataNode, entityCode: string, unit: string): {
+    sum: number;
+    nodeCount: number,
+    node: FinancialDataNode
+  } {
+    let sum = 0;
+    let nodeCount = 0;
+
+    // Add value from current node if it exists for this entity
+    if (node.values.has(entityCode)) {
+      const value = node.values.get(entityCode);
+      if (value && typeof value.value === 'number') {
+        sum += value.value;
+        nodeCount++;
+      }
+    }
+
+    // Recursively calculate sums for children and add their sums to current sum
+    for (const child of node.children) {
+      const childResult = this.calculateAndAddSumsToTree(child, entityCode, unit);
+      let factor = 1;
+      if (child.code == '3' || child.code == '2') {
+        factor = -1;
+      }
+      sum += childResult.sum * factor;
+      nodeCount += childResult.nodeCount;
+    }
+
+    // Add the calculated sum directly to this node using a special sum entity code
+    if (sum !== 0 || nodeCount > 0) {
+      node.values.set(entityCode, {
+        value: sum,
+        unit: unit
+      });
+    }
+
+    return {sum, nodeCount, node};
+  }
+
+  /**
+   * Get the first available value from a tree for a specific entity (used to determine unit)
+   *
+   * @param node - FinancialDataNode to search
+   * @param entityCode - Entity code to look for
+   * @returns First FinacialDataValue found or null
+   */
+  private getFirstValueFromTree(node: FinancialDataNode, entityCode: string): FinacialDataValue | null {
+    // Check current node
+    if (node.values.has(entityCode)) {
+      const value = node.values.get(entityCode);
+      if (value) return value;
+    }
+
+    // Check children recursively
+    for (const child of node.children) {
+      const childValue = this.getFirstValueFromTree(child, entityCode);
+      if (childValue) return childValue;
+    }
+
+    return null;
+  }
+
+  /**
+   * Get the calculated sum value for a specific entity from a tree node
+   *
+   * @param node - FinancialDataNode to search
+   * @param entityCode - Entity code to look for
+   * @returns Sum value for the entity or null if not found
+   */
+  getSumFromNode(node: FinancialDataNode, entityCode: string): FinacialDataValue | null {
+    const sumEntityCode = `${entityCode}:sum`;
+    if (node.values.has(sumEntityCode)) {
+      const value = node.values.get(sumEntityCode);
+      if (value) return value;
+    }
+    return null;
+  }
+
+  /**
+   * Check if a node has calculated sum values for any entity
+   *
+   * @param node - FinancialDataNode to check
+   * @returns True if the node has any sum values
+   */
+  hasSumValues(node: FinancialDataNode): boolean {
+    for (const [entityCode] of node.values) {
+      if (entityCode.endsWith(':sum')) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+
 }

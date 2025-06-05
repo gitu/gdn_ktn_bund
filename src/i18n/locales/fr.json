@@ -232,10 +232,25 @@
     "filteredCategories": "Affichage: Bilan, Revenus, Dépenses",
     "parseError": "Format de jeu de données invalide: {dataset}",
     "aggregationError": "Erreur d'agrégation des données pour {dataset}",
-    "noValidData": "Aucune donnée valide trouvée dans les jeux de données"
+    "noValidData": "Aucune donnée valide trouvée dans les jeux de données",
+    "comparisonResults": "Résultats de comparaison",
+    "comparisonDescription": "Comparaison de {count} jeux de données sélectionnés",
+    "demoTitle": "Comparaison de démonstration",
+    "demoResults": "Résultats de démonstration",
+    "demoDescription": "Cet exemple compare trois jeux de données de 2016:",
+    "demoDataset1": "Commune 010002",
+    "demoDataset1Description": "Données spécifiques de commune",
+    "demoDataset2": "Commune 010009",
+    "demoDataset2Description": "Autres données spécifiques de commune",
+    "demoDataset3": "Canton de Zurich (gdn_zh)",
+    "demoDataset3Description": "Toutes les communes du canton de Zurich",
+    "loadDemoData": "Charger les données de démonstration",
+    "openFullView": "Ouvrir en plein écran",
+    "openFullViewTooltip": "Ouvre la vue de comparaison actuelle dans un mode plein écran dédié"
   },
   "financialDataDisplay": {
     "title": "Affichage des données financières",
+    "financialData": "Données financières",
     "balanceSheet": "Bilan",
     "incomeStatement": "Compte de résultat",
     "loading": "Chargement des données financières...",
@@ -272,5 +287,58 @@
       "missingIncomeStatement": "Compte de résultat manquant",
       "processingError": "Erreur de traitement des données"
     }
+  },
+  "datasetSelector": {
+    "title": "Sélection de jeux de données",
+    "subtitle": "Sélectionnez des jeux de données pour la comparaison",
+    "searchPlaceholder": "Rechercher des jeux de données...",
+    "availableDatasets": "Jeux de données disponibles",
+    "selectedDatasets": "Jeux de données sélectionnés",
+    "resultsCount": "{count} sur {total} jeux de données",
+    "selectedCount": "{count} sélectionnés",
+    "yearCount": "{count} années",
+    "latestYear": "Plus récent",
+    "loading": "Chargement du catalogue de données...",
+    "selectYear": "Sélectionner l'année",
+    "addDataset": "Ajouter",
+    "addDatasetWithYear": "Ajouter ({year})",
+    "addLatestYear": "Ajouter le plus récent ({year})",
+    "removeDataset": "Supprimer {name}",
+    "clearAll": "Tout effacer",
+    "compareDatasets": "Comparer les jeux de données",
+    "pageReportTemplate": "Affichage de {first} à {last} sur {totalRecords} entrées",
+    "filters": {
+      "dataType": "Type de données",
+      "year": "Année",
+      "all": "Tous",
+      "allYears": "Toutes les années",
+      "gdn": "Communes",
+      "std": "Standard"
+    },
+    "types": {
+      "gdn": "Commune",
+      "std": "Standard"
+    },
+    "columns": {
+      "name": "Nom",
+      "description": "Description",
+      "years": "Années disponibles",
+      "year": "Année",
+      "actions": "Actions"
+    },
+    "errors": {
+      "loadingFailed": "Échec du chargement du catalogue de données",
+      "duplicateDataset": "Ce jeu de données est déjà sélectionné"
+    }
+  },
+  "financialDataFullView": {
+    "title": "Données financières - Vue complète",
+    "subtitle": "Vue plein écran des comparaisons de données financières",
+    "backToComparison": "Retour à la comparaison",
+    "backToComparisonTooltip": "Retourner à la vue de comparaison principale",
+    "noDatasets": "Aucun jeu de données sélectionné",
+    "noDataMessage": "Veuillez sélectionner des jeux de données dans la vue de comparaison principale avant d'ouvrir la vue complète.",
+    "loadingDatasets": "Chargement des jeux de données...",
+    "datasetsLoaded": "{count} jeux de données chargés"
   }
 }

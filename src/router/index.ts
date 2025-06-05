@@ -24,6 +24,11 @@ const router = createRouter({
           name: 'financial-comparison',
           component: () => import('@/views/FinancialDataComparisonView.vue'),
         },
+        {
+          path: '/c',
+          name: 'financial-data-full-view',
+          component: () => import('@/views/FinancialDataFullView.vue'),
+        },
       ],
     },
   ],
