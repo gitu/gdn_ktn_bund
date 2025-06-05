@@ -51,9 +51,9 @@ export interface GdnDataInfo {
 }
 
 /**
- * Data browser search result
+ * Available data entry from the unified catalog
  */
-export interface DataBrowserSearchResult {
+export interface AvailableDataEntry {
   id: string;
   type: 'std' | 'gdn';
   entityCode: string;
@@ -62,6 +62,11 @@ export interface DataBrowserSearchResult {
   availableYears: string[];
   municipalityNumber?: string; // For GDN entries
 }
+
+/**
+ * Available data catalog - array of all available data entries
+ */
+export type AvailableDataCatalog = AvailableDataEntry[];
 
 /**
  * Data browser filter options

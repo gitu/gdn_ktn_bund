@@ -5,8 +5,9 @@
   "type": "module",
   "scripts": {
     "split": "node scripts/processData.js",
+    "build-data": "node scripts/buildAvailableData.js",
     "dev": "vite",
-    "build": "run-p type-check \"build-only {@}\" --",
+    "build": "run-s build-data type-check \"build-only {@}\" --",
     "preview": "vite preview",
     "tests": "run-p test:*",
     "test:unit": "vitest run",
