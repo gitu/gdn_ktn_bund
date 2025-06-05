@@ -143,7 +143,7 @@ import { useI18n } from 'vue-i18n';
 import type {
   StdDataInfo,
   GdnDataInfo,
-  DataBrowserSearchResult,
+  AvailableDataEntry,
   DataBrowserFilters,
   DataBrowserConfig,
   MultiLanguageLabels
@@ -162,7 +162,7 @@ const props = withDefaults(defineProps<Props>(), {
 });
 
 const emit = defineEmits<{
-  resultSelected: [result: DataBrowserSearchResult];
+  resultSelected: [result: AvailableDataEntry];
   error: [error: string];
 }>();
 
@@ -174,7 +174,7 @@ const loading = ref(false);
 const error = ref<string | null>(null);
 const stdData = ref<StdDataInfo[]>([]);
 const gdnData = ref<GdnDataInfo[]>([]);
-const searchResults = ref<DataBrowserSearchResult[]>([]);
+const searchResults = ref<AvailableDataEntry[]>([]);
 const currentPage = ref(1);
 
 // Configuration (removed language since it's now handled by i18n)
@@ -198,13 +198,13 @@ const filteredResults = computed(() => {
 
   // Apply data type filter
   if (filters.value.dataType !== 'all') {
-    results = results.filter(result => result.type === filters.value.dataType);
+    results = results.filter((result: AvailableDataEntry) => result.type === filters.value.dataType);
   }
 
   // Apply year range filter
   if (filters.value.yearRange.start || filters.value.yearRange.end) {
-    results = results.filter(result => {
-      const years = result.availableYears.map(y => parseInt(y));
+    results = results.filter((result: AvailableDataEntry) => {
+      const years = result.availableYears.map((y: string) => parseInt(y));
       const minYear = Math.min(...years);
       const maxYear = Math.max(...years);
 
@@ -259,7 +259,7 @@ const loadData = async () => {
 };
 
 const processDataIntoResults = () => {
-  const results: DataBrowserSearchResult[] = [];
+  const results: AvailableDataEntry[] = [];
 
   // Process STD data - only include 'fs' model data
   stdData.value.forEach(entry => {
@@ -327,7 +327,7 @@ const performSearch = () => {
   }
 
   const query = filters.value.searchQuery.toLowerCase();
-  searchResults.value = searchResults.value.filter(result => {
+  searchResults.value = searchResults.value.filter((result: AvailableDataEntry) => {
     // Search in display name
     const displayName = result.displayName[locale.value as keyof MultiLanguageLabels].toLowerCase();
     if (displayName.includes(query)) return true;
@@ -356,7 +356,7 @@ const handleFilterChange = () => {
   currentPage.value = 1;
 };
 
-const selectResult = (result: DataBrowserSearchResult) => {
+const selectResult = (result: AvailableDataEntry) => {
   emit('resultSelected', result);
 };
 
@@ -394,7 +394,7 @@ defineExpose({
   loadData,
   clearSearch,
   selectResult: (id: string) => {
-    const result = searchResults.value.find(r => r.id === id);
+    const result = searchResults.value.find((r: AvailableDataEntry) => r.id === id);
     if (result) selectResult(result);
   }
 });

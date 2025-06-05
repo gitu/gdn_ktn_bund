@@ -9,11 +9,9 @@ import type { AvailableDataEntry, AvailableDataCatalog } from '../types/DataStru
  */
 export async function loadAvailableDataCatalog(): Promise<AvailableDataCatalog> {
   try {
-    const response = await fetch('/src/data/available-data.json');
-    if (!response.ok) {
-      throw new Error(`Failed to load available data catalog: ${response.statusText}`);
-    }
-    const catalog: AvailableDataCatalog = await response.json();
+    // Import the JSON file directly using Vite's static import
+    const catalogModule = await import('../data/available-data.json');
+    const catalog = catalogModule.default as AvailableDataCatalog;
     return catalog;
   } catch (error) {
     console.error('Error loading available data catalog:', error);

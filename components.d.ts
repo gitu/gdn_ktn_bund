@@ -7,9 +7,11 @@ export {}
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
+    Button: typeof import('primevue/button')['default']
     ConfirmationDialog: typeof import('./src/components/ConfirmationDialog.vue')['default']
     DataBrowser: typeof import('./src/components/DataBrowser.vue')['default']
     DatasetSearch: typeof import('./src/components/DatasetSearch.vue')['default']
+    DatasetSelector: typeof import('./src/components/DatasetSelector.vue')['default']
     FinancialDataComparison: typeof import('./src/components/FinancialDataComparison.vue')['default']
     FinancialDataDisplay: typeof import('./src/components/FinancialDataDisplay.vue')['default']
     IconCommunity: typeof import('./src/components/icons/IconCommunity.vue')['default']

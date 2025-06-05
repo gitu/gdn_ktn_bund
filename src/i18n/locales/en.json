@@ -232,7 +232,18 @@
     "filteredCategories": "Showing: Balance Sheet, Revenue, Expenditure",
     "parseError": "Invalid dataset format: {dataset}",
     "aggregationError": "Error aggregating data for {dataset}",
-    "noValidData": "No valid data found in any dataset"
+    "noValidData": "No valid data found in any dataset",
+    "comparisonResults": "Comparison Results",
+    "comparisonDescription": "Comparing {count} selected datasets",
+    "demoTitle": "Demo Comparison",
+    "demoDescription": "This example compares three datasets from 2016:",
+    "demoDataset1": "Municipality 010002",
+    "demoDataset1Description": "Specific municipality data",
+    "demoDataset2": "Municipality 010009",
+    "demoDataset2Description": "Another specific municipality data",
+    "demoDataset3": "Canton Zurich (gdn_zh)",
+    "demoDataset3Description": "All municipalities in Canton Zurich",
+    "loadDemoData": "Load Demo Data"
   },
   "financialDataDisplay": {
     "title": "Financial Data Display",
@@ -272,6 +283,48 @@
       "missingBalanceSheet": "Balance sheet missing",
       "missingIncomeStatement": "Income statement missing",
       "processingError": "Error processing data"
+    }
+  },
+  "datasetSelector": {
+    "title": "Dataset Selection",
+    "subtitle": "Select datasets for comparison",
+    "searchPlaceholder": "Search for datasets...",
+    "availableDatasets": "Available Datasets",
+    "selectedDatasets": "Selected Datasets",
+    "resultsCount": "{count} of {total} datasets",
+    "selectedCount": "{count} selected",
+    "yearCount": "{count} years",
+    "latestYear": "Latest",
+    "loading": "Loading data catalog...",
+    "selectYear": "Select year",
+    "addDataset": "Add",
+    "addDatasetWithYear": "Add ({year})",
+    "addLatestYear": "Add latest ({year})",
+    "removeDataset": "Remove {name}",
+    "clearAll": "Clear all",
+    "compareDatasets": "Compare datasets",
+    "pageReportTemplate": "Showing {first} to {last} of {totalRecords} entries",
+    "filters": {
+      "dataType": "Data type",
+      "year": "Year",
+      "all": "All",
+      "allYears": "All years",
+      "gdn": "Municipalities",
+      "std": "Standard"
+    },
+    "types": {
+      "gdn": "Municipality",
+      "std": "Standard"
+    },
+    "columns": {
+      "name": "Name",
+      "description": "Description",
+      "years": "Available Years",
+      "actions": "Actions"
+    },
+    "errors": {
+      "loadingFailed": "Failed to load data catalog",
+      "duplicateDataset": "This dataset is already selected"
     }
   }
 }

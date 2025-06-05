@@ -338,10 +338,10 @@
     "type": "std",
     "entityCode": "sv_ahv",
     "displayName": {
-      "de": "Alters- und Hinterlassenenversicherung",
-      "fr": "Assurance-vieillesse et survivants",
-      "it": "Assicurazione vecchiaia e superstiti",
-      "en": "Old Age and Survivors Insurance"
+      "de": "Alters- und Hinterlassenenversicherung (AHV)",
+      "fr": "Assurance-vieillesse et survivants (AVS)",
+      "it": "Assicurazione vecchiaia e superstiti (AVS)",
+      "en": "Old Age and Survivors Insurance (AHV/AVS)"
     },
     "description": {
       "de": "Sozialversicherungsdaten der Schweiz",
@@ -475,10 +475,10 @@
     "type": "std",
     "entityCode": "sv_alv",
     "displayName": {
-      "de": "Arbeitslosenversicherung",
-      "fr": "Assurance-chômage",
-      "it": "Assicurazione contro la disoccupazione",
-      "en": "Unemployment Insurance"
+      "de": "Arbeitslosenversicherung (ALV)",
+      "fr": "Assurance-chômage (AC)",
+      "it": "Assicurazione contro la disoccupazione (AD)",
+      "en": "Unemployment Insurance (ALV)"
     },
     "description": {
       "de": "Sozialversicherungsdaten der Schweiz",
@@ -1648,10 +1648,10 @@
     "type": "std",
     "entityCode": "bund",
     "displayName": {
-      "de": "Bund",
-      "fr": "Confédération",
-      "it": "Confederazione",
-      "en": "Federal Government"
+      "de": "Bund (CH)",
+      "fr": "Confédération (CH)",
+      "it": "Confederazione (CH)",
+      "en": "Federal Government (CH)"
     },
     "description": {
       "de": "Bundesdaten der Schweiz",
@@ -2979,10 +2979,10 @@
     "type": "std",
     "entityCode": "sv_eo",
     "displayName": {
-      "de": "Erwerbsersatzordnung",
-      "fr": "Régime des allocations pour perte de gain",
-      "it": "Ordinamento delle indennità per perdita di guadagno",
-      "en": "Income Compensation Scheme"
+      "de": "Erwerbsersatzordnung (EO)",
+      "fr": "Allocations pour perte de gain (APG)",
+      "it": "Indennità per perdita di guadagno (IPG)",
+      "en": "Income Compensation (EO/APG)"
     },
     "description": {
       "de": "Sozialversicherungsdaten der Schweiz",
@@ -3116,10 +3116,10 @@
     "type": "std",
     "entityCode": "sv_fl",
     "displayName": {
-      "de": "Familienzulagen",
-      "fr": "Allocations familiales",
-      "it": "Assegni familiari",
-      "en": "Family Allowances"
+      "de": "Familienzulagen (FZ)",
+      "fr": "Allocations familiales (AF)",
+      "it": "Assegni familiari (AF)",
+      "en": "Family Allowances (FZ/AF)"
     },
     "description": {
       "de": "Sozialversicherungsdaten der Schweiz",
@@ -3631,10 +3631,10 @@
     "type": "std",
     "entityCode": "gdn",
     "displayName": {
-      "de": "Gemeinden",
-      "fr": "Communes",
-      "it": "Comuni",
-      "en": "Municipalities"
+      "de": "Gemeinden (GDN)",
+      "fr": "Communes (COM)",
+      "it": "Comuni (COM)",
+      "en": "Municipalities (MUN)"
     },
     "description": {
       "de": "Daten für gdn",
@@ -3658,10 +3658,10 @@
     "type": "std",
     "entityCode": "gdn_ag",
     "displayName": {
-      "de": "Gemeinden Aargau",
-      "fr": "Communes Argovie",
-      "it": "Comuni Argovia",
-      "en": "Municipalities Aargau"
+      "de": "Gemeinden (GDN) Aargau",
+      "fr": "Communes (COM) Argovie",
+      "it": "Comuni (COM) Argovia",
+      "en": "Municipalities (MUN) Aargau"
     },
     "description": {
       "de": "Alle Gemeinden des Kantons Aargau",
@@ -3685,10 +3685,10 @@
     "type": "std",
     "entityCode": "gdn_ar",
     "displayName": {
-      "de": "Gemeinden Appenzell Ausserrhoden",
-      "fr": "Communes Appenzell Rhodes-Extérieures",
-      "it": "Comuni Appenzello Esterno",
-      "en": "Municipalities Appenzell Outer Rhodes"
+      "de": "Gemeinden (GDN) Appenzell Ausserrhoden",
+      "fr": "Communes (COM) Appenzell Rhodes-Extérieures",
+      "it": "Comuni (COM) Appenzello Esterno",
+      "en": "Municipalities (MUN) Appenzell Outer Rhodes"
     },
     "description": {
       "de": "Alle Gemeinden des Kantons Appenzell Ausserrhoden",
@@ -3712,10 +3712,10 @@
     "type": "std",
     "entityCode": "gdn_ai",
     "displayName": {
-      "de": "Gemeinden Appenzell Innerrhoden",
-      "fr": "Communes Appenzell Rhodes-Intérieures",
-      "it": "Comuni Appenzello Interno",
-      "en": "Municipalities Appenzell Inner Rhodes"
+      "de": "Gemeinden (GDN) Appenzell Innerrhoden",
+      "fr": "Communes (COM) Appenzell Rhodes-Intérieures",
+      "it": "Comuni (COM) Appenzello Interno",
+      "en": "Municipalities (MUN) Appenzell Inner Rhodes"
     },
     "description": {
       "de": "Alle Gemeinden des Kantons Appenzell Innerrhoden",
@@ -3739,10 +3739,10 @@
     "type": "std",
     "entityCode": "gdn_bl",
     "displayName": {
-      "de": "Gemeinden Basel-Landschaft",
-      "fr": "Communes Bâle-Campagne",
-      "it": "Comuni Basilea Campagna",
-      "en": "Municipalities Basel-Country"
+      "de": "Gemeinden (GDN) Basel-Landschaft",
+      "fr": "Communes (COM) Bâle-Campagne",
+      "it": "Comuni (COM) Basilea Campagna",
+      "en": "Municipalities (MUN) Basel-Country"
     },
     "description": {
       "de": "Alle Gemeinden des Kantons Basel-Landschaft",
@@ -3766,10 +3766,10 @@
     "type": "std",
     "entityCode": "gdn_bs",
     "displayName": {
-      "de": "Gemeinden Basel-Stadt",
-      "fr": "Communes Bâle-Ville",
-      "it": "Comuni Basilea Città",
-      "en": "Municipalities Basel-City"
+      "de": "Gemeinden (GDN) Basel-Stadt",
+      "fr": "Communes (COM) Bâle-Ville",
+      "it": "Comuni (COM) Basilea Città",
+      "en": "Municipalities (MUN) Basel-City"
     },
     "description": {
       "de": "Alle Gemeinden des Kantons Basel-Stadt",
@@ -3793,10 +3793,10 @@
     "type": "std",
     "entityCode": "gdn_be",
     "displayName": {
-      "de": "Gemeinden Bern",
-      "fr": "Communes Berne",
-      "it": "Comuni Berna",
-      "en": "Municipalities Bern"
+      "de": "Gemeinden (GDN) Bern",
+      "fr": "Communes (COM) Berne",
+      "it": "Comuni (COM) Berna",
+      "en": "Municipalities (MUN) Bern"
     },
     "description": {
       "de": "Alle Gemeinden des Kantons Bern",
@@ -3820,10 +3820,10 @@
     "type": "std",
     "entityCode": "gdn_fr",
     "displayName": {
-      "de": "Gemeinden Freiburg",
-      "fr": "Communes Fribourg",
-      "it": "Comuni Friborgo",
-      "en": "Municipalities Fribourg"
+      "de": "Gemeinden (GDN) Freiburg",
+      "fr": "Communes (COM) Fribourg",
+      "it": "Comuni (COM) Friborgo",
+      "en": "Municipalities (MUN) Fribourg"
     },
     "description": {
       "de": "Alle Gemeinden des Kantons Freiburg",
@@ -3847,10 +3847,10 @@
     "type": "std",
     "entityCode": "gdn_ge",
     "displayName": {
-      "de": "Gemeinden Genf",
-      "fr": "Communes Genève",
-      "it": "Comuni Ginevra",
-      "en": "Municipalities Geneva"
+      "de": "Gemeinden (GDN) Genf",
+      "fr": "Communes (COM) Genève",
+      "it": "Comuni (COM) Ginevra",
+      "en": "Municipalities (MUN) Geneva"
     },
     "description": {
       "de": "Alle Gemeinden des Kantons Genf",
@@ -3874,10 +3874,10 @@
     "type": "std",
     "entityCode": "gdn_gl",
     "displayName": {
-      "de": "Gemeinden Glarus",
-      "fr": "Communes Glaris",
-      "it": "Comuni Glarona",
-      "en": "Municipalities Glarus"
+      "de": "Gemeinden (GDN) Glarus",
+      "fr": "Communes (COM) Glaris",
+      "it": "Comuni (COM) Glarona",
+      "en": "Municipalities (MUN) Glarus"
     },
     "description": {
       "de": "Alle Gemeinden des Kantons Glarus",
@@ -3901,10 +3901,10 @@
     "type": "std",
     "entityCode": "gdn_gr",
     "displayName": {
-      "de": "Gemeinden Graubünden",
-      "fr": "Communes Grisons",
-      "it": "Comuni Grigioni",
-      "en": "Municipalities Grisons"
+      "de": "Gemeinden (GDN) Graubünden",
+      "fr": "Communes (COM) Grisons",
+      "it": "Comuni (COM) Grigioni",
+      "en": "Municipalities (MUN) Grisons"
     },
     "description": {
       "de": "Alle Gemeinden des Kantons Graubünden",
@@ -3928,16 +3928,421 @@
     "type": "std",
     "entityCode": "gdn_ju",
     "displayName": {
-      "de": "Gemeinden Jura",
-      "fr": "Communes Jura",
-      "it": "Comuni Giura",
-      "en": "Municipalities Jura"
+      "de": "Gemeinden (GDN) Jura",
+      "fr": "Communes (COM) Jura",
+      "it": "Comuni (COM) Giura",
+      "en": "Municipalities (MUN) Jura"
     },
     "description": {
       "de": "Alle Gemeinden des Kantons Jura",
       "fr": "Toutes les communes du canton Jura",
       "it": "Tutti i comuni del cantone Giura",
       "en": "All municipalities of Canton Jura"
+    },
+    "availableYears": [
+      "2015",
+      "2016",
+      "2017",
+      "2018",
+      "2019",
+      "2020",
+      "2021",
+      "2022"
+    ]
+  },
+  {
+    "id": "std_gdn_lu",
+    "type": "std",
+    "entityCode": "gdn_lu",
+    "displayName": {
+      "de": "Gemeinden (GDN) Luzern",
+      "fr": "Communes (COM) Lucerne",
+      "it": "Comuni (COM) Lucerna",
+      "en": "Municipalities (MUN) Lucerne"
+    },
+    "description": {
+      "de": "Alle Gemeinden des Kantons Luzern",
+      "fr": "Toutes les communes du canton Lucerne",
+      "it": "Tutti i comuni del cantone Lucerna",
+      "en": "All municipalities of Canton Lucerne"
+    },
+    "availableYears": [
+      "2015",
+      "2016",
+      "2017",
+      "2018",
+      "2019",
+      "2020",
+      "2021",
+      "2022"
+    ]
+  },
+  {
+    "id": "std_gdn_ne",
+    "type": "std",
+    "entityCode": "gdn_ne",
+    "displayName": {
+      "de": "Gemeinden (GDN) Neuenburg",
+      "fr": "Communes (COM) Neuchâtel",
+      "it": "Comuni (COM) Neuchâtel",
+      "en": "Municipalities (MUN) Neuchâtel"
+    },
+    "description": {
+      "de": "Alle Gemeinden des Kantons Neuenburg",
+      "fr": "Toutes les communes du canton Neuchâtel",
+      "it": "Tutti i comuni del cantone Neuchâtel",
+      "en": "All municipalities of Canton Neuchâtel"
+    },
+    "availableYears": [
+      "2015",
+      "2016",
+      "2017",
+      "2018",
+      "2019",
+      "2020",
+      "2021",
+      "2022"
+    ]
+  },
+  {
+    "id": "std_gdn_nw",
+    "type": "std",
+    "entityCode": "gdn_nw",
+    "displayName": {
+      "de": "Gemeinden (GDN) Nidwalden",
+      "fr": "Communes (COM) Nidwald",
+      "it": "Comuni (COM) Nidvaldo",
+      "en": "Municipalities (MUN) Nidwalden"
+    },
+    "description": {
+      "de": "Alle Gemeinden des Kantons Nidwalden",
+      "fr": "Toutes les communes du canton Nidwald",
+      "it": "Tutti i comuni del cantone Nidvaldo",
+      "en": "All municipalities of Canton Nidwalden"
+    },
+    "availableYears": [
+      "2015",
+      "2016",
+      "2017",
+      "2018",
+      "2019",
+      "2020",
+      "2021",
+      "2022"
+    ]
+  },
+  {
+    "id": "std_gdn_ow",
+    "type": "std",
+    "entityCode": "gdn_ow",
+    "displayName": {
+      "de": "Gemeinden (GDN) Obwalden",
+      "fr": "Communes (COM) Obwald",
+      "it": "Comuni (COM) Obvaldo",
+      "en": "Municipalities (MUN) Obwalden"
+    },
+    "description": {
+      "de": "Alle Gemeinden des Kantons Obwalden",
+      "fr": "Toutes les communes du canton Obwald",
+      "it": "Tutti i comuni del cantone Obvaldo",
+      "en": "All municipalities of Canton Obwalden"
+    },
+    "availableYears": [
+      "2015",
+      "2016",
+      "2017",
+      "2018",
+      "2019",
+      "2020",
+      "2021",
+      "2022"
+    ]
+  },
+  {
+    "id": "std_gdn_sh",
+    "type": "std",
+    "entityCode": "gdn_sh",
+    "displayName": {
+      "de": "Gemeinden (GDN) Schaffhausen",
+      "fr": "Communes (COM) Schaffhouse",
+      "it": "Comuni (COM) Sciaffusa",
+      "en": "Municipalities (MUN) Schaffhausen"
+    },
+    "description": {
+      "de": "Alle Gemeinden des Kantons Schaffhausen",
+      "fr": "Toutes les communes du canton Schaffhouse",
+      "it": "Tutti i comuni del cantone Sciaffusa",
+      "en": "All municipalities of Canton Schaffhausen"
+    },
+    "availableYears": [
+      "2015",
+      "2016",
+      "2017",
+      "2018",
+      "2019",
+      "2020",
+      "2021",
+      "2022"
+    ]
+  },
+  {
+    "id": "std_gdn_sz",
+    "type": "std",
+    "entityCode": "gdn_sz",
+    "displayName": {
+      "de": "Gemeinden (GDN) Schwyz",
+      "fr": "Communes (COM) Schwyz",
+      "it": "Comuni (COM) Svitto",
+      "en": "Municipalities (MUN) Schwyz"
+    },
+    "description": {
+      "de": "Alle Gemeinden des Kantons Schwyz",
+      "fr": "Toutes les communes du canton Schwyz",
+      "it": "Tutti i comuni del cantone Svitto",
+      "en": "All municipalities of Canton Schwyz"
+    },
+    "availableYears": [
+      "2015",
+      "2016",
+      "2017",
+      "2018",
+      "2019",
+      "2020",
+      "2021",
+      "2022"
+    ]
+  },
+  {
+    "id": "std_gdn_so",
+    "type": "std",
+    "entityCode": "gdn_so",
+    "displayName": {
+      "de": "Gemeinden (GDN) Solothurn",
+      "fr": "Communes (COM) Soleure",
+      "it": "Comuni (COM) Soletta",
+      "en": "Municipalities (MUN) Solothurn"
+    },
+    "description": {
+      "de": "Alle Gemeinden des Kantons Solothurn",
+      "fr": "Toutes les communes du canton Soleure",
+      "it": "Tutti i comuni del cantone Soletta",
+      "en": "All municipalities of Canton Solothurn"
+    },
+    "availableYears": [
+      "2015",
+      "2016",
+      "2017",
+      "2018",
+      "2019",
+      "2020",
+      "2021",
+      "2022"
+    ]
+  },
+  {
+    "id": "std_gdn_sg",
+    "type": "std",
+    "entityCode": "gdn_sg",
+    "displayName": {
+      "de": "Gemeinden (GDN) St. Gallen",
+      "fr": "Communes (COM) Saint-Gall",
+      "it": "Comuni (COM) San Gallo",
+      "en": "Municipalities (MUN) St. Gallen"
+    },
+    "description": {
+      "de": "Alle Gemeinden des Kantons St. Gallen",
+      "fr": "Toutes les communes du canton Saint-Gall",
+      "it": "Tutti i comuni del cantone San Gallo",
+      "en": "All municipalities of Canton St. Gallen"
+    },
+    "availableYears": [
+      "2015",
+      "2016",
+      "2017",
+      "2018",
+      "2019",
+      "2020",
+      "2021",
+      "2022"
+    ]
+  },
+  {
+    "id": "std_gdn_ti",
+    "type": "std",
+    "entityCode": "gdn_ti",
+    "displayName": {
+      "de": "Gemeinden (GDN) Tessin",
+      "fr": "Communes (COM) Tessin",
+      "it": "Comuni (COM) Ticino",
+      "en": "Municipalities (MUN) Ticino"
+    },
+    "description": {
+      "de": "Alle Gemeinden des Kantons Tessin",
+      "fr": "Toutes les communes du canton Tessin",
+      "it": "Tutti i comuni del cantone Ticino",
+      "en": "All municipalities of Canton Ticino"
+    },
+    "availableYears": [
+      "2015",
+      "2016",
+      "2017",
+      "2018",
+      "2019",
+      "2020",
+      "2021",
+      "2022"
+    ]
+  },
+  {
+    "id": "std_gdn_tg",
+    "type": "std",
+    "entityCode": "gdn_tg",
+    "displayName": {
+      "de": "Gemeinden (GDN) Thurgau",
+      "fr": "Communes (COM) Thurgovie",
+      "it": "Comuni (COM) Turgovia",
+      "en": "Municipalities (MUN) Thurgau"
+    },
+    "description": {
+      "de": "Alle Gemeinden des Kantons Thurgau",
+      "fr": "Toutes les communes du canton Thurgovie",
+      "it": "Tutti i comuni del cantone Turgovia",
+      "en": "All municipalities of Canton Thurgau"
+    },
+    "availableYears": [
+      "2015",
+      "2016",
+      "2017",
+      "2018",
+      "2019",
+      "2020",
+      "2021",
+      "2022"
+    ]
+  },
+  {
+    "id": "std_gdn_ur",
+    "type": "std",
+    "entityCode": "gdn_ur",
+    "displayName": {
+      "de": "Gemeinden (GDN) Uri",
+      "fr": "Communes (COM) Uri",
+      "it": "Comuni (COM) Uri",
+      "en": "Municipalities (MUN) Uri"
+    },
+    "description": {
+      "de": "Alle Gemeinden des Kantons Uri",
+      "fr": "Toutes les communes du canton Uri",
+      "it": "Tutti i comuni del cantone Uri",
+      "en": "All municipalities of Canton Uri"
+    },
+    "availableYears": [
+      "2015",
+      "2016",
+      "2017",
+      "2018",
+      "2019",
+      "2020",
+      "2021",
+      "2022"
+    ]
+  },
+  {
+    "id": "std_gdn_vd",
+    "type": "std",
+    "entityCode": "gdn_vd",
+    "displayName": {
+      "de": "Gemeinden (GDN) Waadt",
+      "fr": "Communes (COM) Vaud",
+      "it": "Comuni (COM) Vaud",
+      "en": "Municipalities (MUN) Vaud"
+    },
+    "description": {
+      "de": "Alle Gemeinden des Kantons Waadt",
+      "fr": "Toutes les communes du canton Vaud",
+      "it": "Tutti i comuni del cantone Vaud",
+      "en": "All municipalities of Canton Vaud"
+    },
+    "availableYears": [
+      "2015",
+      "2016",
+      "2017",
+      "2018",
+      "2019",
+      "2020",
+      "2021",
+      "2022"
+    ]
+  },
+  {
+    "id": "std_gdn_vs",
+    "type": "std",
+    "entityCode": "gdn_vs",
+    "displayName": {
+      "de": "Gemeinden (GDN) Wallis",
+      "fr": "Communes (COM) Valais",
+      "it": "Comuni (COM) Vallese",
+      "en": "Municipalities (MUN) Valais"
+    },
+    "description": {
+      "de": "Alle Gemeinden des Kantons Wallis",
+      "fr": "Toutes les communes du canton Valais",
+      "it": "Tutti i comuni del cantone Vallese",
+      "en": "All municipalities of Canton Valais"
+    },
+    "availableYears": [
+      "2015",
+      "2016",
+      "2017",
+      "2018",
+      "2019",
+      "2020",
+      "2021",
+      "2022"
+    ]
+  },
+  {
+    "id": "std_gdn_zg",
+    "type": "std",
+    "entityCode": "gdn_zg",
+    "displayName": {
+      "de": "Gemeinden (GDN) Zug",
+      "fr": "Communes (COM) Zoug",
+      "it": "Comuni (COM) Zugo",
+      "en": "Municipalities (MUN) Zug"
+    },
+    "description": {
+      "de": "Alle Gemeinden des Kantons Zug",
+      "fr": "Toutes les communes du canton Zoug",
+      "it": "Tutti i comuni del cantone Zugo",
+      "en": "All municipalities of Canton Zug"
+    },
+    "availableYears": [
+      "2015",
+      "2016",
+      "2017",
+      "2018",
+      "2019",
+      "2020",
+      "2021",
+      "2022"
+    ]
+  },
+  {
+    "id": "std_gdn_zh",
+    "type": "std",
+    "entityCode": "gdn_zh",
+    "displayName": {
+      "de": "Gemeinden (GDN) Zürich",
+      "fr": "Communes (COM) Zurich",
+      "it": "Comuni (COM) Zurigo",
+      "en": "Municipalities (MUN) Zurich"
+    },
+    "description": {
+      "de": "Alle Gemeinden des Kantons Zürich",
+      "fr": "Toutes les communes du canton Zurich",
+      "it": "Tutti i comuni del cantone Zurigo",
+      "en": "All municipalities of Canton Zurich"
     },
     "availableYears": [
       "2015",
@@ -4640,411 +5045,6 @@
       "fr": "Données pour ktn_gdn_zh",
       "it": "Dati per ktn_gdn_zh",
       "en": "Data for ktn_gdn_zh"
-    },
-    "availableYears": [
-      "2015",
-      "2016",
-      "2017",
-      "2018",
-      "2019",
-      "2020",
-      "2021",
-      "2022"
-    ]
-  },
-  {
-    "id": "std_gdn_lu",
-    "type": "std",
-    "entityCode": "gdn_lu",
-    "displayName": {
-      "de": "Gemeinden Luzern",
-      "fr": "Communes Lucerne",
-      "it": "Comuni Lucerna",
-      "en": "Municipalities Lucerne"
-    },
-    "description": {
-      "de": "Alle Gemeinden des Kantons Luzern",
-      "fr": "Toutes les communes du canton Lucerne",
-      "it": "Tutti i comuni del cantone Lucerna",
-      "en": "All municipalities of Canton Lucerne"
-    },
-    "availableYears": [
-      "2015",
-      "2016",
-      "2017",
-      "2018",
-      "2019",
-      "2020",
-      "2021",
-      "2022"
-    ]
-  },
-  {
-    "id": "std_gdn_ne",
-    "type": "std",
-    "entityCode": "gdn_ne",
-    "displayName": {
-      "de": "Gemeinden Neuenburg",
-      "fr": "Communes Neuchâtel",
-      "it": "Comuni Neuchâtel",
-      "en": "Municipalities Neuchâtel"
-    },
-    "description": {
-      "de": "Alle Gemeinden des Kantons Neuenburg",
-      "fr": "Toutes les communes du canton Neuchâtel",
-      "it": "Tutti i comuni del cantone Neuchâtel",
-      "en": "All municipalities of Canton Neuchâtel"
-    },
-    "availableYears": [
-      "2015",
-      "2016",
-      "2017",
-      "2018",
-      "2019",
-      "2020",
-      "2021",
-      "2022"
-    ]
-  },
-  {
-    "id": "std_gdn_nw",
-    "type": "std",
-    "entityCode": "gdn_nw",
-    "displayName": {
-      "de": "Gemeinden Nidwalden",
-      "fr": "Communes Nidwald",
-      "it": "Comuni Nidvaldo",
-      "en": "Municipalities Nidwalden"
-    },
-    "description": {
-      "de": "Alle Gemeinden des Kantons Nidwalden",
-      "fr": "Toutes les communes du canton Nidwald",
-      "it": "Tutti i comuni del cantone Nidvaldo",
-      "en": "All municipalities of Canton Nidwalden"
-    },
-    "availableYears": [
-      "2015",
-      "2016",
-      "2017",
-      "2018",
-      "2019",
-      "2020",
-      "2021",
-      "2022"
-    ]
-  },
-  {
-    "id": "std_gdn_ow",
-    "type": "std",
-    "entityCode": "gdn_ow",
-    "displayName": {
-      "de": "Gemeinden Obwalden",
-      "fr": "Communes Obwald",
-      "it": "Comuni Obvaldo",
-      "en": "Municipalities Obwalden"
-    },
-    "description": {
-      "de": "Alle Gemeinden des Kantons Obwalden",
-      "fr": "Toutes les communes du canton Obwald",
-      "it": "Tutti i comuni del cantone Obvaldo",
-      "en": "All municipalities of Canton Obwalden"
-    },
-    "availableYears": [
-      "2015",
-      "2016",
-      "2017",
-      "2018",
-      "2019",
-      "2020",
-      "2021",
-      "2022"
-    ]
-  },
-  {
-    "id": "std_gdn_sh",
-    "type": "std",
-    "entityCode": "gdn_sh",
-    "displayName": {
-      "de": "Gemeinden Schaffhausen",
-      "fr": "Communes Schaffhouse",
-      "it": "Comuni Sciaffusa",
-      "en": "Municipalities Schaffhausen"
-    },
-    "description": {
-      "de": "Alle Gemeinden des Kantons Schaffhausen",
-      "fr": "Toutes les communes du canton Schaffhouse",
-      "it": "Tutti i comuni del cantone Sciaffusa",
-      "en": "All municipalities of Canton Schaffhausen"
-    },
-    "availableYears": [
-      "2015",
-      "2016",
-      "2017",
-      "2018",
-      "2019",
-      "2020",
-      "2021",
-      "2022"
-    ]
-  },
-  {
-    "id": "std_gdn_sz",
-    "type": "std",
-    "entityCode": "gdn_sz",
-    "displayName": {
-      "de": "Gemeinden Schwyz",
-      "fr": "Communes Schwyz",
-      "it": "Comuni Svitto",
-      "en": "Municipalities Schwyz"
-    },
-    "description": {
-      "de": "Alle Gemeinden des Kantons Schwyz",
-      "fr": "Toutes les communes du canton Schwyz",
-      "it": "Tutti i comuni del cantone Svitto",
-      "en": "All municipalities of Canton Schwyz"
-    },
-    "availableYears": [
-      "2015",
-      "2016",
-      "2017",
-      "2018",
-      "2019",
-      "2020",
-      "2021",
-      "2022"
-    ]
-  },
-  {
-    "id": "std_gdn_so",
-    "type": "std",
-    "entityCode": "gdn_so",
-    "displayName": {
-      "de": "Gemeinden Solothurn",
-      "fr": "Communes Soleure",
-      "it": "Comuni Soletta",
-      "en": "Municipalities Solothurn"
-    },
-    "description": {
-      "de": "Alle Gemeinden des Kantons Solothurn",
-      "fr": "Toutes les communes du canton Soleure",
-      "it": "Tutti i comuni del cantone Soletta",
-      "en": "All municipalities of Canton Solothurn"
-    },
-    "availableYears": [
-      "2015",
-      "2016",
-      "2017",
-      "2018",
-      "2019",
-      "2020",
-      "2021",
-      "2022"
-    ]
-  },
-  {
-    "id": "std_gdn_sg",
-    "type": "std",
-    "entityCode": "gdn_sg",
-    "displayName": {
-      "de": "Gemeinden St. Gallen",
-      "fr": "Communes Saint-Gall",
-      "it": "Comuni San Gallo",
-      "en": "Municipalities St. Gallen"
-    },
-    "description": {
-      "de": "Alle Gemeinden des Kantons St. Gallen",
-      "fr": "Toutes les communes du canton Saint-Gall",
-      "it": "Tutti i comuni del cantone San Gallo",
-      "en": "All municipalities of Canton St. Gallen"
-    },
-    "availableYears": [
-      "2015",
-      "2016",
-      "2017",
-      "2018",
-      "2019",
-      "2020",
-      "2021",
-      "2022"
-    ]
-  },
-  {
-    "id": "std_gdn_ti",
-    "type": "std",
-    "entityCode": "gdn_ti",
-    "displayName": {
-      "de": "Gemeinden Tessin",
-      "fr": "Communes Tessin",
-      "it": "Comuni Ticino",
-      "en": "Municipalities Ticino"
-    },
-    "description": {
-      "de": "Alle Gemeinden des Kantons Tessin",
-      "fr": "Toutes les communes du canton Tessin",
-      "it": "Tutti i comuni del cantone Ticino",
-      "en": "All municipalities of Canton Ticino"
-    },
-    "availableYears": [
-      "2015",
-      "2016",
-      "2017",
-      "2018",
-      "2019",
-      "2020",
-      "2021",
-      "2022"
-    ]
-  },
-  {
-    "id": "std_gdn_tg",
-    "type": "std",
-    "entityCode": "gdn_tg",
-    "displayName": {
-      "de": "Gemeinden Thurgau",
-      "fr": "Communes Thurgovie",
-      "it": "Comuni Turgovia",
-      "en": "Municipalities Thurgau"
-    },
-    "description": {
-      "de": "Alle Gemeinden des Kantons Thurgau",
-      "fr": "Toutes les communes du canton Thurgovie",
-      "it": "Tutti i comuni del cantone Turgovia",
-      "en": "All municipalities of Canton Thurgau"
-    },
-    "availableYears": [
-      "2015",
-      "2016",
-      "2017",
-      "2018",
-      "2019",
-      "2020",
-      "2021",
-      "2022"
-    ]
-  },
-  {
-    "id": "std_gdn_ur",
-    "type": "std",
-    "entityCode": "gdn_ur",
-    "displayName": {
-      "de": "Gemeinden Uri",
-      "fr": "Communes Uri",
-      "it": "Comuni Uri",
-      "en": "Municipalities Uri"
-    },
-    "description": {
-      "de": "Alle Gemeinden des Kantons Uri",
-      "fr": "Toutes les communes du canton Uri",
-      "it": "Tutti i comuni del cantone Uri",
-      "en": "All municipalities of Canton Uri"
-    },
-    "availableYears": [
-      "2015",
-      "2016",
-      "2017",
-      "2018",
-      "2019",
-      "2020",
-      "2021",
-      "2022"
-    ]
-  },
-  {
-    "id": "std_gdn_vd",
-    "type": "std",
-    "entityCode": "gdn_vd",
-    "displayName": {
-      "de": "Gemeinden Waadt",
-      "fr": "Communes Vaud",
-      "it": "Comuni Vaud",
-      "en": "Municipalities Vaud"
-    },
-    "description": {
-      "de": "Alle Gemeinden des Kantons Waadt",
-      "fr": "Toutes les communes du canton Vaud",
-      "it": "Tutti i comuni del cantone Vaud",
-      "en": "All municipalities of Canton Vaud"
-    },
-    "availableYears": [
-      "2015",
-      "2016",
-      "2017",
-      "2018",
-      "2019",
-      "2020",
-      "2021",
-      "2022"
-    ]
-  },
-  {
-    "id": "std_gdn_vs",
-    "type": "std",
-    "entityCode": "gdn_vs",
-    "displayName": {
-      "de": "Gemeinden Wallis",
-      "fr": "Communes Valais",
-      "it": "Comuni Vallese",
-      "en": "Municipalities Valais"
-    },
-    "description": {
-      "de": "Alle Gemeinden des Kantons Wallis",
-      "fr": "Toutes les communes du canton Valais",
-      "it": "Tutti i comuni del cantone Vallese",
-      "en": "All municipalities of Canton Valais"
-    },
-    "availableYears": [
-      "2015",
-      "2016",
-      "2017",
-      "2018",
-      "2019",
-      "2020",
-      "2021",
-      "2022"
-    ]
-  },
-  {
-    "id": "std_gdn_zg",
-    "type": "std",
-    "entityCode": "gdn_zg",
-    "displayName": {
-      "de": "Gemeinden Zug",
-      "fr": "Communes Zoug",
-      "it": "Comuni Zugo",
-      "en": "Municipalities Zug"
-    },
-    "description": {
-      "de": "Alle Gemeinden des Kantons Zug",
-      "fr": "Toutes les communes du canton Zoug",
-      "it": "Tutti i comuni del cantone Zugo",
-      "en": "All municipalities of Canton Zug"
-    },
-    "availableYears": [
-      "2015",
-      "2016",
-      "2017",
-      "2018",
-      "2019",
-      "2020",
-      "2021",
-      "2022"
-    ]
-  },
-  {
-    "id": "std_gdn_zh",
-    "type": "std",
-    "entityCode": "gdn_zh",
-    "displayName": {
-      "de": "Gemeinden Zürich",
-      "fr": "Communes Zurich",
-      "it": "Comuni Zurigo",
-      "en": "Municipalities Zurich"
-    },
-    "description": {
-      "de": "Alle Gemeinden des Kantons Zürich",
-      "fr": "Toutes les communes du canton Zurich",
-      "it": "Tutti i comuni del cantone Zurigo",
-      "en": "All municipalities of Canton Zurich"
     },
     "availableYears": [
       "2015",
@@ -6054,10 +6054,10 @@
     "type": "std",
     "entityCode": "sv_iv",
     "displayName": {
-      "de": "Invalidenversicherung",
-      "fr": "Assurance-invalidité",
-      "it": "Assicurazione invalidità",
-      "en": "Disability Insurance"
+      "de": "Invalidenversicherung (IV)",
+      "fr": "Assurance-invalidité (AI)",
+      "it": "Assicurazione invalidità (AI)",
+      "en": "Disability Insurance (IV/AI)"
     },
     "description": {
       "de": "Sozialversicherungsdaten der Schweiz",
@@ -6186,10 +6186,10 @@
     "type": "std",
     "entityCode": "ktn",
     "displayName": {
-      "de": "Kantone",
-      "fr": "Cantons",
-      "it": "Cantoni",
-      "en": "Cantons"
+      "de": "Kantone (KTN)",
+      "fr": "Cantons (CT)",
+      "it": "Cantoni (CT)",
+      "en": "Cantons (CT)"
     },
     "description": {
       "de": "Daten für ktn",
@@ -6214,10 +6214,10 @@
     "type": "std",
     "entityCode": "ktn_ag",
     "displayName": {
-      "de": "Kantone Aargau",
-      "fr": "Cantons Argovie",
-      "it": "Cantoni Argovia",
-      "en": "Cantons Aargau"
+      "de": "Kantone (KTN) Aargau",
+      "fr": "Cantons (CT) Argovie",
+      "it": "Cantoni (CT) Argovia",
+      "en": "Cantons (CT) Aargau"
     },
     "description": {
       "de": "Daten für ktn_ag",
@@ -6242,10 +6242,10 @@
     "type": "std",
     "entityCode": "ktn_ar",
     "displayName": {
-      "de": "Kantone Appenzell Ausserrhoden",
-      "fr": "Cantons Appenzell Rhodes-Extérieures",
-      "it": "Cantoni Appenzello Esterno",
-      "en": "Cantons Appenzell Outer Rhodes"
+      "de": "Kantone (KTN) Appenzell Ausserrhoden",
+      "fr": "Cantons (CT) Appenzell Rhodes-Extérieures",
+      "it": "Cantoni (CT) Appenzello Esterno",
+      "en": "Cantons (CT) Appenzell Outer Rhodes"
     },
     "description": {
       "de": "Daten für ktn_ar",
@@ -6270,10 +6270,10 @@
     "type": "std",
     "entityCode": "ktn_ai",
     "displayName": {
-      "de": "Kantone Appenzell Innerrhoden",
-      "fr": "Cantons Appenzell Rhodes-Intérieures",
-      "it": "Cantoni Appenzello Interno",
-      "en": "Cantons Appenzell Inner Rhodes"
+      "de": "Kantone (KTN) Appenzell Innerrhoden",
+      "fr": "Cantons (CT) Appenzell Rhodes-Intérieures",
+      "it": "Cantoni (CT) Appenzello Interno",
+      "en": "Cantons (CT) Appenzell Inner Rhodes"
     },
     "description": {
       "de": "Daten für ktn_ai",
@@ -6298,10 +6298,10 @@
     "type": "std",
     "entityCode": "ktn_bl",
     "displayName": {
-      "de": "Kantone Basel-Landschaft",
-      "fr": "Cantons Bâle-Campagne",
-      "it": "Cantoni Basilea Campagna",
-      "en": "Cantons Basel-Country"
+      "de": "Kantone (KTN) Basel-Landschaft",
+      "fr": "Cantons (CT) Bâle-Campagne",
+      "it": "Cantoni (CT) Basilea Campagna",
+      "en": "Cantons (CT) Basel-Country"
     },
     "description": {
       "de": "Daten für ktn_bl",
@@ -6326,10 +6326,10 @@
     "type": "std",
     "entityCode": "ktn_bs",
     "displayName": {
-      "de": "Kantone Basel-Stadt",
-      "fr": "Cantons Bâle-Ville",
-      "it": "Cantoni Basilea Città",
-      "en": "Cantons Basel-City"
+      "de": "Kantone (KTN) Basel-Stadt",
+      "fr": "Cantons (CT) Bâle-Ville",
+      "it": "Cantoni (CT) Basilea Città",
+      "en": "Cantons (CT) Basel-City"
     },
     "description": {
       "de": "Daten für ktn_bs",
@@ -6354,10 +6354,10 @@
     "type": "std",
     "entityCode": "ktn_be",
     "displayName": {
-      "de": "Kantone Bern",
-      "fr": "Cantons Berne",
-      "it": "Cantoni Berna",
-      "en": "Cantons Bern"
+      "de": "Kantone (KTN) Bern",
+      "fr": "Cantons (CT) Berne",
+      "it": "Cantoni (CT) Berna",
+      "en": "Cantons (CT) Bern"
     },
     "description": {
       "de": "Daten für ktn_be",
@@ -6382,10 +6382,10 @@
     "type": "std",
     "entityCode": "ktn_fr",
     "displayName": {
-      "de": "Kantone Freiburg",
-      "fr": "Cantons Fribourg",
-      "it": "Cantoni Friborgo",
-      "en": "Cantons Fribourg"
+      "de": "Kantone (KTN) Freiburg",
+      "fr": "Cantons (CT) Fribourg",
+      "it": "Cantoni (CT) Friborgo",
+      "en": "Cantons (CT) Fribourg"
     },
     "description": {
       "de": "Daten für ktn_fr",
@@ -6410,10 +6410,10 @@
     "type": "std",
     "entityCode": "ktn_gdn",
     "displayName": {
-      "de": "Kantone Gemeinden",
-      "fr": "Cantons Communes",
-      "it": "Cantoni Comuni",
-      "en": "Cantons Municipalities"
+      "de": "Kantone (KTN) Gemeinden (GDN)",
+      "fr": "Cantons (CT) Communes (COM)",
+      "it": "Cantoni (CT) Comuni (COM)",
+      "en": "Cantons (CT) Municipalities (MUN)"
     },
     "description": {
       "de": "Daten für ktn_gdn",
@@ -6437,10 +6437,10 @@
     "type": "std",
     "entityCode": "ktn_ge",
     "displayName": {
-      "de": "Kantone Genf",
-      "fr": "Cantons Genève",
-      "it": "Cantoni Ginevra",
-      "en": "Cantons Geneva"
+      "de": "Kantone (KTN) Genf",
+      "fr": "Cantons (CT) Genève",
+      "it": "Cantoni (CT) Ginevra",
+      "en": "Cantons (CT) Geneva"
     },
     "description": {
       "de": "Daten für ktn_ge",
@@ -6465,10 +6465,10 @@
     "type": "std",
     "entityCode": "ktn_gl",
     "displayName": {
-      "de": "Kantone Glarus",
-      "fr": "Cantons Glaris",
-      "it": "Cantoni Glarona",
-      "en": "Cantons Glarus"
+      "de": "Kantone (KTN) Glarus",
+      "fr": "Cantons (CT) Glaris",
+      "it": "Cantoni (CT) Glarona",
+      "en": "Cantons (CT) Glarus"
     },
     "description": {
       "de": "Daten für ktn_gl",
@@ -6493,10 +6493,10 @@
     "type": "std",
     "entityCode": "ktn_gr",
     "displayName": {
-      "de": "Kantone Graubünden",
-      "fr": "Cantons Grisons",
-      "it": "Cantoni Grigioni",
-      "en": "Cantons Grisons"
+      "de": "Kantone (KTN) Graubünden",
+      "fr": "Cantons (CT) Grisons",
+      "it": "Cantoni (CT) Grigioni",
+      "en": "Cantons (CT) Grisons"
     },
     "description": {
       "de": "Daten für ktn_gr",
@@ -6521,10 +6521,10 @@
     "type": "std",
     "entityCode": "ktn_ju",
     "displayName": {
-      "de": "Kantone Jura",
-      "fr": "Cantons Jura",
-      "it": "Cantoni Giura",
-      "en": "Cantons Jura"
+      "de": "Kantone (KTN) Jura",
+      "fr": "Cantons (CT) Jura",
+      "it": "Cantoni (CT) Giura",
+      "en": "Cantons (CT) Jura"
     },
     "description": {
       "de": "Daten für ktn_ju",
@@ -6549,10 +6549,10 @@
     "type": "std",
     "entityCode": "ktn_lu",
     "displayName": {
-      "de": "Kantone Luzern",
-      "fr": "Cantons Lucerne",
-      "it": "Cantoni Lucerna",
-      "en": "Cantons Lucerne"
+      "de": "Kantone (KTN) Luzern",
+      "fr": "Cantons (CT) Lucerne",
+      "it": "Cantoni (CT) Lucerna",
+      "en": "Cantons (CT) Lucerne"
     },
     "description": {
       "de": "Daten für ktn_lu",
@@ -6577,10 +6577,10 @@
     "type": "std",
     "entityCode": "ktn_ne",
     "displayName": {
-      "de": "Kantone Neuenburg",
-      "fr": "Cantons Neuchâtel",
-      "it": "Cantoni Neuchâtel",
-      "en": "Cantons Neuchâtel"
+      "de": "Kantone (KTN) Neuenburg",
+      "fr": "Cantons (CT) Neuchâtel",
+      "it": "Cantoni (CT) Neuchâtel",
+      "en": "Cantons (CT) Neuchâtel"
     },
     "description": {
       "de": "Daten für ktn_ne",
@@ -6605,10 +6605,10 @@
     "type": "std",
     "entityCode": "ktn_nw",
     "displayName": {
-      "de": "Kantone Nidwalden",
-      "fr": "Cantons Nidwald",
-      "it": "Cantoni Nidvaldo",
-      "en": "Cantons Nidwalden"
+      "de": "Kantone (KTN) Nidwalden",
+      "fr": "Cantons (CT) Nidwald",
+      "it": "Cantoni (CT) Nidvaldo",
+      "en": "Cantons (CT) Nidwalden"
     },
     "description": {
       "de": "Daten für ktn_nw",
@@ -6633,10 +6633,10 @@
     "type": "std",
     "entityCode": "ktn_ow",
     "displayName": {
-      "de": "Kantone Obwalden",
-      "fr": "Cantons Obwald",
-      "it": "Cantoni Obvaldo",
-      "en": "Cantons Obwalden"
+      "de": "Kantone (KTN) Obwalden",
+      "fr": "Cantons (CT) Obwald",
+      "it": "Cantoni (CT) Obvaldo",
+      "en": "Cantons (CT) Obwalden"
     },
     "description": {
       "de": "Daten für ktn_ow",
@@ -6661,10 +6661,10 @@
     "type": "std",
     "entityCode": "ktn_sh",
     "displayName": {
-      "de": "Kantone Schaffhausen",
-      "fr": "Cantons Schaffhouse",
-      "it": "Cantoni Sciaffusa",
-      "en": "Cantons Schaffhausen"
+      "de": "Kantone (KTN) Schaffhausen",
+      "fr": "Cantons (CT) Schaffhouse",
+      "it": "Cantoni (CT) Sciaffusa",
+      "en": "Cantons (CT) Schaffhausen"
     },
     "description": {
       "de": "Daten für ktn_sh",
@@ -6689,10 +6689,10 @@
     "type": "std",
     "entityCode": "ktn_sz",
     "displayName": {
-      "de": "Kantone Schwyz",
-      "fr": "Cantons Schwyz",
-      "it": "Cantoni Svitto",
-      "en": "Cantons Schwyz"
+      "de": "Kantone (KTN) Schwyz",
+      "fr": "Cantons (CT) Schwyz",
+      "it": "Cantoni (CT) Svitto",
+      "en": "Cantons (CT) Schwyz"
     },
     "description": {
       "de": "Daten für ktn_sz",
@@ -6717,10 +6717,10 @@
     "type": "std",
     "entityCode": "ktn_so",
     "displayName": {
-      "de": "Kantone Solothurn",
-      "fr": "Cantons Soleure",
-      "it": "Cantoni Soletta",
-      "en": "Cantons Solothurn"
+      "de": "Kantone (KTN) Solothurn",
+      "fr": "Cantons (CT) Soleure",
+      "it": "Cantoni (CT) Soletta",
+      "en": "Cantons (CT) Solothurn"
     },
     "description": {
       "de": "Daten für ktn_so",
@@ -6745,10 +6745,10 @@
     "type": "std",
     "entityCode": "ktn_sg",
     "displayName": {
-      "de": "Kantone St. Gallen",
-      "fr": "Cantons Saint-Gall",
-      "it": "Cantoni San Gallo",
-      "en": "Cantons St. Gallen"
+      "de": "Kantone (KTN) St. Gallen",
+      "fr": "Cantons (CT) Saint-Gall",
+      "it": "Cantoni (CT) San Gallo",
+      "en": "Cantons (CT) St. Gallen"
     },
     "description": {
       "de": "Daten für ktn_sg",
@@ -6773,10 +6773,10 @@
     "type": "std",
     "entityCode": "ktn_ti",
     "displayName": {
-      "de": "Kantone Tessin",
-      "fr": "Cantons Tessin",
-      "it": "Cantoni Ticino",
-      "en": "Cantons Ticino"
+      "de": "Kantone (KTN) Tessin",
+      "fr": "Cantons (CT) Tessin",
+      "it": "Cantoni (CT) Ticino",
+      "en": "Cantons (CT) Ticino"
     },
     "description": {
       "de": "Daten für ktn_ti",
@@ -6801,10 +6801,10 @@
     "type": "std",
     "entityCode": "ktn_tg",
     "displayName": {
-      "de": "Kantone Thurgau",
-      "fr": "Cantons Thurgovie",
-      "it": "Cantoni Turgovia",
-      "en": "Cantons Thurgau"
+      "de": "Kantone (KTN) Thurgau",
+      "fr": "Cantons (CT) Thurgovie",
+      "it": "Cantoni (CT) Turgovia",
+      "en": "Cantons (CT) Thurgau"
     },
     "description": {
       "de": "Daten für ktn_tg",
@@ -6829,10 +6829,10 @@
     "type": "std",
     "entityCode": "ktn_ur",
     "displayName": {
-      "de": "Kantone Uri",
-      "fr": "Cantons Uri",
-      "it": "Cantoni Uri",
-      "en": "Cantons Uri"
+      "de": "Kantone (KTN) Uri",
+      "fr": "Cantons (CT) Uri",
+      "it": "Cantoni (CT) Uri",
+      "en": "Cantons (CT) Uri"
     },
     "description": {
       "de": "Daten für ktn_ur",
@@ -6857,10 +6857,10 @@
     "type": "std",
     "entityCode": "ktn_vd",
     "displayName": {
-      "de": "Kantone Waadt",
-      "fr": "Cantons Vaud",
-      "it": "Cantoni Vaud",
-      "en": "Cantons Vaud"
+      "de": "Kantone (KTN) Waadt",
+      "fr": "Cantons (CT) Vaud",
+      "it": "Cantoni (CT) Vaud",
+      "en": "Cantons (CT) Vaud"
     },
     "description": {
       "de": "Daten für ktn_vd",
@@ -6885,10 +6885,10 @@
     "type": "std",
     "entityCode": "ktn_vs",
     "displayName": {
-      "de": "Kantone Wallis",
-      "fr": "Cantons Valais",
-      "it": "Cantoni Vallese",
-      "en": "Cantons Valais"
+      "de": "Kantone (KTN) Wallis",
+      "fr": "Cantons (CT) Valais",
+      "it": "Cantoni (CT) Vallese",
+      "en": "Cantons (CT) Valais"
     },
     "description": {
       "de": "Daten für ktn_vs",
@@ -6913,10 +6913,10 @@
     "type": "std",
     "entityCode": "ktn_zg",
     "displayName": {
-      "de": "Kantone Zug",
-      "fr": "Cantons Zoug",
-      "it": "Cantoni Zugo",
-      "en": "Cantons Zug"
+      "de": "Kantone (KTN) Zug",
+      "fr": "Cantons (CT) Zoug",
+      "it": "Cantoni (CT) Zugo",
+      "en": "Cantons (CT) Zug"
     },
     "description": {
       "de": "Daten für ktn_zg",
@@ -6941,10 +6941,10 @@
     "type": "std",
     "entityCode": "ktn_zh",
     "displayName": {
-      "de": "Kantone Zürich",
-      "fr": "Cantons Zurich",
-      "it": "Cantoni Zurigo",
-      "en": "Cantons Zurich"
+      "de": "Kantone (KTN) Zürich",
+      "fr": "Cantons (CT) Zurich",
+      "it": "Cantoni (CT) Zurigo",
+      "en": "Cantons (CT) Zurich"
     },
     "description": {
       "de": "Daten für ktn_zh",
@@ -8839,6 +8839,34 @@
       "2022"
     ],
     "municipalityNumber": "132770"
+  },
+  {
+    "id": "std_sv_mat_ge",
+    "type": "std",
+    "entityCode": "sv_mat_ge",
+    "displayName": {
+      "de": "Mutterschaftsentschädigung (EO)",
+      "fr": "Allocation de maternité (APG)",
+      "it": "Indennità di maternità (IPG)",
+      "en": "Maternity Benefits (EO/APG)"
+    },
+    "description": {
+      "de": "Sozialversicherungsdaten der Schweiz",
+      "fr": "Données des assurances sociales suisses",
+      "it": "Dati delle assicurazioni sociali svizzere",
+      "en": "Swiss social insurance data"
+    },
+    "availableYears": [
+      "2015",
+      "2016",
+      "2017",
+      "2018",
+      "2019",
+      "2020",
+      "2021",
+      "2022",
+      "2023"
+    ]
   },
   {
     "id": "gdn_236007",
@@ -11319,10 +11347,10 @@
     "type": "std",
     "entityCode": "sv",
     "displayName": {
-      "de": "Sozialversicherung",
-      "fr": "Assurances sociales",
-      "it": "Assicurazioni sociali",
-      "en": "Social Insurance"
+      "de": "Sozialversicherung (SV)",
+      "fr": "Assurances sociales (AS)",
+      "it": "Assicurazioni sociali (AS)",
+      "en": "Social Insurance (SI)"
     },
     "description": {
       "de": "Sozialversicherungsdaten der Schweiz",
@@ -11483,10 +11511,10 @@
     "type": "std",
     "entityCode": "staat",
     "displayName": {
-      "de": "Staat",
-      "fr": "État",
-      "it": "Stato",
-      "en": "State"
+      "de": "Staat (ST)",
+      "fr": "État (ET)",
+      "it": "Stato (ST)",
+      "en": "State (ST)"
     },
     "description": {
       "de": "Daten für staat",
@@ -11699,34 +11727,6 @@
       "2022"
     ],
     "municipalityNumber": "031103"
-  },
-  {
-    "id": "std_sv_mat_ge",
-    "type": "std",
-    "entityCode": "sv_mat_ge",
-    "displayName": {
-      "de": "SV MAT GE",
-      "fr": "SV MAT GE",
-      "it": "SV MAT GE",
-      "en": "SV MAT GE"
-    },
-    "description": {
-      "de": "Sozialversicherungsdaten der Schweiz",
-      "fr": "Données des assurances sociales suisses",
-      "it": "Dati delle assicurazioni sociali svizzere",
-      "en": "Swiss social insurance data"
-    },
-    "availableYears": [
-      "2015",
-      "2016",
-      "2017",
-      "2018",
-      "2019",
-      "2020",
-      "2021",
-      "2022",
-      "2023"
-    ]
   },
   {
     "id": "gdn_102306",

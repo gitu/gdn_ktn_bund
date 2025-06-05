@@ -1,6 +1,8 @@
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
 import PrimeVue from 'primevue/config';
+import ConfirmationService from 'primevue/confirmationservice';
+import ToastService from 'primevue/toastservice';
 
 import Aura from '@primeuix/themes/aura';
 import App from './App.vue'
@@ -17,9 +19,12 @@ app.use(i18n)
 app.use(PrimeVue, {
   preset: Aura,
   options: {
+    ripple: true,
     darkModeSelector: '.app-dark'
   }
 });
+app.use(ToastService);
+app.use(ConfirmationService);
 
 
 app.mount('#app')

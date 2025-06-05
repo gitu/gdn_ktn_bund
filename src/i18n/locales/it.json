@@ -232,7 +232,18 @@
     "filteredCategories": "Visualizzazione: Bilancio, Ricavi, Spese",
     "parseError": "Formato dataset non valido: {dataset}",
     "aggregationError": "Errore nell'aggregazione dei dati per {dataset}",
-    "noValidData": "Nessun dato valido trovato nei dataset"
+    "noValidData": "Nessun dato valido trovato nei dataset",
+    "comparisonResults": "Risultati del confronto",
+    "comparisonDescription": "Confronto di {count} dataset selezionati",
+    "demoTitle": "Confronto dimostrativo",
+    "demoDescription": "Questo esempio confronta tre dataset del 2016:",
+    "demoDataset1": "Comune 010002",
+    "demoDataset1Description": "Dati specifici del comune",
+    "demoDataset2": "Comune 010009",
+    "demoDataset2Description": "Altri dati specifici del comune",
+    "demoDataset3": "Cantone Zurigo (gdn_zh)",
+    "demoDataset3Description": "Tutti i comuni del cantone Zurigo",
+    "loadDemoData": "Carica dati dimostrativi"
   },
   "financialDataDisplay": {
     "title": "Visualizzazione dati finanziari",
@@ -272,6 +283,48 @@
       "missingBalanceSheet": "Bilancio mancante",
       "missingIncomeStatement": "Conto economico mancante",
       "processingError": "Errore nell'elaborazione dei dati"
+    }
+  },
+  "datasetSelector": {
+    "title": "Selezione dataset",
+    "subtitle": "Seleziona dataset per il confronto",
+    "searchPlaceholder": "Cerca dataset...",
+    "availableDatasets": "Dataset disponibili",
+    "selectedDatasets": "Dataset selezionati",
+    "resultsCount": "{count} di {total} dataset",
+    "selectedCount": "{count} selezionati",
+    "yearCount": "{count} anni",
+    "latestYear": "Più recente",
+    "loading": "Caricamento catalogo dati...",
+    "selectYear": "Seleziona anno",
+    "addDataset": "Aggiungi",
+    "addDatasetWithYear": "Aggiungi ({year})",
+    "addLatestYear": "Aggiungi più recente ({year})",
+    "removeDataset": "Rimuovi {name}",
+    "clearAll": "Rimuovi tutto",
+    "compareDatasets": "Confronta dataset",
+    "pageReportTemplate": "Mostra da {first} a {last} di {totalRecords} voci",
+    "filters": {
+      "dataType": "Tipo di dati",
+      "year": "Anno",
+      "all": "Tutti",
+      "allYears": "Tutti gli anni",
+      "gdn": "Comuni",
+      "std": "Standard"
+    },
+    "types": {
+      "gdn": "Comune",
+      "std": "Standard"
+    },
+    "columns": {
+      "name": "Nome",
+      "description": "Descrizione",
+      "years": "Anni disponibili",
+      "actions": "Azioni"
+    },
+    "errors": {
+      "loadingFailed": "Caricamento del catalogo dati fallito",
+      "duplicateDataset": "Questo dataset è già selezionato"
     }
   }
 }
