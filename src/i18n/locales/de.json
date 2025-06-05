@@ -1,0 +1,276 @@
+{
+  "common": {
+    "loading": "Laden...",
+    "error": "Fehler",
+    "noData": "Keine Daten verfügbar",
+    "search": "Suchen",
+    "clear": "Löschen",
+    "select": "Auswählen",
+    "cancel": "Abbrechen",
+    "confirm": "Bestätigen",
+    "save": "Speichern",
+    "close": "Schließen",
+    "back": "Zurück",
+    "next": "Weiter",
+    "previous": "Vorherige",
+    "all": "Alle",
+    "none": "Keine"
+  },
+  "navigation": {
+    "home": "Startseite",
+    "about": "Über",
+    "tools": "Werkzeuge",
+    "financialComparison": "Finanzvergleich",
+    "treeTable": "Hierarchische Tabelle",
+    "treeExplorer": "Baum-Explorer",
+    "calendar": "Kalender",
+    "messages": "Nachrichten",
+    "profile": "Profil"
+  },
+  "dataBrowser": {
+    "title": "Daten-Browser",
+    "selectEntity": "Entität auswählen",
+    "selectYear": "Jahr auswählen",
+    "selectDimension": "Dimension auswählen",
+    "loadData": "Daten laden",
+    "noEntitySelected": "Keine Entität ausgewählt",
+    "noYearSelected": "Kein Jahr ausgewählt",
+    "noDimensionSelected": "Keine Dimension ausgewählt",
+    "loadingEntities": "Entitäten werden geladen...",
+    "loadingYears": "Jahre werden geladen...",
+    "errorLoadingEntities": "Fehler beim Laden der Entitäten",
+    "errorLoadingYears": "Fehler beim Laden der Jahre",
+    "availableYears": "Verfügbare Jahre",
+    "availableEntities": "Verfügbare Entitäten",
+    "entityCount": "Entitäten",
+    "yearCount": "Jahre",
+    "searchPlaceholder": "Suche nach Entitäten, Gemeinden oder Codes...",
+    "filters": {
+      "dataType": "Datentyp",
+      "yearRange": "Jahresbereich",
+      "yearFrom": "Von",
+      "yearTo": "Bis"
+    },
+    "filterOptions": {
+      "all": "Alle",
+      "std": "Standard",
+      "gdn": "Gemeinden"
+    },
+    "viewOptions": {
+      "showDescriptions": "Beschreibungen",
+      "showYearRange": "Jahresbereich"
+    },
+    "resultsCount": "{count} von {total} Ergebnissen",
+    "loading": "Lade Daten...",
+    "noResults": "Keine Ergebnisse gefunden",
+    "municipalityData": "Gemeindedaten für {name}",
+    "semanticLabels": {
+      "allMunicipalities": "Alle Gemeinden des Kantons",
+      "socialInsurance": "Sozialversicherung",
+      "confederation": "Bund",
+      "canton": "Kanton"
+    }
+  },
+  "treeTable": {
+    "title": "Hierarchische Tabelle",
+    "expandAll": "Alle erweitern",
+    "collapseAll": "Alle einklappen",
+    "noDataSelected": "Keine Daten ausgewählt",
+    "loadingData": "Daten werden geladen...",
+    "errorLoadingData": "Fehler beim Laden der Daten",
+    "realTimeAggregation": "Echtzeitaggregation",
+    "labelColumn": "Bezeichnung",
+    "codeColumn": "Code",
+    "valueColumn": "Wert",
+    "loading": "Lade Daten...",
+    "error": "Fehler",
+    "noData": "Keine Daten verfügbar",
+    "showCodes": "Codes anzeigen",
+    "showValues": "Werte anzeigen",
+    "expand": "Erweitern",
+    "collapse": "Einklappen",
+    "recordsProcessed": "{count} Datensätze verarbeitet",
+    "rowsDisplayed": "{count} Zeilen angezeigt",
+    "loadedAt": "geladen {date}"
+  },
+  "treeTableView": {
+    "title": "Hierarchische Baumtabelle",
+    "description": "Erkunden Sie Finanzdaten in einem hierarchischen Tabellenformat mit zusammenklappbarer Baumstruktur",
+    "dimension": "Dimension",
+    "tableTitle": "Tabellentitel",
+    "titlePlaceholder": "Tabellentitel eingeben",
+    "dataBrowser": "Datenbrowser",
+    "dataBrowserDescription": "Suchen und durchsuchen Sie verfügbare Datenentitäten:",
+    "availableEntities": "Verfügbare Datenentitäten",
+    "loading": "Lade Daten...",
+    "dataInformation": "Dateninformationen",
+    "model": "Modell",
+    "totalRecords": "Gesamtanzahl Datensätze",
+    "treeNodes": "Baumknoten",
+    "maxDepth": "Maximale Tiefe",
+    "processedAt": "Verarbeitet am",
+    "error": "Fehler",
+    "dataBrowserError": "Datenbrowser-Fehler",
+    "usageDocumentation": "Nutzungsdokumentation",
+    "dataPathFormat": "Datenpfad-Format",
+    "gdnData": "GDN-Daten",
+    "stdData": "STD-Daten",
+    "example": "z.B.",
+    "availableDimensions": "Verfügbare Dimensionen",
+    "expenditure": "Ausgaben/Aufwand",
+    "revenue": "Ertrag",
+    "income": "Einnahmen",
+    "expenses": "Ausgaben",
+    "balanceSheet": "Bilanz",
+    "features": "Funktionen",
+    "hierarchicalStructure": "Hierarchische Baumstruktur mit zusammenklappbaren Knoten",
+    "multiLanguageSupport": "Mehrsprachige Unterstützung (Deutsch, Französisch, Italienisch, Englisch)",
+    "configurableDisplay": "Konfigurierbare Anzeigeoptionen (Codes und Werte ein-/ausblenden)",
+    "responsiveDesign": "Responsives Design für Mobilgeräte und Desktop",
+    "realTimeAggregation": "Echtzeitdatenaggregation mit TreeAggregator",
+    "noDataSelected": "Bitte wählen Sie Daten aus dem Browser oben aus, um die hierarchische Tabelle anzuzeigen."
+  },
+  "aboutView": {
+    "title": "Über diese Anwendung",
+    "subtitle": "Schweizer Finanzdaten-Explorer",
+    "description": "Diese Anwendung ermöglicht es Ihnen, Schweizer Finanzdaten in verschiedenen interaktiven Formaten zu erkunden und zu analysieren.",
+    "features": {
+      "title": "Hauptfunktionen",
+      "treeNavigation": "Hierarchische Baumnavigation für Finanzdaten",
+      "tableView": "Interaktive Tabellenansicht mit Drill-Down-Funktionalität",
+      "dataBrowser": "Umfassender Datenbrowser für alle verfügbaren Entitäten",
+      "multiLanguage": "Mehrsprachige Unterstützung (DE, FR, IT, EN)",
+      "responsive": "Responsives Design für alle Geräte"
+    },
+    "dataInfo": {
+      "title": "Dateninformationen",
+      "description": "Die Anwendung verwendet offizielle Schweizer Finanzdaten von Gemeinden und Kantonen.",
+      "sources": "Datenquellen: Eidgenössische Finanzverwaltung und kantonale Statistikämter",
+      "coverage": "Abdeckung: 2015-2023, alle Schweizer Gemeinden und Kantone"
+    },
+    "technology": {
+      "title": "Technologie",
+      "description": "Entwickelt mit modernen Web-Technologien für optimale Performance und Benutzerfreundlichkeit.",
+      "frontend": "Frontend: Vue 3, TypeScript, PrimeVue",
+      "testing": "Testing: Vitest, Vue Test Utils",
+      "build": "Build: Vite, ESLint"
+    }
+  },
+  "treeNavigator": {
+    "title": "Datenbaum",
+    "loadingTree": "Baumstruktur wird geladen...",
+    "errorLoadingTree": "Fehler beim Laden des Baums",
+    "searchPlaceholder": "Suchen...",
+    "nodesCount": "Knoten",
+    "maxDepth": "Max. Tiefe",
+    "source": "Quelle",
+    "dimensions": {
+      "bilanz": "Bilanz",
+      "aufwand": "Aufwand",
+      "ertrag": "Ertrag"
+    }
+  },
+  "languageSelector": {
+    "selectLanguage": "Sprache auswählen",
+    "currentLanguage": "Aktuelle Sprache"
+  },
+  "homeView": {
+    "title": "Schweizer Finanzdaten-Baum-Navigator",
+    "subtitle": "Erkunden Sie hierarchische Finanzdatenstrukturen für Schweizer Gemeinden und Kantone",
+    "description": {
+      "title": "Finanzdaten von Gemeinden vergleichen",
+      "intro": "Diese Website ermöglicht es Ihnen, Finanzdaten verschiedener kommunaler Einheiten zu analysieren und zu vergleichen. Entdecken Sie finanzielle Trends und Unterschiede zwischen Schweizer Gemeinden und Kantonen.",
+      "capabilities": "Sie können folgende Datentypen analysieren und vergleichen:",
+      "bilanzDescription": "Bilanzpositionen - Vermögen, Schulden und Eigenkapital der Gemeinden",
+      "incomeDescription": "Erfolgsrechnung - Einnahmen (Ertrag) und Ausgaben (Aufwand) im Vergleich",
+      "footer": "Wählen Sie eine Dimension aus und navigieren Sie durch die hierarchische Struktur, um detaillierte Finanzdaten zu erkunden."
+    },
+    "cta": {
+      "title": "Jetzt Daten erkunden",
+      "description": "Beginnen Sie mit der Analyse von Finanzdaten verschiedener Schweizer Gemeinden und Kantone.",
+      "buttonText": "Baum-Explorer öffnen",
+      "comparisonButtonText": "Finanzdaten vergleichen",
+      "learnMoreButtonText": "Mehr erfahren"
+    },
+    "dimensionLabel": "Dimension:",
+    "dimensions": {
+      "ertrag": "Ertrag (Einnahmen)",
+      "aufwand": "Aufwand (Ausgaben)",
+      "bilanz": "Bilanz (Bilanz)"
+    },
+    "selectedNode": "Ausgewählter Knoten",
+    "code": "Code",
+    "searchResults": "Suchergebnisse",
+    "moreResults": "... und {{count}} weitere Ergebnisse",
+    "aboutTitle": "Über die Baumstruktur",
+    "aboutDescription": "Dieser Baum-Navigator zeigt die hierarchische Struktur der Schweizer Finanzdaten an. Die Daten sind nach Kontocodes organisiert, wobei längere Codes spezifischere Unterkategorien kürzerer Codes darstellen.",
+    "aboutItems": {
+      "ertrag": "Einnahmen- und Ertragskategorien",
+      "aufwand": "Ausgaben- und Kostenkategorien",
+      "bilanz": "Bilanzpositionen (Aktiva und Passiva)"
+    },
+    "aboutFooter": "Jeder Knoten zeigt den Kontocode, mehrsprachige Bezeichnungen und verfügbare Werte an. Verwenden Sie die Suchfunktion, um schnell bestimmte Konten oder Kategorien zu finden."
+  },
+  "financialDataComparison": {
+    "title": "Finanzdatenvergleich",
+    "subtitle": "Vergleichen Sie Finanzdatensätze nebeneinander mit hierarchischer Baumstruktur",
+    "loading": "Lade Finanzdaten...",
+    "error": "Fehler beim Laden der Daten",
+    "noData": "Keine Daten für Vergleich verfügbar",
+    "columns": {
+      "category": "Kategorie",
+      "code": "Code"
+    },
+    "loadingDataset": "Lade Datensatz {dataset}...",
+    "datasetError": "Fehler beim Laden von Datensatz {dataset}: {error}",
+    "expandAll": "Alle erweitern",
+    "collapseAll": "Alle zuklappen",
+    "showCodes": "Codes anzeigen",
+    "hideValues": "Nullwerte ausblenden",
+    "currency": "CHF",
+    "totalRows": "Zeilen gesamt: {count}",
+    "filteredCategories": "Angezeigt: Bilanz, Ertrag, Aufwand",
+    "parseError": "Ungültiges Datensatzformat: {dataset}",
+    "aggregationError": "Fehler bei der Datenaggregation für {dataset}",
+    "noValidData": "Keine gültigen Daten in den Datensätzen gefunden"
+  },
+  "financialDataDisplay": {
+    "title": "Finanzdaten-Anzeige",
+    "balanceSheet": "Bilanz",
+    "incomeStatement": "Erfolgsrechnung",
+    "loading": "Lade Finanzdaten...",
+    "error": "Fehler beim Laden der Daten",
+    "noData": "Keine Finanzdaten verfügbar",
+    "noEntities": "Keine Entitäten verfügbar",
+    "expandAll": "Alle erweitern",
+    "collapseAll": "Alle einklappen",
+    "showCodes": "Codes anzeigen",
+    "hideCodes": "Codes ausblenden",
+    "showZeroValues": "Nullwerte anzeigen",
+    "hideZeroValues": "Nullwerte ausblenden",
+    "columns": {
+      "account": "Konto",
+      "code": "Code",
+      "description": "Beschreibung"
+    },
+    "currency": "CHF",
+    "metadata": {
+      "source": "Quelle",
+      "loadedAt": "Geladen am",
+      "recordCount": "Anzahl Datensätze",
+      "entities": "Entitäten"
+    },
+    "accessibility": {
+      "expandNode": "Knoten erweitern",
+      "collapseNode": "Knoten einklappen",
+      "financialValue": "Finanzieller Wert für {entity}",
+      "noValue": "Kein Wert verfügbar"
+    },
+    "errors": {
+      "invalidData": "Ungültige Finanzdaten",
+      "missingBalanceSheet": "Bilanz fehlt",
+      "missingIncomeStatement": "Erfolgsrechnung fehlt",
+      "processingError": "Fehler bei der Datenverarbeitung"
+    }
+  }
+}

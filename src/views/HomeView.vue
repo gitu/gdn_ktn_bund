@@ -1,337 +1,281 @@
-<template>
-  <v-container fluid>
-    <!-- Hero Section -->
-    <v-row class="mb-8">
-      <v-col cols="12">
-        <v-card
-          class="pa-8 text-center"
-          color="primary"
-          dark
-        >
-          <v-card-title class="text-h3 mb-4">
-            Swiss Financial Data Viewer
-          </v-card-title>
-          <v-card-subtitle class="text-h6 mb-6">
-            Comprehensive analysis and comparison of Swiss financial data for municipalities, cantons, and federal entities
-          </v-card-subtitle>
-          <v-btn
-            size="large"
-            variant="outlined"
-            color="white"
-            class="mr-4"
-            @click="$router.push('/enriched-data')"
-          >
-            <v-icon left>
-              mdi-chart-line
-            </v-icon>
-            Explore Data
-          </v-btn>
-          <v-btn
-            size="large"
-            variant="outlined"
-            color="white"
-            @click="$router.push('/comparison')"
-          >
-            <v-icon left>
-              mdi-compare
-            </v-icon>
-            Compare Entities
-          </v-btn>
-        </v-card>
-      </v-col>
-    </v-row>
-
-    <!-- Feature Cards -->
-    <v-row>
-      <v-col
-        cols="12"
-        md="4"
-      >
-        <v-card
-          class="h-100"
-          hover
-          @click="$router.push('/enriched-data')"
-        >
-          <v-card-title class="d-flex align-center">
-            <v-icon
-              color="primary"
-              class="mr-3"
-            >
-              mdi-chart-line
-            </v-icon>
-            Enriched Data Display
-          </v-card-title>
-          <v-card-text>
-            <p>
-              View detailed financial data with enriched descriptions in multiple languages.
-              Analyze income, expenses, and balances for any Swiss entity.
-            </p>
-            <v-chip-group>
-              <v-chip
-                size="small"
-                color="primary"
-                variant="outlined"
-              >
-                Multi-language
-              </v-chip>
-              <v-chip
-                size="small"
-                color="primary"
-                variant="outlined"
-              >
-                Interactive
-              </v-chip>
-              <v-chip
-                size="small"
-                color="primary"
-                variant="outlined"
-              >
-                Detailed
-              </v-chip>
-            </v-chip-group>
-          </v-card-text>
-          <v-card-actions>
-            <v-btn
-              color="primary"
-              variant="text"
-            >
-              Explore Data
-              <v-icon right>
-                mdi-arrow-right
-              </v-icon>
-            </v-btn>
-          </v-card-actions>
-        </v-card>
-      </v-col>
-
-      <v-col
-        cols="12"
-        md="4"
-      >
-        <v-card
-          class="h-100"
-          hover
-          @click="$router.push('/comparison')"
-        >
-          <v-card-title class="d-flex align-center">
-            <v-icon
-              color="success"
-              class="mr-3"
-            >
-              mdi-compare
-            </v-icon>
-            Comparison Tool
-          </v-card-title>
-          <v-card-text>
-            <p>
-              Compare financial data between different municipalities, cantons, or entities.
-              Side-by-side analysis with scaling options.
-            </p>
-            <v-chip-group>
-              <v-chip
-                size="small"
-                color="success"
-                variant="outlined"
-              >
-                Side-by-side
-              </v-chip>
-              <v-chip
-                size="small"
-                color="success"
-                variant="outlined"
-              >
-                Scalable
-              </v-chip>
-              <v-chip
-                size="small"
-                color="success"
-                variant="outlined"
-              >
-                Visual
-              </v-chip>
-            </v-chip-group>
-          </v-card-text>
-          <v-card-actions>
-            <v-btn
-              color="success"
-              variant="text"
-            >
-              Start Comparing
-              <v-icon right>
-                mdi-arrow-right
-              </v-icon>
-            </v-btn>
-          </v-card-actions>
-        </v-card>
-      </v-col>
-
-      <v-col
-        cols="12"
-        md="4"
-      >
-        <v-card
-          class="h-100"
-          hover
-          @click="$router.push('/csv-test')"
-        >
-          <v-card-title class="d-flex align-center">
-            <v-icon
-              color="info"
-              class="mr-3"
-            >
-              mdi-file-table
-            </v-icon>
-            CSV Test Page
-          </v-card-title>
-          <v-card-text>
-            <p>
-              Test and validate CSV data loading functionality.
-              Useful for developers and data verification.
-            </p>
-            <v-chip-group>
-              <v-chip
-                size="small"
-                color="info"
-                variant="outlined"
-              >
-                Testing
-              </v-chip>
-              <v-chip
-                size="small"
-                color="info"
-                variant="outlined"
-              >
-                Validation
-              </v-chip>
-              <v-chip
-                size="small"
-                color="info"
-                variant="outlined"
-              >
-                Development
-              </v-chip>
-            </v-chip-group>
-          </v-card-text>
-          <v-card-actions>
-            <v-btn
-              color="info"
-              variant="text"
-            >
-              Test CSV
-              <v-icon right>
-                mdi-arrow-right
-              </v-icon>
-            </v-btn>
-          </v-card-actions>
-        </v-card>
-      </v-col>
-    </v-row>
-
-    <!-- Statistics Section -->
-    <v-row class="mt-8">
-      <v-col cols="12">
-        <v-card>
-          <v-card-title class="text-center">
-            <v-icon
-              color="primary"
-              class="mr-2"
-            >
-              mdi-chart-bar
-            </v-icon>
-            Data Overview
-          </v-card-title>
-          <v-card-text>
-            <v-row>
-              <v-col
-                cols="12"
-                md="3"
-                class="text-center"
-              >
-                <div class="text-h4 text-primary">
-                  {{ entityCount }}
-                </div>
-                <div class="text-subtitle-1">
-                  Total Entities
-                </div>
-              </v-col>
-              <v-col
-                cols="12"
-                md="3"
-                class="text-center"
-              >
-                <div class="text-h4 text-success">
-                  {{ availableYears.length }}
-                </div>
-                <div class="text-subtitle-1">
-                  Available Years
-                </div>
-              </v-col>
-              <v-col
-                cols="12"
-                md="3"
-                class="text-center"
-              >
-                <div class="text-h4 text-info">
-                  4
-                </div>
-                <div class="text-subtitle-1">
-                  Languages
-                </div>
-              </v-col>
-              <v-col
-                cols="12"
-                md="3"
-                class="text-center"
-              >
-                <div class="text-h4 text-warning">
-                  {{ latestYear }}
-                </div>
-                <div class="text-subtitle-1">
-                  Latest Year
-                </div>
-              </v-col>
-            </v-row>
-          </v-card-text>
-        </v-card>
-      </v-col>
-    </v-row>
-  </v-container>
-</template>
-
 <script setup lang="ts">
-import { ref, computed, onMounted } from 'vue'
-import * as DataLoader from '../utils/DataLoader'
-import { loadAllEntityOptions } from '../utils/EntityLoader'
+import { useI18n } from 'vue-i18n';
 
-// Reactive data
-const entityCount = ref(0)
-
-// Computed properties
-const availableYears = computed(() => DataLoader.getAvailableYears())
-const latestYear = computed(() => DataLoader.getLatestYear())
-
-// Load entity count
-onMounted(async () => {
-  try {
-    const entities = await loadAllEntityOptions()
-    entityCount.value = entities.length
-  } catch (error) {
-    console.error('Failed to load entity count:', error)
-    entityCount.value = 0
-  }
-})
+// Vue i18n (used in template)
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const { t } = useI18n();
 </script>
 
+<template>
+  <main class="home-view">
+    <div class="header">
+      <h1>{{ $t('homeView.title') }}</h1>
+      <p>{{ $t('homeView.subtitle') }}</p>
+    </div>
+
+    <div class="description-section">
+      <h2>{{ $t('homeView.description.title') }}</h2>
+      <p class="intro">{{ $t('homeView.description.intro') }}</p>
+
+      <div class="capabilities">
+        <p class="capabilities-title">{{ $t('homeView.description.capabilities') }}</p>
+        <div class="data-types">
+          <div class="data-type">
+            <h3>
+              <i class="pi pi-chart-bar"></i>
+              {{ $t('homeView.dimensions.bilanz') }}
+            </h3>
+            <p>{{ $t('homeView.description.bilanzDescription') }}</p>
+          </div>
+          <div class="data-type">
+            <h3>
+              <i class="pi pi-trending-up"></i>
+              {{ $t('homeView.dimensions.ertrag') }} / {{ $t('homeView.dimensions.aufwand') }}
+            </h3>
+            <p>{{ $t('homeView.description.incomeDescription') }}</p>
+          </div>
+        </div>
+      </div>
+
+      <p class="footer">{{ $t('homeView.description.footer') }}</p>
+    </div>
+
+    <div class="cta-section">
+      <h3>{{ $t('homeView.cta.title') }}</h3>
+      <p>{{ $t('homeView.cta.description') }}</p>
+
+      <div class="cta-buttons">
+        <router-link to="/financial-comparison" class="cta-button primary">
+          <i class="pi pi-chart-line"></i>
+          {{ $t('homeView.cta.comparisonButtonText') }}
+        </router-link>
+
+        <router-link to="/about" class="cta-button secondary">
+          <i class="pi pi-info-circle"></i>
+          {{ $t('homeView.cta.learnMoreButtonText') }}
+        </router-link>
+      </div>
+    </div>
+
+  </main>
+</template>
+
 <style scoped>
-.v-card {
-  transition: transform 0.2s ease-in-out;
+.home-view {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
 }
 
-.v-card:hover {
+.header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.header h1 {
+  color: #2c3e50;
+  margin-bottom: 0.5rem;
+}
+
+.header p {
+  color: #666;
+  font-size: 1.1rem;
+}
+
+.description-section {
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  padding: 2rem;
+  border-radius: 12px;
+  margin-bottom: 2rem;
+  border: 1px solid #dee2e6;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.description-section h2 {
+  color: #2c3e50;
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
+  text-align: center;
+}
+
+.description-section .intro {
+  font-size: 1.1rem;
+  color: #495057;
+  text-align: center;
+  margin-bottom: 1.5rem;
+  line-height: 1.6;
+}
+
+.capabilities {
+  margin: 1.5rem 0;
+}
+
+.capabilities-title {
+  font-weight: 600;
+  color: #343a40;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.data-types {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+  margin: 1rem 0;
+}
+
+.data-type {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 8px;
+  border: 1px solid #e9ecef;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.data-type:hover {
   transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
-.h-100 {
-  height: 100%;
+.data-type h3 {
+  color: #2c3e50;
+  margin-bottom: 0.75rem;
+  font-size: 1.1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.data-type h3 i {
+  color: #007bff;
+  font-size: 1.2rem;
+}
+
+.data-type p {
+  color: #6c757d;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.description-section .footer {
+  text-align: center;
+  color: #6c757d;
+  font-style: italic;
+  margin-top: 1.5rem;
+  margin-bottom: 0;
+}
+
+.cta-section {
+  text-align: center;
+  padding: 2rem;
+  background: #f8f9fa;
+  border-radius: 8px;
+  border: 1px solid #e9ecef;
+}
+
+.cta-section h3 {
+  color: #2c3e50;
+  margin-bottom: 1rem;
+  font-size: 1.4rem;
+}
+
+.cta-section p {
+  color: #6c757d;
+  margin-bottom: 1.5rem;
+  font-size: 1.1rem;
+}
+
+.cta-buttons {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.cta-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1rem 2rem;
+  color: white;
+  text-decoration: none;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 1.1rem;
+  transition: all 0.3s ease;
+  min-width: 200px;
+  justify-content: center;
+}
+
+.cta-button.primary {
+  background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+  box-shadow: 0 4px 12px rgba(0, 123, 255, 0.3);
+}
+
+.cta-button.primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 123, 255, 0.4);
+  background: linear-gradient(135deg, #0056b3 0%, #004085 100%);
+  text-decoration: none;
+  color: white;
+}
+
+.cta-button.secondary {
+  background: linear-gradient(135deg, #6c757d 0%, #495057 100%);
+  box-shadow: 0 4px 12px rgba(108, 117, 125, 0.3);
+}
+
+.cta-button.secondary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(108, 117, 125, 0.4);
+  background: linear-gradient(135deg, #495057 0%, #343a40 100%);
+  text-decoration: none;
+  color: white;
+}
+
+.cta-button i {
+  font-size: 1.2rem;
+}
+
+
+
+@media (max-width: 768px) {
+  .home-view {
+    padding: 1rem;
+  }
+
+  .description-section {
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .description-section h2 {
+    font-size: 1.3rem;
+  }
+
+  .data-types {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .data-type {
+    padding: 1rem;
+  }
+
+  .cta-section {
+    padding: 1.5rem;
+  }
+
+  .cta-buttons {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .cta-button {
+    padding: 0.8rem 1.5rem;
+    font-size: 1rem;
+    min-width: 250px;
+  }
 }
 </style>

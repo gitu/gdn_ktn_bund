@@ -1,0 +1,272 @@
+{
+  "metadata": {
+    "dimension": "er",
+    "model": "fs",
+    "source": "codes/er/fs.csv",
+    "generatedAt": "2025-06-05T10:10:15.440Z",
+    "totalNodes": 20,
+    "maxDepth": 2
+  },
+  "tree": {
+    "code": "root",
+    "labels": {
+      "de": "Gesamt",
+      "fr": "Total",
+      "it": "Totale",
+      "en": "Total"
+    },
+    "children": [
+      {
+        "code": "3",
+        "labels": {
+          "de": "Aufwand",
+          "fr": "Charges",
+          "it": "Spese",
+          "en": "Expenses"
+        },
+        "children": [
+          {
+            "code": "30",
+            "labels": {
+              "de": "Personalaufwand",
+              "fr": "Charges de personnel",
+              "it": "Spese per il personale",
+              "en": "Personnel expenses"
+            },
+            "children": [],
+            "level": 2,
+            "hasValue": false,
+            "value": null
+          },
+          {
+            "code": "31",
+            "labels": {
+              "de": "Sach- und übriger Betriebsaufwand",
+              "fr": "Charges de biens et services et autres charges d'exploitation",
+              "it": "Spese per beni e servizi e altre spese d’esercizio",
+              "en": "General, administrative and operating expenses"
+            },
+            "children": [],
+            "level": 2,
+            "hasValue": false,
+            "value": null
+          },
+          {
+            "code": "32",
+            "labels": {
+              "de": "Rüstungsaufwand",
+              "fr": "Charges d'armement",
+              "it": "Spese per l'armamento",
+              "en": "Defense expenses"
+            },
+            "children": [],
+            "level": 2,
+            "hasValue": false,
+            "value": null
+          },
+          {
+            "code": "33",
+            "labels": {
+              "de": "Abschreibungen auf das Verwaltungsvermögen",
+              "fr": "Amortissement du patrimoine administratif",
+              "it": "Ammortamenti sui beni amministrativi",
+              "en": "Depreciation, administrative assets"
+            },
+            "children": [],
+            "level": 2,
+            "hasValue": false,
+            "value": null
+          },
+          {
+            "code": "34",
+            "labels": {
+              "de": "Finanzaufwand",
+              "fr": "Charges financières",
+              "it": "Spese finanziarie",
+              "en": "Financial expense"
+            },
+            "children": [],
+            "level": 2,
+            "hasValue": false,
+            "value": null
+          },
+          {
+            "code": "35",
+            "labels": {
+              "de": "Einlagen in Fonds und Spezialfinanzierungen",
+              "fr": "Apports aux fonds et financements spéciaux",
+              "it": "Versamenti a fondi e a finanziamenti speciali",
+              "en": "Net expense for funds and special financing"
+            },
+            "children": [],
+            "level": 2,
+            "hasValue": false,
+            "value": null
+          },
+          {
+            "code": "36",
+            "labels": {
+              "de": "Transferaufwand",
+              "fr": "Charges de transfert",
+              "it": "Spese di riversamento",
+              "en": "Transfer expenses"
+            },
+            "children": [],
+            "level": 2,
+            "hasValue": false,
+            "value": null
+          },
+          {
+            "code": "38",
+            "labels": {
+              "de": "Ausserordentlicher Aufwand",
+              "fr": "Charges extraordinaires",
+              "it": "Spese straordinarie",
+              "en": "Extraordinary expenses"
+            },
+            "children": [],
+            "level": 2,
+            "hasValue": false,
+            "value": null
+          }
+        ],
+        "level": 1,
+        "hasValue": false,
+        "value": null
+      },
+      {
+        "code": "4",
+        "labels": {
+          "de": "Ertrag",
+          "fr": "Revenus",
+          "it": "Ricavi",
+          "en": "Revenue"
+        },
+        "children": [
+          {
+            "code": "40",
+            "labels": {
+              "de": "Fiskalertrag",
+              "fr": "Revenus fiscaux",
+              "it": "Introiti fiscali",
+              "en": "Tax revenue"
+            },
+            "children": [],
+            "level": 2,
+            "hasValue": false,
+            "value": null
+          },
+          {
+            "code": "41",
+            "labels": {
+              "de": "Regalien und Konzessionen",
+              "fr": "Patentes et concessions",
+              "it": "Regalie e concessioni",
+              "en": "Royalties and concessions"
+            },
+            "children": [],
+            "level": 2,
+            "hasValue": false,
+            "value": null
+          },
+          {
+            "code": "42",
+            "labels": {
+              "de": "Entgelte",
+              "fr": "Compensations",
+              "it": "Ricavi e tasse",
+              "en": "Revenue from exchange transactions"
+            },
+            "children": [],
+            "level": 2,
+            "hasValue": false,
+            "value": null
+          },
+          {
+            "code": "43",
+            "labels": {
+              "de": "Übrige Erträge",
+              "fr": "Autres revenus",
+              "it": "Rimanenti ricavi",
+              "en": "Other revenue"
+            },
+            "children": [],
+            "level": 2,
+            "hasValue": false,
+            "value": null
+          },
+          {
+            "code": "44",
+            "labels": {
+              "de": "Finanzertrag",
+              "fr": "Revenus financiers",
+              "it": "Ricavi finanziari",
+              "en": "Financial revenue"
+            },
+            "children": [],
+            "level": 2,
+            "hasValue": false,
+            "value": null
+          },
+          {
+            "code": "45",
+            "labels": {
+              "de": "Entnahmen aus Fonds und Spezialfinanzierungen",
+              "fr": "Prélèvements sur les fonds et les financements spéciaux",
+              "it": "Prelievi da fondi e finanziamenti speciali",
+              "en": "Withdrawals from funds and special financing"
+            },
+            "children": [],
+            "level": 2,
+            "hasValue": false,
+            "value": null
+          },
+          {
+            "code": "46",
+            "labels": {
+              "de": "Transferertrag",
+              "fr": "Revenus de transfert",
+              "it": "Ricavi da riversamenti",
+              "en": "Transfer revenue"
+            },
+            "children": [],
+            "level": 2,
+            "hasValue": false,
+            "value": null
+          },
+          {
+            "code": "48",
+            "labels": {
+              "de": "Ausserordentlicher Ertrag",
+              "fr": "Revenus extraordinaires",
+              "it": "Ricavi straordinari",
+              "en": "Extraordinary revenue"
+            },
+            "children": [],
+            "level": 2,
+            "hasValue": false,
+            "value": null
+          }
+        ],
+        "level": 1,
+        "hasValue": false,
+        "value": null
+      },
+      {
+        "code": "empty",
+        "labels": {
+          "de": "",
+          "fr": "",
+          "it": "",
+          "en": ""
+        },
+        "children": [],
+        "level": 5,
+        "hasValue": false,
+        "value": null
+      }
+    ],
+    "level": 0,
+    "hasValue": false
+  }
+}

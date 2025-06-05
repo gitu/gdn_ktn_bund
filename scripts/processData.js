@@ -15,9 +15,9 @@ const stdOutputBaseDir = path.resolve('public/data/std');
 const codesOutputBaseDir = path.resolve('public/data/codes');
 
 // Paths for the info JSON files
-const gdnInfoPath = path.resolve('public/data/gdn-info.json');
-const stdInfoPath = path.resolve('public/data/std-info.json');
-const codesInfoPath = path.resolve('public/data/codes-info.json');
+const gdnInfoPath = path.resolve('src/data/gdn-info.json');
+const stdInfoPath = path.resolve('src/data/std-info.json');
+const codesInfoPath = path.resolve('src/data/codes-info.json');
 
 // Ensure the base output directories exist
 if (!fs.existsSync(gdnOutputBaseDir)) {
@@ -30,6 +30,24 @@ if (!fs.existsSync(stdOutputBaseDir)) {
 
 if (!fs.existsSync(codesOutputBaseDir)) {
   fs.mkdirSync(codesOutputBaseDir, { recursive: true });
+}
+
+// Helper function to map konto codes to dimensions
+function mapKontoToDimension(konto) {
+  if (!konto) return null;
+
+  const firstDigit = konto.charAt(0);
+  switch (firstDigit) {
+    case '1':
+    case '2':
+      return 'bilanz';
+    case '3':
+      return 'aufwand';
+    case '4':
+      return 'ertrag';
+    default:
+      return null; // Skip records with unmappable konto codes
+  }
 }
 
 // Process GDN data
@@ -51,10 +69,24 @@ function processGdnData() {
 
   // Process each record
   data.forEach((record) => {
-    if (!record.nr || !record.jahr) return; // Skip records with missing nr or jahr
+    if (!record.nr || !record.jahr || !record.konto) return; // Skip records with missing required fields
 
     // Skip records with year before 2015
     if (record.jahr < 2015) return;
+
+    // Map konto to dimension
+    const dim = mapKontoToDimension(record.konto);
+    if (!dim) return; // Skip records that don't map to our target dimensions
+
+    // Transform record to standardized format
+    const standardizedRecord = {
+      arten: record.konto,
+      funk: record.funktion || '',
+      jahr: record.jahr,
+      value: record.betrag || '',
+      dim: dim,
+      unit: 'CHF'
+    };
 
     // Group by nr
     if (!groupedByNrAndJahr.has(record.nr)) {
@@ -67,8 +99,8 @@ function processGdnData() {
       jahrMap.set(record.jahr, []);
     }
 
-    // Add record to the appropriate group
-    jahrMap.get(record.jahr).push(record);
+    // Add standardized record to the appropriate group
+    jahrMap.get(record.jahr).push(standardizedRecord);
 
     // Track distinct nr & gemeinde combinations for gdn-info.json
     if (!gdnInfoMap.has(record.nr)) {
@@ -86,23 +118,25 @@ function processGdnData() {
     }
   });
 
-  // Create output directories and files
+  // Create output directories and files with model subfolder structure
+  const gdnModel = 'fs'; // GDN data is consolidated under 'fs' model
   groupedByNrAndJahr.forEach((jahrMap, nr) => {
-    // Create directory for this nr
-    const nrDir = path.join(gdnOutputBaseDir, nr);
-    if (!fs.existsSync(nrDir)) {
-      fs.mkdirSync(nrDir, { recursive: true });
+    // Create directory structure: gdn/fs/nr
+    const modelNrDir = path.join(gdnOutputBaseDir, gdnModel, nr);
+    if (!fs.existsSync(modelNrDir)) {
+      fs.mkdirSync(modelNrDir, { recursive: true });
     }
 
     // Create a file for each jahr
     jahrMap.forEach((records, jahr) => {
-      const outputFilePath = path.join(nrDir, `${jahr}.csv`);
+      const outputFilePath = path.join(modelNrDir, `${jahr}.csv`);
 
-      // Convert records back to CSV
+      // Convert records back to CSV with standardized column order
       const csv = Papa.unparse(records, {
-        delimiter: ';',
+        delimiter: ',',  // Use comma delimiter for consistency with STD data
         header: true,
-        quotes: true
+        quotes: true,
+        columns: ['arten', 'funk', 'jahr', 'value', 'dim', 'unit']  // Ensure consistent column order
       });
 
       // Write to file
@@ -111,10 +145,14 @@ function processGdnData() {
     });
   });
 
-  // Sort the gdnInfo array by nr
+  // Sort the gdnInfo array by nr and structure it similar to STD data with models
   const gdnInfoArray = Array.from(gdnInfoMap.values()).map(info => ({
-    ...info,
-    jahre: info.jahre.sort() // Sort jahre array
+    nr: info.nr,
+    gemeinde: info.gemeinde,
+    models: [{
+      model: gdnModel,
+      jahre: info.jahre.sort() // Sort jahre array
+    }]
   })).sort((a, b) => a.nr.localeCompare(b.nr));
 
   // Write the gdn-info.json file
@@ -177,11 +215,18 @@ function processStdData() {
       console.log(`Record ${processedCount} model:`, record.model);
       console.log(`Record ${processedCount} hh:`, record.hh);
       console.log(`Record ${processedCount} jahr:`, record.jahr);
+      console.log(`Record ${processedCount} dim:`, record.dim);
     }
 
-    if (!record.model || !record.hh || !record.jahr) {
+    if (!record.model || !record.hh || !record.jahr || !record.dim) {
       skippedCount++;
-      return; // Skip records with missing model, hh, or jahr
+      return; // Skip records with missing required fields
+    }
+
+    // Filter: only include records with model="fs" and dim in target dimensions
+    if (record.model !== 'fs' || !['aufwand', 'ertrag', 'bilanz'].includes(record.dim)) {
+      skippedCount++;
+      return;
     }
 
     // skip records with year before 2015
@@ -189,6 +234,16 @@ function processStdData() {
       skippedCount++;
       return;
     }
+
+    // Transform record to standardized format (remove hh and model columns)
+    const standardizedRecord = {
+      arten: record.arten || '',
+      funk: record.funk || '',
+      jahr: record.jahr,
+      value: record.value || '',
+      dim: record.dim,
+      unit: record.unit || 'CHF'
+    };
 
     processedCount++;
 
@@ -209,8 +264,8 @@ function processStdData() {
       jahrMap.set(record.jahr, []);
     }
 
-    // Add record to the appropriate group
-    jahrMap.get(record.jahr).push(record);
+    // Add standardized record to the appropriate group
+    jahrMap.get(record.jahr).push(standardizedRecord);
 
     // Track distinct hh & model combinations for std-info.json
     if (!stdInfoMap.has(record.hh)) {
@@ -254,11 +309,12 @@ function processStdData() {
       jahrMap.forEach((records, jahr) => {
         const outputFilePath = path.join(modelHhDir, `${jahr}.csv`);
 
-        // Convert records back to CSV
+        // Convert records back to CSV with standardized column order
         const csv = Papa.unparse(records, {
           delimiter: ',',  // Keep the same delimiter as the input file
           header: true,
-          quotes: true
+          quotes: true,
+          columns: ['arten', 'funk', 'jahr', 'value', 'dim', 'unit']  // Ensure consistent column order
         });
 
         // Write to file

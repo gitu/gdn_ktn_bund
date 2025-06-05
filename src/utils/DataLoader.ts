@@ -1,330 +1,482 @@
-import Papa from 'papaparse'
-import { type RecordType } from '../types'
+/**
+ * Data loader utility for loading and integrating financial data into FinancialData tree structures
+ */
 
-// Data loading error class
-export class DataLoadError extends Error {
-  public cause?: Error
+import * as Papa from 'papaparse';
+import type {
+  FinancialData,
+  FinancialDataNode,
+  FinancialDataMetadata,
+  FinacialDataValue
+} from '../types/FinancialDataStructure';
 
-  constructor(message: string, cause?: Error) {
-    super(message)
-    this.name = 'DataLoadError'
-    this.cause = cause
-  }
+import type {
+  DataRecord
+} from '../types/DataStructures';
+
+export interface DataLoaderResult {
+  data: DataRecord[];
+  metadata: FinancialDataMetadata;
 }
 
-// Interface for STD (Standard) CSV records
-export interface StdCsvRecord {
-  arten: string
-  funk: string
-  jahr: string
-  value: string
-  dim: string
-  hh: string
-  unit: string
-  model: string
+export interface DataValidationResult {
+  isValid: boolean;
+  errorMessage?: string;
+  dataPath?: string;
 }
 
-// Interface for GDN (Municipality) CSV records
-export interface GdnCsvRecord {
-  jahr: string
-  nr: string
-  gemeinde: string
-  konto: string
-  funktion: string
-  betrag: string
-}
+import gdnInfo from '../data/gdn-info.json';
+import stdInfo from '../data/std-info.json';
 
-// Cache for loaded data to avoid repeated fetches
-const dataCache = new Map<string, RecordType[]>()
-
-// Available years (will be populated dynamically)
-let cachedAvailableYears: string[] | null = null
-let cachedAvailableMunicipalities: string[] | null = null
 
 /**
- * Constructs the file path for entity data based on entity type and parameters
- * @param entityId - Entity identifier (e.g., "010176", "ktn_zh", "bund")
- * @param year - Year to load
- * @param model - Model type for STD entities (default: "fs")
- * @returns File path for the CSV data
+ * DataLoader class for loading CSV financial data and integrating it into tree structures
  */
-export function constructDataPath(entityId: string, year: string, model: string = 'fs'): string {
-  // Determine if this is a GDN (municipality) entity
-  if (/^\d{6}$/.test(entityId)) {
-    // GDN entity: 6-digit numeric ID
-    return `/data/gdn/${entityId}/${year}.csv`
-  } else {
-    // STD entity: use model/entity_id/year structure
-    return `/data/std/${model}/${entityId}/${year}.csv`
-  }
-}
+export class DataLoader {
 
-/**
- * Loads and parses CSV data from the specified path
- * @param filePath - Path to the CSV file
- * @param delimiter - CSV delimiter (';' for GDN, ',' for STD)
- * @returns Promise resolving to parsed CSV data
- */
-async function loadCsvFromPath(filePath: string, delimiter: string = ','): Promise<unknown[]> {
-  try {
-    const response = await fetch(filePath)
+  /**
+   * Validate if GDN data exists for the given parameters
+   */
+  async validateGdnData(entityCode: string, year: string, model: string): Promise<DataValidationResult> {
+    try {
+      const entity = gdnInfo.find(info => info.nr === entityCode);
 
-    if (!response.ok) {
-      throw new DataLoadError(`Failed to fetch CSV file: ${response.status} ${response.statusText}`,
-        new Error(`HTTP ${response.status}`))
+      if (!entity) {
+        return {
+          isValid: false,
+          errorMessage: `GDN entity '${entityCode}' not found`
+        };
+      }
+
+      const modelInfo = entity.models.find(m => m.model === model);
+      if (!modelInfo) {
+        return {
+          isValid: false,
+          errorMessage: `Model '${model}' not available for GDN entity '${entityCode}'`
+        };
+      }
+
+      if (!modelInfo.jahre.includes(year)) {
+        return {
+          isValid: false,
+          errorMessage: `Year '${year}' not available for GDN entity '${entityCode}' with model '${model}'. Available years: ${modelInfo.jahre.join(', ')}`
+        };
+      }
+
+      return {
+        isValid: true,
+        dataPath: `/data/gdn/${model}/${entityCode}/${year}.csv`
+      };
+    } catch (error) {
+      return {
+        isValid: false,
+        errorMessage: `Validation error: ${error instanceof Error ? error.message : 'Unknown error'}`
+      };
     }
+  }
 
-    const csvText = await response.text()
+  /**
+   * Validate if STD data exists for the given parameters
+   */
+  async validateStdData(entityCode: string, year: string, model: string): Promise<DataValidationResult> {
+    try {
+      const entity = stdInfo.find(info => info.hh === entityCode);
 
-    return new Promise((resolve, reject) => {
-      Papa.parse<unknown>(csvText, {
+      if (!entity) {
+        return {
+          isValid: false,
+          errorMessage: `STD entity '${entityCode}' not found`
+        };
+      }
+
+      const modelInfo = entity.models.find(m => m.model === model);
+      if (!modelInfo) {
+        return {
+          isValid: false,
+          errorMessage: `Model '${model}' not available for STD entity '${entityCode}'`
+        };
+      }
+
+      if (!modelInfo.jahre.includes(year)) {
+        return {
+          isValid: false,
+          errorMessage: `Year '${year}' not available for STD entity '${entityCode}' with model '${model}'. Available years: ${modelInfo.jahre.join(', ')}`
+        };
+      }
+
+      return {
+        isValid: true,
+        dataPath: `/data/std/${model}/${entityCode}/${year}.csv`
+      };
+    } catch (error) {
+      return {
+        isValid: false,
+        errorMessage: `Validation error: ${error instanceof Error ? error.message : 'Unknown error'}`
+      };
+    }
+  }
+
+  /**
+   * Load and parse CSV data from a given path using Papa Parse
+   */
+  private async loadCsvData(dataPath: string): Promise<DataRecord[]> {
+    try {
+      const response = await fetch(dataPath);
+      if (!response.ok) {
+        throw new Error(`Failed to fetch data from ${dataPath}: ${response.statusText}`);
+      }
+
+      const csvText = await response.text();
+
+      // Parse CSV using Papa Parse
+      const parseResult = Papa.parse(csvText, {
         header: true,
-        delimiter,
         skipEmptyLines: true,
-        transformHeader: (header: string) => header.trim().replace(/"/g, ''),
-        transform: (value: string) => value.trim().replace(/"/g, ''),
-        complete: (results: Papa.ParseResult<unknown>) => {
-          if (results.errors.length > 0) {
-            console.warn('CSV parsing warnings:', results.errors)
-          }
-          resolve(results.data)
-        },
-        error: (error: Error) => {
-          reject(new DataLoadError(`CSV parsing error: ${error.message}`, error))
+        transform: (value: string) => value.trim()
+      }) as Papa.ParseResult<Record<string, string>>;
+
+      // Check for parsing errors
+      if (parseResult.errors.length > 0) {
+        const errorMessages = parseResult.errors.map((error: Papa.ParseError) =>
+          `Row ${error.row}: ${error.message}`
+        ).join('; ');
+        throw new Error(`CSV parsing errors: ${errorMessages}`);
+      }
+
+      // Validate that we have data
+      if (!parseResult.data || parseResult.data.length === 0) {
+        throw new Error('CSV file is empty or has no data rows');
+      }
+
+      // Validate header columns
+      const expectedColumns = ['arten', 'funk', 'jahr', 'value', 'dim', 'unit'];
+      const actualColumns = parseResult.meta?.fields || [];
+
+      if (!expectedColumns.every(col => actualColumns.includes(col))) {
+        throw new Error(`CSV header missing required columns. Expected: ${expectedColumns.join(', ')}, Found: ${actualColumns.join(', ')}`);
+      }
+
+      // Transform parsed data to DataRecord format
+      const records: DataRecord[] = [];
+
+      for (const row of parseResult.data) {
+        // Ensure we have the required fields
+        if (row.arten && row.jahr && row.dim) {
+          records.push({
+            arten: row.arten,
+            funk: row.funk || '',
+            jahr: row.jahr,
+            value: row.value || '',
+            dim: row.dim,
+            unit: row.unit || 'CHF'
+          } as DataRecord);
         }
-      })
-    })
-  } catch (error) {
-    if (error instanceof DataLoadError) {
-      throw error
+      }
+
+      return records;
+    } catch (error) {
+      throw new Error(`Error loading CSV data from ${dataPath}: ${error instanceof Error ? error.message : 'Unknown error'}`);
     }
-    throw new DataLoadError(`Failed to load CSV file ${filePath}`, error as Error)
-  }
-}
-
-/**
- * Converts GDN CSV record to RecordType format
- * @param gdnRecord - GDN CSV record
- * @returns RecordType record
- */
-function convertGdnToRecordType(gdnRecord: GdnCsvRecord): RecordType {
-  return {
-    jahr: gdnRecord.jahr,
-    nr: gdnRecord.nr,
-    gemeinde: gdnRecord.gemeinde,
-    konto: gdnRecord.konto,
-    funktion: gdnRecord.funktion || '',
-    betrag: parseFloat(gdnRecord.betrag) || 0
-  }
-}
-
-/**
- * Converts STD CSV record to RecordType format
- * @param stdRecord - STD CSV record
- * @returns RecordType record
- */
-function convertStdToRecordType(stdRecord: StdCsvRecord): RecordType {
-  return {
-    jahr: stdRecord.jahr,
-    nr: stdRecord.hh, // Use entity ID as nr for STD records
-    gemeinde: stdRecord.hh, // Use entity ID as gemeinde for STD records
-    konto: stdRecord.arten,
-    funktion: stdRecord.funk || '',
-    betrag: parseFloat(stdRecord.value) || 0
-  }
-}
-
-/**
- * Loads entity data for a specific entity and year
- * @param entityId - Entity identifier (e.g., "010176", "ktn_zh", "bund")
- * @param year - Year to load
- * @param model - Model type for STD entities (default: "fs")
- * @returns Promise resolving to array of RecordType records
- */
-export async function loadEntityData(
-  entityId: string,
-  year: string,
-  model: string = 'fs'
-): Promise<RecordType[]> {
-  const cacheKey = `${entityId}_${year}_${model}`
-
-  // Check cache first
-  if (dataCache.has(cacheKey)) {
-    return dataCache.get(cacheKey)!
   }
 
-  try {
-    const filePath = constructDataPath(entityId, year, model)
-    const isGdn = /^\d{6}$/.test(entityId)
-    const delimiter = isGdn ? ';' : ','
+  /**
+   * Load GDN data for a specific entity, year, and model
+   */
+  async loadGdnData(entityCode: string, year: string, model: string): Promise<DataLoaderResult> {
+    const validation = await this.validateGdnData(entityCode, year, model);
 
-    console.log(`Loading data from: ${filePath}`)
-
-    const rawData = await loadCsvFromPath(filePath, delimiter)
-
-    let records: RecordType[]
-    if (isGdn) {
-      records = rawData.map((record) => convertGdnToRecordType(record as GdnCsvRecord))
-    } else {
-      records = rawData.map((record) => convertStdToRecordType(record as StdCsvRecord))
+    if (!validation.isValid) {
+      throw new Error(validation.errorMessage);
     }
 
-    // Cache the results
-    dataCache.set(cacheKey, records)
+    const data = await this.loadCsvData(validation.dataPath!);
 
-    console.log(`✓ Loaded ${records.length} records for ${entityId} (${year})`)
-    return records
-
-  } catch (error) {
-    console.error(`✗ Failed to load data for ${entityId} (${year}):`, error)
-    throw error
-  }
-}
-
-/**
- * Checks if data exists for a specific entity and year
- * @param entityId - Entity identifier
- * @param year - Year to check
- * @param model - Model type for STD entities (default: "fs")
- * @returns Promise resolving to boolean indicating if data exists
- */
-export async function checkDataExists(
-  entityId: string,
-  year: string,
-  model: string = 'fs'
-): Promise<boolean> {
-  try {
-    const filePath = constructDataPath(entityId, year, model)
-    const response = await fetch(filePath, { method: 'HEAD' })
-    return response.ok
-  } catch {
-    return false
-  }
-}
-
-/**
- * Discovers available years by checking common year ranges
- * @returns Promise resolving to array of available years
- */
-export async function discoverAvailableYears(): Promise<string[]> {
-  if (cachedAvailableYears) {
-    return cachedAvailableYears
+    return {
+      data,
+      metadata: {
+        source: `GDN/${model}/${entityCode}/${year}`,
+        loadedAt: new Date().toISOString(),
+        recordCount: data.length
+      }
+    };
   }
 
-  const years: string[] = []
-  const currentYear = new Date().getFullYear()
+  /**
+   * Load STD data for a specific entity, year, and model
+   */
+  async loadStdData(entityCode: string, year: string, model: string): Promise<DataLoaderResult> {
+    const validation = await this.validateStdData(entityCode, year, model);
 
-  // Check years from 2015 to current year
-  for (let year = 2015; year <= currentYear; year++) {
-    years.push(year.toString())
+    if (!validation.isValid) {
+      throw new Error(validation.errorMessage);
+    }
+
+    const data = await this.loadCsvData(validation.dataPath!);
+
+    return {
+      data,
+      metadata: {
+        source: `STD/${model}/${entityCode}/${year}`,
+        loadedAt: new Date().toISOString(),
+        recordCount: data.length
+      }
+    };
   }
 
-  cachedAvailableYears = years.sort()
-  return cachedAvailableYears
-}
+  /**
+   * Find a node in the financial data tree by account code
+   */
+  private findNodeByCode(node: FinancialDataNode, code: string): FinancialDataNode | null {
+    if (node.code === code) {
+      return node;
+    }
 
-/**
- * Gets available years (cached or discovered)
- * @returns Array of available years
- */
-export function getAvailableYears(): string[] {
-  if (cachedAvailableYears) {
-    return cachedAvailableYears
+    for (const child of node.children) {
+      const found = this.findNodeByCode(child, code);
+      if (found) {
+        return found;
+      }
+    }
+
+    return null;
   }
 
-  // Return a default set if not yet discovered
-  const currentYear = new Date().getFullYear()
-  const years: string[] = []
-  for (let year = 2015; year <= currentYear; year++) {
-    years.push(year.toString())
-  }
-  return years.sort()
-}
-
-/**
- * Gets the latest available year
- * @returns Latest year as string
- */
-export function getLatestYear(): string {
-  const years = getAvailableYears()
-  return years[years.length - 1] || '2023'
-}
-
-/**
- * Gets available municipalities (placeholder implementation)
- * @returns Array of municipality names
- */
-export function getAvailableMunicipalities(): string[] {
-  if (cachedAvailableMunicipalities) {
-    return cachedAvailableMunicipalities
+  /**
+   * Filter data records by dimension (bilanz, aufwand, ertrag)
+   */
+  private filterDataByDimension(data: DataRecord[], dimensions: string[]): DataRecord[] {
+    return data.filter(record => dimensions.includes(record.dim.toLowerCase()));
   }
 
-  // Return a default set - in a real implementation, this would be discovered
-  // from the actual data files or a manifest
-  cachedAvailableMunicipalities = [
-    'Lindau', 'Zürich', 'Basel', 'Bern', 'Lausanne', 'Genève',
-    'Winterthur', 'Luzern', 'St. Gallen', 'Lugano', 'Biel/Bienne'
-  ]
+  /**
+   * Aggregate multiple data records with the same arten but different funk values
+   */
+  private aggregateDataRecords(records: DataRecord[]): DataRecord {
+    if (records.length === 0) {
+      throw new Error('Cannot aggregate empty records array');
+    }
 
-  return cachedAvailableMunicipalities
-}
+    if (records.length === 1) {
+      return records[0];
+    }
 
-/**
- * Legacy function: Get data for a specific municipality (latest year)
- * @param _municipality - Municipality name (unused)
- * @returns Array of RecordType records
- */
-export function getMunicipalityData(_municipality: string): RecordType[] {
-  console.warn('getMunicipalityData is deprecated. Use loadEntityData instead.')
-  return []
-}
+    // Sum all values
+    const totalValue = records.reduce((sum, record) => {
+      const value = parseFloat(record.value) || 0;
+      return sum + value;
+    }, 0);
 
-/**
- * Legacy function: Get data for a specific municipality and year
- * @param _municipality - Municipality name (unused)
- * @param _year - Year to load (unused)
- * @returns Array of RecordType records
- */
-export function getMunicipalityDataForYear(_municipality: string, _year: string): RecordType[] {
-  console.warn('getMunicipalityDataForYear is deprecated. Use loadEntityData instead.')
-  return []
-}
+    // Use the first record as base and update the value
+    const aggregated = { ...records[0] };
+    aggregated.value = totalValue.toString();
+    aggregated.funk = ''; // Clear funk since we're aggregating across different funk values
 
-/**
- * Legacy function: Get all data for the latest year
- * @returns Array of RecordType records
- */
-export function getAllDataForLatestYear(): RecordType[] {
-  console.warn('getAllDataForLatestYear is deprecated. Use loadEntityData for specific entities instead.')
-  return []
-}
+    return aggregated;
+  }
 
-/**
- * Legacy function: Get all data for a specific year
- * @param _year - Year to load (unused)
- * @returns Array of RecordType records
- */
-export function getAllDataForYear(_year: string): RecordType[] {
-  console.warn('getAllDataForYear is deprecated. Use loadEntityData for specific entities instead.')
-  return []
-}
+  /**
+   * Fill metadata for an entity in the financial data structure
+   */
+  fillEntityMetadata(
+    financialData: FinancialData,
+    entityCode: string,
+    year: string,
+    model: string,
+    source: 'gdn' | 'std',
+    metadata: FinancialDataMetadata
+  ): void {
+    const fullEntityCode = `${source}/${model}/${entityCode}:${year}`;
 
-/**
- * Clears the data cache
- */
-export function clearCache(): void {
-  dataCache.clear()
-  cachedAvailableYears = null
-  cachedAvailableMunicipalities = null
-}
+    // Create entity entry if it doesn't exist
+    if (!financialData.entities.has(fullEntityCode)) {
+      financialData.entities.set(fullEntityCode, {
+        code: fullEntityCode,
+        name: {
+          de: entityCode,
+          fr: entityCode,
+          it: entityCode,
+          en: entityCode
+        },
+        scalingFactor: 1,
+        metadata: metadata
+      });
+    }
 
-/**
- * Gets cache statistics
- * @returns Object with cache information
- */
-export function getCacheStats(): { size: number; keys: string[] } {
-  return {
-    size: dataCache.size,
-    keys: Array.from(dataCache.keys())
+    // Update main metadata
+    financialData.metadata = {
+      source: `${metadata.source} + ${financialData.metadata.source}`,
+      loadedAt: new Date().toISOString(),
+      recordCount: financialData.metadata.recordCount + metadata.recordCount
+    };
+  }
+
+  /**
+   * Load CSV data into the financial data tree structure
+   */
+  loadDataIntoTree(
+    financialData: FinancialData,
+    data: DataRecord[],
+    entityCode: string,
+    year: string,
+    model: string,
+    source: 'gdn' | 'std'
+  ): void {
+    const fullEntityCode = `${source}/${model}/${entityCode}:${year}`;
+
+    // Filter data to only include relevant dimensions
+    const relevantDimensions = ['bilanz', 'aufwand', 'ertrag'];
+    const filteredData = this.filterDataByDimension(data, relevantDimensions);
+
+    // Group data by arten (account code)
+    const dataByArten = new Map<string, DataRecord[]>();
+    filteredData.forEach(record => {
+      if (!dataByArten.has(record.arten)) {
+        dataByArten.set(record.arten, []);
+      }
+      dataByArten.get(record.arten)!.push(record);
+    });
+
+    // Process each account code
+    dataByArten.forEach((records, arten) => {
+      try {
+        // Aggregate records with same arten but different funk values
+        const aggregatedRecord = this.aggregateDataRecords(records);
+
+        // Find the appropriate tree node based on dimension
+        let targetTree: FinancialDataNode;
+        if (aggregatedRecord.dim === 'bilanz') {
+          targetTree = financialData.balanceSheet;
+        } else {
+          targetTree = financialData.incomeStatement;
+        }
+
+        // Find the specific node for this account code
+        const targetNode = this.findNodeByCode(targetTree, arten);
+
+        if (!targetNode) {
+          throw new Error(`Account code '${arten}' not found in tree structure`);
+        }
+
+        // Create financial data value
+        const value = parseFloat(aggregatedRecord.value) || 0;
+        const financialValue: FinacialDataValue = {
+          value: value,
+          unit: aggregatedRecord.unit
+        };
+
+        // Add the value to the node
+        targetNode.values.set(fullEntityCode, financialValue);
+
+      } catch (error) {
+        // Re-throw with more context
+        throw new Error(`Error processing account code '${arten}': ${error instanceof Error ? error.message : 'Unknown error'}`);
+      }
+    });
+  }
+
+  /**
+   * Parse dataset identifier and load financial data
+   *
+   * @param datasetIdentifier - Dataset identifier in format 'source/model/entity:year' (e.g., 'gdn/fs/010002:2016')
+   * @returns FinancialData structure with loaded data
+   */
+  async loadFinancialData(datasetIdentifier: string): Promise<FinancialData> {
+    // Parse the dataset identifier
+    const parts = datasetIdentifier.split('/');
+    if (parts.length !== 3) {
+      throw new Error(`Invalid dataset identifier format: ${datasetIdentifier}. Expected format: source/model/entity:year`);
+    }
+
+    const source = parts[0] as 'gdn' | 'std';
+    const model = parts[1];
+    const entityAndYear = parts[2];
+
+    const [entity, year] = entityAndYear.split(':');
+    if (!entity || !year) {
+      throw new Error(`Invalid entity:year format in dataset identifier: ${datasetIdentifier}`);
+    }
+
+    if (source !== 'gdn' && source !== 'std') {
+      throw new Error(`Invalid source '${source}' in dataset identifier: ${datasetIdentifier}. Must be 'gdn' or 'std'`);
+    }
+
+    // Create a basic financial data structure (this would normally come from a template)
+    const financialData: FinancialData = {
+      balanceSheet: {
+        code: '1',
+        labels: { de: 'Bilanz', fr: 'Bilan', it: 'Bilancio', en: 'Balance Sheet' },
+        values: new Map(),
+        children: []
+      },
+      incomeStatement: {
+        code: '4',
+        labels: { de: 'Erfolgsrechnung', fr: 'Compte de résultat', it: 'Conto economico', en: 'Income Statement' },
+        values: new Map(),
+        children: []
+      },
+      entities: new Map(),
+      metadata: {
+        source: '',
+        loadedAt: new Date().toISOString(),
+        recordCount: 0
+      }
+    };
+
+    // Load and integrate the data
+    return await this.loadAndIntegrateFinancialData(entity, model, year, financialData, source);
+  }
+
+  /**
+   * Main utility function to load financial data and integrate it into existing tree structure
+   *
+   * @param financialCode - Financial code (e.g., municipality number like "010002")
+   * @param model - Model type (e.g., "fs")
+   * @param year - Year (e.g., "2022")
+   * @param financialData - Existing FinancialData tree structure
+   * @param source - Data source type ('gdn' or 'std')
+   * @returns Updated FinancialData tree with new data integrated
+   */
+  async loadAndIntegrateFinancialData(
+    financialCode: string,
+    model: string,
+    year: string,
+    financialData: FinancialData,
+    source: 'gdn' | 'std'
+  ): Promise<FinancialData> {
+    try {
+      // Step 1: Load the data
+      let result: DataLoaderResult;
+
+      if (source === 'gdn') {
+        result = await this.loadGdnData(financialCode, year, model);
+      } else {
+        result = await this.loadStdData(financialCode, year, model);
+      }
+
+      // Step 2: Fill relevant metadata
+      this.fillEntityMetadata(
+        financialData,
+        financialCode,
+        year,
+        model,
+        source,
+        result.metadata
+      );
+
+      // Step 3: Load the data from CSV files into the right place in the tree
+      this.loadDataIntoTree(
+        financialData,
+        result.data,
+        financialCode,
+        year,
+        model,
+        source
+      );
+
+      return financialData;
+
+    } catch (error) {
+      throw new Error(`Failed to load and integrate financial data for ${source}/${model}/${financialCode}:${year}: ${error instanceof Error ? error.message : 'Unknown error'}`);
+    }
   }
 }

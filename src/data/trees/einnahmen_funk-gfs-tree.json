@@ -1,0 +1,22 @@
+{
+  "metadata": {
+    "dimension": "einnahmen_funk",
+    "model": "gfs",
+    "source": "codes/einnahmen_funk/gfs.csv",
+    "generatedAt": "2025-06-05T10:10:15.439Z",
+    "totalNodes": 1,
+    "maxDepth": 0
+  },
+  "tree": {
+    "code": "root",
+    "labels": {
+      "de": "Gesamt",
+      "fr": "Total",
+      "it": "Totale",
+      "en": "Total"
+    },
+    "children": [],
+    "level": 0,
+    "hasValue": false
+  }
+}

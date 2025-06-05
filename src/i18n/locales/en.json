@@ -1,0 +1,276 @@
+{
+  "common": {
+    "loading": "Loading...",
+    "error": "Error",
+    "noData": "No data available",
+    "search": "Search",
+    "clear": "Clear",
+    "select": "Select",
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "save": "Save",
+    "close": "Close",
+    "back": "Back",
+    "next": "Next",
+    "previous": "Previous",
+    "all": "All",
+    "none": "None"
+  },
+  "navigation": {
+    "home": "Home",
+    "about": "About",
+    "tools": "Tools",
+    "financialComparison": "Financial Comparison",
+    "treeTable": "Tree Table",
+    "treeExplorer": "Tree Explorer",
+    "calendar": "Calendar",
+    "messages": "Messages",
+    "profile": "Profile"
+  },
+  "dataBrowser": {
+    "title": "Data Browser",
+    "selectEntity": "Select Entity",
+    "selectYear": "Select Year",
+    "selectDimension": "Select Dimension",
+    "loadData": "Load Data",
+    "noEntitySelected": "No entity selected",
+    "noYearSelected": "No year selected",
+    "noDimensionSelected": "No dimension selected",
+    "loadingEntities": "Loading entities...",
+    "loadingYears": "Loading years...",
+    "errorLoadingEntities": "Error loading entities",
+    "errorLoadingYears": "Error loading years",
+    "availableYears": "Available Years",
+    "availableEntities": "Available Entities",
+    "entityCount": "entities",
+    "yearCount": "years",
+    "searchPlaceholder": "Search for entities, municipalities or codes...",
+    "filters": {
+      "dataType": "Data Type",
+      "yearRange": "Year Range",
+      "yearFrom": "From",
+      "yearTo": "To"
+    },
+    "filterOptions": {
+      "all": "All",
+      "std": "Standard",
+      "gdn": "Municipalities"
+    },
+    "viewOptions": {
+      "showDescriptions": "Descriptions",
+      "showYearRange": "Year Range"
+    },
+    "resultsCount": "{count} of {total} results",
+    "loading": "Loading data...",
+    "noResults": "No results found",
+    "municipalityData": "Municipal data for {name}",
+    "semanticLabels": {
+      "allMunicipalities": "All municipalities of Canton",
+      "socialInsurance": "Social Insurance",
+      "confederation": "Confederation",
+      "canton": "Canton"
+    }
+  },
+  "treeTable": {
+    "title": "Tree Table",
+    "expandAll": "Expand all",
+    "collapseAll": "Collapse all",
+    "noDataSelected": "No data selected",
+    "loadingData": "Loading data...",
+    "errorLoadingData": "Error loading data",
+    "realTimeAggregation": "Real-time aggregation",
+    "labelColumn": "Label",
+    "codeColumn": "Code",
+    "valueColumn": "Value",
+    "loading": "Loading data...",
+    "error": "Error",
+    "noData": "No data available",
+    "showCodes": "Show Codes",
+    "showValues": "Show Values",
+    "expand": "Expand",
+    "collapse": "Collapse",
+    "recordsProcessed": "{count} records processed",
+    "rowsDisplayed": "{count} rows displayed",
+    "loadedAt": "loaded {date}"
+  },
+  "treeTableView": {
+    "title": "Hierarchical Tree Table",
+    "description": "Explore financial data in a hierarchical table format with collapsible tree structure",
+    "dimension": "Dimension",
+    "tableTitle": "Table Title",
+    "titlePlaceholder": "Enter table title",
+    "dataBrowser": "Data Browser",
+    "dataBrowserDescription": "Search and browse available data entities:",
+    "availableEntities": "Available Data Entities",
+    "loading": "Loading data...",
+    "dataInformation": "Data Information",
+    "model": "Model",
+    "totalRecords": "Total Records",
+    "treeNodes": "Tree Nodes",
+    "maxDepth": "Max Depth",
+    "processedAt": "Processed At",
+    "error": "Error",
+    "dataBrowserError": "Data browser error",
+    "usageDocumentation": "Usage Documentation",
+    "dataPathFormat": "Data Path Format",
+    "gdnData": "GDN Data",
+    "stdData": "STD Data",
+    "example": "e.g.",
+    "availableDimensions": "Available Dimensions",
+    "expenditure": "Expenditure/Expenses",
+    "revenue": "Revenue",
+    "income": "Income",
+    "expenses": "Expenses",
+    "balanceSheet": "Balance Sheet",
+    "features": "Features",
+    "hierarchicalStructure": "Hierarchical tree structure with collapsible nodes",
+    "multiLanguageSupport": "Multi-language support (German, French, Italian, English)",
+    "configurableDisplay": "Configurable display options (show/hide codes and values)",
+    "responsiveDesign": "Responsive design for mobile and desktop",
+    "realTimeAggregation": "Real-time data aggregation using TreeAggregator",
+    "noDataSelected": "Please select data from the browser above to view the hierarchical table."
+  },
+  "aboutView": {
+    "title": "About This Application",
+    "subtitle": "Swiss Financial Data Explorer",
+    "description": "This application allows you to explore and analyze Swiss financial data in various interactive formats.",
+    "features": {
+      "title": "Key Features",
+      "treeNavigation": "Hierarchical tree navigation for financial data",
+      "tableView": "Interactive table view with drill-down functionality",
+      "dataBrowser": "Comprehensive data browser for all available entities",
+      "multiLanguage": "Multi-language support (DE, FR, IT, EN)",
+      "responsive": "Responsive design for all devices"
+    },
+    "dataInfo": {
+      "title": "Data Information",
+      "description": "The application uses official Swiss financial data from municipalities and cantons.",
+      "sources": "Data sources: Federal Finance Administration and cantonal statistical offices",
+      "coverage": "Coverage: 2015-2023, all Swiss municipalities and cantons"
+    },
+    "technology": {
+      "title": "Technology",
+      "description": "Built with modern web technologies for optimal performance and user experience.",
+      "frontend": "Frontend: Vue 3, TypeScript, PrimeVue",
+      "testing": "Testing: Vitest, Vue Test Utils",
+      "build": "Build: Vite, ESLint"
+    }
+  },
+  "treeNavigator": {
+    "title": "Data Tree",
+    "loadingTree": "Loading tree structure...",
+    "errorLoadingTree": "Error loading tree",
+    "searchPlaceholder": "Search...",
+    "nodesCount": "nodes",
+    "maxDepth": "max depth",
+    "source": "source",
+    "dimensions": {
+      "bilanz": "Balance Sheet",
+      "aufwand": "Expenditure",
+      "ertrag": "Revenue"
+    }
+  },
+  "languageSelector": {
+    "selectLanguage": "Select language",
+    "currentLanguage": "Current language"
+  },
+  "homeView": {
+    "title": "Swiss Financial Data Tree Navigator",
+    "subtitle": "Explore hierarchical financial data structures for Swiss municipalities and cantons",
+    "description": {
+      "title": "Compare Municipal Financial Data",
+      "intro": "This website enables you to analyze and compare financial data across different municipal entities. Discover financial trends and differences between Swiss municipalities and cantons.",
+      "capabilities": "You can analyze and compare the following data types:",
+      "bilanzDescription": "Balance sheet data - Assets, liabilities, and equity of municipalities",
+      "incomeDescription": "Income statement data - Revenue (income) and expenditure (expenses) comparison",
+      "footer": "Select a dimension and navigate through the hierarchical structure to explore detailed financial data."
+    },
+    "cta": {
+      "title": "Start Exploring Data",
+      "description": "Begin analyzing financial data from various Swiss municipalities and cantons.",
+      "buttonText": "Open Tree Explorer",
+      "comparisonButtonText": "Compare Financial Data",
+      "learnMoreButtonText": "Learn More"
+    },
+    "dimensionLabel": "Dimension:",
+    "dimensions": {
+      "ertrag": "Revenue (Income)",
+      "aufwand": "Expenditure (Costs)",
+      "bilanz": "Balance Sheet"
+    },
+    "selectedNode": "Selected Node",
+    "code": "Code",
+    "searchResults": "Search Results",
+    "moreResults": "... and {{count}} more results",
+    "aboutTitle": "About the Tree Structure",
+    "aboutDescription": "This tree navigator displays the hierarchical structure of Swiss financial data. The data is organized by account codes where longer codes represent more specific sub-categories of shorter codes.",
+    "aboutItems": {
+      "ertrag": "Revenue and income categories",
+      "aufwand": "Expenditure and cost categories",
+      "bilanz": "Balance sheet items (assets and liabilities)"
+    },
+    "aboutFooter": "Each node shows the account code, multilingual labels, and values where available. Use the search function to quickly find specific accounts or categories."
+  },
+  "financialDataComparison": {
+    "title": "Financial Data Comparison",
+    "subtitle": "Compare financial datasets side-by-side using hierarchical tree structure",
+    "loading": "Loading financial data...",
+    "error": "Error loading data",
+    "noData": "No data available for comparison",
+    "columns": {
+      "category": "Category",
+      "code": "Code"
+    },
+    "loadingDataset": "Loading dataset {dataset}...",
+    "datasetError": "Error loading dataset {dataset}: {error}",
+    "expandAll": "Expand All",
+    "collapseAll": "Collapse All",
+    "showCodes": "Show Codes",
+    "hideValues": "Hide Zero Values",
+    "currency": "CHF",
+    "totalRows": "Total rows: {count}",
+    "filteredCategories": "Showing: Balance Sheet, Revenue, Expenditure",
+    "parseError": "Invalid dataset format: {dataset}",
+    "aggregationError": "Error aggregating data for {dataset}",
+    "noValidData": "No valid data found in any dataset"
+  },
+  "financialDataDisplay": {
+    "title": "Financial Data Display",
+    "balanceSheet": "Balance Sheet",
+    "incomeStatement": "Income Statement",
+    "loading": "Loading financial data...",
+    "error": "Error loading data",
+    "noData": "No financial data available",
+    "noEntities": "No entities available",
+    "expandAll": "Expand All",
+    "collapseAll": "Collapse All",
+    "showCodes": "Show Codes",
+    "hideCodes": "Hide Codes",
+    "showZeroValues": "Show Zero Values",
+    "hideZeroValues": "Hide Zero Values",
+    "columns": {
+      "account": "Account",
+      "code": "Code",
+      "description": "Description"
+    },
+    "currency": "CHF",
+    "metadata": {
+      "source": "Source",
+      "loadedAt": "Loaded at",
+      "recordCount": "Record count",
+      "entities": "Entities"
+    },
+    "accessibility": {
+      "expandNode": "Expand node",
+      "collapseNode": "Collapse node",
+      "financialValue": "Financial value for {entity}",
+      "noValue": "No value available"
+    },
+    "errors": {
+      "invalidData": "Invalid financial data",
+      "missingBalanceSheet": "Balance sheet missing",
+      "missingIncomeStatement": "Income statement missing",
+      "processingError": "Error processing data"
+    }
+  }
+}
