@@ -296,7 +296,7 @@ try {
 
   // Also generate a TypeScript function file
   const tsOutputPath = path.resolve('src/data/emptyFinancialDataStructure.ts');
-  const tsContent = `import type { FinancialData, FinancialDataNode } from '../types/FinancialDataStructure';
+  const tsContent = `import type { FinancialData } from '../types/FinancialDataStructure';
 
 /**
  * Creates an empty FinancialData structure with hierarchical trees

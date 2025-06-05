@@ -28,8 +28,7 @@ export interface FinancialDataMetadata {
 }
 
 export interface FinacialDataValue {
-  originalValue: number | null;
-  scaledValue: number | null;
+  value: number;
   unit: string;
 }
 

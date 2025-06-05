@@ -233,5 +233,44 @@
     "parseError": "Format de jeu de données invalide: {dataset}",
     "aggregationError": "Erreur d'agrégation des données pour {dataset}",
     "noValidData": "Aucune donnée valide trouvée dans les jeux de données"
+  },
+  "financialDataDisplay": {
+    "title": "Affichage des données financières",
+    "balanceSheet": "Bilan",
+    "incomeStatement": "Compte de résultat",
+    "loading": "Chargement des données financières...",
+    "error": "Erreur lors du chargement des données",
+    "noData": "Aucune donnée financière disponible",
+    "noEntities": "Aucune entité disponible",
+    "expandAll": "Tout développer",
+    "collapseAll": "Tout réduire",
+    "showCodes": "Afficher les codes",
+    "hideCodes": "Masquer les codes",
+    "showZeroValues": "Afficher les valeurs nulles",
+    "hideZeroValues": "Masquer les valeurs nulles",
+    "columns": {
+      "account": "Compte",
+      "code": "Code",
+      "description": "Description"
+    },
+    "currency": "CHF",
+    "metadata": {
+      "source": "Source",
+      "loadedAt": "Chargé le",
+      "recordCount": "Nombre d'enregistrements",
+      "entities": "Entités"
+    },
+    "accessibility": {
+      "expandNode": "Développer le nœud",
+      "collapseNode": "Réduire le nœud",
+      "financialValue": "Valeur financière pour {entity}",
+      "noValue": "Aucune valeur disponible"
+    },
+    "errors": {
+      "invalidData": "Données financières invalides",
+      "missingBalanceSheet": "Bilan manquant",
+      "missingIncomeStatement": "Compte de résultat manquant",
+      "processingError": "Erreur de traitement des données"
+    }
   }
 }

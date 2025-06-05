@@ -233,5 +233,44 @@
     "parseError": "Ungültiges Datensatzformat: {dataset}",
     "aggregationError": "Fehler bei der Datenaggregation für {dataset}",
     "noValidData": "Keine gültigen Daten in den Datensätzen gefunden"
+  },
+  "financialDataDisplay": {
+    "title": "Finanzdaten-Anzeige",
+    "balanceSheet": "Bilanz",
+    "incomeStatement": "Erfolgsrechnung",
+    "loading": "Lade Finanzdaten...",
+    "error": "Fehler beim Laden der Daten",
+    "noData": "Keine Finanzdaten verfügbar",
+    "noEntities": "Keine Entitäten verfügbar",
+    "expandAll": "Alle erweitern",
+    "collapseAll": "Alle einklappen",
+    "showCodes": "Codes anzeigen",
+    "hideCodes": "Codes ausblenden",
+    "showZeroValues": "Nullwerte anzeigen",
+    "hideZeroValues": "Nullwerte ausblenden",
+    "columns": {
+      "account": "Konto",
+      "code": "Code",
+      "description": "Beschreibung"
+    },
+    "currency": "CHF",
+    "metadata": {
+      "source": "Quelle",
+      "loadedAt": "Geladen am",
+      "recordCount": "Anzahl Datensätze",
+      "entities": "Entitäten"
+    },
+    "accessibility": {
+      "expandNode": "Knoten erweitern",
+      "collapseNode": "Knoten einklappen",
+      "financialValue": "Finanzieller Wert für {entity}",
+      "noValue": "Kein Wert verfügbar"
+    },
+    "errors": {
+      "invalidData": "Ungültige Finanzdaten",
+      "missingBalanceSheet": "Bilanz fehlt",
+      "missingIncomeStatement": "Erfolgsrechnung fehlt",
+      "processingError": "Fehler bei der Datenverarbeitung"
+    }
   }
 }

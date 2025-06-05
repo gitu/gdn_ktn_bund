@@ -1,0 +1,687 @@
+<template>
+  <div class="financial-data-display">
+    <!-- Header with title and controls -->
+    <div class="header">
+      <h2 class="title">{{ $t('financialDataDisplay.title') }}</h2>
+      <div class="controls">
+        <button
+          type="button"
+          class="control-button"
+          @click="toggleExpandAll"
+          :aria-label="expandedAll ? $t('financialDataDisplay.collapseAll') : $t('financialDataDisplay.expandAll')"
+        >
+          <i :class="expandedAll ? 'pi pi-minus' : 'pi pi-plus'"></i>
+          {{ expandedAll ? $t('financialDataDisplay.collapseAll') : $t('financialDataDisplay.expandAll') }}
+        </button>
+        <button
+          type="button"
+          class="control-button"
+          @click="toggleShowCodes"
+          :aria-label="showCodes ? $t('financialDataDisplay.hideCodes') : $t('financialDataDisplay.showCodes')"
+        >
+          <i class="pi pi-code"></i>
+          {{ showCodes ? $t('financialDataDisplay.hideCodes') : $t('financialDataDisplay.showCodes') }}
+        </button>
+        <button
+          type="button"
+          class="control-button"
+          @click="toggleShowZeroValues"
+          :aria-label="showZeroValues ? $t('financialDataDisplay.hideZeroValues') : $t('financialDataDisplay.showZeroValues')"
+        >
+          <i class="pi pi-eye"></i>
+          {{ showZeroValues ? $t('financialDataDisplay.hideZeroValues') : $t('financialDataDisplay.showZeroValues') }}
+        </button>
+      </div>
+    </div>
+
+    <!-- Error state -->
+    <div v-if="error" class="error-message" role="alert">
+      <i class="pi pi-exclamation-triangle"></i>
+      <span>{{ error }}</span>
+    </div>
+
+    <!-- Loading state -->
+    <div v-else-if="loading" class="loading-message" role="status" :aria-label="$t('financialDataDisplay.loading')">
+      <i class="pi pi-spin pi-spinner"></i>
+      <span>{{ $t('financialDataDisplay.loading') }}</span>
+    </div>
+
+    <!-- No data state -->
+    <div v-else-if="!hasValidData" class="no-data-message">
+      <i class="pi pi-info-circle"></i>
+      <span>{{ $t('financialDataDisplay.noData') }}</span>
+    </div>
+
+    <!-- Main content -->
+    <div v-else class="content">
+      <!-- Metadata section -->
+      <div v-if="financialData?.metadata" class="metadata-section">
+        <h3>{{ $t('financialDataDisplay.metadata.source') }}: {{ financialData.metadata.source }}</h3>
+        <div class="metadata-details">
+          <span>{{ $t('financialDataDisplay.metadata.loadedAt') }}: {{ formatDate(financialData.metadata.loadedAt) }}</span>
+          <span>{{ $t('financialDataDisplay.metadata.recordCount') }}: {{ financialData.metadata.recordCount }}</span>
+          <span>{{ $t('financialDataDisplay.metadata.entities') }}: {{ entityCount }}</span>
+        </div>
+      </div>
+
+      <!-- Balance Sheet Section -->
+      <div v-if="balanceSheetData.length > 0" class="section">
+        <h3 class="section-title">{{ $t('financialDataDisplay.balanceSheet') }}</h3>
+        <TreeTable
+          :value="balanceSheetData"
+          :expandedKeys="expandedKeys"
+          @node-expand="onNodeExpand"
+          @node-collapse="onNodeCollapse"
+          class="financial-tree-table"
+          :scrollable="true"
+          scrollHeight="400px"
+          :resizableColumns="true"
+          columnResizeMode="expand"
+        >
+          <!-- Account column -->
+          <Column field="label" :header="$t('financialDataDisplay.columns.account')" :expander="true" class="account-column">
+            <template #body="{ node }">
+              <div class="account-cell">
+                <span class="account-label">{{ getNodeLabel(node.data || node) }}</span>
+                <span v-if="showCodes && (node.data?.code || node.code)" class="account-code">({{ node.data?.code || node.code }})</span>
+              </div>
+            </template>
+          </Column>
+
+          <!-- Entity value columns -->
+          <Column
+            v-for="[entityCode, entity] in entityColumns"
+            :key="entityCode"
+            :field="`values.${entityCode}`"
+            :header="getEntityDisplayName(entity)"
+            class="value-column"
+          >
+            <template #body="{ node }">
+              <div class="value-cell">
+                <span
+                  v-if="hasValue(node.data || node, entityCode as string)"
+                  class="financial-value"
+                  :aria-label="$t('financialDataDisplay.accessibility.financialValue', { entity: getEntityDisplayName(entity) })"
+                >
+                  {{ formatCurrency(getValue(node.data || node, entityCode as string)) }}
+                </span>
+                <span
+                  v-else
+                  class="no-value"
+                  :aria-label="$t('financialDataDisplay.accessibility.noValue')"
+                >
+                  -
+                </span>
+              </div>
+            </template>
+          </Column>
+        </TreeTable>
+      </div>
+
+      <!-- Income Statement Section -->
+      <div v-if="incomeStatementData.length > 0" class="section">
+        <h3 class="section-title">{{ $t('financialDataDisplay.incomeStatement') }}</h3>
+        <TreeTable
+          :value="incomeStatementData"
+          :expandedKeys="expandedKeys"
+          @node-expand="onNodeExpand"
+          @node-collapse="onNodeCollapse"
+          class="financial-tree-table"
+          :scrollable="true"
+          scrollHeight="400px"
+          :resizableColumns="true"
+          columnResizeMode="expand"
+          :size="'small'"
+        >
+          <!-- Account column -->
+          <Column field="label" :header="$t('financialDataDisplay.columns.account')" :expander="true" class="account-column">
+            <template #body="{ node }">
+              <div class="account-cell">
+                <span class="account-label">{{ getNodeLabel(node.data || node) }}</span>
+                <span v-if="showCodes && (node.data?.code || node.code)" class="account-code">({{ node.data?.code || node.code }})</span>
+              </div>
+            </template>
+          </Column>
+
+          <!-- Entity value columns -->
+          <Column
+            v-for="[entityCode, entity] in entityColumns"
+            :key="entityCode"
+            :field="`values.${entityCode}`"
+            :header="getEntityDisplayName(entity)"
+            class="value-column"
+          >
+            <template #body="{ node }">
+              <div class="value-cell">
+                <span
+                  v-if="hasValue(node.data || node, entityCode as string)"
+                  class="financial-value"
+                  :aria-label="$t('financialDataDisplay.accessibility.financialValue', { entity: getEntityDisplayName(entity) })"
+                >
+                  {{ formatCurrency(getValue(node.data || node, entityCode as string)) }}
+                </span>
+                <span
+                  v-else
+                  class="no-value"
+                  :aria-label="$t('financialDataDisplay.accessibility.noValue')"
+                >
+                  -
+                </span>
+              </div>
+            </template>
+          </Column>
+        </TreeTable>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script setup lang="ts">
+import { ref, computed, watch, onMounted } from 'vue';
+import { useI18n } from 'vue-i18n';
+import TreeTable from 'primevue/treetable';
+import Column from 'primevue/column';
+import type { FinancialData, FinancialDataNode, FinancialDataEntity } from '@/types/FinancialDataStructure';
+import type { MultiLanguageLabels } from '@/types/DataStructures';
+
+// Props
+interface Props {
+  financialData?: FinancialData | null;
+  loading?: boolean;
+  error?: string | null;
+  initialExpandedAll?: boolean;
+  initialShowCodes?: boolean;
+  initialShowZeroValues?: boolean;
+}
+
+const props = withDefaults(defineProps<Props>(), {
+  financialData: null,
+  loading: false,
+  error: null,
+  initialExpandedAll: false,
+  initialShowCodes: true,
+  initialShowZeroValues: false,
+});
+
+// Emits
+interface Emits {
+  nodeSelected: [nodeCode: string, nodeData: FinancialDataNode];
+  error: [error: string];
+}
+
+const emit = defineEmits<Emits>();
+
+// Vue i18n
+const { locale, t } = useI18n();
+
+// Reactive state
+const expandedKeys = ref<Record<string, boolean>>({});
+const expandedAll = ref(props.initialExpandedAll);
+const showCodes = ref(props.initialShowCodes);
+const showZeroValues = ref(props.initialShowZeroValues);
+
+// Computed properties
+const hasValidData = computed(() => {
+  return props.financialData &&
+         (props.financialData.balanceSheet || props.financialData.incomeStatement) &&
+         props.financialData.entities &&
+         props.financialData.entities.size > 0;
+});
+
+const entityCount = computed(() => {
+  return props.financialData?.entities?.size || 0;
+});
+
+const entityColumns = computed(() => {
+  if (!props.financialData?.entities) return new Map();
+  return props.financialData.entities;
+});
+
+// TreeTable node interface
+interface TreeTableNode {
+  key: string;
+  data: FinancialDataNode;
+  label: string;
+  children: TreeTableNode[];
+}
+
+// Transform financial data nodes to TreeTable format
+const balanceSheetData = computed(() => {
+  if (!props.financialData?.balanceSheet) return [];
+  return transformNodeToTreeTableData(props.financialData.balanceSheet);
+});
+
+const incomeStatementData = computed(() => {
+  if (!props.financialData?.incomeStatement) return [];
+  return transformNodeToTreeTableData(props.financialData.incomeStatement);
+});
+
+// Methods
+const transformNodeToTreeTableData = (node: FinancialDataNode): TreeTableNode[] => {
+  const transformNode = (n: FinancialDataNode, parentKey = ''): TreeTableNode | null => {
+    const key = parentKey ? `${parentKey}-${n.code}` : n.code;
+    const hasVisibleValues = showZeroValues.value || hasAnyNonZeroValue(n);
+
+    if (!hasVisibleValues && n.children.length === 0) {
+      return null;
+    }
+
+    const treeNode = {
+      key,
+      data: n,
+      label: getNodeLabel(n),
+      children: n.children
+        .map(child => transformNode(child, key))
+        .filter(child => child !== null)
+    };
+
+    return treeNode;
+  };
+
+  const rootNode = transformNode(node);
+  return rootNode ? [rootNode] : [];
+};
+
+const hasAnyNonZeroValue = (node: FinancialDataNode): boolean => {
+  // Check if this node has any non-zero values
+  for (const [, value] of node.values) {
+    if (value.value !== 0) return true;
+  }
+
+  // Check children recursively
+  return node.children.some(child => hasAnyNonZeroValue(child));
+};
+
+const getNodeLabel = (node: FinancialDataNode): string => {
+  if (!node || !node.labels) return node?.code || 'Unknown Node';
+  const currentLocale = locale.value as keyof MultiLanguageLabels;
+  return node.labels[currentLocale] || node.labels.de || node.code;
+};
+
+const getEntityDisplayName = (entity: FinancialDataEntity): string => {
+  if (!entity || !entity.name) return entity?.code || 'Unknown Entity';
+  const currentLocale = locale.value as keyof MultiLanguageLabels;
+  return entity.name[currentLocale] || entity.name.de || entity.code;
+};
+
+const hasValue = (node: FinancialDataNode, entityCode: string): boolean => {
+  return node.values.has(entityCode) && node.values.get(entityCode)?.value !== undefined;
+};
+
+const getValue = (node: FinancialDataNode, entityCode: string): number => {
+  return node.values.get(entityCode)?.value || 0;
+};
+
+const formatCurrency = (value: number): string => {
+  return new Intl.NumberFormat(locale.value, {
+    style: 'currency',
+    currency: 'CHF',
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 0,
+  }).format(value);
+};
+
+const formatDate = (dateString: string): string => {
+  try {
+    const date = new Date(dateString);
+    return new Intl.DateTimeFormat(locale.value, {
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit',
+      hour: '2-digit',
+      minute: '2-digit',
+    }).format(date);
+  } catch {
+    return dateString;
+  }
+};
+
+// Event handlers
+const onNodeExpand = (node: TreeTableNode | { key: string }) => {
+  expandedKeys.value[node.key] = true;
+};
+
+const onNodeCollapse = (node: TreeTableNode | { key: string }) => {
+  delete expandedKeys.value[node.key];
+};
+
+const toggleExpandAll = () => {
+  expandedAll.value = !expandedAll.value;
+
+  if (expandedAll.value) {
+    // Expand all nodes
+    const expandAllNodes = (nodes: TreeTableNode[]) => {
+      nodes.forEach(node => {
+        expandedKeys.value[node.key] = true;
+        if (node.children && node.children.length > 0) {
+          expandAllNodes(node.children);
+        }
+      });
+    };
+
+    expandAllNodes([...balanceSheetData.value, ...incomeStatementData.value]);
+  } else {
+    // Collapse all nodes
+    expandedKeys.value = {};
+  }
+};
+
+const toggleShowCodes = () => {
+  showCodes.value = !showCodes.value;
+};
+
+const toggleShowZeroValues = () => {
+  showZeroValues.value = !showZeroValues.value;
+};
+
+// Validation function
+const validateFinancialData = (data: FinancialData) => {
+  try {
+    if (!data.balanceSheet && !data.incomeStatement) {
+      emit('error', t('financialDataDisplay.errors.invalidData'));
+      return;
+    }
+
+    if (!data.entities || data.entities.size === 0) {
+      emit('error', t('financialDataDisplay.errors.noEntities'));
+      return;
+    }
+  } catch {
+    emit('error', t('financialDataDisplay.errors.processingError'));
+  }
+};
+
+// Watch for data changes and validate
+watch(() => props.financialData, (newData) => {
+  if (newData) {
+    validateFinancialData(newData);
+  }
+}, { immediate: true });
+
+// Initialize component
+onMounted(() => {
+  if (props.financialData) {
+    validateFinancialData(props.financialData);
+  }
+});
+</script>
+
+<style scoped>
+.financial-data-display {
+  width: 100%;
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+/* Header */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.title {
+  color: var(--text-color);
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.controls {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.control-button {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  border: 1px solid var(--surface-border);
+  border-radius: var(--border-radius);
+  background: var(--surface-card);
+  color: var(--text-color);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 0.875rem;
+}
+
+.control-button:hover {
+  background: var(--surface-hover);
+  border-color: var(--primary-color);
+}
+
+.control-button:focus {
+  outline: 2px solid var(--primary-color);
+  outline-offset: 2px;
+}
+
+/* Messages */
+.error-message,
+.loading-message,
+.no-data-message {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1rem;
+  border-radius: var(--border-radius);
+  margin-bottom: 1rem;
+}
+
+.error-message {
+  background: var(--red-50);
+  color: var(--red-700);
+  border: 1px solid var(--red-200);
+}
+
+.loading-message {
+  background: var(--blue-50);
+  color: var(--blue-700);
+  border: 1px solid var(--blue-200);
+}
+
+.no-data-message {
+  background: var(--surface-100);
+  color: var(--text-color-secondary);
+  border: 1px solid var(--surface-border);
+}
+
+/* Content */
+.content {
+  width: 100%;
+}
+
+/* Metadata */
+.metadata-section {
+  background: var(--surface-card);
+  border: 1px solid var(--surface-border);
+  border-radius: var(--border-radius);
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.metadata-section h3 {
+  margin: 0 0 0.5rem 0;
+  color: var(--text-color);
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.metadata-details {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  font-size: 0.875rem;
+  color: var(--text-color-secondary);
+}
+
+/* Sections */
+.section {
+  margin-bottom: 2rem;
+}
+
+.section-title {
+  color: var(--text-color);
+  margin: 0 0 1rem 0;
+  font-size: 1.25rem;
+  font-weight: 600;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid var(--primary-color);
+}
+
+/* TreeTable customization */
+.financial-tree-table {
+  border: 1px solid var(--surface-border);
+  border-radius: var(--border-radius);
+  overflow: hidden;
+}
+
+:deep(.p-treetable-header) {
+  background: var(--surface-section);
+  border-bottom: 1px solid var(--surface-border);
+}
+
+:deep(.p-treetable-thead > tr > th) {
+  background: var(--surface-section);
+  color: var(--text-color);
+  font-weight: 600;
+  padding: 0.75rem;
+  border-right: 1px solid var(--surface-border);
+}
+
+:deep(.p-treetable-tbody > tr > td) {
+  padding: 0.5rem 0.75rem;
+  border-right: 1px solid var(--surface-border);
+  border-bottom: 1px solid var(--surface-border);
+}
+
+:deep(.p-treetable-tbody > tr:hover) {
+  background: var(--surface-hover);
+}
+
+/* Column specific styles */
+.account-column {
+  min-width: 300px;
+}
+
+.value-column {
+  min-width: 120px;
+  text-align: right;
+}
+
+/* Cell content */
+.account-cell {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.account-label {
+  font-weight: 500;
+  color: var(--text-color);
+}
+
+.account-code {
+  font-size: 0.75rem;
+  color: var(--text-color-secondary);
+  font-family: monospace;
+}
+
+.value-cell {
+  text-align: right;
+}
+
+.financial-value {
+  font-weight: 500;
+  color: var(--text-color);
+  font-family: monospace;
+}
+
+.no-value {
+  color: var(--text-color-secondary);
+  font-style: italic;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .financial-data-display {
+    padding: 0.5rem;
+  }
+
+  .header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .controls {
+    justify-content: center;
+  }
+
+  .control-button {
+    flex: 1;
+    justify-content: center;
+  }
+
+  .metadata-details {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .account-column {
+    min-width: 200px;
+  }
+
+  .value-column {
+    min-width: 100px;
+  }
+
+  :deep(.p-treetable-thead > tr > th),
+  :deep(.p-treetable-tbody > tr > td) {
+    padding: 0.5rem;
+    font-size: 0.875rem;
+  }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  .error-message {
+    background: var(--red-900);
+    color: var(--red-100);
+    border-color: var(--red-700);
+  }
+
+  .loading-message {
+    background: var(--blue-900);
+    color: var(--blue-100);
+    border-color: var(--blue-700);
+  }
+}
+
+/* Accessibility improvements */
+@media (prefers-reduced-motion: reduce) {
+  .control-button {
+    transition: none;
+  }
+}
+
+/* High contrast mode */
+@media (prefers-contrast: high) {
+  .control-button {
+    border-width: 2px;
+  }
+
+  .financial-tree-table {
+    border-width: 2px;
+  }
+
+  :deep(.p-treetable-thead > tr > th),
+  :deep(.p-treetable-tbody > tr > td) {
+    border-width: 2px;
+  }
+}
+</style>

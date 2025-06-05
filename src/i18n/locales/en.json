@@ -233,5 +233,44 @@
     "parseError": "Invalid dataset format: {dataset}",
     "aggregationError": "Error aggregating data for {dataset}",
     "noValidData": "No valid data found in any dataset"
+  },
+  "financialDataDisplay": {
+    "title": "Financial Data Display",
+    "balanceSheet": "Balance Sheet",
+    "incomeStatement": "Income Statement",
+    "loading": "Loading financial data...",
+    "error": "Error loading data",
+    "noData": "No financial data available",
+    "noEntities": "No entities available",
+    "expandAll": "Expand All",
+    "collapseAll": "Collapse All",
+    "showCodes": "Show Codes",
+    "hideCodes": "Hide Codes",
+    "showZeroValues": "Show Zero Values",
+    "hideZeroValues": "Hide Zero Values",
+    "columns": {
+      "account": "Account",
+      "code": "Code",
+      "description": "Description"
+    },
+    "currency": "CHF",
+    "metadata": {
+      "source": "Source",
+      "loadedAt": "Loaded at",
+      "recordCount": "Record count",
+      "entities": "Entities"
+    },
+    "accessibility": {
+      "expandNode": "Expand node",
+      "collapseNode": "Collapse node",
+      "financialValue": "Financial value for {entity}",
+      "noValue": "No value available"
+    },
+    "errors": {
+      "invalidData": "Invalid financial data",
+      "missingBalanceSheet": "Balance sheet missing",
+      "missingIncomeStatement": "Income statement missing",
+      "processingError": "Error processing data"
+    }
   }
 }

@@ -1,4 +1,4 @@
-import type { FinancialData, FinancialDataNode } from '../types/FinancialDataStructure';
+import type { FinancialData } from '../types/FinancialDataStructure';
 
 /**
  * Creates an empty FinancialData structure with hierarchical trees
