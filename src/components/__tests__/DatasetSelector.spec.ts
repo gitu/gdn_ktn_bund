@@ -88,9 +88,9 @@ vi.mock('../../utils/AvailableDataLoader', () => ({
       availableYears: ['2015', '2016', '2017', '2018', '2019', '2020', '2021', '2022', '2023']
     }
   ]),
-  filterByType: vi.fn((catalog, type) => catalog.filter((entry: any) => entry.type === type)),
-  filterByYear: vi.fn((catalog, year) => catalog.filter((entry: any) => entry.availableYears.includes(year))),
-  searchByName: vi.fn((catalog, query) => catalog.filter((entry: any) =>
+  filterByType: vi.fn((catalog, type) => catalog.filter((entry: typeof mockCatalog[0]) => entry.type === type)),
+  filterByYear: vi.fn((catalog, year) => catalog.filter((entry: typeof mockCatalog[0]) => entry.availableYears.includes(year))),
+  searchByName: vi.fn((catalog, query) => catalog.filter((entry: typeof mockCatalog[0]) =>
     entry.displayName.de.toLowerCase().includes(query.toLowerCase())
   )),
   getAllAvailableYears: vi.fn(() => ['2015', '2016', '2017', '2018', '2019', '2020', '2021', '2022', '2023'])

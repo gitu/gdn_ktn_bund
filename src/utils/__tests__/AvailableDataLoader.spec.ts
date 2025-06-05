@@ -3,7 +3,7 @@
  */
 
 import { describe, it, expect } from 'vitest';
-import type { AvailableDataCatalog, AvailableDataEntry } from '../../types/DataStructures';
+import type { AvailableDataCatalog } from '../../types/DataStructures';
 import {
   filterByType,
   filterByYear,

@@ -222,6 +222,34 @@
     "municipalityNumber": "225401"
   },
   {
+    "id": "std_sv_mat_ge",
+    "type": "std",
+    "entityCode": "sv_mat_ge",
+    "displayName": {
+      "de": "Allocation de maternité Genève",
+      "fr": "Allocation de maternité Genève",
+      "it": "Allocation de maternité Genève",
+      "en": "Allocation de maternité Genève"
+    },
+    "description": {
+      "de": "Sozialversicherungsdaten der Schweiz",
+      "fr": "Données des assurances sociales suisses",
+      "it": "Dati delle assicurazioni sociali svizzere",
+      "en": "Swiss social insurance data"
+    },
+    "availableYears": [
+      "2015",
+      "2016",
+      "2017",
+      "2018",
+      "2019",
+      "2020",
+      "2021",
+      "2022",
+      "2023"
+    ]
+  },
+  {
     "id": "gdn_132762",
     "type": "gdn",
     "entityCode": "132762",
@@ -8839,34 +8867,6 @@
       "2022"
     ],
     "municipalityNumber": "132770"
-  },
-  {
-    "id": "std_sv_mat_ge",
-    "type": "std",
-    "entityCode": "sv_mat_ge",
-    "displayName": {
-      "de": "Mutterschaftsentschädigung (EO)",
-      "fr": "Allocation de maternité (APG)",
-      "it": "Indennità di maternità (IPG)",
-      "en": "Maternity Benefits (EO/APG)"
-    },
-    "description": {
-      "de": "Sozialversicherungsdaten der Schweiz",
-      "fr": "Données des assurances sociales suisses",
-      "it": "Dati delle assicurazioni sociali svizzere",
-      "en": "Swiss social insurance data"
-    },
-    "availableYears": [
-      "2015",
-      "2016",
-      "2017",
-      "2018",
-      "2019",
-      "2020",
-      "2021",
-      "2022",
-      "2023"
-    ]
   },
   {
     "id": "gdn_236007",
