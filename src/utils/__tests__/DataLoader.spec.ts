@@ -389,4 +389,129 @@ describe('DataLoader', () => {
       expect(entity?.name.en).toBe('Municipalities Aargau');
     });
   });
+
+  describe('calculateEntitySum', () => {
+    it('should calculate sum of all financial values for an entity and add them to tree', () => {
+      // Create a mock financial data structure with some test values
+      const testFinancialData = createEmptyFinancialDataStructure();
+      const entityCode = 'gdn/fs/010002:2022';
+
+      // Add some test values to balance sheet nodes
+      const balanceNode100 = dataLoader['findNodeByCode'](testFinancialData.balanceSheet, '100');
+      const balanceNode101 = dataLoader['findNodeByCode'](testFinancialData.balanceSheet, '101');
+
+      if (balanceNode100) {
+        balanceNode100.values.set(entityCode, { value: 1000000, unit: 'CHF' });
+      }
+      if (balanceNode101) {
+        balanceNode101.values.set(entityCode, { value: 500000, unit: 'CHF' });
+      }
+
+      // Add some test values to income statement nodes
+      const incomeNode400 = dataLoader['findNodeByCode'](testFinancialData.incomeStatement, '400');
+      const incomeNode300 = dataLoader['findNodeByCode'](testFinancialData.incomeStatement, '300');
+
+      if (incomeNode400) {
+        incomeNode400.values.set(entityCode, { value: 2000000, unit: 'CHF' });
+      }
+      if (incomeNode300) {
+        incomeNode300.values.set(entityCode, { value: 800000, unit: 'CHF' });
+      }
+
+      // Calculate the sum
+      const result = dataLoader.calculateEntitySum(testFinancialData, entityCode);
+
+      // Verify the results
+      expect(result.entityCode).toBe(entityCode);
+      expect(result.balanceSheetSum).toBe(1500000); // 1000000 + 500000
+      expect(result.incomeStatementSum).toBe(2800000); // 2000000 + 800000
+      expect(result.totalSum).toBe(4300000); // 1500000 + 2800000
+      expect(result.unit).toBe('CHF');
+      expect(result.nodeCount).toBe(4); // 4 nodes with values
+
+      // Verify that sums are added directly to the tree nodes
+      const sumEntityCode = `${entityCode}:sum`;
+
+      // Check that parent nodes have sum values
+      const balanceRootNode = testFinancialData.balanceSheet;
+      const incomeRootNode = testFinancialData.incomeStatement;
+
+      expect(balanceRootNode.values.has(sumEntityCode)).toBe(true);
+      expect(incomeRootNode.values.has(sumEntityCode)).toBe(true);
+
+      const balanceRootSum = balanceRootNode.values.get(sumEntityCode);
+      const incomeRootSum = incomeRootNode.values.get(sumEntityCode);
+
+      expect(balanceRootSum?.value).toBe(1500000);
+      expect(incomeRootSum?.value).toBe(2800000);
+    });
+
+    it('should return zero sums for entity with no data', () => {
+      const testFinancialData = createEmptyFinancialDataStructure();
+      const entityCode = 'gdn/fs/999999:2022';
+
+      const result = dataLoader.calculateEntitySum(testFinancialData, entityCode);
+
+      expect(result.entityCode).toBe(entityCode);
+      expect(result.balanceSheetSum).toBe(0);
+      expect(result.incomeStatementSum).toBe(0);
+      expect(result.totalSum).toBe(0);
+      expect(result.unit).toBe('CHF'); // Default unit
+      expect(result.nodeCount).toBe(0);
+    });
+
+    it('should handle mixed positive and negative values', () => {
+      const testFinancialData = createEmptyFinancialDataStructure();
+      const entityCode = 'gdn/fs/010002:2022';
+
+      // Add positive and negative values
+      const balanceNode100 = dataLoader['findNodeByCode'](testFinancialData.balanceSheet, '100');
+      const incomeNode400 = dataLoader['findNodeByCode'](testFinancialData.incomeStatement, '400');
+      const incomeNode300 = dataLoader['findNodeByCode'](testFinancialData.incomeStatement, '300');
+
+      if (balanceNode100) {
+        balanceNode100.values.set(entityCode, { value: 1000000, unit: 'CHF' });
+      }
+      if (incomeNode400) {
+        incomeNode400.values.set(entityCode, { value: 2000000, unit: 'CHF' });
+      }
+      if (incomeNode300) {
+        incomeNode300.values.set(entityCode, { value: -500000, unit: 'CHF' }); // Negative value
+      }
+
+      const result = dataLoader.calculateEntitySum(testFinancialData, entityCode);
+
+      expect(result.balanceSheetSum).toBe(1000000);
+      expect(result.incomeStatementSum).toBe(1500000); // 2000000 + (-500000)
+      expect(result.totalSum).toBe(2500000);
+      expect(result.nodeCount).toBe(3);
+    });
+
+    it('should provide utility methods to work with calculated sums', () => {
+      const testFinancialData = createEmptyFinancialDataStructure();
+      const entityCode = 'gdn/fs/010002:2022';
+
+      // Add test values and calculate sums
+      const balanceNode100 = dataLoader['findNodeByCode'](testFinancialData.balanceSheet, '100');
+      if (balanceNode100) {
+        balanceNode100.values.set(entityCode, { value: 1000000, unit: 'CHF' });
+      }
+
+      dataLoader.calculateEntitySum(testFinancialData, entityCode);
+
+      // Test getSumFromNode method
+      const balanceRootNode = testFinancialData.balanceSheet;
+      const sumValue = dataLoader.getSumFromNode(balanceRootNode, entityCode);
+      expect(sumValue).not.toBeNull();
+      expect(sumValue?.value).toBe(1000000);
+      expect(sumValue?.unit).toBe('CHF');
+
+      // Test hasSumValues method
+      expect(dataLoader.hasSumValues(balanceRootNode)).toBe(true);
+
+      // Test clearCalculatedSums method
+      expect(dataLoader.hasSumValues(balanceRootNode)).toBe(false);
+      expect(dataLoader.getSumFromNode(balanceRootNode, entityCode)).toBeNull();
+    });
+  });
 });

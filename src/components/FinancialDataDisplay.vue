@@ -592,6 +592,7 @@ onMounted(() => {
 
 .value-cell {
   text-align: right;
+  width: 100%;
 }
 
 .financial-value {

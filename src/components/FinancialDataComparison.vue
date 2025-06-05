@@ -73,7 +73,7 @@ const error = ref<string | null>(null);
 const combinedFinancialData = ref<FinancialData | null>(null);
 const loadedDatasetCount = ref(0);
 const expandedAll = ref(false);
-const showCodes = ref(true);
+const showCodes = ref(false);
 const hideZeroValues = ref(true);
 
 // Computed properties
