@@ -1,9 +1,10 @@
 {
   "metadata": {
     "dimension": "er",
-    "source": "gdn_ag-2019-er-de.csv",
-    "generatedAt": "2025-06-02T15:07:58.359Z",
-    "totalNodes": 19,
+    "model": "fs",
+    "source": "codes/er/fs.csv",
+    "generatedAt": "2025-06-05T09:45:12.523Z",
+    "totalNodes": 20,
     "maxDepth": 2
   },
   "tree": {
@@ -34,8 +35,8 @@
             },
             "children": [],
             "level": 2,
-            "hasValue": true,
-            "value": "732,369"
+            "hasValue": false,
+            "value": null
           },
           {
             "code": "31",
@@ -47,8 +48,8 @@
             },
             "children": [],
             "level": 2,
-            "hasValue": true,
-            "value": "789,862"
+            "hasValue": false,
+            "value": null
           },
           {
             "code": "32",
@@ -73,8 +74,8 @@
             },
             "children": [],
             "level": 2,
-            "hasValue": true,
-            "value": "263,426"
+            "hasValue": false,
+            "value": null
           },
           {
             "code": "34",
@@ -86,8 +87,8 @@
             },
             "children": [],
             "level": 2,
-            "hasValue": true,
-            "value": "28,484"
+            "hasValue": false,
+            "value": null
           },
           {
             "code": "35",
@@ -99,8 +100,8 @@
             },
             "children": [],
             "level": 2,
-            "hasValue": true,
-            "value": "46,245"
+            "hasValue": false,
+            "value": null
           },
           {
             "code": "36",
@@ -112,8 +113,8 @@
             },
             "children": [],
             "level": 2,
-            "hasValue": true,
-            "value": "1,060,675"
+            "hasValue": false,
+            "value": null
           },
           {
             "code": "38",
@@ -125,13 +126,13 @@
             },
             "children": [],
             "level": 2,
-            "hasValue": true,
-            "value": "21,430"
+            "hasValue": false,
+            "value": null
           }
         ],
         "level": 1,
-        "hasValue": true,
-        "value": "2,942,491"
+        "hasValue": false,
+        "value": null
       },
       {
         "code": "4",
@@ -152,8 +153,8 @@
             },
             "children": [],
             "level": 2,
-            "hasValue": true,
-            "value": "1,925,552"
+            "hasValue": false,
+            "value": null
           },
           {
             "code": "41",
@@ -165,8 +166,8 @@
             },
             "children": [],
             "level": 2,
-            "hasValue": true,
-            "value": "25,228"
+            "hasValue": false,
+            "value": null
           },
           {
             "code": "42",
@@ -178,8 +179,8 @@
             },
             "children": [],
             "level": 2,
-            "hasValue": true,
-            "value": "688,898"
+            "hasValue": false,
+            "value": null
           },
           {
             "code": "43",
@@ -191,8 +192,8 @@
             },
             "children": [],
             "level": 2,
-            "hasValue": true,
-            "value": "5,514"
+            "hasValue": false,
+            "value": null
           },
           {
             "code": "44",
@@ -204,8 +205,8 @@
             },
             "children": [],
             "level": 2,
-            "hasValue": true,
-            "value": "142,120"
+            "hasValue": false,
+            "value": null
           },
           {
             "code": "45",
@@ -217,8 +218,8 @@
             },
             "children": [],
             "level": 2,
-            "hasValue": true,
-            "value": "39,227"
+            "hasValue": false,
+            "value": null
           },
           {
             "code": "46",
@@ -230,8 +231,8 @@
             },
             "children": [],
             "level": 2,
-            "hasValue": true,
-            "value": "314,069"
+            "hasValue": false,
+            "value": null
           },
           {
             "code": "48",
@@ -243,13 +244,26 @@
             },
             "children": [],
             "level": 2,
-            "hasValue": true,
-            "value": "53,563"
+            "hasValue": false,
+            "value": null
           }
         ],
         "level": 1,
-        "hasValue": true,
-        "value": "3,194,172"
+        "hasValue": false,
+        "value": null
+      },
+      {
+        "code": "empty",
+        "labels": {
+          "de": "",
+          "fr": "",
+          "it": "",
+          "en": ""
+        },
+        "children": [],
+        "level": 5,
+        "hasValue": false,
+        "value": null
       }
     ],
     "level": 0,

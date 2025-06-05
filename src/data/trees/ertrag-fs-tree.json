@@ -1,8 +1,9 @@
 {
   "metadata": {
     "dimension": "ertrag",
-    "source": "gdn_ag-2019-ertrag-de.csv",
-    "generatedAt": "2025-06-02T15:07:58.362Z",
+    "model": "fs",
+    "source": "codes/ertrag/fs.csv",
+    "generatedAt": "2025-06-05T09:45:12.524Z",
     "totalNodes": 164,
     "maxDepth": 5
   },
@@ -52,8 +53,8 @@
                     },
                     "children": [],
                     "level": 4,
-                    "hasValue": true,
-                    "value": "1,509,222"
+                    "hasValue": false,
+                    "value": null
                   },
                   {
                     "code": "4001",
@@ -65,8 +66,8 @@
                     },
                     "children": [],
                     "level": 4,
-                    "hasValue": true,
-                    "value": "160,189"
+                    "hasValue": false,
+                    "value": null
                   },
                   {
                     "code": "4002",
@@ -78,8 +79,8 @@
                     },
                     "children": [],
                     "level": 4,
-                    "hasValue": true,
-                    "value": "86,071"
+                    "hasValue": false,
+                    "value": null
                   },
                   {
                     "code": "4008",
@@ -109,8 +110,8 @@
                   }
                 ],
                 "level": 3,
-                "hasValue": true,
-                "value": "1,755,482"
+                "hasValue": false,
+                "value": null
               },
               {
                 "code": "401",
@@ -131,8 +132,8 @@
                     },
                     "children": [],
                     "level": 4,
-                    "hasValue": true,
-                    "value": "150,400"
+                    "hasValue": false,
+                    "value": null
                   },
                   {
                     "code": "4011",
@@ -144,8 +145,8 @@
                     },
                     "children": [],
                     "level": 4,
-                    "hasValue": true,
-                    "value": "12,215"
+                    "hasValue": false,
+                    "value": null
                   },
                   {
                     "code": "4012",
@@ -175,8 +176,8 @@
                   }
                 ],
                 "level": 3,
-                "hasValue": true,
-                "value": "162,615"
+                "hasValue": false,
+                "value": null
               },
               {
                 "code": "402",
@@ -223,8 +224,8 @@
                     },
                     "children": [],
                     "level": 4,
-                    "hasValue": true,
-                    "value": "3,291"
+                    "hasValue": false,
+                    "value": null
                   },
                   {
                     "code": "4023",
@@ -267,8 +268,8 @@
                   }
                 ],
                 "level": 3,
-                "hasValue": true,
-                "value": "3,291"
+                "hasValue": false,
+                "value": null
               },
               {
                 "code": "403",
@@ -328,8 +329,8 @@
                     },
                     "children": [],
                     "level": 4,
-                    "hasValue": true,
-                    "value": "4,165"
+                    "hasValue": false,
+                    "value": null
                   },
                   {
                     "code": "4039",
@@ -346,8 +347,8 @@
                   }
                 ],
                 "level": 3,
-                "hasValue": true,
-                "value": "4,165"
+                "hasValue": false,
+                "value": null
               },
               {
                 "code": "404",
@@ -654,8 +655,8 @@
               }
             ],
             "level": 2,
-            "hasValue": true,
-            "value": "1,925,552"
+            "hasValue": false,
+            "value": null
           },
           {
             "code": "41",
@@ -676,8 +677,8 @@
                 },
                 "children": [],
                 "level": 3,
-                "hasValue": true,
-                "value": "9"
+                "hasValue": false,
+                "value": null
               },
               {
                 "code": "411",
@@ -702,8 +703,8 @@
                 },
                 "children": [],
                 "level": 3,
-                "hasValue": true,
-                "value": "25,220"
+                "hasValue": false,
+                "value": null
               },
               {
                 "code": "413",
@@ -720,8 +721,8 @@
               }
             ],
             "level": 2,
-            "hasValue": true,
-            "value": "25,228"
+            "hasValue": false,
+            "value": null
           },
           {
             "code": "42",
@@ -742,8 +743,8 @@
                 },
                 "children": [],
                 "level": 3,
-                "hasValue": true,
-                "value": "21,131"
+                "hasValue": false,
+                "value": null
               },
               {
                 "code": "421",
@@ -755,8 +756,8 @@
                 },
                 "children": [],
                 "level": 3,
-                "hasValue": true,
-                "value": "51,223"
+                "hasValue": false,
+                "value": null
               },
               {
                 "code": "422",
@@ -781,8 +782,8 @@
                 },
                 "children": [],
                 "level": 3,
-                "hasValue": true,
-                "value": "22,839"
+                "hasValue": false,
+                "value": null
               },
               {
                 "code": "424",
@@ -794,8 +795,8 @@
                 },
                 "children": [],
                 "level": 3,
-                "hasValue": true,
-                "value": "367,047"
+                "hasValue": false,
+                "value": null
               },
               {
                 "code": "425",
@@ -807,8 +808,8 @@
                 },
                 "children": [],
                 "level": 3,
-                "hasValue": true,
-                "value": "9,762"
+                "hasValue": false,
+                "value": null
               },
               {
                 "code": "426",
@@ -820,8 +821,8 @@
                 },
                 "children": [],
                 "level": 3,
-                "hasValue": true,
-                "value": "188,083"
+                "hasValue": false,
+                "value": null
               },
               {
                 "code": "427",
@@ -833,8 +834,8 @@
                 },
                 "children": [],
                 "level": 3,
-                "hasValue": true,
-                "value": "23,141"
+                "hasValue": false,
+                "value": null
               },
               {
                 "code": "429",
@@ -846,13 +847,13 @@
                 },
                 "children": [],
                 "level": 3,
-                "hasValue": true,
-                "value": "5,673"
+                "hasValue": false,
+                "value": null
               }
             ],
             "level": 2,
-            "hasValue": true,
-            "value": "688,898"
+            "hasValue": false,
+            "value": null
           },
           {
             "code": "43",
@@ -873,8 +874,8 @@
                 },
                 "children": [],
                 "level": 3,
-                "hasValue": true,
-                "value": "520"
+                "hasValue": false,
+                "value": null
               },
               {
                 "code": "431",
@@ -886,8 +887,8 @@
                 },
                 "children": [],
                 "level": 3,
-                "hasValue": true,
-                "value": "1,913"
+                "hasValue": false,
+                "value": null
               },
               {
                 "code": "432",
@@ -899,8 +900,8 @@
                 },
                 "children": [],
                 "level": 3,
-                "hasValue": true,
-                "value": "-4"
+                "hasValue": false,
+                "value": null
               },
               {
                 "code": "439",
@@ -912,13 +913,13 @@
                 },
                 "children": [],
                 "level": 3,
-                "hasValue": true,
-                "value": "3,084"
+                "hasValue": false,
+                "value": null
               }
             ],
             "level": 2,
-            "hasValue": true,
-            "value": "5,514"
+            "hasValue": false,
+            "value": null
           },
           {
             "code": "44",
@@ -939,8 +940,8 @@
                 },
                 "children": [],
                 "level": 3,
-                "hasValue": true,
-                "value": "22,008"
+                "hasValue": false,
+                "value": null
               },
               {
                 "code": "441",
@@ -952,8 +953,8 @@
                 },
                 "children": [],
                 "level": 3,
-                "hasValue": true,
-                "value": "8,947"
+                "hasValue": false,
+                "value": null
               },
               {
                 "code": "442",
@@ -965,8 +966,8 @@
                 },
                 "children": [],
                 "level": 3,
-                "hasValue": true,
-                "value": "1,500"
+                "hasValue": false,
+                "value": null
               },
               {
                 "code": "443",
@@ -978,8 +979,8 @@
                 },
                 "children": [],
                 "level": 3,
-                "hasValue": true,
-                "value": "23,389"
+                "hasValue": false,
+                "value": null
               },
               {
                 "code": "444",
@@ -991,8 +992,8 @@
                 },
                 "children": [],
                 "level": 3,
-                "hasValue": true,
-                "value": "20,996"
+                "hasValue": false,
+                "value": null
               },
               {
                 "code": "445",
@@ -1004,8 +1005,8 @@
                 },
                 "children": [],
                 "level": 3,
-                "hasValue": true,
-                "value": "12,742"
+                "hasValue": false,
+                "value": null
               },
               {
                 "code": "446",
@@ -1017,8 +1018,8 @@
                 },
                 "children": [],
                 "level": 3,
-                "hasValue": true,
-                "value": "2,682"
+                "hasValue": false,
+                "value": null
               },
               {
                 "code": "447",
@@ -1030,8 +1031,8 @@
                 },
                 "children": [],
                 "level": 3,
-                "hasValue": true,
-                "value": "49,427"
+                "hasValue": false,
+                "value": null
               },
               {
                 "code": "448",
@@ -1043,8 +1044,8 @@
                 },
                 "children": [],
                 "level": 3,
-                "hasValue": true,
-                "value": "262"
+                "hasValue": false,
+                "value": null
               },
               {
                 "code": "449",
@@ -1056,13 +1057,13 @@
                 },
                 "children": [],
                 "level": 3,
-                "hasValue": true,
-                "value": "166"
+                "hasValue": false,
+                "value": null
               }
             ],
             "level": 2,
-            "hasValue": true,
-            "value": "142,120"
+            "hasValue": false,
+            "value": null
           },
           {
             "code": "45",
@@ -1083,8 +1084,8 @@
                 },
                 "children": [],
                 "level": 3,
-                "hasValue": true,
-                "value": "4,465"
+                "hasValue": false,
+                "value": null
               },
               {
                 "code": "451",
@@ -1096,8 +1097,8 @@
                 },
                 "children": [],
                 "level": 3,
-                "hasValue": true,
-                "value": "34,762"
+                "hasValue": false,
+                "value": null
               },
               {
                 "code": "452",
@@ -1114,8 +1115,8 @@
               }
             ],
             "level": 2,
-            "hasValue": true,
-            "value": "39,227"
+            "hasValue": false,
+            "value": null
           },
           {
             "code": "46",
@@ -1298,8 +1299,8 @@
                         },
                         "children": [],
                         "level": 5,
-                        "hasValue": true,
-                        "value": "50,755"
+                        "hasValue": false,
+                        "value": null
                       },
                       {
                         "code": "46011",
@@ -1337,13 +1338,13 @@
                         },
                         "children": [],
                         "level": 5,
-                        "hasValue": true,
-                        "value": "5,456"
+                        "hasValue": false,
+                        "value": null
                       }
                     ],
                     "level": 4,
-                    "hasValue": true,
-                    "value": "56,211"
+                    "hasValue": false,
+                    "value": null
                   },
                   {
                     "code": "4603",
@@ -1373,8 +1374,8 @@
                   }
                 ],
                 "level": 3,
-                "hasValue": true,
-                "value": "56,211"
+                "hasValue": false,
+                "value": null
               },
               {
                 "code": "461",
@@ -1408,8 +1409,8 @@
                     },
                     "children": [],
                     "level": 4,
-                    "hasValue": true,
-                    "value": "1,477"
+                    "hasValue": false,
+                    "value": null
                   },
                   {
                     "code": "4612",
@@ -1447,13 +1448,13 @@
                     },
                     "children": [],
                     "level": 4,
-                    "hasValue": true,
-                    "value": "218"
+                    "hasValue": false,
+                    "value": null
                   }
                 ],
                 "level": 3,
-                "hasValue": true,
-                "value": "1,695"
+                "hasValue": false,
+                "value": null
               },
               {
                 "code": "462",
@@ -1614,8 +1615,8 @@
                         },
                         "children": [],
                         "level": 5,
-                        "hasValue": true,
-                        "value": "111,702"
+                        "hasValue": false,
+                        "value": null
                       },
                       {
                         "code": "46216",
@@ -1645,8 +1646,8 @@
                       }
                     ],
                     "level": 4,
-                    "hasValue": true,
-                    "value": "111,702"
+                    "hasValue": false,
+                    "value": null
                   },
                   {
                     "code": "4622",
@@ -1742,8 +1743,8 @@
                   }
                 ],
                 "level": 3,
-                "hasValue": true,
-                "value": "111,702"
+                "hasValue": false,
+                "value": null
               },
               {
                 "code": "463",
@@ -1777,8 +1778,8 @@
                     },
                     "children": [],
                     "level": 4,
-                    "hasValue": true,
-                    "value": "114,843"
+                    "hasValue": false,
+                    "value": null
                   },
                   {
                     "code": "4632",
@@ -1816,8 +1817,8 @@
                     },
                     "children": [],
                     "level": 4,
-                    "hasValue": true,
-                    "value": "5,921"
+                    "hasValue": false,
+                    "value": null
                   },
                   {
                     "code": "4635",
@@ -1829,8 +1830,8 @@
                     },
                     "children": [],
                     "level": 4,
-                    "hasValue": true,
-                    "value": "942"
+                    "hasValue": false,
+                    "value": null
                   },
                   {
                     "code": "4636",
@@ -1842,8 +1843,8 @@
                     },
                     "children": [],
                     "level": 4,
-                    "hasValue": true,
-                    "value": "481"
+                    "hasValue": false,
+                    "value": null
                   },
                   {
                     "code": "4637",
@@ -1873,8 +1874,8 @@
                   }
                 ],
                 "level": 3,
-                "hasValue": true,
-                "value": "122,187"
+                "hasValue": false,
+                "value": null
               },
               {
                 "code": "466",
@@ -1886,8 +1887,8 @@
                 },
                 "children": [],
                 "level": 3,
-                "hasValue": true,
-                "value": "21,698"
+                "hasValue": false,
+                "value": null
               },
               {
                 "code": "469",
@@ -1899,13 +1900,13 @@
                 },
                 "children": [],
                 "level": 3,
-                "hasValue": true,
-                "value": "576"
+                "hasValue": false,
+                "value": null
               }
             ],
             "level": 2,
-            "hasValue": true,
-            "value": "314,069"
+            "hasValue": false,
+            "value": null
           },
           {
             "code": "48",
@@ -1952,8 +1953,8 @@
                 },
                 "children": [],
                 "level": 3,
-                "hasValue": true,
-                "value": "383"
+                "hasValue": false,
+                "value": null
               },
               {
                 "code": "484",
@@ -1965,8 +1966,8 @@
                 },
                 "children": [],
                 "level": 3,
-                "hasValue": true,
-                "value": "72"
+                "hasValue": false,
+                "value": null
               },
               {
                 "code": "485",
@@ -2149,18 +2150,18 @@
                 },
                 "children": [],
                 "level": 3,
-                "hasValue": true,
-                "value": "53,108"
+                "hasValue": false,
+                "value": null
               }
             ],
             "level": 2,
-            "hasValue": true,
-            "value": "53,563"
+            "hasValue": false,
+            "value": null
           }
         ],
         "level": 1,
-        "hasValue": true,
-        "value": "3,194,172"
+        "hasValue": false,
+        "value": null
       }
     ],
     "level": 0,

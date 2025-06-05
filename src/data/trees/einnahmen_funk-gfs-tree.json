@@ -1,9 +1,9 @@
 {
   "metadata": {
     "dimension": "einnahmen_funk",
-    "model": "fs",
-    "source": "codes/einnahmen_funk/fs.csv",
-    "generatedAt": "2025-06-02T15:07:58.372Z",
+    "model": "gfs",
+    "source": "codes/einnahmen_funk/gfs.csv",
+    "generatedAt": "2025-06-05T09:45:12.522Z",
     "totalNodes": 1,
     "maxDepth": 0
   },

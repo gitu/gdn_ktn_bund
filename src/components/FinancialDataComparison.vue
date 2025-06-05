@@ -313,20 +313,22 @@ const loadDataset = async (dataset: string) => {
     if (source === 'gdn') {
       const result = await dataLoader.loadGdnData(entity, year, model);
       console.log('Loaded GDN data:', result);
-      return await treeAggregator.aggregateGdnData(
+      return await treeAggregator.aggregateGenericData(
         result.data as GdnDataRecord[],
         entity,
         year,
-        model
+        model,
+        "gdn"
       );
     } else if (source === 'std') {
       const result = await dataLoader.loadStdData(entity, year, model);
       console.log('Loaded STD data:', result);
-      return await treeAggregator.aggregateStdData(
+      return await treeAggregator.aggregateGenericData(
         result.data as StdDataRecord[],
         entity,
         year,
-        model
+        model,
+        "std"
       );
     }
 
@@ -349,7 +351,7 @@ const loadAllDatasets = async () => {
     const loadPromises = props.datasets.map(async (dataset) => {
       try {
         const result = await loadDataset(dataset);
-        console.log(`Loaded dataset ${dataset} with ${result.balanceSheet.length} balance sheet and ${result.incomeStatement.length} income statement data points`);
+        console.log(`Loaded dataset ${dataset} with ${result.balanceSheet.length} balance sheet and ${result.incomeStatement.length} income statement data points`, result);
         balanceSheetData.value.set(dataset, result.balanceSheet);
         incomeStatementData.value.set(dataset, result.incomeStatement);
       } catch (err) {

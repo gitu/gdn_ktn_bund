@@ -1,0 +1,999 @@
+{
+  "metadata": {
+    "dimension": "vermoegen",
+    "model": "fs",
+    "source": "codes/vermoegen/fs.csv",
+    "generatedAt": "2025-06-05T09:45:12.535Z",
+    "totalNodes": 75,
+    "maxDepth": 3
+  },
+  "tree": {
+    "code": "root",
+    "labels": {
+      "de": "Gesamt",
+      "fr": "Total",
+      "it": "Totale",
+      "en": "Total"
+    },
+    "children": [
+      {
+        "code": "61",
+        "labels": {
+          "de": "Vermögensgüter",
+          "fr": "Actifs non financiers",
+          "it": "Attività non finanziarie",
+          "en": "Non-financial assets"
+        },
+        "children": [
+          {
+            "code": "611",
+            "labels": {
+              "de": "Anlagegüter",
+              "fr": "Actifs fixes",
+              "it": "Capitale fisso",
+              "en": "Fixed assets"
+            },
+            "children": [
+              {
+                "code": "6111",
+                "labels": {
+                  "de": "Hoch- und Tiefbauten",
+                  "fr": "Bâtiments et ouvrages de génie civil",
+                  "it": "Opere edili e del genio civile",
+                  "en": "Buildings and structures"
+                },
+                "children": [],
+                "level": 4,
+                "hasValue": false,
+                "value": null
+              },
+              {
+                "code": "6112",
+                "labels": {
+                  "de": "Ausrüstungsgüter",
+                  "fr": "Machines et équipement",
+                  "it": "Impianti e macchinari",
+                  "en": "Machinery and equipment"
+                },
+                "children": [],
+                "level": 4,
+                "hasValue": false,
+                "value": null
+              }
+            ],
+            "level": 3,
+            "hasValue": false,
+            "value": null
+          },
+          {
+            "code": "612",
+            "labels": {
+              "de": "Vorräte",
+              "fr": "Stocks",
+              "it": "Scorte",
+              "en": "Inventories"
+            },
+            "children": [],
+            "level": 3,
+            "hasValue": false,
+            "value": null
+          },
+          {
+            "code": "613",
+            "labels": {
+              "de": "Wertsachen",
+              "fr": "Objets de valeur",
+              "it": "Oggetti di valore",
+              "en": "Valuables"
+            },
+            "children": [],
+            "level": 3,
+            "hasValue": false,
+            "value": null
+          },
+          {
+            "code": "614",
+            "labels": {
+              "de": "Nichtproduzierte Vermögensgüter",
+              "fr": "Actifs non produits",
+              "it": "Attività non prodotte",
+              "en": "Nonproduced assets"
+            },
+            "children": [],
+            "level": 3,
+            "hasValue": false,
+            "value": null
+          }
+        ],
+        "level": 2,
+        "hasValue": false,
+        "value": null
+      },
+      {
+        "code": "69",
+        "labels": {
+          "de": "Reinvermögen",
+          "fr": "Patrimoine net",
+          "it": "Patrimonio netto",
+          "en": "Net worth"
+        },
+        "children": [],
+        "level": 2,
+        "hasValue": false,
+        "value": null
+      },
+      {
+        "code": "620",
+        "labels": {
+          "de": "Forderungen",
+          "fr": "Créances ",
+          "it": "Attività finanziarie",
+          "en": "Domestic & external"
+        },
+        "children": [
+          {
+            "code": "6201",
+            "labels": {
+              "de": "Währungsgold und Sonderziehungsrechte",
+              "fr": "Or monétaire et DTS",
+              "it": "Oro monetario e diritti speciali di prelievo",
+              "en": "Monetary gold and Special Drawing Rights (SDRs)"
+            },
+            "children": [],
+            "level": 4,
+            "hasValue": false,
+            "value": null
+          },
+          {
+            "code": "6202",
+            "labels": {
+              "de": "Bargeld und Einlagen ",
+              "fr": "Numéraire et dépôts ",
+              "it": "Biglietti, monete e depositi",
+              "en": "Currency and deposits"
+            },
+            "children": [],
+            "level": 4,
+            "hasValue": false,
+            "value": null
+          },
+          {
+            "code": "6203",
+            "labels": {
+              "de": "Schuldtitel",
+              "fr": "Titres de créance",
+              "it": "Titoli di debito",
+              "en": "Debt securities"
+            },
+            "children": [],
+            "level": 4,
+            "hasValue": false,
+            "value": null
+          },
+          {
+            "code": "6204",
+            "labels": {
+              "de": "Kredite",
+              "fr": "Crédits ",
+              "it": "Prestiti",
+              "en": "Loans"
+            },
+            "children": [],
+            "level": 4,
+            "hasValue": false,
+            "value": null
+          },
+          {
+            "code": "6205",
+            "labels": {
+              "de": "Anteilsrechte und Anteile an Investmentfonds",
+              "fr": "Actions et parts de fonds d'investissement",
+              "it": "Partecipazioni e quote di fondi di investimento",
+              "en": "Equity and investment fund shares"
+            },
+            "children": [],
+            "level": 4,
+            "hasValue": false,
+            "value": null
+          },
+          {
+            "code": "6206",
+            "labels": {
+              "de": "Versicherungs-, Alterssicherungs- und Standardgarantie-Systeme",
+              "fr": "Systèmes d'assurances, d'assurance-vieillesse et de garanties standard ",
+              "it": "Assicurazioni, pensioni e garanzie standard",
+              "en": "Insurance, pension, and standardized guarantee schemes"
+            },
+            "children": [],
+            "level": 4,
+            "hasValue": false,
+            "value": null
+          },
+          {
+            "code": "6207",
+            "labels": {
+              "de": "Finanzderivate und Mitarbeiteraktienoptionen",
+              "fr": "Produits financiers dérivés et options sur titres des salariés",
+              "it": "Strumenti finanziari derivati e stock option conferite ai dipendenti",
+              "en": "Financial derivatives and employee stock options"
+            },
+            "children": [],
+            "level": 4,
+            "hasValue": false,
+            "value": null
+          },
+          {
+            "code": "6208",
+            "labels": {
+              "de": "Sonstige Forderungen",
+              "fr": "Autres comptes à recevoir ",
+              "it": "Altri conti attivi",
+              "en": "Other accounts receivable"
+            },
+            "children": [
+              {
+                "code": "62081",
+                "labels": {
+                  "de": "Handelskredite und Anzahlungen",
+                  "fr": "Crédits commerciaux et avances",
+                  "it": "Crediti commerciali e anticipazioni",
+                  "en": "Trade credit and advances"
+                },
+                "children": [],
+                "level": 5,
+                "hasValue": false,
+                "value": null
+              },
+              {
+                "code": "62082",
+                "labels": {
+                  "de": "Sonstige Forderungen, n.a.g.",
+                  "fr": "Autres comptes à recevoir, n.c.a.",
+                  "it": "Altri conti attivi, n.m.a.",
+                  "en": "Miscellaneous other accounts receivable"
+                },
+                "children": [],
+                "level": 5,
+                "hasValue": false,
+                "value": null
+              }
+            ],
+            "level": 4,
+            "hasValue": false,
+            "value": null
+          }
+        ],
+        "level": 3,
+        "hasValue": false,
+        "value": null
+      },
+      {
+        "code": "621",
+        "labels": {
+          "de": "Forderungen, Inland",
+          "fr": "Créances, intérieur",
+          "it": "Conti attivi, interno",
+          "en": "Domestic"
+        },
+        "children": [
+          {
+            "code": "6211",
+            "labels": {
+              "de": "Währungsgold und Sonderziehungsrechte, Inland",
+              "fr": "Or monétaire et DTS, intérieur",
+              "it": "Oro monetario e diritti speciali di prelievo, interno",
+              "en": "Monetary gold and Special Drawing Rights (SDRs)"
+            },
+            "children": [],
+            "level": 4,
+            "hasValue": false,
+            "value": null
+          },
+          {
+            "code": "6212",
+            "labels": {
+              "de": "Bargeld und Einlagen, Inland",
+              "fr": "Numéraire et dépôts, intérieur",
+              "it": "Biglietti, monete e depositi, interno",
+              "en": "Currency and deposits"
+            },
+            "children": [],
+            "level": 4,
+            "hasValue": false,
+            "value": null
+          },
+          {
+            "code": "6213",
+            "labels": {
+              "de": "Schuldtitel, Inland",
+              "fr": "Titres de créance, intérieur",
+              "it": "Titoli di debito, interno",
+              "en": "Debt securities"
+            },
+            "children": [],
+            "level": 4,
+            "hasValue": false,
+            "value": null
+          },
+          {
+            "code": "6214",
+            "labels": {
+              "de": "Kredite, Inland",
+              "fr": "Crédits, intérieur",
+              "it": "Prestiti, interno",
+              "en": "Loans"
+            },
+            "children": [],
+            "level": 4,
+            "hasValue": false,
+            "value": null
+          },
+          {
+            "code": "6215",
+            "labels": {
+              "de": "Anteilsrechte und Anteile an Investmentfonds, Inland",
+              "fr": "Actions et parts de fonds d'investissement, intérieur",
+              "it": "Partecipazioni e quote di fondi di investimento, interno",
+              "en": "Equity and investment fund shares"
+            },
+            "children": [],
+            "level": 4,
+            "hasValue": false,
+            "value": null
+          },
+          {
+            "code": "6216",
+            "labels": {
+              "de": "Versicherungs-, Alterssicherungs- und Standardgarantie-Systeme, Inland",
+              "fr": "Systèmes d'assurances, d'assurance-vieillesse et de garanties standard, intérieur ",
+              "it": "Assicurazioni, pensioni e garanzie standard, interno",
+              "en": "Insurance, pension, and standardized guarantee schemes"
+            },
+            "children": [],
+            "level": 4,
+            "hasValue": false,
+            "value": null
+          },
+          {
+            "code": "6217",
+            "labels": {
+              "de": "Finanzderivate und Mitarbeiteraktienoptionen, Inland",
+              "fr": "Produits financiers dérivés et options sur titres des salariés, intérieur",
+              "it": "Strumenti finanziari derivati e stock option conferite ai dipendenti, interno",
+              "en": "Financial derivatives and employee stock options"
+            },
+            "children": [],
+            "level": 4,
+            "hasValue": false,
+            "value": null
+          },
+          {
+            "code": "6218",
+            "labels": {
+              "de": "Sonstige Forderungen, Inland",
+              "fr": "Autres comptes à recevoir, intérieur",
+              "it": "Altri conti attivi, interno",
+              "en": "Other accounts receivable"
+            },
+            "children": [
+              {
+                "code": "62181",
+                "labels": {
+                  "de": "Handelskredite und Anzahlungen, Inland",
+                  "fr": "Crédits commerciaux et avances, intérieur",
+                  "it": "Crediti commerciali e anticipazioni, interno",
+                  "en": "Trade credit and advances"
+                },
+                "children": [],
+                "level": 5,
+                "hasValue": false,
+                "value": null
+              },
+              {
+                "code": "62182",
+                "labels": {
+                  "de": "Sonstige Forderungen, n.a.g., Inland",
+                  "fr": "Autres comptes à recevoir, n.c.a., intérieur",
+                  "it": "Altri conti attivi, n.m.a., interno",
+                  "en": "Miscellaneous other accounts receivable"
+                },
+                "children": [],
+                "level": 5,
+                "hasValue": false,
+                "value": null
+              }
+            ],
+            "level": 4,
+            "hasValue": false,
+            "value": null
+          }
+        ],
+        "level": 3,
+        "hasValue": false,
+        "value": null
+      },
+      {
+        "code": "622",
+        "labels": {
+          "de": "Forderungen, Ausland",
+          "fr": "Créances, extérieur",
+          "it": "Conti attivi, estero",
+          "en": "External"
+        },
+        "children": [
+          {
+            "code": "6221",
+            "labels": {
+              "de": "Währungsgold und Sonderziehungsrechte, Ausland",
+              "fr": "Or monétaire et DTS, extérieur",
+              "it": "Oro monetario e diritti speciali di prelievo, estero",
+              "en": "Monetary gold and Special Drawing Rights (SDRs)"
+            },
+            "children": [],
+            "level": 4,
+            "hasValue": false,
+            "value": null
+          },
+          {
+            "code": "6222",
+            "labels": {
+              "de": "Bargeld und Einlagen, Ausland",
+              "fr": "Numéraire et dépôts, extérieur",
+              "it": "Biglietti, monete e depositi, estero",
+              "en": "Currency and deposits"
+            },
+            "children": [],
+            "level": 4,
+            "hasValue": false,
+            "value": null
+          },
+          {
+            "code": "6223",
+            "labels": {
+              "de": "Schuldtitel, Ausland",
+              "fr": "Titres de créance, extérieur",
+              "it": "Titoli di debito, estero",
+              "en": "Debt securities"
+            },
+            "children": [],
+            "level": 4,
+            "hasValue": false,
+            "value": null
+          },
+          {
+            "code": "6224",
+            "labels": {
+              "de": "Kredite, Ausland",
+              "fr": "Crédits, extérieur",
+              "it": "Prestiti, estero",
+              "en": "Loans"
+            },
+            "children": [],
+            "level": 4,
+            "hasValue": false,
+            "value": null
+          },
+          {
+            "code": "6225",
+            "labels": {
+              "de": "Anteilsrechte und Anteile an Investmentfonds, Ausland",
+              "fr": "Actions et parts de fonds d'investissement, extérieur",
+              "it": "Partecipazioni e quote di fondi di investimento, estero",
+              "en": "Equity and investment fund shares"
+            },
+            "children": [],
+            "level": 4,
+            "hasValue": false,
+            "value": null
+          },
+          {
+            "code": "6226",
+            "labels": {
+              "de": "Versicherungs-, Alterssicherungs- und Standardgarantie-Systeme, Ausland",
+              "fr": "Systèmes d'assurances, d'assurance-vieillesse et de garanties standard, extérieur",
+              "it": "Assicurazioni, pensioni e garanzie standard, estero",
+              "en": "Insurance, pension, and standardized guarantee schemes"
+            },
+            "children": [],
+            "level": 4,
+            "hasValue": false,
+            "value": null
+          },
+          {
+            "code": "6227",
+            "labels": {
+              "de": "Finanzderivate und Mitarbeiteraktienoptionen, Ausland",
+              "fr": "Produits financiers dérivés et options sur titres des salariés, extérieur",
+              "it": "Strumenti finanziari derivati e stock option conferite ai dipendenti, estero ",
+              "en": "Financial derivatives and employee stock options"
+            },
+            "children": [],
+            "level": 4,
+            "hasValue": false,
+            "value": null
+          },
+          {
+            "code": "6228",
+            "labels": {
+              "de": "Sonstige Forderungen, Ausland",
+              "fr": "Autres comptes à recevoir, extérieur",
+              "it": "Altri conti attivi, estero",
+              "en": "Other accounts receivable"
+            },
+            "children": [
+              {
+                "code": "62281",
+                "labels": {
+                  "de": "Handelskredite und Anzahlungen, Ausland",
+                  "fr": "Crédits commerciaux et avances, extérieur",
+                  "it": "Crediti commerciali e anticipazioni, estero",
+                  "en": "Trade credit and advances"
+                },
+                "children": [],
+                "level": 5,
+                "hasValue": false,
+                "value": null
+              },
+              {
+                "code": "62282",
+                "labels": {
+                  "de": "Sonstige Forderungen, n.a.g., Ausland",
+                  "fr": "Autres comptes à recevoir, n.c.a., extérieur",
+                  "it": "Altri conti attivi, n.m.a., estero",
+                  "en": "Miscellaneous other accounts receivable"
+                },
+                "children": [],
+                "level": 5,
+                "hasValue": false,
+                "value": null
+              }
+            ],
+            "level": 4,
+            "hasValue": false,
+            "value": null
+          }
+        ],
+        "level": 3,
+        "hasValue": false,
+        "value": null
+      },
+      {
+        "code": "630",
+        "labels": {
+          "de": "Verbindlichkeiten",
+          "fr": "Engagements ",
+          "it": "Passività",
+          "en": "Domestic & external"
+        },
+        "children": [
+          {
+            "code": "6301",
+            "labels": {
+              "de": "Währungsgold und Sonderziehungsrechte",
+              "fr": "Or monétaire et DTS",
+              "it": "Oro monetario e diritti speciali di prelievo",
+              "en": "Monetary gold and Special Drawing Rights (SDRs)"
+            },
+            "children": [],
+            "level": 4,
+            "hasValue": false,
+            "value": null
+          },
+          {
+            "code": "6302",
+            "labels": {
+              "de": "Bargeld und Einlagen ",
+              "fr": "Numéraire et dépôts ",
+              "it": "Biglietti, monete e depositi",
+              "en": "Currency and deposits"
+            },
+            "children": [],
+            "level": 4,
+            "hasValue": false,
+            "value": null
+          },
+          {
+            "code": "6303",
+            "labels": {
+              "de": "Schuldtitel",
+              "fr": "Titres de créance",
+              "it": "Titoli di debito",
+              "en": "Debt securities"
+            },
+            "children": [],
+            "level": 4,
+            "hasValue": false,
+            "value": null
+          },
+          {
+            "code": "6304",
+            "labels": {
+              "de": "Kredite",
+              "fr": "Crédits ",
+              "it": "Prestiti",
+              "en": "Loans"
+            },
+            "children": [],
+            "level": 4,
+            "hasValue": false,
+            "value": null
+          },
+          {
+            "code": "6305",
+            "labels": {
+              "de": "Anteilsrechte und Anteile an Investmentfonds",
+              "fr": "Actions et parts de fonds d'investissement",
+              "it": "Partecipazioni e quote di fondi di investimento",
+              "en": "Equity and investment fund shares"
+            },
+            "children": [],
+            "level": 4,
+            "hasValue": false,
+            "value": null
+          },
+          {
+            "code": "6306",
+            "labels": {
+              "de": "Versicherungs-, Alterssicherungs- und Standardgarantie-Systeme",
+              "fr": "Systèmes d'assurances, d'assurance-vieillesse et de garanties standard",
+              "it": "Assicurazioni, pensioni, garanzie standard",
+              "en": "Insurance, pension, and standardized guarantee schemes"
+            },
+            "children": [],
+            "level": 4,
+            "hasValue": false,
+            "value": null
+          },
+          {
+            "code": "6307",
+            "labels": {
+              "de": "Finanzderivate und Mitarbeiteraktienoptionen",
+              "fr": "Produits financiers dérivés et options sur titres des salariés",
+              "it": "Strumenti finanziari derivati e stock option conferite ai dipendenti",
+              "en": "Financial derivatives and employee stock options"
+            },
+            "children": [],
+            "level": 4,
+            "hasValue": false,
+            "value": null
+          },
+          {
+            "code": "6308",
+            "labels": {
+              "de": "Sonstige Verbindlichkeiten",
+              "fr": "Autres comptes à payer ",
+              "it": "Altri conti passivi",
+              "en": "Other accounts payable"
+            },
+            "children": [
+              {
+                "code": "63081",
+                "labels": {
+                  "de": "Handelskredite und Anzahlungen",
+                  "fr": "Crédits commerciaux et avances",
+                  "it": "Crediti commerciali e anticipazioni",
+                  "en": "Trade credit and advances"
+                },
+                "children": [],
+                "level": 5,
+                "hasValue": false,
+                "value": null
+              },
+              {
+                "code": "63082",
+                "labels": {
+                  "de": "Sonstige Verbindlichkeiten, n.a.g.",
+                  "fr": "Autres comptes à payer, n.c.a.",
+                  "it": "Altri conti passivi, n.m.a.",
+                  "en": "Miscellaneous other accounts payable"
+                },
+                "children": [],
+                "level": 5,
+                "hasValue": false,
+                "value": null
+              }
+            ],
+            "level": 4,
+            "hasValue": false,
+            "value": null
+          }
+        ],
+        "level": 3,
+        "hasValue": false,
+        "value": null
+      },
+      {
+        "code": "631",
+        "labels": {
+          "de": "Verbindlichkeiten, Inland",
+          "fr": "Engagements, intérieur",
+          "it": "Conti passivi, interno",
+          "en": "Domestic"
+        },
+        "children": [
+          {
+            "code": "6311",
+            "labels": {
+              "de": "Währungsgold und Sonderziehungsrechte, Inland",
+              "fr": "Or monétaire et DTS, intérieur",
+              "it": "Oro monetario e diritti speciali di prelievo, interno",
+              "en": "Monetary gold and Special Drawing Rights (SDRs)"
+            },
+            "children": [],
+            "level": 4,
+            "hasValue": false,
+            "value": null
+          },
+          {
+            "code": "6312",
+            "labels": {
+              "de": "Bargeld und Einlagen, Inland",
+              "fr": "Numéraire et dépôts, intérieur",
+              "it": "Biglietti, monete e depositi, interno",
+              "en": "Currency and deposits"
+            },
+            "children": [],
+            "level": 4,
+            "hasValue": false,
+            "value": null
+          },
+          {
+            "code": "6313",
+            "labels": {
+              "de": "Schuldtitel, Inland",
+              "fr": "Titres de créance, intérieur",
+              "it": "Titoli di debito, interno",
+              "en": "Debt securities"
+            },
+            "children": [],
+            "level": 4,
+            "hasValue": false,
+            "value": null
+          },
+          {
+            "code": "6314",
+            "labels": {
+              "de": "Kredite, Inland",
+              "fr": "Crédits, intérieur",
+              "it": "Prestiti, interno",
+              "en": "Loans"
+            },
+            "children": [],
+            "level": 4,
+            "hasValue": false,
+            "value": null
+          },
+          {
+            "code": "6315",
+            "labels": {
+              "de": "Anteilsrechte und Anteile an Investmentfonds, Inland",
+              "fr": "Actions et parts de fonds d'investissement, intérieur",
+              "it": "Partecipazioni e quote di fondi di investimento, interno",
+              "en": "Equity and investment fund shares"
+            },
+            "children": [],
+            "level": 4,
+            "hasValue": false,
+            "value": null
+          },
+          {
+            "code": "6316",
+            "labels": {
+              "de": "Versicherungs-, Alterssicherungs- und Standardgarantie-Systeme, Inland",
+              "fr": "Systèmes d'assurances, d'assurance-vieillesse et de garanties standard, intérieur ",
+              "it": "Assicurazioni, pensioni e garanzie standard, interno",
+              "en": "Insurance, pension, and standardized guarantee schemes"
+            },
+            "children": [],
+            "level": 4,
+            "hasValue": false,
+            "value": null
+          },
+          {
+            "code": "6317",
+            "labels": {
+              "de": "Finanzderivate und Mitarbeiteraktienoptionen, Inland",
+              "fr": "Produits financiers dérivés et options sur titres des salariés, intérieur",
+              "it": "Strumenti finanziari derivati e stock option conferite ai dipendenti",
+              "en": "Financial derivatives and employee stock options"
+            },
+            "children": [],
+            "level": 4,
+            "hasValue": false,
+            "value": null
+          },
+          {
+            "code": "6318",
+            "labels": {
+              "de": "Sonstige Verbindlichkeiten, Inland",
+              "fr": "Autres comptes à payer, intérieur",
+              "it": "Altri conti passivi, interno",
+              "en": "Other accounts payable"
+            },
+            "children": [
+              {
+                "code": "63181",
+                "labels": {
+                  "de": "Handelskredite und Anzahlungen, Inland",
+                  "fr": "Crédits commerciaux et avances, intérieur",
+                  "it": "Crediti commerciali e anticipazioni, interno",
+                  "en": "Trade credit and advances"
+                },
+                "children": [],
+                "level": 5,
+                "hasValue": false,
+                "value": null
+              },
+              {
+                "code": "63182",
+                "labels": {
+                  "de": "Sonstige Verbindlichkeiten, n.a.g., Inland",
+                  "fr": "Autres comptes à payer, n.c.a., intérieur",
+                  "it": "Altri conti passivi, n.m.a., interno",
+                  "en": "Miscellaneous other accounts payable"
+                },
+                "children": [],
+                "level": 5,
+                "hasValue": false,
+                "value": null
+              }
+            ],
+            "level": 4,
+            "hasValue": false,
+            "value": null
+          }
+        ],
+        "level": 3,
+        "hasValue": false,
+        "value": null
+      },
+      {
+        "code": "632",
+        "labels": {
+          "de": "Verbindlichkeiten, Ausland",
+          "fr": "Engagements, extérieur",
+          "it": "Conti passivi, estero",
+          "en": "External"
+        },
+        "children": [
+          {
+            "code": "6321",
+            "labels": {
+              "de": "Währungsgold und Sonderziehungsrechte, Ausland",
+              "fr": "Or monétaire et DTS, extérieur",
+              "it": "Oro monetario e diritti speciali di prelievo, estero",
+              "en": "Monetary gold and Special Drawing Rights (SDRs)"
+            },
+            "children": [],
+            "level": 4,
+            "hasValue": false,
+            "value": null
+          },
+          {
+            "code": "6322",
+            "labels": {
+              "de": "Bargeld und Einlagen, Ausland",
+              "fr": "Numéraire et dépôts, extérieur",
+              "it": "Biglietti, monete e depositi, estero",
+              "en": "Currency and deposits"
+            },
+            "children": [],
+            "level": 4,
+            "hasValue": false,
+            "value": null
+          },
+          {
+            "code": "6323",
+            "labels": {
+              "de": "Schuldtitel, Ausland",
+              "fr": "Titres de créance, extérieur",
+              "it": "Titoli di debito, estero",
+              "en": "Debt securities"
+            },
+            "children": [],
+            "level": 4,
+            "hasValue": false,
+            "value": null
+          },
+          {
+            "code": "6324",
+            "labels": {
+              "de": "Kredite, Ausland",
+              "fr": "Crédits, extérieur",
+              "it": "Prestiti, estero",
+              "en": "Loans"
+            },
+            "children": [],
+            "level": 4,
+            "hasValue": false,
+            "value": null
+          },
+          {
+            "code": "6325",
+            "labels": {
+              "de": "Anteilsrechte und Anteile an Investmentfonds, Ausland",
+              "fr": "Actions et parts de fonds d'investissement, extérieur",
+              "it": "Partecipazioni e quote di fondi di investimento, estero",
+              "en": "Equity and investment fund shares"
+            },
+            "children": [],
+            "level": 4,
+            "hasValue": false,
+            "value": null
+          },
+          {
+            "code": "6326",
+            "labels": {
+              "de": "Versicherungs-, Alterssicherungs- und Standardgarantie-Systeme, Ausland",
+              "fr": "Systèmes d'assurances, d'assurance-vieillesse et de garanties standard, extérieur ",
+              "it": "Assicurazioni, pensioni e garanzie standard, estero",
+              "en": "Insurance, pension, and standardized guarantee schemes"
+            },
+            "children": [],
+            "level": 4,
+            "hasValue": false,
+            "value": null
+          },
+          {
+            "code": "6327",
+            "labels": {
+              "de": "Finanzderivate und Mitarbeiteraktienoptionen, Ausland",
+              "fr": "Produits financiers dérivés et options sur titres des salariés, extérieur",
+              "it": "Strumenti finanziari derivati e stock option conferite ai dipendenti",
+              "en": "Financial derivatives and employee stock options"
+            },
+            "children": [],
+            "level": 4,
+            "hasValue": false,
+            "value": null
+          },
+          {
+            "code": "6328",
+            "labels": {
+              "de": "Sonstige Verbindlichkeiten, Ausland",
+              "fr": "Autres comptes à payer, extérieur",
+              "it": "Altri conti passivi, estero",
+              "en": "Other accounts payable"
+            },
+            "children": [
+              {
+                "code": "63281",
+                "labels": {
+                  "de": "Handelskredite und Anzahlungen, Ausland",
+                  "fr": "Crédits commerciaux et avances, extérieur",
+                  "it": "Crediti commerciali e anticipazioni, estero",
+                  "en": "Trade credit and advances"
+                },
+                "children": [],
+                "level": 5,
+                "hasValue": false,
+                "value": null
+              },
+              {
+                "code": "63282",
+                "labels": {
+                  "de": "Sonstige Verbindlichkeiten, n.a.g., Ausland",
+                  "fr": "Autres comptes à payer, n.c.a., extérieur",
+                  "it": "Altri conti passivi, n.m.a., estero",
+                  "en": "Miscellaneous other accounts payable"
+                },
+                "children": [],
+                "level": 5,
+                "hasValue": false,
+                "value": null
+              }
+            ],
+            "level": 4,
+            "hasValue": false,
+            "value": null
+          }
+        ],
+        "level": 3,
+        "hasValue": false,
+        "value": null
+      }
+    ],
+    "level": 0,
+    "hasValue": false
+  }
+}

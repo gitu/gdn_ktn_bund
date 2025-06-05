@@ -1,9 +1,9 @@
 {
   "metadata": {
-    "dimension": "sws_preis",
-    "model": "fs",
-    "source": "codes/sws_preis/fs.csv",
-    "generatedAt": "2025-06-02T15:07:58.377Z",
+    "dimension": "sws_volumen",
+    "model": "gfs",
+    "source": "codes/sws_volumen/gfs.csv",
+    "generatedAt": "2025-06-05T09:45:12.532Z",
     "totalNodes": 67,
     "maxDepth": 3
   },
@@ -17,7 +17,7 @@
     },
     "children": [
       {
-        "code": "420",
+        "code": "520",
         "labels": {
           "de": "Forderungen",
           "fr": "Créances ",
@@ -26,7 +26,7 @@
         },
         "children": [
           {
-            "code": "4201",
+            "code": "5201",
             "labels": {
               "de": "Währungsgold und Sonderziehungsrechte",
               "fr": "Or monétaire et DTS",
@@ -39,7 +39,7 @@
             "value": null
           },
           {
-            "code": "4202",
+            "code": "5202",
             "labels": {
               "de": "Bargeld und Einlagen ",
               "fr": "Numéraire et dépôts ",
@@ -52,7 +52,7 @@
             "value": null
           },
           {
-            "code": "4203",
+            "code": "5203",
             "labels": {
               "de": "Schuldtitel",
               "fr": "Titres de créance",
@@ -65,7 +65,7 @@
             "value": null
           },
           {
-            "code": "4204",
+            "code": "5204",
             "labels": {
               "de": "Kredite",
               "fr": "Crédits ",
@@ -78,7 +78,7 @@
             "value": null
           },
           {
-            "code": "4205",
+            "code": "5205",
             "labels": {
               "de": "Anteilsrechte und Anteile an Investmentfonds",
               "fr": "Actions et parts de fonds d'investissement",
@@ -91,7 +91,7 @@
             "value": null
           },
           {
-            "code": "4206",
+            "code": "5206",
             "labels": {
               "de": "Versicherungs-, Alterssicherungs- und Standardgarantie-Systeme",
               "fr": "Systèmes d'assurances, d'assurance-vieillesse et de garanties standard ",
@@ -104,7 +104,7 @@
             "value": null
           },
           {
-            "code": "4207",
+            "code": "5207",
             "labels": {
               "de": "Finanzderivate und Mitarbeiteraktienoptionen",
               "fr": "Produits financiers dérivés et options sur titres des salariés",
@@ -117,7 +117,7 @@
             "value": null
           },
           {
-            "code": "4208",
+            "code": "5208",
             "labels": {
               "de": "Sonstige Forderungen",
               "fr": "Autres comptes à recevoir",
@@ -126,7 +126,7 @@
             },
             "children": [
               {
-                "code": "42081",
+                "code": "52081",
                 "labels": {
                   "de": "Handelskredite und Anzahlungen",
                   "fr": "Crédits commerciaux et avances",
@@ -139,7 +139,7 @@
                 "value": null
               },
               {
-                "code": "42082",
+                "code": "52082",
                 "labels": {
                   "de": "Sonstige Forderungen, n.a.g.",
                   "fr": "Autres comptes à recevoir, n.c.a.",
@@ -162,7 +162,7 @@
         "value": null
       },
       {
-        "code": "421",
+        "code": "521",
         "labels": {
           "de": "Forderungen, Inland",
           "fr": "Créances, intérieur",
@@ -171,7 +171,7 @@
         },
         "children": [
           {
-            "code": "4211",
+            "code": "5211",
             "labels": {
               "de": "Währungsgold und Sonderziehungsrechte, Inland",
               "fr": "Or monétaire et DTS, intérieur",
@@ -184,7 +184,7 @@
             "value": null
           },
           {
-            "code": "4212",
+            "code": "5212",
             "labels": {
               "de": "Bargeld und Einlagen, Inland",
               "fr": "Numéraire et dépôts, intérieur",
@@ -197,7 +197,7 @@
             "value": null
           },
           {
-            "code": "4213",
+            "code": "5213",
             "labels": {
               "de": "Schuldtitel, Inland",
               "fr": "Titres de créance, intérieur",
@@ -210,7 +210,7 @@
             "value": null
           },
           {
-            "code": "4214",
+            "code": "5214",
             "labels": {
               "de": "Kredite, Inland",
               "fr": "Crédits, intérieur",
@@ -223,7 +223,7 @@
             "value": null
           },
           {
-            "code": "4215",
+            "code": "5215",
             "labels": {
               "de": "Anteilsrechte und Anteile an Investmentfonds, Inland",
               "fr": "Actions et parts de fonds d'investissement, intérieur",
@@ -236,7 +236,7 @@
             "value": null
           },
           {
-            "code": "4216",
+            "code": "5216",
             "labels": {
               "de": "Versicherungs-, Alterssicherungs- und Standardgarantie-Systeme, Inland",
               "fr": "Systèmes d'assurances, d'assurance-vieillesse et de garanties standard, intérieur ",
@@ -249,7 +249,7 @@
             "value": null
           },
           {
-            "code": "4217",
+            "code": "5217",
             "labels": {
               "de": "Finanzderivate und Mitarbeiteraktienoptionen, Inland",
               "fr": "Produits financiers dérivés et options sur titres des salariés, intérieur",
@@ -262,7 +262,7 @@
             "value": null
           },
           {
-            "code": "4218",
+            "code": "5218",
             "labels": {
               "de": "Sonstige Forderungen, Inland",
               "fr": "Autres comptes à recevoir, intérieur",
@@ -271,7 +271,7 @@
             },
             "children": [
               {
-                "code": "42181",
+                "code": "52181",
                 "labels": {
                   "de": "Handelskredite und Anzahlungen, Inland",
                   "fr": "Crédits commerciaux et avances, intérieur",
@@ -284,7 +284,7 @@
                 "value": null
               },
               {
-                "code": "42182",
+                "code": "52182",
                 "labels": {
                   "de": "Sonstige Forderungen, n.a.g., Inland",
                   "fr": "Autres comptes à recevoir, n.c.a., intérieur",
@@ -307,7 +307,7 @@
         "value": null
       },
       {
-        "code": "422",
+        "code": "522",
         "labels": {
           "de": "Forderungen, Ausland",
           "fr": "Créances, extérieur",
@@ -316,7 +316,7 @@
         },
         "children": [
           {
-            "code": "4221",
+            "code": "5221",
             "labels": {
               "de": "Währungsgold und Sonderziehungsrechte, Ausland",
               "fr": "Or monétaire et DTS, extérieur",
@@ -329,7 +329,7 @@
             "value": null
           },
           {
-            "code": "4222",
+            "code": "5222",
             "labels": {
               "de": "Bargeld und Einlagen, Ausland",
               "fr": "Numéraire et dépôts, extérieur",
@@ -342,7 +342,7 @@
             "value": null
           },
           {
-            "code": "4223",
+            "code": "5223",
             "labels": {
               "de": "Schuldtitel, Ausland",
               "fr": "Titres de créance, extérieur",
@@ -355,7 +355,7 @@
             "value": null
           },
           {
-            "code": "4224",
+            "code": "5224",
             "labels": {
               "de": "Kredite, Ausland",
               "fr": "Crédits, extérieur",
@@ -368,7 +368,7 @@
             "value": null
           },
           {
-            "code": "4225",
+            "code": "5225",
             "labels": {
               "de": "Anteilsrechte und Anteile an Investmentfonds, Ausland",
               "fr": "Actions et parts de fonds d'investissement, extérieur",
@@ -381,7 +381,7 @@
             "value": null
           },
           {
-            "code": "4226",
+            "code": "5226",
             "labels": {
               "de": "Versicherungs-, Alterssicherungs- und Standardgarantie-Systeme, Ausland",
               "fr": "Systèmes d'assurances, d'assurance-vieillesse et de garanties standard, extérieur",
@@ -394,7 +394,7 @@
             "value": null
           },
           {
-            "code": "4227",
+            "code": "5227",
             "labels": {
               "de": "Finanzderivate und Mitarbeiteraktienoptionen, Ausland",
               "fr": "Produits financiers dérivés et options sur titres des salariés, extérieur",
@@ -407,7 +407,7 @@
             "value": null
           },
           {
-            "code": "4228",
+            "code": "5228",
             "labels": {
               "de": "Sonstige Forderungen, Ausland",
               "fr": "Autres comptes à recevoir, extérieur",
@@ -416,7 +416,7 @@
             },
             "children": [
               {
-                "code": "42281",
+                "code": "52281",
                 "labels": {
                   "de": "Handelskredite und Anzahlungen, Ausland",
                   "fr": "Crédits commerciaux et avances, extérieur",
@@ -429,7 +429,7 @@
                 "value": null
               },
               {
-                "code": "42282",
+                "code": "52282",
                 "labels": {
                   "de": "Sonstige Forderungen, n.a.g., Ausland",
                   "fr": "Autres comptes à recevoir, n.c.a., extérieur",
@@ -452,7 +452,7 @@
         "value": null
       },
       {
-        "code": "430",
+        "code": "530",
         "labels": {
           "de": "Verbindlichkeiten",
           "fr": "Engagements ",
@@ -461,7 +461,7 @@
         },
         "children": [
           {
-            "code": "4301",
+            "code": "5301",
             "labels": {
               "de": "Währungsgold und Sonderziehungsrechte",
               "fr": "Or monétaire et DTS",
@@ -474,7 +474,7 @@
             "value": null
           },
           {
-            "code": "4302",
+            "code": "5302",
             "labels": {
               "de": "Bargeld und Einlagen ",
               "fr": "Numéraire et dépôts ",
@@ -487,7 +487,7 @@
             "value": null
           },
           {
-            "code": "4303",
+            "code": "5303",
             "labels": {
               "de": "Schuldtitel",
               "fr": "Titres de créance",
@@ -500,7 +500,7 @@
             "value": null
           },
           {
-            "code": "4304",
+            "code": "5304",
             "labels": {
               "de": "Kredite",
               "fr": "Crédits ",
@@ -513,7 +513,7 @@
             "value": null
           },
           {
-            "code": "4305",
+            "code": "5305",
             "labels": {
               "de": "Anteilsrechte und Anteile an Investmentfonds",
               "fr": "Actions et parts de fonds d'investissement",
@@ -526,7 +526,7 @@
             "value": null
           },
           {
-            "code": "4306",
+            "code": "5306",
             "labels": {
               "de": "Versicherungs-, Alterssicherungs- und Standardgarantie-Systeme",
               "fr": "Systèmes d'assurances, d'assurance-vieillesse et de garanties standard",
@@ -539,7 +539,7 @@
             "value": null
           },
           {
-            "code": "4307",
+            "code": "5307",
             "labels": {
               "de": "Finanzderivate und Mitarbeiteraktienoptionen",
               "fr": "Produits financiers dérivés et options sur titres des salariés",
@@ -552,7 +552,7 @@
             "value": null
           },
           {
-            "code": "4308",
+            "code": "5308",
             "labels": {
               "de": "Sonstige Verbindlichkeiten",
               "fr": "Autres comptes à payer ",
@@ -561,7 +561,7 @@
             },
             "children": [
               {
-                "code": "43081",
+                "code": "53081",
                 "labels": {
                   "de": "Handelskredite und Anzahlungen",
                   "fr": "Crédits commerciaux et avances",
@@ -574,7 +574,7 @@
                 "value": null
               },
               {
-                "code": "43082",
+                "code": "53082",
                 "labels": {
                   "de": "Sonstige Verbindlichkeiten, n.a.g.",
                   "fr": "Autres comptes à payer, n.c.a.",
@@ -597,7 +597,7 @@
         "value": null
       },
       {
-        "code": "431",
+        "code": "531",
         "labels": {
           "de": "Verbindlichkeiten, Inland",
           "fr": "Engagements, intérieur",
@@ -606,7 +606,7 @@
         },
         "children": [
           {
-            "code": "4311",
+            "code": "5311",
             "labels": {
               "de": "Währungsgold und Sonderziehungsrechte, Inland",
               "fr": "Or monétaire et DTS, intérieur",
@@ -619,7 +619,7 @@
             "value": null
           },
           {
-            "code": "4312",
+            "code": "5312",
             "labels": {
               "de": "Bargeld und Einlagen, Inland",
               "fr": "Numéraire et dépôts, intérieur",
@@ -632,7 +632,7 @@
             "value": null
           },
           {
-            "code": "4313",
+            "code": "5313",
             "labels": {
               "de": "Schuldtitel, Inland",
               "fr": "Titres de créance, intérieur",
@@ -645,7 +645,7 @@
             "value": null
           },
           {
-            "code": "4314",
+            "code": "5314",
             "labels": {
               "de": "Kredite, Inland",
               "fr": "Crédits, intérieur",
@@ -658,7 +658,7 @@
             "value": null
           },
           {
-            "code": "4315",
+            "code": "5315",
             "labels": {
               "de": "Anteilsrechte und Anteile an Investmentfonds, Inland",
               "fr": "Actions et parts de fonds d'investissement, intérieur",
@@ -671,7 +671,7 @@
             "value": null
           },
           {
-            "code": "4316",
+            "code": "5316",
             "labels": {
               "de": "Versicherungs-, Alterssicherungs- und Standardgarantie-Systeme, Inland",
               "fr": "Systèmes d'assurances, d'assurance-vieillesse et de garanties standard, intérieur ",
@@ -684,7 +684,7 @@
             "value": null
           },
           {
-            "code": "4317",
+            "code": "5317",
             "labels": {
               "de": "Finanzderivate und Mitarbeiteraktienoptionen, Inland",
               "fr": "Produits financiers dérivés et options sur titres des salariés, intérieur",
@@ -697,7 +697,7 @@
             "value": null
           },
           {
-            "code": "4318",
+            "code": "5318",
             "labels": {
               "de": "Sonstige Verbindlichkeiten, Inland",
               "fr": "Autres comptes à payer, intérieur",
@@ -706,7 +706,7 @@
             },
             "children": [
               {
-                "code": "43181",
+                "code": "53181",
                 "labels": {
                   "de": "Handelskredite und Anzahlungen, Inland",
                   "fr": "Crédits commerciaux et avances, intérieur",
@@ -719,7 +719,7 @@
                 "value": null
               },
               {
-                "code": "43182",
+                "code": "53182",
                 "labels": {
                   "de": "Sonstige Verbindlichkeiten, n.a.g., Inland",
                   "fr": "Autres comptes à payer, n.c.a., intérieur",
@@ -742,7 +742,7 @@
         "value": null
       },
       {
-        "code": "432",
+        "code": "532",
         "labels": {
           "de": "Verbindlichkeiten, Ausland",
           "fr": "Engagements, extérieur",
@@ -751,7 +751,7 @@
         },
         "children": [
           {
-            "code": "4321",
+            "code": "5321",
             "labels": {
               "de": "Währungsgold und Sonderziehungsrechte, Ausland",
               "fr": "Or monétaire et DTS, extérieur",
@@ -764,7 +764,7 @@
             "value": null
           },
           {
-            "code": "4322",
+            "code": "5322",
             "labels": {
               "de": "Bargeld und Einlagen, Ausland",
               "fr": "Numéraire et dépôts, extérieur",
@@ -777,7 +777,7 @@
             "value": null
           },
           {
-            "code": "4323",
+            "code": "5323",
             "labels": {
               "de": "Schuldtitel, Ausland",
               "fr": "Titres de créance, extérieur",
@@ -790,7 +790,7 @@
             "value": null
           },
           {
-            "code": "4324",
+            "code": "5324",
             "labels": {
               "de": "Kredite, Ausland",
               "fr": "Crédits, extérieur",
@@ -803,7 +803,7 @@
             "value": null
           },
           {
-            "code": "4325",
+            "code": "5325",
             "labels": {
               "de": "Anteilsrechte und Anteile an Investmentfonds, Ausland",
               "fr": "Actions et parts de fonds d'investissement, extérieur",
@@ -816,7 +816,7 @@
             "value": null
           },
           {
-            "code": "4326",
+            "code": "5326",
             "labels": {
               "de": "Versicherungs-, Alterssicherungs- und Standardgarantie-Systeme, Ausland",
               "fr": "Systèmes d'assurances, d'assurance-vieillesse et de garanties standard, extérieur ",
@@ -829,7 +829,7 @@
             "value": null
           },
           {
-            "code": "4327",
+            "code": "5327",
             "labels": {
               "de": "Finanzderivate und Mitarbeiteraktienoptionen, Ausland",
               "fr": "Produits financiers dérivés et options sur titres des salariés, extérieur",
@@ -842,7 +842,7 @@
             "value": null
           },
           {
-            "code": "4328",
+            "code": "5328",
             "labels": {
               "de": "Sonstige Verbindlichkeiten, Ausland",
               "fr": "Autres comptes à payer, extérieur",
@@ -851,7 +851,7 @@
             },
             "children": [
               {
-                "code": "43281",
+                "code": "53281",
                 "labels": {
                   "de": "Handelskredite und Anzahlungen, Ausland",
                   "fr": "Crédits commerciaux et avances, extérieur",
@@ -864,7 +864,7 @@
                 "value": null
               },
               {
-                "code": "43282",
+                "code": "53282",
                 "labels": {
                   "de": "Sonstige Verbindlichkeiten, n.a.g., Ausland",
                   "fr": "Autres comptes à payer, n.c.a., extérieur",
