@@ -236,6 +236,7 @@
   },
   "financialDataDisplay": {
     "title": "Financial Data Display",
+    "financialData": "Financial Data",
     "balanceSheet": "Balance Sheet",
     "incomeStatement": "Income Statement",
     "loading": "Loading financial data...",

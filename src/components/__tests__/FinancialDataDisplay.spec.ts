@@ -31,6 +31,7 @@ const i18n = createI18n({
     de: {
       financialDataDisplay: {
         title: 'Finanzdaten-Anzeige',
+        financialData: 'Finanzdaten',
         balanceSheet: 'Bilanz',
         incomeStatement: 'Erfolgsrechnung',
         loading: 'Lade Finanzdaten...',
@@ -73,6 +74,7 @@ const i18n = createI18n({
     en: {
       financialDataDisplay: {
         title: 'Financial Data Display',
+        financialData: 'Financial Data',
         balanceSheet: 'Balance Sheet',
         incomeStatement: 'Income Statement',
         loading: 'Loading financial data...',
@@ -145,14 +147,28 @@ const createFinancialDataEntity = (code: string, name: string): FinancialDataEnt
 });
 
 const createMockFinancialData = (): FinancialData => {
-  const balanceSheet = createFinancialDataNode('1', 'Assets', [
-    createFinancialDataNode('10', 'Current Assets'),
-    createFinancialDataNode('11', 'Non-Current Assets')
+  // Create balance sheet with root node containing assets and liabilities
+  const balanceSheet = createFinancialDataNode('root', 'Total', [
+    createFinancialDataNode('1', 'Assets', [
+      createFinancialDataNode('10', 'Current Assets'),
+      createFinancialDataNode('11', 'Non-Current Assets')
+    ]),
+    createFinancialDataNode('2', 'Liabilities', [
+      createFinancialDataNode('20', 'Current Liabilities'),
+      createFinancialDataNode('21', 'Non-Current Liabilities')
+    ])
   ]);
 
-  const incomeStatement = createFinancialDataNode('4', 'Revenue', [
-    createFinancialDataNode('40', 'Operating Revenue'),
-    createFinancialDataNode('41', 'Non-Operating Revenue')
+  // Create income statement with root node containing expenses and revenue
+  const incomeStatement = createFinancialDataNode('root', 'Income Statement', [
+    createFinancialDataNode('3', 'Expenses', [
+      createFinancialDataNode('30', 'Operating Expenses'),
+      createFinancialDataNode('31', 'Non-Operating Expenses')
+    ]),
+    createFinancialDataNode('4', 'Revenue', [
+      createFinancialDataNode('40', 'Operating Revenue'),
+      createFinancialDataNode('41', 'Non-Operating Revenue')
+    ])
   ]);
 
   const entities = new Map([
@@ -227,7 +243,7 @@ describe('FinancialDataDisplay', () => {
       expect(metadataSection.text()).toContain('Entitäten: 2');
     });
 
-    it('renders balance sheet section when balance sheet data exists', () => {
+    it('renders combined financial data section when data exists', () => {
       const wrapper = mount(FinancialDataDisplay, {
         global: {
           plugins: [i18n]
@@ -237,9 +253,9 @@ describe('FinancialDataDisplay', () => {
         }
       });
 
-      const balanceSheetSection = wrapper.find('.section');
-      expect(balanceSheetSection.exists()).toBe(true);
-      expect(balanceSheetSection.find('.section-title').text()).toBe('Bilanz');
+      const financialDataSection = wrapper.find('.section');
+      expect(financialDataSection.exists()).toBe(true);
+      expect(financialDataSection.find('.section-title').text()).toBe('Finanzdaten');
     });
   });
 
@@ -424,7 +440,7 @@ describe('FinancialDataDisplay', () => {
       });
 
       expect(wrapper.find('.title').text()).toBe('Financial Data Display');
-      expect(wrapper.find('.section-title').text()).toBe('Balance Sheet');
+      expect(wrapper.find('.section-title').text()).toBe('Financial Data');
     });
 
     it('falls back to German when translation is missing', () => {

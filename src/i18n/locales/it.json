@@ -236,6 +236,7 @@
   },
   "financialDataDisplay": {
     "title": "Visualizzazione dati finanziari",
+    "financialData": "Dati finanziari",
     "balanceSheet": "Bilancio",
     "incomeStatement": "Conto economico",
     "loading": "Caricamento dati finanziari...",

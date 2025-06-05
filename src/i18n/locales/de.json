@@ -236,6 +236,7 @@
   },
   "financialDataDisplay": {
     "title": "Finanzdaten-Anzeige",
+    "financialData": "Finanzdaten",
     "balanceSheet": "Bilanz",
     "incomeStatement": "Erfolgsrechnung",
     "loading": "Lade Finanzdaten...",

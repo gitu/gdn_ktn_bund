@@ -64,11 +64,11 @@
         </div>
       </div>
 
-      <!-- Balance Sheet Section -->
-      <div v-if="balanceSheetData.length > 0" class="section">
-        <h3 class="section-title">{{ $t('financialDataDisplay.balanceSheet') }}</h3>
+      <!-- Combined Financial Data Section -->
+      <div v-if="combinedFinancialData.length > 0" class="section">
+        <h3 class="section-title">{{ $t('financialDataDisplay.financialData') }}</h3>
         <TreeTable
-          :value="balanceSheetData"
+          :value="combinedFinancialData"
           :expandedKeys="expandedKeys"
           @node-expand="onNodeExpand"
           @node-collapse="onNodeCollapse"
@@ -100,60 +100,7 @@
                 <span
                   v-if="hasValue(node.data || node, entityCode as string)"
                   class="financial-value"
-                  :aria-label="$t('financialDataDisplay.accessibility.financialValue', { entity: getEntityDisplayName(entity) })"
-                >
-                  {{ formatCurrency(getValue(node.data || node, entityCode as string)) }}
-                </span>
-                <span
-                  v-else
-                  class="no-value"
-                  :aria-label="$t('financialDataDisplay.accessibility.noValue')"
-                >
-                  -
-                </span>
-              </div>
-            </template>
-          </Column>
-        </TreeTable>
-      </div>
-
-      <!-- Income Statement Section -->
-      <div v-if="incomeStatementData.length > 0" class="section">
-        <h3 class="section-title">{{ $t('financialDataDisplay.incomeStatement') }}</h3>
-        <TreeTable
-          :value="incomeStatementData"
-          :expandedKeys="expandedKeys"
-          @node-expand="onNodeExpand"
-          @node-collapse="onNodeCollapse"
-          class="financial-tree-table"
-          :scrollable="false"
-          :resizableColumns="true"
-          columnResizeMode="expand"
-          :size="'small'"
-        >
-          <!-- Account column -->
-          <Column field="label" :header="$t('financialDataDisplay.columns.account')" :expander="true" class="account-column">
-            <template #body="{ node }">
-              <div class="account-cell">
-                <span class="account-label">{{ getNodeLabel(node.data || node) }}</span>
-                <span v-if="showCodes && (node.data?.code || node.code)" class="account-code">({{ node.data?.code || node.code }})</span>
-              </div>
-            </template>
-          </Column>
-
-          <!-- Entity value columns -->
-          <Column
-            v-for="[entityCode, entity] in entityColumns"
-            :key="entityCode"
-            :field="`values.${entityCode}`"
-            :header="getEntityDisplayName(entity)"
-            class="value-column"
-          >
-            <template #body="{ node }">
-              <div class="value-cell">
-                <span
-                  v-if="hasValue(node.data || node, entityCode as string)"
-                  class="financial-value"
+                  :class="{ 'pnl-value': (node.data?.code || node.code) === 'pnl' }"
                   :aria-label="$t('financialDataDisplay.accessibility.financialValue', { entity: getEntityDisplayName(entity) })"
                 >
                   {{ formatCurrency(getValue(node.data || node, entityCode as string)) }}
@@ -243,18 +190,85 @@ interface TreeTableNode {
   children: TreeTableNode[];
 }
 
-// Transform financial data nodes to TreeTable format
-const balanceSheetData = computed(() => {
-  if (!props.financialData?.balanceSheet) return [];
-  return transformNodeToTreeTableData(props.financialData.balanceSheet);
-});
+// Transform financial data nodes to TreeTable format - Combined view
+const combinedFinancialData = computed(() => {
+  if (!props.financialData?.balanceSheet || !props.financialData?.incomeStatement) return [];
 
-const incomeStatementData = computed(() => {
-  if (!props.financialData?.incomeStatement) return [];
-  return transformNodeToTreeTableData(props.financialData.incomeStatement);
+  const combinedNodes: TreeTableNode[] = [];
+
+  // Extract Assets from balance sheet (code "1")
+  const assetsNode = props.financialData.balanceSheet.children.find(child => child.code === "1");
+  if (assetsNode) {
+    const transformedAssets = transformNodeToTreeTableData(assetsNode);
+    combinedNodes.push(...transformedAssets);
+  }
+
+  // Extract Liabilities from balance sheet (code "2")
+  const liabilitiesNode = props.financialData.balanceSheet.children.find(child => child.code === "2");
+  if (liabilitiesNode) {
+    const transformedLiabilities = transformNodeToTreeTableData(liabilitiesNode);
+    combinedNodes.push(...transformedLiabilities);
+  }
+
+  // Extract Revenue from income statement (code "4")
+  const revenueNode = props.financialData.incomeStatement.children.find(child => child.code === "4");
+  if (revenueNode) {
+    const transformedRevenue = transformNodeToTreeTableData(revenueNode);
+    combinedNodes.push(...transformedRevenue);
+  }
+
+  // Extract Expenses from income statement (code "3")
+  const expensesNode = props.financialData.incomeStatement.children.find(child => child.code === "3");
+  if (expensesNode) {
+    const transformedExpenses = transformNodeToTreeTableData(expensesNode);
+    combinedNodes.push(...transformedExpenses);
+  }
+
+  // Calculate and add P&L section
+  const pnlNode = calculateProfitLossNode(props.financialData.incomeStatement);
+  if (pnlNode) {
+    const transformedPnl = transformNodeToTreeTableData(pnlNode);
+    combinedNodes.push(...transformedPnl);
+  }
+
+  return combinedNodes;
 });
 
 // Methods
+const calculateProfitLossNode = (node: FinancialDataNode): FinancialDataNode | null => {
+  // Create a P&L node with calculated values
+  const pnlNode: FinancialDataNode = {
+    code: "pnl",
+    labels: {
+      de: "Gewinn/Verlust",
+      fr: "Bénéfice/Perte",
+      it: "Utile/Perdita",
+      en: "Profit/Loss"
+    },
+    values: node.values,
+    children: []
+  };
+
+  return pnlNode;
+};
+
+const calculateNodeTotal = (node: FinancialDataNode, entityCode: string): number => {
+  let total = 0;
+
+  // Add this node's value
+  const nodeValue = node.values.get(entityCode);
+  if (nodeValue) {
+    total += nodeValue.value;
+  }
+
+  // Add children's values recursively
+  for (const child of node.children) {
+    total += calculateNodeTotal(child, entityCode);
+  }
+
+  return total;
+};
+
 const transformNodeToTreeTableData = (node: FinancialDataNode): TreeTableNode[] => {
   const transformNode = (n: FinancialDataNode, parentKey = ''): TreeTableNode | null => {
     const key = parentKey ? `${parentKey}-${n.code}` : n.code;
@@ -357,7 +371,7 @@ const toggleExpandAll = () => {
       });
     };
 
-    expandAllNodes([...balanceSheetData.value, ...incomeStatementData.value]);
+    expandAllNodes(combinedFinancialData.value);
   } else {
     // Collapse all nodes
     expandedKeys.value = {};
@@ -599,6 +613,10 @@ onMounted(() => {
   font-weight: 500;
   color: var(--text-color);
   font-family: monospace;
+}
+
+.financial-value.pnl-value {
+  font-weight: 700;
 }
 
 .no-value {
