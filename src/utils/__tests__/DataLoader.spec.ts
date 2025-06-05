@@ -479,12 +479,11 @@ describe('DataLoader', () => {
         incomeNode300.values.set(entityCode, { value: -500000, unit: 'CHF' }); // Negative value
       }
 
-      const result = dataLoader.calculateEntitySum(testFinancialData, entityCode);
+      dataLoader.calculateEntitySum(testFinancialData, entityCode);
 
-      expect(result.balanceSheetSum).toBe(1000000);
-      expect(result.incomeStatementSum).toBe(1500000); // 2000000 + (-500000)
-      expect(result.totalSum).toBe(2500000);
-      expect(result.nodeCount).toBe(3);
+      expect(testFinancialData.balanceSheet.values.get(`${entityCode}`)?.value).toBe(1000000);
+      expect(testFinancialData.incomeStatement.values.get(`${entityCode}`)?.value).toBe(1500000); // 2000000 + (-500000)
+      expect(testFinancialData.balanceSheet.values.get(`${entityCode}:sum`)?.value).toBe(2500000);
     });
 
     it('should provide utility methods to work with calculated sums', () => {

@@ -1,25 +1,24 @@
 <template>
-  <div class="language-selector">
+  <div class="relative inline-block">
     <button
       ref="triggerButton"
       type="button"
-      class="layout-topbar-action language-trigger"
       @click="toggleDropdown"
       @keydown.escape="closeDropdown"
       @keydown.arrow-down.prevent="focusFirstOption"
+      class="layout-topbar-action"
       :aria-expanded="isOpen"
       :aria-haspopup="true"
       :aria-label="getAriaLabel()"
     >
       <i class="pi pi-globe"></i>
-      <span class="language-code">{{ $i18n.locale.toUpperCase() }}</span>
-      <i class="pi pi-chevron-down dropdown-icon" :class="{ 'rotate-180': isOpen }"></i>
+      <span class="font-semibold text-xs tracking-wider md:inline hidden">{{ $i18n.locale.toUpperCase() }}</span>
     </button>
 
     <div
       v-show="isOpen"
       ref="dropdown"
-      class="language-dropdown"
+      class="absolute top-full right-0 z-50 min-w-48 bg-surface-0 dark:bg-surface-900 border border-surface-200 dark:border-surface-700 rounded-md shadow-lg py-2 mt-1"
       role="menu"
       :aria-labelledby="triggerId"
       @keydown.escape="closeDropdown"
@@ -33,10 +32,10 @@
         :key="locale"
         ref="optionButtons"
         type="button"
-        class="language-option"
+        class="flex items-center gap-3 w-full px-4 py-3 border-0 bg-transparent text-surface-700 dark:text-surface-200 cursor-pointer text-left transition-colors duration-200 text-sm hover:bg-surface-100 dark:hover:bg-surface-800 focus:outline-none focus:bg-surface-100 dark:focus:bg-surface-800"
         :class="{
-          'active': locale === $i18n.locale,
-          'focused': focusedIndex === index
+          'bg-primary-50 dark:bg-primary-900 text-primary-600 dark:text-primary-100 font-semibold': locale === $i18n.locale,
+          'bg-surface-100 dark:bg-surface-800': focusedIndex === index
         }"
         role="menuitem"
         :tabindex="focusedIndex === index ? 0 : -1"
@@ -44,16 +43,16 @@
         @mouseenter="focusedIndex = index"
         :aria-label="getOptionAriaLabel(locale)"
       >
-        <span class="language-flag">{{ getLanguageFlag(locale as SupportedLanguage) }}</span>
-        <span class="language-name">{{ getLanguageNativeName(locale as SupportedLanguage) }}</span>
-        <i v-if="locale === $i18n.locale" class="pi pi-check check-icon"></i>
+        <span class="text-lg leading-none">{{ getLanguageFlag(locale as SupportedLanguage) }}</span>
+        <span class="flex-1">{{ getLanguageNativeName(locale as SupportedLanguage) }}</span>
+        <i v-if="locale === $i18n.locale" class="pi pi-check text-sm text-primary-600 dark:text-primary-400"></i>
       </button>
     </div>
 
     <!-- Backdrop for mobile -->
     <div
       v-if="isOpen"
-      class="language-backdrop"
+      class="fixed inset-0 z-40 bg-transparent md:hidden"
       @click="closeDropdown"
     ></div>
   </div>
@@ -195,148 +194,4 @@ onUnmounted(() => {
 });
 </script>
 
-<style scoped>
-.language-selector {
-  position: relative;
-  display: inline-block;
-}
 
-.language-trigger {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.5rem 0.75rem;
-  border: none;
-  background: transparent;
-  color: var(--text-color);
-  cursor: pointer;
-  border-radius: var(--border-radius);
-  transition: all 0.2s ease;
-  font-size: 0.875rem;
-  min-width: 4rem;
-}
-
-.language-trigger:hover {
-  background: var(--highlight-bg);
-  color: var(--highlight-text-color);
-}
-
-.language-trigger:focus {
-  outline: 2px solid var(--primary-color);
-  outline-offset: 2px;
-}
-
-.language-code {
-  font-weight: 600;
-  font-size: 0.75rem;
-  letter-spacing: 0.05em;
-}
-
-.dropdown-icon {
-  font-size: 0.75rem;
-  transition: transform 0.2s ease;
-}
-
-.rotate-180 {
-  transform: rotate(180deg);
-}
-
-.language-dropdown {
-  position: absolute;
-  top: 100%;
-  right: 0;
-  z-index: 1000;
-  min-width: 12rem;
-  background: var(--surface-card);
-  border: 1px solid var(--surface-border);
-  border-radius: var(--border-radius);
-  box-shadow: var(--overlay-shadow);
-  padding: 0.5rem 0;
-  margin-top: 0.25rem;
-}
-
-.language-option {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  width: 100%;
-  padding: 0.75rem 1rem;
-  border: none;
-  background: transparent;
-  color: var(--text-color);
-  cursor: pointer;
-  text-align: left;
-  transition: background-color 0.2s ease;
-  font-size: 0.875rem;
-}
-
-.language-option:hover,
-.language-option.focused {
-  background: var(--highlight-bg);
-  color: var(--highlight-text-color);
-}
-
-.language-option.active {
-  background: var(--primary-50);
-  color: var(--primary-color);
-  font-weight: 600;
-}
-
-.language-option:focus {
-  outline: none;
-  background: var(--highlight-bg);
-  color: var(--highlight-text-color);
-}
-
-.language-flag {
-  font-size: 1.125rem;
-  line-height: 1;
-}
-
-.language-name {
-  flex: 1;
-}
-
-.check-icon {
-  font-size: 0.875rem;
-  color: var(--primary-color);
-}
-
-.language-backdrop {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  z-index: 999;
-  background: transparent;
-}
-
-/* Mobile responsive */
-@media (max-width: 768px) {
-  .language-dropdown {
-    right: -1rem;
-    min-width: 10rem;
-  }
-
-  .language-trigger {
-    padding: 0.5rem;
-    min-width: 3rem;
-  }
-
-  .language-code {
-    display: none;
-  }
-}
-
-/* Dark mode adjustments */
-:global(.app-dark) .language-dropdown {
-  background: var(--surface-900);
-  border-color: var(--surface-700);
-}
-
-:global(.app-dark) .language-option.active {
-  background: var(--primary-900);
-  color: var(--primary-100);
-}
-</style>

@@ -31,7 +31,7 @@
       </div>
 
       <div class="filter-section">
-        <Dropdown
+        <Select
           v-model="selectedType"
           :options="typeOptions"
           option-label="label"
@@ -39,8 +39,8 @@
           :placeholder="$t('datasetSelector.filters.dataType')"
           class="type-filter"
         />
-        
-        <Dropdown
+
+        <Select
           v-model="selectedYear"
           :options="yearOptions"
           option-label="label"
@@ -126,7 +126,7 @@
         <Column :header="$t('datasetSelector.columns.actions')" class="actions-column">
           <template #body="{ data }">
             <div class="dataset-actions">
-              <Dropdown
+              <Select
                 v-model="selectedYears[data.id]"
                 :options="getYearOptions(data)"
                 option-label="label"
@@ -216,7 +216,7 @@ import DataTable from 'primevue/datatable';
 import Column from 'primevue/column';
 import InputText from 'primevue/inputtext';
 import Button from 'primevue/button';
-import Dropdown from 'primevue/dropdown';
+import Select from 'primevue/dropdown';
 import Tag from 'primevue/tag';
 import Message from 'primevue/message';
 import ProgressSpinner from 'primevue/progressspinner';
@@ -492,264 +492,3 @@ onMounted(() => {
   loadData();
 });
 </script>
-
-<style scoped>
-.dataset-selector {
-  width: 100%;
-  max-width: 100%;
-}
-
-.selector-header {
-  margin-bottom: 1.5rem;
-}
-
-.selector-header h3 {
-  margin: 0 0 0.5rem 0;
-  color: var(--text-color);
-}
-
-.subtitle {
-  margin: 0;
-  color: var(--text-color-secondary);
-  font-size: 0.9rem;
-}
-
-.search-filters {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  margin-bottom: 1.5rem;
-  padding: 1rem;
-  background: var(--surface-card);
-  border-radius: var(--border-radius);
-  border: 1px solid var(--surface-border);
-}
-
-.search-section .p-inputgroup {
-  width: 100%;
-}
-
-.search-input {
-  flex: 1;
-}
-
-.filter-section {
-  display: flex;
-  gap: 1rem;
-  flex-wrap: wrap;
-}
-
-.type-filter,
-.year-filter {
-  min-width: 150px;
-  flex: 1;
-}
-
-.available-datasets {
-  margin-bottom: 2rem;
-}
-
-.section-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 1rem;
-}
-
-.section-header h4 {
-  margin: 0;
-  color: var(--text-color);
-}
-
-.results-count,
-.selected-count {
-  font-size: 0.9rem;
-  color: var(--text-color-secondary);
-}
-
-.loading-state,
-.error-state {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 1rem;
-  justify-content: center;
-}
-
-.datasets-table {
-  border: 1px solid var(--surface-border);
-  border-radius: var(--border-radius);
-}
-
-.name-column {
-  min-width: 200px;
-}
-
-.description-column {
-  min-width: 250px;
-}
-
-.years-column {
-  min-width: 120px;
-}
-
-.actions-column {
-  min-width: 200px;
-}
-
-.dataset-name {
-  display: flex;
-  flex-direction: column;
-  gap: 0.25rem;
-}
-
-.dataset-type {
-  display: flex;
-  align-items: center;
-}
-
-.type-tag {
-  font-size: 0.75rem;
-}
-
-.dataset-description {
-  font-size: 0.9rem;
-  color: var(--text-color-secondary);
-  line-height: 1.3;
-}
-
-.available-years {
-  display: flex;
-  flex-direction: column;
-  gap: 0.25rem;
-}
-
-.year-range {
-  font-weight: 500;
-}
-
-.year-count {
-  color: var(--text-color-secondary);
-  font-size: 0.8rem;
-}
-
-.latest-year-indicator {
-  display: flex;
-  align-items: center;
-  gap: 0.25rem;
-  margin-top: 0.25rem;
-  font-size: 0.75rem;
-  color: var(--primary-color);
-  font-weight: 500;
-}
-
-.latest-year-indicator i {
-  font-size: 0.7rem;
-}
-
-.dataset-actions {
-  display: flex;
-  gap: 0.5rem;
-  align-items: center;
-}
-
-.year-selector {
-  min-width: 80px;
-}
-
-.selected-datasets {
-  background: var(--surface-card);
-  border: 1px solid var(--surface-border);
-  border-radius: var(--border-radius);
-  padding: 1rem;
-}
-
-.selected-list {
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-  margin-bottom: 1rem;
-}
-
-.selected-item {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0.75rem;
-  background: var(--surface-ground);
-  border: 1px solid var(--surface-border);
-  border-radius: var(--border-radius);
-}
-
-.item-info {
-  flex: 1;
-}
-
-.item-name {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  margin-bottom: 0.25rem;
-}
-
-.item-details {
-  display: flex;
-  gap: 0.75rem;
-  align-items: center;
-}
-
-.year-badge {
-  background: var(--primary-color);
-  color: var(--primary-color-text);
-  padding: 0.25rem 0.5rem;
-  border-radius: var(--border-radius);
-  font-size: 0.8rem;
-  font-weight: 500;
-}
-
-.entity-code {
-  font-family: monospace;
-  font-size: 0.85rem;
-  color: var(--text-color-secondary);
-  background: var(--surface-100);
-  padding: 0.125rem 0.375rem;
-  border-radius: var(--border-radius);
-}
-
-.selected-actions {
-  display: flex;
-  gap: 1rem;
-  justify-content: flex-end;
-}
-
-/* Responsive design */
-@media (max-width: 768px) {
-  .filter-section {
-    flex-direction: column;
-  }
-
-  .type-filter,
-  .year-filter {
-    min-width: unset;
-  }
-
-  .dataset-actions {
-    flex-direction: column;
-    align-items: stretch;
-  }
-
-  .year-selector {
-    min-width: unset;
-  }
-
-  .selected-actions {
-    flex-direction: column;
-  }
-
-  .item-details {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 0.25rem;
-  }
-}
-</style>

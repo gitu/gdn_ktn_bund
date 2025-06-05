@@ -1,206 +1,122 @@
 <template>
-  <div class="about">
-    <div class="container">
-      <header class="about-header">
-        <h1>{{ t('aboutView.title') }}</h1>
-        <p class="subtitle">{{ t('aboutView.subtitle') }}</p>
-        <p class="description">{{ t('aboutView.description') }}</p>
+  <div class="min-h-screen bg-gradient-to-br from-primary-500 to-purple-600 py-8">
+    <div class="max-w-6xl mx-auto px-8">
+      <!-- Header Section -->
+      <header class="text-center text-white mb-16">
+        <h1 class="text-5xl font-bold mb-4 drop-shadow-lg">
+          {{ t('aboutView.title') }}
+        </h1>
+        <p class="text-2xl font-light mb-6 opacity-90">
+          {{ t('aboutView.subtitle') }}
+        </p>
+        <p class="text-lg max-w-4xl mx-auto leading-relaxed opacity-90">
+          {{ t('aboutView.description') }}
+        </p>
       </header>
 
-      <section class="features-section">
-        <h2>{{ t('aboutView.features.title') }}</h2>
-        <div class="features-grid">
-          <div class="feature-card">
-            <div class="feature-icon">🌳</div>
-            <h3>{{ t('aboutView.features.treeNavigation') }}</h3>
+      <!-- Features Section -->
+      <Card class="mb-8">
+        <template #content>
+          <h2 class="text-3xl font-semibold text-surface-900 dark:text-surface-50 mb-8 text-center">
+            {{ t('aboutView.features.title') }}
+          </h2>
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
+            <div class="text-center p-6 bg-surface-50 dark:bg-surface-800 rounded-lg hover:shadow-md transition-all duration-300 hover:-translate-y-1">
+              <div class="text-5xl mb-4">🌳</div>
+              <h3 class="text-lg font-medium text-surface-900 dark:text-surface-50 leading-tight">
+                {{ t('aboutView.features.treeNavigation') }}
+              </h3>
+            </div>
+            <div class="text-center p-6 bg-surface-50 dark:bg-surface-800 rounded-lg hover:shadow-md transition-all duration-300 hover:-translate-y-1">
+              <div class="text-5xl mb-4">📊</div>
+              <h3 class="text-lg font-medium text-surface-900 dark:text-surface-50 leading-tight">
+                {{ t('aboutView.features.tableView') }}
+              </h3>
+            </div>
+            <div class="text-center p-6 bg-surface-50 dark:bg-surface-800 rounded-lg hover:shadow-md transition-all duration-300 hover:-translate-y-1">
+              <div class="text-5xl mb-4">🔍</div>
+              <h3 class="text-lg font-medium text-surface-900 dark:text-surface-50 leading-tight">
+                {{ t('aboutView.features.dataBrowser') }}
+              </h3>
+            </div>
+            <div class="text-center p-6 bg-surface-50 dark:bg-surface-800 rounded-lg hover:shadow-md transition-all duration-300 hover:-translate-y-1">
+              <div class="text-5xl mb-4">🌐</div>
+              <h3 class="text-lg font-medium text-surface-900 dark:text-surface-50 leading-tight">
+                {{ t('aboutView.features.multiLanguage') }}
+              </h3>
+            </div>
+            <div class="text-center p-6 bg-surface-50 dark:bg-surface-800 rounded-lg hover:shadow-md transition-all duration-300 hover:-translate-y-1">
+              <div class="text-5xl mb-4">📱</div>
+              <h3 class="text-lg font-medium text-surface-900 dark:text-surface-50 leading-tight">
+                {{ t('aboutView.features.responsive') }}
+              </h3>
+            </div>
           </div>
-          <div class="feature-card">
-            <div class="feature-icon">📊</div>
-            <h3>{{ t('aboutView.features.tableView') }}</h3>
-          </div>
-          <div class="feature-card">
-            <div class="feature-icon">🔍</div>
-            <h3>{{ t('aboutView.features.dataBrowser') }}</h3>
-          </div>
-          <div class="feature-card">
-            <div class="feature-icon">🌐</div>
-            <h3>{{ t('aboutView.features.multiLanguage') }}</h3>
-          </div>
-          <div class="feature-card">
-            <div class="feature-icon">📱</div>
-            <h3>{{ t('aboutView.features.responsive') }}</h3>
-          </div>
-        </div>
-      </section>
+        </template>
+      </Card>
 
-      <section class="data-info-section">
-        <h2>{{ t('aboutView.dataInfo.title') }}</h2>
-        <p>{{ t('aboutView.dataInfo.description') }}</p>
-        <ul>
-          <li>{{ t('aboutView.dataInfo.sources') }}</li>
-          <li>{{ t('aboutView.dataInfo.coverage') }}</li>
-        </ul>
-      </section>
+      <!-- Data Info Section -->
+      <Card class="mb-8">
+        <template #content>
+          <h2 class="text-3xl font-semibold text-surface-900 dark:text-surface-50 mb-6">
+            {{ t('aboutView.dataInfo.title') }}
+          </h2>
+          <p class="text-lg text-surface-700 dark:text-surface-200 mb-6 leading-relaxed">
+            {{ t('aboutView.dataInfo.description') }}
+          </p>
+          <div class="space-y-3">
+            <div class="bg-surface-50 dark:bg-surface-800 p-4 rounded-lg border-l-4 border-primary-500">
+              <p class="text-surface-700 dark:text-surface-200">
+                {{ t('aboutView.dataInfo.sources') }}
+              </p>
+            </div>
+            <div class="bg-surface-50 dark:bg-surface-800 p-4 rounded-lg border-l-4 border-primary-500">
+              <p class="text-surface-700 dark:text-surface-200">
+                {{ t('aboutView.dataInfo.coverage') }}
+              </p>
+            </div>
+          </div>
+        </template>
+      </Card>
 
-      <section class="technology-section">
-        <h2>{{ t('aboutView.technology.title') }}</h2>
-        <p>{{ t('aboutView.technology.description') }}</p>
-        <ul>
-          <li>{{ t('aboutView.technology.frontend') }}</li>
-          <li>{{ t('aboutView.technology.testing') }}</li>
-          <li>{{ t('aboutView.technology.build') }}</li>
-        </ul>
-      </section>
+      <!-- Technology Section -->
+      <Card>
+        <template #content>
+          <h2 class="text-3xl font-semibold text-surface-900 dark:text-surface-50 mb-6">
+            {{ t('aboutView.technology.title') }}
+          </h2>
+          <p class="text-lg text-surface-700 dark:text-surface-200 mb-6 leading-relaxed">
+            {{ t('aboutView.technology.description') }}
+          </p>
+          <div class="space-y-3">
+            <div class="bg-surface-50 dark:bg-surface-800 p-4 rounded-lg border-l-4 border-primary-500">
+              <p class="text-surface-700 dark:text-surface-200">
+                {{ t('aboutView.technology.frontend') }}
+              </p>
+            </div>
+            <div class="bg-surface-50 dark:bg-surface-800 p-4 rounded-lg border-l-4 border-primary-500">
+              <p class="text-surface-700 dark:text-surface-200">
+                {{ t('aboutView.technology.testing') }}
+              </p>
+            </div>
+            <div class="bg-surface-50 dark:bg-surface-800 p-4 rounded-lg border-l-4 border-primary-500">
+              <p class="text-surface-700 dark:text-surface-200">
+                {{ t('aboutView.technology.build') }}
+              </p>
+            </div>
+          </div>
+        </template>
+      </Card>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n';
+import Card from 'primevue/card';
 
 // Use Vue i18n
 const { t } = useI18n();
 </script>
 
-<style scoped>
-.about {
-  min-height: 100vh;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  padding: 2rem 0;
-}
 
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 2rem;
-}
-
-.about-header {
-  text-align: center;
-  color: white;
-  margin-bottom: 4rem;
-}
-
-.about-header h1 {
-  font-size: 3rem;
-  font-weight: 700;
-  margin-bottom: 1rem;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-}
-
-.subtitle {
-  font-size: 1.5rem;
-  font-weight: 300;
-  margin-bottom: 1.5rem;
-  opacity: 0.9;
-}
-
-.description {
-  font-size: 1.1rem;
-  max-width: 800px;
-  margin: 0 auto;
-  line-height: 1.6;
-  opacity: 0.9;
-}
-
-.features-section,
-.data-info-section,
-.technology-section {
-  background: white;
-  border-radius: 12px;
-  padding: 2.5rem;
-  margin-bottom: 2rem;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-}
-
-.features-section h2,
-.data-info-section h2,
-.technology-section h2 {
-  color: #2c3e50;
-  font-size: 2rem;
-  font-weight: 600;
-  margin-bottom: 2rem;
-  text-align: center;
-}
-
-.features-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 1.5rem;
-}
-
-.feature-card {
-  text-align: center;
-  padding: 1.5rem;
-  border-radius: 8px;
-  background: #f8f9fa;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.feature-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-}
-
-.feature-icon {
-  font-size: 3rem;
-  margin-bottom: 1rem;
-}
-
-.feature-card h3 {
-  color: #2c3e50;
-  font-size: 1.1rem;
-  font-weight: 500;
-  margin: 0;
-  line-height: 1.4;
-}
-
-.data-info-section p,
-.technology-section p {
-  font-size: 1.1rem;
-  line-height: 1.6;
-  color: #555;
-  margin-bottom: 1.5rem;
-}
-
-.data-info-section ul,
-.technology-section ul {
-  list-style: none;
-  padding: 0;
-}
-
-.data-info-section li,
-.technology-section li {
-  background: #f8f9fa;
-  padding: 1rem 1.5rem;
-  margin-bottom: 0.5rem;
-  border-radius: 6px;
-  border-left: 4px solid #667eea;
-  font-size: 1rem;
-  color: #555;
-}
-
-@media (max-width: 768px) {
-  .about-header h1 {
-    font-size: 2.5rem;
-  }
-
-  .subtitle {
-    font-size: 1.3rem;
-  }
-
-  .features-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .features-section,
-  .data-info-section,
-  .technology-section {
-    padding: 1.5rem;
-  }
-
-  .container {
-    padding: 0 1rem;
-  }
-}
-</style>
