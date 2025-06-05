@@ -55,24 +55,25 @@ describe('LanguageSelector', () => {
     it('should render the language selector trigger button', () => {
       const wrapper = mountComponent();
 
-      const trigger = wrapper.find('.language-trigger');
+      const trigger = wrapper.find('.layout-topbar-action');
       expect(trigger.exists()).toBe(true);
       expect(trigger.find('.pi-globe').exists()).toBe(true);
-      expect(trigger.find('.language-code').text()).toBe('DE');
-      expect(trigger.find('.pi-chevron-down').exists()).toBe(true);
+      expect(trigger.text()).toContain('DE');
     });
 
     it('should not show dropdown initially', () => {
       const wrapper = mountComponent();
 
-      const dropdown = wrapper.find('.language-dropdown');
+      // The dropdown div should exist but be hidden with v-show="false"
+      const dropdown = wrapper.find('div[role="menu"]');
+      expect(dropdown.exists()).toBe(true);
       expect(dropdown.isVisible()).toBe(false);
     });
 
     it('should have proper accessibility attributes', () => {
       const wrapper = mountComponent();
 
-      const trigger = wrapper.find('.language-trigger');
+      const trigger = wrapper.find('.layout-topbar-action');
       expect(trigger.attributes('aria-expanded')).toBe('false');
       expect(trigger.attributes('aria-haspopup')).toBe('true');
       expect(trigger.attributes('aria-label')).toContain('Sprache auswählen. Aktuelle Sprache: Deutsch');
@@ -83,10 +84,10 @@ describe('LanguageSelector', () => {
     it('should open dropdown when trigger is clicked', async () => {
       const wrapper = mountComponent();
 
-      const trigger = wrapper.find('.language-trigger');
+      const trigger = wrapper.find('.layout-topbar-action');
       await trigger.trigger('click');
 
-      const dropdown = wrapper.find('.language-dropdown');
+      const dropdown = wrapper.find('div[role="menu"]');
       expect(dropdown.isVisible()).toBe(true);
       expect(trigger.attributes('aria-expanded')).toBe('true');
     });
@@ -94,11 +95,11 @@ describe('LanguageSelector', () => {
     it('should close dropdown when trigger is clicked again', async () => {
       const wrapper = mountComponent();
 
-      const trigger = wrapper.find('.language-trigger');
+      const trigger = wrapper.find('.layout-topbar-action');
       await trigger.trigger('click');
       await trigger.trigger('click');
 
-      const dropdown = wrapper.find('.language-dropdown');
+      const dropdown = wrapper.find('div[role="menu"]');
       expect(dropdown.isVisible()).toBe(false);
       expect(trigger.attributes('aria-expanded')).toBe('false');
     });
@@ -106,24 +107,25 @@ describe('LanguageSelector', () => {
     it('should close dropdown when backdrop is clicked', async () => {
       const wrapper = mountComponent();
 
-      const trigger = wrapper.find('.language-trigger');
+      const trigger = wrapper.find('.layout-topbar-action');
       await trigger.trigger('click');
 
-      const backdrop = wrapper.find('.language-backdrop');
+      // Find the backdrop div (fixed inset-0 z-40)
+      const backdrop = wrapper.find('.fixed.inset-0');
       await backdrop.trigger('click');
 
-      const dropdown = wrapper.find('.language-dropdown');
+      const dropdown = wrapper.find('div[role="menu"]');
       expect(dropdown.isVisible()).toBe(false);
     });
 
     it('should close dropdown when escape key is pressed', async () => {
       const wrapper = mountComponent();
 
-      const trigger = wrapper.find('.language-trigger');
+      const trigger = wrapper.find('.layout-topbar-action');
       await trigger.trigger('click');
       await trigger.trigger('keydown.escape');
 
-      const dropdown = wrapper.find('.language-dropdown');
+      const dropdown = wrapper.find('div[role="menu"]');
       expect(dropdown.isVisible()).toBe(false);
     });
   });
@@ -132,10 +134,10 @@ describe('LanguageSelector', () => {
     it('should render all available language options', async () => {
       const wrapper = mountComponent();
 
-      const trigger = wrapper.find('.language-trigger');
+      const trigger = wrapper.find('.layout-topbar-action');
       await trigger.trigger('click');
 
-      const options = wrapper.findAll('.language-option');
+      const options = wrapper.findAll('button[role="menuitem"]');
       expect(options).toHaveLength(4);
 
       expect(options[0].text()).toContain('Deutsch');
@@ -147,21 +149,21 @@ describe('LanguageSelector', () => {
     it('should mark current language as active', async () => {
       const wrapper = mountComponent();
 
-      const trigger = wrapper.find('.language-trigger');
+      const trigger = wrapper.find('.layout-topbar-action');
       await trigger.trigger('click');
 
-      const options = wrapper.findAll('.language-option');
-      expect(options[0].classes()).toContain('active');
+      const options = wrapper.findAll('button[role="menuitem"]');
+      expect(options[0].classes()).toContain('text-primary-600');
       expect(options[0].find('.pi-check').exists()).toBe(true);
     });
 
     it('should change language when option is clicked', async () => {
       const wrapper = mountComponent();
 
-      const trigger = wrapper.find('.language-trigger');
+      const trigger = wrapper.find('.layout-topbar-action');
       await trigger.trigger('click');
 
-      const frenchOption = wrapper.findAll('.language-option')[2];
+      const frenchOption = wrapper.findAll('button[role="menuitem"]')[2];
       await frenchOption.trigger('click');
 
       // Check that the locale was changed
@@ -171,13 +173,13 @@ describe('LanguageSelector', () => {
     it('should close dropdown after selecting language', async () => {
       const wrapper = mountComponent();
 
-      const trigger = wrapper.find('.language-trigger');
+      const trigger = wrapper.find('.layout-topbar-action');
       await trigger.trigger('click');
 
-      const frenchOption = wrapper.findAll('.language-option')[2];
+      const frenchOption = wrapper.findAll('button[role="menuitem"]')[2];
       await frenchOption.trigger('click');
 
-      const dropdown = wrapper.find('.language-dropdown');
+      const dropdown = wrapper.find('div[role="menu"]');
       expect(dropdown.isVisible()).toBe(false);
     });
   });
@@ -186,20 +188,20 @@ describe('LanguageSelector', () => {
     it('should have proper ARIA attributes on dropdown', async () => {
       const wrapper = mountComponent();
 
-      const trigger = wrapper.find('.language-trigger');
+      const trigger = wrapper.find('.layout-topbar-action');
       await trigger.trigger('click');
 
-      const dropdown = wrapper.find('.language-dropdown');
+      const dropdown = wrapper.find('div[role="menu"]');
       expect(dropdown.attributes('role')).toBe('menu');
     });
 
     it('should have proper ARIA attributes on options', async () => {
       const wrapper = mountComponent();
 
-      const trigger = wrapper.find('.language-trigger');
+      const trigger = wrapper.find('.layout-topbar-action');
       await trigger.trigger('click');
 
-      const options = wrapper.findAll('.language-option');
+      const options = wrapper.findAll('button[role="menuitem"]');
       options.forEach(option => {
         expect(option.attributes('role')).toBe('menuitem');
         expect(option.attributes('aria-label')).toBeDefined();
@@ -209,10 +211,10 @@ describe('LanguageSelector', () => {
     it('should manage tabindex correctly', async () => {
       const wrapper = mountComponent();
 
-      const trigger = wrapper.find('.language-trigger');
+      const trigger = wrapper.find('.layout-topbar-action');
       await trigger.trigger('click');
 
-      const options = wrapper.findAll('.language-option');
+      const options = wrapper.findAll('button[role="menuitem"]');
       // First option should be focusable, others should not
       expect(options[0].attributes('tabindex')).toBe('0');
       expect(options[1].attributes('tabindex')).toBe('-1');
@@ -223,21 +225,21 @@ describe('LanguageSelector', () => {
     it('should render language flags', async () => {
       const wrapper = mountComponent();
 
-      const trigger = wrapper.find('.language-trigger');
+      const trigger = wrapper.find('.layout-topbar-action');
       await trigger.trigger('click');
 
-      const flags = wrapper.findAll('.language-flag');
-      expect(flags).toHaveLength(4);
-      flags.forEach(flag => {
-        expect(flag.text()).toMatch(/DE|EN|FR|IT/);
+      const options = wrapper.findAll('button[role="menuitem"]');
+      expect(options).toHaveLength(4);
+      options.forEach(option => {
+        expect(option.text()).toMatch(/DE|EN|FR|IT/);
       });
     });
 
     it('should show language code in trigger', () => {
       const wrapper = mountComponent();
 
-      const languageCode = wrapper.find('.language-code');
-      expect(languageCode.text()).toBe('DE');
+      const trigger = wrapper.find('.layout-topbar-action');
+      expect(trigger.text()).toContain('DE');
     });
   });
 

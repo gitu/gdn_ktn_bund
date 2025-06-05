@@ -1,11 +1,8 @@
 <script setup lang="ts">
 import { useLayout } from '@/layout/composables/layout';
-import { useI18n } from 'vue-i18n';
-import AppConfigurator from './AppConfigurator.vue';
 import LanguageSelector from '@/components/LanguageSelector.vue';
 
 const { toggleMenu, toggleDarkMode, isDarkTheme } = useLayout();
-const { t } = useI18n();
 </script>
 
 <template>
