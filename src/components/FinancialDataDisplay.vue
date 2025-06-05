@@ -55,14 +55,6 @@
     <!-- Main content -->
     <div v-else class="content">
       <!-- Metadata section -->
-      <div v-if="financialData?.metadata" class="metadata-section">
-        <h3>{{ $t('financialDataDisplay.metadata.source') }}: {{ financialData.metadata.source }}</h3>
-        <div class="metadata-details">
-          <span>{{ $t('financialDataDisplay.metadata.loadedAt') }}: {{ formatDate(financialData.metadata.loadedAt) }}</span>
-          <span>{{ $t('financialDataDisplay.metadata.recordCount') }}: {{ financialData.metadata.recordCount }}</span>
-          <span>{{ $t('financialDataDisplay.metadata.entities') }}: {{ entityCount }}</span>
-        </div>
-      </div>
 
       <!-- Combined Financial Data Section -->
       <div v-if="combinedFinancialData.length > 0" class="section">

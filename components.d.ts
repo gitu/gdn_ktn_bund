@@ -7,7 +7,9 @@ export {}
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
+    ConfirmationDialog: typeof import('./src/components/ConfirmationDialog.vue')['default']
     DataBrowser: typeof import('./src/components/DataBrowser.vue')['default']
+    DatasetSearch: typeof import('./src/components/DatasetSearch.vue')['default']
     FinancialDataComparison: typeof import('./src/components/FinancialDataComparison.vue')['default']
     FinancialDataDisplay: typeof import('./src/components/FinancialDataDisplay.vue')['default']
     IconCommunity: typeof import('./src/components/icons/IconCommunity.vue')['default']
@@ -16,6 +18,7 @@ declare module 'vue' {
     IconSupport: typeof import('./src/components/icons/IconSupport.vue')['default']
     IconTooling: typeof import('./src/components/icons/IconTooling.vue')['default']
     LanguageSelector: typeof import('./src/components/LanguageSelector.vue')['default']
+    LoadedDatasets: typeof import('./src/components/LoadedDatasets.vue')['default']
     MultiSelect: typeof import('primevue/multiselect')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
@@ -24,5 +27,6 @@ declare module 'vue' {
   }
   export interface ComponentCustomProperties {
     StyleClass: typeof import('primevue/styleclass')['default']
+    Tooltip: typeof import('primevue/tooltip')['default']
   }
 }

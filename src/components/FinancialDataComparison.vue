@@ -20,10 +20,6 @@
 
     <!-- Main comparison content -->
     <div v-else class="comparison-content">
-      <div class="info-bar">
-        <span>{{ $t('financialDataComparison.filteredCategories') }}</span>
-        <span>{{ $t('financialDataComparison.totalRows', { count: loadedDatasetCount }) }} datasets loaded</span>
-      </div>
 
       <!-- Single FinancialDataDisplay for combined data -->
       <div class="combined-data-container">

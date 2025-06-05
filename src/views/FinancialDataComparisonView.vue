@@ -37,63 +37,6 @@
       <span>Successfully loaded {{ dataLoadedCount }} datasets</span>
     </div>
 
-    <div class="documentation">
-      <h2>Usage</h2>
-      <p>
-        The <code>FinancialDataComparison</code> component accepts an array of dataset identifiers
-        in the format <code>{source}/{model}/{entity}:{year}</code>:
-      </p>
-
-      <div class="code-example">
-        <h3>Example Usage:</h3>
-        <pre><code>&lt;FinancialDataComparison
-  :datasets="[
-    'gdn/fs/010002:2016',
-    'gdn/fs/010009:2016',
-    'std/fs/gdn_zh:2016'
-  ]"
-  @error="handleError"
-  @dataLoaded="handleDataLoaded"
-/&gt;</code></pre>
-      </div>
-
-      <div class="format-explanation">
-        <h3>Dataset Format:</h3>
-        <ul>
-          <li><strong>Source:</strong> <code>gdn</code> (municipality data) or <code>std</code> (standardized data)</li>
-          <li><strong>Model:</strong> <code>fs</code> (Financial Statistics)</li>
-          <li><strong>Entity:</strong> Municipality number (e.g., <code>010002</code>) or entity code (e.g., <code>gdn_zh</code>)</li>
-          <li><strong>Year:</strong> 4-digit year (e.g., <code>2016</code>)</li>
-        </ul>
-      </div>
-
-      <div class="features">
-        <h3>Features:</h3>
-        <ul>
-          <li>Side-by-side comparison of multiple financial datasets</li>
-          <li>Hierarchical tree structure with expandable/collapsible nodes</li>
-          <li>Semantic entity name interpretation (e.g., "gdn_zh" → "All municipalities of Canton Zurich")</li>
-          <li>Filtered to show only Balance Sheet, Revenue, and Expenditure categories</li>
-          <li>Multilingual support via Vue i18n</li>
-          <li>Currency formatting (CHF)</li>
-          <li>Loading states and error handling</li>
-          <li>Option to show/hide account codes</li>
-          <li>Option to hide zero values</li>
-          <li>Expand/collapse all functionality</li>
-        </ul>
-      </div>
-
-      <div class="data-sources">
-        <h3>Data Sources:</h3>
-        <p>
-          Data is loaded from the <code>public/data/</code> directory with the following structure:
-        </p>
-        <ul>
-          <li><strong>GDN data:</strong> <code>public/data/gdn/fs/{entity_id}/{year}.csv</code></li>
-          <li><strong>STD data:</strong> <code>public/data/std/fs/{entity_id}/{year}.csv</code></li>
-        </ul>
-      </div>
-    </div>
   </div>
 </template>
 
