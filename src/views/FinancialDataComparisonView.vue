@@ -23,13 +23,26 @@
 
     <!-- Comparison Results Section -->
     <div v-if="selectedDatasets.length > 0" class="mb-12">
-      <div class="mb-6">
-        <h2 class="text-2xl font-semibold text-surface-900 dark:text-surface-50 mb-2">
-          {{ $t('financialDataComparison.comparisonResults') }}
-        </h2>
-        <p class="text-surface-600 dark:text-surface-300">
-          {{ $t('financialDataComparison.comparisonDescription', { count: selectedDatasets.length }) }}
-        </p>
+      <div class="flex justify-between items-center mb-6">
+        <div>
+          <h2 class="text-2xl font-semibold text-surface-900 dark:text-surface-50 mb-2">
+            {{ $t('financialDataComparison.comparisonResults') }}
+          </h2>
+          <p class="text-surface-600 dark:text-surface-300">
+            {{ $t('financialDataComparison.comparisonDescription', { count: selectedDatasets.length }) }}
+          </p>
+        </div>
+
+        <Button
+          v-if="dataLoadedCount > 0"
+          :label="$t('financialDataComparison.openFullView')"
+          :title="$t('financialDataComparison.openFullViewTooltip')"
+          icon="pi pi-external-link"
+          severity="secondary"
+          outlined
+          @click="openFullView"
+          class="flex-shrink-0"
+        />
       </div>
 
       <Card>
@@ -70,6 +83,28 @@
           </div>
 
           <div v-if="showDemoComparison">
+            <div class="flex justify-between items-center mb-6">
+              <div>
+                <h3 class="text-xl font-semibold text-surface-900 dark:text-surface-50 mb-2">
+                  {{ $t('financialDataComparison.demoResults') }}
+                </h3>
+                <p class="text-surface-600 dark:text-surface-300">
+                  {{ $t('financialDataComparison.comparisonDescription', { count: sampleDatasets.length }) }}
+                </p>
+              </div>
+
+              <Button
+                v-if="dataLoadedCount > 0"
+                :label="$t('financialDataComparison.openFullView')"
+                :title="$t('financialDataComparison.openFullViewTooltip')"
+                icon="pi pi-external-link"
+                severity="secondary"
+                outlined
+                @click="openDemoFullView"
+                class="flex-shrink-0"
+              />
+            </div>
+
             <Card>
               <template #content>
                 <FinancialDataComparison
@@ -97,17 +132,20 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, watch, onMounted } from 'vue';
 import { useI18n } from 'vue-i18n';
+import { useRouter, useRoute } from 'vue-router';
 import Button from 'primevue/button';
 import Card from 'primevue/card';
 import Message from 'primevue/message';
 import FinancialDataComparison from '../components/FinancialDataComparison.vue';
 import DatasetSelector from '../components/DatasetSelector.vue';
 
-// Vue i18n (used in template)
+// Vue composables
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const { t } = useI18n();
+const router = useRouter();
+const route = useRoute();
 
 // Reactive state
 const errorMessage = ref<string | null>(null);
@@ -136,6 +174,7 @@ const handleDataLoaded = (count: number) => {
 const handleDatasetsChanged = (datasets: string[]) => {
   selectedDatasets.value = datasets;
   showDemoComparison.value = false; // Hide demo when user selects datasets
+  updateURL();
   console.log('Selected datasets changed:', datasets);
 };
 
@@ -147,7 +186,102 @@ const handleSelectorError = (error: string) => {
 const loadDemoData = () => {
   showDemoComparison.value = true;
   selectedDatasets.value = []; // Clear user selections when showing demo
+  updateURL();
 };
+
+const openFullView = () => {
+  if (selectedDatasets.value.length === 0) {
+    console.warn('Cannot open full view: no selected datasets');
+    return;
+  }
+
+  // Navigate to full view with datasets as query parameters
+  router.push({
+    name: 'financial-data-full-view',
+    query: {
+      datasets: selectedDatasets.value.join(',')
+    }
+  });
+};
+
+const openDemoFullView = () => {
+  if (sampleDatasets.length === 0) {
+    console.warn('Cannot open full view: no demo datasets');
+    return;
+  }
+
+  // Navigate to full view with demo datasets as query parameters
+  router.push({
+    name: 'financial-data-full-view',
+    query: {
+      datasets: sampleDatasets.join(',')
+    }
+  });
+};
+
+// URL management functions
+const updateURL = () => {
+  const query: Record<string, string> = {};
+
+  if (selectedDatasets.value.length > 0) {
+    query.datasets = selectedDatasets.value.join(',');
+  }
+
+  if (showDemoComparison.value) {
+    query.demo = 'true';
+  }
+
+  // Only update if the query actually changed
+  const currentQuery = route.query;
+  const newQueryString = new URLSearchParams(query).toString();
+  const currentQueryString = new URLSearchParams(currentQuery as Record<string, string>).toString();
+
+  if (newQueryString !== currentQueryString) {
+    router.replace({
+      name: 'financial-comparison',
+      query: Object.keys(query).length > 0 ? query : undefined
+    });
+  }
+};
+
+const loadStateFromURL = () => {
+  const datasetsParam = route.query.datasets;
+  const demoParam = route.query.demo;
+
+  // Load datasets from URL
+  if (typeof datasetsParam === 'string' && datasetsParam.trim()) {
+    const datasets = datasetsParam.split(',').filter(d => d.trim().length > 0);
+    selectedDatasets.value = datasets;
+    showDemoComparison.value = false;
+  } else if (Array.isArray(datasetsParam)) {
+    const datasets = datasetsParam.filter(d => typeof d === 'string' && d.trim().length > 0) as string[];
+    selectedDatasets.value = datasets;
+    showDemoComparison.value = false;
+  } else {
+    selectedDatasets.value = [];
+  }
+
+  // Load demo state from URL
+  if (demoParam === 'true') {
+    showDemoComparison.value = true;
+    selectedDatasets.value = [];
+  }
+
+  console.log('Loaded state from URL:', {
+    datasets: selectedDatasets.value,
+    demo: showDemoComparison.value
+  });
+};
+
+// Lifecycle hooks
+onMounted(() => {
+  loadStateFromURL();
+});
+
+// Watch for route changes (browser back/forward)
+watch(() => route.query, () => {
+  loadStateFromURL();
+}, { deep: true });
 </script>
 
 

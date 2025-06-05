@@ -278,6 +278,15 @@ describe('DataLoader', () => {
       expect(entity?.name.fr).toBe('Affoltern a.A.');
       expect(entity?.name.it).toBe('Affoltern a.A.');
       expect(entity?.name.en).toBe('Affoltern a.A.');
+
+      // Verify new fields are populated correctly
+      expect(entity?.year).toBe('2022');
+      expect(entity?.model).toBe('fs');
+      expect(entity?.source).toBe('gdn');
+      expect(entity?.description.de).toBe('Gemeinde Affoltern a.A. (010002)');
+      expect(entity?.description.fr).toBe('Commune Affoltern a.A. (010002)');
+      expect(entity?.description.it).toBe('Comune Affoltern a.A. (010002)');
+      expect(entity?.description.en).toBe('Municipality Affoltern a.A. (010002)');
     });
 
     it('should throw error for non-existent account codes', async () => {
@@ -387,6 +396,15 @@ describe('DataLoader', () => {
       expect(entity?.name.fr).toBe('Communes (COM) Argovie');
       expect(entity?.name.it).toBe('Comuni (COM) Argovia');
       expect(entity?.name.en).toBe('Municipalities (MUN) Aargau');
+
+      // Verify new fields are populated correctly
+      expect(entity?.year).toBe('2022');
+      expect(entity?.model).toBe('fs');
+      expect(entity?.source).toBe('std');
+      expect(entity?.description.de).toBe('Gemeinden (GDN) Aargau (gdn_ag)');
+      expect(entity?.description.fr).toBe('Communes (COM) Argovie (gdn_ag)');
+      expect(entity?.description.it).toBe('Comuni (COM) Argovia (gdn_ag)');
+      expect(entity?.description.en).toBe('Municipalities (MUN) Aargau (gdn_ag)');
     });
   });
 

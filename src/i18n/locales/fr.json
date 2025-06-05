@@ -236,6 +236,7 @@
     "comparisonResults": "Résultats de comparaison",
     "comparisonDescription": "Comparaison de {count} jeux de données sélectionnés",
     "demoTitle": "Comparaison de démonstration",
+    "demoResults": "Résultats de démonstration",
     "demoDescription": "Cet exemple compare trois jeux de données de 2016:",
     "demoDataset1": "Commune 010002",
     "demoDataset1Description": "Données spécifiques de commune",
@@ -243,7 +244,9 @@
     "demoDataset2Description": "Autres données spécifiques de commune",
     "demoDataset3": "Canton de Zurich (gdn_zh)",
     "demoDataset3Description": "Toutes les communes du canton de Zurich",
-    "loadDemoData": "Charger les données de démonstration"
+    "loadDemoData": "Charger les données de démonstration",
+    "openFullView": "Ouvrir en plein écran",
+    "openFullViewTooltip": "Ouvre la vue de comparaison actuelle dans un mode plein écran dédié"
   },
   "financialDataDisplay": {
     "title": "Affichage des données financières",
@@ -327,5 +330,15 @@
       "loadingFailed": "Échec du chargement du catalogue de données",
       "duplicateDataset": "Ce jeu de données est déjà sélectionné"
     }
+  },
+  "financialDataFullView": {
+    "title": "Données financières - Vue complète",
+    "subtitle": "Vue plein écran des comparaisons de données financières",
+    "backToComparison": "Retour à la comparaison",
+    "backToComparisonTooltip": "Retourner à la vue de comparaison principale",
+    "noDatasets": "Aucun jeu de données sélectionné",
+    "noDataMessage": "Veuillez sélectionner des jeux de données dans la vue de comparaison principale avant d'ouvrir la vue complète.",
+    "loadingDatasets": "Chargement des jeux de données...",
+    "datasetsLoaded": "{count} jeux de données chargés"
   }
 }

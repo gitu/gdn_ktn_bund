@@ -5,6 +5,7 @@
 import * as Papa from 'papaparse';
 import type {
   FinancialData,
+  FinancialDataEntity,
   FinancialDataNode,
   FinancialDataMetadata,
   FinacialDataValue
@@ -295,6 +296,7 @@ export class DataLoader {
     if (!financialData.entities.has(fullEntityCode)) {
       // Generate appropriate entity name based on source type
       let entityName: MultiLanguageLabels;
+      let entityDescription: MultiLanguageLabels;
 
       if (source === 'gdn') {
         // For GDN data, use the municipality name from the gemeinde field
@@ -307,6 +309,13 @@ export class DataLoader {
             it: gdnEntity.gemeinde,
             en: gdnEntity.gemeinde
           };
+          // Generate description for municipality
+          entityDescription = {
+            de: `Gemeinde ${gdnEntity.gemeinde} (${entityCode})`,
+            fr: `Commune ${gdnEntity.gemeinde} (${entityCode})`,
+            it: `Comune ${gdnEntity.gemeinde} (${entityCode})`,
+            en: `Municipality ${gdnEntity.gemeinde} (${entityCode})`
+          };
         } else {
           // Fallback to entity code if municipality not found
           entityName = {
@@ -315,18 +324,37 @@ export class DataLoader {
             it: entityCode,
             en: entityCode
           };
+          entityDescription = {
+            de: `Gemeinde ${entityCode}`,
+            fr: `Commune ${entityCode}`,
+            it: `Comune ${entityCode}`,
+            en: `Municipality ${entityCode}`
+          };
         }
       } else {
         // For STD data, use EntitySemanticMapper to get human-readable names
         entityName = EntitySemanticMapper.getEntityDisplayName(entityCode);
+        // Generate description for STD entities
+        entityDescription = {
+          de: `${entityName.de} (${entityCode})`,
+          fr: `${entityName.fr} (${entityCode})`,
+          it: `${entityName.it} (${entityCode})`,
+          en: `${entityName.en} (${entityCode})`
+        };
       }
 
-      financialData.entities.set(fullEntityCode, {
+      const entity: FinancialDataEntity = {
         code: fullEntityCode,
         name: entityName,
         scalingFactor: 1,
-        metadata: metadata
-      });
+        metadata: metadata,
+        year: year,
+        model: model,
+        source: source,
+        description: entityDescription
+      };
+
+      financialData.entities.set(fullEntityCode, entity);
     }
 
     // Update main metadata

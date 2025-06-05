@@ -236,6 +236,7 @@
     "comparisonResults": "Vergleichsergebnisse",
     "comparisonDescription": "Vergleich von {count} ausgewählten Datensätzen",
     "demoTitle": "Demo-Vergleich",
+    "demoResults": "Demo-Ergebnisse",
     "demoDescription": "Dieses Beispiel vergleicht drei Datensätze aus 2016:",
     "demoDataset1": "Gemeinde 010002",
     "demoDataset1Description": "Spezifische Gemeindedaten",
@@ -243,7 +244,9 @@
     "demoDataset2Description": "Weitere spezifische Gemeindedaten",
     "demoDataset3": "Kanton Zürich (gdn_zh)",
     "demoDataset3Description": "Alle Gemeinden im Kanton Zürich",
-    "loadDemoData": "Demo-Daten laden"
+    "loadDemoData": "Demo-Daten laden",
+    "openFullView": "Vollansicht öffnen",
+    "openFullViewTooltip": "Öffnet die aktuelle Vergleichsansicht in einem dedizierten Vollbildmodus"
   },
   "financialDataDisplay": {
     "title": "Finanzdaten-Anzeige",
@@ -327,5 +330,15 @@
       "loadingFailed": "Fehler beim Laden des Datenkatalogs",
       "duplicateDataset": "Dieser Datensatz ist bereits ausgewählt"
     }
+  },
+  "financialDataFullView": {
+    "title": "Finanzdaten - Vollansicht",
+    "subtitle": "Vollbildansicht der Finanzdatenvergleiche",
+    "backToComparison": "Zurück zum Vergleich",
+    "backToComparisonTooltip": "Zurück zur Hauptvergleichsansicht",
+    "noDatasets": "Keine Datensätze ausgewählt",
+    "noDataMessage": "Bitte wählen Sie Datensätze in der Hauptvergleichsansicht aus, bevor Sie die Vollansicht öffnen.",
+    "loadingDatasets": "Lade Datensätze...",
+    "datasetsLoaded": "{count} Datensätze geladen"
   }
 }

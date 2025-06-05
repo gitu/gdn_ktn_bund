@@ -143,7 +143,11 @@ const createFinancialDataEntity = (code: string, name: string): FinancialDataEnt
     source: 'test',
     loadedAt: '2023-01-01T00:00:00Z',
     recordCount: 100
-  }
+  },
+  year: '2023',
+  model: 'fs',
+  source: 'test',
+  description: createMultiLanguageLabels(`Description for ${name}`)
 });
 
 const createMockFinancialData = (): FinancialData => {

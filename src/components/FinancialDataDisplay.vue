@@ -62,6 +62,7 @@
           :scrollable="false"
           :resizableColumns="true"
           columnResizeMode="expand"
+          showGridlines
         >
           <!-- Account column -->
           <Column field="label" :header="$t('financialDataDisplay.columns.account')" :expander="true" class="account-column">

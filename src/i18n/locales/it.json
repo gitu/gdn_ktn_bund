@@ -236,6 +236,7 @@
     "comparisonResults": "Risultati del confronto",
     "comparisonDescription": "Confronto di {count} dataset selezionati",
     "demoTitle": "Confronto dimostrativo",
+    "demoResults": "Risultati dimostrativi",
     "demoDescription": "Questo esempio confronta tre dataset del 2016:",
     "demoDataset1": "Comune 010002",
     "demoDataset1Description": "Dati specifici del comune",
@@ -243,7 +244,9 @@
     "demoDataset2Description": "Altri dati specifici del comune",
     "demoDataset3": "Cantone Zurigo (gdn_zh)",
     "demoDataset3Description": "Tutti i comuni del cantone Zurigo",
-    "loadDemoData": "Carica dati dimostrativi"
+    "loadDemoData": "Carica dati dimostrativi",
+    "openFullView": "Apri vista completa",
+    "openFullViewTooltip": "Apre la vista di confronto attuale in modalità schermo intero dedicata"
   },
   "financialDataDisplay": {
     "title": "Visualizzazione dati finanziari",
@@ -327,5 +330,15 @@
       "loadingFailed": "Caricamento del catalogo dati fallito",
       "duplicateDataset": "Questo dataset è già selezionato"
     }
+  },
+  "financialDataFullView": {
+    "title": "Dati finanziari - Vista completa",
+    "subtitle": "Vista a schermo intero dei confronti di dati finanziari",
+    "backToComparison": "Torna al confronto",
+    "backToComparisonTooltip": "Torna alla vista di confronto principale",
+    "noDatasets": "Nessun dataset selezionato",
+    "noDataMessage": "Seleziona i dataset nella vista di confronto principale prima di aprire la vista completa.",
+    "loadingDatasets": "Caricamento dataset...",
+    "datasetsLoaded": "{count} dataset caricati"
   }
 }

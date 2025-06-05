@@ -1,6 +1,7 @@
 import { vi } from 'vitest';
 import { config } from '@vue/test-utils';
 import { createI18n } from 'vue-i18n';
+import { createRouter, createWebHistory } from 'vue-router';
 import PrimeVue from 'primevue/config';
 import Aura from '@primeuix/themes/aura';
 
@@ -61,6 +62,11 @@ const i18n = createI18n({
         hideCodes: 'Hide codes',
         showZeroValues: 'Show zero values',
         hideZeroValues: 'Hide zero values'
+      },
+      financialDataComparison: {
+        comparisonDescription: 'Comparing {count} selected datasets',
+        openFullView: 'Open Full View',
+        openFullViewTooltip: 'Opens the current comparison view in a dedicated full-screen mode'
       }
     },
     fr: {
@@ -78,6 +84,16 @@ const i18n = createI18n({
   }
 });
 
+// Create a mock router for tests
+const mockRouter = createRouter({
+  history: createWebHistory(),
+  routes: [
+    { path: '/', component: { template: '<div>Home</div>' } },
+    { path: '/financial-comparison', component: { template: '<div>Financial Comparison</div>' } },
+    { path: '/financial-data/full-view', component: { template: '<div>Full View</div>' } }
+  ]
+});
+
 // Configure Vue Test Utils global plugins
 config.global.plugins = [
   [PrimeVue, {
@@ -86,7 +102,8 @@ config.global.plugins = [
       darkModeSelector: '.app-dark'
     }
   }],
-  i18n
+  i18n,
+  mockRouter
 ];
 
 // Mock PrimeVue components globally
