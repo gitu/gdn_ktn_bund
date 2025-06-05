@@ -4,9 +4,21 @@ import type { FinancialData } from '../../types/FinancialDataStructure';
 import type { GdnDataInfo } from '../../types/DataStructures';
 import { createEmptyFinancialDataStructure } from '../../data/emptyFinancialDataStructure';
 
-// Mock fetch
+// Mock Papa Parse
+vi.mock('papaparse', () => ({
+  default: {
+    parse: vi.fn()
+  },
+  parse: vi.fn()
+}));
+
+import * as Papa from 'papaparse';
+
+// Mock fetch with proper Response-like objects
 const mockFetch = vi.fn();
 global.fetch = mockFetch;
+
+const mockPapaParse = vi.mocked(Papa.parse);
 
 describe('DataLoader', () => {
   let dataLoader: DataLoader;
@@ -16,6 +28,7 @@ describe('DataLoader', () => {
     dataLoader = new DataLoader();
     mockFinancialData = createEmptyFinancialDataStructure();
     vi.clearAllMocks();
+    mockPapaParse.mockClear();
   });
 
   describe('validateGdnData', () => {
@@ -35,7 +48,10 @@ describe('DataLoader', () => {
 
       mockFetch.mockResolvedValueOnce({
         ok: true,
-        json: async () => mockGdnInfo
+        json: vi.fn().mockResolvedValue(mockGdnInfo),
+        text: vi.fn().mockResolvedValue(''),
+        status: 200,
+        statusText: 'OK'
       });
 
       const result = await dataLoader.validateGdnData('010002', '2022', 'fs');
@@ -55,7 +71,10 @@ describe('DataLoader', () => {
 
       mockFetch.mockResolvedValueOnce({
         ok: true,
-        json: async () => mockGdnInfo
+        json: vi.fn().mockResolvedValue(mockGdnInfo),
+        text: vi.fn().mockResolvedValue(''),
+        status: 200,
+        statusText: 'OK'
       });
 
       const result = await dataLoader.validateGdnData('999999', '2022', 'fs');
@@ -75,7 +94,10 @@ describe('DataLoader', () => {
 
       mockFetch.mockResolvedValueOnce({
         ok: true,
-        json: async () => mockGdnInfo
+        json: vi.fn().mockResolvedValue(mockGdnInfo),
+        text: vi.fn().mockResolvedValue(''),
+        status: 200,
+        statusText: 'OK'
       });
 
       const result = await dataLoader.validateGdnData('010002', '2023', 'fs');
@@ -101,7 +123,10 @@ describe('DataLoader', () => {
 
       mockFetch.mockResolvedValueOnce({
         ok: true,
-        json: async () => mockStdInfo
+        json: vi.fn().mockResolvedValue(mockStdInfo),
+        text: vi.fn().mockResolvedValue(''),
+        status: 200,
+        statusText: 'OK'
       });
 
       const result = await dataLoader.validateStdData('gdn_zh', '2022', 'fs');
@@ -121,20 +146,40 @@ describe('DataLoader', () => {
         }
       ];
 
-      const mockCsvData = `"arten","funk","jahr","value","dim","unit"
-"100","","2022","1000000","bilanz","CHF"
-"101","","2022","500000","bilanz","CHF"
-"400","","2022","2000000","ertrag","CHF"`;
+      const mockCsvData = `arten,funk,jahr,value,dim,unit
+100,,2022,1000000,bilanz,CHF
+101,,2022,500000,bilanz,CHF
+400,,2022,2000000,ertrag,CHF`;
+
+      const mockParsedData = [
+        { arten: '100', funk: '', jahr: '2022', value: '1000000', dim: 'bilanz', unit: 'CHF' },
+        { arten: '101', funk: '', jahr: '2022', value: '500000', dim: 'bilanz', unit: 'CHF' },
+        { arten: '400', funk: '', jahr: '2022', value: '2000000', dim: 'ertrag', unit: 'CHF' }
+      ];
 
       mockFetch
         .mockResolvedValueOnce({
           ok: true,
-          json: async () => mockGdnInfo
+          json: vi.fn().mockResolvedValue(mockGdnInfo),
+          text: vi.fn().mockResolvedValue(''),
+          status: 200,
+          statusText: 'OK'
         })
         .mockResolvedValueOnce({
           ok: true,
-          text: async () => mockCsvData
+          json: vi.fn().mockResolvedValue({}),
+          text: vi.fn().mockResolvedValue(mockCsvData),
+          status: 200,
+          statusText: 'OK'
         });
+
+      mockPapaParse.mockReturnValueOnce({
+        data: mockParsedData,
+        errors: [],
+        meta: {
+          fields: ['arten', 'funk', 'jahr', 'value', 'dim', 'unit']
+        }
+      });
 
       const result = await dataLoader.loadGdnData('010002', '2022', 'fs');
 
@@ -156,7 +201,10 @@ describe('DataLoader', () => {
 
       mockFetch.mockResolvedValueOnce({
         ok: true,
-        json: async () => mockGdnInfo
+        json: vi.fn().mockResolvedValue(mockGdnInfo),
+        text: vi.fn().mockResolvedValue(''),
+        status: 200,
+        statusText: 'OK'
       });
 
       await expect(dataLoader.loadGdnData('999999', '2022', 'fs'))
@@ -174,19 +222,38 @@ describe('DataLoader', () => {
         }
       ];
 
-      const mockCsvData = `"arten","funk","jahr","value","dim","unit"
-"100","","2022","1000000","bilanz","CHF"
-"400","","2022","2000000","ertrag","CHF"`;
+      const mockCsvData = `arten,funk,jahr,value,dim,unit
+100,,2022,1000000,bilanz,CHF
+400,,2022,2000000,ertrag,CHF`;
+
+      const mockParsedData = [
+        { arten: '100', funk: '', jahr: '2022', value: '1000000', dim: 'bilanz', unit: 'CHF' },
+        { arten: '400', funk: '', jahr: '2022', value: '2000000', dim: 'ertrag', unit: 'CHF' }
+      ];
 
       mockFetch
         .mockResolvedValueOnce({
           ok: true,
-          json: async () => mockGdnInfo
+          json: vi.fn().mockResolvedValue(mockGdnInfo),
+          text: vi.fn().mockResolvedValue(''),
+          status: 200,
+          statusText: 'OK'
         })
         .mockResolvedValueOnce({
           ok: true,
-          text: async () => mockCsvData
+          json: vi.fn().mockResolvedValue({}),
+          text: vi.fn().mockResolvedValue(mockCsvData),
+          status: 200,
+          statusText: 'OK'
         });
+
+      mockPapaParse.mockReturnValueOnce({
+        data: mockParsedData,
+        errors: [],
+        meta: {
+          fields: ['arten', 'funk', 'jahr', 'value', 'dim', 'unit']
+        }
+      });
 
       const result = await dataLoader.loadAndIntegrateFinancialData(
         '010002',
@@ -213,18 +280,36 @@ describe('DataLoader', () => {
         }
       ];
 
-      const mockCsvData = `"arten","funk","jahr","value","dim","unit"
-"999999","","2022","1000000","bilanz","CHF"`;
+      const mockCsvData = `arten,funk,jahr,value,dim,unit
+999999,,2022,1000000,bilanz,CHF`;
+
+      const mockParsedData = [
+        { arten: '999999', funk: '', jahr: '2022', value: '1000000', dim: 'bilanz', unit: 'CHF' }
+      ];
 
       mockFetch
         .mockResolvedValueOnce({
           ok: true,
-          json: async () => mockGdnInfo
+          json: vi.fn().mockResolvedValue(mockGdnInfo),
+          text: vi.fn().mockResolvedValue(''),
+          status: 200,
+          statusText: 'OK'
         })
         .mockResolvedValueOnce({
           ok: true,
-          text: async () => mockCsvData
+          json: vi.fn().mockResolvedValue({}),
+          text: vi.fn().mockResolvedValue(mockCsvData),
+          status: 200,
+          statusText: 'OK'
         });
+
+      mockPapaParse.mockReturnValueOnce({
+        data: mockParsedData,
+        errors: [],
+        meta: {
+          fields: ['arten', 'funk', 'jahr', 'value', 'dim', 'unit']
+        }
+      });
 
       await expect(dataLoader.loadAndIntegrateFinancialData(
         '010002',

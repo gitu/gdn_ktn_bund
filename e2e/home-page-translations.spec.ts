@@ -25,7 +25,8 @@ test.describe('HomeView Translation Functionality', () => {
     // Verify CTA section
     await expect(page.locator('.cta-section')).toBeVisible();
     await expect(page.locator('.cta-section h3')).toBeVisible();
-    await expect(page.locator('.cta-button')).toBeVisible();
+    await expect(page.locator('.cta-button.primary')).toBeVisible();
+    await expect(page.locator('.cta-button.secondary')).toBeVisible();
   });
 
   test('should display German content by default', async ({ page }) => {
@@ -39,7 +40,8 @@ test.describe('HomeView Translation Functionality', () => {
 
     // Check CTA section
     await expect(page.locator('.cta-section h3')).toContainText('Jetzt Daten erkunden');
-    await expect(page.locator('.cta-button')).toContainText('Baum-Explorer öffnen');
+    await expect(page.locator('.cta-button.primary')).toContainText('Finanzdaten vergleichen');
+    await expect(page.locator('.cta-button.secondary')).toContainText('Mehr erfahren');
 
     // Check language selector shows DE
     await expect(page.locator('.language-code')).toContainText('DE');
@@ -51,7 +53,8 @@ test.describe('HomeView Translation Functionality', () => {
     const initialSubtitle = await page.locator('.header p').textContent();
     const initialDescTitle = await page.locator('.description-section h2').textContent();
     const initialCtaTitle = await page.locator('.cta-section h3').textContent();
-    const initialCtaButton = await page.locator('.cta-button').textContent();
+    const initialCtaButtonPrimary = await page.locator('.cta-button.primary').textContent();
+    const initialCtaButtonSecondary = await page.locator('.cta-button.secondary').textContent();
 
     // Click language selector to open dropdown
     await page.locator('.language-trigger').click();
@@ -77,20 +80,23 @@ test.describe('HomeView Translation Functionality', () => {
 
     // Check CTA section
     await expect(page.locator('.cta-section h3')).toContainText('Start Exploring Data');
-    await expect(page.locator('.cta-button')).toContainText('Open Tree Explorer');
+    await expect(page.locator('.cta-button.primary')).toContainText('Compare Financial Data');
+    await expect(page.locator('.cta-button.secondary')).toContainText('Learn More');
 
     // Verify content actually changed (not just showing placeholder text)
     const newTitle = page.locator('.header h1');
     const newSubtitle = page.locator('.header p');
     const newDescTitle = page.locator('.description-section h2');
     const newCtaTitle = page.locator('.cta-section h3');
-    const newCtaButton = page.locator('.cta-button');
+    const newCtaButtonPrimary = page.locator('.cta-button.primary');
+    const newCtaButtonSecondary = page.locator('.cta-button.secondary');
 
     await expect(newTitle).not.toHaveText(initialTitle);
     await expect(newSubtitle).not.toHaveText(initialSubtitle);
     await expect(newDescTitle).not.toHaveText(initialDescTitle);
     await expect(newCtaTitle).not.toHaveText(initialCtaTitle);
-    await expect(newCtaButton).not.toHaveText(initialCtaButton);
+    await expect(newCtaButtonPrimary).not.toHaveText(initialCtaButtonPrimary);
+    await expect(newCtaButtonSecondary).not.toHaveText(initialCtaButtonSecondary);
   });
 
   test('should switch to French and display French content', async ({ page }) => {
@@ -122,7 +128,8 @@ test.describe('HomeView Translation Functionality', () => {
 
     // Check CTA section
     await expect(page.locator('.cta-section h3')).toContainText('Commencer l\'exploration des données');
-    await expect(page.locator('.cta-button')).toContainText('Ouvrir l\'explorateur d\'arbre');
+    await expect(page.locator('.cta-button.primary')).toContainText('Comparer les données financières');
+    await expect(page.locator('.cta-button.secondary')).toContainText('En savoir plus');
 
     // Verify content actually changed
     const newTitle = page.locator('.header h1');
@@ -135,7 +142,7 @@ test.describe('HomeView Translation Functionality', () => {
   test('should switch to Italian and display Italian content', async ({ page }) => {
     // Store initial German content for comparison
     const initialTitle = await page.locator('.header h1').textContent();
-    const initialCtaButton = await page.locator('.cta-button').textContent();
+    const initialCtaButtonPrimary = await page.locator('.cta-button.primary').textContent();
 
     // Click language selector to open dropdown
     await page.locator('.language-trigger').click();
@@ -161,14 +168,15 @@ test.describe('HomeView Translation Functionality', () => {
 
     // Check CTA section
     await expect(page.locator('.cta-section h3')).toContainText('Inizia a esplorare i dati');
-    await expect(page.locator('.cta-button')).toContainText('Apri esploratore ad albero');
+    await expect(page.locator('.cta-button.primary')).toContainText('Confronta dati finanziari');
+    await expect(page.locator('.cta-button.secondary')).toContainText('Scopri di più');
 
     // Verify content actually changed
     const newTitle = page.locator('.header h1');
-    const newCtaButton = page.locator('.cta-button');
+    const newCtaButtonPrimary = page.locator('.cta-button.primary');
 
     await expect(newTitle).not.toHaveText(initialTitle);
-    await expect(newCtaButton).not.toHaveText(initialCtaButton);
+    await expect(newCtaButtonPrimary).not.toHaveText(initialCtaButtonPrimary);
   });
 
   test('should maintain language selection when navigating back to German', async ({ page }) => {
