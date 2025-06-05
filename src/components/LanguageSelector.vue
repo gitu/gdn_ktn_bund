@@ -40,7 +40,7 @@ import i18n from "@/i18n";
 type SupportedLanguage = 'de' | 'en' | 'fr' | 'it';
 
 // Vue i18n
-const { locale, availableLocales, t } = useI18n();
+const { locale, t } = useI18n();
 
 // Component refs
 const menu = ref<InstanceType<typeof Menu>>();
@@ -108,7 +108,7 @@ const ariaLabel = computed(() => {
     const currentText = t('languageSelector.currentLanguage');
     const currentName = getLanguageNativeName(locale.value as SupportedLanguage);
     return `${selectText}. ${currentText}: ${currentName}`;
-  } catch (error) {
+  } catch {
     // Fallback for tests or when translations are not available
     return `Select language. Current language: ${getLanguageNativeName(locale.value as SupportedLanguage)}`;
   }
