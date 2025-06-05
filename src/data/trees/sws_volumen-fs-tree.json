@@ -3,7 +3,7 @@
     "dimension": "sws_volumen",
     "model": "fs",
     "source": "codes/sws_volumen/fs.csv",
-    "generatedAt": "2025-06-05T09:45:12.531Z",
+    "generatedAt": "2025-06-05T10:10:15.449Z",
     "totalNodes": 67,
     "maxDepth": 3
   },

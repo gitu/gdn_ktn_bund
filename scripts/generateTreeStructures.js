@@ -270,8 +270,6 @@ function generateEmptyFinancialDataStructure() {
   const financialDataStructure = {
     balanceSheet: balanceSheetNode,
     incomeStatement: incomeStatementNode,
-    usedCodes: [], // Empty array
-    unusedCodes: [], // Empty array
     entities: {}, // Empty Map will be converted to empty object in JSON
     metadata: {
       source: 'Generated from code definitions',
@@ -307,7 +305,6 @@ try {
  * This structure includes:
  * - Balance sheet tree from bilanz/fs.csv
  * - Income statement tree combining ertrag/fs.csv and aufwand/fs.csv
- * - Empty arrays for usedCodes and unusedCodes
  * - Empty Map for entities
  */
 export function createEmptyFinancialDataStructure(): FinancialData {

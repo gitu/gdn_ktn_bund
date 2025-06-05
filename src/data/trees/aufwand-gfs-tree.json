@@ -3,7 +3,7 @@
     "dimension": "aufwand",
     "model": "gfs",
     "source": "codes/aufwand/gfs.csv",
-    "generatedAt": "2025-06-05T09:45:12.512Z",
+    "generatedAt": "2025-06-05T10:10:15.432Z",
     "totalNodes": 34,
     "maxDepth": 4
   },

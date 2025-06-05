@@ -3,7 +3,7 @@
     "dimension": "ertrag",
     "model": "gfs",
     "source": "codes/ertrag/gfs.csv",
-    "generatedAt": "2025-06-05T09:45:12.526Z",
+    "generatedAt": "2025-06-05T10:10:15.442Z",
     "totalNodes": 73,
     "maxDepth": 5
   },

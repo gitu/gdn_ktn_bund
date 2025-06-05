@@ -3,7 +3,7 @@
     "dimension": "schuld",
     "model": "fs",
     "source": "codes/schuld/fs.csv",
-    "generatedAt": "2025-06-05T09:45:12.528Z",
+    "generatedAt": "2025-06-05T10:10:15.447Z",
     "totalNodes": 2,
     "maxDepth": 1
   },

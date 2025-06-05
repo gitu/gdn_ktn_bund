@@ -3,7 +3,7 @@
     "dimension": "transaktionen",
     "model": "fs",
     "source": "codes/transaktionen/fs.csv",
-    "generatedAt": "2025-06-05T09:45:12.533Z",
+    "generatedAt": "2025-06-05T10:10:15.450Z",
     "totalNodes": 89,
     "maxDepth": 3
   },

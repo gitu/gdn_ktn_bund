@@ -7,7 +7,6 @@ import type { FinancialData, FinancialDataNode } from '../types/FinancialDataStr
  * This structure includes:
  * - Balance sheet tree from bilanz/fs.csv
  * - Income statement tree combining ertrag/fs.csv and aufwand/fs.csv
- * - Empty arrays for usedCodes and unusedCodes
  * - Empty Map for entities
  */
 export function createEmptyFinancialDataStructure(): FinancialData {
@@ -3619,12 +3618,10 @@ export function createEmptyFinancialDataStructure(): FinancialData {
       }
     ]
   },
-  "usedCodes": [],
-  "unusedCodes": [],
   "entities": new Map(),
   "metadata": {
     "source": "Generated from code definitions",
-    "loadedAt": "2025-06-05T09:45:12.538Z",
+    "loadedAt": "2025-06-05T10:10:15.455Z",
     "recordCount": 0
   }
 };
@@ -7242,12 +7239,10 @@ export function getEmptyFinancialDataStructureAsObject() {
       }
     ]
   },
-  "usedCodes": [],
-  "unusedCodes": [],
   "entities": {},
   "metadata": {
     "source": "Generated from code definitions",
-    "loadedAt": "2025-06-05T09:45:12.538Z",
+    "loadedAt": "2025-06-05T10:10:15.455Z",
     "recordCount": 0
   }
 };

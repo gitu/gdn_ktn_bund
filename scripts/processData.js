@@ -15,9 +15,9 @@ const stdOutputBaseDir = path.resolve('public/data/std');
 const codesOutputBaseDir = path.resolve('public/data/codes');
 
 // Paths for the info JSON files
-const gdnInfoPath = path.resolve('public/data/gdn-info.json');
-const stdInfoPath = path.resolve('public/data/std-info.json');
-const codesInfoPath = path.resolve('public/data/codes-info.json');
+const gdnInfoPath = path.resolve('src/data/gdn-info.json');
+const stdInfoPath = path.resolve('src/data/std-info.json');
+const codesInfoPath = path.resolve('src/data/codes-info.json');
 
 // Ensure the base output directories exist
 if (!fs.existsSync(gdnOutputBaseDir)) {
