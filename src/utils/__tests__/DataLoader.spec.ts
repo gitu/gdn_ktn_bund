@@ -1,8 +1,11 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { DataLoader } from '../DataLoader';
-import type { FinancialData } from '../../types/FinancialDataStructure';
-import type { GdnDataInfo } from '../../types/DataStructures';
-import { createEmptyFinancialDataStructure } from '../../data/emptyFinancialDataStructure';
+import type { FinancialData } from '@/types/FinancialDataStructure.ts';
+import type { GdnDataInfo } from '@/types/DataStructures.ts';
+import { createEmptyFinancialDataStructure } from '@/data/emptyFinancialDataStructure.ts';
+
+/* eslint @typescript-eslint/no-explicit-any: 0 */
+
 
 // Mock Papa Parse
 vi.mock('papaparse', () => ({
@@ -179,7 +182,7 @@ describe('DataLoader', () => {
         meta: {
           fields: ['arten', 'funk', 'jahr', 'value', 'dim', 'unit']
         }
-      });
+      } as any);
 
       const result = await dataLoader.loadGdnData('010002', '2022', 'fs');
 
@@ -253,7 +256,7 @@ describe('DataLoader', () => {
         meta: {
           fields: ['arten', 'funk', 'jahr', 'value', 'dim', 'unit']
         }
-      });
+      } as any);
 
       const result = await dataLoader.loadAndIntegrateFinancialData(
         '010002',
@@ -265,7 +268,7 @@ describe('DataLoader', () => {
 
       expect(result.entities.size).toBe(1);
       expect(result.entities.has('gdn/fs/010002:2022')).toBe(true);
-      
+
       const entity = result.entities.get('gdn/fs/010002:2022');
       expect(entity?.code).toBe('gdn/fs/010002:2022');
       expect(entity?.metadata.recordCount).toBe(2);
@@ -309,7 +312,7 @@ describe('DataLoader', () => {
         meta: {
           fields: ['arten', 'funk', 'jahr', 'value', 'dim', 'unit']
         }
-      });
+      } as any);
 
       await expect(dataLoader.loadAndIntegrateFinancialData(
         '010002',
