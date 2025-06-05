@@ -320,6 +320,7 @@
       "name": "Name",
       "description": "Beschreibung",
       "years": "Verfügbare Jahre",
+      "year": "Jahr",
       "actions": "Aktionen"
     },
     "errors": {

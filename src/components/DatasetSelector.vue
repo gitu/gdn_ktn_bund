@@ -115,36 +115,33 @@
               <small class="year-count">
                 ({{ $t('datasetSelector.yearCount', { count: data.availableYears.length }) }})
               </small>
-              <div class="latest-year-indicator">
-                <i class="pi pi-star-fill"></i>
-                <span>{{ $t('datasetSelector.latestYear') }}: {{ getLatestYear(data) }}</span>
-              </div>
             </div>
+          </template>
+        </Column>
+
+        <Column :header="$t('datasetSelector.columns.year')" class="year-column">
+          <template #body="{ data }">
+            <Select
+              v-model="selectedYears[data.id]"
+              :options="getYearOptions(data)"
+              option-label="label"
+              option-value="value"
+              :placeholder="$t('datasetSelector.selectYear')"
+              class="year-selector"
+              :disabled="isDatasetSelected(data.id)"
+            />
           </template>
         </Column>
 
         <Column :header="$t('datasetSelector.columns.actions')" class="actions-column">
           <template #body="{ data }">
-            <div class="dataset-actions">
-              <Select
-                v-model="selectedYears[data.id]"
-                :options="getYearOptions(data)"
-                option-label="label"
-                option-value="value"
-                :placeholder="$t('datasetSelector.selectYear')"
-                class="year-selector"
-                :disabled="isDatasetSelected(data.id)"
-                @focus="setDefaultYear(data)"
-              />
-              <Button
-                :label="getAddButtonLabel(data)"
-                icon="pi pi-plus"
-                size="small"
-                :disabled="isDatasetSelected(data.id)"
-                @click="addDatasetWithDefaultYear(data)"
-                @mouseenter="setDefaultYear(data)"
-              />
-            </div>
+            <Button
+              :label="getAddButtonLabel(data)"
+              icon="pi pi-plus"
+              size="small"
+              :disabled="isDatasetSelected(data.id)"
+              @click="addDatasetWithDefaultYear(data)"
+            />
           </template>
         </Column>
       </DataTable>
@@ -216,7 +213,7 @@ import DataTable from 'primevue/datatable';
 import Column from 'primevue/column';
 import InputText from 'primevue/inputtext';
 import Button from 'primevue/button';
-import Select from 'primevue/dropdown';
+import Select from 'primevue/select';
 import Tag from 'primevue/tag';
 import Message from 'primevue/message';
 import ProgressSpinner from 'primevue/progressspinner';
@@ -279,9 +276,11 @@ const typeOptions = computed(() => [
 
 const yearOptions = computed(() => {
   const years = getAllAvailableYears(catalog.value);
+  // Sort years in reverse order (newest first)
+  const sortedYears = [...years].sort((a, b) => b.localeCompare(a));
   return [
     { label: t('datasetSelector.filters.allYears'), value: null },
-    ...years.map(year => ({ label: year, value: year }))
+    ...sortedYears.map(year => ({ label: year, value: year }))
   ];
 });
 
@@ -316,7 +315,9 @@ const getDescription = (entry: AvailableDataEntry): string => {
 };
 
 const getYearOptions = (entry: AvailableDataEntry) => {
-  return entry.availableYears.map(year => ({
+  // Sort years in reverse order (newest first)
+  const sortedYears = [...entry.availableYears].sort((a, b) => b.localeCompare(a));
+  return sortedYears.map(year => ({
     label: year,
     value: year
   }));
@@ -325,17 +326,17 @@ const getYearOptions = (entry: AvailableDataEntry) => {
 const setDefaultYear = (entry: AvailableDataEntry) => {
   // Only set default if no year is currently selected for this entry
   if (!selectedYears.value[entry.id] && entry.availableYears.length > 0) {
-    // Sort years and select the latest (last) one
-    const sortedYears = [...entry.availableYears].sort();
-    const latestYear = sortedYears[sortedYears.length - 1];
+    // Sort years in reverse order and select the first (latest) one
+    const sortedYears = [...entry.availableYears].sort((a, b) => b.localeCompare(a));
+    const latestYear = sortedYears[0];
     selectedYears.value[entry.id] = latestYear;
   }
 };
 
 const getLatestYear = (entry: AvailableDataEntry): string => {
   if (entry.availableYears.length === 0) return '';
-  const sortedYears = [...entry.availableYears].sort();
-  return sortedYears[sortedYears.length - 1];
+  const sortedYears = [...entry.availableYears].sort((a, b) => b.localeCompare(a));
+  return sortedYears[0];
 };
 
 const getAddButtonLabel = (entry: AvailableDataEntry): string => {
@@ -439,6 +440,11 @@ const loadData = async () => {
     error.value = null;
 
     catalog.value = await loadAvailableDataCatalog();
+
+    // Set default years for all entries
+    catalog.value.forEach(entry => {
+      setDefaultYear(entry);
+    });
 
     // Initialize with any provided initial datasets
     if (props.initialDatasets.length > 0) {

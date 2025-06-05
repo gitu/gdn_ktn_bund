@@ -202,6 +202,7 @@ const i18n = createI18n({
           name: 'Name',
           description: 'Description',
           years: 'Available Years',
+          year: 'Year',
           actions: 'Actions'
         },
         errors: {
