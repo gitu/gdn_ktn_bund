@@ -11,14 +11,18 @@ const { t } = useI18n();
 <template>
   <main class="max-w-6xl mx-auto p-8" data-testid="home-main">
     <!-- Header Section -->
-    <div class="text-center mb-8" data-testid="home-header">
-      <h1 class="text-4xl md:text-5xl font-bold text-surface-900 dark:text-surface-50 mb-4" data-testid="home-title">
-        {{ $t('homeView.title') }}
-      </h1>
-      <p class="text-xl text-surface-600 dark:text-surface-300" data-testid="home-subtitle">
-        {{ $t('homeView.subtitle') }}
-      </p>
-    </div>
+    <Card class="mb-8" data-testid="home-header">
+      <template #content>
+        <div class="text-center">
+          <h1 class="text-4xl md:text-5xl font-bold text-surface-900 dark:text-surface-50 mb-4" data-testid="home-title">
+            {{ $t('homeView.title') }}
+          </h1>
+          <p class="text-xl text-surface-600 dark:text-surface-300" data-testid="home-subtitle">
+            {{ $t('homeView.subtitle') }}
+          </p>
+        </div>
+      </template>
+    </Card>
 
     <!-- Description Section -->
     <Card class="mb-8" data-testid="home-description-card">
@@ -35,24 +39,28 @@ const { t } = useI18n();
             {{ $t('homeView.description.capabilities') }}
           </p>
           <div class="grid grid-cols-1 md:grid-cols-2 gap-6" data-testid="home-data-types">
-            <div class="bg-surface-50 dark:bg-surface-800 p-6 rounded-lg border border-surface-200 dark:border-surface-700 hover:shadow-md transition-all duration-200 hover:-translate-y-1" data-testid="home-data-type-balance">
-              <h3 class="flex items-center gap-2 text-lg font-medium text-surface-900 dark:text-surface-50 mb-3">
-                <i class="pi pi-chart-bar text-primary-500 text-xl"></i>
-                {{ $t('homeView.dimensions.bilanz') }}
-              </h3>
-              <p class="text-surface-600 dark:text-surface-300 leading-relaxed">
-                {{ $t('homeView.description.bilanzDescription') }}
-              </p>
-            </div>
-            <div class="bg-surface-50 dark:bg-surface-800 p-6 rounded-lg border border-surface-200 dark:border-surface-700 hover:shadow-md transition-all duration-200 hover:-translate-y-1" data-testid="home-data-type-income">
-              <h3 class="flex items-center gap-2 text-lg font-medium text-surface-900 dark:text-surface-50 mb-3">
-                <i class="pi pi-trending-up text-primary-500 text-xl"></i>
-                {{ $t('homeView.dimensions.ertrag') }} / {{ $t('homeView.dimensions.aufwand') }}
-              </h3>
-              <p class="text-surface-600 dark:text-surface-300 leading-relaxed">
-                {{ $t('homeView.description.incomeDescription') }}
-              </p>
-            </div>
+            <Card class="hover:shadow-md transition-all duration-200 hover:-translate-y-1" data-testid="home-data-type-balance">
+              <template #content>
+                <h3 class="flex items-center gap-2 text-lg font-medium text-surface-900 dark:text-surface-50 mb-3">
+                  <i class="pi pi-chart-bar text-primary-500 text-xl"></i>
+                  {{ $t('homeView.dimensions.bilanz') }}
+                </h3>
+                <p class="text-surface-600 dark:text-surface-300 leading-relaxed">
+                  {{ $t('homeView.description.bilanzDescription') }}
+                </p>
+              </template>
+            </Card>
+            <Card class="hover:shadow-md transition-all duration-200 hover:-translate-y-1" data-testid="home-data-type-income">
+              <template #content>
+                <h3 class="flex items-center gap-2 text-lg font-medium text-surface-900 dark:text-surface-50 mb-3">
+                  <i class="pi pi-trending-up text-primary-500 text-xl"></i>
+                  {{ $t('homeView.dimensions.ertrag') }} / {{ $t('homeView.dimensions.aufwand') }}
+                </h3>
+                <p class="text-surface-600 dark:text-surface-300 leading-relaxed">
+                  {{ $t('homeView.description.incomeDescription') }}
+                </p>
+              </template>
+            </Card>
           </div>
         </div>
 
@@ -80,7 +88,7 @@ const { t } = useI18n();
               icon="pi pi-chart-line"
               :label="$t('homeView.cta.comparisonButtonText')"
               size="large"
-              class="min-w-52"
+              style="min-width: 13rem"
               data-testid="home-cta-button-primary"
             />
 
@@ -92,7 +100,7 @@ const { t } = useI18n();
               severity="secondary"
               outlined
               size="large"
-              class="min-w-52"
+              style="min-width: 13rem"
               data-testid="home-cta-button-secondary"
             />
           </div>
