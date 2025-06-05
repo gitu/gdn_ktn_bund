@@ -11,8 +11,13 @@ import type {
 } from '../types/FinancialDataStructure';
 
 import type {
-  DataRecord
+  DataRecord,
+  GdnDataInfo,
+  StdDataInfo,
+  MultiLanguageLabels
 } from '../types/DataStructures';
+
+import { EntitySemanticMapper } from './EntitySemanticMapper';
 
 export interface DataLoaderResult {
   data: DataRecord[];
@@ -289,14 +294,37 @@ export class DataLoader {
 
     // Create entity entry if it doesn't exist
     if (!financialData.entities.has(fullEntityCode)) {
+      // Generate appropriate entity name based on source type
+      let entityName: MultiLanguageLabels;
+
+      if (source === 'gdn') {
+        // For GDN data, use the municipality name from the gemeinde field
+        const gdnEntity = (gdnInfo as GdnDataInfo[]).find(info => info.nr === entityCode);
+        if (gdnEntity && gdnEntity.gemeinde) {
+          // Use the municipality name for all languages
+          entityName = {
+            de: gdnEntity.gemeinde,
+            fr: gdnEntity.gemeinde,
+            it: gdnEntity.gemeinde,
+            en: gdnEntity.gemeinde
+          };
+        } else {
+          // Fallback to entity code if municipality not found
+          entityName = {
+            de: entityCode,
+            fr: entityCode,
+            it: entityCode,
+            en: entityCode
+          };
+        }
+      } else {
+        // For STD data, use EntitySemanticMapper to get human-readable names
+        entityName = EntitySemanticMapper.getEntityDisplayName(entityCode);
+      }
+
       financialData.entities.set(fullEntityCode, {
         code: fullEntityCode,
-        name: {
-          de: entityCode,
-          fr: entityCode,
-          it: entityCode,
-          en: entityCode
-        },
+        name: entityName,
         scalingFactor: 1,
         metadata: metadata
       });

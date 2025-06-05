@@ -272,6 +272,12 @@ describe('DataLoader', () => {
       const entity = result.entities.get('gdn/fs/010002:2022');
       expect(entity?.code).toBe('gdn/fs/010002:2022');
       expect(entity?.metadata.recordCount).toBe(2);
+
+      // Verify that entity name uses municipality name from gemeinde field
+      expect(entity?.name.de).toBe('Affoltern a.A.');
+      expect(entity?.name.fr).toBe('Affoltern a.A.');
+      expect(entity?.name.it).toBe('Affoltern a.A.');
+      expect(entity?.name.en).toBe('Affoltern a.A.');
     });
 
     it('should throw error for non-existent account codes', async () => {
@@ -321,6 +327,66 @@ describe('DataLoader', () => {
         mockFinancialData,
         'gdn'
       )).rejects.toThrow('Account code \'999999\' not found in tree structure');
+    });
+
+    it('should use EntitySemanticMapper for STD entity names', async () => {
+      const mockStdInfo = [
+        {
+          hh: 'gdn_ag',
+          models: [{ model: 'fs', jahre: ['2022'] }]
+        }
+      ];
+
+      const mockCsvData = `arten,funk,jahr,value,dim,unit
+100,,2022,1000000,bilanz,CHF`;
+
+      const mockParsedData = [
+        { arten: '100', funk: '', jahr: '2022', value: '1000000', dim: 'bilanz', unit: 'CHF' }
+      ];
+
+      mockFetch
+        .mockResolvedValueOnce({
+          ok: true,
+          json: vi.fn().mockResolvedValue(mockStdInfo),
+          text: vi.fn().mockResolvedValue(''),
+          status: 200,
+          statusText: 'OK'
+        })
+        .mockResolvedValueOnce({
+          ok: true,
+          json: vi.fn().mockResolvedValue({}),
+          text: vi.fn().mockResolvedValue(mockCsvData),
+          status: 200,
+          statusText: 'OK'
+        });
+
+      mockPapaParse.mockReturnValueOnce({
+        data: mockParsedData,
+        errors: [],
+        meta: {
+          fields: ['arten', 'funk', 'jahr', 'value', 'dim', 'unit']
+        }
+      } as any);
+
+      const result = await dataLoader.loadAndIntegrateFinancialData(
+        'gdn_ag',
+        'fs',
+        '2022',
+        mockFinancialData,
+        'std'
+      );
+
+      expect(result.entities.size).toBe(1);
+      expect(result.entities.has('std/fs/gdn_ag:2022')).toBe(true);
+
+      const entity = result.entities.get('std/fs/gdn_ag:2022');
+      expect(entity?.code).toBe('std/fs/gdn_ag:2022');
+
+      // Verify that entity name uses EntitySemanticMapper for semantic labels
+      expect(entity?.name.de).toBe('Gemeinden Aargau');
+      expect(entity?.name.fr).toBe('Communes Argovie');
+      expect(entity?.name.it).toBe('Comuni Argovia');
+      expect(entity?.name.en).toBe('Municipalities Aargau');
     });
   });
 });
