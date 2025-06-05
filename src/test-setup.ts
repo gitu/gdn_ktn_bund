@@ -116,9 +116,19 @@ config.global.stubs = {
   },
   Button: {
     name: 'Button',
-    template: '<button data-testid="button" @click="$emit(\'click\')" :disabled="disabled" :class="severity"><slot /></button>',
-    props: ['icon', 'severity', 'disabled', 'label', 'size', 'text', 'outlined'],
+    template: '<button data-testid="button" @click="$emit(\'click\')" :disabled="disabled" :class="severity" :aria-label="ariaLabel" :aria-expanded="ariaExpanded" :aria-haspopup="ariaHaspopup" :aria-controls="ariaControls"><slot /></button>',
+    props: ['icon', 'severity', 'disabled', 'label', 'size', 'text', 'outlined', 'ariaLabel', 'ariaExpanded', 'ariaHaspopup', 'ariaControls'],
     emits: ['click']
+  },
+  Menu: {
+    name: 'Menu',
+    template: '<div data-testid="menu"></div>',
+    props: ['id', 'model', 'popup', 'class'],
+    methods: {
+      toggle() {},
+      show() {},
+      hide() {}
+    }
   },
   InputText: {
     name: 'InputText',

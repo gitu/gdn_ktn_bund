@@ -1,5 +1,5 @@
 <template>
-  <div class="relative inline-block">
+  <div class="relative inline-block" data-testid="language-selector">
     <Button
       ref="triggerButton"
       type="button"
@@ -8,11 +8,12 @@
       class="layout-topbar-action"
       aria-haspopup="true"
       aria-controls="language_menu"
-      :aria-label="getAriaLabel()"
+      :aria-label="ariaLabel"
+      data-testid="language-selector-trigger"
     >
       <template #default>
         <i class="pi pi-globe"></i>
-        <span class="font-semibold text-xs tracking-wider md:inline hidden ml-2">{{ $i18n.locale.toUpperCase() }}</span>
+        <span class="font-semibold text-xs tracking-wider md:inline hidden ml-2" data-testid="language-selector-code">{{ currentLanguageCode }}</span>
       </template>
     </Button>
 
@@ -22,6 +23,7 @@
       :model="menuItems"
       :popup="true"
       class="min-w-48"
+      data-testid="language-selector-menu"
     />
   </div>
 </template>
@@ -59,20 +61,14 @@ const languageNativeNames: Record<SupportedLanguage, string> = {
   it: 'Italiano'
 };
 
-// Create menu items for PrimeVue Menu
-const menuItems = computed<MenuItem[]>(() => {
-  return availableLocales.map((localeCode) => {
-    const language = localeCode as SupportedLanguage;
-    const isSelected = localeCode === locale.value;
+// Utility methods
+const getLanguageFlag = (code: SupportedLanguage): string => {
+  return languageFlags[code] || '🌐';
+};
 
-    return {
-      label: `${getLanguageFlag(language)} ${getLanguageNativeName(language)}`,
-      icon: isSelected ? 'pi pi-check' : undefined,
-      command: () => selectLanguage(language),
-      class: isSelected ? 'font-semibold' : ''
-    };
-  });
-});
+const getLanguageNativeName = (code: SupportedLanguage): string => {
+  return languageNativeNames[code] || code;
+};
 
 // Methods
 const toggle = (event: Event): void => {
@@ -85,21 +81,38 @@ const selectLanguage = (language: SupportedLanguage): void => {
   locale.value = language;
 };
 
-// Utility methods
-const getLanguageFlag = (code: SupportedLanguage): string => {
-  return languageFlags[code] || '🌐';
-};
+// Create menu items for PrimeVue Menu
+const menuItems = computed<MenuItem[]>(() => {
+  const supportedLocales: SupportedLanguage[] = ['de', 'en', 'fr', 'it'];
+  return supportedLocales.map((localeCode) => {
+    const language = localeCode as SupportedLanguage;
+    const isSelected = localeCode === locale.value;
 
-const getLanguageNativeName = (code: SupportedLanguage): string => {
-  return languageNativeNames[code] || code;
-};
+    return {
+      label: `${getLanguageFlag(language)} ${getLanguageNativeName(language)}`,
+      icon: isSelected ? 'pi pi-check' : undefined,
+      command: () => selectLanguage(language),
+      class: isSelected ? 'font-semibold' : ''
+    };
+  });
+});
 
-const getAriaLabel = (): string => {
-  const selectText = t('languageSelector.selectLanguage');
-  const currentText = t('languageSelector.currentLanguage');
-  const currentName = getLanguageNativeName(locale.value as SupportedLanguage);
-  return `${selectText}. ${currentText}: ${currentName}`;
-};
+// Computed properties for template
+const currentLanguageCode = computed(() => {
+  return locale.value.toUpperCase();
+});
+
+const ariaLabel = computed(() => {
+  try {
+    const selectText = t('languageSelector.selectLanguage');
+    const currentText = t('languageSelector.currentLanguage');
+    const currentName = getLanguageNativeName(locale.value as SupportedLanguage);
+    return `${selectText}. ${currentText}: ${currentName}`;
+  } catch (error) {
+    // Fallback for tests or when translations are not available
+    return `Select language. Current language: ${getLanguageNativeName(locale.value as SupportedLanguage)}`;
+  }
+});
 </script>
 
 
