@@ -13,9 +13,7 @@
           class="search-input"
           @input="handleSearch"
         />
-        <button @click="clearSearch" class="clear-button" v-if="filters.searchQuery">
-          ×
-        </button>
+        <button @click="clearSearch" class="clear-button" v-if="filters.searchQuery">×</button>
       </div>
 
       <div class="filter-controls">
@@ -58,7 +56,12 @@
     <div class="results-section">
       <div class="results-header">
         <span class="results-count">
-          {{ t('dataBrowser.resultsCount', { count: filteredResults.length, total: searchResults.length }) }}
+          {{
+            t('dataBrowser.resultsCount', {
+              count: filteredResults.length,
+              total: searchResults.length,
+            })
+          }}
         </span>
         <div class="view-options">
           <label class="checkbox-label">
@@ -122,9 +125,7 @@
         >
           ‹
         </button>
-        <span class="page-info">
-          {{ currentPage }} / {{ totalPages }}
-        </span>
+        <span class="page-info"> {{ currentPage }} / {{ totalPages }} </span>
         <button
           @click="currentPage = Math.min(totalPages, currentPage + 1)"
           :disabled="currentPage === totalPages"
@@ -138,139 +139,139 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted, watch } from 'vue';
-import { useI18n } from 'vue-i18n';
+import { ref, computed, onMounted, watch } from 'vue'
+import { useI18n } from 'vue-i18n'
 import type {
   StdDataInfo,
   GdnDataInfo,
   AvailableDataEntry,
   DataBrowserFilters,
   DataBrowserConfig,
-  MultiLanguageLabels
-} from '../types/DataStructures';
-import { EntitySemanticMapper } from '../utils/EntitySemanticMapper';
+  MultiLanguageLabels,
+} from '../types/DataStructures'
+import { EntitySemanticMapper } from '../utils/EntitySemanticMapper'
 
 interface Props {
-  title?: string;
-  initialConfig?: Partial<DataBrowserConfig>;
-  maxResultsPerPage?: number;
+  title?: string
+  initialConfig?: Partial<DataBrowserConfig>
+  maxResultsPerPage?: number
 }
 
 const props = withDefaults(defineProps<Props>(), {
   title: 'Data Browser',
-  maxResultsPerPage: 20
-});
+  maxResultsPerPage: 20,
+})
 
 const emit = defineEmits<{
-  resultSelected: [result: AvailableDataEntry];
-  error: [error: string];
-}>();
+  resultSelected: [result: AvailableDataEntry]
+  error: [error: string]
+}>()
 
 // Use Vue i18n
-const { locale, t } = useI18n();
+const { locale, t } = useI18n()
 
 // Reactive state
-const loading = ref(false);
-const error = ref<string | null>(null);
-const stdData = ref<StdDataInfo[]>([]);
-const gdnData = ref<GdnDataInfo[]>([]);
-const searchResults = ref<AvailableDataEntry[]>([]);
-const currentPage = ref(1);
+const loading = ref(false)
+const error = ref<string | null>(null)
+const stdData = ref<StdDataInfo[]>([])
+const gdnData = ref<GdnDataInfo[]>([])
+const searchResults = ref<AvailableDataEntry[]>([])
+const currentPage = ref(1)
 
 // Configuration (removed language since it's now handled by i18n)
 const config = ref<Omit<DataBrowserConfig, 'language'>>({
   showDescriptions: true,
   showYearRange: true,
   maxResults: 100,
-  ...props.initialConfig
-});
+  ...props.initialConfig,
+})
 
 // Filters
 const filters = ref<DataBrowserFilters>({
   searchQuery: '',
   dataType: 'all',
-  yearRange: {}
-});
+  yearRange: {},
+})
 
 // Computed properties
 const filteredResults = computed(() => {
-  let results = searchResults.value;
+  let results = searchResults.value
 
   // Apply data type filter
   if (filters.value.dataType !== 'all') {
-    results = results.filter((result: AvailableDataEntry) => result.type === filters.value.dataType);
+    results = results.filter((result: AvailableDataEntry) => result.type === filters.value.dataType)
   }
 
   // Apply year range filter
   if (filters.value.yearRange.start || filters.value.yearRange.end) {
     results = results.filter((result: AvailableDataEntry) => {
-      const years = result.availableYears.map((y: string) => parseInt(y));
-      const minYear = Math.min(...years);
-      const maxYear = Math.max(...years);
+      const years = result.availableYears.map((y: string) => parseInt(y))
+      const minYear = Math.min(...years)
+      const maxYear = Math.max(...years)
 
       if (filters.value.yearRange.start && maxYear < parseInt(filters.value.yearRange.start)) {
-        return false;
+        return false
       }
       if (filters.value.yearRange.end && minYear > parseInt(filters.value.yearRange.end)) {
-        return false;
+        return false
       }
-      return true;
-    });
+      return true
+    })
   }
 
-  return results.slice(0, config.value.maxResults);
-});
+  return results.slice(0, config.value.maxResults)
+})
 
 const totalPages = computed(() => {
-  return Math.ceil(filteredResults.value.length / props.maxResultsPerPage);
-});
+  return Math.ceil(filteredResults.value.length / props.maxResultsPerPage)
+})
 
 const paginatedResults = computed(() => {
-  const start = (currentPage.value - 1) * props.maxResultsPerPage;
-  const end = start + props.maxResultsPerPage;
-  return filteredResults.value.slice(start, end);
-});
+  const start = (currentPage.value - 1) * props.maxResultsPerPage
+  const end = start + props.maxResultsPerPage
+  return filteredResults.value.slice(start, end)
+})
 
 // Methods
 const loadData = async () => {
-  loading.value = true;
-  error.value = null;
+  loading.value = true
+  error.value = null
 
   try {
     // Load STD data info
-    const stdResponse = await fetch('/data/std-info.json');
-    if (!stdResponse.ok) throw new Error('Failed to load STD data info');
-    stdData.value = await stdResponse.json();
+    const stdResponse = await fetch('/data/std-info.json')
+    if (!stdResponse.ok) throw new Error('Failed to load STD data info')
+    stdData.value = await stdResponse.json()
 
     // Load GDN data info
-    const gdnResponse = await fetch('/data/gdn-info.json');
-    if (!gdnResponse.ok) throw new Error('Failed to load GDN data info');
-    gdnData.value = await gdnResponse.json();
+    const gdnResponse = await fetch('/data/gdn-info.json')
+    if (!gdnResponse.ok) throw new Error('Failed to load GDN data info')
+    gdnData.value = await gdnResponse.json()
 
     // Process data into search results
-    processDataIntoResults();
+    processDataIntoResults()
   } catch (err) {
-    const errorMessage = err instanceof Error ? err.message : 'Unknown error loading data';
-    error.value = errorMessage;
-    emit('error', errorMessage);
+    const errorMessage = err instanceof Error ? err.message : 'Unknown error loading data'
+    error.value = errorMessage
+    emit('error', errorMessage)
   } finally {
-    loading.value = false;
+    loading.value = false
   }
-};
+}
 
 const processDataIntoResults = () => {
-  const results: AvailableDataEntry[] = [];
+  const results: AvailableDataEntry[] = []
 
   // Process STD data - only include 'fs' model data
-  stdData.value.forEach(entry => {
-    if (!entry.models || !Array.isArray(entry.models)) return; // Skip entries without models array
+  stdData.value.forEach((entry) => {
+    if (!entry.models || !Array.isArray(entry.models)) return // Skip entries without models array
 
-    const fsModel = entry.models.find(model => model.model === 'fs');
-    if (!fsModel) return; // Skip entries without 'fs' model
+    const fsModel = entry.models.find((model) => model.model === 'fs')
+    if (!fsModel) return // Skip entries without 'fs' model
 
-    const displayName = EntitySemanticMapper.getEntityDisplayName(entry.hh);
-    const description = EntitySemanticMapper.getEntityDescription(entry.hh);
-    const availableYears = fsModel.jahre ? fsModel.jahre.sort() : [];
+    const displayName = EntitySemanticMapper.getEntityDisplayName(entry.hh)
+    const description = EntitySemanticMapper.getEntityDescription(entry.hh)
+    const availableYears = fsModel.jahre ? fsModel.jahre.sort() : []
 
     results.push({
       id: `std-${entry.hh}`,
@@ -278,29 +279,29 @@ const processDataIntoResults = () => {
       entityCode: entry.hh,
       displayName,
       description,
-      availableYears
-    });
-  });
+      availableYears,
+    })
+  })
 
   // Process GDN data - only include 'fs' model data
-  gdnData.value.forEach(entry => {
-    if (!entry.models || !Array.isArray(entry.models)) return; // Skip entries without models array
+  gdnData.value.forEach((entry) => {
+    if (!entry.models || !Array.isArray(entry.models)) return // Skip entries without models array
 
-    const fsModel = entry.models.find(m => m.model === 'fs');
-    if (!fsModel) return; // Skip entries without 'fs' model
+    const fsModel = entry.models.find((m) => m.model === 'fs')
+    if (!fsModel) return // Skip entries without 'fs' model
 
     const displayName: MultiLanguageLabels = {
       de: entry.gemeinde,
       fr: entry.gemeinde,
       it: entry.gemeinde,
-      en: entry.gemeinde
-    };
+      en: entry.gemeinde,
+    }
     const description: MultiLanguageLabels = {
       de: t('dataBrowser.municipalityData', { name: entry.gemeinde }),
       fr: t('dataBrowser.municipalityData', { name: entry.gemeinde }),
       it: t('dataBrowser.municipalityData', { name: entry.gemeinde }),
-      en: t('dataBrowser.municipalityData', { name: entry.gemeinde })
-    };
+      en: t('dataBrowser.municipalityData', { name: entry.gemeinde }),
+    }
 
     results.push({
       id: `gdn-${entry.nr}`,
@@ -309,93 +310,94 @@ const processDataIntoResults = () => {
       displayName,
       description,
       availableYears: fsModel.jahre ? fsModel.jahre.sort() : [],
-      municipalityNumber: entry.nr
-    });
-  });
+      municipalityNumber: entry.nr,
+    })
+  })
 
-  searchResults.value = results;
-};
+  searchResults.value = results
+}
 
 const handleSearch = () => {
-  currentPage.value = 1;
-  performSearch();
-};
+  currentPage.value = 1
+  performSearch()
+}
 
 const performSearch = () => {
   if (!filters.value.searchQuery.trim()) {
-    return; // All results are already shown
+    return // All results are already shown
   }
 
-  const query = filters.value.searchQuery.toLowerCase();
+  const query = filters.value.searchQuery.toLowerCase()
   searchResults.value = searchResults.value.filter((result: AvailableDataEntry) => {
     // Search in display name
-    const displayName = result.displayName[locale.value as keyof MultiLanguageLabels].toLowerCase();
-    if (displayName.includes(query)) return true;
+    const displayName = result.displayName[locale.value as keyof MultiLanguageLabels].toLowerCase()
+    if (displayName.includes(query)) return true
 
     // Search in description
-    const description = result.description[locale.value as keyof MultiLanguageLabels].toLowerCase();
-    if (description.includes(query)) return true;
+    const description = result.description[locale.value as keyof MultiLanguageLabels].toLowerCase()
+    if (description.includes(query)) return true
 
     // Search in entity code
-    if (result.entityCode.toLowerCase().includes(query)) return true;
+    if (result.entityCode.toLowerCase().includes(query)) return true
 
     // Search in municipality number for GDN entries
-    if (result.municipalityNumber && result.municipalityNumber.includes(query)) return true;
+    if (result.municipalityNumber && result.municipalityNumber.includes(query)) return true
 
-    return false;
-  });
-};
+    return false
+  })
+}
 
 const clearSearch = () => {
-  filters.value.searchQuery = '';
-  processDataIntoResults(); // Reset to all results
-  currentPage.value = 1;
-};
+  filters.value.searchQuery = ''
+  processDataIntoResults() // Reset to all results
+  currentPage.value = 1
+}
 
 const handleFilterChange = () => {
-  currentPage.value = 1;
-};
+  currentPage.value = 1
+}
 
 const selectResult = (result: AvailableDataEntry) => {
-  emit('resultSelected', result);
-};
+  emit('resultSelected', result)
+}
 
 const getYearRangeText = (years: string[]): string => {
-  if (years.length === 0) return '';
-  const sortedYears = years.sort();
-  const first = sortedYears[0];
-  const last = sortedYears[sortedYears.length - 1];
-  return first === last ? first : `${first}-${last}`;
-};
-
-
+  if (years.length === 0) return ''
+  const sortedYears = years.sort()
+  const first = sortedYears[0]
+  const last = sortedYears[sortedYears.length - 1]
+  return first === last ? first : `${first}-${last}`
+}
 
 // Watchers
-watch(() => filters.value.searchQuery, () => {
-  if (filters.value.searchQuery.trim()) {
-    performSearch();
-  } else {
-    processDataIntoResults();
-  }
-});
+watch(
+  () => filters.value.searchQuery,
+  () => {
+    if (filters.value.searchQuery.trim()) {
+      performSearch()
+    } else {
+      processDataIntoResults()
+    }
+  },
+)
 
 watch(locale, () => {
   // Re-process results when language changes to update display names
-  processDataIntoResults();
-});
+  processDataIntoResults()
+})
 
 // Lifecycle
 onMounted(() => {
-  loadData();
-});
+  loadData()
+})
 
 // Expose methods for parent components
 defineExpose({
   loadData,
   clearSearch,
   selectResult: (id: string) => {
-    const result = searchResults.value.find((r: AvailableDataEntry) => r.id === id);
-    if (result) selectResult(result);
-  }
-});
+    const result = searchResults.value.find((r: AvailableDataEntry) => r.id === id)
+    if (result) selectResult(result)
+  },
+})
 </script>

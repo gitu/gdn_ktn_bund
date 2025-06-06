@@ -2,18 +2,18 @@
  * TypeScript interfaces for Swiss geographical data (cantons and municipalities)
  */
 
-import type { MultiLanguageLabels } from './DataStructures';
+import type { MultiLanguageLabels } from './DataStructures'
 
 /**
  * Swiss canton information
  */
 export interface Canton {
   /** Canton ID (1-26) */
-  cantonId: string;
+  cantonId: string
   /** Canton abbreviation (e.g., "ZH", "BE", "AG") */
-  cantonAbbreviation: string;
+  cantonAbbreviation: string
   /** Canton long name (e.g., "Zürich", "Bern / Berne") */
-  cantonLongName: string;
+  cantonLongName: string
 }
 
 /**
@@ -21,15 +21,15 @@ export interface Canton {
  */
 export interface Municipality {
   /** Canton ID this municipality belongs to */
-  cantonId: string;
+  cantonId: string
   /** Canton abbreviation */
-  cantonAbbreviation: string;
+  cantonAbbreviation: string
   /** Municipality ID within the canton */
-  municipalityId: string;
+  municipalityId: string
   /** Municipality long name */
-  municipalityLongName: string;
+  municipalityLongName: string
   /** GDN ID (formatted as canton + municipality ID) */
-  gdnId: string;
+  gdnId: string
 }
 
 /**
@@ -37,22 +37,22 @@ export interface Municipality {
  */
 export interface GeographicalDataCatalog {
   /** All Swiss cantons */
-  cantons: Canton[];
+  cantons: Canton[]
   /** All Swiss municipalities */
-  municipalities: Municipality[];
+  municipalities: Municipality[]
   /** Index for fast lookups */
   indexes: {
     /** Canton lookup by ID */
-    cantonById: Map<string, Canton>;
+    cantonById: Map<string, Canton>
     /** Canton lookup by abbreviation */
-    cantonByAbbreviation: Map<string, Canton>;
+    cantonByAbbreviation: Map<string, Canton>
     /** Municipality lookup by GDN ID */
-    municipalityByGdnId: Map<string, Municipality>;
+    municipalityByGdnId: Map<string, Municipality>
     /** Municipalities grouped by canton ID */
-    municipalitiesByCantonId: Map<string, Municipality[]>;
+    municipalitiesByCantonId: Map<string, Municipality[]>
     /** Municipalities grouped by canton abbreviation */
-    municipalitiesByCantonAbbreviation: Map<string, Municipality[]>;
-  };
+    municipalitiesByCantonAbbreviation: Map<string, Municipality[]>
+  }
 }
 
 /**
@@ -60,15 +60,15 @@ export interface GeographicalDataCatalog {
  */
 export interface GeographicalDataFilters {
   /** Search query for names */
-  searchQuery?: string;
+  searchQuery?: string
   /** Filter by specific canton IDs */
-  cantonIds?: string[];
+  cantonIds?: string[]
   /** Filter by specific canton abbreviations */
-  cantonAbbreviations?: string[];
+  cantonAbbreviations?: string[]
   /** Minimum population (if available) */
-  minPopulation?: number;
+  minPopulation?: number
   /** Maximum population (if available) */
-  maxPopulation?: number;
+  maxPopulation?: number
 }
 
 /**
@@ -76,11 +76,11 @@ export interface GeographicalDataFilters {
  */
 export interface GeographicalDataConfig {
   /** Language for display names */
-  language: keyof MultiLanguageLabels;
+  language: keyof MultiLanguageLabels
   /** Include multilingual labels */
-  includeMultilingualLabels: boolean;
+  includeMultilingualLabels: boolean
   /** Case-sensitive search */
-  caseSensitiveSearch: boolean;
+  caseSensitiveSearch: boolean
 }
 
 /**
@@ -88,11 +88,11 @@ export interface GeographicalDataConfig {
  */
 export interface GeographicalDataQueryResult {
   /** Matching cantons */
-  cantons: Canton[];
+  cantons: Canton[]
   /** Matching municipalities */
-  municipalities: Municipality[];
+  municipalities: Municipality[]
   /** Total count of results */
-  totalCount: number;
+  totalCount: number
   /** Applied filters */
-  appliedFilters: GeographicalDataFilters;
+  appliedFilters: GeographicalDataFilters
 }

@@ -2,31 +2,31 @@
  * TypeScript interfaces for Swiss statistical data
  */
 
-import type { MultiLanguageLabels } from './DataStructures';
+import type { MultiLanguageLabels } from './DataStructures'
 
 /**
  * Statistical data entry from stats.json catalog
  */
 export interface StatsDataEntry {
   /** Unique identifier for the statistic (e.g., "pop") */
-  id: string;
+  id: string
   /** Multilingual name of the statistic */
-  name: MultiLanguageLabels;
+  name: MultiLanguageLabels
   /** Multilingual unit of measurement */
-  unit: MultiLanguageLabels;
+  unit: MultiLanguageLabels
   /** Data source information */
-  source: string;
+  source: string
   /** Last update date (ISO format) */
-  lastUpdate: string;
+  lastUpdate: string
   /** Mode of the statistic */
-  mode: "absolute" | "per_capita";
+  mode: 'absolute' | 'per_capita'
   /** Available data files organized by type */
   data: {
     /** Canton-level data files */
-    ktn?: StatsDataFile[];
+    ktn?: StatsDataFile[]
     /** Municipality-level data files */
-    gdn?: StatsDataFile[];
-  };
+    gdn?: StatsDataFile[]
+  }
 }
 
 /**
@@ -34,11 +34,11 @@ export interface StatsDataEntry {
  */
 export interface StatsDataFile {
   /** Year of the data */
-  year: number;
+  year: number
   /** Relative path to the CSV file */
-  file: string;
+  file: string
   /** Atlas ID for BFS reference (optional) */
-  atlasId?: string;
+  atlasId?: string
 }
 
 /**
@@ -46,7 +46,7 @@ export interface StatsDataFile {
  */
 export interface StatsCatalog {
   /** Array of all available statistical data entries */
-  stats: StatsDataEntry[];
+  stats: StatsDataEntry[]
 }
 
 /**
@@ -54,37 +54,37 @@ export interface StatsCatalog {
  */
 export interface StatsDataRecord {
   /** Geographic ID */
-  GEO_ID: string;
+  GEO_ID: string
   /** Geographic name (canton or municipality name) */
-  GEO_NAME: string;
+  GEO_NAME: string
   /** Variable description */
-  VARIABLE: string;
+  VARIABLE: string
   /** Statistical value */
-  VALUE: string;
+  VALUE: string
   /** Unit of measurement */
-  UNIT: string;
+  UNIT: string
   /** Status code */
-  STATUS: string;
+  STATUS: string
   /** Status description */
-  STATUS_DESC: string;
+  STATUS_DESC: string
   /** Description value (usually empty) */
-  DESC_VAL: string;
+  DESC_VAL: string
   /** Period reference date */
-  PERIOD_REF: string;
+  PERIOD_REF: string
   /** Data source */
-  SOURCE: string;
+  SOURCE: string
   /** Last update date */
-  LAST_UPDATE: string;
+  LAST_UPDATE: string
   /** Geometry code */
-  GEOM_CODE: string;
+  GEOM_CODE: string
   /** Geometry description */
-  GEOM: string;
+  GEOM: string
   /** Geometry period */
-  GEOM_PERIOD: string;
+  GEOM_PERIOD: string
   /** Map ID for atlas reference */
-  MAP_ID: string;
+  MAP_ID: string
   /** Map URL for atlas reference */
-  MAP_URL: string;
+  MAP_URL: string
 }
 
 /**
@@ -92,21 +92,21 @@ export interface StatsDataRecord {
  */
 export interface ProcessedStatsRecord {
   /** Geographic ID */
-  geoId: string;
+  geoId: string
   /** Geographic name (canton or municipality name) */
-  geoName: string;
+  geoName: string
   /** Numerical value */
-  value: number;
+  value: number
   /** Unit of measurement */
-  unit: string;
+  unit: string
   /** Year of the data */
-  year: number;
+  year: number
   /** Status code */
-  status: string;
+  status: string
   /** Data source */
-  source: string;
+  source: string
   /** Last update date */
-  lastUpdate: string;
+  lastUpdate: string
 }
 
 /**
@@ -114,28 +114,28 @@ export interface ProcessedStatsRecord {
  */
 export interface StatsDataResult {
   /** Processed data records */
-  data: ProcessedStatsRecord[];
+  data: ProcessedStatsRecord[]
   /** Metadata about the loaded data */
   metadata: {
     /** Source identifier */
-    source: string;
+    source: string
     /** When the data was loaded */
-    loadedAt: string;
+    loadedAt: string
     /** Number of records */
-    recordCount: number;
+    recordCount: number
     /** Year of the data (actual year used) */
-    year: number;
+    year: number
     /** Originally requested year (only set if different from actual year) */
-    requestedYear?: number;
+    requestedYear?: number
     /** Type of data (ktn or gdn) */
-    dataType: 'ktn' | 'gdn';
+    dataType: 'ktn' | 'gdn'
     /** Unit of measurement */
-    unit?: string;
+    unit?: string
     /** Mode of the statistic */
-    mode?: "absolute" | "per_capita";
+    mode?: 'absolute' | 'per_capita'
     /** Name of the statistic */
-    name?: MultiLanguageLabels;
-  };
+    name?: MultiLanguageLabels
+  }
 }
 
 /**
@@ -143,24 +143,24 @@ export interface StatsDataResult {
  */
 export interface BundStatsResult {
   /** Total aggregated value */
-  totalValue: number;
+  totalValue: number
   /** Unit of measurement */
-  unit: string;
+  unit: string
   /** Year of the data (actual year used) */
-  year: number;
+  year: number
   /** Originally requested year (only set if different from actual year) */
-  requestedYear?: number;
+  requestedYear?: number
   /** Number of cantons included in aggregation */
-  cantonCount: number;
+  cantonCount: number
   /** Metadata about the aggregation */
   metadata: {
     /** Source identifier */
-    source: string;
+    source: string
     /** When the aggregation was performed */
-    aggregatedAt: string;
+    aggregatedAt: string
     /** Original data type used for aggregation */
-    sourceDataType: 'ktn';
-  };
+    sourceDataType: 'ktn'
+  }
 }
 
 /**
@@ -168,19 +168,19 @@ export interface BundStatsResult {
  */
 export interface StatsAvailabilityInfo {
   /** Statistics ID */
-  id: string;
+  id: string
   /** Multilingual name */
-  name: MultiLanguageLabels;
+  name: MultiLanguageLabels
   /** Multilingual unit */
-  unit: MultiLanguageLabels;
+  unit: MultiLanguageLabels
   /** Available years for canton data */
-  availableKtnYears: number[];
+  availableKtnYears: number[]
   /** Available years for municipality data */
-  availableGdnYears: number[];
+  availableGdnYears: number[]
   /** Data source */
-  source: string;
+  source: string
   /** Last update date */
-  lastUpdate: string;
+  lastUpdate: string
 }
 
 /**
@@ -188,13 +188,13 @@ export interface StatsAvailabilityInfo {
  */
 export interface StatsDataFilters {
   /** Filter by specific geographic IDs */
-  geoIds?: string[];
+  geoIds?: string[]
   /** Filter by geographic names (partial match) */
-  geoNamePattern?: string;
+  geoNamePattern?: string
   /** Minimum value threshold */
-  minValue?: number;
+  minValue?: number
   /** Maximum value threshold */
-  maxValue?: number;
+  maxValue?: number
 }
 
 /**
@@ -202,9 +202,9 @@ export interface StatsDataFilters {
  */
 export interface StatsDataConfig {
   /** Language for error messages and logging */
-  language: keyof MultiLanguageLabels;
+  language: keyof MultiLanguageLabels
   /** Whether to include detailed metadata */
-  includeMetadata: boolean;
+  includeMetadata: boolean
   /** Whether to validate data integrity */
-  validateData: boolean;
+  validateData: boolean
 }
