@@ -60,6 +60,9 @@ const i18n = createI18n({
         scalingInfo: {
           title: 'Skalierungsinformationen'
         },
+        controls: {
+          title: 'Anzeigeoptionen'
+        },
         metadata: {
           source: 'Quelle',
           loadedAt: 'Geladen am',
@@ -113,6 +116,9 @@ const i18n = createI18n({
         noScalingFactor: 'No scaling factor available',
         scalingInfo: {
           title: 'Scaling Information'
+        },
+        controls: {
+          title: 'Display Options'
         },
         metadata: {
           source: 'Source',

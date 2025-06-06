@@ -8,53 +8,56 @@ import { createI18n } from 'vue-i18n';
 import type { StatsAvailabilityInfo } from '../../types/StatsData';
 import type { MultiLanguageLabels } from '../../types/DataStructures';
 
-// Mock the StatsDataLoader
-const mockStatsData: StatsAvailabilityInfo[] = [
-  {
-    id: 'pop',
-    name: {
-      de: 'Bevölkerung',
-      fr: 'Population',
-      it: 'Popolazione',
-      en: 'Population'
-    } as MultiLanguageLabels,
-    unit: {
-      de: 'Personen',
-      fr: 'Personnes',
-      it: 'Persone',
-      en: 'Persons'
-    } as MultiLanguageLabels,
-    availableKtnYears: [2020, 2021, 2022],
-    availableGdnYears: [2020, 2021, 2022],
-    source: 'BFS',
-    lastUpdate: '2023-01-01'
-  },
-  {
-    id: 'area',
-    name: {
-      de: 'Fläche',
-      fr: 'Superficie',
-      it: 'Superficie',
-      en: 'Area'
-    } as MultiLanguageLabels,
-    unit: {
-      de: 'km²',
-      fr: 'km²',
-      it: 'km²',
-      en: 'km²'
-    } as MultiLanguageLabels,
-    availableKtnYears: [2020, 2021, 2022],
-    availableGdnYears: [2020, 2021, 2022],
-    source: 'BFS',
-    lastUpdate: '2023-01-01'
-  }
-];
+vi.mock('../../utils/StatsDataLoader', () => {
+  const mockStatsData: StatsAvailabilityInfo[] = [
+    {
+      id: 'pop',
+      name: {
+        de: 'Bevölkerung',
+        fr: 'Population',
+        it: 'Popolazione',
+        en: 'Population'
+      } as MultiLanguageLabels,
+      unit: {
+        de: 'Personen',
+        fr: 'Personnes',
+        it: 'Persone',
+        en: 'Persons'
+      } as MultiLanguageLabels,
+      availableKtnYears: [2020, 2021, 2022],
+      availableGdnYears: [2020, 2021, 2022],
+      source: 'BFS',
+      lastUpdate: '2023-01-01'
+    },
+    {
+      id: 'area',
+      name: {
+        de: 'Fläche',
+        fr: 'Superficie',
+        it: 'Superficie',
+        en: 'Area'
+      } as MultiLanguageLabels,
+      unit: {
+        de: 'km²',
+        fr: 'km²',
+        it: 'km²',
+        en: 'km²'
+      } as MultiLanguageLabels,
+      availableKtnYears: [2020, 2021, 2022],
+      availableGdnYears: [2020, 2021, 2022],
+      source: 'BFS',
+      lastUpdate: '2023-01-01'
+    }
+  ];
 
-vi.mock('../../utils/StatsDataLoader', () => ({
-  StatsDataLoader: vi.fn().mockImplementation(() => ({
-    getAvailableStats: vi.fn().mockResolvedValue(mockStatsData)
-  }))
-}));
+  return {
+    StatsDataLoader: {
+      getInstance: vi.fn().mockReturnValue({
+        getAvailableStats: vi.fn().mockResolvedValue(mockStatsData)
+      })
+    }
+  };
+});
 
 vi.mock('../../utils/GeographicalDataLoader', () => ({
   GeographicalDataLoader: {
