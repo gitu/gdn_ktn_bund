@@ -56,10 +56,9 @@ import {StatsDataLoader} from '@/utils/StatsDataLoader';
 import {createEmptyFinancialDataStructure} from '@/data/emptyFinancialDataStructure';
 import type {FinancialData} from '@/types/FinancialDataStructure';
 import type {MultiLanguageLabels} from '@/types/DataStructures';
-import type {StatsAvailabilityInfo} from '@/types/StatsData';
+
 import {EntitySemanticMapper} from "@/utils/EntitySemanticMapper.ts";
 import {
-  GeographicalDataLoader,
   getCantonByAbbreviation,
   getMunicipalityByGdnId
 } from "@/utils/GeographicalDataLoader.ts";
@@ -191,7 +190,7 @@ const handleScalingChanged = async (scalingId: string | null, scalingInfo: Scali
 
     if (!scalingId || !scalingInfo) {
       // Remove scaling from all entities
-      for (const [entityCode, entity] of combinedFinancialData.value.entities) {
+      for (const [, entity] of combinedFinancialData.value.entities) {
         entity.scalingFactor = undefined;
         entity.scalingInfo = undefined;
         entity.scalingMode = undefined;
@@ -224,7 +223,6 @@ const applyScalingToEntities = async (scalingId: string, scalingInfo: ScalingInf
       if (!entityId || !year) continue;
 
       let geoId = "";
-      const geo = GeographicalDataLoader.getInstance();
       if (source === 'std') {
         // Map canton-specific entities to their canton code
         if (EntitySemanticMapper.isCantonSpecific(entityId)) {
@@ -277,7 +275,7 @@ const loadScalingFactorForEntity = async (
         geoIds: [entityId]
       });
 
-      const record = result.data.find((r: any) => r.geoId === entityId);
+      const record = result.data.find((r: {geoId: string; value: number}) => r.geoId === entityId);
       return record ? record.value : null;
     } else {
 
@@ -287,7 +285,7 @@ const loadScalingFactorForEntity = async (
         geoIds: [entityId]
       });
 
-      const record = result.data.find((r: any) => r.geoId === entityId);
+      const record = result.data.find((r: {geoId: string; value: number}) => r.geoId === entityId);
       return record ? record.value : null;
     }
   } catch (error) {
@@ -308,7 +306,7 @@ watch(() => combinedFinancialData.value, async (newData) => {
     // Reapply current scaling to newly loaded data
     const scalingInfo = availableStats.value.find(s => s.id === currentScalingId.value);
     if (scalingInfo) {
-      const currentLocale = (locale as any).value as keyof MultiLanguageLabels;
+      const currentLocale = (locale as {value: keyof MultiLanguageLabels}).value;
       await applyScalingToEntities(currentScalingId.value, {
         id: scalingInfo.id,
         name: scalingInfo.name[currentLocale] || scalingInfo.name.en || scalingInfo.id,
@@ -320,7 +318,7 @@ watch(() => combinedFinancialData.value, async (newData) => {
 }, {deep: false});
 
 // Store available stats for reapplying scaling
-const availableStats = ref<any[]>([]);
+const availableStats = ref<{id: string; name: MultiLanguageLabels; unit: MultiLanguageLabels}[]>([]);
 </script>
 
 

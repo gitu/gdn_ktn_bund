@@ -282,6 +282,9 @@ const entityYears = computed(() => {
   return years;
 });
 
+// Suppress unused variable warning - entityYears is computed for potential future use
+void entityYears.value;
+
 // TreeTable node interface
 interface TreeTableNode {
   key: string;

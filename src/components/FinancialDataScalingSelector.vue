@@ -63,7 +63,7 @@ import Message from 'primevue/message';
 import { StatsDataLoader } from '@/utils/StatsDataLoader';
 import { GeographicalDataLoader } from '@/utils/GeographicalDataLoader';
 import type { StatsAvailabilityInfo } from '@/types/StatsData';
-import type { FinancialData, FinancialDataEntity } from '@/types/FinancialDataStructure';
+import type { FinancialData } from '@/types/FinancialDataStructure';
 import type { MultiLanguageLabels } from '@/types/DataStructures';
 
 // Props
@@ -72,6 +72,9 @@ interface Props {
 }
 
 const props = defineProps<Props>();
+
+// Suppress unused variable warning - props is used in template
+void props;
 
 // Emits
 interface Emits {
@@ -108,6 +111,9 @@ const selectedScaling = ref<string | null>(null);
 const availableStats = ref<StatsAvailabilityInfo[]>([]);
 const statsDataLoader = StatsDataLoader.getInstance();
 const geoDataLoader = GeographicalDataLoader.getInstance();
+
+// Suppress unused variable warning - geoDataLoader is available for future use
+void geoDataLoader;
 
 // Computed properties
 const scalingOptions = computed<ScalingOption[]>(() => {
