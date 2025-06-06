@@ -376,7 +376,7 @@ describe('FinancialDataDisplay', () => {
       expect(expandControl.text()).toContain('Alle erweitern')
 
       // Trigger the toggle method directly
-      const vm = wrapper.vm as any
+      const vm = wrapper.vm as unknown as { toggleExpandAll: () => void }
       vm.toggleExpandAll()
       await wrapper.vm.$nextTick()
       expect(expandControl.text()).toContain('Alle einklappen')
@@ -397,7 +397,7 @@ describe('FinancialDataDisplay', () => {
       expect(codesControl.text()).toContain('Codes ausblenden') // Default is true
 
       // Trigger the toggle method directly
-      const vm = wrapper.vm as any
+      const vm = wrapper.vm as unknown as { toggleShowCodes: () => void }
       vm.toggleShowCodes()
       await wrapper.vm.$nextTick()
       expect(codesControl.text()).toContain('Codes anzeigen')
@@ -418,7 +418,7 @@ describe('FinancialDataDisplay', () => {
       expect(zeroValuesControl.text()).toContain('Nullwerte anzeigen') // Default is false
 
       // Trigger the toggle method directly
-      const vm = wrapper.vm as any
+      const vm = wrapper.vm as unknown as { toggleShowZeroValues: () => void }
       vm.toggleShowZeroValues()
       await wrapper.vm.$nextTick()
       expect(zeroValuesControl.text()).toContain('Nullwerte ausblenden')
