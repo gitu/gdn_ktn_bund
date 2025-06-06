@@ -1,0 +1,37 @@
+{
+  "stats": [
+    {
+      "id": "pop",
+      "name": {
+        "de": "Anzahl Einwohner/-innen am Jahresende",
+        "fr": "Nombre d'habitants à la fin de l'année",
+        "it": "Numero di abitanti alla fine dell'anno",
+        "en": "Number of inhabitants at the end of the year"
+      },
+      "unit": {
+        "de": "Einwohner/Innen",
+        "fr": "Habitants",
+        "it": "Abitanti",
+        "en": "Inhabitants"
+      },
+      "source": "STATPOP via atlas.bfs.admin.ch",
+      "lastUpdate": "2024-08-21",
+      "data": {
+        "ktn": [
+          {
+            "year": 2023,
+            "file": "pop/ktn/2023.csv",
+            "atlasId": "27862"
+          }
+        ],
+        "gdn": [
+          {
+            "year": 2023,
+            "file": "pop/gdn/2023.csv",
+            "atlasId": "27864"
+          }
+        ]
+      }
+    }
+  ]
+}
