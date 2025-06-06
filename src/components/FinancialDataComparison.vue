@@ -20,6 +20,15 @@
 
     <!-- Main comparison content -->
     <div v-else class="w-full">
+      <!-- Scaling selector -->
+      <div class="mb-6">
+        <FinancialDataScalingSelector
+          :financial-data="combinedFinancialData"
+          @scaling-changed="handleScalingChanged"
+          @error="handleScalingError"
+        />
+      </div>
+
       <!-- Single FinancialDataDisplay for combined data -->
       <div class="w-full">
         <FinancialDataDisplay
@@ -37,13 +46,23 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, watch } from 'vue';
-import { useI18n } from 'vue-i18n';
+import {ref, computed, watch} from 'vue';
+import {useI18n} from 'vue-i18n';
 import Message from 'primevue/message';
 import FinancialDataDisplay from './FinancialDataDisplay.vue';
-import { DataLoader } from '@/utils/DataLoader';
-import { createEmptyFinancialDataStructure } from '@/data/emptyFinancialDataStructure';
-import type { FinancialData } from '@/types/FinancialDataStructure';
+import FinancialDataScalingSelector from './FinancialDataScalingSelector.vue';
+import {DataLoader} from '@/utils/DataLoader';
+import {StatsDataLoader} from '@/utils/StatsDataLoader';
+import {createEmptyFinancialDataStructure} from '@/data/emptyFinancialDataStructure';
+import type {FinancialData} from '@/types/FinancialDataStructure';
+import type {MultiLanguageLabels} from '@/types/DataStructures';
+import type {StatsAvailabilityInfo} from '@/types/StatsData';
+import {EntitySemanticMapper} from "@/utils/EntitySemanticMapper.ts";
+import {
+  GeographicalDataLoader,
+  getCantonByAbbreviation,
+  getMunicipalityByGdnId
+} from "@/utils/GeographicalDataLoader.ts";
 
 // Props
 interface Props {
@@ -61,7 +80,7 @@ interface Emits {
 const emit = defineEmits<Emits>();
 
 // Vue i18n
-const { t } = useI18n();
+const {t, locale} = useI18n();
 
 // Reactive state
 const loading = ref(false);
@@ -71,6 +90,8 @@ const loadedDatasetCount = ref(0);
 const expandedAll = ref(false);
 const showCodes = ref(false);
 const hideZeroValues = ref(true);
+const currentScalingId = ref<string | null>(null);
+const statsDataLoader = StatsDataLoader.getInstance();
 
 // Computed properties
 const hasValidData = computed(() => {
@@ -143,19 +164,163 @@ const loadDatasets = async () => {
 };
 
 
-
 // Event handlers
 const handleDatasetError = (errorMessage: string) => {
   console.error('Dataset error:', errorMessage);
   emit('error', errorMessage);
 };
 
+const handleScalingError = (errorMessage: string) => {
+  console.error('Scaling error:', errorMessage);
+  emit('error', errorMessage);
+};
+
+interface ScalingInfo {
+  id: string;
+  name: string;
+  unit: string;
+  description: string;
+  factor?: number;
+}
+
+const handleScalingChanged = async (scalingId: string | null, scalingInfo: ScalingInfo | null) => {
+  try {
+    currentScalingId.value = scalingId;
+
+    if (!combinedFinancialData.value) return;
+
+    if (!scalingId || !scalingInfo) {
+      // Remove scaling from all entities
+      for (const [entityCode, entity] of combinedFinancialData.value.entities) {
+        entity.scalingFactor = undefined;
+        entity.scalingInfo = undefined;
+        entity.scalingMode = undefined;
+      }
+      return;
+    }
+
+    // Apply scaling to all entities
+    await applyScalingToEntities(scalingId, scalingInfo);
+
+  } catch (error) {
+    console.error('Error handling scaling change:', error);
+    emit('error', t('financialDataComparison.scalingError'));
+  }
+};
+
+const applyScalingToEntities = async (scalingId: string, scalingInfo: ScalingInfo) => {
+  if (!combinedFinancialData.value) return;
+
+  for (const [entityCode, entity] of combinedFinancialData.value.entities) {
+    try {
+      // Extract entity information from the entity code
+      const parts = entityCode.split('/');
+      if (parts.length !== 3) continue;
+
+      const source = parts[0] as 'gdn' | 'std';
+      const entityAndYear = parts[2];
+      const [entityId, year] = entityAndYear.split(':');
+
+      if (!entityId || !year) continue;
+
+      let geoId = "";
+      const geo = GeographicalDataLoader.getInstance();
+      if (source === 'std') {
+        // Map canton-specific entities to their canton code
+        if (EntitySemanticMapper.isCantonSpecific(entityId)) {
+          const cantonCode = EntitySemanticMapper.getCantonCodeFromEntity(entityId);
+          if (cantonCode) {
+            console.log('cantonCode', cantonCode);
+            const canton = await getCantonByAbbreviation(cantonCode.toUpperCase())
+            geoId = canton?.cantonId || "XYX";
+          }
+        } else {
+          // assume bund for now
+          geoId = "bund";
+        }
+      } else if (source === 'gdn') {
+        const muncipality = await getMunicipalityByGdnId(entityId);
+        geoId = muncipality?.municipalityId || "XXX";
+      }
+
+      // Load scaling data for this entity
+      const scalingFactor = await loadScalingFactorForEntity(scalingId, geoId, parseInt(year), source);
+      console.log('scalingFactor', scalingFactor, "for entity",
+        entityCode, "entityid", entityId, "year", year, "geoId", geoId);
+      if (scalingFactor !== null) {
+        entity.scalingFactor = scalingFactor;
+        entity.scalingInfo = {
+          de: `${scalingInfo.name} (${scalingInfo.unit})`,
+          fr: `${scalingInfo.name} (${scalingInfo.unit})`,
+          it: `${scalingInfo.name} (${scalingInfo.unit})`,
+          en: `${scalingInfo.name} (${scalingInfo.unit})`
+        };
+        entity.scalingMode = 'divide'; // Divide financial values by scaling factor for per-capita/per-unit values
+      }
+    } catch (error) {
+      console.error(`Error applying scaling to entity ${entityCode}:`, error);
+      // Continue with other entities even if one fails
+    }
+  }
+};
+
+const loadScalingFactorForEntity = async (
+  scalingId: string,
+  entityId: string,
+  year: number,
+  source: 'gdn' | 'std'
+): Promise<number | null> => {
+  try {
+    if (source === 'gdn') {
+      // For municipalities, load GDN data
+      const result = await statsDataLoader.loadGdnData(scalingId, year, {
+        geoIds: [entityId]
+      });
+
+      const record = result.data.find((r: any) => r.geoId === entityId);
+      return record ? record.value : null;
+    } else {
+
+      if (entityId === "bund") return (await statsDataLoader.getBundData(scalingId, year)).totalValue;
+      // For standard entities, load KTN data if applicable
+      const result = await statsDataLoader.loadKtnData(scalingId, year, {
+        geoIds: [entityId]
+      });
+
+      const record = result.data.find((r: any) => r.geoId === entityId);
+      return record ? record.value : null;
+    }
+  } catch (error) {
+    console.error(`Error loading scaling factor for entity ${entityId}:`, error);
+    return null;
+  }
+};
 
 
 // Watch for dataset changes
 watch(() => props.datasets, () => {
   loadDatasets();
-}, { immediate: true });
+}, {immediate: true});
+
+// Watch for data changes and reapply scaling if needed
+watch(() => combinedFinancialData.value, async (newData) => {
+  if (newData && currentScalingId.value) {
+    // Reapply current scaling to newly loaded data
+    const scalingInfo = availableStats.value.find(s => s.id === currentScalingId.value);
+    if (scalingInfo) {
+      const currentLocale = (locale as any).value as keyof MultiLanguageLabels;
+      await applyScalingToEntities(currentScalingId.value, {
+        id: scalingInfo.id,
+        name: scalingInfo.name[currentLocale] || scalingInfo.name.en || scalingInfo.id,
+        unit: scalingInfo.unit[currentLocale] || scalingInfo.unit.en || '',
+        description: t('financialDataScalingSelector.scalingInfo.description')
+      });
+    }
+  }
+}, {deep: false});
+
+// Store available stats for reapplying scaling
+const availableStats = ref<any[]>([]);
 </script>
 
 

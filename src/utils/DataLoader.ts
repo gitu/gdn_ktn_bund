@@ -346,7 +346,6 @@ export class DataLoader {
       const entity: FinancialDataEntity = {
         code: fullEntityCode,
         name: entityName,
-        scalingFactor: 1,
         metadata: metadata,
         year: year,
         model: model,

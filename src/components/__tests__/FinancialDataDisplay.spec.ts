@@ -44,12 +44,22 @@ const i18n = createI18n({
         hideCodes: 'Codes ausblenden',
         showZeroValues: 'Nullwerte anzeigen',
         hideZeroValues: 'Nullwerte ausblenden',
+        enableScaling: 'Skalierung aktivieren',
+        disableScaling: 'Skalierung deaktivieren',
         columns: {
           account: 'Konto',
           code: 'Code',
           description: 'Beschreibung'
         },
         currency: 'CHF',
+        yearInfo: 'Jahr: {year}',
+        scalingFactor: 'Skalierungsfaktor: {factor}',
+        scalingEnabled: 'Skalierung aktiviert',
+        scalingDisabled: 'Skalierung deaktiviert',
+        noScalingFactor: 'Kein Skalierungsfaktor verfügbar',
+        scalingInfo: {
+          title: 'Skalierungsinformationen'
+        },
         metadata: {
           source: 'Quelle',
           loadedAt: 'Geladen am',
@@ -60,6 +70,7 @@ const i18n = createI18n({
           expandNode: 'Knoten erweitern',
           collapseNode: 'Knoten einklappen',
           financialValue: 'Finanzieller Wert für {entity}',
+          scalingToggle: 'Skalierung umschalten für bessere Vergleichbarkeit',
           noValue: 'Kein Wert verfügbar'
         },
         errors: {
@@ -87,12 +98,22 @@ const i18n = createI18n({
         hideCodes: 'Hide Codes',
         showZeroValues: 'Show Zero Values',
         hideZeroValues: 'Hide Zero Values',
+        enableScaling: 'Enable Scaling',
+        disableScaling: 'Disable Scaling',
         columns: {
           account: 'Account',
           code: 'Code',
           description: 'Description'
         },
         currency: 'CHF',
+        yearInfo: 'Year: {year}',
+        scalingFactor: 'Scaling Factor: {factor}',
+        scalingEnabled: 'Scaling enabled',
+        scalingDisabled: 'Scaling disabled',
+        noScalingFactor: 'No scaling factor available',
+        scalingInfo: {
+          title: 'Scaling Information'
+        },
         metadata: {
           source: 'Source',
           loadedAt: 'Loaded at',
@@ -103,6 +124,7 @@ const i18n = createI18n({
           expandNode: 'Expand node',
           collapseNode: 'Collapse node',
           financialValue: 'Financial value for {entity}',
+          scalingToggle: 'Toggle scaling for better comparability',
           noValue: 'No value available'
         },
         errors: {
@@ -135,10 +157,10 @@ const createFinancialDataNode = (code: string, label: string, children: Financia
   children
 });
 
-const createFinancialDataEntity = (code: string, name: string): FinancialDataEntity => ({
+const createFinancialDataEntity = (code: string, name: string, scalingFactor?: number): FinancialDataEntity => ({
   code,
   name: createMultiLanguageLabels(name),
-  scalingFactor: 1,
+  scalingFactor,
   metadata: {
     source: 'test',
     loadedAt: '2023-01-01T00:00:00Z',
@@ -176,7 +198,7 @@ const createMockFinancialData = (): FinancialData => {
   ]);
 
   const entities = new Map([
-    ['entity1', createFinancialDataEntity('entity1', 'Entity One')],
+    ['entity1', createFinancialDataEntity('entity1', 'Entity One', 1000)],
     ['entity2', createFinancialDataEntity('entity2', 'Entity Two')]
   ]);
 
@@ -213,7 +235,7 @@ describe('FinancialDataDisplay', () => {
       expect(wrapper.find('.title').text()).toBe('Finanzdaten-Anzeige');
     });
 
-    it('renders control buttons', () => {
+    it('renders control toggles', () => {
       const wrapper = mount(FinancialDataDisplay, {
         global: {
           plugins: [i18n]
@@ -223,11 +245,12 @@ describe('FinancialDataDisplay', () => {
         }
       });
 
-      const buttons = wrapper.findAll('button');
-      expect(buttons).toHaveLength(3);
-      expect(buttons[0].text()).toContain('Alle erweitern');
-      expect(buttons[1].text()).toContain('Codes ausblenden');
-      expect(buttons[2].text()).toContain('Nullwerte anzeigen'); // Default is false, so it shows "show"
+      const controlItems = wrapper.findAll('.control-item');
+      expect(controlItems.length).toBeGreaterThanOrEqual(3); // At least 3 controls (expand, codes, zero values)
+
+      // Check that toggle switches are present
+      const toggleSwitches = wrapper.findAll('input[role="switch"]');
+      expect(toggleSwitches.length).toBeGreaterThanOrEqual(3);
     });
 
     it('displays metadata section when financial data has metadata', () => {
@@ -312,8 +335,8 @@ describe('FinancialDataDisplay', () => {
     });
   });
 
-  describe('Control Button Interactions', () => {
-    it('toggles expand all button text when clicked', async () => {
+  describe('Control Toggle Interactions', () => {
+    it('toggles expand all label when switched', async () => {
       const wrapper = mount(FinancialDataDisplay, {
         global: {
           plugins: [i18n]
@@ -323,14 +346,17 @@ describe('FinancialDataDisplay', () => {
         }
       });
 
-      const expandButton = wrapper.findAll('button')[0];
-      expect(expandButton.text()).toContain('Alle erweitern');
+      const controlItems = wrapper.findAll('.control-item');
+      const expandControl = controlItems[0];
+      expect(expandControl.text()).toContain('Alle erweitern');
 
-      await expandButton.trigger('click');
-      expect(expandButton.text()).toContain('Alle einklappen');
+      const expandToggle = expandControl.find('input[role="switch"]');
+      await expandToggle.setValue(true);
+      await wrapper.vm.$nextTick();
+      expect(expandControl.text()).toContain('Alle einklappen');
     });
 
-    it('toggles show codes button text when clicked', async () => {
+    it('toggles show codes label when switched', async () => {
       const wrapper = mount(FinancialDataDisplay, {
         global: {
           plugins: [i18n]
@@ -340,14 +366,17 @@ describe('FinancialDataDisplay', () => {
         }
       });
 
-      const codesButton = wrapper.findAll('button')[1];
-      expect(codesButton.text()).toContain('Codes ausblenden');
+      const controlItems = wrapper.findAll('.control-item');
+      const codesControl = controlItems[1];
+      expect(codesControl.text()).toContain('Codes ausblenden'); // Default is true
 
-      await codesButton.trigger('click');
-      expect(codesButton.text()).toContain('Codes anzeigen');
+      const codesToggle = codesControl.find('input[role="switch"]');
+      await codesToggle.setValue(false);
+      await wrapper.vm.$nextTick();
+      expect(codesControl.text()).toContain('Codes anzeigen');
     });
 
-    it('toggles show zero values button text when clicked', async () => {
+    it('toggles show zero values label when switched', async () => {
       const wrapper = mount(FinancialDataDisplay, {
         global: {
           plugins: [i18n]
@@ -357,11 +386,14 @@ describe('FinancialDataDisplay', () => {
         }
       });
 
-      const zeroValuesButton = wrapper.findAll('button')[2];
-      expect(zeroValuesButton.text()).toContain('Nullwerte anzeigen'); // Default is false
+      const controlItems = wrapper.findAll('.control-item');
+      const zeroValuesControl = controlItems[2];
+      expect(zeroValuesControl.text()).toContain('Nullwerte anzeigen'); // Default is false
 
-      await zeroValuesButton.trigger('click');
-      expect(zeroValuesButton.text()).toContain('Nullwerte ausblenden');
+      const zeroValuesToggle = zeroValuesControl.find('input[role="switch"]');
+      await zeroValuesToggle.setValue(true);
+      await wrapper.vm.$nextTick();
+      expect(zeroValuesControl.text()).toContain('Nullwerte ausblenden');
     });
   });
 
@@ -623,6 +655,65 @@ describe('FinancialDataDisplay', () => {
 
       const zeroValuesButton = wrapper.findAll('button')[2];
       expect(zeroValuesButton.text()).toContain('Nullwerte ausblenden');
+    });
+  });
+
+  describe('Scaling Functionality', () => {
+    it('shows scaling toggle when entities have scaling factors', () => {
+      const wrapper = mount(FinancialDataDisplay, {
+        global: {
+          plugins: [i18n]
+        },
+        props: {
+          financialData: mockFinancialData
+        }
+      });
+
+      const scalingControl = wrapper.find('.scaling-control');
+      expect(scalingControl.exists()).toBe(true);
+    });
+
+    it('hides scaling toggle when no entities have scaling factors', () => {
+      const dataWithoutScaling = createMockFinancialData();
+      dataWithoutScaling.entities = new Map([
+        ['entity1', createFinancialDataEntity('entity1', 'Entity One')],
+        ['entity2', createFinancialDataEntity('entity2', 'Entity Two')]
+      ]);
+
+      const wrapper = mount(FinancialDataDisplay, {
+        global: {
+          plugins: [i18n]
+        },
+        props: {
+          financialData: dataWithoutScaling
+        }
+      });
+
+      const scalingControl = wrapper.find('.scaling-control');
+      expect(scalingControl.exists()).toBe(false);
+    });
+
+    it('displays metadata section with year and scaling factor information', () => {
+      const wrapper = mount(FinancialDataDisplay, {
+        global: {
+          plugins: [i18n]
+        },
+        props: {
+          financialData: mockFinancialData
+        }
+      });
+
+      const metadataSection = wrapper.find('.metadata-section');
+      expect(metadataSection.exists()).toBe(true);
+
+      const entityInfos = wrapper.findAll('.entity-info');
+      expect(entityInfos).toHaveLength(2);
+
+      // Check that year information is displayed
+      expect(wrapper.text()).toContain('Jahr: 2023');
+
+      // Check that scaling factor is displayed for entity with scaling factor
+      expect(wrapper.text()).toContain('Skalierungsfaktor: 1');
     });
   });
 });

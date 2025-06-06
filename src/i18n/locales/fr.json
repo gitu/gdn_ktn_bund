@@ -211,6 +211,33 @@
     },
     "aboutFooter": "Chaque nœud affiche le code de compte, les libellés multilingues et les valeurs disponibles. Utilisez la fonction de recherche pour trouver rapidement des comptes ou catégories spécifiques."
   },
+  "financialDataScalingSelector": {
+    "title": "Mise à l'échelle des données",
+    "subtitle": "Appliquer des facteurs d'échelle pour une meilleure comparaison",
+    "noScaling": "Aucune mise à l'échelle",
+    "loading": "Chargement des options de mise à l'échelle...",
+    "error": "Erreur lors du chargement des options de mise à l'échelle",
+    "selectScaling": "Sélectionner le facteur d'échelle",
+    "scalingApplied": "Mise à l'échelle appliquée: {name}",
+    "scalingRemoved": "Mise à l'échelle supprimée",
+    "scalingInfo": {
+      "title": "Informations sur la mise à l'échelle",
+      "description": "Les facteurs d'échelle aident à normaliser les données pour une meilleure comparaison entre entités de tailles différentes.",
+      "currentScaling": "Mise à l'échelle actuelle: {name}",
+      "unit": "Unité: {unit}"
+    },
+    "options": {
+      "population": "Population",
+      "area": "Superficie",
+      "households": "Ménages",
+      "employees": "Employés"
+    },
+    "errors": {
+      "loadingFailed": "Échec du chargement des options de mise à l'échelle",
+      "applyingFailed": "Échec de l'application du facteur d'échelle",
+      "invalidScaling": "Facteur d'échelle sélectionné invalide"
+    }
+  },
   "financialDataComparison": {
     "title": "Comparaison des données financières",
     "subtitle": "Comparez les jeux de données financières côte à côte en utilisant une structure arborescente hiérarchique",
@@ -223,6 +250,7 @@
     },
     "loadingDataset": "Chargement du jeu de données {dataset}...",
     "datasetError": "Erreur lors du chargement du jeu de données {dataset}: {error}",
+    "scalingError": "Erreur lors de l'application de la mise à l'échelle aux données financières",
     "expandAll": "Tout développer",
     "collapseAll": "Tout réduire",
     "showCodes": "Afficher les codes",
@@ -263,12 +291,25 @@
     "hideCodes": "Masquer les codes",
     "showZeroValues": "Afficher les valeurs nulles",
     "hideZeroValues": "Masquer les valeurs nulles",
+    "enableScaling": "Activer la mise à l'échelle",
+    "disableScaling": "Désactiver la mise à l'échelle",
     "columns": {
       "account": "Compte",
       "code": "Code",
       "description": "Description"
     },
     "currency": "CHF",
+    "yearInfo": "Année: {year}",
+    "scalingFactor": "Facteur d'échelle: {factor}",
+    "scalingEnabled": "Mise à l'échelle activée",
+    "scalingDisabled": "Mise à l'échelle désactivée",
+    "noScalingFactor": "Aucun facteur d'échelle disponible",
+    "scalingInfo": {
+      "title": "Informations de mise à l'échelle"
+    },
+    "controls": {
+      "title": "Options d'affichage"
+    },
     "metadata": {
       "source": "Source",
       "loadedAt": "Chargé le",
@@ -279,6 +320,7 @@
       "expandNode": "Développer le nœud",
       "collapseNode": "Réduire le nœud",
       "financialValue": "Valeur financière pour {entity}",
+      "scalingToggle": "Basculer la mise à l'échelle pour une meilleure comparabilité",
       "noValue": "Aucune valeur disponible"
     },
     "errors": {

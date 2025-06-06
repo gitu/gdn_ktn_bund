@@ -174,6 +174,27 @@ export class StatsDataLoader {
   }
 
   /**
+   * Find the nearest available year to the requested year
+   */
+  private findNearestYear(availableYears: number[], requestedYear: number): number {
+    if (availableYears.length === 0) {
+      throw new Error('No years available');
+    }
+
+    // If exact year is available, return it
+    if (availableYears.includes(requestedYear)) {
+      return requestedYear;
+    }
+
+    // Find the year with minimum distance to requested year
+    return availableYears.reduce((nearest, current) => {
+      const currentDistance = Math.abs(current - requestedYear);
+      const nearestDistance = Math.abs(nearest - requestedYear);
+      return currentDistance < nearestDistance ? current : nearest;
+    });
+  }
+
+  /**
    * Load canton-level statistical data
    */
   async loadKtnData(statsId: string, year: number, filters?: StatsDataFilters): Promise<StatsDataResult> {
@@ -182,24 +203,36 @@ export class StatsDataLoader {
       throw new Error(`Statistics entry not found: ${statsId}`);
     }
 
-    const ktnFile = entry.data.ktn?.find(file => file.year === year);
+    if (!entry.data.ktn || entry.data.ktn.length === 0) {
+      throw new Error(`No canton data available for ${statsId}`);
+    }
+
+    // Find the nearest available year
+    const availableYears = entry.data.ktn.map(file => file.year);
+    const actualYear = this.findNearestYear(availableYears, year);
+    const ktnFile = entry.data.ktn.find(file => file.year === actualYear);
+
     if (!ktnFile) {
-      throw new Error(`Canton data not available for ${statsId} in year ${year}`);
+      throw new Error(`Canton data file not found for ${statsId} in year ${actualYear}`);
     }
 
     const dataPath = `/data/stats/${ktnFile.file}`;
     const rawData = await this.loadCsvData(dataPath);
-    const processedData = this.processStatsRecords(rawData, year);
+    const processedData = this.processStatsRecords(rawData, actualYear);
     const filteredData = this.applyFilters(processedData, filters);
 
     return {
       data: filteredData,
       metadata: {
-        source: `stats/${statsId}/ktn/${year}`,
+        source: `stats/${statsId}/ktn/${actualYear}`,
         loadedAt: new Date().toISOString(),
         recordCount: filteredData.length,
-        year: year,
-        dataType: 'ktn'
+        year: actualYear,
+        requestedYear: year !== actualYear ? year : undefined,
+        dataType: 'ktn',
+        unit: filteredData[0]?.unit,
+        mode: entry.mode,
+        name: entry.name
       }
     };
   }
@@ -213,24 +246,36 @@ export class StatsDataLoader {
       throw new Error(`Statistics entry not found: ${statsId}`);
     }
 
-    const gdnFile = entry.data.gdn?.find(file => file.year === year);
+    if (!entry.data.gdn || entry.data.gdn.length === 0) {
+      throw new Error(`No municipality data available for ${statsId}`);
+    }
+
+    // Find the nearest available year
+    const availableYears = entry.data.gdn.map(file => file.year);
+    const actualYear = this.findNearestYear(availableYears, year);
+    const gdnFile = entry.data.gdn.find(file => file.year === actualYear);
+
     if (!gdnFile) {
-      throw new Error(`Municipality data not available for ${statsId} in year ${year}`);
+      throw new Error(`Municipality data file not found for ${statsId} in year ${actualYear}`);
     }
 
     const dataPath = `/data/stats/${gdnFile.file}`;
     const rawData = await this.loadCsvData(dataPath);
-    const processedData = this.processStatsRecords(rawData, year);
+    const processedData = this.processStatsRecords(rawData, actualYear);
     const filteredData = this.applyFilters(processedData, filters);
 
     return {
       data: filteredData,
       metadata: {
-        source: `stats/${statsId}/gdn/${year}`,
+        source: `stats/${statsId}/gdn/${actualYear}`,
         loadedAt: new Date().toISOString(),
         recordCount: filteredData.length,
-        year: year,
-        dataType: 'gdn'
+        year: actualYear,
+        requestedYear: year !== actualYear ? year : undefined,
+        dataType: 'gdn',
+        unit: filteredData[0]?.unit,
+        mode: entry.mode,
+        name: entry.name
       }
     };
   }
@@ -240,17 +285,18 @@ export class StatsDataLoader {
    */
   async getBundData(statsId: string, year: number): Promise<BundStatsResult> {
     const ktnResult = await this.loadKtnData(statsId, year);
-    
+
     const totalValue = ktnResult.data.reduce((sum, record) => sum + record.value, 0);
     const unit = ktnResult.data[0]?.unit || '';
 
     return {
       totalValue,
       unit,
-      year,
+      year: ktnResult.metadata.year,
+      requestedYear: ktnResult.metadata.requestedYear,
       cantonCount: ktnResult.data.length,
       metadata: {
-        source: `stats/${statsId}/bund/${year}`,
+        source: `stats/${statsId}/bund/${ktnResult.metadata.year}`,
         aggregatedAt: new Date().toISOString(),
         sourceDataType: 'ktn'
       }

@@ -211,6 +211,33 @@
     },
     "aboutFooter": "Jeder Knoten zeigt den Kontocode, mehrsprachige Bezeichnungen und verfügbare Werte an. Verwenden Sie die Suchfunktion, um schnell bestimmte Konten oder Kategorien zu finden."
   },
+  "financialDataScalingSelector": {
+    "title": "Datenskalierung",
+    "subtitle": "Skalierungsfaktoren für bessere Vergleichbarkeit anwenden",
+    "noScaling": "Keine Skalierung",
+    "loading": "Lade Skalierungsoptionen...",
+    "error": "Fehler beim Laden der Skalierungsoptionen",
+    "selectScaling": "Skalierungsfaktor auswählen",
+    "scalingApplied": "Skalierung angewendet: {name}",
+    "scalingRemoved": "Skalierung entfernt",
+    "scalingInfo": {
+      "title": "Skalierungsinformationen",
+      "description": "Skalierungsfaktoren helfen dabei, Daten für bessere Vergleiche zwischen Entitäten unterschiedlicher Größe zu normalisieren.",
+      "currentScaling": "Aktuelle Skalierung: {name}",
+      "unit": "Einheit: {unit}"
+    },
+    "options": {
+      "population": "Bevölkerung",
+      "area": "Fläche",
+      "households": "Haushalte",
+      "employees": "Beschäftigte"
+    },
+    "errors": {
+      "loadingFailed": "Fehler beim Laden der Skalierungsoptionen",
+      "applyingFailed": "Fehler beim Anwenden des Skalierungsfaktors",
+      "invalidScaling": "Ungültiger Skalierungsfaktor ausgewählt"
+    }
+  },
   "financialDataComparison": {
     "title": "Finanzdatenvergleich",
     "subtitle": "Vergleichen Sie Finanzdatensätze nebeneinander mit hierarchischer Baumstruktur",
@@ -223,6 +250,7 @@
     },
     "loadingDataset": "Lade Datensatz {dataset}...",
     "datasetError": "Fehler beim Laden von Datensatz {dataset}: {error}",
+    "scalingError": "Fehler beim Anwenden der Skalierung auf Finanzdaten",
     "expandAll": "Alle erweitern",
     "collapseAll": "Alle zuklappen",
     "showCodes": "Codes anzeigen",
@@ -263,12 +291,29 @@
     "hideCodes": "Codes ausblenden",
     "showZeroValues": "Nullwerte anzeigen",
     "hideZeroValues": "Nullwerte ausblenden",
+    "enableScaling": "Skalierung aktivieren",
+    "disableScaling": "Skalierung deaktivieren",
     "columns": {
       "account": "Konto",
       "code": "Code",
       "description": "Beschreibung"
     },
     "currency": "CHF",
+    "yearInfo": "Jahr: {year}",
+    "scalingFactor": "Skalierungsfaktor: {factor}",
+    "scalingEnabled": "Skalierung aktiviert",
+    "scalingDisabled": "Skalierung deaktiviert",
+    "noScalingFactor": "Kein Skalierungsfaktor verfügbar",
+    "scalingInfo": {
+      "title": "Skalierungsinformationen"
+    },
+    "controls": {
+      "title": "Anzeigeoptionen"
+    },
+    "noScalingFactor": "Kein Skalierungsfaktor verfügbar",
+    "scalingInfo": {
+      "title": "Skalierungsinformationen"
+    },
     "metadata": {
       "source": "Quelle",
       "loadedAt": "Geladen am",
@@ -279,6 +324,7 @@
       "expandNode": "Knoten erweitern",
       "collapseNode": "Knoten einklappen",
       "financialValue": "Finanzieller Wert für {entity}",
+      "scalingToggle": "Skalierung umschalten für bessere Vergleichbarkeit",
       "noValue": "Kein Wert verfügbar"
     },
     "errors": {

@@ -18,6 +18,8 @@ export interface StatsDataEntry {
   source: string;
   /** Last update date (ISO format) */
   lastUpdate: string;
+  /** Mode of the statistic */
+  mode: "absolute" | "per_capita";
   /** Available data files organized by type */
   data: {
     /** Canton-level data files */
@@ -91,7 +93,7 @@ export interface StatsDataRecord {
 export interface ProcessedStatsRecord {
   /** Geographic ID */
   geoId: string;
-  /** Geographic name */
+  /** Geographic name (canton or municipality name) */
   geoName: string;
   /** Numerical value */
   value: number;
@@ -99,7 +101,7 @@ export interface ProcessedStatsRecord {
   unit: string;
   /** Year of the data */
   year: number;
-  /** Status (e.g., "A" for normal value) */
+  /** Status code */
   status: string;
   /** Data source */
   source: string;
@@ -121,10 +123,18 @@ export interface StatsDataResult {
     loadedAt: string;
     /** Number of records */
     recordCount: number;
-    /** Year of the data */
+    /** Year of the data (actual year used) */
     year: number;
+    /** Originally requested year (only set if different from actual year) */
+    requestedYear?: number;
     /** Type of data (ktn or gdn) */
     dataType: 'ktn' | 'gdn';
+    /** Unit of measurement */
+    unit?: string;
+    /** Mode of the statistic */
+    mode?: "absolute" | "per_capita";
+    /** Name of the statistic */
+    name?: MultiLanguageLabels;
   };
 }
 
@@ -136,8 +146,10 @@ export interface BundStatsResult {
   totalValue: number;
   /** Unit of measurement */
   unit: string;
-  /** Year of the data */
+  /** Year of the data (actual year used) */
   year: number;
+  /** Originally requested year (only set if different from actual year) */
+  requestedYear?: number;
   /** Number of cantons included in aggregation */
   cantonCount: number;
   /** Metadata about the aggregation */

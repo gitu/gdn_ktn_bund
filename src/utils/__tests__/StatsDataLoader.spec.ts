@@ -37,6 +37,7 @@ const mockStatsCatalog: StatsCatalog = {
         it: 'Abitanti',
         en: 'Inhabitants'
       },
+      mode: 'absolute',
       source: 'STATPOP via atlas.bfs.admin.ch',
       lastUpdate: '2024-08-21',
       data: {
@@ -269,8 +270,23 @@ describe('StatsDataLoader', () => {
       await expect(loader.loadKtnData('nonexistent', 2023)).rejects.toThrow('Statistics entry not found');
     });
 
-    it('should handle non-existent year', async () => {
-      await expect(loader.loadKtnData('pop', 2022)).rejects.toThrow('Canton data not available');
+    it('should use nearest year when requested year is not available', async () => {
+      const result = await loader.loadKtnData('pop', 2022);
+
+      // Should use 2023 (nearest available year) instead of 2022
+      expect(result.metadata.year).toBe(2023);
+      expect(result.metadata.requestedYear).toBe(2022);
+      expect(result.data).toHaveLength(2);
+      expect(result.data[0].year).toBe(2023); // Data should reflect actual year used
+    });
+
+    it('should not set requestedYear when exact year is available', async () => {
+      const result = await loader.loadKtnData('pop', 2023);
+
+      // Should use exact year and not set requestedYear
+      expect(result.metadata.year).toBe(2023);
+      expect(result.metadata.requestedYear).toBeUndefined();
+      expect(result.data).toHaveLength(2);
     });
   });
 

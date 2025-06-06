@@ -178,16 +178,16 @@ const ENTITY_TYPES: Record<string, MultiLanguageLabels> = {
     en: 'Federal Government (CH)'
   },
   ktn: {
-    de: 'Kantone (KTN)',
-    fr: 'Cantons (CT)',
-    it: 'Cantoni (CT)',
-    en: 'Cantons (CT)'
+    de: 'Kanton',
+    fr: 'Canton',
+    it: 'Canton',
+    en: 'Canton'
   },
   gdn: {
-    de: 'Gemeinden (GDN)',
-    fr: 'Communes (COM)',
-    it: 'Comuni (COM)',
-    en: 'Municipalities (MUN)'
+    de: 'Gemeinden',
+    fr: 'Communes',
+    it: 'Comuni',
+    en: 'Municipalities'
   },
   sv: {
     de: 'Sozialversicherung (SV)',
@@ -196,10 +196,10 @@ const ENTITY_TYPES: Record<string, MultiLanguageLabels> = {
     en: 'Social Insurance (SI)'
   },
   staat: {
-    de: 'Staat (ST)',
-    fr: 'État (ET)',
-    it: 'Stato (ST)',
-    en: 'State (ST)'
+    de: 'Staat',
+    fr: 'État',
+    it: 'Stato',
+    en: 'State'
   }
 };
 
@@ -288,10 +288,10 @@ export class EntitySemanticMapper {
 
       if (baseEntity && subEntity) {
         return {
-          de: `${baseEntity.de} ${subEntity.de}`,
-          fr: `${baseEntity.fr} ${subEntity.fr}`,
-          it: `${baseEntity.it} ${subEntity.it}`,
-          en: `${baseEntity.en} ${subEntity.en}`
+          de: `${baseEntity.de} und ${subEntity.de}`,
+          fr: `${baseEntity.fr} et ${subEntity.fr}`,
+          it: `${baseEntity.it} e ${subEntity.it}`,
+          en: `${baseEntity.en} and ${subEntity.en}`
         };
       }
     }
@@ -406,5 +406,13 @@ export class EntitySemanticMapper {
    */
   static isSocialInsurance(entityCode: string): boolean {
     return entityCode.toLowerCase().startsWith('sv');
+  }
+
+  static getCantonCodeFromEntity(entityId: string): string {
+    const parts = entityId.toLowerCase().split('_');
+    if (parts.length >= 2) {
+      return parts[parts.length - 1];
+    }
+    return '';
   }
 }

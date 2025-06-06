@@ -127,9 +127,9 @@ function extractMunicipalityData(xmlDoc, cantonMapping) {
         continue;
       }
 
-      // Create gdnId: canton ID (2 digits) + municipality ID (5 digits)
+      // Create gdnId: canton ID (2 digits) + municipality ID (4 digits)
       const gdnId = cantonId && municipalityId ?
-        String(cantonId).padStart(2, '0') + String(municipalityId).padStart(5, '0') : '';
+        String(cantonId).padStart(2, '0') + String(municipalityId).padStart(4, '0') : '';
 
       const municipalityData = {
         cantonId: cantonId || '',

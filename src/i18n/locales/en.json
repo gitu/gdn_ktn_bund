@@ -211,6 +211,33 @@
     },
     "aboutFooter": "Each node shows the account code, multilingual labels, and values where available. Use the search function to quickly find specific accounts or categories."
   },
+  "financialDataScalingSelector": {
+    "title": "Data Scaling",
+    "subtitle": "Apply scaling factors for better comparison",
+    "noScaling": "No scaling",
+    "loading": "Loading scaling options...",
+    "error": "Error loading scaling options",
+    "selectScaling": "Select scaling factor",
+    "scalingApplied": "Scaling applied: {name}",
+    "scalingRemoved": "Scaling removed",
+    "scalingInfo": {
+      "title": "Scaling Information",
+      "description": "Scaling factors help normalize data for better comparison between entities of different sizes.",
+      "currentScaling": "Current scaling: {name}",
+      "unit": "Unit: {unit}"
+    },
+    "options": {
+      "population": "Population",
+      "area": "Area",
+      "households": "Households",
+      "employees": "Employees"
+    },
+    "errors": {
+      "loadingFailed": "Failed to load scaling options",
+      "applyingFailed": "Failed to apply scaling factor",
+      "invalidScaling": "Invalid scaling factor selected"
+    }
+  },
   "financialDataComparison": {
     "title": "Financial Data Comparison",
     "subtitle": "Compare financial datasets side-by-side using hierarchical tree structure",
@@ -223,6 +250,7 @@
     },
     "loadingDataset": "Loading dataset {dataset}...",
     "datasetError": "Error loading dataset {dataset}: {error}",
+    "scalingError": "Error applying scaling to financial data",
     "expandAll": "Expand All",
     "collapseAll": "Collapse All",
     "showCodes": "Show Codes",
@@ -263,12 +291,25 @@
     "hideCodes": "Hide Codes",
     "showZeroValues": "Show Zero Values",
     "hideZeroValues": "Hide Zero Values",
+    "enableScaling": "Enable Scaling",
+    "disableScaling": "Disable Scaling",
     "columns": {
       "account": "Account",
       "code": "Code",
       "description": "Description"
     },
     "currency": "CHF",
+    "yearInfo": "Year: {year}",
+    "scalingFactor": "Scaling Factor: {factor}",
+    "scalingEnabled": "Scaling enabled",
+    "scalingDisabled": "Scaling disabled",
+    "noScalingFactor": "No scaling factor available",
+    "scalingInfo": {
+      "title": "Scaling Information"
+    },
+    "controls": {
+      "title": "Display Options"
+    },
     "metadata": {
       "source": "Source",
       "loadedAt": "Loaded at",
@@ -279,6 +320,7 @@
       "expandNode": "Expand node",
       "collapseNode": "Collapse node",
       "financialValue": "Financial value for {entity}",
+      "scalingToggle": "Toggle scaling for better comparability",
       "noValue": "No value available"
     },
     "errors": {
