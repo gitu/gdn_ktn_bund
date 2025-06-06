@@ -3,7 +3,8 @@
 <head>
     <script>
         sessionStorage.redirect = location.href;
-        window.location.replace(
+        const l = window.location
+        l.replace(
             l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '') + '/'
         );
     </script>
