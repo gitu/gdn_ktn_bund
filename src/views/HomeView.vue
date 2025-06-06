@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import { useI18n } from 'vue-i18n';
-import Card from 'primevue/card';
-import Button from 'primevue/button';
+import { useI18n } from 'vue-i18n'
+import Card from 'primevue/card'
+import Button from 'primevue/button'
 
 // Vue i18n (used in template)
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-const { t } = useI18n();
+const { t } = useI18n()
 </script>
 
 <template>
@@ -14,7 +14,10 @@ const { t } = useI18n();
     <Card class="mb-8" data-testid="home-header">
       <template #content>
         <div class="text-center">
-          <h1 class="text-4xl md:text-5xl font-bold text-surface-900 dark:text-surface-50 mb-4" data-testid="home-title">
+          <h1
+            class="text-4xl md:text-5xl font-bold text-surface-900 dark:text-surface-50 mb-4"
+            data-testid="home-title"
+          >
             {{ $t('homeView.title') }}
           </h1>
           <p class="text-xl text-surface-600 dark:text-surface-300" data-testid="home-subtitle">
@@ -27,10 +30,16 @@ const { t } = useI18n();
     <!-- Description Section -->
     <Card class="mb-8" data-testid="home-description-card">
       <template #content>
-        <h2 class="text-2xl font-semibold text-surface-900 dark:text-surface-50 mb-4 text-center" data-testid="home-description-title">
+        <h2
+          class="text-2xl font-semibold text-surface-900 dark:text-surface-50 mb-4 text-center"
+          data-testid="home-description-title"
+        >
           {{ $t('homeView.description.title') }}
         </h2>
-        <p class="text-lg text-surface-700 dark:text-surface-200 text-center mb-6 leading-relaxed" data-testid="home-description-intro">
+        <p
+          class="text-lg text-surface-700 dark:text-surface-200 text-center mb-6 leading-relaxed"
+          data-testid="home-description-intro"
+        >
           {{ $t('homeView.description.intro') }}
         </p>
 
@@ -39,9 +48,14 @@ const { t } = useI18n();
             {{ $t('homeView.description.capabilities') }}
           </p>
           <div class="grid grid-cols-1 md:grid-cols-2 gap-6" data-testid="home-data-types">
-            <Card class="hover:shadow-md transition-all duration-200 hover:-translate-y-1" data-testid="home-data-type-balance">
+            <Card
+              class="hover:shadow-md transition-all duration-200 hover:-translate-y-1"
+              data-testid="home-data-type-balance"
+            >
               <template #content>
-                <h3 class="flex items-center gap-2 text-lg font-medium text-surface-900 dark:text-surface-50 mb-3">
+                <h3
+                  class="flex items-center gap-2 text-lg font-medium text-surface-900 dark:text-surface-50 mb-3"
+                >
                   <i class="pi pi-chart-bar text-primary-500 text-xl"></i>
                   {{ $t('homeView.dimensions.bilanz') }}
                 </h3>
@@ -50,9 +64,14 @@ const { t } = useI18n();
                 </p>
               </template>
             </Card>
-            <Card class="hover:shadow-md transition-all duration-200 hover:-translate-y-1" data-testid="home-data-type-income">
+            <Card
+              class="hover:shadow-md transition-all duration-200 hover:-translate-y-1"
+              data-testid="home-data-type-income"
+            >
               <template #content>
-                <h3 class="flex items-center gap-2 text-lg font-medium text-surface-900 dark:text-surface-50 mb-3">
+                <h3
+                  class="flex items-center gap-2 text-lg font-medium text-surface-900 dark:text-surface-50 mb-3"
+                >
                   <i class="pi pi-trending-up text-primary-500 text-xl"></i>
                   {{ $t('homeView.dimensions.ertrag') }} / {{ $t('homeView.dimensions.aufwand') }}
                 </h3>
@@ -74,10 +93,16 @@ const { t } = useI18n();
     <Card data-testid="home-cta-card">
       <template #content>
         <div class="text-center">
-          <h3 class="text-2xl font-semibold text-surface-900 dark:text-surface-50 mb-4" data-testid="home-cta-title">
+          <h3
+            class="text-2xl font-semibold text-surface-900 dark:text-surface-50 mb-4"
+            data-testid="home-cta-title"
+          >
             {{ $t('homeView.cta.title') }}
           </h3>
-          <p class="text-lg text-surface-700 dark:text-surface-200 mb-6" data-testid="home-cta-description">
+          <p
+            class="text-lg text-surface-700 dark:text-surface-200 mb-6"
+            data-testid="home-cta-description"
+          >
             {{ $t('homeView.cta.description') }}
           </p>
 
@@ -109,5 +134,3 @@ const { t } = useI18n();
     </Card>
   </main>
 </template>
-
-

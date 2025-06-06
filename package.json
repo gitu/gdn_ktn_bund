@@ -6,6 +6,7 @@
   "scripts": {
     "split": "node scripts/processData.js",
     "build-data": "node scripts/buildAvailableData.js",
+    "convert-xml": "node scripts/convertXmlToCsv.js",
     "dev": "vite",
     "build": "run-s build-data type-check \"build-only {@}\" --",
     "preview": "vite preview",
@@ -20,7 +21,8 @@
     "lint:oxlint": "oxlint . --fix -D correctness --ignore-path .gitignore",
     "lint:eslint": "eslint . --fix",
     "lint": "run-s lint:*",
-    "format": "prettier --write src/"
+    "format": "prettier --write src/",
+    "pre-commit": "run-s lint format test:unit build test:e2e"
   },
   "dependencies": {
     "@primeuix/themes": "^1.0.0",
@@ -38,6 +40,7 @@
     "vue-router": "^4.5.0"
   },
   "devDependencies": {
+    "@xmldom/xmldom": "^0.9.8",
     "@playwright/test": "^1.51.1",
     "@primevue/auto-import-resolver": "^4.3.1",
     "@tailwindcss/postcss": "^4.1.8",

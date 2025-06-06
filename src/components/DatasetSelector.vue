@@ -21,12 +21,7 @@
             :disabled="!searchQuery"
             @click="performSearch"
           />
-          <Button
-            v-if="searchQuery"
-            icon="pi pi-times"
-            severity="secondary"
-            @click="clearSearch"
-          />
+          <Button v-if="searchQuery" icon="pi pi-times" severity="secondary" @click="clearSearch" />
         </div>
       </div>
 
@@ -56,7 +51,12 @@
       <div class="section-header">
         <h4>{{ $t('datasetSelector.availableDatasets') }}</h4>
         <span class="results-count">
-          {{ $t('datasetSelector.resultsCount', { count: filteredDatasets.length, total: totalDatasets }) }}
+          {{
+            $t('datasetSelector.resultsCount', {
+              count: filteredDatasets.length,
+              total: totalDatasets,
+            })
+          }}
         </span>
       </div>
 
@@ -83,7 +83,11 @@
         :scroll-height="'400px'"
         scroll-direction="vertical"
       >
-        <Column field="displayName" :header="$t('datasetSelector.columns.name')" class="name-column">
+        <Column
+          field="displayName"
+          :header="$t('datasetSelector.columns.name')"
+          class="name-column"
+        >
           <template #body="{ data }">
             <div class="dataset-name">
               <strong>{{ getDisplayName(data) }}</strong>
@@ -98,7 +102,11 @@
           </template>
         </Column>
 
-        <Column field="description" :header="$t('datasetSelector.columns.description')" class="description-column">
+        <Column
+          field="description"
+          :header="$t('datasetSelector.columns.description')"
+          class="description-column"
+        >
           <template #body="{ data }">
             <div class="dataset-description">
               {{ getDescription(data) }}
@@ -106,11 +114,16 @@
           </template>
         </Column>
 
-        <Column field="availableYears" :header="$t('datasetSelector.columns.years')" class="years-column">
+        <Column
+          field="availableYears"
+          :header="$t('datasetSelector.columns.years')"
+          class="years-column"
+        >
           <template #body="{ data }">
             <div class="available-years">
               <span class="year-range">
-                {{ data.availableYears[0] }} - {{ data.availableYears[data.availableYears.length - 1] }}
+                {{ data.availableYears[0] }} -
+                {{ data.availableYears[data.availableYears.length - 1] }}
               </span>
               <small class="year-count">
                 ({{ $t('datasetSelector.yearCount', { count: data.availableYears.length }) }})
@@ -157,11 +170,7 @@
       </div>
 
       <div class="selected-list">
-        <div
-          v-for="dataset in selectedDatasets"
-          :key="dataset.id"
-          class="selected-item"
-        >
+        <div v-for="dataset in selectedDatasets" :key="dataset.id" class="selected-item">
           <div class="item-info">
             <div class="item-name">
               <strong>{{ getDisplayName(dataset.entry) }}</strong>
@@ -182,7 +191,9 @@
             size="small"
             text
             @click="removeDataset(dataset.id)"
-            :aria-label="$t('datasetSelector.removeDataset', { name: getDisplayName(dataset.entry) })"
+            :aria-label="
+              $t('datasetSelector.removeDataset', { name: getDisplayName(dataset.entry) })
+            "
           />
         </div>
       </div>
@@ -207,294 +218,296 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted, watch } from 'vue';
-import { useI18n } from 'vue-i18n';
-import DataTable from 'primevue/datatable';
-import Column from 'primevue/column';
-import InputText from 'primevue/inputtext';
-import Button from 'primevue/button';
-import Select from 'primevue/select';
-import Tag from 'primevue/tag';
-import Message from 'primevue/message';
-import ProgressSpinner from 'primevue/progressspinner';
-import type { AvailableDataEntry, AvailableDataCatalog } from '@/types/DataStructures';
+import { ref, computed, onMounted, watch } from 'vue'
+import { useI18n } from 'vue-i18n'
+import DataTable from 'primevue/datatable'
+import Column from 'primevue/column'
+import InputText from 'primevue/inputtext'
+import Button from 'primevue/button'
+import Select from 'primevue/select'
+import Tag from 'primevue/tag'
+import Message from 'primevue/message'
+import ProgressSpinner from 'primevue/progressspinner'
+import type { AvailableDataEntry, AvailableDataCatalog } from '@/types/DataStructures'
 import {
   loadAvailableDataCatalog,
   filterByType,
   filterByYear,
   searchByName,
-  getAllAvailableYears
-} from '@/utils/AvailableDataLoader';
+  getAllAvailableYears,
+} from '@/utils/AvailableDataLoader'
 
 // Props
 interface Props {
-  initialDatasets?: string[];
+  initialDatasets?: string[]
 }
 
 const props = withDefaults(defineProps<Props>(), {
-  initialDatasets: () => []
-});
+  initialDatasets: () => [],
+})
 
 // Emits
 interface Emits {
-  datasetsChanged: [datasets: string[]];
-  error: [error: string];
+  datasetsChanged: [datasets: string[]]
+  error: [error: string]
 }
 
-const emit = defineEmits<Emits>();
+const emit = defineEmits<Emits>()
 
 // Vue i18n
-const { locale, t } = useI18n();
+const { locale, t } = useI18n()
 
 // Reactive state
-const loading = ref(true);
-const error = ref<string | null>(null);
-const catalog = ref<AvailableDataCatalog>([]);
-const searchQuery = ref('');
-const selectedType = ref<'all' | 'gdn' | 'std'>('all');
-const selectedYear = ref<string | null>(null);
-const selectedYears = ref<Record<string, string>>({});
+const loading = ref(true)
+const error = ref<string | null>(null)
+const catalog = ref<AvailableDataCatalog>([])
+const searchQuery = ref('')
+const selectedType = ref<'all' | 'gdn' | 'std'>('all')
+const selectedYear = ref<string | null>(null)
+const selectedYears = ref<Record<string, string>>({})
 
 // Selected datasets structure
 interface SelectedDataset {
-  id: string;
-  entry: AvailableDataEntry;
-  year: string;
-  datasetIdentifier: string; // Format: 'gdn/fs/010002:2016'
+  id: string
+  entry: AvailableDataEntry
+  year: string
+  datasetIdentifier: string // Format: 'gdn/fs/010002:2016'
 }
 
-const selectedDatasets = ref<SelectedDataset[]>([]);
+const selectedDatasets = ref<SelectedDataset[]>([])
 
 // Computed properties
-const totalDatasets = computed(() => catalog.value.length);
+const totalDatasets = computed(() => catalog.value.length)
 
 const typeOptions = computed(() => [
   { label: t('datasetSelector.filters.all'), value: 'all' },
   { label: t('datasetSelector.filters.gdn'), value: 'gdn' },
-  { label: t('datasetSelector.filters.std'), value: 'std' }
-]);
+  { label: t('datasetSelector.filters.std'), value: 'std' },
+])
 
 const yearOptions = computed(() => {
-  const years = getAllAvailableYears(catalog.value);
+  const years = getAllAvailableYears(catalog.value)
   // Sort years in reverse order (newest first)
-  const sortedYears = [...years].sort((a, b) => b.localeCompare(a));
+  const sortedYears = [...years].sort((a, b) => b.localeCompare(a))
   return [
     { label: t('datasetSelector.filters.allYears'), value: null },
-    ...sortedYears.map(year => ({ label: year, value: year }))
-  ];
-});
+    ...sortedYears.map((year) => ({ label: year, value: year })),
+  ]
+})
 
 const filteredDatasets = computed(() => {
-  let filtered = catalog.value;
+  let filtered = catalog.value
 
   // Apply type filter
   if (selectedType.value !== 'all') {
-    filtered = filterByType(filtered, selectedType.value);
+    filtered = filterByType(filtered, selectedType.value)
   }
 
   // Apply year filter
   if (selectedYear.value) {
-    filtered = filterByYear(filtered, selectedYear.value);
+    filtered = filterByYear(filtered, selectedYear.value)
   }
 
   // Apply search filter
   if (searchQuery.value.trim()) {
-    filtered = searchByName(filtered, searchQuery.value.trim(), locale.value as 'de' | 'fr' | 'it' | 'en');
+    filtered = searchByName(
+      filtered,
+      searchQuery.value.trim(),
+      locale.value as 'de' | 'fr' | 'it' | 'en',
+    )
   }
 
-  return filtered;
-});
+  return filtered
+})
 
 // Methods
 const getDisplayName = (entry: AvailableDataEntry): string => {
-  return entry.displayName[locale.value as keyof typeof entry.displayName] || entry.displayName.de;
-};
+  return entry.displayName[locale.value as keyof typeof entry.displayName] || entry.displayName.de
+}
 
 const getDescription = (entry: AvailableDataEntry): string => {
-  return entry.description[locale.value as keyof typeof entry.description] || entry.description.de;
-};
+  return entry.description[locale.value as keyof typeof entry.description] || entry.description.de
+}
 
 const getYearOptions = (entry: AvailableDataEntry) => {
   // Sort years in reverse order (newest first)
-  const sortedYears = [...entry.availableYears].sort((a, b) => b.localeCompare(a));
-  return sortedYears.map(year => ({
+  const sortedYears = [...entry.availableYears].sort((a, b) => b.localeCompare(a))
+  return sortedYears.map((year) => ({
     label: year,
-    value: year
-  }));
-};
+    value: year,
+  }))
+}
 
 const setDefaultYear = (entry: AvailableDataEntry) => {
   // Only set default if no year is currently selected for this entry
   if (!selectedYears.value[entry.id] && entry.availableYears.length > 0) {
     // Sort years in reverse order and select the first (latest) one
-    const sortedYears = [...entry.availableYears].sort((a, b) => b.localeCompare(a));
-    const latestYear = sortedYears[0];
-    selectedYears.value[entry.id] = latestYear;
+    const sortedYears = [...entry.availableYears].sort((a, b) => b.localeCompare(a))
+    const latestYear = sortedYears[0]
+    selectedYears.value[entry.id] = latestYear
   }
-};
+}
 
 const getLatestYear = (entry: AvailableDataEntry): string => {
-  if (entry.availableYears.length === 0) return '';
-  const sortedYears = [...entry.availableYears].sort((a, b) => b.localeCompare(a));
-  return sortedYears[0];
-};
+  if (entry.availableYears.length === 0) return ''
+  const sortedYears = [...entry.availableYears].sort((a, b) => b.localeCompare(a))
+  return sortedYears[0]
+}
 
 const getAddButtonLabel = (entry: AvailableDataEntry): string => {
-  const selectedYear = selectedYears.value[entry.id];
+  const selectedYear = selectedYears.value[entry.id]
   if (selectedYear) {
-    return t('datasetSelector.addDatasetWithYear', { year: selectedYear });
+    return t('datasetSelector.addDatasetWithYear', { year: selectedYear })
   }
 
-  const latestYear = getLatestYear(entry);
+  const latestYear = getLatestYear(entry)
   if (latestYear) {
-    return t('datasetSelector.addLatestYear', { year: latestYear });
+    return t('datasetSelector.addLatestYear', { year: latestYear })
   }
 
-  return t('datasetSelector.addDataset');
-};
+  return t('datasetSelector.addDataset')
+}
 
 const addDatasetWithDefaultYear = (entry: AvailableDataEntry) => {
   // Ensure we have a year selected (set default if needed)
-  setDefaultYear(entry);
+  setDefaultYear(entry)
 
   // Now add the dataset
-  addDataset(entry);
-};
+  addDataset(entry)
+}
 
 const isDatasetSelected = (entryId: string): boolean => {
-  return selectedDatasets.value.some(dataset =>
-    dataset.entry.id === entryId && dataset.year === selectedYears.value[entryId]
-  );
-};
+  return selectedDatasets.value.some(
+    (dataset) => dataset.entry.id === entryId && dataset.year === selectedYears.value[entryId],
+  )
+}
 
 const generateDatasetIdentifier = (entry: AvailableDataEntry, year: string): string => {
   // Format: 'source/model/entity:year'
   // For now, we'll use 'fs' as the default model (financial statements)
-  return `${entry.type}/fs/${entry.entityCode}:${year}`;
-};
+  return `${entry.type}/fs/${entry.entityCode}:${year}`
+}
 
 const addDataset = (entry: AvailableDataEntry) => {
-  const year = selectedYears.value[entry.id];
-  if (!year) return;
+  const year = selectedYears.value[entry.id]
+  if (!year) return
 
-  const datasetIdentifier = generateDatasetIdentifier(entry, year);
+  const datasetIdentifier = generateDatasetIdentifier(entry, year)
 
   // Check for duplicates
-  const exists = selectedDatasets.value.some(dataset =>
-    dataset.datasetIdentifier === datasetIdentifier
-  );
+  const exists = selectedDatasets.value.some(
+    (dataset) => dataset.datasetIdentifier === datasetIdentifier,
+  )
 
   if (exists) {
-    error.value = t('datasetSelector.errors.duplicateDataset');
-    return;
+    error.value = t('datasetSelector.errors.duplicateDataset')
+    return
   }
 
   const newDataset: SelectedDataset = {
     id: `${entry.id}_${year}`,
     entry,
     year,
-    datasetIdentifier
-  };
+    datasetIdentifier,
+  }
 
-  selectedDatasets.value.push(newDataset);
+  selectedDatasets.value.push(newDataset)
 
   // Clear the year selection for this entry
-  delete selectedYears.value[entry.id];
+  delete selectedYears.value[entry.id]
 
   // Emit the change
-  emitSelectedDatasets();
-};
+  emitSelectedDatasets()
+}
 
 const removeDataset = (datasetId: string) => {
-  const index = selectedDatasets.value.findIndex(dataset => dataset.id === datasetId);
+  const index = selectedDatasets.value.findIndex((dataset) => dataset.id === datasetId)
   if (index !== -1) {
-    selectedDatasets.value.splice(index, 1);
-    emitSelectedDatasets();
+    selectedDatasets.value.splice(index, 1)
+    emitSelectedDatasets()
   }
-};
+}
 
 const clearAllDatasets = () => {
-  selectedDatasets.value = [];
-  selectedYears.value = {};
-  emitSelectedDatasets();
-};
+  selectedDatasets.value = []
+  selectedYears.value = {}
+  emitSelectedDatasets()
+}
 
 const emitSelectedDatasets = () => {
-  const datasetIdentifiers = selectedDatasets.value.map(dataset => dataset.datasetIdentifier);
-  emit('datasetsChanged', datasetIdentifiers);
-};
+  const datasetIdentifiers = selectedDatasets.value.map((dataset) => dataset.datasetIdentifier)
+  emit('datasetsChanged', datasetIdentifiers)
+}
 
 const performSearch = () => {
   // Search is reactive, so this is mainly for the search button click
   // Could add analytics or other side effects here
-};
+}
 
 const clearSearch = () => {
-  searchQuery.value = '';
-};
+  searchQuery.value = ''
+}
 
 // Load data on mount
 const loadData = async () => {
   try {
-    loading.value = true;
-    error.value = null;
+    loading.value = true
+    error.value = null
 
-    catalog.value = await loadAvailableDataCatalog();
+    catalog.value = await loadAvailableDataCatalog()
 
     // Set default years for all entries
-    catalog.value.forEach(entry => {
-      setDefaultYear(entry);
-    });
+    catalog.value.forEach((entry) => {
+      setDefaultYear(entry)
+    })
 
     // Initialize with any provided initial datasets
     if (props.initialDatasets.length > 0) {
-      initializeFromDatasets(props.initialDatasets);
+      initializeFromDatasets(props.initialDatasets)
     }
   } catch (err) {
-    error.value = t('datasetSelector.errors.loadingFailed');
-    emit('error', error.value);
-    console.error('Failed to load available data catalog:', err);
+    error.value = t('datasetSelector.errors.loadingFailed')
+    emit('error', error.value)
+    console.error('Failed to load available data catalog:', err)
   } finally {
-    loading.value = false;
+    loading.value = false
   }
-};
+}
 
 const initializeFromDatasets = (datasets: string[]) => {
   // Parse initial datasets and populate selectedDatasets
-  datasets.forEach(datasetIdentifier => {
+  datasets.forEach((datasetIdentifier) => {
     try {
-      const parts = datasetIdentifier.split('/');
-      if (parts.length !== 3) return;
+      const parts = datasetIdentifier.split('/')
+      if (parts.length !== 3) return
 
-      const [source, , entityAndYear] = parts;
-      const [entityCode, year] = entityAndYear.split(':');
+      const [source, , entityAndYear] = parts
+      const [entityCode, year] = entityAndYear.split(':')
 
-      const entry = catalog.value.find(e =>
-        e.type === source && e.entityCode === entityCode
-      );
+      const entry = catalog.value.find((e) => e.type === source && e.entityCode === entityCode)
 
       if (entry && entry.availableYears.includes(year)) {
         const dataset: SelectedDataset = {
           id: `${entry.id}_${year}`,
           entry,
           year,
-          datasetIdentifier
-        };
-        selectedDatasets.value.push(dataset);
+          datasetIdentifier,
+        }
+        selectedDatasets.value.push(dataset)
       }
     } catch (err) {
-      console.warn('Failed to parse initial dataset:', datasetIdentifier, err);
+      console.warn('Failed to parse initial dataset:', datasetIdentifier, err)
     }
-  });
-};
+  })
+}
 
 // Watch for locale changes to update display
 watch(locale, () => {
   // Force reactivity update for display names
-});
+})
 
 // Initialize component
 onMounted(() => {
-  loadData();
-});
+  loadData()
+})
 </script>

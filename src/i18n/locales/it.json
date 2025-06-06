@@ -211,6 +211,33 @@
     },
     "aboutFooter": "Ogni nodo mostra il codice conto, le etichette multilingue e i valori disponibili. Utilizza la funzione di ricerca per trovare rapidamente conti o categorie specifiche."
   },
+  "financialDataScalingSelector": {
+    "title": "Scalatura dei dati",
+    "subtitle": "Applicare fattori di scala per un migliore confronto",
+    "noScaling": "Nessuna scalatura",
+    "loading": "Caricamento opzioni di scalatura...",
+    "error": "Errore nel caricamento delle opzioni di scalatura",
+    "selectScaling": "Seleziona fattore di scala",
+    "scalingApplied": "Scalatura applicata: {name}",
+    "scalingRemoved": "Scalatura rimossa",
+    "scalingInfo": {
+      "title": "Informazioni sulla scalatura",
+      "description": "I fattori di scala aiutano a normalizzare i dati per un migliore confronto tra entità di dimensioni diverse.",
+      "currentScaling": "Scalatura attuale: {name}",
+      "unit": "Unità: {unit}"
+    },
+    "options": {
+      "population": "Popolazione",
+      "area": "Superficie",
+      "households": "Famiglie",
+      "employees": "Dipendenti"
+    },
+    "errors": {
+      "loadingFailed": "Caricamento delle opzioni di scalatura fallito",
+      "applyingFailed": "Applicazione del fattore di scala fallita",
+      "invalidScaling": "Fattore di scala selezionato non valido"
+    }
+  },
   "financialDataComparison": {
     "title": "Confronto dati finanziari",
     "subtitle": "Confronta i set di dati finanziari affiancati utilizzando una struttura ad albero gerarchica",
@@ -223,6 +250,7 @@
     },
     "loadingDataset": "Caricamento dataset {dataset}...",
     "datasetError": "Errore nel caricamento del dataset {dataset}: {error}",
+    "scalingError": "Errore nell'applicazione della scalatura ai dati finanziari",
     "expandAll": "Espandi tutto",
     "collapseAll": "Comprimi tutto",
     "showCodes": "Mostra codici",
@@ -263,12 +291,25 @@
     "hideCodes": "Nascondi codici",
     "showZeroValues": "Mostra valori zero",
     "hideZeroValues": "Nascondi valori zero",
+    "enableScaling": "Abilita scalatura",
+    "disableScaling": "Disabilita scalatura",
     "columns": {
       "account": "Conto",
       "code": "Codice",
       "description": "Descrizione"
     },
     "currency": "CHF",
+    "yearInfo": "Anno: {year}",
+    "scalingFactor": "Fattore di scala: {factor}",
+    "scalingEnabled": "Scalatura abilitata",
+    "scalingDisabled": "Scalatura disabilitata",
+    "noScalingFactor": "Nessun fattore di scala disponibile",
+    "scalingInfo": {
+      "title": "Informazioni di scalatura"
+    },
+    "controls": {
+      "title": "Opzioni di visualizzazione"
+    },
     "metadata": {
       "source": "Fonte",
       "loadedAt": "Caricato il",
@@ -279,6 +320,7 @@
       "expandNode": "Espandi nodo",
       "collapseNode": "Comprimi nodo",
       "financialValue": "Valore finanziario per {entity}",
+      "scalingToggle": "Attiva/disattiva scalatura per migliore comparabilità",
       "noValue": "Nessun valore disponibile"
     },
     "errors": {

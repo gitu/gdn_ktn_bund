@@ -18,7 +18,7 @@ export const i18n = createI18n<[MessageSchema], string>({
     de,
     en,
     fr,
-    it
+    it,
   },
   // Disable missing handler in production
   missingWarn: import.meta.env.NODE_ENV !== 'production',
