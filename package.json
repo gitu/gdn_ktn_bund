@@ -6,6 +6,7 @@
   "scripts": {
     "split": "node scripts/processData.js",
     "build-data": "node scripts/buildAvailableData.js",
+    "convert-xml": "node scripts/convertXmlToCsv.js",
     "dev": "vite",
     "build": "run-s build-data type-check \"build-only {@}\" --",
     "preview": "vite preview",
@@ -38,6 +39,7 @@
     "vue-router": "^4.5.0"
   },
   "devDependencies": {
+    "@xmldom/xmldom": "^0.9.8",
     "@playwright/test": "^1.51.1",
     "@primevue/auto-import-resolver": "^4.3.1",
     "@tailwindcss/postcss": "^4.1.8",
