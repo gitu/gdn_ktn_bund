@@ -691,41 +691,6 @@ describe('FinancialDataDisplay', () => {
   })
 
   describe('Scaling Functionality', () => {
-    it('shows scaling toggle when entities have scaling factors', () => {
-      const wrapper = mount(FinancialDataDisplay, {
-        global: {
-          plugins: [i18n],
-        },
-        props: {
-          financialData: mockFinancialData,
-        },
-      })
-
-      // Check if scaling toggle is visible by looking for the 4th control item
-      const controlItems = wrapper.findAll('.control-item')
-      expect(controlItems.length).toBeGreaterThanOrEqual(4) // Should have 4 controls including scaling
-    })
-
-    it('hides scaling toggle when no entities have scaling factors', () => {
-      const dataWithoutScaling = createMockFinancialData()
-      dataWithoutScaling.entities = new Map([
-        ['entity1', createFinancialDataEntity('entity1', 'Entity One')],
-        ['entity2', createFinancialDataEntity('entity2', 'Entity Two')],
-      ])
-
-      const wrapper = mount(FinancialDataDisplay, {
-        global: {
-          plugins: [i18n],
-        },
-        props: {
-          financialData: dataWithoutScaling,
-        },
-      })
-
-      // Check that scaling toggle is not visible by checking control items count
-      const controlItems = wrapper.findAll('.control-item')
-      expect(controlItems.length).toBe(3) // Should only have 3 controls without scaling
-    })
 
     it('displays metadata section with year and scaling factor information', () => {
       const wrapper = mount(FinancialDataDisplay, {

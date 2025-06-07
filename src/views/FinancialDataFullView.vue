@@ -19,16 +19,13 @@
             <h1 class="text-2xl font-bold text-surface-900 dark:text-surface-50">
               {{ $t('financialDataFullView.title') }}
             </h1>
-            <p class="text-surface-600 dark:text-surface-300 text-sm">
-              {{ $t('financialDataFullView.subtitle') }}
-            </p>
           </div>
         </div>
 
         <!-- Dataset count indicator -->
         <div
           v-if="hasValidData"
-          class="flex items-center gap-2 text-sm text-surface-600 dark:text-surface-300"
+          class="flex items-center gap-2 text-sm"
         >
           <i class="pi pi-database"></i>
           <span>{{ $t('financialDataFullView.datasetsLoaded', { count: datasets.length }) }}</span>
@@ -74,8 +71,10 @@
       <div v-else class="w-full">
         <FinancialDataComparison
           :datasets="datasets"
+          :selected-scaling="selectedScaling"
           @error="handleError"
           @dataLoaded="handleDataLoaded"
+          @scaling-changed="handleScalingChanged"
         />
       </div>
     </div>
@@ -105,6 +104,7 @@ const toast = useToast()
 const loading = ref(true)
 const datasets = ref<string[]>([])
 const dataLoadedCount = ref(0)
+const selectedScaling = ref<string | null>(null)
 
 // Computed properties
 const hasValidData = computed(() => {
@@ -113,11 +113,15 @@ const hasValidData = computed(() => {
 
 // Methods
 const goBackToComparison = () => {
-  // Navigate back to comparison view with current datasets preserved in URL
+  // Navigate back to comparison view with current datasets and scaling preserved in URL
   const query: Record<string, string> = {}
 
   if (datasets.value.length > 0) {
     query.datasets = datasets.value.join(',')
+  }
+
+  if (selectedScaling.value) {
+    query.scaling = selectedScaling.value
   }
 
   router.push({
@@ -141,12 +145,19 @@ const handleDataLoaded = (count: number) => {
   console.log(`Loaded ${count} datasets in full view`)
 }
 
+const handleScalingChanged = (scalingId: string | null) => {
+  selectedScaling.value = scalingId
+  updateURL()
+  console.log('Selected scaling changed in full view:', scalingId)
+}
+
 const loadDatasetsFromRoute = () => {
   loading.value = true
 
   try {
     // Get datasets from route query parameters
     const datasetsParam = route.query.datasets
+    const scalingParam = route.query.scaling
 
     if (typeof datasetsParam === 'string') {
       // Single dataset or comma-separated list
@@ -161,12 +172,44 @@ const loadDatasetsFromRoute = () => {
       datasets.value = []
     }
 
+    // Load scaling from URL
+    if (typeof scalingParam === 'string' && scalingParam.trim()) {
+      selectedScaling.value = scalingParam
+    } else {
+      selectedScaling.value = null
+    }
+
     console.log('Loaded datasets from route:', datasets.value)
+    console.log('Loaded scaling from route:', selectedScaling.value)
   } catch (error) {
     console.error('Error loading datasets from route:', error)
     handleError(t('financialDataFullView.noDataMessage'))
   } finally {
     loading.value = false
+  }
+}
+
+const updateURL = () => {
+  const query: Record<string, string> = {}
+
+  if (datasets.value.length > 0) {
+    query.datasets = datasets.value.join(',')
+  }
+
+  if (selectedScaling.value) {
+    query.scaling = selectedScaling.value
+  }
+
+  // Only update if the query actually changed
+  const currentQuery = route.query
+  const newQueryString = new URLSearchParams(query).toString()
+  const currentQueryString = new URLSearchParams(currentQuery as Record<string, string>).toString()
+
+  if (newQueryString !== currentQueryString) {
+    router.replace({
+      name: 'financial-data-full-view',
+      query: Object.keys(query).length > 0 ? query : undefined,
+    })
   }
 }
 

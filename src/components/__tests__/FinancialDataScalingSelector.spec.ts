@@ -217,12 +217,12 @@ describe('FinancialDataScalingSelector', () => {
     await new Promise((resolve) => setTimeout(resolve, 100))
     await wrapper.vm.$nextTick()
 
-    // Set the selectedScaling value and trigger the method
+    // Set the internalSelectedScaling value and trigger the method
     const vm = wrapper.vm as unknown as {
-      selectedScaling: string | null
+      internalSelectedScaling: string | null
       onScalingChange: () => void
     }
-    vm.selectedScaling = 'pop'
+    vm.internalSelectedScaling = 'pop'
     vm.onScalingChange()
     await wrapper.vm.$nextTick()
 
@@ -241,12 +241,12 @@ describe('FinancialDataScalingSelector', () => {
     await new Promise((resolve) => setTimeout(resolve, 100))
     await wrapper.vm.$nextTick()
 
-    // Set the selectedScaling value to null and trigger the method
+    // Set the internalSelectedScaling value to null and trigger the method
     const vm = wrapper.vm as unknown as {
-      selectedScaling: string | null
+      internalSelectedScaling: string | null
       onScalingChange: () => void
     }
-    vm.selectedScaling = null
+    vm.internalSelectedScaling = null
     vm.onScalingChange()
     await wrapper.vm.$nextTick()
 
@@ -266,8 +266,8 @@ describe('FinancialDataScalingSelector', () => {
     await wrapper.vm.$nextTick()
 
     // Set scaling to population directly on the component
-    const vm = wrapper.vm as unknown as { selectedScaling: string | null }
-    vm.selectedScaling = 'pop'
+    const vm = wrapper.vm as unknown as { internalSelectedScaling: string | null }
+    vm.internalSelectedScaling = 'pop'
     await wrapper.vm.$nextTick()
 
     // Check if scaling info is displayed
