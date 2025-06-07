@@ -7,7 +7,6 @@ export {}
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
-    Button: typeof import('primevue/button')['default']
     DataBrowser: typeof import('./src/components/DataBrowser.vue')['default']
     DatasetSelector: typeof import('./src/components/DatasetSelector.vue')['default']
     FinancialDataComparison: typeof import('./src/components/FinancialDataComparison.vue')['default']
@@ -19,10 +18,8 @@ declare module 'vue' {
     IconSupport: typeof import('./src/components/icons/IconSupport.vue')['default']
     IconTooling: typeof import('./src/components/icons/IconTooling.vue')['default']
     LanguageSelector: typeof import('./src/components/LanguageSelector.vue')['default']
-    Menu: typeof import('primevue/menu')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     Toast: typeof import('primevue/toast')['default']
-    ToggleButton: typeof import('primevue/togglebutton')['default']
   }
 }

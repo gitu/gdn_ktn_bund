@@ -138,6 +138,7 @@ import { useI18n } from 'vue-i18n'
 import TreeTable from 'primevue/treetable'
 import Column from 'primevue/column'
 import Button from 'primevue/button'
+import ToggleButton from 'primevue/togglebutton'
 import type {
   FinancialData,
   FinancialDataNode,
