@@ -341,8 +341,8 @@ describe('DatasetSelector', () => {
     const typeSelects = wrapper.findAll('select')
     if (typeSelects.length > 0) {
       const typeSelect = typeSelects[0]
-      await typeSelect.setValue('gdn')
-      expect((typeSelect.element as HTMLSelectElement).value).toBe('gdn')
+      await typeSelect.setValue('2023')
+      expect((typeSelect.element as HTMLSelectElement).value).toBe('2023')
     } else {
       // Skip test if select not found
       expect(true).toBe(true)
@@ -409,12 +409,12 @@ describe('DatasetSelector', () => {
     }
   })
 
-  it('should handle initial datasets prop', async () => {
-    const initialDatasets = ['gdn/fs/010002:2022']
+  it('should handle datasets prop', async () => {
+    const datasets = ['gdn/fs/010002:2022']
 
     const wrapper = mount(DatasetSelector, {
       props: {
-        initialDatasets,
+        datasets,
       },
       global: {
         plugins: [i18n],
@@ -427,7 +427,7 @@ describe('DatasetSelector', () => {
 
     // Check if selected datasets section is visible (indicates datasets were loaded)
     const selectedSection = wrapper.find('.selected-datasets')
-    expect(selectedSection.exists() || initialDatasets.length === 0).toBe(true)
+    expect(selectedSection.exists() || datasets.length === 0).toBe(true)
   })
 
   it('should automatically select the latest year as default', async () => {

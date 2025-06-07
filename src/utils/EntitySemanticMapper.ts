@@ -257,6 +257,23 @@ export class EntitySemanticMapper {
     const parts = entityCode.toLowerCase().split('_')
 
     if (parts.length === 1) {
+      // Handle special case for "gdn" - all municipalities of Switzerland
+      if (parts[0] === 'gdn') {
+        return {
+          de: 'Alle Gemeinden der Schweiz',
+          fr: 'Toutes les communes de Suisse',
+          it: 'Tutti i comuni della Svizzera',
+          en: 'All Municipalities of Switzerland',
+        }
+      } else if (parts[0] === 'ktn') {
+        return {
+          de: 'Alle Kantone der Schweiz',
+          fr: 'Tous les cantons de Suisse',
+          it: 'Tutti i cantoni della Svizzera',
+          en: 'All Cantons of Switzerland',
+        }
+      }
+
       // Simple entity codes
       return ENTITY_TYPES[parts[0]] || this.createFallbackLabels(entityCode)
     }
@@ -267,8 +284,18 @@ export class EntitySemanticMapper {
       // Handle canton-specific entities
       if ((entityType === 'gdn' || entityType === 'ktn') && CANTON_CODES[subType]) {
         const cantonName = CANTON_CODES[subType]
-        const entityTypeName = ENTITY_TYPES[entityType]
 
+        // Special handling for gdn_xx - all municipalities of a specific canton
+        if (entityType === 'gdn') {
+          return {
+            de: `Alle Gemeinden des Kantons ${cantonName.en}`,
+            fr: `Toutes les communes du canton ${cantonName.fr}`,
+            it: `Tutti i comuni del cantone ${cantonName.it}`,
+            en: `All Municipalities of Canton ${cantonName.en}`,
+          }
+        }
+
+        const entityTypeName = ENTITY_TYPES[entityType]
         return {
           de: `${entityTypeName?.de || entityType} ${cantonName.de}`,
           fr: `${entityTypeName?.fr || entityType} ${cantonName.fr}`,
@@ -300,13 +327,24 @@ export class EntitySemanticMapper {
       // Handle complex codes like "ktn_gdn_ag" and "sv_mat_ge"
       const [level1, level2, level3] = parts
 
+      // Handle "ktn_gdn_ag" - canton complete (municipalities + canton government)
       if (level1 === 'ktn' && level2 === 'gdn' && CANTON_CODES[level3]) {
         const cantonName = CANTON_CODES[level3]
         return {
-          de: `Gemeinden Kanton ${cantonName.de}`,
-          fr: `Communes Canton ${cantonName.fr}`,
-          it: `Comuni Cantone ${cantonName.it}`,
-          en: `Municipalities Canton ${cantonName.en}`,
+          de: `Kanton ${cantonName.en} inklusive allen Gemeinden`,
+          fr: `Canton ${cantonName.fr} incluant toutes les communes`,
+          it: `Cantone ${cantonName.it} inclusi tutti i comuni`,
+          en: `Canton ${cantonName.en} including all municipalities`,
+        }
+      }
+
+      // Handle "bund_ktn_gdn" - full dataset
+      if (level1 === 'bund' && level2 === 'ktn' && level3 === 'gdn') {
+        return {
+          de: 'Gemeinde- und Kantons- und Bundesfinanzen',
+          fr: 'Données financières cantonales, communales et fédérales',
+          it: 'Finanze cantonali, comunali e federali',
+          en: 'Canton, Municipal, and Federal Finances',
         }
       }
 
@@ -329,13 +367,45 @@ export class EntitySemanticMapper {
   static getEntityDescription(entityCode: string): MultiLanguageLabels {
     const parts = entityCode.toLowerCase().split('_')
 
+    // Handle special case for "gdn" - all municipalities of Switzerland
+    if (parts.length === 1 && parts[0] === 'gdn') {
+      return {
+        de: 'Kombinierte Finanzdaten aus allen Gemeinden der Schweiz',
+        fr: 'Données financières combinées de toutes les communes de Suisse',
+        it: 'Dati finanziari combinati di tutti i comuni della Svizzera',
+        en: 'Combined financial data from all municipalities across Switzerland',
+      }
+    }
+
+    // Handle canton-specific municipalities (e.g., "gdn_ag")
     if (parts.length === 2 && parts[0] === 'gdn' && CANTON_CODES[parts[1]]) {
       const cantonName = CANTON_CODES[parts[1]]
       return {
-        de: `Alle Gemeinden des Kantons ${cantonName.de}`,
-        fr: `Toutes les communes du canton ${cantonName.fr}`,
-        it: `Tutti i comuni del cantone ${cantonName.it}`,
-        en: `All municipalities of Canton ${cantonName.en}`,
+        de: `Kombinierte Finanzdaten aus allen Gemeinden des Kantons ${cantonName.de}`,
+        fr: `Données financières combinées de toutes les communes du canton ${cantonName.fr}`,
+        it: `Dati finanziari combinati di tutti i comuni del cantone ${cantonName.it}`,
+        en: `Combined financial data from all municipalities within Canton ${cantonName.en}`,
+      }
+    }
+
+    // Handle "ktn_gdn_ag" - canton complete (municipalities + canton government)
+    if (parts.length === 3 && parts[0] === 'ktn' && parts[1] === 'gdn' && CANTON_CODES[parts[2]]) {
+      const cantonName = CANTON_CODES[parts[2]]
+      return {
+        de: `Kombinierte Finanzdaten aus allen Gemeinden und dem Kantonsfinanzamt des Kantons ${cantonName.de}`,
+        fr: `Données financières combinées incluant toutes les communes et le gouvernement cantonal d'${cantonName.fr}`,
+        it: `Dati finanziari combinati inclusi tutti i comuni e il governo cantonale di ${cantonName.it}`,
+        en: `Combined financial data including all municipalities and the canton government of ${cantonName.en}`,
+      }
+    }
+
+    // Handle "bund_ktn_gdn" - full dataset
+    if (parts.length === 3 && parts[0] === 'bund' && parts[1] === 'ktn' && parts[2] === 'gdn') {
+      return {
+        de: 'Komplettes Finanzdatenset der Schweiz inklusive allen Gemeinden, allen Kantonen und des Bundes',
+        fr: 'Jeu de données financières suisse complet incluant toutes les communes, tous les cantons et le gouvernement fédéral',
+        it: 'Dataset finanziario svizzero completo inclusi tutti i comuni, tutti i cantoni e il governo federale',
+        en: 'Complete Swiss financial dataset including all municipalities, all cantons, and the federal government',
       }
     }
 

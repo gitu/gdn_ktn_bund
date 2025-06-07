@@ -7,49 +7,44 @@
     </div>
 
     <!-- Search and Filters -->
-    <div class="search-filters">
-      <div class="search-section">
-        <div class="p-inputgroup">
-          <InputText
-            v-model="searchQuery"
-            :placeholder="$t('datasetSelector.searchPlaceholder')"
-            class="search-input"
-          />
+    <div class="flex flex-wrap items-center justify-between gap-4 p-4 bg-white rounded shadow">
+      <!-- Search Section -->
+      <div class="flex-1 min-w-[250px] max-w-xl">
+        <div class="flex items-center gap-2">
+          <IconField class="max-w-600 w-full">
+            <InputText
+              v-model="searchQuery"
+              :placeholder="$t('datasetSelector.searchPlaceholder')"
+              class="w-full"
+            />
+            <InputIcon class="pi pi-search" />
+          </IconField>
           <Button
-            icon="pi pi-search"
+            v-if="searchQuery"
+            icon="pi pi-times"
             severity="secondary"
-            :disabled="!searchQuery"
-            @click="performSearch"
+            @click="clearSearch"
+            class="px-4 py-2"
           />
-          <Button v-if="searchQuery" icon="pi pi-times" severity="secondary" @click="clearSearch" />
         </div>
       </div>
 
-      <div class="filter-section">
-        <Select
-          v-model="selectedType"
-          :options="typeOptions"
-          option-label="label"
-          option-value="value"
-          :placeholder="$t('datasetSelector.filters.dataType')"
-          class="type-filter"
-        />
-
+      <!-- Filter Section -->
+      <div class="flex flex-wrap items-center gap-4">
         <Select
           v-model="selectedYear"
           :options="yearOptions"
           option-label="label"
           option-value="value"
           :placeholder="$t('datasetSelector.filters.year')"
-          class="year-filter"
+          class="min-w-[150px]"
         />
       </div>
     </div>
 
     <!-- Available Datasets -->
-    <div class="available-datasets">
+    <div class="available-datasets gap-5">
       <div class="section-header">
-        <h4>{{ $t('datasetSelector.availableDatasets') }}</h4>
         <span class="results-count">
           {{
             $t('datasetSelector.resultsCount', {
@@ -75,12 +70,12 @@
         v-else
         :value="filteredDatasets"
         :paginator="true"
-        :rows="10"
+        :rows="5"
         :rows-per-page-options="[5, 10, 20, 50]"
         paginator-template="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown"
         :current-page-report-template="$t('datasetSelector.pageReportTemplate')"
         class="datasets-table"
-        :scroll-height="'400px'"
+        :scroll-height="'350px'"
         scroll-direction="vertical"
       >
         <Column
@@ -91,13 +86,6 @@
           <template #body="{ data }">
             <div class="dataset-name">
               <strong>{{ getDisplayName(data) }}</strong>
-              <div class="dataset-type">
-                <Tag
-                  :value="$t(`datasetSelector.types.${data.type}`)"
-                  :severity="data.type === 'gdn' ? 'info' : 'success'"
-                  class="type-tag"
-                />
-              </div>
             </div>
           </template>
         </Column>
@@ -141,7 +129,6 @@
               option-value="value"
               :placeholder="$t('datasetSelector.selectYear')"
               class="year-selector"
-              :disabled="isDatasetSelected(data.id)"
             />
           </template>
         </Column>
@@ -152,7 +139,7 @@
               :label="getAddButtonLabel(data)"
               icon="pi pi-plus"
               size="small"
-              :disabled="isDatasetSelected(data.id)"
+              :disabled="isAddButtonDisabled(data.id)"
               @click="addDatasetWithDefaultYear(data)"
             />
           </template>
@@ -169,36 +156,7 @@
         </span>
       </div>
 
-      <div class="selected-list">
-        <div v-for="dataset in selectedDatasets" :key="dataset.id" class="selected-item">
-          <div class="item-info">
-            <div class="item-name">
-              <strong>{{ getDisplayName(dataset.entry) }}</strong>
-              <Tag
-                :value="$t(`datasetSelector.types.${dataset.entry.type}`)"
-                :severity="dataset.entry.type === 'gdn' ? 'info' : 'success'"
-                size="small"
-              />
-            </div>
-            <div class="item-details">
-              <span class="year-badge">{{ dataset.year }}</span>
-              <span class="entity-code">{{ dataset.entry.entityCode }}</span>
-            </div>
-          </div>
-          <Button
-            icon="pi pi-times"
-            severity="danger"
-            size="small"
-            text
-            @click="removeDataset(dataset.id)"
-            :aria-label="
-              $t('datasetSelector.removeDataset', { name: getDisplayName(dataset.entry) })
-            "
-          />
-        </div>
-      </div>
-
-      <div class="selected-actions">
+      <div class="selected-actions flex justify-end gap-2 mt-4">
         <Button
           :label="$t('datasetSelector.clearAll')"
           icon="pi pi-trash"
@@ -213,6 +171,34 @@
           :disabled="selectedDatasets.length === 0"
         />
       </div>
+
+      <div class="selected-list grid grid-cols-3 sm:grid-cols-2 lg:grid-cols-3 gap-4 p-4">
+        <div
+          v-for="dataset in selectedDatasets"
+          :key="dataset.id"
+          class="selected-item bg-gray rounded-xl shadow p-2 flex flex-col justify-between card"
+        >
+          <div class="item-info mb-4">
+            <div class="item-name flex items-center gap-2 mb-2">
+              <strong class="text-lg">{{ getDisplayName(dataset.entry) }}</strong>
+            </div>
+            <div class="item-details text-sm text-gray-600 flex gap-4">
+              <span class="year-badge bg-gray-100 px-2 py-1 rounded">{{ dataset.year }}</span>
+            </div>
+          </div>
+          <div class="flex justify-end">
+            <Button
+              icon="pi pi-times"
+              severity="danger"
+              size="small"
+              @click="removeDataset(dataset.id)"
+              :aria-label="
+                $t('datasetSelector.removeDataset', { name: getDisplayName(dataset.entry) })
+              "
+            />
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -225,7 +211,6 @@ import Column from 'primevue/column'
 import InputText from 'primevue/inputtext'
 import Button from 'primevue/button'
 import Select from 'primevue/select'
-import Tag from 'primevue/tag'
 import Message from 'primevue/message'
 import ProgressSpinner from 'primevue/progressspinner'
 import type { AvailableDataEntry, AvailableDataCatalog } from '@/types/DataStructures'
@@ -239,11 +224,11 @@ import {
 
 // Props
 interface Props {
-  initialDatasets?: string[]
+  datasets?: string[]
 }
 
 const props = withDefaults(defineProps<Props>(), {
-  initialDatasets: () => [],
+  datasets: () => [],
 })
 
 // Emits
@@ -278,12 +263,6 @@ const selectedDatasets = ref<SelectedDataset[]>([])
 
 // Computed properties
 const totalDatasets = computed(() => catalog.value.length)
-
-const typeOptions = computed(() => [
-  { label: t('datasetSelector.filters.all'), value: 'all' },
-  { label: t('datasetSelector.filters.gdn'), value: 'gdn' },
-  { label: t('datasetSelector.filters.std'), value: 'std' },
-])
 
 const yearOptions = computed(() => {
   const years = getAllAvailableYears(catalog.value)
@@ -348,23 +327,11 @@ const setDefaultYear = (entry: AvailableDataEntry) => {
   }
 }
 
-const getLatestYear = (entry: AvailableDataEntry): string => {
-  if (entry.availableYears.length === 0) return ''
-  const sortedYears = [...entry.availableYears].sort((a, b) => b.localeCompare(a))
-  return sortedYears[0]
-}
-
 const getAddButtonLabel = (entry: AvailableDataEntry): string => {
   const selectedYear = selectedYears.value[entry.id]
   if (selectedYear) {
     return t('datasetSelector.addDatasetWithYear', { year: selectedYear })
   }
-
-  const latestYear = getLatestYear(entry)
-  if (latestYear) {
-    return t('datasetSelector.addLatestYear', { year: latestYear })
-  }
-
   return t('datasetSelector.addDataset')
 }
 
@@ -376,7 +343,13 @@ const addDatasetWithDefaultYear = (entry: AvailableDataEntry) => {
   addDataset(entry)
 }
 
-const isDatasetSelected = (entryId: string): boolean => {
+const isAddButtonDisabled = (entryId: string): boolean => {
+  // Disable if no year is selected for this entry
+  if (!selectedYears.value[entryId]) {
+    return true
+  }
+
+  // Disable if this dataset with the selected year is already added
   return selectedDatasets.value.some(
     (dataset) => dataset.entry.id === entryId && dataset.year === selectedYears.value[entryId],
   )
@@ -439,11 +412,6 @@ const emitSelectedDatasets = () => {
   emit('datasetsChanged', datasetIdentifiers)
 }
 
-const performSearch = () => {
-  // Search is reactive, so this is mainly for the search button click
-  // Could add analytics or other side effects here
-}
-
 const clearSearch = () => {
   searchQuery.value = ''
 }
@@ -461,9 +429,9 @@ const loadData = async () => {
       setDefaultYear(entry)
     })
 
-    // Initialize with any provided initial datasets
-    if (props.initialDatasets.length > 0) {
-      initializeFromDatasets(props.initialDatasets)
+    // Initialize with any provided datasets
+    if (props.datasets.length > 0) {
+      initializeFromDatasets(props.datasets)
     }
   } catch (err) {
     error.value = t('datasetSelector.errors.loadingFailed')
@@ -505,6 +473,27 @@ const initializeFromDatasets = (datasets: string[]) => {
 watch(locale, () => {
   // Force reactivity update for display names
 })
+
+// Watch for datasets prop changes to update selected datasets
+watch(
+  () => props.datasets,
+  (newDatasets) => {
+    if (catalog.value.length > 0) {
+      // Clear current selection
+      selectedDatasets.value = []
+      selectedYears.value = {}
+
+      // Initialize with new datasets
+      if (newDatasets.length > 0) {
+        initializeFromDatasets(newDatasets)
+      }
+
+      // Emit the updated selection
+      emitSelectedDatasets()
+    }
+  },
+  { deep: true },
+)
 
 // Initialize component
 onMounted(() => {

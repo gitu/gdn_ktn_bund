@@ -95,7 +95,7 @@
   },
   "treeTableView": {
     "title": "Hierarchical Tree Table",
-    "description": "Explore financial data in a hierarchical table format with collapsible tree structure",
+    "description": "Compare different Swiss governmental entities' financial statements with each other",
     "dimension": "Dimension",
     "tableTitle": "Table Title",
     "titlePlaceholder": "Enter table title",
@@ -376,8 +376,8 @@
   "financialDataFullView": {
     "title": "Financial Data - Full View",
     "subtitle": "Full-screen view of financial data comparisons",
-    "backToComparison": "Back to Comparison",
-    "backToComparisonTooltip": "Return to the main comparison view",
+    "backToSelection": "Back to Selection",
+    "backToSelectionTooltip": "Return to the dataset selection view",
     "noDatasets": "No datasets selected",
     "noDataMessage": "Please select datasets in the main comparison view before opening the full view.",
     "loadingDatasets": "Loading datasets...",

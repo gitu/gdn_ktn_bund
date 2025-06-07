@@ -95,7 +95,7 @@
   },
   "treeTableView": {
     "title": "Table arborescente hiérarchique",
-    "description": "Explorez les données financières dans un format de table hiérarchique avec structure arborescente pliable",
+    "description": "Comparez les états financiers de différentes entités gouvernementales suisses entre elles",
     "dimension": "Dimension",
     "tableTitle": "Titre du tableau",
     "titlePlaceholder": "Entrer le titre du tableau",
@@ -376,8 +376,8 @@
   "financialDataFullView": {
     "title": "Données financières - Vue complète",
     "subtitle": "Vue plein écran des comparaisons de données financières",
-    "backToComparison": "Retour à la comparaison",
-    "backToComparisonTooltip": "Retourner à la vue de comparaison principale",
+    "backToSelection": "Retour à la sélection",
+    "backToSelectionTooltip": "Retourner à la sélection des jeux de données",
     "noDatasets": "Aucun jeu de données sélectionné",
     "noDataMessage": "Veuillez sélectionner des jeux de données dans la vue de comparaison principale avant d'ouvrir la vue complète.",
     "loadingDatasets": "Chargement des jeux de données...",

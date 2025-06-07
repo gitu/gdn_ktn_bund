@@ -340,13 +340,8 @@ export class DataLoader {
       } else {
         // For STD data, use EntitySemanticMapper to get human-readable names
         entityName = EntitySemanticMapper.getEntityDisplayName(entityCode)
-        // Generate description for STD entities
-        entityDescription = {
-          de: `${entityName.de} (${entityCode})`,
-          fr: `${entityName.fr} (${entityCode})`,
-          it: `${entityName.it} (${entityCode})`,
-          en: `${entityName.en} (${entityCode})`,
-        }
+        // Use EntitySemanticMapper to get proper description for STD entities
+        entityDescription = EntitySemanticMapper.getEntityDescription(entityCode)
       }
 
       const entity: FinancialDataEntity = {

@@ -95,7 +95,7 @@
   },
   "treeTableView": {
     "title": "Hierarchische Baumtabelle",
-    "description": "Erkunden Sie Finanzdaten in einem hierarchischen Tabellenformat mit zusammenklappbarer Baumstruktur",
+    "description": "Vergleichen Sie die Finanzberichte verschiedener Schweizer Regierungseinheiten miteinander",
     "dimension": "Dimension",
     "tableTitle": "Tabellentitel",
     "titlePlaceholder": "Tabellentitel eingeben",
@@ -380,8 +380,8 @@
   "financialDataFullView": {
     "title": "Finanzdaten - Vollansicht",
     "subtitle": "Vollbildansicht der Finanzdatenvergleiche",
-    "backToComparison": "Zurück zum Vergleich",
-    "backToComparisonTooltip": "Zurück zur Hauptvergleichsansicht",
+    "backToSelection": "Zurück zur Auswahl",
+    "backToSelectionTooltip": "Zurück zur Datensatz-Auswahl",
     "noDatasets": "Keine Datensätze ausgewählt",
     "noDataMessage": "Bitte wählen Sie Datensätze in der Hauptvergleichsansicht aus, bevor Sie die Vollansicht öffnen.",
     "loadingDatasets": "Lade Datensätze...",
