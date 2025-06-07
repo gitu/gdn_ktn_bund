@@ -14,22 +14,25 @@
     </Message>
 
     <!-- Scaling selector -->
-    <div v-else class="scaling-controls">
-      <div class="field">
-        <label for="scaling-selector" class="block text-sm font-medium mb-2">
-          {{ $t('financialDataScalingSelector.selectScaling') }}
-        </label>
+    <div v-else class="scaling-controls card">
+      <div class="flex flex-col gap-4">
+        <h4 class="block font-medium mb-2">
+          {{ $t('financialDataScalingSelector.scaling') }}
+        </h4>
+        <FloatLabel class="w-full" variant="on">
         <Select
           id="scaling-selector"
           v-model="internalSelectedScaling"
           :options="scalingOptions"
           option-label="label"
           option-value="value"
-          :placeholder="$t('financialDataScalingSelector.selectScaling')"
           class="w-full"
           @change="onScalingChange"
           data-testid="scaling-dropdown"
+          size="large"
         />
+          <label for="scaling-selector"> {{ $t('financialDataScalingSelector.selectScaling') }}</label>
+        </FloatLabel>
       </div>
     </div>
 

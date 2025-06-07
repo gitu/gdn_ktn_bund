@@ -38,7 +38,10 @@ export default defineConfigWithVueTs(
 
   ...vueI18n.configs.recommended,
   {
-    name: 'vue-i18n',
+    rules: {
+      '@intlify/vue-i18n/no-missing-keys': 'error',
+      '@intlify/vue-i18n/no-raw-text': 'off'
+    },
     settings: {
       'vue-i18n': {
         localeDir: './src/i18n/locales/*.{json,json5,yaml,yml}',

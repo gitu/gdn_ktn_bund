@@ -184,6 +184,7 @@ interface ScalingInfo {
 
 const handleScalingChanged = async (scalingId: string | null, scalingInfo: ScalingInfo | null) => {
   try {
+    console.log('Scaling changed:', scalingId, scalingInfo)
     currentScalingId.value = scalingId
 
     // Emit scaling change to parent
@@ -239,30 +240,38 @@ const applyScalingToEntities = async (scalingId: string, scalingInfo: ScalingInf
           geoId = 'bund'
         }
       } else if (source === 'gdn') {
-        const muncipality = await getMunicipalityByGdnId(entityId)
-        geoId = muncipality?.municipalityId || 'XXX'
+        const municipality = await getMunicipalityByGdnId(entityId)
+        geoId = municipality?.municipalityId || entityId // Use gdnId or fallback to entityId
       }
 
       // Load scaling data for this entity
+      console.log(
+        'Loading scaling factor for entity:',
+        entityCode,
+        'entityId:',
+        entityId,
+        'geoId:',
+        geoId,
+        'year:',
+        year,
+        'source:',
+        source,
+      )
+
       const scalingFactor = await loadScalingFactorForEntity(
         scalingId,
         geoId,
         parseInt(year),
         source,
       )
+
       console.log(
-        'scalingFactor',
+        'Scaling factor result:',
         scalingFactor,
         'for entity',
         entityCode,
-        'entityid',
-        entityId,
-        'year',
-        year,
-        'geoId',
-        geoId,
       )
-      if (scalingFactor !== null) {
+      if (scalingFactor !== null && scalingFactor > 0) {
         entity.scalingFactor = scalingFactor
         entity.scalingInfo = {
           de: `${scalingInfo.name} (${scalingInfo.unit})`,
@@ -271,6 +280,9 @@ const applyScalingToEntities = async (scalingId: string, scalingInfo: ScalingInf
           en: `${scalingInfo.name} (${scalingInfo.unit})`,
         }
         entity.scalingMode = 'divide' // Divide financial values by scaling factor for per-capita/per-unit values
+        console.log(`Successfully applied scaling to entity ${entityCode}: factor=${scalingFactor}`)
+      } else {
+        console.warn(`No valid scaling factor found for entity ${entityCode}: factor=${scalingFactor}`)
       }
     } catch (error) {
       console.error(`Error applying scaling to entity ${entityCode}:`, error)
@@ -286,24 +298,35 @@ const loadScalingFactorForEntity = async (
   source: 'gdn' | 'std',
 ): Promise<number | null> => {
   try {
+    console.log(`Loading scaling factor: scalingId=${scalingId}, entityId=${entityId}, year=${year}, source=${source}`)
+
     if (source === 'gdn') {
       // For municipalities, load GDN data
       const result = await statsDataLoader.loadGdnData(scalingId, year, {
         geoIds: [entityId],
       })
 
+      console.log(`GDN data result for ${entityId}:`, result.data)
       const record = result.data.find((r: { geoId: string; value: number }) => r.geoId === entityId)
-      return record ? record.value : null
+      const value = record ? record.value : null
+      console.log(`Found GDN record for ${entityId}:`, record, 'value:', value)
+      return value
     } else {
-      if (entityId === 'bund')
-        return (await statsDataLoader.getBundData(scalingId, year)).totalValue
+      if (entityId === 'bund') {
+        const bundResult = await statsDataLoader.getBundData(scalingId, year)
+        console.log(`Bund data result:`, bundResult)
+        return bundResult.totalValue
+      }
       // For standard entities, load KTN data if applicable
       const result = await statsDataLoader.loadKtnData(scalingId, year, {
         geoIds: [entityId],
       })
 
+      console.log(`KTN data result for ${entityId}:`, result.data)
       const record = result.data.find((r: { geoId: string; value: number }) => r.geoId === entityId)
-      return record ? record.value : null
+      const value = record ? record.value : null
+      console.log(`Found KTN record for ${entityId}:`, record, 'value:', value)
+      return value
     }
   } catch (error) {
     console.error(`Error loading scaling factor for entity ${entityId}:`, error)

@@ -96,6 +96,7 @@ const i18nMessages = {
     financialDataScalingSelector: {
       title: 'Data Scaling',
       subtitle: 'Apply scaling factors for better comparison',
+      scaling: 'Scaling',
       noScaling: 'No scaling',
       loading: 'Loading scaling options...',
       error: 'Error loading scaling options',
@@ -134,6 +135,7 @@ const i18nMessages = {
     financialDataScalingSelector: {
       title: 'Datenskalierung',
       subtitle: 'Skalierungsfaktoren für bessere Vergleichbarkeit anwenden',
+      scaling: 'Skalierung',
       noScaling: 'Keine Skalierung',
       loading: 'Lade Skalierungsoptionen...',
       error: 'Fehler beim Laden der Skalierungsoptionen',
@@ -385,5 +387,100 @@ describe('FinancialDataScalingSelector', () => {
 
     // Should have "No scaling" + filtered statistics (pop, area)
     expect(vm.scalingOptions.length).toBeGreaterThanOrEqual(1) // At least "No scaling"
+  })
+
+  it('should properly handle scaling selection and emit correct events', async () => {
+    const wrapper = mount(FinancialDataScalingSelector, {
+      global: {
+        plugins: [createTestI18n()],
+      },
+    })
+
+    // Wait for component to load
+    await new Promise((resolve) => setTimeout(resolve, 100))
+    await wrapper.vm.$nextTick()
+
+    const vm = wrapper.vm as unknown as {
+      internalSelectedScaling: string | null
+      onScalingChange: () => void
+      currentScalingInfo: { id: string; name: string; unit: string; description: string } | null
+    }
+
+    // Test selecting a scaling option
+    vm.internalSelectedScaling = 'pop'
+    vm.onScalingChange()
+    await wrapper.vm.$nextTick()
+
+    // Should emit scalingChanged with scaling ID and info
+    expect(wrapper.emitted('scalingChanged')).toBeTruthy()
+    const emittedEvents = wrapper.emitted('scalingChanged') as Array<[string | null, object | null]>
+    expect(emittedEvents[0][0]).toBe('pop')
+    expect(emittedEvents[0][1]).toEqual(expect.objectContaining({
+      id: 'pop',
+      name: expect.any(String),
+      unit: expect.any(String),
+      description: expect.any(String),
+    }))
+  })
+
+  it('should handle prop changes for selectedScaling', async () => {
+    const wrapper = mount(FinancialDataScalingSelector, {
+      props: {
+        selectedScaling: null,
+      },
+      global: {
+        plugins: [createTestI18n()],
+      },
+    })
+
+    // Wait for component to load
+    await new Promise((resolve) => setTimeout(resolve, 100))
+    await wrapper.vm.$nextTick()
+
+    const vm = wrapper.vm as unknown as {
+      internalSelectedScaling: string | null
+    }
+
+    // Initially should be null
+    expect(vm.internalSelectedScaling).toBe(null)
+
+    // Update prop
+    await wrapper.setProps({ selectedScaling: 'pop' })
+    await wrapper.vm.$nextTick()
+
+    // Internal state should update
+    expect(vm.internalSelectedScaling).toBe('pop')
+
+    // Update prop back to null
+    await wrapper.setProps({ selectedScaling: null })
+    await wrapper.vm.$nextTick()
+
+    // Internal state should update
+    expect(vm.internalSelectedScaling).toBe(null)
+  })
+
+  it('should handle invalid scaling selection gracefully', async () => {
+    const wrapper = mount(FinancialDataScalingSelector, {
+      global: {
+        plugins: [createTestI18n()],
+      },
+    })
+
+    // Wait for component to load
+    await new Promise((resolve) => setTimeout(resolve, 100))
+    await wrapper.vm.$nextTick()
+
+    const vm = wrapper.vm as unknown as {
+      internalSelectedScaling: string | null
+      onScalingChange: () => void
+    }
+
+    // Set an invalid scaling ID
+    vm.internalSelectedScaling = 'invalid-scaling-id'
+    vm.onScalingChange()
+    await wrapper.vm.$nextTick()
+
+    // Should emit error event
+    expect(wrapper.emitted('error')).toBeTruthy()
   })
 })

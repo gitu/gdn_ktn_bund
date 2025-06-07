@@ -7,11 +7,13 @@ export {}
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
+    Button: typeof import('primevue/button')['default']
     DataBrowser: typeof import('./src/components/DataBrowser.vue')['default']
     DatasetSelector: typeof import('./src/components/DatasetSelector.vue')['default']
     FinancialDataComparison: typeof import('./src/components/FinancialDataComparison.vue')['default']
     FinancialDataDisplay: typeof import('./src/components/FinancialDataDisplay.vue')['default']
     FinancialDataScalingSelector: typeof import('./src/components/FinancialDataScalingSelector.vue')['default']
+    FloatLabel: typeof import('primevue/floatlabel')['default']
     IconCommunity: typeof import('./src/components/icons/IconCommunity.vue')['default']
     IconDocumentation: typeof import('./src/components/icons/IconDocumentation.vue')['default']
     IconEcosystem: typeof import('./src/components/icons/IconEcosystem.vue')['default']
@@ -20,8 +22,11 @@ declare module 'vue' {
     IconTooling: typeof import('./src/components/icons/IconTooling.vue')['default']
     InputIcon: typeof import('primevue/inputicon')['default']
     LanguageSelector: typeof import('./src/components/LanguageSelector.vue')['default']
+    Menu: typeof import('primevue/menu')['default']
+    OrderList: typeof import('primevue/orderlist')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     Toast: typeof import('primevue/toast')['default']
+    ToggleButton: typeof import('primevue/togglebutton')['default']
   }
 }

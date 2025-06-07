@@ -23,7 +23,7 @@ const layoutConfig = reactive<LayoutConfig>({
   primary: 'emerald',
   surface: null,
   darkTheme: false,
-  menuMode: 'static',
+  menuMode: 'overlay',
 })
 
 const layoutState = reactive<LayoutState>({
@@ -32,7 +32,7 @@ const layoutState = reactive<LayoutState>({
   profileSidebarVisible: false,
   configSidebarVisible: false,
   staticMenuMobileActive: false,
-  menuHoverActive: false,
+  menuHoverActive: false, // Default is false to align with UI/UX requirements; change dynamically if needed
   activeMenuItem: null,
 })
 

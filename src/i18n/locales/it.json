@@ -201,7 +201,7 @@
     "selectedNode": "Nodo selezionato",
     "code": "Codice",
     "searchResults": "Risultati di ricerca",
-    "moreResults": "... e altri {{count}} risultati",
+    "moreResults": "... e altri {count} risultati",
     "aboutTitle": "Informazioni sulla struttura ad albero",
     "aboutDescription": "Questo navigatore ad albero mostra la struttura gerarchica dei dati finanziari svizzeri. I dati sono organizzati per codici conto dove i codici più lunghi rappresentano sottocategorie più specifiche di codici più brevi.",
     "aboutItems": {
@@ -214,6 +214,7 @@
   "financialDataScalingSelector": {
     "title": "Scalatura dei dati",
     "subtitle": "Applicare fattori di scala per un migliore confronto",
+    "scaling": "Scalatura",
     "noScaling": "Nessuna scalatura",
     "loading": "Caricamento opzioni di scalatura...",
     "error": "Errore nel caricamento delle opzioni di scalatura",
@@ -289,6 +290,9 @@
     "collapseAll": "Comprimi tutto",
     "showCodes": "Mostra codici",
     "hideCodes": "Nascondi codici",
+    "codesShown": "Codici mostrati",
+    "freezeFirstColumn": "Blocca prima colonna",
+    "firstColumnFreezed": "Prima colonna bloccata",
     "showZeroValues": "Mostra valori zero",
     "hideZeroValues": "Nascondi valori zero",
     "enableScaling": "Abilita scalatura",
@@ -327,7 +331,8 @@
       "invalidData": "Dati finanziari non validi",
       "missingBalanceSheet": "Bilancio mancante",
       "missingIncomeStatement": "Conto economico mancante",
-      "processingError": "Errore nell'elaborazione dei dati"
+      "processingError": "Errore nell'elaborazione dei dati",
+      "noEntities": "Nessuna entità disponibile"
     }
   },
   "datasetSelector": {

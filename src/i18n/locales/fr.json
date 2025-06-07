@@ -201,7 +201,7 @@
     "selectedNode": "Nœud sélectionné",
     "code": "Code",
     "searchResults": "Résultats de recherche",
-    "moreResults": "... et {{count}} résultats supplémentaires",
+    "moreResults": "... et {count} résultats supplémentaires",
     "aboutTitle": "À propos de la structure arborescente",
     "aboutDescription": "Ce navigateur d'arbre affiche la structure hiérarchique des données financières suisses. Les données sont organisées par codes de compte où les codes plus longs représentent des sous-catégories plus spécifiques de codes plus courts.",
     "aboutItems": {
@@ -214,6 +214,7 @@
   "financialDataScalingSelector": {
     "title": "Mise à l'échelle des données",
     "subtitle": "Appliquer des facteurs d'échelle pour une meilleure comparaison",
+    "scaling": "Mise à l'échelle",
     "noScaling": "Aucune mise à l'échelle",
     "loading": "Chargement des options de mise à l'échelle...",
     "error": "Erreur lors du chargement des options de mise à l'échelle",
@@ -289,6 +290,9 @@
     "collapseAll": "Tout réduire",
     "showCodes": "Afficher les codes",
     "hideCodes": "Masquer les codes",
+    "codesShown": "Codes affichés",
+    "freezeFirstColumn": "Figer la première colonne",
+    "firstColumnFreezed": "Première colonne figée",
     "showZeroValues": "Afficher les valeurs nulles",
     "hideZeroValues": "Masquer les valeurs nulles",
     "enableScaling": "Activer la mise à l'échelle",
@@ -327,7 +331,8 @@
       "invalidData": "Données financières invalides",
       "missingBalanceSheet": "Bilan manquant",
       "missingIncomeStatement": "Compte de résultat manquant",
-      "processingError": "Erreur de traitement des données"
+      "processingError": "Erreur de traitement des données",
+      "noEntities": "Aucune entité disponible"
     }
   },
   "datasetSelector": {

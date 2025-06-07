@@ -144,7 +144,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, watch, onMounted } from 'vue'
+import { computed, onMounted, ref, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
 import TreeTable from 'primevue/treetable'
 import Column from 'primevue/column'
@@ -152,8 +152,8 @@ import Button from 'primevue/button'
 import ToggleButton from 'primevue/togglebutton'
 import type {
   FinancialData,
-  FinancialDataNode,
   FinancialDataEntity,
+  FinancialDataNode,
 } from '@/types/FinancialDataStructure'
 import type { MultiLanguageLabels } from '@/types/DataStructures'
 
@@ -286,7 +286,7 @@ const combinedFinancialData = computed(() => {
 // Methods
 const calculateProfitLossNode = (node: FinancialDataNode): FinancialDataNode | null => {
   // Create a P&L node with calculated values
-  const pnlNode: FinancialDataNode = {
+  return {
     code: 'pnl',
     labels: {
       de: 'Gewinn/Verlust',
@@ -297,8 +297,6 @@ const calculateProfitLossNode = (node: FinancialDataNode): FinancialDataNode | n
     values: node.values,
     children: [],
   }
-
-  return pnlNode
 }
 
 const transformNodeToTreeTableData = (node: FinancialDataNode): TreeTableNode[] => {

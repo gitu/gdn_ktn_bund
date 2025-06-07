@@ -201,7 +201,7 @@
     "selectedNode": "Ausgewählter Knoten",
     "code": "Code",
     "searchResults": "Suchergebnisse",
-    "moreResults": "... und {{count}} weitere Ergebnisse",
+    "moreResults": "... und {count} weitere Ergebnisse",
     "aboutTitle": "Über die Baumstruktur",
     "aboutDescription": "Dieser Baum-Navigator zeigt die hierarchische Struktur der Schweizer Finanzdaten an. Die Daten sind nach Kontocodes organisiert, wobei längere Codes spezifischere Unterkategorien kürzerer Codes darstellen.",
     "aboutItems": {
@@ -214,6 +214,7 @@
   "financialDataScalingSelector": {
     "title": "Datenskalierung",
     "subtitle": "Skalierungsfaktoren für bessere Vergleichbarkeit anwenden",
+    "scaling": "Skalierung",
     "noScaling": "Keine Skalierung",
     "loading": "Lade Skalierungsoptionen...",
     "error": "Fehler beim Laden der Skalierungsoptionen",
@@ -289,6 +290,9 @@
     "collapseAll": "Alle einklappen",
     "showCodes": "Codes anzeigen",
     "hideCodes": "Codes ausblenden",
+    "codesShown": "Codes angezeigt",
+    "freezeFirstColumn": "Erste Spalte fixieren",
+    "firstColumnFreezed": "Erste Spalte fixiert",
     "showZeroValues": "Nullwerte anzeigen",
     "hideZeroValues": "Nullwerte ausblenden",
     "enableScaling": "Skalierung aktivieren",
@@ -303,10 +307,6 @@
     "scalingFactor": "Skalierungsfaktor: {factor}",
     "scalingEnabled": "Skalierung aktiviert",
     "scalingDisabled": "Skalierung deaktiviert",
-    "noScalingFactor": "Kein Skalierungsfaktor verfügbar",
-    "scalingInfo": {
-      "title": "Skalierungsinformationen"
-    },
     "controls": {
       "title": "Anzeigeoptionen"
     },
@@ -331,7 +331,8 @@
       "invalidData": "Ungültige Finanzdaten",
       "missingBalanceSheet": "Bilanz fehlt",
       "missingIncomeStatement": "Erfolgsrechnung fehlt",
-      "processingError": "Fehler bei der Datenverarbeitung"
+      "processingError": "Fehler bei der Datenverarbeitung",
+      "noEntities": "Keine Entitäten verfügbar"
     }
   },
   "datasetSelector": {
