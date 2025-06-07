@@ -13,11 +13,7 @@
     <!-- Dataset Selection Section -->
     <Card class="mb-12">
       <template #content>
-        <DatasetSelector
-          :datasets="selectedDatasets"
-          @datasets-changed="handleDatasetsChanged"
-          @error="handleSelectorError"
-        />
+        <DatasetSelector v-model="selectedDatasets" @error="handleSelectorError" />
       </template>
     </Card>
 
@@ -133,12 +129,6 @@ const handleDataLoaded = (count: number) => {
   errorMessage.value = null // Clear any previous errors
 }
 
-const handleDatasetsChanged = (datasets: string[]) => {
-  selectedDatasets.value = datasets
-  updateURL()
-  console.log('Selected datasets changed:', datasets)
-}
-
 const handleSelectorError = (error: string) => {
   errorMessage.value = error
   console.error('Dataset selector error:', error)
@@ -174,6 +164,11 @@ const openFullView = () => {
     name: 'financial-data-full-view',
     query,
   })
+}
+
+const handleDatasetsChanged = () => {
+  updateURL()
+  console.log('Selected datasets changed:', selectedDatasets.value)
 }
 
 // URL management functions
@@ -241,6 +236,15 @@ watch(
   () => route.query,
   () => {
     loadStateFromURL()
+  },
+  { deep: true },
+)
+
+// Watch for selectedDatasets changes
+watch(
+  selectedDatasets,
+  () => {
+    handleDatasetsChanged()
   },
   { deep: true },
 )

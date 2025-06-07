@@ -60,14 +60,13 @@
         <span>{{ $t('datasetSelector.loading') }}</span>
       </div>
 
-      <div v-else-if="error" class="error-state">
+      <div if="error" class="error-state">
         <Message severity="error" :closable="false">
           {{ error }}
         </Message>
       </div>
 
       <DataTable
-        v-else
         :value="filteredDatasets"
         :paginator="true"
         :rows="5"
@@ -204,7 +203,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted, watch } from 'vue'
+import { computed, onMounted, ref, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
 import DataTable from 'primevue/datatable'
 import Column from 'primevue/column'
@@ -213,31 +212,16 @@ import Button from 'primevue/button'
 import Select from 'primevue/select'
 import Message from 'primevue/message'
 import ProgressSpinner from 'primevue/progressspinner'
-import type { AvailableDataEntry, AvailableDataCatalog } from '@/types/DataStructures'
+import type { AvailableDataCatalog, AvailableDataEntry } from '@/types/DataStructures'
 import {
-  loadAvailableDataCatalog,
   filterByType,
   filterByYear,
-  searchByName,
   getAllAvailableYears,
+  loadAvailableDataCatalog,
+  searchByName,
 } from '@/utils/AvailableDataLoader'
 
-// Props
-interface Props {
-  datasets?: string[]
-}
-
-const props = withDefaults(defineProps<Props>(), {
-  datasets: () => [],
-})
-
-// Emits
-interface Emits {
-  datasetsChanged: [datasets: string[]]
-  error: [error: string]
-}
-
-const emit = defineEmits<Emits>()
+const datasets = defineModel<string[]>({ required: true })
 
 // Vue i18n
 const { locale, t } = useI18n()
@@ -408,8 +392,7 @@ const clearAllDatasets = () => {
 }
 
 const emitSelectedDatasets = () => {
-  const datasetIdentifiers = selectedDatasets.value.map((dataset) => dataset.datasetIdentifier)
-  emit('datasetsChanged', datasetIdentifiers)
+  datasets.value = selectedDatasets.value.map((dataset) => dataset.datasetIdentifier)
 }
 
 const clearSearch = () => {
@@ -430,12 +413,11 @@ const loadData = async () => {
     })
 
     // Initialize with any provided datasets
-    if (props.datasets.length > 0) {
-      initializeFromDatasets(props.datasets)
+    if (datasets.value?.length > 0) {
+      initializeFromDatasets(datasets.value)
     }
   } catch (err) {
     error.value = t('datasetSelector.errors.loadingFailed')
-    emit('error', error.value)
     console.error('Failed to load available data catalog:', err)
   } finally {
     loading.value = false
@@ -476,7 +458,7 @@ watch(locale, () => {
 
 // Watch for datasets prop changes to update selected datasets
 watch(
-  () => props.datasets,
+  datasets,
   (newDatasets) => {
     if (catalog.value.length > 0) {
       // Clear current selection
@@ -487,9 +469,6 @@ watch(
       if (newDatasets.length > 0) {
         initializeFromDatasets(newDatasets)
       }
-
-      // Emit the updated selection
-      emitSelectedDatasets()
     }
   },
   { deep: true },

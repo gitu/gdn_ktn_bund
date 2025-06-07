@@ -252,6 +252,9 @@ describe('DatasetSelector', () => {
 
   it('should render correctly', async () => {
     const wrapper = mount(DatasetSelector, {
+      props: {
+        modelValue: [],
+      },
       global: {
         plugins: [i18n],
       },
@@ -272,6 +275,9 @@ describe('DatasetSelector', () => {
 
   it('should show loading state initially', async () => {
     const wrapper = mount(DatasetSelector, {
+      props: {
+        modelValue: [],
+      },
       global: {
         plugins: [i18n],
       },
@@ -284,6 +290,9 @@ describe('DatasetSelector', () => {
 
   it('should emit datasetsChanged when datasets are selected', async () => {
     const wrapper = mount(DatasetSelector, {
+      props: {
+        modelValue: [],
+      },
       global: {
         plugins: [i18n],
       },
@@ -306,6 +315,9 @@ describe('DatasetSelector', () => {
 
   it('should handle search functionality', async () => {
     const wrapper = mount(DatasetSelector, {
+      props: {
+        modelValue: [],
+      },
       global: {
         plugins: [i18n],
       },
@@ -328,6 +340,9 @@ describe('DatasetSelector', () => {
 
   it('should handle type filtering', async () => {
     const wrapper = mount(DatasetSelector, {
+      props: {
+        modelValue: [],
+      },
       global: {
         plugins: [i18n],
       },
@@ -351,6 +366,9 @@ describe('DatasetSelector', () => {
 
   it('should prevent duplicate dataset selection', async () => {
     const wrapper = mount(DatasetSelector, {
+      props: {
+        modelValue: [],
+      },
       global: {
         plugins: [i18n],
       },
@@ -383,6 +401,9 @@ describe('DatasetSelector', () => {
 
   it('should clear all selected datasets', async () => {
     const wrapper = mount(DatasetSelector, {
+      props: {
+        modelValue: [],
+      },
       global: {
         plugins: [i18n],
       },
@@ -414,7 +435,7 @@ describe('DatasetSelector', () => {
 
     const wrapper = mount(DatasetSelector, {
       props: {
-        datasets,
+        modelValue: datasets,
       },
       global: {
         plugins: [i18n],
@@ -432,6 +453,9 @@ describe('DatasetSelector', () => {
 
   it('should automatically select the latest year as default', async () => {
     const wrapper = mount(DatasetSelector, {
+      props: {
+        modelValue: [],
+      },
       global: {
         plugins: [i18n],
       },
@@ -462,6 +486,9 @@ describe('DatasetSelector', () => {
 
   it('should show latest year in button label when no year selected', async () => {
     const wrapper = mount(DatasetSelector, {
+      props: {
+        modelValue: [],
+      },
       global: {
         plugins: [i18n],
       },
@@ -490,6 +517,9 @@ describe('DatasetSelector', () => {
 
   it('should get latest year correctly', async () => {
     const wrapper = mount(DatasetSelector, {
+      props: {
+        modelValue: [],
+      },
       global: {
         plugins: [i18n],
       },
