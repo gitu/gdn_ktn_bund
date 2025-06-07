@@ -341,8 +341,8 @@ describe('DatasetSelector', () => {
     const typeSelects = wrapper.findAll('select')
     if (typeSelects.length > 0) {
       const typeSelect = typeSelects[0]
-      await typeSelect.setValue('gdn')
-      expect((typeSelect.element as HTMLSelectElement).value).toBe('gdn')
+      await typeSelect.setValue('2023')
+      expect((typeSelect.element as HTMLSelectElement).value).toBe('2023')
     } else {
       // Skip test if select not found
       expect(true).toBe(true)
