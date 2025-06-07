@@ -60,12 +60,6 @@
         <span>{{ $t('datasetSelector.loading') }}</span>
       </div>
 
-      <div if="error" class="error-state">
-        <Message severity="error" :closable="false">
-          {{ error }}
-        </Message>
-      </div>
-
       <DataTable
         :value="filteredDatasets"
         :paginator="true"
@@ -74,13 +68,14 @@
         paginator-template="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown"
         :current-page-report-template="$t('datasetSelector.pageReportTemplate')"
         class="datasets-table"
-        :scroll-height="'350px'"
-        scroll-direction="vertical"
+        scrollable
       >
         <Column
           field="displayName"
           :header="$t('datasetSelector.columns.name')"
           class="name-column"
+          :frozen="true"
+          min-width="200"
         >
           <template #body="{ data }">
             <div class="dataset-name">
@@ -119,7 +114,12 @@
           </template>
         </Column>
 
-        <Column :header="$t('datasetSelector.columns.year')" class="year-column">
+        <Column
+          :header="$t('datasetSelector.columns.year')"
+          class="year-column"
+          :frozen="true"
+          align-frozen="right"
+        >
           <template #body="{ data }">
             <Select
               v-model="selectedYears[data.id]"
@@ -132,7 +132,12 @@
           </template>
         </Column>
 
-        <Column :header="$t('datasetSelector.columns.actions')" class="actions-column">
+        <Column
+          :header="$t('datasetSelector.columns.actions')"
+          class="actions-column"
+          :frozen="true"
+          align-frozen="right"
+        >
           <template #body="{ data }">
             <Button
               :label="getAddButtonLabel(data)"
@@ -171,32 +176,40 @@
         />
       </div>
 
-      <div class="selected-list grid grid-cols-3 sm:grid-cols-2 lg:grid-cols-3 gap-4 p-4">
-        <div
-          v-for="dataset in selectedDatasets"
-          :key="dataset.id"
-          class="selected-item bg-gray rounded-xl shadow p-2 flex flex-col justify-between card"
+      <div class="selected-list">
+        <DataTable
+          :value="selectedDatasets"
+          dataKey="id"
+          class="w-full"
+          size="small"
+          @rowReorder="onRowReorder"
+          scroll-direction="horizontal"
+          scrollable
         >
-          <div class="item-info mb-4">
-            <div class="item-name flex items-center gap-2 mb-2">
-              <strong class="text-lg">{{ getDisplayName(dataset.entry) }}</strong>
-            </div>
-            <div class="item-details text-sm text-gray-600 flex gap-4">
-              <span class="year-badge bg-gray-100 px-2 py-1 rounded">{{ dataset.year }}</span>
-            </div>
-          </div>
-          <div class="flex justify-end">
-            <Button
-              icon="pi pi-times"
-              severity="danger"
-              size="small"
-              @click="removeDataset(dataset.id)"
-              :aria-label="
-                $t('datasetSelector.removeDataset', { name: getDisplayName(dataset.entry) })
-              "
-            />
-          </div>
-        </div>
+          <Column rowReorder headerStyle="width: 3rem" :reorderableColumn="false" frozen />
+          <Column field="name" :header="$t('datasetSelector.columns.name')" :frozen="true">
+            <template #body="sp">
+              {{ getDisplayName(sp.data.entry) }}
+            </template>
+          </Column>
+          <Column field="description" :header="$t('datasetSelector.columns.description')">
+            <template #body="sp">
+              <span class="text-sm">{{ getDescription(sp.data.entry) }}</span>
+            </template>
+          </Column>
+          <Column field="year" :header="$t('datasetSelector.columns.year')"></Column>
+          <Column field="actions" :frozen="true" align-frozen="right">
+            <template #body="sp">
+              <Button
+                icon="pi pi-trash"
+                severity="danger"
+                outlined
+                size="small"
+                @click="removeDataset(sp.data)"
+              />
+            </template>
+          </Column>
+        </DataTable>
       </div>
     </div>
   </div>
@@ -205,12 +218,11 @@
 <script setup lang="ts">
 import { computed, onMounted, ref, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
-import DataTable from 'primevue/datatable'
+import DataTable, { type DataTableRowReorderEvent } from 'primevue/datatable'
 import Column from 'primevue/column'
 import InputText from 'primevue/inputtext'
 import Button from 'primevue/button'
 import Select from 'primevue/select'
-import Message from 'primevue/message'
 import ProgressSpinner from 'primevue/progressspinner'
 import type { AvailableDataCatalog, AvailableDataEntry } from '@/types/DataStructures'
 import {
@@ -220,6 +232,7 @@ import {
   loadAvailableDataCatalog,
   searchByName,
 } from '@/utils/AvailableDataLoader'
+import { useToast } from 'primevue/usetoast'
 
 const datasets = defineModel<string[]>({ required: true })
 
@@ -228,7 +241,6 @@ const { locale, t } = useI18n()
 
 // Reactive state
 const loading = ref(true)
-const error = ref<string | null>(null)
 const catalog = ref<AvailableDataCatalog>([])
 const searchQuery = ref('')
 const selectedType = ref<'all' | 'gdn' | 'std'>('all')
@@ -306,8 +318,7 @@ const setDefaultYear = (entry: AvailableDataEntry) => {
   if (!selectedYears.value[entry.id] && entry.availableYears.length > 0) {
     // Sort years in reverse order and select the first (latest) one
     const sortedYears = [...entry.availableYears].sort((a, b) => b.localeCompare(a))
-    const latestYear = sortedYears[0]
-    selectedYears.value[entry.id] = latestYear
+    selectedYears.value[entry.id] = sortedYears[0]
   }
 }
 
@@ -320,11 +331,13 @@ const getAddButtonLabel = (entry: AvailableDataEntry): string => {
 }
 
 const addDatasetWithDefaultYear = (entry: AvailableDataEntry) => {
-  // Ensure we have a year selected (set default if needed)
-  setDefaultYear(entry)
-
   // Now add the dataset
   addDataset(entry)
+}
+
+const onRowReorder = (event: DataTableRowReorderEvent) => {
+  selectedDatasets.value = event.value
+  emitSelectedDatasets()
 }
 
 const isAddButtonDisabled = (entryId: string): boolean => {
@@ -357,7 +370,11 @@ const addDataset = (entry: AvailableDataEntry) => {
   )
 
   if (exists) {
-    error.value = t('datasetSelector.errors.duplicateDataset')
+    useToast().add({
+      severity: 'warn',
+      summary: t('datasetSelector.errors.duplicateDataset'),
+      life: 3000,
+    })
     return
   }
 
@@ -387,7 +404,9 @@ const removeDataset = (datasetId: string) => {
 
 const clearAllDatasets = () => {
   selectedDatasets.value = []
-  selectedYears.value = {}
+  for (const entry of catalog.value) {
+    setDefaultYear(entry)
+  }
   emitSelectedDatasets()
 }
 
@@ -403,7 +422,6 @@ const clearSearch = () => {
 const loadData = async () => {
   try {
     loading.value = true
-    error.value = null
 
     catalog.value = await loadAvailableDataCatalog()
 
@@ -417,7 +435,11 @@ const loadData = async () => {
       initializeFromDatasets(datasets.value)
     }
   } catch (err) {
-    error.value = t('datasetSelector.errors.loadingFailed')
+    useToast().add({
+      severity: 'error',
+      summary: t('datasetSelector.errors.loadingFailed'),
+      life: 10000,
+    })
     console.error('Failed to load available data catalog:', err)
   } finally {
     loading.value = false
@@ -463,7 +485,6 @@ watch(
     if (catalog.value.length > 0) {
       // Clear current selection
       selectedDatasets.value = []
-      selectedYears.value = {}
 
       // Initialize with new datasets
       if (newDatasets.length > 0) {

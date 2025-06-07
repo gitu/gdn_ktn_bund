@@ -41,6 +41,7 @@
           :resizableColumns="true"
           columnResizeMode="expand"
           showGridlines
+          scrollable
         >
           <template #header>
             <div class="flex flex-wrap justify-end gap-2">
@@ -53,13 +54,23 @@
               <!-- Left side: Toggle buttons -->
               <div class="flex gap-2">
                 <ToggleButton
+                  v-model="freezeFirstColumn"
+                  :aria-label="
+                    freezeFirstColumn
+                      ? $t('financialDataDisplay.firstColumnFreezed')
+                      : $t('financialDataDisplay.freezeFirstColumn')
+                  "
+                  :onLabel="$t('financialDataDisplay.firstColumnFreezed')"
+                  :offLabel="$t('financialDataDisplay.freezeFirstColumn')"
+                />
+                <ToggleButton
                   v-model="showCodes"
                   :aria-label="
                     showCodes
-                      ? $t('financialDataDisplay.hideCodes')
+                      ? $t('financialDataDisplay.codesShown')
                       : $t('financialDataDisplay.showCodes')
                   "
-                  :onLabel="$t('financialDataDisplay.hideCodes')"
+                  :onLabel="$t('financialDataDisplay.codesShown')"
                   :offLabel="$t('financialDataDisplay.showCodes')"
                 />
               </div>
@@ -77,7 +88,7 @@
             :header="$t('financialDataDisplay.columns.account')"
             :expander="true"
             class="account-column"
-            frozen
+            :frozen="freezeFirstColumn"
           >
             <template #body="{ node }">
               <div class="account-cell">
@@ -153,6 +164,7 @@ interface Props {
   error?: string | null
   initialExpandedAll?: boolean
   initialShowCodes?: boolean
+  initialFreezeFirstColumn?: boolean
   initialShowZeroValues?: boolean
 }
 
@@ -161,7 +173,8 @@ const props = withDefaults(defineProps<Props>(), {
   loading: false,
   error: null,
   initialExpandedAll: false,
-  initialShowCodes: true,
+  initialFreezeFirstColumn: false,
+  initialShowCodes: false,
   initialShowZeroValues: false,
 })
 
@@ -180,6 +193,7 @@ const { locale, t } = useI18n()
 const expandedKeys = ref<Record<string, boolean>>({})
 const expandedAll = ref(props.initialExpandedAll)
 const showCodes = ref(props.initialShowCodes)
+const freezeFirstColumn = ref(props.initialFreezeFirstColumn)
 const showZeroValues = ref(props.initialShowZeroValues)
 const scalingEnabled = ref(true)
 
@@ -290,7 +304,7 @@ const calculateProfitLossNode = (node: FinancialDataNode): FinancialDataNode | n
 const transformNodeToTreeTableData = (node: FinancialDataNode): TreeTableNode[] => {
   const transformNode = (n: FinancialDataNode, parentKey = ''): TreeTableNode | null => {
     const key = parentKey ? `${parentKey}-${n.code}` : n.code
-    const hasVisibleValues = showZeroValues.value || hasAnyNonZeroValue(n)
+    const hasVisibleValues = showZeroValues.value ? true : hasAnyNonZeroValue(n)
 
     if (!hasVisibleValues && n.children.length === 0) {
       return null
