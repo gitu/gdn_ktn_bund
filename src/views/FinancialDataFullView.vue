@@ -1,25 +1,18 @@
 <template>
-  <div class="min-h-screen bg-surface-50 dark:bg-surface-900">
+  <div class="min-h-screen">
     <!-- Header with back button -->
-    <div
-      class="bg-surface-0 dark:bg-surface-800 border-b border-surface-200 dark:border-surface-700 px-6 py-4"
-    >
+    <div class="px-6 py-4">
       <div class="flex items-center justify-between max-w-full">
-        <div class="flex items-center gap-4">
+        <div class="flex items-center gap-6">
           <Button
-            :label="$t('financialDataFullView.backToComparison')"
-            :title="$t('financialDataFullView.backToComparisonTooltip')"
+            :label="$t('financialDataFullView.backToSelection')"
+            :title="$t('financialDataFullView.backToSelectionTooltip')"
             icon="pi pi-arrow-left"
             severity="secondary"
             outlined
             @click="goBackToComparison"
             class="flex-shrink-0"
           />
-          <div>
-            <h1 class="text-2xl font-bold text-surface-900 dark:text-surface-50">
-              {{ $t('financialDataFullView.title') }}
-            </h1>
-          </div>
         </div>
 
         <!-- Dataset count indicator -->
@@ -55,7 +48,7 @@
                 {{ $t('financialDataFullView.noDataMessage') }}
               </p>
               <Button
-                :label="$t('financialDataFullView.backToComparison')"
+                :label="$t('financialDataFullView.backToSelection')"
                 icon="pi pi-arrow-left"
                 @click="goBackToComparison"
               />

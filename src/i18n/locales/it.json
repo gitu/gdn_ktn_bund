@@ -95,7 +95,7 @@
   },
   "treeTableView": {
     "title": "Tabella ad albero gerarchica",
-    "description": "Esplora i dati finanziari in un formato di tabella gerarchica con struttura ad albero pieghevole",
+    "description": "Confronta i bilanci di diverse entità governative svizzere tra loro",
     "dimension": "Dimensione",
     "tableTitle": "Titolo della tabella",
     "titlePlaceholder": "Inserire il titolo della tabella",
@@ -376,8 +376,8 @@
   "financialDataFullView": {
     "title": "Dati finanziari - Vista completa",
     "subtitle": "Vista a schermo intero dei confronti di dati finanziari",
-    "backToComparison": "Torna al confronto",
-    "backToComparisonTooltip": "Torna alla vista di confronto principale",
+    "backToSelection": "Torna alla selezione",
+    "backToSelectionTooltip": "Torna alla selezione dei dataset",
     "noDatasets": "Nessun dataset selezionato",
     "noDataMessage": "Seleziona i dataset nella vista di confronto principale prima di aprire la vista completa.",
     "loadingDatasets": "Caricamento dataset...",

@@ -222,6 +222,763 @@
     "municipalityNumber": "225401"
   },
   {
+    "id": "std_gdn",
+    "type": "std",
+    "entityCode": "gdn",
+    "displayName": {
+      "de": "Alle Gemeinden der Schweiz",
+      "fr": "Toutes les communes de Suisse",
+      "it": "Tutti i comuni della Svizzera",
+      "en": "All Municipalities of Switzerland"
+    },
+    "description": {
+      "de": "Kombinierte Finanzdaten aus allen Gemeinden der Schweiz",
+      "fr": "Données financières combinées de toutes les communes de Suisse",
+      "it": "Dati finanziari combinati di tutti i comuni della Svizzera",
+      "en": "Combined financial data from all municipalities across Switzerland"
+    },
+    "availableYears": [
+      "2015",
+      "2016",
+      "2017",
+      "2018",
+      "2019",
+      "2020",
+      "2021",
+      "2022"
+    ]
+  },
+  {
+    "id": "std_gdn_ag",
+    "type": "std",
+    "entityCode": "gdn_ag",
+    "displayName": {
+      "de": "Alle Gemeinden des Kantons Aargau",
+      "fr": "Toutes les communes du canton Argovie",
+      "it": "Tutti i comuni del cantone Argovia",
+      "en": "All Municipalities of Canton Aargau"
+    },
+    "description": {
+      "de": "Kombinierte Finanzdaten aus allen Gemeinden des Kantons Aargau",
+      "fr": "Données financières combinées de toutes les communes du canton Argovie",
+      "it": "Dati finanziari combinati di tutti i comuni del cantone Argovia",
+      "en": "Combined financial data from all municipalities within Canton Aargau"
+    },
+    "availableYears": [
+      "2015",
+      "2016",
+      "2017",
+      "2018",
+      "2019",
+      "2020",
+      "2021",
+      "2022"
+    ]
+  },
+  {
+    "id": "std_gdn_ai",
+    "type": "std",
+    "entityCode": "gdn_ai",
+    "displayName": {
+      "de": "Alle Gemeinden des Kantons Appenzell Inner Rhodes",
+      "fr": "Toutes les communes du canton Appenzell Rhodes-Intérieures",
+      "it": "Tutti i comuni del cantone Appenzello Interno",
+      "en": "All Municipalities of Canton Appenzell Inner Rhodes"
+    },
+    "description": {
+      "de": "Kombinierte Finanzdaten aus allen Gemeinden des Kantons Appenzell Innerrhoden",
+      "fr": "Données financières combinées de toutes les communes du canton Appenzell Rhodes-Intérieures",
+      "it": "Dati finanziari combinati di tutti i comuni del cantone Appenzello Interno",
+      "en": "Combined financial data from all municipalities within Canton Appenzell Inner Rhodes"
+    },
+    "availableYears": [
+      "2015",
+      "2016",
+      "2017",
+      "2018",
+      "2019",
+      "2020",
+      "2021",
+      "2022"
+    ]
+  },
+  {
+    "id": "std_gdn_ar",
+    "type": "std",
+    "entityCode": "gdn_ar",
+    "displayName": {
+      "de": "Alle Gemeinden des Kantons Appenzell Outer Rhodes",
+      "fr": "Toutes les communes du canton Appenzell Rhodes-Extérieures",
+      "it": "Tutti i comuni del cantone Appenzello Esterno",
+      "en": "All Municipalities of Canton Appenzell Outer Rhodes"
+    },
+    "description": {
+      "de": "Kombinierte Finanzdaten aus allen Gemeinden des Kantons Appenzell Ausserrhoden",
+      "fr": "Données financières combinées de toutes les communes du canton Appenzell Rhodes-Extérieures",
+      "it": "Dati finanziari combinati di tutti i comuni del cantone Appenzello Esterno",
+      "en": "Combined financial data from all municipalities within Canton Appenzell Outer Rhodes"
+    },
+    "availableYears": [
+      "2015",
+      "2016",
+      "2017",
+      "2018",
+      "2019",
+      "2020",
+      "2021",
+      "2022"
+    ]
+  },
+  {
+    "id": "std_gdn_bs",
+    "type": "std",
+    "entityCode": "gdn_bs",
+    "displayName": {
+      "de": "Alle Gemeinden des Kantons Basel-City",
+      "fr": "Toutes les communes du canton Bâle-Ville",
+      "it": "Tutti i comuni del cantone Basilea Città",
+      "en": "All Municipalities of Canton Basel-City"
+    },
+    "description": {
+      "de": "Kombinierte Finanzdaten aus allen Gemeinden des Kantons Basel-Stadt",
+      "fr": "Données financières combinées de toutes les communes du canton Bâle-Ville",
+      "it": "Dati finanziari combinati di tutti i comuni del cantone Basilea Città",
+      "en": "Combined financial data from all municipalities within Canton Basel-City"
+    },
+    "availableYears": [
+      "2015",
+      "2016",
+      "2017",
+      "2018",
+      "2019",
+      "2020",
+      "2021",
+      "2022"
+    ]
+  },
+  {
+    "id": "std_gdn_bl",
+    "type": "std",
+    "entityCode": "gdn_bl",
+    "displayName": {
+      "de": "Alle Gemeinden des Kantons Basel-Country",
+      "fr": "Toutes les communes du canton Bâle-Campagne",
+      "it": "Tutti i comuni del cantone Basilea Campagna",
+      "en": "All Municipalities of Canton Basel-Country"
+    },
+    "description": {
+      "de": "Kombinierte Finanzdaten aus allen Gemeinden des Kantons Basel-Landschaft",
+      "fr": "Données financières combinées de toutes les communes du canton Bâle-Campagne",
+      "it": "Dati finanziari combinati di tutti i comuni del cantone Basilea Campagna",
+      "en": "Combined financial data from all municipalities within Canton Basel-Country"
+    },
+    "availableYears": [
+      "2015",
+      "2016",
+      "2017",
+      "2018",
+      "2019",
+      "2020",
+      "2021",
+      "2022"
+    ]
+  },
+  {
+    "id": "std_gdn_be",
+    "type": "std",
+    "entityCode": "gdn_be",
+    "displayName": {
+      "de": "Alle Gemeinden des Kantons Bern",
+      "fr": "Toutes les communes du canton Berne",
+      "it": "Tutti i comuni del cantone Berna",
+      "en": "All Municipalities of Canton Bern"
+    },
+    "description": {
+      "de": "Kombinierte Finanzdaten aus allen Gemeinden des Kantons Bern",
+      "fr": "Données financières combinées de toutes les communes du canton Berne",
+      "it": "Dati finanziari combinati di tutti i comuni del cantone Berna",
+      "en": "Combined financial data from all municipalities within Canton Bern"
+    },
+    "availableYears": [
+      "2015",
+      "2016",
+      "2017",
+      "2018",
+      "2019",
+      "2020",
+      "2021",
+      "2022"
+    ]
+  },
+  {
+    "id": "std_gdn_fr",
+    "type": "std",
+    "entityCode": "gdn_fr",
+    "displayName": {
+      "de": "Alle Gemeinden des Kantons Fribourg",
+      "fr": "Toutes les communes du canton Fribourg",
+      "it": "Tutti i comuni del cantone Friborgo",
+      "en": "All Municipalities of Canton Fribourg"
+    },
+    "description": {
+      "de": "Kombinierte Finanzdaten aus allen Gemeinden des Kantons Freiburg",
+      "fr": "Données financières combinées de toutes les communes du canton Fribourg",
+      "it": "Dati finanziari combinati di tutti i comuni del cantone Friborgo",
+      "en": "Combined financial data from all municipalities within Canton Fribourg"
+    },
+    "availableYears": [
+      "2015",
+      "2016",
+      "2017",
+      "2018",
+      "2019",
+      "2020",
+      "2021",
+      "2022"
+    ]
+  },
+  {
+    "id": "std_gdn_ge",
+    "type": "std",
+    "entityCode": "gdn_ge",
+    "displayName": {
+      "de": "Alle Gemeinden des Kantons Geneva",
+      "fr": "Toutes les communes du canton Genève",
+      "it": "Tutti i comuni del cantone Ginevra",
+      "en": "All Municipalities of Canton Geneva"
+    },
+    "description": {
+      "de": "Kombinierte Finanzdaten aus allen Gemeinden des Kantons Genf",
+      "fr": "Données financières combinées de toutes les communes du canton Genève",
+      "it": "Dati finanziari combinati di tutti i comuni del cantone Ginevra",
+      "en": "Combined financial data from all municipalities within Canton Geneva"
+    },
+    "availableYears": [
+      "2015",
+      "2016",
+      "2017",
+      "2018",
+      "2019",
+      "2020",
+      "2021",
+      "2022"
+    ]
+  },
+  {
+    "id": "std_gdn_gl",
+    "type": "std",
+    "entityCode": "gdn_gl",
+    "displayName": {
+      "de": "Alle Gemeinden des Kantons Glarus",
+      "fr": "Toutes les communes du canton Glaris",
+      "it": "Tutti i comuni del cantone Glarona",
+      "en": "All Municipalities of Canton Glarus"
+    },
+    "description": {
+      "de": "Kombinierte Finanzdaten aus allen Gemeinden des Kantons Glarus",
+      "fr": "Données financières combinées de toutes les communes du canton Glaris",
+      "it": "Dati finanziari combinati di tutti i comuni del cantone Glarona",
+      "en": "Combined financial data from all municipalities within Canton Glarus"
+    },
+    "availableYears": [
+      "2015",
+      "2016",
+      "2017",
+      "2018",
+      "2019",
+      "2020",
+      "2021",
+      "2022"
+    ]
+  },
+  {
+    "id": "std_gdn_gr",
+    "type": "std",
+    "entityCode": "gdn_gr",
+    "displayName": {
+      "de": "Alle Gemeinden des Kantons Grisons",
+      "fr": "Toutes les communes du canton Grisons",
+      "it": "Tutti i comuni del cantone Grigioni",
+      "en": "All Municipalities of Canton Grisons"
+    },
+    "description": {
+      "de": "Kombinierte Finanzdaten aus allen Gemeinden des Kantons Graubünden",
+      "fr": "Données financières combinées de toutes les communes du canton Grisons",
+      "it": "Dati finanziari combinati di tutti i comuni del cantone Grigioni",
+      "en": "Combined financial data from all municipalities within Canton Grisons"
+    },
+    "availableYears": [
+      "2015",
+      "2016",
+      "2017",
+      "2018",
+      "2019",
+      "2020",
+      "2021",
+      "2022"
+    ]
+  },
+  {
+    "id": "std_gdn_ju",
+    "type": "std",
+    "entityCode": "gdn_ju",
+    "displayName": {
+      "de": "Alle Gemeinden des Kantons Jura",
+      "fr": "Toutes les communes du canton Jura",
+      "it": "Tutti i comuni del cantone Giura",
+      "en": "All Municipalities of Canton Jura"
+    },
+    "description": {
+      "de": "Kombinierte Finanzdaten aus allen Gemeinden des Kantons Jura",
+      "fr": "Données financières combinées de toutes les communes du canton Jura",
+      "it": "Dati finanziari combinati di tutti i comuni del cantone Giura",
+      "en": "Combined financial data from all municipalities within Canton Jura"
+    },
+    "availableYears": [
+      "2015",
+      "2016",
+      "2017",
+      "2018",
+      "2019",
+      "2020",
+      "2021",
+      "2022"
+    ]
+  },
+  {
+    "id": "std_gdn_lu",
+    "type": "std",
+    "entityCode": "gdn_lu",
+    "displayName": {
+      "de": "Alle Gemeinden des Kantons Lucerne",
+      "fr": "Toutes les communes du canton Lucerne",
+      "it": "Tutti i comuni del cantone Lucerna",
+      "en": "All Municipalities of Canton Lucerne"
+    },
+    "description": {
+      "de": "Kombinierte Finanzdaten aus allen Gemeinden des Kantons Luzern",
+      "fr": "Données financières combinées de toutes les communes du canton Lucerne",
+      "it": "Dati finanziari combinati di tutti i comuni del cantone Lucerna",
+      "en": "Combined financial data from all municipalities within Canton Lucerne"
+    },
+    "availableYears": [
+      "2015",
+      "2016",
+      "2017",
+      "2018",
+      "2019",
+      "2020",
+      "2021",
+      "2022"
+    ]
+  },
+  {
+    "id": "std_gdn_ne",
+    "type": "std",
+    "entityCode": "gdn_ne",
+    "displayName": {
+      "de": "Alle Gemeinden des Kantons Neuchâtel",
+      "fr": "Toutes les communes du canton Neuchâtel",
+      "it": "Tutti i comuni del cantone Neuchâtel",
+      "en": "All Municipalities of Canton Neuchâtel"
+    },
+    "description": {
+      "de": "Kombinierte Finanzdaten aus allen Gemeinden des Kantons Neuenburg",
+      "fr": "Données financières combinées de toutes les communes du canton Neuchâtel",
+      "it": "Dati finanziari combinati di tutti i comuni del cantone Neuchâtel",
+      "en": "Combined financial data from all municipalities within Canton Neuchâtel"
+    },
+    "availableYears": [
+      "2015",
+      "2016",
+      "2017",
+      "2018",
+      "2019",
+      "2020",
+      "2021",
+      "2022"
+    ]
+  },
+  {
+    "id": "std_gdn_nw",
+    "type": "std",
+    "entityCode": "gdn_nw",
+    "displayName": {
+      "de": "Alle Gemeinden des Kantons Nidwalden",
+      "fr": "Toutes les communes du canton Nidwald",
+      "it": "Tutti i comuni del cantone Nidvaldo",
+      "en": "All Municipalities of Canton Nidwalden"
+    },
+    "description": {
+      "de": "Kombinierte Finanzdaten aus allen Gemeinden des Kantons Nidwalden",
+      "fr": "Données financières combinées de toutes les communes du canton Nidwald",
+      "it": "Dati finanziari combinati di tutti i comuni del cantone Nidvaldo",
+      "en": "Combined financial data from all municipalities within Canton Nidwalden"
+    },
+    "availableYears": [
+      "2015",
+      "2016",
+      "2017",
+      "2018",
+      "2019",
+      "2020",
+      "2021",
+      "2022"
+    ]
+  },
+  {
+    "id": "std_gdn_ow",
+    "type": "std",
+    "entityCode": "gdn_ow",
+    "displayName": {
+      "de": "Alle Gemeinden des Kantons Obwalden",
+      "fr": "Toutes les communes du canton Obwald",
+      "it": "Tutti i comuni del cantone Obvaldo",
+      "en": "All Municipalities of Canton Obwalden"
+    },
+    "description": {
+      "de": "Kombinierte Finanzdaten aus allen Gemeinden des Kantons Obwalden",
+      "fr": "Données financières combinées de toutes les communes du canton Obwald",
+      "it": "Dati finanziari combinati di tutti i comuni del cantone Obvaldo",
+      "en": "Combined financial data from all municipalities within Canton Obwalden"
+    },
+    "availableYears": [
+      "2015",
+      "2016",
+      "2017",
+      "2018",
+      "2019",
+      "2020",
+      "2021",
+      "2022"
+    ]
+  },
+  {
+    "id": "std_gdn_sh",
+    "type": "std",
+    "entityCode": "gdn_sh",
+    "displayName": {
+      "de": "Alle Gemeinden des Kantons Schaffhausen",
+      "fr": "Toutes les communes du canton Schaffhouse",
+      "it": "Tutti i comuni del cantone Sciaffusa",
+      "en": "All Municipalities of Canton Schaffhausen"
+    },
+    "description": {
+      "de": "Kombinierte Finanzdaten aus allen Gemeinden des Kantons Schaffhausen",
+      "fr": "Données financières combinées de toutes les communes du canton Schaffhouse",
+      "it": "Dati finanziari combinati di tutti i comuni del cantone Sciaffusa",
+      "en": "Combined financial data from all municipalities within Canton Schaffhausen"
+    },
+    "availableYears": [
+      "2015",
+      "2016",
+      "2017",
+      "2018",
+      "2019",
+      "2020",
+      "2021",
+      "2022"
+    ]
+  },
+  {
+    "id": "std_gdn_sz",
+    "type": "std",
+    "entityCode": "gdn_sz",
+    "displayName": {
+      "de": "Alle Gemeinden des Kantons Schwyz",
+      "fr": "Toutes les communes du canton Schwyz",
+      "it": "Tutti i comuni del cantone Svitto",
+      "en": "All Municipalities of Canton Schwyz"
+    },
+    "description": {
+      "de": "Kombinierte Finanzdaten aus allen Gemeinden des Kantons Schwyz",
+      "fr": "Données financières combinées de toutes les communes du canton Schwyz",
+      "it": "Dati finanziari combinati di tutti i comuni del cantone Svitto",
+      "en": "Combined financial data from all municipalities within Canton Schwyz"
+    },
+    "availableYears": [
+      "2015",
+      "2016",
+      "2017",
+      "2018",
+      "2019",
+      "2020",
+      "2021",
+      "2022"
+    ]
+  },
+  {
+    "id": "std_gdn_so",
+    "type": "std",
+    "entityCode": "gdn_so",
+    "displayName": {
+      "de": "Alle Gemeinden des Kantons Solothurn",
+      "fr": "Toutes les communes du canton Soleure",
+      "it": "Tutti i comuni del cantone Soletta",
+      "en": "All Municipalities of Canton Solothurn"
+    },
+    "description": {
+      "de": "Kombinierte Finanzdaten aus allen Gemeinden des Kantons Solothurn",
+      "fr": "Données financières combinées de toutes les communes du canton Soleure",
+      "it": "Dati finanziari combinati di tutti i comuni del cantone Soletta",
+      "en": "Combined financial data from all municipalities within Canton Solothurn"
+    },
+    "availableYears": [
+      "2015",
+      "2016",
+      "2017",
+      "2018",
+      "2019",
+      "2020",
+      "2021",
+      "2022"
+    ]
+  },
+  {
+    "id": "std_gdn_sg",
+    "type": "std",
+    "entityCode": "gdn_sg",
+    "displayName": {
+      "de": "Alle Gemeinden des Kantons St. Gallen",
+      "fr": "Toutes les communes du canton Saint-Gall",
+      "it": "Tutti i comuni del cantone San Gallo",
+      "en": "All Municipalities of Canton St. Gallen"
+    },
+    "description": {
+      "de": "Kombinierte Finanzdaten aus allen Gemeinden des Kantons St. Gallen",
+      "fr": "Données financières combinées de toutes les communes du canton Saint-Gall",
+      "it": "Dati finanziari combinati di tutti i comuni del cantone San Gallo",
+      "en": "Combined financial data from all municipalities within Canton St. Gallen"
+    },
+    "availableYears": [
+      "2015",
+      "2016",
+      "2017",
+      "2018",
+      "2019",
+      "2020",
+      "2021",
+      "2022"
+    ]
+  },
+  {
+    "id": "std_gdn_tg",
+    "type": "std",
+    "entityCode": "gdn_tg",
+    "displayName": {
+      "de": "Alle Gemeinden des Kantons Thurgau",
+      "fr": "Toutes les communes du canton Thurgovie",
+      "it": "Tutti i comuni del cantone Turgovia",
+      "en": "All Municipalities of Canton Thurgau"
+    },
+    "description": {
+      "de": "Kombinierte Finanzdaten aus allen Gemeinden des Kantons Thurgau",
+      "fr": "Données financières combinées de toutes les communes du canton Thurgovie",
+      "it": "Dati finanziari combinati di tutti i comuni del cantone Turgovia",
+      "en": "Combined financial data from all municipalities within Canton Thurgau"
+    },
+    "availableYears": [
+      "2015",
+      "2016",
+      "2017",
+      "2018",
+      "2019",
+      "2020",
+      "2021",
+      "2022"
+    ]
+  },
+  {
+    "id": "std_gdn_ti",
+    "type": "std",
+    "entityCode": "gdn_ti",
+    "displayName": {
+      "de": "Alle Gemeinden des Kantons Ticino",
+      "fr": "Toutes les communes du canton Tessin",
+      "it": "Tutti i comuni del cantone Ticino",
+      "en": "All Municipalities of Canton Ticino"
+    },
+    "description": {
+      "de": "Kombinierte Finanzdaten aus allen Gemeinden des Kantons Tessin",
+      "fr": "Données financières combinées de toutes les communes du canton Tessin",
+      "it": "Dati finanziari combinati di tutti i comuni del cantone Ticino",
+      "en": "Combined financial data from all municipalities within Canton Ticino"
+    },
+    "availableYears": [
+      "2015",
+      "2016",
+      "2017",
+      "2018",
+      "2019",
+      "2020",
+      "2021",
+      "2022"
+    ]
+  },
+  {
+    "id": "std_gdn_ur",
+    "type": "std",
+    "entityCode": "gdn_ur",
+    "displayName": {
+      "de": "Alle Gemeinden des Kantons Uri",
+      "fr": "Toutes les communes du canton Uri",
+      "it": "Tutti i comuni del cantone Uri",
+      "en": "All Municipalities of Canton Uri"
+    },
+    "description": {
+      "de": "Kombinierte Finanzdaten aus allen Gemeinden des Kantons Uri",
+      "fr": "Données financières combinées de toutes les communes du canton Uri",
+      "it": "Dati finanziari combinati di tutti i comuni del cantone Uri",
+      "en": "Combined financial data from all municipalities within Canton Uri"
+    },
+    "availableYears": [
+      "2015",
+      "2016",
+      "2017",
+      "2018",
+      "2019",
+      "2020",
+      "2021",
+      "2022"
+    ]
+  },
+  {
+    "id": "std_gdn_vs",
+    "type": "std",
+    "entityCode": "gdn_vs",
+    "displayName": {
+      "de": "Alle Gemeinden des Kantons Valais",
+      "fr": "Toutes les communes du canton Valais",
+      "it": "Tutti i comuni del cantone Vallese",
+      "en": "All Municipalities of Canton Valais"
+    },
+    "description": {
+      "de": "Kombinierte Finanzdaten aus allen Gemeinden des Kantons Wallis",
+      "fr": "Données financières combinées de toutes les communes du canton Valais",
+      "it": "Dati finanziari combinati di tutti i comuni del cantone Vallese",
+      "en": "Combined financial data from all municipalities within Canton Valais"
+    },
+    "availableYears": [
+      "2015",
+      "2016",
+      "2017",
+      "2018",
+      "2019",
+      "2020",
+      "2021",
+      "2022"
+    ]
+  },
+  {
+    "id": "std_gdn_vd",
+    "type": "std",
+    "entityCode": "gdn_vd",
+    "displayName": {
+      "de": "Alle Gemeinden des Kantons Vaud",
+      "fr": "Toutes les communes du canton Vaud",
+      "it": "Tutti i comuni del cantone Vaud",
+      "en": "All Municipalities of Canton Vaud"
+    },
+    "description": {
+      "de": "Kombinierte Finanzdaten aus allen Gemeinden des Kantons Waadt",
+      "fr": "Données financières combinées de toutes les communes du canton Vaud",
+      "it": "Dati finanziari combinati di tutti i comuni del cantone Vaud",
+      "en": "Combined financial data from all municipalities within Canton Vaud"
+    },
+    "availableYears": [
+      "2015",
+      "2016",
+      "2017",
+      "2018",
+      "2019",
+      "2020",
+      "2021",
+      "2022"
+    ]
+  },
+  {
+    "id": "std_gdn_zg",
+    "type": "std",
+    "entityCode": "gdn_zg",
+    "displayName": {
+      "de": "Alle Gemeinden des Kantons Zug",
+      "fr": "Toutes les communes du canton Zoug",
+      "it": "Tutti i comuni del cantone Zugo",
+      "en": "All Municipalities of Canton Zug"
+    },
+    "description": {
+      "de": "Kombinierte Finanzdaten aus allen Gemeinden des Kantons Zug",
+      "fr": "Données financières combinées de toutes les communes du canton Zoug",
+      "it": "Dati finanziari combinati di tutti i comuni del cantone Zugo",
+      "en": "Combined financial data from all municipalities within Canton Zug"
+    },
+    "availableYears": [
+      "2015",
+      "2016",
+      "2017",
+      "2018",
+      "2019",
+      "2020",
+      "2021",
+      "2022"
+    ]
+  },
+  {
+    "id": "std_gdn_zh",
+    "type": "std",
+    "entityCode": "gdn_zh",
+    "displayName": {
+      "de": "Alle Gemeinden des Kantons Zurich",
+      "fr": "Toutes les communes du canton Zurich",
+      "it": "Tutti i comuni del cantone Zurigo",
+      "en": "All Municipalities of Canton Zurich"
+    },
+    "description": {
+      "de": "Kombinierte Finanzdaten aus allen Gemeinden des Kantons Zürich",
+      "fr": "Données financières combinées de toutes les communes du canton Zurich",
+      "it": "Dati finanziari combinati di tutti i comuni del cantone Zurigo",
+      "en": "Combined financial data from all municipalities within Canton Zurich"
+    },
+    "availableYears": [
+      "2015",
+      "2016",
+      "2017",
+      "2018",
+      "2019",
+      "2020",
+      "2021",
+      "2022"
+    ]
+  },
+  {
+    "id": "std_ktn",
+    "type": "std",
+    "entityCode": "ktn",
+    "displayName": {
+      "de": "Alle Kantone der Schweiz",
+      "fr": "Tous les cantons de Suisse",
+      "it": "Tutti i cantoni della Svizzera",
+      "en": "All Cantons of Switzerland"
+    },
+    "description": {
+      "de": "Daten für ktn",
+      "fr": "Données pour ktn",
+      "it": "Dati per ktn",
+      "en": "Data for ktn"
+    },
+    "availableYears": [
+      "2015",
+      "2016",
+      "2017",
+      "2018",
+      "2019",
+      "2020",
+      "2021",
+      "2022",
+      "2023"
+    ]
+  },
+  {
     "id": "std_sv_mat_ge",
     "type": "std",
     "entityCode": "sv_mat_ge",
@@ -1697,33 +2454,6 @@
       "2021",
       "2022",
       "2023"
-    ]
-  },
-  {
-    "id": "std_bund_ktn_gdn",
-    "type": "std",
-    "entityCode": "bund_ktn_gdn",
-    "displayName": {
-      "de": "BUND KTN GDN",
-      "fr": "BUND KTN GDN",
-      "it": "BUND KTN GDN",
-      "en": "BUND KTN GDN"
-    },
-    "description": {
-      "de": "Bundesdaten der Schweiz",
-      "fr": "Données fédérales suisses",
-      "it": "Dati federali svizzeri",
-      "en": "Swiss federal data"
-    },
-    "availableYears": [
-      "2015",
-      "2016",
-      "2017",
-      "2018",
-      "2019",
-      "2020",
-      "2021",
-      "2022"
     ]
   },
   {
@@ -3655,1424 +4385,20 @@
     "municipalityNumber": "132846"
   },
   {
-    "id": "std_gdn",
+    "id": "std_bund_ktn_gdn",
     "type": "std",
-    "entityCode": "gdn",
+    "entityCode": "bund_ktn_gdn",
     "displayName": {
-      "de": "Gemeinden",
-      "fr": "Communes",
-      "it": "Comuni",
-      "en": "Municipalities"
+      "de": "Gemeinde- und Kantons- und Bundesfinanzen",
+      "fr": "Données financières cantonales, communales et fédérales",
+      "it": "Finanze cantonali, comunali e federali",
+      "en": "Canton, Municipal, and Federal Finances"
     },
     "description": {
-      "de": "Daten für gdn",
-      "fr": "Données pour gdn",
-      "it": "Dati per gdn",
-      "en": "Data for gdn"
-    },
-    "availableYears": [
-      "2015",
-      "2016",
-      "2017",
-      "2018",
-      "2019",
-      "2020",
-      "2021",
-      "2022"
-    ]
-  },
-  {
-    "id": "std_gdn_ag",
-    "type": "std",
-    "entityCode": "gdn_ag",
-    "displayName": {
-      "de": "Gemeinden Aargau",
-      "fr": "Communes Argovie",
-      "it": "Comuni Argovia",
-      "en": "Municipalities Aargau"
-    },
-    "description": {
-      "de": "Alle Gemeinden des Kantons Aargau",
-      "fr": "Toutes les communes du canton Argovie",
-      "it": "Tutti i comuni del cantone Argovia",
-      "en": "All municipalities of Canton Aargau"
-    },
-    "availableYears": [
-      "2015",
-      "2016",
-      "2017",
-      "2018",
-      "2019",
-      "2020",
-      "2021",
-      "2022"
-    ]
-  },
-  {
-    "id": "std_gdn_ar",
-    "type": "std",
-    "entityCode": "gdn_ar",
-    "displayName": {
-      "de": "Gemeinden Appenzell Ausserrhoden",
-      "fr": "Communes Appenzell Rhodes-Extérieures",
-      "it": "Comuni Appenzello Esterno",
-      "en": "Municipalities Appenzell Outer Rhodes"
-    },
-    "description": {
-      "de": "Alle Gemeinden des Kantons Appenzell Ausserrhoden",
-      "fr": "Toutes les communes du canton Appenzell Rhodes-Extérieures",
-      "it": "Tutti i comuni del cantone Appenzello Esterno",
-      "en": "All municipalities of Canton Appenzell Outer Rhodes"
-    },
-    "availableYears": [
-      "2015",
-      "2016",
-      "2017",
-      "2018",
-      "2019",
-      "2020",
-      "2021",
-      "2022"
-    ]
-  },
-  {
-    "id": "std_gdn_ai",
-    "type": "std",
-    "entityCode": "gdn_ai",
-    "displayName": {
-      "de": "Gemeinden Appenzell Innerrhoden",
-      "fr": "Communes Appenzell Rhodes-Intérieures",
-      "it": "Comuni Appenzello Interno",
-      "en": "Municipalities Appenzell Inner Rhodes"
-    },
-    "description": {
-      "de": "Alle Gemeinden des Kantons Appenzell Innerrhoden",
-      "fr": "Toutes les communes du canton Appenzell Rhodes-Intérieures",
-      "it": "Tutti i comuni del cantone Appenzello Interno",
-      "en": "All municipalities of Canton Appenzell Inner Rhodes"
-    },
-    "availableYears": [
-      "2015",
-      "2016",
-      "2017",
-      "2018",
-      "2019",
-      "2020",
-      "2021",
-      "2022"
-    ]
-  },
-  {
-    "id": "std_gdn_bl",
-    "type": "std",
-    "entityCode": "gdn_bl",
-    "displayName": {
-      "de": "Gemeinden Basel-Landschaft",
-      "fr": "Communes Bâle-Campagne",
-      "it": "Comuni Basilea Campagna",
-      "en": "Municipalities Basel-Country"
-    },
-    "description": {
-      "de": "Alle Gemeinden des Kantons Basel-Landschaft",
-      "fr": "Toutes les communes du canton Bâle-Campagne",
-      "it": "Tutti i comuni del cantone Basilea Campagna",
-      "en": "All municipalities of Canton Basel-Country"
-    },
-    "availableYears": [
-      "2015",
-      "2016",
-      "2017",
-      "2018",
-      "2019",
-      "2020",
-      "2021",
-      "2022"
-    ]
-  },
-  {
-    "id": "std_gdn_bs",
-    "type": "std",
-    "entityCode": "gdn_bs",
-    "displayName": {
-      "de": "Gemeinden Basel-Stadt",
-      "fr": "Communes Bâle-Ville",
-      "it": "Comuni Basilea Città",
-      "en": "Municipalities Basel-City"
-    },
-    "description": {
-      "de": "Alle Gemeinden des Kantons Basel-Stadt",
-      "fr": "Toutes les communes du canton Bâle-Ville",
-      "it": "Tutti i comuni del cantone Basilea Città",
-      "en": "All municipalities of Canton Basel-City"
-    },
-    "availableYears": [
-      "2015",
-      "2016",
-      "2017",
-      "2018",
-      "2019",
-      "2020",
-      "2021",
-      "2022"
-    ]
-  },
-  {
-    "id": "std_gdn_be",
-    "type": "std",
-    "entityCode": "gdn_be",
-    "displayName": {
-      "de": "Gemeinden Bern",
-      "fr": "Communes Berne",
-      "it": "Comuni Berna",
-      "en": "Municipalities Bern"
-    },
-    "description": {
-      "de": "Alle Gemeinden des Kantons Bern",
-      "fr": "Toutes les communes du canton Berne",
-      "it": "Tutti i comuni del cantone Berna",
-      "en": "All municipalities of Canton Bern"
-    },
-    "availableYears": [
-      "2015",
-      "2016",
-      "2017",
-      "2018",
-      "2019",
-      "2020",
-      "2021",
-      "2022"
-    ]
-  },
-  {
-    "id": "std_gdn_fr",
-    "type": "std",
-    "entityCode": "gdn_fr",
-    "displayName": {
-      "de": "Gemeinden Freiburg",
-      "fr": "Communes Fribourg",
-      "it": "Comuni Friborgo",
-      "en": "Municipalities Fribourg"
-    },
-    "description": {
-      "de": "Alle Gemeinden des Kantons Freiburg",
-      "fr": "Toutes les communes du canton Fribourg",
-      "it": "Tutti i comuni del cantone Friborgo",
-      "en": "All municipalities of Canton Fribourg"
-    },
-    "availableYears": [
-      "2015",
-      "2016",
-      "2017",
-      "2018",
-      "2019",
-      "2020",
-      "2021",
-      "2022"
-    ]
-  },
-  {
-    "id": "std_gdn_ge",
-    "type": "std",
-    "entityCode": "gdn_ge",
-    "displayName": {
-      "de": "Gemeinden Genf",
-      "fr": "Communes Genève",
-      "it": "Comuni Ginevra",
-      "en": "Municipalities Geneva"
-    },
-    "description": {
-      "de": "Alle Gemeinden des Kantons Genf",
-      "fr": "Toutes les communes du canton Genève",
-      "it": "Tutti i comuni del cantone Ginevra",
-      "en": "All municipalities of Canton Geneva"
-    },
-    "availableYears": [
-      "2015",
-      "2016",
-      "2017",
-      "2018",
-      "2019",
-      "2020",
-      "2021",
-      "2022"
-    ]
-  },
-  {
-    "id": "std_gdn_gl",
-    "type": "std",
-    "entityCode": "gdn_gl",
-    "displayName": {
-      "de": "Gemeinden Glarus",
-      "fr": "Communes Glaris",
-      "it": "Comuni Glarona",
-      "en": "Municipalities Glarus"
-    },
-    "description": {
-      "de": "Alle Gemeinden des Kantons Glarus",
-      "fr": "Toutes les communes du canton Glaris",
-      "it": "Tutti i comuni del cantone Glarona",
-      "en": "All municipalities of Canton Glarus"
-    },
-    "availableYears": [
-      "2015",
-      "2016",
-      "2017",
-      "2018",
-      "2019",
-      "2020",
-      "2021",
-      "2022"
-    ]
-  },
-  {
-    "id": "std_gdn_gr",
-    "type": "std",
-    "entityCode": "gdn_gr",
-    "displayName": {
-      "de": "Gemeinden Graubünden",
-      "fr": "Communes Grisons",
-      "it": "Comuni Grigioni",
-      "en": "Municipalities Grisons"
-    },
-    "description": {
-      "de": "Alle Gemeinden des Kantons Graubünden",
-      "fr": "Toutes les communes du canton Grisons",
-      "it": "Tutti i comuni del cantone Grigioni",
-      "en": "All municipalities of Canton Grisons"
-    },
-    "availableYears": [
-      "2015",
-      "2016",
-      "2017",
-      "2018",
-      "2019",
-      "2020",
-      "2021",
-      "2022"
-    ]
-  },
-  {
-    "id": "std_gdn_ju",
-    "type": "std",
-    "entityCode": "gdn_ju",
-    "displayName": {
-      "de": "Gemeinden Jura",
-      "fr": "Communes Jura",
-      "it": "Comuni Giura",
-      "en": "Municipalities Jura"
-    },
-    "description": {
-      "de": "Alle Gemeinden des Kantons Jura",
-      "fr": "Toutes les communes du canton Jura",
-      "it": "Tutti i comuni del cantone Giura",
-      "en": "All municipalities of Canton Jura"
-    },
-    "availableYears": [
-      "2015",
-      "2016",
-      "2017",
-      "2018",
-      "2019",
-      "2020",
-      "2021",
-      "2022"
-    ]
-  },
-  {
-    "id": "std_ktn_gdn_ag",
-    "type": "std",
-    "entityCode": "ktn_gdn_ag",
-    "displayName": {
-      "de": "Gemeinden Kanton Aargau",
-      "fr": "Communes Canton Argovie",
-      "it": "Comuni Cantone Argovia",
-      "en": "Municipalities Canton Aargau"
-    },
-    "description": {
-      "de": "Daten für ktn_gdn_ag",
-      "fr": "Données pour ktn_gdn_ag",
-      "it": "Dati per ktn_gdn_ag",
-      "en": "Data for ktn_gdn_ag"
-    },
-    "availableYears": [
-      "2015",
-      "2016",
-      "2017",
-      "2018",
-      "2019",
-      "2020",
-      "2021",
-      "2022"
-    ]
-  },
-  {
-    "id": "std_ktn_gdn_ar",
-    "type": "std",
-    "entityCode": "ktn_gdn_ar",
-    "displayName": {
-      "de": "Gemeinden Kanton Appenzell Ausserrhoden",
-      "fr": "Communes Canton Appenzell Rhodes-Extérieures",
-      "it": "Comuni Cantone Appenzello Esterno",
-      "en": "Municipalities Canton Appenzell Outer Rhodes"
-    },
-    "description": {
-      "de": "Daten für ktn_gdn_ar",
-      "fr": "Données pour ktn_gdn_ar",
-      "it": "Dati per ktn_gdn_ar",
-      "en": "Data for ktn_gdn_ar"
-    },
-    "availableYears": [
-      "2015",
-      "2016",
-      "2017",
-      "2018",
-      "2019",
-      "2020",
-      "2021",
-      "2022"
-    ]
-  },
-  {
-    "id": "std_ktn_gdn_ai",
-    "type": "std",
-    "entityCode": "ktn_gdn_ai",
-    "displayName": {
-      "de": "Gemeinden Kanton Appenzell Innerrhoden",
-      "fr": "Communes Canton Appenzell Rhodes-Intérieures",
-      "it": "Comuni Cantone Appenzello Interno",
-      "en": "Municipalities Canton Appenzell Inner Rhodes"
-    },
-    "description": {
-      "de": "Daten für ktn_gdn_ai",
-      "fr": "Données pour ktn_gdn_ai",
-      "it": "Dati per ktn_gdn_ai",
-      "en": "Data for ktn_gdn_ai"
-    },
-    "availableYears": [
-      "2015",
-      "2016",
-      "2017",
-      "2018",
-      "2019",
-      "2020",
-      "2021",
-      "2022"
-    ]
-  },
-  {
-    "id": "std_ktn_gdn_bl",
-    "type": "std",
-    "entityCode": "ktn_gdn_bl",
-    "displayName": {
-      "de": "Gemeinden Kanton Basel-Landschaft",
-      "fr": "Communes Canton Bâle-Campagne",
-      "it": "Comuni Cantone Basilea Campagna",
-      "en": "Municipalities Canton Basel-Country"
-    },
-    "description": {
-      "de": "Daten für ktn_gdn_bl",
-      "fr": "Données pour ktn_gdn_bl",
-      "it": "Dati per ktn_gdn_bl",
-      "en": "Data for ktn_gdn_bl"
-    },
-    "availableYears": [
-      "2015",
-      "2016",
-      "2017",
-      "2018",
-      "2019",
-      "2020",
-      "2021",
-      "2022"
-    ]
-  },
-  {
-    "id": "std_ktn_gdn_bs",
-    "type": "std",
-    "entityCode": "ktn_gdn_bs",
-    "displayName": {
-      "de": "Gemeinden Kanton Basel-Stadt",
-      "fr": "Communes Canton Bâle-Ville",
-      "it": "Comuni Cantone Basilea Città",
-      "en": "Municipalities Canton Basel-City"
-    },
-    "description": {
-      "de": "Daten für ktn_gdn_bs",
-      "fr": "Données pour ktn_gdn_bs",
-      "it": "Dati per ktn_gdn_bs",
-      "en": "Data for ktn_gdn_bs"
-    },
-    "availableYears": [
-      "2015",
-      "2016",
-      "2017",
-      "2018",
-      "2019",
-      "2020",
-      "2021",
-      "2022"
-    ]
-  },
-  {
-    "id": "std_ktn_gdn_be",
-    "type": "std",
-    "entityCode": "ktn_gdn_be",
-    "displayName": {
-      "de": "Gemeinden Kanton Bern",
-      "fr": "Communes Canton Berne",
-      "it": "Comuni Cantone Berna",
-      "en": "Municipalities Canton Bern"
-    },
-    "description": {
-      "de": "Daten für ktn_gdn_be",
-      "fr": "Données pour ktn_gdn_be",
-      "it": "Dati per ktn_gdn_be",
-      "en": "Data for ktn_gdn_be"
-    },
-    "availableYears": [
-      "2015",
-      "2016",
-      "2017",
-      "2018",
-      "2019",
-      "2020",
-      "2021",
-      "2022"
-    ]
-  },
-  {
-    "id": "std_ktn_gdn_fr",
-    "type": "std",
-    "entityCode": "ktn_gdn_fr",
-    "displayName": {
-      "de": "Gemeinden Kanton Freiburg",
-      "fr": "Communes Canton Fribourg",
-      "it": "Comuni Cantone Friborgo",
-      "en": "Municipalities Canton Fribourg"
-    },
-    "description": {
-      "de": "Daten für ktn_gdn_fr",
-      "fr": "Données pour ktn_gdn_fr",
-      "it": "Dati per ktn_gdn_fr",
-      "en": "Data for ktn_gdn_fr"
-    },
-    "availableYears": [
-      "2015",
-      "2016",
-      "2017",
-      "2018",
-      "2019",
-      "2020",
-      "2021",
-      "2022"
-    ]
-  },
-  {
-    "id": "std_ktn_gdn_ge",
-    "type": "std",
-    "entityCode": "ktn_gdn_ge",
-    "displayName": {
-      "de": "Gemeinden Kanton Genf",
-      "fr": "Communes Canton Genève",
-      "it": "Comuni Cantone Ginevra",
-      "en": "Municipalities Canton Geneva"
-    },
-    "description": {
-      "de": "Daten für ktn_gdn_ge",
-      "fr": "Données pour ktn_gdn_ge",
-      "it": "Dati per ktn_gdn_ge",
-      "en": "Data for ktn_gdn_ge"
-    },
-    "availableYears": [
-      "2015",
-      "2016",
-      "2017",
-      "2018",
-      "2019",
-      "2020",
-      "2021",
-      "2022"
-    ]
-  },
-  {
-    "id": "std_ktn_gdn_gl",
-    "type": "std",
-    "entityCode": "ktn_gdn_gl",
-    "displayName": {
-      "de": "Gemeinden Kanton Glarus",
-      "fr": "Communes Canton Glaris",
-      "it": "Comuni Cantone Glarona",
-      "en": "Municipalities Canton Glarus"
-    },
-    "description": {
-      "de": "Daten für ktn_gdn_gl",
-      "fr": "Données pour ktn_gdn_gl",
-      "it": "Dati per ktn_gdn_gl",
-      "en": "Data for ktn_gdn_gl"
-    },
-    "availableYears": [
-      "2015",
-      "2016",
-      "2017",
-      "2018",
-      "2019",
-      "2020",
-      "2021",
-      "2022"
-    ]
-  },
-  {
-    "id": "std_ktn_gdn_gr",
-    "type": "std",
-    "entityCode": "ktn_gdn_gr",
-    "displayName": {
-      "de": "Gemeinden Kanton Graubünden",
-      "fr": "Communes Canton Grisons",
-      "it": "Comuni Cantone Grigioni",
-      "en": "Municipalities Canton Grisons"
-    },
-    "description": {
-      "de": "Daten für ktn_gdn_gr",
-      "fr": "Données pour ktn_gdn_gr",
-      "it": "Dati per ktn_gdn_gr",
-      "en": "Data for ktn_gdn_gr"
-    },
-    "availableYears": [
-      "2015",
-      "2016",
-      "2017",
-      "2018",
-      "2019",
-      "2020",
-      "2021",
-      "2022"
-    ]
-  },
-  {
-    "id": "std_ktn_gdn_ju",
-    "type": "std",
-    "entityCode": "ktn_gdn_ju",
-    "displayName": {
-      "de": "Gemeinden Kanton Jura",
-      "fr": "Communes Canton Jura",
-      "it": "Comuni Cantone Giura",
-      "en": "Municipalities Canton Jura"
-    },
-    "description": {
-      "de": "Daten für ktn_gdn_ju",
-      "fr": "Données pour ktn_gdn_ju",
-      "it": "Dati per ktn_gdn_ju",
-      "en": "Data for ktn_gdn_ju"
-    },
-    "availableYears": [
-      "2015",
-      "2016",
-      "2017",
-      "2018",
-      "2019",
-      "2020",
-      "2021",
-      "2022"
-    ]
-  },
-  {
-    "id": "std_ktn_gdn_lu",
-    "type": "std",
-    "entityCode": "ktn_gdn_lu",
-    "displayName": {
-      "de": "Gemeinden Kanton Luzern",
-      "fr": "Communes Canton Lucerne",
-      "it": "Comuni Cantone Lucerna",
-      "en": "Municipalities Canton Lucerne"
-    },
-    "description": {
-      "de": "Daten für ktn_gdn_lu",
-      "fr": "Données pour ktn_gdn_lu",
-      "it": "Dati per ktn_gdn_lu",
-      "en": "Data for ktn_gdn_lu"
-    },
-    "availableYears": [
-      "2015",
-      "2016",
-      "2017",
-      "2018",
-      "2019",
-      "2020",
-      "2021",
-      "2022"
-    ]
-  },
-  {
-    "id": "std_ktn_gdn_ne",
-    "type": "std",
-    "entityCode": "ktn_gdn_ne",
-    "displayName": {
-      "de": "Gemeinden Kanton Neuenburg",
-      "fr": "Communes Canton Neuchâtel",
-      "it": "Comuni Cantone Neuchâtel",
-      "en": "Municipalities Canton Neuchâtel"
-    },
-    "description": {
-      "de": "Daten für ktn_gdn_ne",
-      "fr": "Données pour ktn_gdn_ne",
-      "it": "Dati per ktn_gdn_ne",
-      "en": "Data for ktn_gdn_ne"
-    },
-    "availableYears": [
-      "2015",
-      "2016",
-      "2017",
-      "2018",
-      "2019",
-      "2020",
-      "2021",
-      "2022"
-    ]
-  },
-  {
-    "id": "std_ktn_gdn_nw",
-    "type": "std",
-    "entityCode": "ktn_gdn_nw",
-    "displayName": {
-      "de": "Gemeinden Kanton Nidwalden",
-      "fr": "Communes Canton Nidwald",
-      "it": "Comuni Cantone Nidvaldo",
-      "en": "Municipalities Canton Nidwalden"
-    },
-    "description": {
-      "de": "Daten für ktn_gdn_nw",
-      "fr": "Données pour ktn_gdn_nw",
-      "it": "Dati per ktn_gdn_nw",
-      "en": "Data for ktn_gdn_nw"
-    },
-    "availableYears": [
-      "2015",
-      "2016",
-      "2017",
-      "2018",
-      "2019",
-      "2020",
-      "2021",
-      "2022"
-    ]
-  },
-  {
-    "id": "std_ktn_gdn_ow",
-    "type": "std",
-    "entityCode": "ktn_gdn_ow",
-    "displayName": {
-      "de": "Gemeinden Kanton Obwalden",
-      "fr": "Communes Canton Obwald",
-      "it": "Comuni Cantone Obvaldo",
-      "en": "Municipalities Canton Obwalden"
-    },
-    "description": {
-      "de": "Daten für ktn_gdn_ow",
-      "fr": "Données pour ktn_gdn_ow",
-      "it": "Dati per ktn_gdn_ow",
-      "en": "Data for ktn_gdn_ow"
-    },
-    "availableYears": [
-      "2015",
-      "2016",
-      "2017",
-      "2018",
-      "2019",
-      "2020",
-      "2021",
-      "2022"
-    ]
-  },
-  {
-    "id": "std_ktn_gdn_sh",
-    "type": "std",
-    "entityCode": "ktn_gdn_sh",
-    "displayName": {
-      "de": "Gemeinden Kanton Schaffhausen",
-      "fr": "Communes Canton Schaffhouse",
-      "it": "Comuni Cantone Sciaffusa",
-      "en": "Municipalities Canton Schaffhausen"
-    },
-    "description": {
-      "de": "Daten für ktn_gdn_sh",
-      "fr": "Données pour ktn_gdn_sh",
-      "it": "Dati per ktn_gdn_sh",
-      "en": "Data for ktn_gdn_sh"
-    },
-    "availableYears": [
-      "2015",
-      "2016",
-      "2017",
-      "2018",
-      "2019",
-      "2020",
-      "2021",
-      "2022"
-    ]
-  },
-  {
-    "id": "std_ktn_gdn_sz",
-    "type": "std",
-    "entityCode": "ktn_gdn_sz",
-    "displayName": {
-      "de": "Gemeinden Kanton Schwyz",
-      "fr": "Communes Canton Schwyz",
-      "it": "Comuni Cantone Svitto",
-      "en": "Municipalities Canton Schwyz"
-    },
-    "description": {
-      "de": "Daten für ktn_gdn_sz",
-      "fr": "Données pour ktn_gdn_sz",
-      "it": "Dati per ktn_gdn_sz",
-      "en": "Data for ktn_gdn_sz"
-    },
-    "availableYears": [
-      "2015",
-      "2016",
-      "2017",
-      "2018",
-      "2019",
-      "2020",
-      "2021",
-      "2022"
-    ]
-  },
-  {
-    "id": "std_ktn_gdn_so",
-    "type": "std",
-    "entityCode": "ktn_gdn_so",
-    "displayName": {
-      "de": "Gemeinden Kanton Solothurn",
-      "fr": "Communes Canton Soleure",
-      "it": "Comuni Cantone Soletta",
-      "en": "Municipalities Canton Solothurn"
-    },
-    "description": {
-      "de": "Daten für ktn_gdn_so",
-      "fr": "Données pour ktn_gdn_so",
-      "it": "Dati per ktn_gdn_so",
-      "en": "Data for ktn_gdn_so"
-    },
-    "availableYears": [
-      "2015",
-      "2016",
-      "2017",
-      "2018",
-      "2019",
-      "2020",
-      "2021",
-      "2022"
-    ]
-  },
-  {
-    "id": "std_ktn_gdn_sg",
-    "type": "std",
-    "entityCode": "ktn_gdn_sg",
-    "displayName": {
-      "de": "Gemeinden Kanton St. Gallen",
-      "fr": "Communes Canton Saint-Gall",
-      "it": "Comuni Cantone San Gallo",
-      "en": "Municipalities Canton St. Gallen"
-    },
-    "description": {
-      "de": "Daten für ktn_gdn_sg",
-      "fr": "Données pour ktn_gdn_sg",
-      "it": "Dati per ktn_gdn_sg",
-      "en": "Data for ktn_gdn_sg"
-    },
-    "availableYears": [
-      "2015",
-      "2016",
-      "2017",
-      "2018",
-      "2019",
-      "2020",
-      "2021",
-      "2022"
-    ]
-  },
-  {
-    "id": "std_ktn_gdn_ti",
-    "type": "std",
-    "entityCode": "ktn_gdn_ti",
-    "displayName": {
-      "de": "Gemeinden Kanton Tessin",
-      "fr": "Communes Canton Tessin",
-      "it": "Comuni Cantone Ticino",
-      "en": "Municipalities Canton Ticino"
-    },
-    "description": {
-      "de": "Daten für ktn_gdn_ti",
-      "fr": "Données pour ktn_gdn_ti",
-      "it": "Dati per ktn_gdn_ti",
-      "en": "Data for ktn_gdn_ti"
-    },
-    "availableYears": [
-      "2015",
-      "2016",
-      "2017",
-      "2018",
-      "2019",
-      "2020",
-      "2021",
-      "2022"
-    ]
-  },
-  {
-    "id": "std_ktn_gdn_tg",
-    "type": "std",
-    "entityCode": "ktn_gdn_tg",
-    "displayName": {
-      "de": "Gemeinden Kanton Thurgau",
-      "fr": "Communes Canton Thurgovie",
-      "it": "Comuni Cantone Turgovia",
-      "en": "Municipalities Canton Thurgau"
-    },
-    "description": {
-      "de": "Daten für ktn_gdn_tg",
-      "fr": "Données pour ktn_gdn_tg",
-      "it": "Dati per ktn_gdn_tg",
-      "en": "Data for ktn_gdn_tg"
-    },
-    "availableYears": [
-      "2015",
-      "2016",
-      "2017",
-      "2018",
-      "2019",
-      "2020",
-      "2021",
-      "2022"
-    ]
-  },
-  {
-    "id": "std_ktn_gdn_ur",
-    "type": "std",
-    "entityCode": "ktn_gdn_ur",
-    "displayName": {
-      "de": "Gemeinden Kanton Uri",
-      "fr": "Communes Canton Uri",
-      "it": "Comuni Cantone Uri",
-      "en": "Municipalities Canton Uri"
-    },
-    "description": {
-      "de": "Daten für ktn_gdn_ur",
-      "fr": "Données pour ktn_gdn_ur",
-      "it": "Dati per ktn_gdn_ur",
-      "en": "Data for ktn_gdn_ur"
-    },
-    "availableYears": [
-      "2015",
-      "2016",
-      "2017",
-      "2018",
-      "2019",
-      "2020",
-      "2021",
-      "2022"
-    ]
-  },
-  {
-    "id": "std_ktn_gdn_vd",
-    "type": "std",
-    "entityCode": "ktn_gdn_vd",
-    "displayName": {
-      "de": "Gemeinden Kanton Waadt",
-      "fr": "Communes Canton Vaud",
-      "it": "Comuni Cantone Vaud",
-      "en": "Municipalities Canton Vaud"
-    },
-    "description": {
-      "de": "Daten für ktn_gdn_vd",
-      "fr": "Données pour ktn_gdn_vd",
-      "it": "Dati per ktn_gdn_vd",
-      "en": "Data for ktn_gdn_vd"
-    },
-    "availableYears": [
-      "2015",
-      "2016",
-      "2017",
-      "2018",
-      "2019",
-      "2020",
-      "2021",
-      "2022"
-    ]
-  },
-  {
-    "id": "std_ktn_gdn_vs",
-    "type": "std",
-    "entityCode": "ktn_gdn_vs",
-    "displayName": {
-      "de": "Gemeinden Kanton Wallis",
-      "fr": "Communes Canton Valais",
-      "it": "Comuni Cantone Vallese",
-      "en": "Municipalities Canton Valais"
-    },
-    "description": {
-      "de": "Daten für ktn_gdn_vs",
-      "fr": "Données pour ktn_gdn_vs",
-      "it": "Dati per ktn_gdn_vs",
-      "en": "Data for ktn_gdn_vs"
-    },
-    "availableYears": [
-      "2015",
-      "2016",
-      "2017",
-      "2018",
-      "2019",
-      "2020",
-      "2021",
-      "2022"
-    ]
-  },
-  {
-    "id": "std_ktn_gdn_zg",
-    "type": "std",
-    "entityCode": "ktn_gdn_zg",
-    "displayName": {
-      "de": "Gemeinden Kanton Zug",
-      "fr": "Communes Canton Zoug",
-      "it": "Comuni Cantone Zugo",
-      "en": "Municipalities Canton Zug"
-    },
-    "description": {
-      "de": "Daten für ktn_gdn_zg",
-      "fr": "Données pour ktn_gdn_zg",
-      "it": "Dati per ktn_gdn_zg",
-      "en": "Data for ktn_gdn_zg"
-    },
-    "availableYears": [
-      "2015",
-      "2016",
-      "2017",
-      "2018",
-      "2019",
-      "2020",
-      "2021",
-      "2022"
-    ]
-  },
-  {
-    "id": "std_ktn_gdn_zh",
-    "type": "std",
-    "entityCode": "ktn_gdn_zh",
-    "displayName": {
-      "de": "Gemeinden Kanton Zürich",
-      "fr": "Communes Canton Zurich",
-      "it": "Comuni Cantone Zurigo",
-      "en": "Municipalities Canton Zurich"
-    },
-    "description": {
-      "de": "Daten für ktn_gdn_zh",
-      "fr": "Données pour ktn_gdn_zh",
-      "it": "Dati per ktn_gdn_zh",
-      "en": "Data for ktn_gdn_zh"
-    },
-    "availableYears": [
-      "2015",
-      "2016",
-      "2017",
-      "2018",
-      "2019",
-      "2020",
-      "2021",
-      "2022"
-    ]
-  },
-  {
-    "id": "std_gdn_lu",
-    "type": "std",
-    "entityCode": "gdn_lu",
-    "displayName": {
-      "de": "Gemeinden Luzern",
-      "fr": "Communes Lucerne",
-      "it": "Comuni Lucerna",
-      "en": "Municipalities Lucerne"
-    },
-    "description": {
-      "de": "Alle Gemeinden des Kantons Luzern",
-      "fr": "Toutes les communes du canton Lucerne",
-      "it": "Tutti i comuni del cantone Lucerna",
-      "en": "All municipalities of Canton Lucerne"
-    },
-    "availableYears": [
-      "2015",
-      "2016",
-      "2017",
-      "2018",
-      "2019",
-      "2020",
-      "2021",
-      "2022"
-    ]
-  },
-  {
-    "id": "std_gdn_ne",
-    "type": "std",
-    "entityCode": "gdn_ne",
-    "displayName": {
-      "de": "Gemeinden Neuenburg",
-      "fr": "Communes Neuchâtel",
-      "it": "Comuni Neuchâtel",
-      "en": "Municipalities Neuchâtel"
-    },
-    "description": {
-      "de": "Alle Gemeinden des Kantons Neuenburg",
-      "fr": "Toutes les communes du canton Neuchâtel",
-      "it": "Tutti i comuni del cantone Neuchâtel",
-      "en": "All municipalities of Canton Neuchâtel"
-    },
-    "availableYears": [
-      "2015",
-      "2016",
-      "2017",
-      "2018",
-      "2019",
-      "2020",
-      "2021",
-      "2022"
-    ]
-  },
-  {
-    "id": "std_gdn_nw",
-    "type": "std",
-    "entityCode": "gdn_nw",
-    "displayName": {
-      "de": "Gemeinden Nidwalden",
-      "fr": "Communes Nidwald",
-      "it": "Comuni Nidvaldo",
-      "en": "Municipalities Nidwalden"
-    },
-    "description": {
-      "de": "Alle Gemeinden des Kantons Nidwalden",
-      "fr": "Toutes les communes du canton Nidwald",
-      "it": "Tutti i comuni del cantone Nidvaldo",
-      "en": "All municipalities of Canton Nidwalden"
-    },
-    "availableYears": [
-      "2015",
-      "2016",
-      "2017",
-      "2018",
-      "2019",
-      "2020",
-      "2021",
-      "2022"
-    ]
-  },
-  {
-    "id": "std_gdn_ow",
-    "type": "std",
-    "entityCode": "gdn_ow",
-    "displayName": {
-      "de": "Gemeinden Obwalden",
-      "fr": "Communes Obwald",
-      "it": "Comuni Obvaldo",
-      "en": "Municipalities Obwalden"
-    },
-    "description": {
-      "de": "Alle Gemeinden des Kantons Obwalden",
-      "fr": "Toutes les communes du canton Obwald",
-      "it": "Tutti i comuni del cantone Obvaldo",
-      "en": "All municipalities of Canton Obwalden"
-    },
-    "availableYears": [
-      "2015",
-      "2016",
-      "2017",
-      "2018",
-      "2019",
-      "2020",
-      "2021",
-      "2022"
-    ]
-  },
-  {
-    "id": "std_gdn_sh",
-    "type": "std",
-    "entityCode": "gdn_sh",
-    "displayName": {
-      "de": "Gemeinden Schaffhausen",
-      "fr": "Communes Schaffhouse",
-      "it": "Comuni Sciaffusa",
-      "en": "Municipalities Schaffhausen"
-    },
-    "description": {
-      "de": "Alle Gemeinden des Kantons Schaffhausen",
-      "fr": "Toutes les communes du canton Schaffhouse",
-      "it": "Tutti i comuni del cantone Sciaffusa",
-      "en": "All municipalities of Canton Schaffhausen"
-    },
-    "availableYears": [
-      "2015",
-      "2016",
-      "2017",
-      "2018",
-      "2019",
-      "2020",
-      "2021",
-      "2022"
-    ]
-  },
-  {
-    "id": "std_gdn_sz",
-    "type": "std",
-    "entityCode": "gdn_sz",
-    "displayName": {
-      "de": "Gemeinden Schwyz",
-      "fr": "Communes Schwyz",
-      "it": "Comuni Svitto",
-      "en": "Municipalities Schwyz"
-    },
-    "description": {
-      "de": "Alle Gemeinden des Kantons Schwyz",
-      "fr": "Toutes les communes du canton Schwyz",
-      "it": "Tutti i comuni del cantone Svitto",
-      "en": "All municipalities of Canton Schwyz"
-    },
-    "availableYears": [
-      "2015",
-      "2016",
-      "2017",
-      "2018",
-      "2019",
-      "2020",
-      "2021",
-      "2022"
-    ]
-  },
-  {
-    "id": "std_gdn_so",
-    "type": "std",
-    "entityCode": "gdn_so",
-    "displayName": {
-      "de": "Gemeinden Solothurn",
-      "fr": "Communes Soleure",
-      "it": "Comuni Soletta",
-      "en": "Municipalities Solothurn"
-    },
-    "description": {
-      "de": "Alle Gemeinden des Kantons Solothurn",
-      "fr": "Toutes les communes du canton Soleure",
-      "it": "Tutti i comuni del cantone Soletta",
-      "en": "All municipalities of Canton Solothurn"
-    },
-    "availableYears": [
-      "2015",
-      "2016",
-      "2017",
-      "2018",
-      "2019",
-      "2020",
-      "2021",
-      "2022"
-    ]
-  },
-  {
-    "id": "std_gdn_sg",
-    "type": "std",
-    "entityCode": "gdn_sg",
-    "displayName": {
-      "de": "Gemeinden St. Gallen",
-      "fr": "Communes Saint-Gall",
-      "it": "Comuni San Gallo",
-      "en": "Municipalities St. Gallen"
-    },
-    "description": {
-      "de": "Alle Gemeinden des Kantons St. Gallen",
-      "fr": "Toutes les communes du canton Saint-Gall",
-      "it": "Tutti i comuni del cantone San Gallo",
-      "en": "All municipalities of Canton St. Gallen"
-    },
-    "availableYears": [
-      "2015",
-      "2016",
-      "2017",
-      "2018",
-      "2019",
-      "2020",
-      "2021",
-      "2022"
-    ]
-  },
-  {
-    "id": "std_gdn_ti",
-    "type": "std",
-    "entityCode": "gdn_ti",
-    "displayName": {
-      "de": "Gemeinden Tessin",
-      "fr": "Communes Tessin",
-      "it": "Comuni Ticino",
-      "en": "Municipalities Ticino"
-    },
-    "description": {
-      "de": "Alle Gemeinden des Kantons Tessin",
-      "fr": "Toutes les communes du canton Tessin",
-      "it": "Tutti i comuni del cantone Ticino",
-      "en": "All municipalities of Canton Ticino"
-    },
-    "availableYears": [
-      "2015",
-      "2016",
-      "2017",
-      "2018",
-      "2019",
-      "2020",
-      "2021",
-      "2022"
-    ]
-  },
-  {
-    "id": "std_gdn_tg",
-    "type": "std",
-    "entityCode": "gdn_tg",
-    "displayName": {
-      "de": "Gemeinden Thurgau",
-      "fr": "Communes Thurgovie",
-      "it": "Comuni Turgovia",
-      "en": "Municipalities Thurgau"
-    },
-    "description": {
-      "de": "Alle Gemeinden des Kantons Thurgau",
-      "fr": "Toutes les communes du canton Thurgovie",
-      "it": "Tutti i comuni del cantone Turgovia",
-      "en": "All municipalities of Canton Thurgau"
-    },
-    "availableYears": [
-      "2015",
-      "2016",
-      "2017",
-      "2018",
-      "2019",
-      "2020",
-      "2021",
-      "2022"
-    ]
-  },
-  {
-    "id": "std_gdn_ur",
-    "type": "std",
-    "entityCode": "gdn_ur",
-    "displayName": {
-      "de": "Gemeinden Uri",
-      "fr": "Communes Uri",
-      "it": "Comuni Uri",
-      "en": "Municipalities Uri"
-    },
-    "description": {
-      "de": "Alle Gemeinden des Kantons Uri",
-      "fr": "Toutes les communes du canton Uri",
-      "it": "Tutti i comuni del cantone Uri",
-      "en": "All municipalities of Canton Uri"
-    },
-    "availableYears": [
-      "2015",
-      "2016",
-      "2017",
-      "2018",
-      "2019",
-      "2020",
-      "2021",
-      "2022"
-    ]
-  },
-  {
-    "id": "std_gdn_vd",
-    "type": "std",
-    "entityCode": "gdn_vd",
-    "displayName": {
-      "de": "Gemeinden Waadt",
-      "fr": "Communes Vaud",
-      "it": "Comuni Vaud",
-      "en": "Municipalities Vaud"
-    },
-    "description": {
-      "de": "Alle Gemeinden des Kantons Waadt",
-      "fr": "Toutes les communes du canton Vaud",
-      "it": "Tutti i comuni del cantone Vaud",
-      "en": "All municipalities of Canton Vaud"
-    },
-    "availableYears": [
-      "2015",
-      "2016",
-      "2017",
-      "2018",
-      "2019",
-      "2020",
-      "2021",
-      "2022"
-    ]
-  },
-  {
-    "id": "std_gdn_vs",
-    "type": "std",
-    "entityCode": "gdn_vs",
-    "displayName": {
-      "de": "Gemeinden Wallis",
-      "fr": "Communes Valais",
-      "it": "Comuni Vallese",
-      "en": "Municipalities Valais"
-    },
-    "description": {
-      "de": "Alle Gemeinden des Kantons Wallis",
-      "fr": "Toutes les communes du canton Valais",
-      "it": "Tutti i comuni del cantone Vallese",
-      "en": "All municipalities of Canton Valais"
-    },
-    "availableYears": [
-      "2015",
-      "2016",
-      "2017",
-      "2018",
-      "2019",
-      "2020",
-      "2021",
-      "2022"
-    ]
-  },
-  {
-    "id": "std_gdn_zg",
-    "type": "std",
-    "entityCode": "gdn_zg",
-    "displayName": {
-      "de": "Gemeinden Zug",
-      "fr": "Communes Zoug",
-      "it": "Comuni Zugo",
-      "en": "Municipalities Zug"
-    },
-    "description": {
-      "de": "Alle Gemeinden des Kantons Zug",
-      "fr": "Toutes les communes du canton Zoug",
-      "it": "Tutti i comuni del cantone Zugo",
-      "en": "All municipalities of Canton Zug"
-    },
-    "availableYears": [
-      "2015",
-      "2016",
-      "2017",
-      "2018",
-      "2019",
-      "2020",
-      "2021",
-      "2022"
-    ]
-  },
-  {
-    "id": "std_gdn_zh",
-    "type": "std",
-    "entityCode": "gdn_zh",
-    "displayName": {
-      "de": "Gemeinden Zürich",
-      "fr": "Communes Zurich",
-      "it": "Comuni Zurigo",
-      "en": "Municipalities Zurich"
-    },
-    "description": {
-      "de": "Alle Gemeinden des Kantons Zürich",
-      "fr": "Toutes les communes du canton Zurich",
-      "it": "Tutti i comuni del cantone Zurigo",
-      "en": "All municipalities of Canton Zurich"
+      "de": "Komplettes Finanzdatenset der Schweiz inklusive allen Gemeinden, allen Kantonen und des Bundes",
+      "fr": "Jeu de données financières suisse complet incluant toutes les communes, tous les cantons et le gouvernement fédéral",
+      "it": "Dataset finanziario svizzero completo inclusi tutti i comuni, tutti i cantoni e il governo federale",
+      "en": "Complete Swiss financial dataset including all municipalities, all cantons, and the federal government"
     },
     "availableYears": [
       "2015",
@@ -6210,34 +5536,6 @@
     "municipalityNumber": "173313"
   },
   {
-    "id": "std_ktn",
-    "type": "std",
-    "entityCode": "ktn",
-    "displayName": {
-      "de": "Kanton",
-      "fr": "Canton",
-      "it": "Canton",
-      "en": "Canton"
-    },
-    "description": {
-      "de": "Daten für ktn",
-      "fr": "Données pour ktn",
-      "it": "Dati per ktn",
-      "en": "Data for ktn"
-    },
-    "availableYears": [
-      "2015",
-      "2016",
-      "2017",
-      "2018",
-      "2019",
-      "2020",
-      "2021",
-      "2022",
-      "2023"
-    ]
-  },
-  {
     "id": "std_ktn_ag",
     "type": "std",
     "entityCode": "ktn_ag",
@@ -6263,6 +5561,33 @@
       "2021",
       "2022",
       "2023"
+    ]
+  },
+  {
+    "id": "std_ktn_gdn_ag",
+    "type": "std",
+    "entityCode": "ktn_gdn_ag",
+    "displayName": {
+      "de": "Kanton Aargau inklusive allen Gemeinden",
+      "fr": "Canton Argovie incluant toutes les communes",
+      "it": "Cantone Argovia inclusi tutti i comuni",
+      "en": "Canton Aargau including all municipalities"
+    },
+    "description": {
+      "de": "Kombinierte Finanzdaten aus allen Gemeinden und dem Kantonsfinanzamt des Kantons Aargau",
+      "fr": "Données financières combinées incluant toutes les communes et le gouvernement cantonal d'Argovie",
+      "it": "Dati finanziari combinati inclusi tutti i comuni e il governo cantonale di Argovia",
+      "en": "Combined financial data including all municipalities and the canton government of Aargau"
+    },
+    "availableYears": [
+      "2015",
+      "2016",
+      "2017",
+      "2018",
+      "2019",
+      "2020",
+      "2021",
+      "2022"
     ]
   },
   {
@@ -6294,6 +5619,33 @@
     ]
   },
   {
+    "id": "std_ktn_gdn_ai",
+    "type": "std",
+    "entityCode": "ktn_gdn_ai",
+    "displayName": {
+      "de": "Kanton Appenzell Inner Rhodes inklusive allen Gemeinden",
+      "fr": "Canton Appenzell Rhodes-Intérieures incluant toutes les communes",
+      "it": "Cantone Appenzello Interno inclusi tutti i comuni",
+      "en": "Canton Appenzell Inner Rhodes including all municipalities"
+    },
+    "description": {
+      "de": "Kombinierte Finanzdaten aus allen Gemeinden und dem Kantonsfinanzamt des Kantons Appenzell Innerrhoden",
+      "fr": "Données financières combinées incluant toutes les communes et le gouvernement cantonal d'Appenzell Rhodes-Intérieures",
+      "it": "Dati finanziari combinati inclusi tutti i comuni e il governo cantonale di Appenzello Interno",
+      "en": "Combined financial data including all municipalities and the canton government of Appenzell Inner Rhodes"
+    },
+    "availableYears": [
+      "2015",
+      "2016",
+      "2017",
+      "2018",
+      "2019",
+      "2020",
+      "2021",
+      "2022"
+    ]
+  },
+  {
     "id": "std_ktn_ai",
     "type": "std",
     "entityCode": "ktn_ai",
@@ -6319,6 +5671,87 @@
       "2021",
       "2022",
       "2023"
+    ]
+  },
+  {
+    "id": "std_ktn_gdn_ar",
+    "type": "std",
+    "entityCode": "ktn_gdn_ar",
+    "displayName": {
+      "de": "Kanton Appenzell Outer Rhodes inklusive allen Gemeinden",
+      "fr": "Canton Appenzell Rhodes-Extérieures incluant toutes les communes",
+      "it": "Cantone Appenzello Esterno inclusi tutti i comuni",
+      "en": "Canton Appenzell Outer Rhodes including all municipalities"
+    },
+    "description": {
+      "de": "Kombinierte Finanzdaten aus allen Gemeinden und dem Kantonsfinanzamt des Kantons Appenzell Ausserrhoden",
+      "fr": "Données financières combinées incluant toutes les communes et le gouvernement cantonal d'Appenzell Rhodes-Extérieures",
+      "it": "Dati finanziari combinati inclusi tutti i comuni e il governo cantonale di Appenzello Esterno",
+      "en": "Combined financial data including all municipalities and the canton government of Appenzell Outer Rhodes"
+    },
+    "availableYears": [
+      "2015",
+      "2016",
+      "2017",
+      "2018",
+      "2019",
+      "2020",
+      "2021",
+      "2022"
+    ]
+  },
+  {
+    "id": "std_ktn_gdn_bs",
+    "type": "std",
+    "entityCode": "ktn_gdn_bs",
+    "displayName": {
+      "de": "Kanton Basel-City inklusive allen Gemeinden",
+      "fr": "Canton Bâle-Ville incluant toutes les communes",
+      "it": "Cantone Basilea Città inclusi tutti i comuni",
+      "en": "Canton Basel-City including all municipalities"
+    },
+    "description": {
+      "de": "Kombinierte Finanzdaten aus allen Gemeinden und dem Kantonsfinanzamt des Kantons Basel-Stadt",
+      "fr": "Données financières combinées incluant toutes les communes et le gouvernement cantonal d'Bâle-Ville",
+      "it": "Dati finanziari combinati inclusi tutti i comuni e il governo cantonale di Basilea Città",
+      "en": "Combined financial data including all municipalities and the canton government of Basel-City"
+    },
+    "availableYears": [
+      "2015",
+      "2016",
+      "2017",
+      "2018",
+      "2019",
+      "2020",
+      "2021",
+      "2022"
+    ]
+  },
+  {
+    "id": "std_ktn_gdn_bl",
+    "type": "std",
+    "entityCode": "ktn_gdn_bl",
+    "displayName": {
+      "de": "Kanton Basel-Country inklusive allen Gemeinden",
+      "fr": "Canton Bâle-Campagne incluant toutes les communes",
+      "it": "Cantone Basilea Campagna inclusi tutti i comuni",
+      "en": "Canton Basel-Country including all municipalities"
+    },
+    "description": {
+      "de": "Kombinierte Finanzdaten aus allen Gemeinden und dem Kantonsfinanzamt des Kantons Basel-Landschaft",
+      "fr": "Données financières combinées incluant toutes les communes et le gouvernement cantonal d'Bâle-Campagne",
+      "it": "Dati finanziari combinati inclusi tutti i comuni e il governo cantonale di Basilea Campagna",
+      "en": "Combined financial data including all municipalities and the canton government of Basel-Country"
+    },
+    "availableYears": [
+      "2015",
+      "2016",
+      "2017",
+      "2018",
+      "2019",
+      "2020",
+      "2021",
+      "2022"
     ]
   },
   {
@@ -6406,6 +5839,33 @@
     ]
   },
   {
+    "id": "std_ktn_gdn_be",
+    "type": "std",
+    "entityCode": "ktn_gdn_be",
+    "displayName": {
+      "de": "Kanton Bern inklusive allen Gemeinden",
+      "fr": "Canton Berne incluant toutes les communes",
+      "it": "Cantone Berna inclusi tutti i comuni",
+      "en": "Canton Bern including all municipalities"
+    },
+    "description": {
+      "de": "Kombinierte Finanzdaten aus allen Gemeinden und dem Kantonsfinanzamt des Kantons Bern",
+      "fr": "Données financières combinées incluant toutes les communes et le gouvernement cantonal d'Berne",
+      "it": "Dati finanziari combinati inclusi tutti i comuni e il governo cantonale di Berna",
+      "en": "Combined financial data including all municipalities and the canton government of Bern"
+    },
+    "availableYears": [
+      "2015",
+      "2016",
+      "2017",
+      "2018",
+      "2019",
+      "2020",
+      "2021",
+      "2022"
+    ]
+  },
+  {
     "id": "std_ktn_fr",
     "type": "std",
     "entityCode": "ktn_fr",
@@ -6431,6 +5891,60 @@
       "2021",
       "2022",
       "2023"
+    ]
+  },
+  {
+    "id": "std_ktn_gdn_fr",
+    "type": "std",
+    "entityCode": "ktn_gdn_fr",
+    "displayName": {
+      "de": "Kanton Fribourg inklusive allen Gemeinden",
+      "fr": "Canton Fribourg incluant toutes les communes",
+      "it": "Cantone Friborgo inclusi tutti i comuni",
+      "en": "Canton Fribourg including all municipalities"
+    },
+    "description": {
+      "de": "Kombinierte Finanzdaten aus allen Gemeinden und dem Kantonsfinanzamt des Kantons Freiburg",
+      "fr": "Données financières combinées incluant toutes les communes et le gouvernement cantonal d'Fribourg",
+      "it": "Dati finanziari combinati inclusi tutti i comuni e il governo cantonale di Friborgo",
+      "en": "Combined financial data including all municipalities and the canton government of Fribourg"
+    },
+    "availableYears": [
+      "2015",
+      "2016",
+      "2017",
+      "2018",
+      "2019",
+      "2020",
+      "2021",
+      "2022"
+    ]
+  },
+  {
+    "id": "std_ktn_gdn_ge",
+    "type": "std",
+    "entityCode": "ktn_gdn_ge",
+    "displayName": {
+      "de": "Kanton Geneva inklusive allen Gemeinden",
+      "fr": "Canton Genève incluant toutes les communes",
+      "it": "Cantone Ginevra inclusi tutti i comuni",
+      "en": "Canton Geneva including all municipalities"
+    },
+    "description": {
+      "de": "Kombinierte Finanzdaten aus allen Gemeinden und dem Kantonsfinanzamt des Kantons Genf",
+      "fr": "Données financières combinées incluant toutes les communes et le gouvernement cantonal d'Genève",
+      "it": "Dati finanziari combinati inclusi tutti i comuni e il governo cantonale di Ginevra",
+      "en": "Combined financial data including all municipalities and the canton government of Geneva"
+    },
+    "availableYears": [
+      "2015",
+      "2016",
+      "2017",
+      "2018",
+      "2019",
+      "2020",
+      "2021",
+      "2022"
     ]
   },
   {
@@ -6490,6 +6004,33 @@
     ]
   },
   {
+    "id": "std_ktn_gdn_gl",
+    "type": "std",
+    "entityCode": "ktn_gdn_gl",
+    "displayName": {
+      "de": "Kanton Glarus inklusive allen Gemeinden",
+      "fr": "Canton Glaris incluant toutes les communes",
+      "it": "Cantone Glarona inclusi tutti i comuni",
+      "en": "Canton Glarus including all municipalities"
+    },
+    "description": {
+      "de": "Kombinierte Finanzdaten aus allen Gemeinden und dem Kantonsfinanzamt des Kantons Glarus",
+      "fr": "Données financières combinées incluant toutes les communes et le gouvernement cantonal d'Glaris",
+      "it": "Dati finanziari combinati inclusi tutti i comuni e il governo cantonale di Glarona",
+      "en": "Combined financial data including all municipalities and the canton government of Glarus"
+    },
+    "availableYears": [
+      "2015",
+      "2016",
+      "2017",
+      "2018",
+      "2019",
+      "2020",
+      "2021",
+      "2022"
+    ]
+  },
+  {
     "id": "std_ktn_gr",
     "type": "std",
     "entityCode": "ktn_gr",
@@ -6515,6 +6056,33 @@
       "2021",
       "2022",
       "2023"
+    ]
+  },
+  {
+    "id": "std_ktn_gdn_gr",
+    "type": "std",
+    "entityCode": "ktn_gdn_gr",
+    "displayName": {
+      "de": "Kanton Grisons inklusive allen Gemeinden",
+      "fr": "Canton Grisons incluant toutes les communes",
+      "it": "Cantone Grigioni inclusi tutti i comuni",
+      "en": "Canton Grisons including all municipalities"
+    },
+    "description": {
+      "de": "Kombinierte Finanzdaten aus allen Gemeinden und dem Kantonsfinanzamt des Kantons Graubünden",
+      "fr": "Données financières combinées incluant toutes les communes et le gouvernement cantonal d'Grisons",
+      "it": "Dati finanziari combinati inclusi tutti i comuni e il governo cantonale di Grigioni",
+      "en": "Combined financial data including all municipalities and the canton government of Grisons"
+    },
+    "availableYears": [
+      "2015",
+      "2016",
+      "2017",
+      "2018",
+      "2019",
+      "2020",
+      "2021",
+      "2022"
     ]
   },
   {
@@ -6546,6 +6114,60 @@
     ]
   },
   {
+    "id": "std_ktn_gdn_ju",
+    "type": "std",
+    "entityCode": "ktn_gdn_ju",
+    "displayName": {
+      "de": "Kanton Jura inklusive allen Gemeinden",
+      "fr": "Canton Jura incluant toutes les communes",
+      "it": "Cantone Giura inclusi tutti i comuni",
+      "en": "Canton Jura including all municipalities"
+    },
+    "description": {
+      "de": "Kombinierte Finanzdaten aus allen Gemeinden und dem Kantonsfinanzamt des Kantons Jura",
+      "fr": "Données financières combinées incluant toutes les communes et le gouvernement cantonal d'Jura",
+      "it": "Dati finanziari combinati inclusi tutti i comuni e il governo cantonale di Giura",
+      "en": "Combined financial data including all municipalities and the canton government of Jura"
+    },
+    "availableYears": [
+      "2015",
+      "2016",
+      "2017",
+      "2018",
+      "2019",
+      "2020",
+      "2021",
+      "2022"
+    ]
+  },
+  {
+    "id": "std_ktn_gdn_lu",
+    "type": "std",
+    "entityCode": "ktn_gdn_lu",
+    "displayName": {
+      "de": "Kanton Lucerne inklusive allen Gemeinden",
+      "fr": "Canton Lucerne incluant toutes les communes",
+      "it": "Cantone Lucerna inclusi tutti i comuni",
+      "en": "Canton Lucerne including all municipalities"
+    },
+    "description": {
+      "de": "Kombinierte Finanzdaten aus allen Gemeinden und dem Kantonsfinanzamt des Kantons Luzern",
+      "fr": "Données financières combinées incluant toutes les communes et le gouvernement cantonal d'Lucerne",
+      "it": "Dati finanziari combinati inclusi tutti i comuni e il governo cantonale di Lucerna",
+      "en": "Combined financial data including all municipalities and the canton government of Lucerne"
+    },
+    "availableYears": [
+      "2015",
+      "2016",
+      "2017",
+      "2018",
+      "2019",
+      "2020",
+      "2021",
+      "2022"
+    ]
+  },
+  {
     "id": "std_ktn_lu",
     "type": "std",
     "entityCode": "ktn_lu",
@@ -6571,6 +6193,33 @@
       "2021",
       "2022",
       "2023"
+    ]
+  },
+  {
+    "id": "std_ktn_gdn_ne",
+    "type": "std",
+    "entityCode": "ktn_gdn_ne",
+    "displayName": {
+      "de": "Kanton Neuchâtel inklusive allen Gemeinden",
+      "fr": "Canton Neuchâtel incluant toutes les communes",
+      "it": "Cantone Neuchâtel inclusi tutti i comuni",
+      "en": "Canton Neuchâtel including all municipalities"
+    },
+    "description": {
+      "de": "Kombinierte Finanzdaten aus allen Gemeinden und dem Kantonsfinanzamt des Kantons Neuenburg",
+      "fr": "Données financières combinées incluant toutes les communes et le gouvernement cantonal d'Neuchâtel",
+      "it": "Dati finanziari combinati inclusi tutti i comuni e il governo cantonale di Neuchâtel",
+      "en": "Combined financial data including all municipalities and the canton government of Neuchâtel"
+    },
+    "availableYears": [
+      "2015",
+      "2016",
+      "2017",
+      "2018",
+      "2019",
+      "2020",
+      "2021",
+      "2022"
     ]
   },
   {
@@ -6630,6 +6279,33 @@
     ]
   },
   {
+    "id": "std_ktn_gdn_nw",
+    "type": "std",
+    "entityCode": "ktn_gdn_nw",
+    "displayName": {
+      "de": "Kanton Nidwalden inklusive allen Gemeinden",
+      "fr": "Canton Nidwald incluant toutes les communes",
+      "it": "Cantone Nidvaldo inclusi tutti i comuni",
+      "en": "Canton Nidwalden including all municipalities"
+    },
+    "description": {
+      "de": "Kombinierte Finanzdaten aus allen Gemeinden und dem Kantonsfinanzamt des Kantons Nidwalden",
+      "fr": "Données financières combinées incluant toutes les communes et le gouvernement cantonal d'Nidwald",
+      "it": "Dati finanziari combinati inclusi tutti i comuni e il governo cantonale di Nidvaldo",
+      "en": "Combined financial data including all municipalities and the canton government of Nidwalden"
+    },
+    "availableYears": [
+      "2015",
+      "2016",
+      "2017",
+      "2018",
+      "2019",
+      "2020",
+      "2021",
+      "2022"
+    ]
+  },
+  {
     "id": "std_ktn_ow",
     "type": "std",
     "entityCode": "ktn_ow",
@@ -6655,6 +6331,33 @@
       "2021",
       "2022",
       "2023"
+    ]
+  },
+  {
+    "id": "std_ktn_gdn_ow",
+    "type": "std",
+    "entityCode": "ktn_gdn_ow",
+    "displayName": {
+      "de": "Kanton Obwalden inklusive allen Gemeinden",
+      "fr": "Canton Obwald incluant toutes les communes",
+      "it": "Cantone Obvaldo inclusi tutti i comuni",
+      "en": "Canton Obwalden including all municipalities"
+    },
+    "description": {
+      "de": "Kombinierte Finanzdaten aus allen Gemeinden und dem Kantonsfinanzamt des Kantons Obwalden",
+      "fr": "Données financières combinées incluant toutes les communes et le gouvernement cantonal d'Obwald",
+      "it": "Dati finanziari combinati inclusi tutti i comuni e il governo cantonale di Obvaldo",
+      "en": "Combined financial data including all municipalities and the canton government of Obwalden"
+    },
+    "availableYears": [
+      "2015",
+      "2016",
+      "2017",
+      "2018",
+      "2019",
+      "2020",
+      "2021",
+      "2022"
     ]
   },
   {
@@ -6686,6 +6389,33 @@
     ]
   },
   {
+    "id": "std_ktn_gdn_sh",
+    "type": "std",
+    "entityCode": "ktn_gdn_sh",
+    "displayName": {
+      "de": "Kanton Schaffhausen inklusive allen Gemeinden",
+      "fr": "Canton Schaffhouse incluant toutes les communes",
+      "it": "Cantone Sciaffusa inclusi tutti i comuni",
+      "en": "Canton Schaffhausen including all municipalities"
+    },
+    "description": {
+      "de": "Kombinierte Finanzdaten aus allen Gemeinden und dem Kantonsfinanzamt des Kantons Schaffhausen",
+      "fr": "Données financières combinées incluant toutes les communes et le gouvernement cantonal d'Schaffhouse",
+      "it": "Dati finanziari combinati inclusi tutti i comuni e il governo cantonale di Sciaffusa",
+      "en": "Combined financial data including all municipalities and the canton government of Schaffhausen"
+    },
+    "availableYears": [
+      "2015",
+      "2016",
+      "2017",
+      "2018",
+      "2019",
+      "2020",
+      "2021",
+      "2022"
+    ]
+  },
+  {
     "id": "std_ktn_sz",
     "type": "std",
     "entityCode": "ktn_sz",
@@ -6711,6 +6441,33 @@
       "2021",
       "2022",
       "2023"
+    ]
+  },
+  {
+    "id": "std_ktn_gdn_sz",
+    "type": "std",
+    "entityCode": "ktn_gdn_sz",
+    "displayName": {
+      "de": "Kanton Schwyz inklusive allen Gemeinden",
+      "fr": "Canton Schwyz incluant toutes les communes",
+      "it": "Cantone Svitto inclusi tutti i comuni",
+      "en": "Canton Schwyz including all municipalities"
+    },
+    "description": {
+      "de": "Kombinierte Finanzdaten aus allen Gemeinden und dem Kantonsfinanzamt des Kantons Schwyz",
+      "fr": "Données financières combinées incluant toutes les communes et le gouvernement cantonal d'Schwyz",
+      "it": "Dati finanziari combinati inclusi tutti i comuni e il governo cantonale di Svitto",
+      "en": "Combined financial data including all municipalities and the canton government of Schwyz"
+    },
+    "availableYears": [
+      "2015",
+      "2016",
+      "2017",
+      "2018",
+      "2019",
+      "2020",
+      "2021",
+      "2022"
     ]
   },
   {
@@ -6742,6 +6499,33 @@
     ]
   },
   {
+    "id": "std_ktn_gdn_so",
+    "type": "std",
+    "entityCode": "ktn_gdn_so",
+    "displayName": {
+      "de": "Kanton Solothurn inklusive allen Gemeinden",
+      "fr": "Canton Soleure incluant toutes les communes",
+      "it": "Cantone Soletta inclusi tutti i comuni",
+      "en": "Canton Solothurn including all municipalities"
+    },
+    "description": {
+      "de": "Kombinierte Finanzdaten aus allen Gemeinden und dem Kantonsfinanzamt des Kantons Solothurn",
+      "fr": "Données financières combinées incluant toutes les communes et le gouvernement cantonal d'Soleure",
+      "it": "Dati finanziari combinati inclusi tutti i comuni e il governo cantonale di Soletta",
+      "en": "Combined financial data including all municipalities and the canton government of Solothurn"
+    },
+    "availableYears": [
+      "2015",
+      "2016",
+      "2017",
+      "2018",
+      "2019",
+      "2020",
+      "2021",
+      "2022"
+    ]
+  },
+  {
     "id": "std_ktn_sg",
     "type": "std",
     "entityCode": "ktn_sg",
@@ -6767,6 +6551,33 @@
       "2021",
       "2022",
       "2023"
+    ]
+  },
+  {
+    "id": "std_ktn_gdn_sg",
+    "type": "std",
+    "entityCode": "ktn_gdn_sg",
+    "displayName": {
+      "de": "Kanton St. Gallen inklusive allen Gemeinden",
+      "fr": "Canton Saint-Gall incluant toutes les communes",
+      "it": "Cantone San Gallo inclusi tutti i comuni",
+      "en": "Canton St. Gallen including all municipalities"
+    },
+    "description": {
+      "de": "Kombinierte Finanzdaten aus allen Gemeinden und dem Kantonsfinanzamt des Kantons St. Gallen",
+      "fr": "Données financières combinées incluant toutes les communes et le gouvernement cantonal d'Saint-Gall",
+      "it": "Dati finanziari combinati inclusi tutti i comuni e il governo cantonale di San Gallo",
+      "en": "Combined financial data including all municipalities and the canton government of St. Gallen"
+    },
+    "availableYears": [
+      "2015",
+      "2016",
+      "2017",
+      "2018",
+      "2019",
+      "2020",
+      "2021",
+      "2022"
     ]
   },
   {
@@ -6826,6 +6637,60 @@
     ]
   },
   {
+    "id": "std_ktn_gdn_tg",
+    "type": "std",
+    "entityCode": "ktn_gdn_tg",
+    "displayName": {
+      "de": "Kanton Thurgau inklusive allen Gemeinden",
+      "fr": "Canton Thurgovie incluant toutes les communes",
+      "it": "Cantone Turgovia inclusi tutti i comuni",
+      "en": "Canton Thurgau including all municipalities"
+    },
+    "description": {
+      "de": "Kombinierte Finanzdaten aus allen Gemeinden und dem Kantonsfinanzamt des Kantons Thurgau",
+      "fr": "Données financières combinées incluant toutes les communes et le gouvernement cantonal d'Thurgovie",
+      "it": "Dati finanziari combinati inclusi tutti i comuni e il governo cantonale di Turgovia",
+      "en": "Combined financial data including all municipalities and the canton government of Thurgau"
+    },
+    "availableYears": [
+      "2015",
+      "2016",
+      "2017",
+      "2018",
+      "2019",
+      "2020",
+      "2021",
+      "2022"
+    ]
+  },
+  {
+    "id": "std_ktn_gdn_ti",
+    "type": "std",
+    "entityCode": "ktn_gdn_ti",
+    "displayName": {
+      "de": "Kanton Ticino inklusive allen Gemeinden",
+      "fr": "Canton Tessin incluant toutes les communes",
+      "it": "Cantone Ticino inclusi tutti i comuni",
+      "en": "Canton Ticino including all municipalities"
+    },
+    "description": {
+      "de": "Kombinierte Finanzdaten aus allen Gemeinden und dem Kantonsfinanzamt des Kantons Tessin",
+      "fr": "Données financières combinées incluant toutes les communes et le gouvernement cantonal d'Tessin",
+      "it": "Dati finanziari combinati inclusi tutti i comuni e il governo cantonale di Ticino",
+      "en": "Combined financial data including all municipalities and the canton government of Ticino"
+    },
+    "availableYears": [
+      "2015",
+      "2016",
+      "2017",
+      "2018",
+      "2019",
+      "2020",
+      "2021",
+      "2022"
+    ]
+  },
+  {
     "id": "std_ktn_gdn",
     "type": "std",
     "entityCode": "ktn_gdn",
@@ -6878,6 +6743,87 @@
       "2021",
       "2022",
       "2023"
+    ]
+  },
+  {
+    "id": "std_ktn_gdn_ur",
+    "type": "std",
+    "entityCode": "ktn_gdn_ur",
+    "displayName": {
+      "de": "Kanton Uri inklusive allen Gemeinden",
+      "fr": "Canton Uri incluant toutes les communes",
+      "it": "Cantone Uri inclusi tutti i comuni",
+      "en": "Canton Uri including all municipalities"
+    },
+    "description": {
+      "de": "Kombinierte Finanzdaten aus allen Gemeinden und dem Kantonsfinanzamt des Kantons Uri",
+      "fr": "Données financières combinées incluant toutes les communes et le gouvernement cantonal d'Uri",
+      "it": "Dati finanziari combinati inclusi tutti i comuni e il governo cantonale di Uri",
+      "en": "Combined financial data including all municipalities and the canton government of Uri"
+    },
+    "availableYears": [
+      "2015",
+      "2016",
+      "2017",
+      "2018",
+      "2019",
+      "2020",
+      "2021",
+      "2022"
+    ]
+  },
+  {
+    "id": "std_ktn_gdn_vs",
+    "type": "std",
+    "entityCode": "ktn_gdn_vs",
+    "displayName": {
+      "de": "Kanton Valais inklusive allen Gemeinden",
+      "fr": "Canton Valais incluant toutes les communes",
+      "it": "Cantone Vallese inclusi tutti i comuni",
+      "en": "Canton Valais including all municipalities"
+    },
+    "description": {
+      "de": "Kombinierte Finanzdaten aus allen Gemeinden und dem Kantonsfinanzamt des Kantons Wallis",
+      "fr": "Données financières combinées incluant toutes les communes et le gouvernement cantonal d'Valais",
+      "it": "Dati finanziari combinati inclusi tutti i comuni e il governo cantonale di Vallese",
+      "en": "Combined financial data including all municipalities and the canton government of Valais"
+    },
+    "availableYears": [
+      "2015",
+      "2016",
+      "2017",
+      "2018",
+      "2019",
+      "2020",
+      "2021",
+      "2022"
+    ]
+  },
+  {
+    "id": "std_ktn_gdn_vd",
+    "type": "std",
+    "entityCode": "ktn_gdn_vd",
+    "displayName": {
+      "de": "Kanton Vaud inklusive allen Gemeinden",
+      "fr": "Canton Vaud incluant toutes les communes",
+      "it": "Cantone Vaud inclusi tutti i comuni",
+      "en": "Canton Vaud including all municipalities"
+    },
+    "description": {
+      "de": "Kombinierte Finanzdaten aus allen Gemeinden und dem Kantonsfinanzamt des Kantons Waadt",
+      "fr": "Données financières combinées incluant toutes les communes et le gouvernement cantonal d'Vaud",
+      "it": "Dati finanziari combinati inclusi tutti i comuni e il governo cantonale di Vaud",
+      "en": "Combined financial data including all municipalities and the canton government of Vaud"
+    },
+    "availableYears": [
+      "2015",
+      "2016",
+      "2017",
+      "2018",
+      "2019",
+      "2020",
+      "2021",
+      "2022"
     ]
   },
   {
@@ -6965,6 +6911,33 @@
     ]
   },
   {
+    "id": "std_ktn_gdn_zg",
+    "type": "std",
+    "entityCode": "ktn_gdn_zg",
+    "displayName": {
+      "de": "Kanton Zug inklusive allen Gemeinden",
+      "fr": "Canton Zoug incluant toutes les communes",
+      "it": "Cantone Zugo inclusi tutti i comuni",
+      "en": "Canton Zug including all municipalities"
+    },
+    "description": {
+      "de": "Kombinierte Finanzdaten aus allen Gemeinden und dem Kantonsfinanzamt des Kantons Zug",
+      "fr": "Données financières combinées incluant toutes les communes et le gouvernement cantonal d'Zoug",
+      "it": "Dati finanziari combinati inclusi tutti i comuni e il governo cantonale di Zugo",
+      "en": "Combined financial data including all municipalities and the canton government of Zug"
+    },
+    "availableYears": [
+      "2015",
+      "2016",
+      "2017",
+      "2018",
+      "2019",
+      "2020",
+      "2021",
+      "2022"
+    ]
+  },
+  {
     "id": "std_ktn_zh",
     "type": "std",
     "entityCode": "ktn_zh",
@@ -6990,6 +6963,33 @@
       "2021",
       "2022",
       "2023"
+    ]
+  },
+  {
+    "id": "std_ktn_gdn_zh",
+    "type": "std",
+    "entityCode": "ktn_gdn_zh",
+    "displayName": {
+      "de": "Kanton Zurich inklusive allen Gemeinden",
+      "fr": "Canton Zurich incluant toutes les communes",
+      "it": "Cantone Zurigo inclusi tutti i comuni",
+      "en": "Canton Zurich including all municipalities"
+    },
+    "description": {
+      "de": "Kombinierte Finanzdaten aus allen Gemeinden und dem Kantonsfinanzamt des Kantons Zürich",
+      "fr": "Données financières combinées incluant toutes les communes et le gouvernement cantonal d'Zurich",
+      "it": "Dati finanziari combinati inclusi tutti i comuni e il governo cantonale di Zurigo",
+      "en": "Combined financial data including all municipalities and the canton government of Zurich"
+    },
+    "availableYears": [
+      "2015",
+      "2016",
+      "2017",
+      "2018",
+      "2019",
+      "2020",
+      "2021",
+      "2022"
     ]
   },
   {

@@ -19,7 +19,7 @@
         <label for="scaling-selector" class="block text-sm font-medium mb-2">
           {{ $t('financialDataScalingSelector.selectScaling') }}
         </label>
-        <Dropdown
+        <Select
           id="scaling-selector"
           v-model="internalSelectedScaling"
           :options="scalingOptions"
@@ -96,7 +96,7 @@
 <script setup lang="ts">
 import { ref, computed, watch, onMounted } from 'vue'
 import { useI18n } from 'vue-i18n'
-import Dropdown from 'primevue/dropdown'
+import Select from 'primevue/select'
 import Message from 'primevue/message'
 import { StatsDataLoader } from '@/utils/StatsDataLoader'
 import { GeographicalDataLoader } from '@/utils/GeographicalDataLoader'
