@@ -53,8 +53,10 @@
         <template #content>
           <FinancialDataComparison
             :datasets="selectedDatasets"
+            :selected-scaling="selectedScaling"
             @error="handleError"
             @dataLoaded="handleDataLoaded"
+            @scaling-changed="handleScalingChanged"
           />
         </template>
       </Card>
@@ -126,8 +128,10 @@
               <template #content>
                 <FinancialDataComparison
                   :datasets="sampleDatasets"
+                  :selected-scaling="selectedScaling"
                   @error="handleError"
                   @dataLoaded="handleDataLoaded"
+                  @scaling-changed="handleScalingChanged"
                 />
               </template>
             </Card>
@@ -169,6 +173,7 @@ const errorMessage = ref<string | null>(null)
 const dataLoadedCount = ref(0)
 const selectedDatasets = ref<string[]>([])
 const showDemoComparison = ref(false)
+const selectedScaling = ref<string | null>(null)
 
 // Sample datasets for demonstration
 const sampleDatasets = [
@@ -200,6 +205,12 @@ const handleSelectorError = (error: string) => {
   console.error('Dataset selector error:', error)
 }
 
+const handleScalingChanged = (scalingId: string | null) => {
+  selectedScaling.value = scalingId
+  updateURL()
+  console.log('Selected scaling changed:', scalingId)
+}
+
 const loadDemoData = () => {
   showDemoComparison.value = true
   selectedDatasets.value = [] // Clear user selections when showing demo
@@ -212,12 +223,18 @@ const openFullView = () => {
     return
   }
 
-  // Navigate to full view with datasets as query parameters
+  // Navigate to full view with datasets and scaling as query parameters
+  const query: Record<string, string> = {
+    datasets: selectedDatasets.value.join(','),
+  }
+
+  if (selectedScaling.value) {
+    query.scaling = selectedScaling.value
+  }
+
   router.push({
     name: 'financial-data-full-view',
-    query: {
-      datasets: selectedDatasets.value.join(','),
-    },
+    query,
   })
 }
 
@@ -227,12 +244,18 @@ const openDemoFullView = () => {
     return
   }
 
-  // Navigate to full view with demo datasets as query parameters
+  // Navigate to full view with demo datasets and scaling as query parameters
+  const query: Record<string, string> = {
+    datasets: sampleDatasets.join(','),
+  }
+
+  if (selectedScaling.value) {
+    query.scaling = selectedScaling.value
+  }
+
   router.push({
     name: 'financial-data-full-view',
-    query: {
-      datasets: sampleDatasets.join(','),
-    },
+    query,
   })
 }
 
@@ -246,6 +269,10 @@ const updateURL = () => {
 
   if (showDemoComparison.value) {
     query.demo = 'true'
+  }
+
+  if (selectedScaling.value) {
+    query.scaling = selectedScaling.value
   }
 
   // Only update if the query actually changed
@@ -264,6 +291,7 @@ const updateURL = () => {
 const loadStateFromURL = () => {
   const datasetsParam = route.query.datasets
   const demoParam = route.query.demo
+  const scalingParam = route.query.scaling
 
   // Load datasets from URL
   if (typeof datasetsParam === 'string' && datasetsParam.trim()) {
@@ -286,9 +314,17 @@ const loadStateFromURL = () => {
     selectedDatasets.value = []
   }
 
+  // Load scaling from URL
+  if (typeof scalingParam === 'string' && scalingParam.trim()) {
+    selectedScaling.value = scalingParam
+  } else {
+    selectedScaling.value = null
+  }
+
   console.log('Loaded state from URL:', {
     datasets: selectedDatasets.value,
     demo: showDemoComparison.value,
+    scaling: selectedScaling.value,
   })
 }
 

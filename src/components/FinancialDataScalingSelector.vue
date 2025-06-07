@@ -1,11 +1,5 @@
 <template>
   <div class="financial-data-scaling-selector">
-    <!-- Header -->
-    <div class="selector-header mb-4">
-      <h4 class="text-lg font-semibold mb-2">{{ $t('financialDataScalingSelector.title') }}</h4>
-      <p class="text-sm">{{ $t('financialDataScalingSelector.subtitle') }}</p>
-    </div>
-
     <!-- Loading state -->
     <Message v-if="loading" severity="info" :closable="false" class="mb-4">
       <template #icon>
@@ -27,7 +21,7 @@
         </label>
         <Dropdown
           id="scaling-selector"
-          v-model="selectedScaling"
+          v-model="internalSelectedScaling"
           :options="scalingOptions"
           option-label="label"
           option-value="value"
@@ -37,24 +31,62 @@
           data-testid="scaling-dropdown"
         />
       </div>
+    </div>
 
-      <!-- Current scaling info -->
-      <div v-if="currentScalingInfo" class="scaling-info mt-4 p-3 rounded-lg border">
-        <div class="flex items-center gap-2 mb-2">
-          <i class="pi pi-info-circle"></i>
-          <span class="font-medium">{{
-            $t('financialDataScalingSelector.scalingInfo.currentScaling', {
-              name: currentScalingInfo.name,
-            })
-          }}</span>
-        </div>
-        <div class="text-sm">
-          {{
-            $t('financialDataScalingSelector.scalingInfo.unit', { unit: currentScalingInfo.unit })
-          }}
-        </div>
-        <div class="text-sm mt-1">
-          {{ currentScalingInfo.description }}
+    <!-- Controls -->
+    <div v-if="hasScalingFactors" class="controls mb-6">
+      <div class="card flex flex-col gap-4 w-full">
+        <div class="flex flex-col gap-4">
+          <!-- Scaling Information Section -->
+          <div class="scaling-info-section mt-6">
+            <Button
+              @click="toggleScalingInfo"
+              :aria-expanded="scalingInfoExpanded"
+              :aria-controls="'scaling-info-content'"
+              class="scaling-info-toggle w-full justify-between"
+              severity="secondary"
+              outlined
+            >
+              <span>{{ $t('financialDataDisplay.scalingInfo.title') }}</span>
+              <i :class="scalingInfoExpanded ? 'pi pi-chevron-up' : 'pi pi-chevron-down'"></i>
+            </Button>
+
+            <div
+              v-if="scalingInfoExpanded"
+              id="scaling-info-content"
+              class="scaling-info-content mt-4 p-4 bg-surface-50 dark:bg-surface-800 rounded-lg"
+            >
+              <div class="card flex flex-col gap-4 w-full">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                  <div
+                    v-for="[entityCode, entity] in entityColumns"
+                    :key="entityCode"
+                    class="entity-scaling-info"
+                  >
+                    <div class="entity-name font-medium mb-1">
+                      {{ getEntityDisplayName(entity) }}
+                    </div>
+                    <div class="entity-year text-sm text-surface-600 dark:text-surface-300 mb-1">
+                      {{ $t('financialDataDisplay.yearInfo', { year: entity.year }) }}
+                    </div>
+                    <div
+                      v-if="entity.scalingFactor !== undefined"
+                      class="entity-scaling text-sm text-surface-600 dark:text-surface-300"
+                    >
+                      {{
+                        $t('financialDataDisplay.scalingFactor', {
+                          factor: entity.scalingFactor.toLocaleString(),
+                        })
+                      }}
+                    </div>
+                    <div v-else class="no-scaling text-sm text-surface-500 dark:text-surface-400">
+                      {{ $t('financialDataDisplay.noScalingFactor') }}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -71,10 +103,12 @@ import { GeographicalDataLoader } from '@/utils/GeographicalDataLoader'
 import type { StatsAvailabilityInfo } from '@/types/StatsData'
 import type { FinancialData } from '@/types/FinancialDataStructure'
 import type { MultiLanguageLabels } from '@/types/DataStructures'
+import Button from 'primevue/button'
 
 // Props
 interface Props {
   financialData?: FinancialData | null
+  selectedScaling?: string | null
 }
 
 const props = defineProps<Props>()
@@ -113,7 +147,7 @@ interface ScalingInfo {
 // Reactive state
 const loading = ref(true)
 const error = ref<string | null>(null)
-const selectedScaling = ref<string | null>(null)
+const internalSelectedScaling = ref<string | null>(null)
 const availableStats = ref<StatsAvailabilityInfo[]>([])
 const statsDataLoader = StatsDataLoader.getInstance()
 const geoDataLoader = GeographicalDataLoader.getInstance()
@@ -144,11 +178,37 @@ const scalingOptions = computed<ScalingOption[]>(() => {
 
   return options
 })
+const scalingInfoExpanded = ref(false)
+
+// Check if any entity has a scaling factor
+const hasScalingFactors = computed(() => {
+  if (!props.financialData?.entities) return false
+  for (const [, entity] of props.financialData.entities) {
+    if (entity.scalingFactor !== undefined) {
+      return true
+    }
+  }
+  return false
+})
+const toggleScalingInfo = () => {
+  scalingInfoExpanded.value = !scalingInfoExpanded.value
+}
+
+const entityColumns = computed(() => {
+  if (!props.financialData?.entities) return new Map()
+  return props.financialData.entities
+})
+
+const getEntityDisplayName = (entity: { code?: string; name?: MultiLanguageLabels }): string => {
+  if (!entity || !entity.name) return entity?.code || 'Unknown Entity'
+  const currentLocale = locale.value as keyof MultiLanguageLabels
+  return entity.name[currentLocale] || entity.name.de || entity.code || 'Unknown Entity'
+}
 
 const currentScalingInfo = computed<ScalingInfo | null>(() => {
-  if (!selectedScaling.value) return null
+  if (!internalSelectedScaling.value) return null
 
-  const stat = availableStats.value.find((s) => s.id === selectedScaling.value)
+  const stat = availableStats.value.find((s) => s.id === internalSelectedScaling.value)
   if (!stat) return null
 
   const currentLocale = locale.value as keyof MultiLanguageLabels
@@ -189,7 +249,7 @@ const loadAvailableStats = async () => {
 
 const onScalingChange = async () => {
   try {
-    if (!selectedScaling.value) {
+    if (!internalSelectedScaling.value) {
       // No scaling selected - remove scaling
       emit('scalingChanged', null, null)
       return
@@ -200,7 +260,7 @@ const onScalingChange = async () => {
       throw new Error('Invalid scaling selection')
     }
 
-    emit('scalingChanged', selectedScaling.value, scalingInfo)
+    emit('scalingChanged', internalSelectedScaling.value, scalingInfo)
   } catch (err) {
     console.error('Error applying scaling:', err)
     const errorMessage = t('financialDataScalingSelector.errors.applyingFailed')
@@ -214,15 +274,27 @@ onMounted(() => {
   loadAvailableStats()
 })
 
+// Watch for selectedScaling prop changes
+watch(
+  () => props.selectedScaling,
+  (newScaling) => {
+    const scalingValue = newScaling ?? null
+    if (scalingValue !== internalSelectedScaling.value) {
+      internalSelectedScaling.value = scalingValue
+    }
+  },
+  { immediate: true },
+)
+
 // Watch for locale changes to update labels
 watch(
   () => locale.value,
   () => {
     // Force reactivity update for computed properties by triggering a re-render
-    if (selectedScaling.value) {
-      const currentValue = selectedScaling.value
-      selectedScaling.value = null
-      selectedScaling.value = currentValue
+    if (internalSelectedScaling.value) {
+      const currentValue = internalSelectedScaling.value
+      internalSelectedScaling.value = null
+      internalSelectedScaling.value = currentValue
     }
   },
 )

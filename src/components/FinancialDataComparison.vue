@@ -19,16 +19,7 @@
     </Message>
 
     <!-- Main comparison content -->
-    <div v-else class="w-full">
-      <!-- Scaling selector -->
-      <div class="mb-6">
-        <FinancialDataScalingSelector
-          :financial-data="combinedFinancialData"
-          @scaling-changed="handleScalingChanged"
-          @error="handleScalingError"
-        />
-      </div>
-
+    <div v-else class="w-full flex flex-col gap-y-3">
       <!-- Single FinancialDataDisplay for combined data -->
       <div class="w-full">
         <FinancialDataDisplay
@@ -39,6 +30,15 @@
           :initial-show-codes="showCodes"
           :initial-show-zero-values="!hideZeroValues"
           @error="handleDatasetError"
+        />
+      </div>
+      <!-- Scaling selector -->
+      <div class="mb-6">
+        <FinancialDataScalingSelector
+          :financial-data="combinedFinancialData"
+          :selected-scaling="props.selectedScaling"
+          @scaling-changed="handleScalingChanged"
+          @error="handleScalingError"
         />
       </div>
     </div>
@@ -63,6 +63,7 @@ import { getCantonByAbbreviation, getMunicipalityByGdnId } from '@/utils/Geograp
 // Props
 interface Props {
   datasets: string[]
+  selectedScaling?: string | null
 }
 
 const props = defineProps<Props>()
@@ -71,6 +72,7 @@ const props = defineProps<Props>()
 interface Emits {
   error: [error: string]
   dataLoaded: [count: number]
+  scalingChanged: [scalingId: string | null]
 }
 
 const emit = defineEmits<Emits>()
@@ -183,6 +185,9 @@ interface ScalingInfo {
 const handleScalingChanged = async (scalingId: string | null, scalingInfo: ScalingInfo | null) => {
   try {
     currentScalingId.value = scalingId
+
+    // Emit scaling change to parent
+    emit('scalingChanged', scalingId)
 
     if (!combinedFinancialData.value) return
 
@@ -311,6 +316,19 @@ watch(
   () => props.datasets,
   () => {
     loadDatasets()
+  },
+  { immediate: true },
+)
+
+// Watch for selectedScaling prop changes
+watch(
+  () => props.selectedScaling,
+  (newScaling) => {
+    const scalingValue = newScaling ?? null
+    if (scalingValue !== currentScalingId.value) {
+      currentScalingId.value = scalingValue
+      // The FinancialDataScalingSelector will handle the actual scaling change
+    }
   },
   { immediate: true },
 )

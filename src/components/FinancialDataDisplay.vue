@@ -32,24 +32,52 @@
     <div v-else class="content">
       <!-- Combined Financial Data Section -->
       <div v-if="combinedFinancialData.length > 0" class="section">
-        <h3 class="section-title">{{ $t('financialDataDisplay.financialData') }}</h3>
         <TreeTable
           :value="combinedFinancialData"
           :expandedKeys="expandedKeys"
           @node-expand="onNodeExpand"
           @node-collapse="onNodeCollapse"
           class="financial-tree-table"
-          :scrollable="false"
           :resizableColumns="true"
           columnResizeMode="expand"
           showGridlines
         >
+          <template #header>
+            <div class="flex flex-wrap justify-end gap-2">
+              <Button text icon="pi pi-plus" label="Expand All" @click="expandAll" />
+              <Button text icon="pi pi-minus" label="Collapse All" @click="collapseAll" />
+            </div>
+          </template>
+          <template #footer>
+            <div class="flex justify-between items-center flex-wrap gap-4">
+              <!-- Left side: Toggle buttons -->
+              <div class="flex gap-2">
+                <ToggleButton
+                  v-model="showCodes"
+                  :aria-label="
+                    showCodes
+                      ? $t('financialDataDisplay.hideCodes')
+                      : $t('financialDataDisplay.showCodes')
+                  "
+                  :onLabel="$t('financialDataDisplay.hideCodes')"
+                  :offLabel="$t('financialDataDisplay.showCodes')"
+                />
+              </div>
+
+              <!-- Right side: Action buttons -->
+              <div class="flex gap-2">
+                <Button text icon="pi pi-plus" label="Expand All" @click="expandAll" />
+                <Button text icon="pi pi-minus" label="Collapse All" @click="collapseAll" />
+              </div>
+            </div>
+          </template>
           <!-- Account column -->
           <Column
             field="label"
             :header="$t('financialDataDisplay.columns.account')"
             :expander="true"
             class="account-column"
+            frozen
           >
             <template #body="{ node }">
               <div class="account-cell">
@@ -100,151 +128,6 @@
           </Column>
         </TreeTable>
       </div>
-
-      <!-- Controls -->
-      <div class="controls mb-6">
-        <div class="card flex flex-col gap-4 w-full">
-          <div class="font-semibold text-lg">{{ $t('financialDataDisplay.controls.title') }}</div>
-          <div class="flex flex-col gap-4">
-            <!-- Expand All toggle -->
-            <div class="flex flex-wrap gap-2 w-full">
-              <div class="control-item flex items-center gap-3 w-full">
-                <ToggleSwitch
-                  v-model="expandedAll"
-                  @change="toggleExpandAll"
-                  :aria-label="
-                    expandedAll
-                      ? $t('financialDataDisplay.collapseAll')
-                      : $t('financialDataDisplay.expandAll')
-                  "
-                />
-                <label class="control-label text-sm font-medium flex items-center">
-                  <i class="pi pi-sitemap mr-2"></i>
-                  {{
-                    expandedAll
-                      ? $t('financialDataDisplay.collapseAll')
-                      : $t('financialDataDisplay.expandAll')
-                  }}
-                </label>
-              </div>
-            </div>
-
-            <!-- Show Codes toggle -->
-            <div class="flex flex-wrap gap-2 w-full">
-              <div class="control-item flex items-center gap-3 w-full">
-                <ToggleSwitch
-                  v-model="showCodes"
-                  @change="toggleShowCodes"
-                  :aria-label="
-                    showCodes
-                      ? $t('financialDataDisplay.hideCodes')
-                      : $t('financialDataDisplay.showCodes')
-                  "
-                />
-                <label class="control-label text-sm font-medium flex items-center">
-                  <i class="pi pi-code mr-2"></i>
-                  {{
-                    showCodes
-                      ? $t('financialDataDisplay.hideCodes')
-                      : $t('financialDataDisplay.showCodes')
-                  }}
-                </label>
-              </div>
-            </div>
-
-            <!-- Show Zero Values toggle -->
-            <div class="flex flex-wrap gap-2 w-full">
-              <div class="control-item flex items-center gap-3 w-full">
-                <ToggleSwitch
-                  v-model="showZeroValues"
-                  @change="toggleShowZeroValues"
-                  :aria-label="
-                    showZeroValues
-                      ? $t('financialDataDisplay.hideZeroValues')
-                      : $t('financialDataDisplay.showZeroValues')
-                  "
-                />
-                <label class="control-label text-sm font-medium flex items-center">
-                  <i class="pi pi-eye mr-2"></i>
-                  {{
-                    showZeroValues
-                      ? $t('financialDataDisplay.hideZeroValues')
-                      : $t('financialDataDisplay.showZeroValues')
-                  }}
-                </label>
-              </div>
-            </div>
-
-            <!-- Scaling toggle - only visible when scaling factors exist -->
-            <div v-if="hasScalingFactors" class="flex flex-wrap gap-2 w-full">
-              <div class="control-item flex items-center gap-3 w-full">
-                <ToggleSwitch
-                  v-model="scalingEnabled"
-                  @change="toggleScaling"
-                  :aria-label="$t('financialDataDisplay.accessibility.scalingToggle')"
-                />
-                <label class="control-label text-sm font-medium flex items-center">
-                  <i class="pi pi-calculator mr-2"></i>
-                  {{
-                    scalingEnabled
-                      ? $t('financialDataDisplay.scalingEnabled')
-                      : $t('financialDataDisplay.scalingDisabled')
-                  }}
-                </label>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Scaling Information Section -->
-      <div v-if="hasScalingFactors" class="scaling-info-section mt-6">
-        <Button
-          @click="toggleScalingInfo"
-          :aria-expanded="scalingInfoExpanded"
-          :aria-controls="'scaling-info-content'"
-          class="scaling-info-toggle w-full justify-between"
-          severity="secondary"
-          outlined
-        >
-          <span>{{ $t('financialDataDisplay.scalingInfo.title') }}</span>
-          <i :class="scalingInfoExpanded ? 'pi pi-chevron-up' : 'pi pi-chevron-down'"></i>
-        </Button>
-
-        <div
-          v-if="scalingInfoExpanded"
-          id="scaling-info-content"
-          class="scaling-info-content mt-4 p-4 bg-surface-50 dark:bg-surface-800 rounded-lg"
-        >
-          <div class="card flex flex-col gap-4 w-full">
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-              <div
-                v-for="[entityCode, entity] in entityColumns"
-                :key="entityCode"
-                class="entity-scaling-info"
-              >
-                <div class="entity-name font-medium mb-1">{{ getEntityDisplayName(entity) }}</div>
-                <div class="entity-year text-sm text-surface-600 dark:text-surface-300 mb-1">
-                  {{ $t('financialDataDisplay.yearInfo', { year: entity.year }) }}
-                </div>
-                <div
-                  v-if="entity.scalingFactor !== undefined"
-                  class="entity-scaling text-sm text-surface-600 dark:text-surface-300"
-                >
-                  {{
-                    $t('financialDataDisplay.scalingFactor', {
-                      factor: entity.scalingFactor.toLocaleString(),
-                    })
-                  }}
-                </div>
-                <div v-else class="no-scaling text-sm text-surface-500 dark:text-surface-400">
-                  {{ $t('financialDataDisplay.noScalingFactor') }}
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
     </div>
   </div>
 </template>
@@ -255,7 +138,7 @@ import { useI18n } from 'vue-i18n'
 import TreeTable from 'primevue/treetable'
 import Column from 'primevue/column'
 import Button from 'primevue/button'
-import ToggleSwitch from 'primevue/toggleswitch'
+import ToggleButton from 'primevue/togglebutton'
 import type {
   FinancialData,
   FinancialDataNode,
@@ -299,7 +182,6 @@ const expandedAll = ref(props.initialExpandedAll)
 const showCodes = ref(props.initialShowCodes)
 const showZeroValues = ref(props.initialShowZeroValues)
 const scalingEnabled = ref(true)
-const scalingInfoExpanded = ref(false)
 
 // Computed properties
 const hasValidData = computed(() => {
@@ -314,17 +196,6 @@ const hasValidData = computed(() => {
 const entityColumns = computed(() => {
   if (!props.financialData?.entities) return new Map()
   return props.financialData.entities
-})
-
-// Check if any entity has a scaling factor
-const hasScalingFactors = computed(() => {
-  if (!props.financialData?.entities) return false
-  for (const [, entity] of props.financialData.entities) {
-    if (entity.scalingFactor !== undefined) {
-      return true
-    }
-  }
-  return false
 })
 
 // Get unique years from entities
@@ -503,41 +374,24 @@ const onNodeCollapse = (node: TreeTableNode | { key: string }) => {
   delete expandedKeys.value[node.key]
 }
 
-const toggleExpandAll = () => {
+const expandAll = () => {
   expandedAll.value = !expandedAll.value
 
-  if (expandedAll.value) {
-    // Expand all nodes
-    const expandAllNodes = (nodes: TreeTableNode[]) => {
-      nodes.forEach((node) => {
-        expandedKeys.value[node.key] = true
-        if (node.children && node.children.length > 0) {
-          expandAllNodes(node.children)
-        }
-      })
-    }
-
-    expandAllNodes(combinedFinancialData.value)
-  } else {
-    // Collapse all nodes
-    expandedKeys.value = {}
+  // Expand all nodes
+  const expandAllNodes = (nodes: TreeTableNode[]) => {
+    nodes.forEach((node) => {
+      expandedKeys.value[node.key] = true
+      if (node.children && node.children.length > 0) {
+        expandAllNodes(node.children)
+      }
+    })
   }
+
+  expandAllNodes(combinedFinancialData.value)
 }
 
-const toggleShowCodes = () => {
-  showCodes.value = !showCodes.value
-}
-
-const toggleShowZeroValues = () => {
-  showZeroValues.value = !showZeroValues.value
-}
-
-const toggleScaling = () => {
-  scalingEnabled.value = !scalingEnabled.value
-}
-
-const toggleScalingInfo = () => {
-  scalingInfoExpanded.value = !scalingInfoExpanded.value
+const collapseAll = () => {
+  expandedKeys.value = {}
 }
 
 // Validation function
