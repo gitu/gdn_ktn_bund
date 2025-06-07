@@ -171,11 +171,12 @@ const i18nMessages = {
 }
 
 // Helper function to create fresh i18n instance
-const createTestI18n = (locale = 'en') => createI18n({
-  legacy: false,
-  locale,
-  messages: i18nMessages,
-})
+const createTestI18n = (locale = 'en') =>
+  createI18n({
+    legacy: false,
+    locale,
+    messages: i18nMessages,
+  })
 
 // Import the component after mocks are set up
 import FinancialDataScalingSelector from '../FinancialDataScalingSelector.vue'
@@ -285,28 +286,46 @@ describe('FinancialDataScalingSelector', () => {
             code: 'root',
             labels: { de: 'Gesamt', fr: 'Total', it: 'Totale', en: 'Total' },
             values: new Map(),
-            children: []
+            children: [],
           },
           incomeStatement: {
             code: 'root',
-            labels: { de: 'Erfolgsrechnung', fr: 'Compte de résultats', it: 'Conto economico', en: 'Income Statement' },
+            labels: {
+              de: 'Erfolgsrechnung',
+              fr: 'Compte de résultats',
+              it: 'Conto economico',
+              en: 'Income Statement',
+            },
             values: new Map(),
-            children: []
+            children: [],
           },
           entities: new Map([
-            ['test', {
-              code: 'test',
-              name: { de: 'Test Entity', fr: 'Test Entity', it: 'Test Entity', en: 'Test Entity' },
-              year: '2022',
-              scalingFactor: 1000,
-              metadata: { source: 'test', loadedAt: '2023-01-01T00:00:00Z', recordCount: 1 },
-              model: 'fs',
-              source: 'test',
-              description: { de: 'Test Description', fr: 'Test Description', it: 'Test Description', en: 'Test Description' }
-            }]
+            [
+              'test',
+              {
+                code: 'test',
+                name: {
+                  de: 'Test Entity',
+                  fr: 'Test Entity',
+                  it: 'Test Entity',
+                  en: 'Test Entity',
+                },
+                year: '2022',
+                scalingFactor: 1000,
+                metadata: { source: 'test', loadedAt: '2023-01-01T00:00:00Z', recordCount: 1 },
+                model: 'fs',
+                source: 'test',
+                description: {
+                  de: 'Test Description',
+                  fr: 'Test Description',
+                  it: 'Test Description',
+                  en: 'Test Description',
+                },
+              },
+            ],
           ]),
-          metadata: { source: 'test', loadedAt: '2023-01-01T00:00:00Z', recordCount: 1 }
-        }
+          metadata: { source: 'test', loadedAt: '2023-01-01T00:00:00Z', recordCount: 1 },
+        },
       },
       global: {
         plugins: [createTestI18n()],
