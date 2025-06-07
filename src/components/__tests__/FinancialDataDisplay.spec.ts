@@ -691,7 +691,6 @@ describe('FinancialDataDisplay', () => {
   })
 
   describe('Scaling Functionality', () => {
-
     it('displays metadata section with year and scaling factor information', () => {
       const wrapper = mount(FinancialDataDisplay, {
         global: {

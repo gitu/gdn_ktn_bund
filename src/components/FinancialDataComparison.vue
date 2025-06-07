@@ -20,7 +20,6 @@
 
     <!-- Main comparison content -->
     <div v-else class="w-full flex flex-col gap-y-3">
-
       <!-- Single FinancialDataDisplay for combined data -->
       <div class="w-full">
         <FinancialDataDisplay

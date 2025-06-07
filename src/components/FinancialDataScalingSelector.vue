@@ -1,6 +1,5 @@
 <template>
   <div class="financial-data-scaling-selector">
-
     <!-- Loading state -->
     <Message v-if="loading" severity="info" :closable="false" class="mb-4">
       <template #icon>
@@ -32,15 +31,12 @@
           data-testid="scaling-dropdown"
         />
       </div>
-
     </div>
-
 
     <!-- Controls -->
     <div v-if="hasScalingFactors" class="controls mb-6">
       <div class="card flex flex-col gap-4 w-full">
         <div class="flex flex-col gap-4">
-
           <!-- Scaling Information Section -->
           <div class="scaling-info-section mt-6">
             <Button
@@ -67,9 +63,11 @@
                     :key="entityCode"
                     class="entity-scaling-info"
                   >
-                    <div class="entity-name font-medium mb-1">{{ getEntityDisplayName(entity) }}</div>
+                    <div class="entity-name font-medium mb-1">
+                      {{ getEntityDisplayName(entity) }}
+                    </div>
                     <div class="entity-year text-sm text-surface-600 dark:text-surface-300 mb-1">
-                      {{ $t('financialDataDisplay.yearInfo', {year: entity.year}) }}
+                      {{ $t('financialDataDisplay.yearInfo', { year: entity.year }) }}
                     </div>
                     <div
                       v-if="entity.scalingFactor !== undefined"
@@ -105,7 +103,7 @@ import { GeographicalDataLoader } from '@/utils/GeographicalDataLoader'
 import type { StatsAvailabilityInfo } from '@/types/StatsData'
 import type { FinancialData } from '@/types/FinancialDataStructure'
 import type { MultiLanguageLabels } from '@/types/DataStructures'
-import Button from "primevue/button";
+import Button from 'primevue/button'
 
 // Props
 interface Props {
@@ -195,6 +193,18 @@ const hasScalingFactors = computed(() => {
 const toggleScalingInfo = () => {
   scalingInfoExpanded.value = !scalingInfoExpanded.value
 }
+
+const entityColumns = computed(() => {
+  if (!props.financialData?.entities) return new Map()
+  return props.financialData.entities
+})
+
+const getEntityDisplayName = (entity: { code?: string; name?: MultiLanguageLabels }): string => {
+  if (!entity || !entity.name) return entity?.code || 'Unknown Entity'
+  const currentLocale = locale.value as keyof MultiLanguageLabels
+  return entity.name[currentLocale] || entity.name.de || entity.code || 'Unknown Entity'
+}
+
 const currentScalingInfo = computed<ScalingInfo | null>(() => {
   if (!internalSelectedScaling.value) return null
 

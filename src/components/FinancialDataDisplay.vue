@@ -13,10 +13,10 @@
 
     <!-- Loading state -->
     <div
-        v-else-if="loading"
-        class="loading-message"
-        role="status"
-        :aria-label="$t('financialDataDisplay.loading')"
+      v-else-if="loading"
+      class="loading-message"
+      role="status"
+      :aria-label="$t('financialDataDisplay.loading')"
     >
       <i class="pi pi-spin pi-spinner"></i>
       <span>{{ $t('financialDataDisplay.loading') }}</span>
@@ -33,59 +33,57 @@
       <!-- Combined Financial Data Section -->
       <div v-if="combinedFinancialData.length > 0" class="section">
         <TreeTable
-            :value="combinedFinancialData"
-            :expandedKeys="expandedKeys"
-            @node-expand="onNodeExpand"
-            @node-collapse="onNodeCollapse"
-            class="financial-tree-table"
-            :resizableColumns="true"
-            columnResizeMode="expand"
-            showGridlines
+          :value="combinedFinancialData"
+          :expandedKeys="expandedKeys"
+          @node-expand="onNodeExpand"
+          @node-collapse="onNodeCollapse"
+          class="financial-tree-table"
+          :resizableColumns="true"
+          columnResizeMode="expand"
+          showGridlines
         >
           <template #header>
             <div class="flex flex-wrap justify-end gap-2">
-              <Button text icon="pi pi-plus" label="Expand All" @click="expandAll"/>
-              <Button text icon="pi pi-minus" label="Collapse All" @click="collapseAll"/>
+              <Button text icon="pi pi-plus" label="Expand All" @click="expandAll" />
+              <Button text icon="pi pi-minus" label="Collapse All" @click="collapseAll" />
             </div>
           </template>
           <template #footer>
             <div class="flex justify-between items-center flex-wrap gap-4">
               <!-- Left side: Toggle buttons -->
               <div class="flex gap-2">
-
                 <ToggleButton
-                    v-model="showCodes"
-                    :aria-label="
+                  v-model="showCodes"
+                  :aria-label="
                     showCodes
                       ? $t('financialDataDisplay.hideCodes')
                       : $t('financialDataDisplay.showCodes')
                   "
-                    :onLabel="$t('financialDataDisplay.hideCodes')"
-                    :offLabel="$t('financialDataDisplay.showCodes')"
+                  :onLabel="$t('financialDataDisplay.hideCodes')"
+                  :offLabel="$t('financialDataDisplay.showCodes')"
                 />
               </div>
 
               <!-- Right side: Action buttons -->
               <div class="flex gap-2">
-                <Button text icon="pi pi-plus" label="Expand All" @click="expandAll"/>
-                <Button text icon="pi pi-minus" label="Collapse All" @click="collapseAll"/>
-
+                <Button text icon="pi pi-plus" label="Expand All" @click="expandAll" />
+                <Button text icon="pi pi-minus" label="Collapse All" @click="collapseAll" />
               </div>
             </div>
           </template>
           <!-- Account column -->
           <Column
-              field="label"
-              :header="$t('financialDataDisplay.columns.account')"
-              :expander="true"
-              class="account-column"
-              frozen
+            field="label"
+            :header="$t('financialDataDisplay.columns.account')"
+            :expander="true"
+            class="account-column"
+            frozen
           >
             <template #body="{ node }">
               <div class="account-cell">
                 <span class="account-label">{{ getNodeLabel(node.data || node) }}</span>
                 <span v-if="showCodes && (node.data?.code || node.code)" class="account-code"
-                >({{ node.data?.code || node.code }})</span
+                  >({{ node.data?.code || node.code }})</span
                 >
               </div>
             </template>
@@ -93,10 +91,10 @@
 
           <!-- Entity value columns -->
           <Column
-              v-for="[entityCode, entity] in entityColumns"
-              :key="entityCode"
-              :field="`values.${entityCode}`"
-              class="value-column"
+            v-for="[entityCode, entity] in entityColumns"
+            :key="entityCode"
+            :field="`values.${entityCode}`"
+            class="value-column"
           >
             <template #header>
               <div class="entity-header">
@@ -107,10 +105,10 @@
             <template #body="{ node }">
               <div class="value-cell">
                 <span
-                    v-if="hasValue(node.data || node, entityCode as string)"
-                    class="financial-value"
-                    :class="{ 'pnl-value': (node.data?.code || node.code) === 'pnl' }"
-                    :aria-label="
+                  v-if="hasValue(node.data || node, entityCode as string)"
+                  class="financial-value"
+                  :class="{ 'pnl-value': (node.data?.code || node.code) === 'pnl' }"
+                  :aria-label="
                     $t('financialDataDisplay.accessibility.financialValue', {
                       entity: getEntityDisplayName(entity),
                     })
@@ -119,9 +117,9 @@
                   {{ formatCurrency(getValue(node.data || node, entityCode as string)) }}
                 </span>
                 <span
-                    v-else
-                    class="no-value"
-                    :aria-label="$t('financialDataDisplay.accessibility.noValue')"
+                  v-else
+                  class="no-value"
+                  :aria-label="$t('financialDataDisplay.accessibility.noValue')"
                 >
                   -
                 </span>
@@ -130,14 +128,13 @@
           </Column>
         </TreeTable>
       </div>
-
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import {ref, computed, watch, onMounted} from 'vue'
-import {useI18n} from 'vue-i18n'
+import { ref, computed, watch, onMounted } from 'vue'
+import { useI18n } from 'vue-i18n'
 import TreeTable from 'primevue/treetable'
 import Column from 'primevue/column'
 import Button from 'primevue/button'
@@ -146,7 +143,7 @@ import type {
   FinancialDataNode,
   FinancialDataEntity,
 } from '@/types/FinancialDataStructure'
-import type {MultiLanguageLabels} from '@/types/DataStructures'
+import type { MultiLanguageLabels } from '@/types/DataStructures'
 
 // Props
 interface Props {
@@ -176,7 +173,7 @@ interface Emits {
 const emit = defineEmits<Emits>()
 
 // Vue i18n
-const {locale, t} = useI18n()
+const { locale, t } = useI18n()
 
 // Reactive state
 const expandedKeys = ref<Record<string, boolean>>({})
@@ -188,10 +185,10 @@ const scalingEnabled = ref(true)
 // Computed properties
 const hasValidData = computed(() => {
   return (
-      props.financialData &&
-      (props.financialData.balanceSheet || props.financialData.incomeStatement) &&
-      props.financialData.entities &&
-      props.financialData.entities.size > 0
+    props.financialData &&
+    (props.financialData.balanceSheet || props.financialData.incomeStatement) &&
+    props.financialData.entities &&
+    props.financialData.entities.size > 0
   )
 })
 
@@ -199,7 +196,6 @@ const entityColumns = computed(() => {
   if (!props.financialData?.entities) return new Map()
   return props.financialData.entities
 })
-
 
 // Get unique years from entities
 const entityYears = computed(() => {
@@ -237,7 +233,7 @@ const combinedFinancialData = computed(() => {
 
   // Extract Liabilities from balance sheet (code "2")
   const liabilitiesNode = props.financialData.balanceSheet.children.find(
-      (child) => child.code === '2',
+    (child) => child.code === '2',
   )
   if (liabilitiesNode) {
     const transformedLiabilities = transformNodeToTreeTableData(liabilitiesNode)
@@ -246,7 +242,7 @@ const combinedFinancialData = computed(() => {
 
   // Extract Revenue from income statement (code "4")
   const revenueNode = props.financialData.incomeStatement.children.find(
-      (child) => child.code === '4',
+    (child) => child.code === '4',
   )
   if (revenueNode) {
     const transformedRevenue = transformNodeToTreeTableData(revenueNode)
@@ -255,7 +251,7 @@ const combinedFinancialData = computed(() => {
 
   // Extract Expenses from income statement (code "3")
   const expensesNode = props.financialData.incomeStatement.children.find(
-      (child) => child.code === '3',
+    (child) => child.code === '3',
   )
   if (expensesNode) {
     const transformedExpenses = transformNodeToTreeTableData(expensesNode)
@@ -304,8 +300,8 @@ const transformNodeToTreeTableData = (node: FinancialDataNode): TreeTableNode[] 
       data: n,
       label: getNodeLabel(n),
       children: n.children
-          .map((child) => transformNode(child, key))
-          .filter((child) => child !== null),
+        .map((child) => transformNode(child, key))
+        .filter((child) => child !== null),
     }
 
     return treeNode
@@ -397,8 +393,6 @@ const collapseAll = () => {
   expandedKeys.value = {}
 }
 
-
-
 // Validation function
 const validateFinancialData = (data: FinancialData) => {
   try {
@@ -418,13 +412,13 @@ const validateFinancialData = (data: FinancialData) => {
 
 // Watch for data changes and validate
 watch(
-    () => props.financialData,
-    (newData) => {
-      if (newData) {
-        validateFinancialData(newData)
-      }
-    },
-    {immediate: true},
+  () => props.financialData,
+  (newData) => {
+    if (newData) {
+      validateFinancialData(newData)
+    }
+  },
+  { immediate: true },
 )
 
 // Initialize component

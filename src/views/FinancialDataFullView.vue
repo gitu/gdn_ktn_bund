@@ -23,10 +23,7 @@
         </div>
 
         <!-- Dataset count indicator -->
-        <div
-          v-if="hasValidData"
-          class="flex items-center gap-2 text-sm"
-        >
+        <div v-if="hasValidData" class="flex items-center gap-2 text-sm">
           <i class="pi pi-database"></i>
           <span>{{ $t('financialDataFullView.datasetsLoaded', { count: datasets.length }) }}</span>
         </div>

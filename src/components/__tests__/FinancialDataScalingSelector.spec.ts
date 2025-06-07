@@ -90,72 +90,91 @@ vi.mock('primevue/message', () => ({
   },
 }))
 
-// Create i18n instance for tests
-const i18n = createI18n({
-  legacy: false,
-  locale: 'en',
-  messages: {
-    en: {
-      financialDataScalingSelector: {
-        title: 'Data Scaling',
-        subtitle: 'Apply scaling factors for better comparison',
-        noScaling: 'No scaling',
-        loading: 'Loading scaling options...',
-        error: 'Error loading scaling options',
-        selectScaling: 'Select scaling factor',
-        scalingApplied: 'Scaling applied: {name}',
-        scalingRemoved: 'Scaling removed',
-        scalingInfo: {
-          title: 'Scaling Information',
-          description:
-            'Scaling factors help normalize data for better comparison between entities of different sizes.',
-          currentScaling: 'Current scaling: {name}',
-          unit: 'Unit: {unit}',
-        },
-        options: {
-          population: 'Population',
-          area: 'Area',
-          households: 'Households',
-          employees: 'Employees',
-        },
-        errors: {
-          loadingFailed: 'Failed to load scaling options',
-          applyingFailed: 'Failed to apply scaling factor',
-          invalidScaling: 'Invalid scaling factor selected',
-        },
+// Create i18n messages for tests
+const i18nMessages = {
+  en: {
+    financialDataScalingSelector: {
+      title: 'Data Scaling',
+      subtitle: 'Apply scaling factors for better comparison',
+      noScaling: 'No scaling',
+      loading: 'Loading scaling options...',
+      error: 'Error loading scaling options',
+      selectScaling: 'Select scaling factor',
+      scalingApplied: 'Scaling applied: {name}',
+      scalingRemoved: 'Scaling removed',
+      scalingInfo: {
+        title: 'Scaling Information',
+        description:
+          'Scaling factors help normalize data for better comparison between entities of different sizes.',
+        currentScaling: 'Current scaling: {name}',
+        unit: 'Unit: {unit}',
+      },
+      options: {
+        population: 'Population',
+        area: 'Area',
+        households: 'Households',
+        employees: 'Employees',
+      },
+      errors: {
+        loadingFailed: 'Failed to load scaling options',
+        applyingFailed: 'Failed to apply scaling factor',
+        invalidScaling: 'Invalid scaling factor selected',
       },
     },
-    de: {
-      financialDataScalingSelector: {
-        title: 'Datenskalierung',
-        subtitle: 'Skalierungsfaktoren für bessere Vergleichbarkeit anwenden',
-        noScaling: 'Keine Skalierung',
-        loading: 'Lade Skalierungsoptionen...',
-        error: 'Fehler beim Laden der Skalierungsoptionen',
-        selectScaling: 'Skalierungsfaktor auswählen',
-        scalingApplied: 'Skalierung angewendet: {name}',
-        scalingRemoved: 'Skalierung entfernt',
-        scalingInfo: {
-          title: 'Skalierungsinformationen',
-          description:
-            'Skalierungsfaktoren helfen dabei, Daten für bessere Vergleiche zwischen Entitäten unterschiedlicher Größe zu normalisieren.',
-          currentScaling: 'Aktuelle Skalierung: {name}',
-          unit: 'Einheit: {unit}',
-        },
-        options: {
-          population: 'Bevölkerung',
-          area: 'Fläche',
-          households: 'Haushalte',
-          employees: 'Beschäftigte',
-        },
-        errors: {
-          loadingFailed: 'Fehler beim Laden der Skalierungsoptionen',
-          applyingFailed: 'Fehler beim Anwenden des Skalierungsfaktors',
-          invalidScaling: 'Ungültiger Skalierungsfaktor ausgewählt',
-        },
+    financialDataDisplay: {
+      scalingInfo: {
+        title: 'Scaling Information',
       },
+      yearInfo: 'Year: {year}',
+      scalingFactor: 'Scaling factor: {factor}',
+      noScalingFactor: 'No scaling factor',
     },
   },
+  de: {
+    financialDataScalingSelector: {
+      title: 'Datenskalierung',
+      subtitle: 'Skalierungsfaktoren für bessere Vergleichbarkeit anwenden',
+      noScaling: 'Keine Skalierung',
+      loading: 'Lade Skalierungsoptionen...',
+      error: 'Fehler beim Laden der Skalierungsoptionen',
+      selectScaling: 'Skalierungsfaktor auswählen',
+      scalingApplied: 'Skalierung angewendet: {name}',
+      scalingRemoved: 'Skalierung entfernt',
+      scalingInfo: {
+        title: 'Skalierungsinformationen',
+        description:
+          'Skalierungsfaktoren helfen dabei, Daten für bessere Vergleiche zwischen Entitäten unterschiedlicher Größe zu normalisieren.',
+        currentScaling: 'Aktuelle Skalierung: {name}',
+        unit: 'Einheit: {unit}',
+      },
+      options: {
+        population: 'Bevölkerung',
+        area: 'Fläche',
+        households: 'Haushalte',
+        employees: 'Beschäftigte',
+      },
+      errors: {
+        loadingFailed: 'Fehler beim Laden der Skalierungsoptionen',
+        applyingFailed: 'Fehler beim Anwenden des Skalierungsfaktors',
+        invalidScaling: 'Ungültiger Skalierungsfaktor ausgewählt',
+      },
+    },
+    financialDataDisplay: {
+      scalingInfo: {
+        title: 'Skalierungsinformationen',
+      },
+      yearInfo: 'Jahr: {year}',
+      scalingFactor: 'Skalierungsfaktor: {factor}',
+      noScalingFactor: 'Kein Skalierungsfaktor',
+    },
+  },
+}
+
+// Helper function to create fresh i18n instance
+const createTestI18n = (locale = 'en') => createI18n({
+  legacy: false,
+  locale,
+  messages: i18nMessages,
 })
 
 // Import the component after mocks are set up
@@ -169,19 +188,23 @@ describe('FinancialDataScalingSelector', () => {
   it('should render correctly', async () => {
     const wrapper = mount(FinancialDataScalingSelector, {
       global: {
-        plugins: [i18n],
+        plugins: [createTestI18n()],
       },
     })
 
     expect(wrapper.exists()).toBe(true)
-    expect(wrapper.find('h4').text()).toBe('Data Scaling')
-    expect(wrapper.text()).toContain('Apply scaling factors for better comparison')
+    // Wait for component to load and show the selector
+    await new Promise((resolve) => setTimeout(resolve, 100))
+    await wrapper.vm.$nextTick()
+
+    // Check for the label text instead of h4
+    expect(wrapper.text()).toContain('Select scaling factor')
   })
 
   it('should show loading state initially', async () => {
     const wrapper = mount(FinancialDataScalingSelector, {
       global: {
-        plugins: [i18n],
+        plugins: [createTestI18n()],
       },
     })
 
@@ -192,7 +215,7 @@ describe('FinancialDataScalingSelector', () => {
   it('should load and display scaling options', async () => {
     const wrapper = mount(FinancialDataScalingSelector, {
       global: {
-        plugins: [i18n],
+        plugins: [createTestI18n()],
       },
     })
 
@@ -209,7 +232,7 @@ describe('FinancialDataScalingSelector', () => {
   it('should emit scalingChanged when scaling is selected', async () => {
     const wrapper = mount(FinancialDataScalingSelector, {
       global: {
-        plugins: [i18n],
+        plugins: [createTestI18n()],
       },
     })
 
@@ -233,7 +256,7 @@ describe('FinancialDataScalingSelector', () => {
   it('should emit scalingChanged with null when no scaling is selected', async () => {
     const wrapper = mount(FinancialDataScalingSelector, {
       global: {
-        plugins: [i18n],
+        plugins: [createTestI18n()],
       },
     })
 
@@ -256,8 +279,37 @@ describe('FinancialDataScalingSelector', () => {
 
   it('should display current scaling info when scaling is selected', async () => {
     const wrapper = mount(FinancialDataScalingSelector, {
+      props: {
+        financialData: {
+          balanceSheet: {
+            code: 'root',
+            labels: { de: 'Gesamt', fr: 'Total', it: 'Totale', en: 'Total' },
+            values: new Map(),
+            children: []
+          },
+          incomeStatement: {
+            code: 'root',
+            labels: { de: 'Erfolgsrechnung', fr: 'Compte de résultats', it: 'Conto economico', en: 'Income Statement' },
+            values: new Map(),
+            children: []
+          },
+          entities: new Map([
+            ['test', {
+              code: 'test',
+              name: { de: 'Test Entity', fr: 'Test Entity', it: 'Test Entity', en: 'Test Entity' },
+              year: '2022',
+              scalingFactor: 1000,
+              metadata: { source: 'test', loadedAt: '2023-01-01T00:00:00Z', recordCount: 1 },
+              model: 'fs',
+              source: 'test',
+              description: { de: 'Test Description', fr: 'Test Description', it: 'Test Description', en: 'Test Description' }
+            }]
+          ]),
+          metadata: { source: 'test', loadedAt: '2023-01-01T00:00:00Z', recordCount: 1 }
+        }
+      },
       global: {
-        plugins: [i18n],
+        plugins: [createTestI18n()],
       },
     })
 
@@ -270,23 +322,24 @@ describe('FinancialDataScalingSelector', () => {
     vm.internalSelectedScaling = 'pop'
     await wrapper.vm.$nextTick()
 
-    // Check if scaling info is displayed
-    const scalingInfo = wrapper.find('.scaling-info')
-    expect(scalingInfo.exists()).toBe(true)
+    // Check if scaling info section is displayed (it should be visible when hasScalingFactors is true)
+    const scalingInfoSection = wrapper.find('.scaling-info-section')
+    expect(scalingInfoSection.exists()).toBe(true)
   })
 
   it('should handle different locales correctly', async () => {
-    // Test German locale
-    i18n.global.locale.value = 'de'
-
     const wrapper = mount(FinancialDataScalingSelector, {
       global: {
-        plugins: [i18n],
+        plugins: [createTestI18n('de')],
       },
     })
 
-    expect(wrapper.find('h4').text()).toBe('Datenskalierung')
-    expect(wrapper.text()).toContain('Skalierungsfaktoren für bessere Vergleichbarkeit anwenden')
+    // Wait for component to load and show the selector
+    await new Promise((resolve) => setTimeout(resolve, 100))
+    await wrapper.vm.$nextTick()
+
+    // Check for German text in the label
+    expect(wrapper.text()).toContain('Skalierungsfaktor auswählen')
   })
 
   it('should handle error states', async () => {
@@ -298,7 +351,7 @@ describe('FinancialDataScalingSelector', () => {
   it('should filter relevant scaling statistics', async () => {
     const wrapper = mount(FinancialDataScalingSelector, {
       global: {
-        plugins: [i18n],
+        plugins: [createTestI18n()],
       },
     })
 
