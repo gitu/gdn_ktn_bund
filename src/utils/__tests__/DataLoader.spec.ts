@@ -388,19 +388,27 @@ describe('DataLoader', () => {
       expect(entity?.code).toBe('std/fs/gdn_ag:2022')
 
       // Verify that entity name uses EntitySemanticMapper for semantic labels
-      expect(entity?.name.de).toBe('Gemeinden Aargau')
-      expect(entity?.name.fr).toBe('Communes Argovie')
-      expect(entity?.name.it).toBe('Comuni Argovia')
-      expect(entity?.name.en).toBe('Municipalities Aargau')
+      expect(entity?.name.de).toBe('Alle Gemeinden des Kantons Aargau')
+      expect(entity?.name.fr).toBe('Toutes les communes du canton Argovie')
+      expect(entity?.name.it).toBe('Tutti i comuni del cantone Argovia')
+      expect(entity?.name.en).toBe('All Municipalities of Canton Aargau')
 
       // Verify new fields are populated correctly
       expect(entity?.year).toBe('2022')
       expect(entity?.model).toBe('fs')
       expect(entity?.source).toBe('std')
-      expect(entity?.description.de).toBe('Gemeinden Aargau (gdn_ag)')
-      expect(entity?.description.fr).toBe('Communes Argovie (gdn_ag)')
-      expect(entity?.description.it).toBe('Comuni Argovia (gdn_ag)')
-      expect(entity?.description.en).toBe('Municipalities Aargau (gdn_ag)')
+      expect(entity?.description.de).toBe(
+        'Kombinierte Finanzdaten aus allen Gemeinden des Kantons Aargau',
+      )
+      expect(entity?.description.fr).toBe(
+        'Données financières combinées de toutes les communes du canton Argovie',
+      )
+      expect(entity?.description.it).toBe(
+        'Dati finanziari combinati di tutti i comuni del cantone Argovia',
+      )
+      expect(entity?.description.en).toBe(
+        'Combined financial data from all municipalities within Canton Aargau',
+      )
     })
   })
 
