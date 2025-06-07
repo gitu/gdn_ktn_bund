@@ -171,7 +171,7 @@
         <Button
           :label="$t('datasetSelector.compareDatasets')"
           icon="pi pi-chart-line"
-          @click="emitSelectedDatasets"
+          @click="openFullView"
           :disabled="selectedDatasets.length === 0"
         />
       </div>
@@ -218,6 +218,7 @@
 <script setup lang="ts">
 import { computed, onMounted, ref, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
+import { useRouter } from 'vue-router'
 import DataTable, { type DataTableRowReorderEvent } from 'primevue/datatable'
 import Column from 'primevue/column'
 import InputText from 'primevue/inputtext'
@@ -236,8 +237,9 @@ import { useToast } from 'primevue/usetoast'
 
 const datasets = defineModel<string[]>({ required: true })
 
-// Vue i18n
+// Vue i18n and router
 const { locale, t } = useI18n()
+const router = useRouter()
 
 // Reactive state
 const loading = ref(true)
@@ -412,6 +414,23 @@ const clearAllDatasets = () => {
 
 const emitSelectedDatasets = () => {
   datasets.value = selectedDatasets.value.map((dataset) => dataset.datasetIdentifier)
+}
+
+const openFullView = () => {
+  if (selectedDatasets.value.length === 0) {
+    console.warn('Cannot open full view: no selected datasets')
+    return
+  }
+
+  // Navigate to full view with datasets as query parameters
+  const query: Record<string, string> = {
+    datasets: selectedDatasets.value.map((dataset) => dataset.datasetIdentifier).join(','),
+  }
+
+  router.push({
+    name: 'financial-data-full-view',
+    query,
+  })
 }
 
 const clearSearch = () => {

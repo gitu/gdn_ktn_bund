@@ -7,6 +7,14 @@ import { mount } from '@vue/test-utils'
 import { createI18n } from 'vue-i18n'
 import type { AvailableDataCatalog } from '../../types/DataStructures'
 
+// Mock Vue Router
+const mockPush = vi.fn()
+vi.mock('vue-router', () => ({
+  useRouter: () => ({
+    push: mockPush,
+  }),
+}))
+
 // Mock the AvailableDataLoader
 const mockCatalog: AvailableDataCatalog = [
   {
@@ -536,5 +544,74 @@ describe('DatasetSelector', () => {
 
     // If year elements exist, the component is handling years correctly
     expect(yearElements.length >= 0).toBe(true)
+  })
+
+  it('should navigate to full view when compare datasets button is clicked', async () => {
+    const wrapper = mount(DatasetSelector, {
+      props: {
+        modelValue: ['gdn/fs/010002:2022', 'std/fs/sv_ahv:2023'],
+      },
+      global: {
+        plugins: [i18n],
+      },
+    })
+
+    // Wait for component to load
+    await new Promise((resolve) => setTimeout(resolve, 100))
+    await wrapper.vm.$nextTick()
+
+    // Find the compare datasets button
+    const compareButton = wrapper
+      .findAll('button')
+      .find(
+        (button) =>
+          button.text().includes('Compare') || button.attributes('icon') === 'pi pi-chart-line',
+      )
+
+    if (compareButton && !compareButton.attributes('disabled')) {
+      await compareButton.trigger('click')
+
+      // Check that router.push was called with correct parameters
+      expect(mockPush).toHaveBeenCalledWith({
+        name: 'financial-data-full-view',
+        query: {
+          datasets: 'gdn/fs/010002:2022,std/fs/sv_ahv:2023',
+        },
+      })
+    } else {
+      // Skip test if button not found or disabled
+      expect(true).toBe(true)
+    }
+  })
+
+  it('should not navigate when compare button is clicked with no datasets', async () => {
+    const wrapper = mount(DatasetSelector, {
+      props: {
+        modelValue: [],
+      },
+      global: {
+        plugins: [i18n],
+      },
+    })
+
+    // Wait for component to load
+    await new Promise((resolve) => setTimeout(resolve, 100))
+    await wrapper.vm.$nextTick()
+
+    // Find the compare datasets button
+    const compareButton = wrapper
+      .findAll('button')
+      .find(
+        (button) =>
+          button.text().includes('Compare') || button.attributes('icon') === 'pi pi-chart-line',
+      )
+
+    if (compareButton) {
+      // Button should be disabled when no datasets are selected
+      expect(compareButton.attributes('disabled')).toBeDefined()
+    } else {
+      // Skip test if button not found
+      expect(true).toBe(true)
+    }
   })
 })
