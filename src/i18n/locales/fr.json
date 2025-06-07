@@ -289,6 +289,9 @@
     "collapseAll": "Tout réduire",
     "showCodes": "Afficher les codes",
     "hideCodes": "Masquer les codes",
+    "codesShown": "Codes affichés",
+    "freezeFirstColumn": "Figer la première colonne",
+    "firstColumnFreezed": "Première colonne figée",
     "showZeroValues": "Afficher les valeurs nulles",
     "hideZeroValues": "Masquer les valeurs nulles",
     "enableScaling": "Activer la mise à l'échelle",
@@ -327,7 +330,8 @@
       "invalidData": "Données financières invalides",
       "missingBalanceSheet": "Bilan manquant",
       "missingIncomeStatement": "Compte de résultat manquant",
-      "processingError": "Erreur de traitement des données"
+      "processingError": "Erreur de traitement des données",
+      "noEntities": "Aucune entité disponible"
     }
   },
   "datasetSelector": {

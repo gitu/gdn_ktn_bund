@@ -289,6 +289,9 @@
     "collapseAll": "Collapse All",
     "showCodes": "Show Codes",
     "hideCodes": "Hide Codes",
+    "codesShown": "Codes Shown",
+    "freezeFirstColumn": "Freeze First Column",
+    "firstColumnFreezed": "First Column Frozen",
     "showZeroValues": "Show Zero Values",
     "hideZeroValues": "Hide Zero Values",
     "enableScaling": "Enable Scaling",
@@ -327,7 +330,8 @@
       "invalidData": "Invalid financial data",
       "missingBalanceSheet": "Balance sheet missing",
       "missingIncomeStatement": "Income statement missing",
-      "processingError": "Error processing data"
+      "processingError": "Error processing data",
+      "noEntities": "No entities available"
     }
   },
   "datasetSelector": {

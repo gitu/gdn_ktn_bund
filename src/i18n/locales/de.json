@@ -289,6 +289,9 @@
     "collapseAll": "Alle einklappen",
     "showCodes": "Codes anzeigen",
     "hideCodes": "Codes ausblenden",
+    "codesShown": "Codes angezeigt",
+    "freezeFirstColumn": "Erste Spalte fixieren",
+    "firstColumnFreezed": "Erste Spalte fixiert",
     "showZeroValues": "Nullwerte anzeigen",
     "hideZeroValues": "Nullwerte ausblenden",
     "enableScaling": "Skalierung aktivieren",
@@ -303,10 +306,6 @@
     "scalingFactor": "Skalierungsfaktor: {factor}",
     "scalingEnabled": "Skalierung aktiviert",
     "scalingDisabled": "Skalierung deaktiviert",
-    "noScalingFactor": "Kein Skalierungsfaktor verfügbar",
-    "scalingInfo": {
-      "title": "Skalierungsinformationen"
-    },
     "controls": {
       "title": "Anzeigeoptionen"
     },
@@ -331,7 +330,8 @@
       "invalidData": "Ungültige Finanzdaten",
       "missingBalanceSheet": "Bilanz fehlt",
       "missingIncomeStatement": "Erfolgsrechnung fehlt",
-      "processingError": "Fehler bei der Datenverarbeitung"
+      "processingError": "Fehler bei der Datenverarbeitung",
+      "noEntities": "Keine Entitäten verfügbar"
     }
   },
   "datasetSelector": {
