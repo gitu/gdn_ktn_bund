@@ -14,7 +14,7 @@
     <Card class="mb-12">
       <template #content>
         <DatasetSelector
-          :initial-datasets="selectedDatasets"
+          :datasets="selectedDatasets"
           @datasets-changed="handleDatasetsChanged"
           @error="handleSelectorError"
         />

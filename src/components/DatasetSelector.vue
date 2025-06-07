@@ -139,7 +139,7 @@
               :label="getAddButtonLabel(data)"
               icon="pi pi-plus"
               size="small"
-              :disabled="isDatasetSelected(data.id)"
+              :disabled="isAddButtonDisabled(data.id)"
               @click="addDatasetWithDefaultYear(data)"
             />
           </template>
@@ -327,23 +327,11 @@ const setDefaultYear = (entry: AvailableDataEntry) => {
   }
 }
 
-const getLatestYear = (entry: AvailableDataEntry): string => {
-  if (entry.availableYears.length === 0) return ''
-  const sortedYears = [...entry.availableYears].sort((a, b) => b.localeCompare(a))
-  return sortedYears[0]
-}
-
 const getAddButtonLabel = (entry: AvailableDataEntry): string => {
   const selectedYear = selectedYears.value[entry.id]
   if (selectedYear) {
     return t('datasetSelector.addDatasetWithYear', { year: selectedYear })
   }
-
-  const latestYear = getLatestYear(entry)
-  if (latestYear) {
-    return t('datasetSelector.addLatestYear', { year: latestYear })
-  }
-
   return t('datasetSelector.addDataset')
 }
 
@@ -355,7 +343,13 @@ const addDatasetWithDefaultYear = (entry: AvailableDataEntry) => {
   addDataset(entry)
 }
 
-const isDatasetSelected = (entryId: string): boolean => {
+const isAddButtonDisabled = (entryId: string): boolean => {
+  // Disable if no year is selected for this entry
+  if (!selectedYears.value[entryId]) {
+    return true
+  }
+
+  // Disable if this dataset with the selected year is already added
   return selectedDatasets.value.some(
     (dataset) => dataset.entry.id === entryId && dataset.year === selectedYears.value[entryId],
   )
