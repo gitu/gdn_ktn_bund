@@ -32,7 +32,7 @@ const layoutState = reactive<LayoutState>({
   profileSidebarVisible: false,
   configSidebarVisible: false,
   staticMenuMobileActive: false,
-  menuHoverActive: true,
+  menuHoverActive: false, // Default is false to align with UI/UX requirements; change dynamically if needed
   activeMenuItem: null,
 })
 
