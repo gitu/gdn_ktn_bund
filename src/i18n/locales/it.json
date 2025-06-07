@@ -214,6 +214,7 @@
   "financialDataScalingSelector": {
     "title": "Scalatura dei dati",
     "subtitle": "Applicare fattori di scala per un migliore confronto",
+    "scaling": "Scalatura",
     "noScaling": "Nessuna scalatura",
     "loading": "Caricamento opzioni di scalatura...",
     "error": "Errore nel caricamento delle opzioni di scalatura",
