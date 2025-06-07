@@ -224,11 +224,11 @@ import {
 
 // Props
 interface Props {
-  initialDatasets?: string[]
+  datasets?: string[]
 }
 
 const props = withDefaults(defineProps<Props>(), {
-  initialDatasets: () => [],
+  datasets: () => [],
 })
 
 // Emits
@@ -435,9 +435,9 @@ const loadData = async () => {
       setDefaultYear(entry)
     })
 
-    // Initialize with any provided initial datasets
-    if (props.initialDatasets.length > 0) {
-      initializeFromDatasets(props.initialDatasets)
+    // Initialize with any provided datasets
+    if (props.datasets.length > 0) {
+      initializeFromDatasets(props.datasets)
     }
   } catch (err) {
     error.value = t('datasetSelector.errors.loadingFailed')
@@ -479,6 +479,27 @@ const initializeFromDatasets = (datasets: string[]) => {
 watch(locale, () => {
   // Force reactivity update for display names
 })
+
+// Watch for datasets prop changes to update selected datasets
+watch(
+  () => props.datasets,
+  (newDatasets) => {
+    if (catalog.value.length > 0) {
+      // Clear current selection
+      selectedDatasets.value = []
+      selectedYears.value = {}
+
+      // Initialize with new datasets
+      if (newDatasets.length > 0) {
+        initializeFromDatasets(newDatasets)
+      }
+
+      // Emit the updated selection
+      emitSelectedDatasets()
+    }
+  },
+  { deep: true },
+)
 
 // Initialize component
 onMounted(() => {
