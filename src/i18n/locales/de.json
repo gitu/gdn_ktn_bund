@@ -201,7 +201,7 @@
     "selectedNode": "Ausgewählter Knoten",
     "code": "Code",
     "searchResults": "Suchergebnisse",
-    "moreResults": "... und {{count}} weitere Ergebnisse",
+    "moreResults": "... und {count} weitere Ergebnisse",
     "aboutTitle": "Über die Baumstruktur",
     "aboutDescription": "Dieser Baum-Navigator zeigt die hierarchische Struktur der Schweizer Finanzdaten an. Die Daten sind nach Kontocodes organisiert, wobei längere Codes spezifischere Unterkategorien kürzerer Codes darstellen.",
     "aboutItems": {
@@ -214,6 +214,7 @@
   "financialDataScalingSelector": {
     "title": "Datenskalierung",
     "subtitle": "Skalierungsfaktoren für bessere Vergleichbarkeit anwenden",
+    "scaling": "Skalierung",
     "noScaling": "Keine Skalierung",
     "loading": "Lade Skalierungsoptionen...",
     "error": "Fehler beim Laden der Skalierungsoptionen",

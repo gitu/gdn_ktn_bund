@@ -201,7 +201,7 @@
     "selectedNode": "Nodo selezionato",
     "code": "Codice",
     "searchResults": "Risultati di ricerca",
-    "moreResults": "... e altri {{count}} risultati",
+    "moreResults": "... e altri {count} risultati",
     "aboutTitle": "Informazioni sulla struttura ad albero",
     "aboutDescription": "Questo navigatore ad albero mostra la struttura gerarchica dei dati finanziari svizzeri. I dati sono organizzati per codici conto dove i codici più lunghi rappresentano sottocategorie più specifiche di codici più brevi.",
     "aboutItems": {

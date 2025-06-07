@@ -201,7 +201,7 @@
     "selectedNode": "Selected Node",
     "code": "Code",
     "searchResults": "Search Results",
-    "moreResults": "... and {{count}} more results",
+    "moreResults": "... and {count} more results",
     "aboutTitle": "About the Tree Structure",
     "aboutDescription": "This tree navigator displays the hierarchical structure of Swiss financial data. The data is organized by account codes where longer codes represent more specific sub-categories of shorter codes.",
     "aboutItems": {
@@ -214,6 +214,7 @@
   "financialDataScalingSelector": {
     "title": "Data Scaling",
     "subtitle": "Apply scaling factors for better comparison",
+    "scaling": "Scaling",
     "noScaling": "No scaling",
     "loading": "Loading scaling options...",
     "error": "Error loading scaling options",
