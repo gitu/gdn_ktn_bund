@@ -16,7 +16,7 @@
     <!-- Scaling selector -->
     <div v-else class="scaling-controls card">
       <div class="flex flex-col gap-4">
-        <h4 for="scaling-selector" class="block font-medium mb-2">
+        <h4 class="block font-medium mb-2">
           {{ $t('financialDataScalingSelector.scaling') }}
         </h4>
         <FloatLabel class="w-full" variant="on">
