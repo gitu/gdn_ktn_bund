@@ -1,140 +1,257 @@
 <template>
-  <div class="min-h-screen bg-gradient-to-br from-primary-500 to-purple-600 py-8">
-    <div class="max-w-6xl mx-auto px-8">
+  <div class="layout-main" data-testid="about-main">
+    <div class="grid grid-cols-12 gap-10">
       <!-- Header Section -->
-      <header class="text-center text-white mb-16">
-        <h1 class="text-5xl font-bold mb-4 drop-shadow-lg">
-          {{ t('aboutView.title') }}
-        </h1>
-        <p class="text-2xl font-light mb-6 opacity-90">
-          {{ t('aboutView.subtitle') }}
-        </p>
-        <p class="text-lg max-w-4xl mx-auto leading-relaxed opacity-90">
-          {{ t('aboutView.description') }}
-        </p>
-      </header>
+      <div class="col-span-12 xl:col-span-6">
+        <Card class="shadow-2">
+          <template #content>
+            <div class="text-center">
+              <h1 class="text-4xl font-bold text-surface-900 dark:text-surface-50 mb-4">
+                {{ t('aboutView.title') }}
+              </h1>
+              <p class="text-xl text-surface-600 dark:text-surface-300 mb-4">
+                {{ t('aboutView.subtitle') }}
+              </p>
+              <p class="text-lg text-surface-700 dark:text-surface-200 leading-relaxed max-w-4xl mx-auto">
+                {{ t('aboutView.description') }}
+              </p>
+            </div>
+          </template>
+        </Card>
+      </div>
 
       <!-- Features Section -->
-      <Card class="mb-8">
-        <template #content>
-          <h2 class="text-3xl font-semibold text-surface-900 dark:text-surface-50 mb-8 text-center">
-            {{ t('aboutView.features.title') }}
-          </h2>
-          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
-            <div
-              class="text-center p-6 bg-surface-50 dark:bg-surface-800 rounded-lg hover:shadow-md transition-all duration-300 hover:-translate-y-1"
-            >
-              <div class="text-5xl mb-4">🌳</div>
-              <h3 class="text-lg font-medium text-surface-900 dark:text-surface-50 leading-tight">
-                {{ t('aboutView.features.treeNavigation') }}
-              </h3>
+      <div class="col-span-12 xl:col-span-6">
+        <Card class="shadow-2">
+          <template #content>
+            <div class="flex align-items-center justify-content-between mb-4">
+              <h2 class="text-2xl font-semibold text-surface-900 dark:text-surface-50 m-0">
+                {{ t('aboutView.features.title') }}
+              </h2>
+              <i class="pi pi-star text-primary-500 text-2xl"></i>
             </div>
-            <div
-              class="text-center p-6 bg-surface-50 dark:bg-surface-800 rounded-lg hover:shadow-md transition-all duration-300 hover:-translate-y-1"
-            >
-              <div class="text-5xl mb-4">📊</div>
-              <h3 class="text-lg font-medium text-surface-900 dark:text-surface-50 leading-tight">
-                {{ t('aboutView.features.tableView') }}
-              </h3>
+            <div class="grid">
+              <div>
+                <div class="surface-card p-4 border-round shadow-1 h-full">
+                  <div class="text-center">
+                    <div class="text-4xl mb-3">🌳</div>
+                    <h3 class="text-lg font-medium text-surface-900 dark:text-surface-50 leading-tight m-0">
+                      {{ t('aboutView.features.treeNavigation') }}
+                    </h3>
+                  </div>
+                </div>
+              </div>
+              <div>
+                <div class="surface-card p-4 border-round shadow-1 h-full">
+                  <div class="text-center">
+                    <div class="text-4xl mb-3">📊</div>
+                    <h3 class="text-lg font-medium text-surface-900 dark:text-surface-50 leading-tight m-0">
+                      {{ t('aboutView.features.tableView') }}
+                    </h3>
+                  </div>
+                </div>
+              </div>
+              <div>
+                <div class="surface-card p-4 border-round shadow-1 h-full">
+                  <div class="text-center">
+                    <div class="text-4xl mb-3">🔍</div>
+                    <h3 class="text-lg font-medium text-surface-900 dark:text-surface-50 leading-tight m-0">
+                      {{ t('aboutView.features.dataBrowser') }}
+                    </h3>
+                  </div>
+                </div>
+              </div>
+              <div>
+                <div class="surface-card p-4 border-round shadow-1 h-full">
+                  <div class="text-center">
+                    <div class="text-4xl mb-3">🌐</div>
+                    <h3 class="text-lg font-medium text-surface-900 dark:text-surface-50 leading-tight m-0">
+                      {{ t('aboutView.features.multiLanguage') }}
+                    </h3>
+                  </div>
+                </div>
+              </div>
+              <div>
+                <div class="surface-card p-4 border-round shadow-1 h-full">
+                  <div class="text-center">
+                    <div class="text-4xl mb-3">📱</div>
+                    <h3 class="text-lg font-medium text-surface-900 dark:text-surface-50 leading-tight m-0">
+                      {{ t('aboutView.features.responsive') }}
+                    </h3>
+                  </div>
+                </div>
+              </div>
             </div>
-            <div
-              class="text-center p-6 bg-surface-50 dark:bg-surface-800 rounded-lg hover:shadow-md transition-all duration-300 hover:-translate-y-1"
-            >
-              <div class="text-5xl mb-4">🔍</div>
-              <h3 class="text-lg font-medium text-surface-900 dark:text-surface-50 leading-tight">
-                {{ t('aboutView.features.dataBrowser') }}
-              </h3>
-            </div>
-            <div
-              class="text-center p-6 bg-surface-50 dark:bg-surface-800 rounded-lg hover:shadow-md transition-all duration-300 hover:-translate-y-1"
-            >
-              <div class="text-5xl mb-4">🌐</div>
-              <h3 class="text-lg font-medium text-surface-900 dark:text-surface-50 leading-tight">
-                {{ t('aboutView.features.multiLanguage') }}
-              </h3>
-            </div>
-            <div
-              class="text-center p-6 bg-surface-50 dark:bg-surface-800 rounded-lg hover:shadow-md transition-all duration-300 hover:-translate-y-1"
-            >
-              <div class="text-5xl mb-4">📱</div>
-              <h3 class="text-lg font-medium text-surface-900 dark:text-surface-50 leading-tight">
-                {{ t('aboutView.features.responsive') }}
-              </h3>
-            </div>
-          </div>
-        </template>
-      </Card>
+          </template>
+        </Card>
+      </div>
 
-      <!-- Data Info Section -->
-      <Card class="mb-8">
-        <template #content>
-          <h2 class="text-3xl font-semibold text-surface-900 dark:text-surface-50 mb-6">
-            {{ t('aboutView.dataInfo.title') }}
-          </h2>
-          <p class="text-lg text-surface-700 dark:text-surface-200 mb-6 leading-relaxed">
-            {{ t('aboutView.dataInfo.description') }}
-          </p>
-          <div class="space-y-3">
-            <div
-              class="bg-surface-50 dark:bg-surface-800 p-4 rounded-lg border-l-4 border-primary-500"
-            >
-              <p class="text-surface-700 dark:text-surface-200">
-                {{ t('aboutView.dataInfo.sources') }}
-              </p>
+      <!-- Data Info and Technology Row -->
+      <div class="col-span-12 xl:col-span-6">
+        <Card class="shadow-2 h-full">
+          <template #content>
+            <div class="flex align-items-center justify-content-between mb-4">
+              <h2 class="text-2xl font-semibold text-surface-900 dark:text-surface-50 m-0">
+                {{ t('aboutView.dataInfo.title') }}
+              </h2>
+              <i class="pi pi-database text-primary-500 text-2xl"></i>
             </div>
-            <div
-              class="bg-surface-50 dark:bg-surface-800 p-4 rounded-lg border-l-4 border-primary-500"
-            >
-              <p class="text-surface-700 dark:text-surface-200">
-                {{ t('aboutView.dataInfo.coverage') }}
-              </p>
+            <p class="text-surface-700 dark:text-surface-200 mb-4 leading-relaxed">
+              {{ t('aboutView.dataInfo.description') }}
+            </p>
+            <div class="flex flex-column gap-3">
+              <div class="surface-50 dark:surface-800 p-3 border-round border-left-3 border-primary">
+                <p class="text-surface-700 dark:text-surface-200 m-0">
+                  {{ t('aboutView.dataInfo.sources') }}
+                </p>
+              </div>
+              <div class="surface-50 dark:surface-800 p-3 border-round border-left-3 border-primary">
+                <p class="text-surface-700 dark:text-surface-200 m-0">
+                  {{ t('aboutView.dataInfo.coverage') }}
+                </p>
+              </div>
             </div>
-          </div>
-        </template>
-      </Card>
+          </template>
+        </Card>
+      </div>
 
-      <!-- Technology Section -->
-      <Card>
-        <template #content>
-          <h2 class="text-3xl font-semibold text-surface-900 dark:text-surface-50 mb-6">
-            {{ t('aboutView.technology.title') }}
-          </h2>
-          <p class="text-lg text-surface-700 dark:text-surface-200 mb-6 leading-relaxed">
-            {{ t('aboutView.technology.description') }}
-          </p>
-          <div class="space-y-3">
-            <div
-              class="bg-surface-50 dark:bg-surface-800 p-4 rounded-lg border-l-4 border-primary-500"
-            >
-              <p class="text-surface-700 dark:text-surface-200">
-                {{ t('aboutView.technology.frontend') }}
-              </p>
+      <div class="col-span-12 xl:col-span-6">
+        <Card class="shadow-2 h-full">
+          <template #content>
+            <div class="flex align-items-center justify-content-between mb-4">
+              <h2 class="text-2xl font-semibold text-surface-900 dark:text-surface-50 m-0">
+                {{ t('aboutView.technology.title') }}
+              </h2>
+              <i class="pi pi-cog text-primary-500 text-2xl"></i>
             </div>
-            <div
-              class="bg-surface-50 dark:bg-surface-800 p-4 rounded-lg border-l-4 border-primary-500"
-            >
-              <p class="text-surface-700 dark:text-surface-200">
-                {{ t('aboutView.technology.testing') }}
-              </p>
+            <p class="text-surface-700 dark:text-surface-200 mb-4 leading-relaxed">
+              {{ t('aboutView.technology.description') }}
+            </p>
+            <div class="flex flex-column gap-3">
+              <div class="surface-50 dark:surface-800 p-3 border-round border-left-3 border-primary">
+                <p class="text-surface-700 dark:text-surface-200 m-0">
+                  {{ t('aboutView.technology.frontend') }}
+                </p>
+              </div>
+              <div class="surface-50 dark:surface-800 p-3 border-round border-left-3 border-primary">
+                <p class="text-surface-700 dark:text-surface-200 m-0">
+                  {{ t('aboutView.technology.testing') }}
+                </p>
+              </div>
+              <div class="surface-50 dark:surface-800 p-3 border-round border-left-3 border-primary">
+                <p class="text-surface-700 dark:text-surface-200 m-0">
+                  {{ t('aboutView.technology.build') }}
+                </p>
+              </div>
             </div>
-            <div
-              class="bg-surface-50 dark:bg-surface-800 p-4 rounded-lg border-l-4 border-primary-500"
-            >
-              <p class="text-surface-700 dark:text-surface-200">
-                {{ t('aboutView.technology.build') }}
-              </p>
+          </template>
+        </Card>
+      </div>
+
+      <!-- Build Info and Repository Row -->
+      <div class="col-span-12 xl:col-span-6">
+        <Card class="shadow-2 h-full">
+          <template #content>
+            <div class="flex align-items-center justify-content-between mb-4">
+              <h2 class="text-2xl font-semibold text-surface-900 dark:text-surface-50 m-0">
+                {{ t('aboutView.buildInfo.title') }}
+              </h2>
+              <i class="pi pi-clock text-primary-500 text-2xl"></i>
             </div>
-          </div>
-        </template>
-      </Card>
+            <div class="flex flex-column gap-3">
+              <div class="flex align-items-center gap-3">
+                <i class="pi pi-calendar text-surface-600"></i>
+                <div>
+                  <span class="text-surface-600 dark:text-surface-300">{{ t('aboutView.buildInfo.buildTime') }}:</span>
+                  <span class="text-surface-900 dark:text-surface-50 font-medium ml-2">{{ buildTimestamp }}</span>
+                </div>
+              </div>
+              <div class="flex align-items-center gap-3">
+                <i class="pi pi-code text-surface-600"></i>
+                <div>
+                  <span class="text-surface-600 dark:text-surface-300">{{ t('aboutView.buildInfo.commit') }}:</span>
+                  <span class="text-surface-900 dark:text-surface-50 font-medium ml-2 font-mono">{{ appVersion }}</span>
+                </div>
+              </div>
+              <div class="flex align-items-center gap-3" v-if="fullCommitHash !== appVersion">
+                <i class="pi pi-info-circle text-surface-600"></i>
+                <div>
+                  <span class="text-surface-600 dark:text-surface-300 text-sm">{{ t('aboutView.buildInfo.fullCommit') }}:</span>
+                  <span class="text-surface-700 dark:text-surface-300 text-sm ml-2 font-mono">{{ fullCommitHash }}</span>
+                </div>
+              </div>
+            </div>
+          </template>
+        </Card>
+      </div>
+
+      <div class="col-span-12 xl:col-span-6">
+        <Card class="shadow-2 h-full">
+          <template #content>
+            <div class="flex align-items-center justify-content-between mb-4">
+              <h2 class="text-2xl font-semibold text-surface-900 dark:text-surface-50 m-0">
+                {{ t('aboutView.repository.title') }}
+              </h2>
+              <i class="pi pi-github text-primary-500 text-2xl"></i>
+            </div>
+            <p class="text-surface-700 dark:text-surface-200 mb-4 leading-relaxed">
+              {{ t('aboutView.repository.description') }}
+            </p>
+            <div class="flex flex-column gap-3">
+              <Button
+                :label="t('aboutView.repository.viewOnGitHub')"
+                icon="pi pi-external-link"
+                class="p-button-outlined"
+                @click="openGitHubRepository"
+              />
+              <Button
+                :label="t('aboutView.repository.contribute')"
+                icon="pi pi-users"
+                severity="secondary"
+                outlined
+                @click="openGitHubRepository"
+              />
+            </div>
+          </template>
+        </Card>
+      </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
+import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 import Card from 'primevue/card'
+import Button from 'primevue/button'
 
 // Use Vue i18n
 const { t } = useI18n()
+
+// Build timestamp injected during build process
+const buildTimestamp = computed(() => {
+  try {
+    return new Date(__BUILD_TIME__).toLocaleDateString()
+  } catch {
+    return new Date().toLocaleDateString()
+  }
+})
+
+// App version (short commit hash) injected during build process
+const appVersion = computed(() => {
+  return __APP_VERSION__ || 'unknown'
+})
+
+// Full Git commit hash
+const fullCommitHash = computed(() => {
+  return __GIT_COMMIT_HASH__ || 'unknown'
+})
+
+// GitHub repository URL
+const GITHUB_REPOSITORY_URL = 'https://github.com/gitu/gdn_ktn_bund'
+
+// Open GitHub repository
+const openGitHubRepository = () => {
+  window.open(GITHUB_REPOSITORY_URL, '_blank', 'noopener,noreferrer')
+}
 </script>
