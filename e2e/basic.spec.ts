@@ -19,7 +19,7 @@ test.describe('Select Element from Dataset Selector', () => {
   });
 
 
-  test('comarison view loads with correct headers', async ({page}) => {
+  test('comparison view loads with correct headers', async ({page}) => {
     await page.goto('/c?datasets=gdn/fs/194141:2022,std/fs/ktn_ag:2022,std/fs/bund:2022,std/fs/sv_ahv:2022');
     await expect(page.locator('thead')).toContainText('Reinach (AG)');
     await expect(page.locator('thead')).toContainText('Kanton Aargau');
