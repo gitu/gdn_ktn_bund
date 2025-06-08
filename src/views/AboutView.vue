@@ -2,7 +2,7 @@
   <div class="layout-main" data-testid="about-main">
     <div class="grid grid-cols-12 gap-10">
       <!-- Header Section -->
-      <div class="col-span-12 xl:col-span-6">
+      <div class="col-span-12">
         <Card class="shadow-2">
           <template #content>
             <div class="text-center">
@@ -30,14 +30,14 @@
               </h2>
               <i class="pi pi-star text-primary-500 text-2xl"></i>
             </div>
-            <div class="grid">
+            <div class="grid grid-cols-2 gap-6 xl:grid-cols-3">
               <div>
                 <div class="surface-card p-4 border-round shadow-1 h-full">
                   <div class="text-center">
                     <div class="text-4xl mb-3">🌳</div>
-                    <h3 class="text-lg font-medium text-surface-900 dark:text-surface-50 leading-tight m-0">
+                    <div class="text-lg font-medium text-surface-900 dark:text-surface-50 leading-tight m-0">
                       {{ t('aboutView.features.treeNavigation') }}
-                    </h3>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -45,9 +45,9 @@
                 <div class="surface-card p-4 border-round shadow-1 h-full">
                   <div class="text-center">
                     <div class="text-4xl mb-3">📊</div>
-                    <h3 class="text-lg font-medium text-surface-900 dark:text-surface-50 leading-tight m-0">
+                    <div class="text-lg font-medium text-surface-900 dark:text-surface-50 leading-tight m-0">
                       {{ t('aboutView.features.tableView') }}
-                    </h3>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -55,9 +55,9 @@
                 <div class="surface-card p-4 border-round shadow-1 h-full">
                   <div class="text-center">
                     <div class="text-4xl mb-3">🔍</div>
-                    <h3 class="text-lg font-medium text-surface-900 dark:text-surface-50 leading-tight m-0">
+                    <div class="text-lg font-medium text-surface-900 dark:text-surface-50 leading-tight m-0">
                       {{ t('aboutView.features.dataBrowser') }}
-                    </h3>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -65,9 +65,9 @@
                 <div class="surface-card p-4 border-round shadow-1 h-full">
                   <div class="text-center">
                     <div class="text-4xl mb-3">🌐</div>
-                    <h3 class="text-lg font-medium text-surface-900 dark:text-surface-50 leading-tight m-0">
+                    <div class="text-lg font-medium text-surface-900 dark:text-surface-50 leading-tight m-0">
                       {{ t('aboutView.features.multiLanguage') }}
-                    </h3>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -75,9 +75,9 @@
                 <div class="surface-card p-4 border-round shadow-1 h-full">
                   <div class="text-center">
                     <div class="text-4xl mb-3">📱</div>
-                    <h3 class="text-lg font-medium text-surface-900 dark:text-surface-50 leading-tight m-0">
+                    <div class="text-lg font-medium text-surface-900 dark:text-surface-50 leading-tight m-0">
                       {{ t('aboutView.features.responsive') }}
-                    </h3>
+                    </div>
                   </div>
                 </div>
               </div>
