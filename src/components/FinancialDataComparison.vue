@@ -110,8 +110,8 @@ const loadDatasets = async () => {
   // Emit events based on store state
   if (financialDataStore.error.value) {
     emit('error', financialDataStore.error.value)
-  } else if (financialDataStore.loadedDatasetCount > 0) {
-    emit('dataLoaded', financialDataStore.loadedDatasetCount)
+  } else if (financialDataStore.loadedDatasetCount.value > 0) {
+    emit('dataLoaded', financialDataStore.loadedDatasetCount.value)
   }
 }
 
