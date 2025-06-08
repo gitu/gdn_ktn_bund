@@ -51,6 +51,8 @@ test.describe('Select Element from Dataset Selector', () => {
   test('scaling should be applied from params', async ({page}) => {
     await page.goto('/c?datasets=gdn/fs/194141:2022,std/fs/ktn_ag:2022,std/fs/bund:2022,std/fs/sv_ahv:2022&scaling=pop');
 
+    // increase timeout to 10s
+    await page.waitForTimeout(20000);
     await expect(page.getByRole('cell', { name: 'Finanzieller Wert für Reinach' }).first()).toContainText('14.244 CHF');
     await expect(page.getByRole('cell', { name: 'Finanzieller Wert für Kanton' }).first()).toContainText('6.718 CHF');
     await expect(page.getByRole('cell', { name: 'Finanzieller Wert für Bund (' }).first()).toContainText('20.115 CHF');

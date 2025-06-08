@@ -1,19 +1,17 @@
 import { ref, computed } from 'vue'
 import { defineStore } from 'pinia'
-import { useI18n } from 'vue-i18n'
 import { DataLoader } from '@/utils/DataLoader'
 import { StatsDataLoader } from '@/utils/StatsDataLoader'
 import { createEmptyFinancialDataStructure } from '@/data/emptyFinancialDataStructure'
 import { EntitySemanticMapper } from '@/utils/EntitySemanticMapper'
 import { getCantonByAbbreviation, getMunicipalityByGdnId } from '@/utils/GeographicalDataLoader'
 import type { FinancialData } from '@/types/FinancialDataStructure'
-import type { MultiLanguageLabels } from '@/types/DataStructures'
+import type { MultiLanguageLabels } from '@/types/DataStructures.ts'
 
 interface ScalingInfo {
   id: string
-  name: string
-  unit: string
-  description: string
+  name: MultiLanguageLabels
+  unit: MultiLanguageLabels
   factor?: number
 }
 
@@ -91,8 +89,17 @@ export const useFinancialDataStore = defineStore('financialData', () => {
           loadedDatasetCount.value++
         } catch (datasetError) {
           console.error(`Error loading dataset ${dataset}:`, datasetError)
-          const errorMessage = datasetError instanceof Error ? datasetError.message : 'Unknown error'
+          const errorMessage =
+            datasetError instanceof Error ? datasetError.message : 'Unknown error'
           throw new Error(`Dataset ${dataset}: ${errorMessage}`)
+        }
+      }
+
+      // Apply scaling if applicable
+      if (currentScalingId.value) {
+        const scalingInfo = await getScalingInfo(currentScalingId.value)
+        if (scalingInfo) {
+          await applyScalingToEntities(currentScalingId.value, scalingInfo)
         }
       }
 
@@ -108,20 +115,47 @@ export const useFinancialDataStore = defineStore('financialData', () => {
     }
   }
 
-  const setScaling = async (scalingId: string | null, scalingInfo: ScalingInfo | null = null) => {
+  const getScalingInfo = async (scalingId: string): Promise<ScalingInfo | null> => {
     try {
-      console.log('Setting scaling:', scalingId, scalingInfo)
+      const statsEntry = await statsDataLoader.getStatsEntry(scalingId)
+      if (!statsEntry) {
+        console.warn(`Statistics entry not found for scaling ID: ${scalingId}`)
+        return null
+      }
+
+      return {
+        id: statsEntry.id,
+        name: statsEntry.name,
+        unit: statsEntry.unit,
+      }
+    } catch (error) {
+      console.error('Error getting scaling info:', error)
+      return null
+    }
+  }
+
+  const setScaling = async (scalingId: string | null) => {
+    try {
+      console.log('Setting scaling:', scalingId)
       currentScalingId.value = scalingId
 
       if (!combinedFinancialData.value) return
 
-      if (!scalingId || !scalingInfo) {
+      if (!scalingId) {
         // Remove scaling from all entities
         for (const [, entity] of combinedFinancialData.value.entities) {
           entity.scalingFactor = undefined
           entity.scalingInfo = undefined
           entity.scalingMode = undefined
         }
+        return
+      }
+
+      // Get scaling information from the scaling ID
+      const scalingInfo = await getScalingInfo(scalingId)
+      if (!scalingInfo) {
+        console.error(`Failed to get scaling info for ID: ${scalingId}`)
+        error.value = 'Invalid scaling selection'
         return
       }
 
@@ -198,7 +232,9 @@ export const useFinancialDataStore = defineStore('financialData', () => {
             en: `${scalingInfo.name} (${scalingInfo.unit})`,
           }
           entity.scalingMode = 'divide' // Divide financial values by scaling factor for per-capita/per-unit values
-          console.log(`Successfully applied scaling to entity ${entityCode}: factor=${scalingFactor}`)
+          console.log(
+            `Successfully applied scaling to entity ${entityCode}: factor=${scalingFactor}`,
+          )
         } else {
           console.warn(
             `No valid scaling factor found for entity ${entityCode}: factor=${scalingFactor}`,
@@ -229,7 +265,9 @@ export const useFinancialDataStore = defineStore('financialData', () => {
         })
 
         console.log(`GDN data result for ${entityId}:`, result.data)
-        const record = result.data.find((r: { geoId: string; value: number }) => r.geoId === entityId)
+        const record = result.data.find(
+          (r: { geoId: string; value: number }) => r.geoId === entityId,
+        )
         const value = record ? record.value : null
         console.log(`Found GDN record for ${entityId}:`, record, 'value:', value)
         return value
@@ -245,7 +283,9 @@ export const useFinancialDataStore = defineStore('financialData', () => {
         })
 
         console.log(`KTN data result for ${entityId}:`, result.data)
-        const record = result.data.find((r: { geoId: string; value: number }) => r.geoId === entityId)
+        const record = result.data.find(
+          (r: { geoId: string; value: number }) => r.geoId === entityId,
+        )
         const value = record ? record.value : null
         console.log(`Found KTN record for ${entityId}:`, record, 'value:', value)
         return value
@@ -264,14 +304,15 @@ export const useFinancialDataStore = defineStore('financialData', () => {
     loadedDatasetCount,
     currentScalingId,
     datasets,
-    
+
     // Computed
     hasValidData,
-    
+
     // Actions
     setDatasets,
     clearData,
     loadDatasets,
     setScaling,
+    getScalingInfo,
   }
 })

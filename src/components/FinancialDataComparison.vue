@@ -43,8 +43,8 @@
       </div>
     </div>
   </div>
-  <!-- list of entities in combined data-->
-  <div class="w-full flex flex-col gap-y-3">
+  <!-- list of entities in combined data - only show on localhost-->
+  <div class="w-full flex flex-col gap-y-3" v-if="isDev">
     <div v-if="combinedFinancialData?.entities" class="w-full flex flex-col gap-y-3">
       <div
         v-for="[entityCode, entity] in combinedFinancialData.entities"
@@ -75,6 +75,7 @@ interface Props {
   selectedScaling?: string | null
 }
 
+const isDev = import.meta.env.MODE === 'development'
 const props = defineProps<Props>()
 
 // Emits
@@ -99,7 +100,6 @@ const hideZeroValues = ref(true)
 const loading = computed(() => financialDataStore.loading)
 const error = computed(() => financialDataStore.error)
 const combinedFinancialData = computed(() => financialDataStore.combinedFinancialData)
-const loadedDatasetCount = computed(() => financialDataStore.loadedDatasetCount)
 const hasValidData = computed(() => financialDataStore.hasValidData)
 const currentScalingId = computed(() => financialDataStore.currentScalingId)
 
@@ -126,20 +126,12 @@ const handleScalingError = (errorMessage: string) => {
   emit('error', errorMessage)
 }
 
-interface ScalingInfo {
-  id: string
-  name: string
-  unit: string
-  description: string
-  factor?: number
-}
-
-const handleScalingChanged = async (scalingId: string | null, scalingInfo: ScalingInfo | null) => {
+const handleScalingChanged = async (scalingId: string | null) => {
   try {
-    console.log('Scaling changed from selector:', scalingId, scalingInfo)
+    console.log('Scaling changed from selector:', scalingId)
 
-    // Apply scaling through store
-    await financialDataStore.setScaling(scalingId, scalingInfo)
+    // Apply scaling through store (store will calculate scaling info internally)
+    await financialDataStore.setScaling(scalingId)
 
     // Emit scaling change to parent
     emit('scalingChanged', scalingId)
@@ -148,8 +140,6 @@ const handleScalingChanged = async (scalingId: string | null, scalingInfo: Scali
     emit('error', 'Error applying scaling to datasets')
   }
 }
-
-
 
 // Watch for dataset changes
 watch(
@@ -174,7 +164,7 @@ watch(
 
       if (!scalingValue) {
         // Clear scaling
-        await financialDataStore.setScaling(null, null)
+        await financialDataStore.setScaling(null)
       }
       // Note: For applying scaling with scaling info, we rely on the FinancialDataScalingSelector
       // to emit the scalingChanged event with the scaling info when it's ready
