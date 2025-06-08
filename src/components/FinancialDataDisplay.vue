@@ -196,6 +196,8 @@ const showCodes = ref(props.initialShowCodes)
 const freezeFirstColumn = ref(props.initialFreezeFirstColumn)
 const showZeroValues = ref(props.initialShowZeroValues)
 const scalingEnabled = ref(true)
+// Force reactivity trigger for scaling changes
+const scalingUpdateTrigger = ref(0)
 
 // Computed properties
 const hasValidData = computed(() => {
@@ -351,6 +353,9 @@ const hasValue = (node: FinancialDataNode, entityCode: string): boolean => {
 }
 
 const getValue = (node: FinancialDataNode, entityCode: string): number => {
+  // Access the trigger to ensure reactivity when scaling changes
+  scalingUpdateTrigger.value // eslint-disable-line @typescript-eslint/no-unused-expressions
+
   const baseValue = node.values.get(entityCode)?.value || 0
 
   // Apply scaling if enabled and scaling factor exists
@@ -432,6 +437,28 @@ watch(
     }
   },
   { immediate: true },
+)
+
+// Watch for scaling factor changes in entities and trigger reactivity
+watch(
+  () => {
+    if (!props.financialData?.entities) return []
+    // Create a reactive dependency on all entity scaling factors
+    const scalingFactors: Array<{ entityCode: string; scalingFactor?: number; scalingMode?: string }> = []
+    for (const [entityCode, entity] of props.financialData.entities) {
+      scalingFactors.push({
+        entityCode,
+        scalingFactor: entity.scalingFactor,
+        scalingMode: entity.scalingMode,
+      })
+    }
+    return scalingFactors
+  },
+  () => {
+    // Increment trigger to force re-computation of all getValue calls
+    scalingUpdateTrigger.value++
+  },
+  { deep: true },
 )
 
 // Initialize component

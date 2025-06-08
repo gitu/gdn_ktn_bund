@@ -1,6 +1,7 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest'
 import { mount } from '@vue/test-utils'
 import { createI18n } from 'vue-i18n'
+import { nextTick } from 'vue'
 import FinancialDataDisplay from '../FinancialDataDisplay.vue'
 import type {
   FinancialData,
@@ -754,6 +755,75 @@ describe('FinancialDataDisplay', () => {
       }
       const value = vm.getValue(mockNode, 'test-entity')
       expect(typeof value).toBe('number')
+    })
+
+    it('reactively updates when scaling factors change', async () => {
+      const testFinancialData = createMockFinancialData()
+
+      // Remove any existing scaling factors to start clean
+      const entity = testFinancialData.entities.get('entity1')!
+      entity.scalingFactor = undefined
+      entity.scalingMode = undefined
+
+      const wrapper = mount(FinancialDataDisplay, {
+        props: {
+          financialData: testFinancialData,
+        },
+        global: {
+          plugins: [i18n],
+        },
+      })
+
+      await nextTick()
+
+      // Test the getValue method directly since the mock components don't render actual values
+      const vm = wrapper.vm as unknown as {
+        getValue: (node: FinancialDataNode, entityCode: string) => number
+        scalingUpdateTrigger: number
+      }
+
+      // Create a test node with a known value
+      const testNode: FinancialDataNode = {
+        code: 'test',
+        labels: { de: 'Test', fr: 'Test', it: 'Test', en: 'Test' },
+        values: new Map([['entity1', { value: 1000000, unit: 'CHF' }]]),
+        children: [],
+      }
+
+      // Initially no scaling - should return original value
+      let value = vm.getValue(testNode, 'entity1')
+      expect(value).toBe(1000000)
+
+      // Add scaling factor to entity
+      entity.scalingFactor = 1000
+      entity.scalingMode = 'divide'
+
+      // Force reactivity by updating the prop
+      await wrapper.setProps({ financialData: testFinancialData })
+      await nextTick()
+
+      // Should now return scaled value
+      value = vm.getValue(testNode, 'entity1')
+      expect(value).toBe(1000) // 1000000 / 1000 = 1000
+
+      // Change scaling factor
+      entity.scalingFactor = 100
+      await wrapper.setProps({ financialData: testFinancialData })
+      await nextTick()
+
+      // Should return newly scaled value
+      value = vm.getValue(testNode, 'entity1')
+      expect(value).toBe(10000) // 1000000 / 100 = 10000
+
+      // Remove scaling
+      entity.scalingFactor = undefined
+      entity.scalingMode = undefined
+      await wrapper.setProps({ financialData: testFinancialData })
+      await nextTick()
+
+      // Should return original value again
+      value = vm.getValue(testNode, 'entity1')
+      expect(value).toBe(1000000)
     })
   })
 })
