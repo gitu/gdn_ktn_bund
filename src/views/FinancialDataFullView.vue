@@ -1,5 +1,5 @@
 <template>
-  <div class="min-h-screen">
+  <div class="min-h-screen mx-auto p-8">
     <!-- Header with back button -->
     <div class="px-6 py-4">
       <div class="flex items-center justify-between max-w-full">
@@ -18,7 +18,7 @@
         <!-- Dataset count indicator -->
         <div v-if="hasValidData" class="flex items-center gap-2 text-sm">
           <i class="pi pi-database"></i>
-          <span>{{ $t('financialDataFullView.datasetsLoaded', { count: datasets.length }) }}</span>
+          <span>{{ $t('financialDataFullView.datasetsLoaded', {count: datasets.length}) }}</span>
         </div>
       </div>
     </div>
@@ -70,15 +70,15 @@
     </div>
 
     <!-- Error toast -->
-    <Toast />
+    <Toast/>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted } from 'vue'
-import { useRoute, useRouter } from 'vue-router'
-import { useI18n } from 'vue-i18n'
-import { useToast } from 'primevue/usetoast'
+import {ref, computed, onMounted} from 'vue'
+import {useRoute, useRouter} from 'vue-router'
+import {useI18n} from 'vue-i18n'
+import {useToast} from 'primevue/usetoast'
 import Button from 'primevue/button'
 import Card from 'primevue/card'
 import Toast from 'primevue/toast'
@@ -87,7 +87,7 @@ import FinancialDataComparison from '@/components/FinancialDataComparison.vue'
 // Composables
 const route = useRoute()
 const router = useRouter()
-const { t } = useI18n()
+const {t} = useI18n()
 const toast = useToast()
 
 // Reactive state
@@ -132,13 +132,11 @@ const handleError = (error: string) => {
 
 const handleDataLoaded = (count: number) => {
   dataLoadedCount.value = count
-  console.log(`Loaded ${count} datasets in full view`)
 }
 
 const handleScalingChanged = (scalingId: string | null) => {
   selectedScaling.value = scalingId
   updateURL()
-  console.log('Selected scaling changed in full view:', scalingId)
 }
 
 const loadDatasetsFromRoute = () => {
@@ -169,8 +167,6 @@ const loadDatasetsFromRoute = () => {
       selectedScaling.value = null
     }
 
-    console.log('Loaded datasets from route:', datasets.value)
-    console.log('Loaded scaling from route:', selectedScaling.value)
   } catch (error) {
     console.error('Error loading datasets from route:', error)
     handleError(t('financialDataFullView.noDataMessage'))

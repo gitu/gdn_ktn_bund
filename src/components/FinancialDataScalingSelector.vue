@@ -72,7 +72,7 @@
                       {{ getEntityDisplayName(entity) }}
                     </div>
                     <div class="entity-year text-sm text-surface-600 dark:text-surface-300 mb-1">
-                      {{ $t('financialDataDisplay.yearInfo', { year: entity.year }) }}
+                      {{ $t('financialDataDisplay.yearInfo', {year: entity.year}) }}
                     </div>
                     <div
                       v-if="entity.scalingFactor !== undefined"
@@ -99,15 +99,15 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, watch, onMounted } from 'vue'
-import { useI18n } from 'vue-i18n'
+import {ref, computed, watch, onMounted} from 'vue'
+import {useI18n} from 'vue-i18n'
 import Select from 'primevue/select'
 import Message from 'primevue/message'
-import { StatsDataLoader } from '@/utils/StatsDataLoader'
-import { GeographicalDataLoader } from '@/utils/GeographicalDataLoader'
-import type { StatsAvailabilityInfo } from '@/types/StatsData'
-import type { FinancialData } from '@/types/FinancialDataStructure'
-import type { MultiLanguageLabels } from '@/types/DataStructures'
+import {StatsDataLoader} from '@/utils/StatsDataLoader'
+import {GeographicalDataLoader} from '@/utils/GeographicalDataLoader'
+import type {StatsAvailabilityInfo} from '@/types/StatsData'
+import type {FinancialData} from '@/types/FinancialDataStructure'
+import type {MultiLanguageLabels} from '@/types/DataStructures'
 import Button from 'primevue/button'
 
 // Props
@@ -130,7 +130,7 @@ interface Emits {
 const emit = defineEmits<Emits>()
 
 // Vue i18n
-const { locale, t } = useI18n()
+const {locale, t} = useI18n()
 
 // Types
 interface ScalingOption {
@@ -259,6 +259,36 @@ onMounted(() => {
   loadAvailableStats()
 })
 
+// Consolidated watcher to prevent redundant scaling applications
+let scalingTimeout: ReturnType<typeof setTimeout> | null = null
+let isApplyingScaling = false
+
+const shouldApplyScaling = () => {
+  return (
+    internalSelectedScaling.value &&
+    availableStats.value.length > 0 &&
+    props.financialData?.entities?.size &&
+    !isApplyingScaling
+  )
+}
+
+const applyScalingDebounced = async () => {
+  if (scalingTimeout) {
+    clearTimeout(scalingTimeout)
+  }
+
+  scalingTimeout = setTimeout(async () => {
+    if (shouldApplyScaling()) {
+      isApplyingScaling = true
+      try {
+        await onScalingChange()
+      } finally {
+        isApplyingScaling = false
+      }
+    }
+  }, 100) // 100ms debounce
+}
+
 // Watch for selectedScaling prop changes
 watch(
   () => props.selectedScaling,
@@ -267,46 +297,29 @@ watch(
     if (scalingValue !== internalSelectedScaling.value) {
       internalSelectedScaling.value = scalingValue
 
-      // Auto-apply scaling when prop changes and we have the necessary data
-      if (scalingValue && availableStats.value.length > 0 && props.financialData?.entities.size) {
-        await onScalingChange()
+      if (scalingValue) {
+        await applyScalingDebounced()
       }
     }
   },
-  { immediate: true },
+  {immediate: true},
 )
 
-// Watch for availableStats to apply scaling if needed
+// Watch for data readiness to apply scaling
 watch(
-  () => availableStats.value,
+  [() => availableStats.value.length, () => props.financialData?.entities?.size],
   async () => {
-    // If we have a selected scaling from props and financial data, apply it
-    if (
-      internalSelectedScaling.value &&
-      availableStats.value.length > 0 &&
-      props.financialData?.entities.size
-    ) {
-      await onScalingChange()
+    if (shouldApplyScaling()) {
+      await applyScalingDebounced()
     }
   },
 )
 
-// Watch for financial data changes to apply scaling if needed
-watch(
-  () => props.financialData?.entities.size,
-  async (hasEntities) => {
-    // If we have entities and a selected scaling, apply it
-    if (hasEntities && internalSelectedScaling.value && availableStats.value.length > 0) {
-      await onScalingChange()
-    }
-  },
-)
-
-// Watch for locale changes to update labels
+// Watch for locale changes to update labels (no scaling application needed)
 watch(
   () => locale.value,
   () => {
-    // Force reactivity update for computed properties by triggering a re-render
+    // Force reactivity update for computed properties
     if (internalSelectedScaling.value) {
       const currentValue = internalSelectedScaling.value
       internalSelectedScaling.value = null

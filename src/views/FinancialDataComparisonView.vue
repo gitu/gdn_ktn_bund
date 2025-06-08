@@ -13,7 +13,7 @@
     <!-- Dataset Selection Section -->
     <Card class="mb-12">
       <template #content>
-        <DatasetSelector v-model="selectedDatasets" @error="handleSelectorError" />
+        <DatasetSelector v-model="selectedDatasets" @error="handleSelectorError"/>
       </template>
     </Card>
 
@@ -90,18 +90,19 @@
 </template>
 
 <script setup lang="ts">
-import { ref, watch, onMounted } from 'vue'
-import { useI18n } from 'vue-i18n'
-import { useRouter, useRoute } from 'vue-router'
+import {ref, watch, onMounted} from 'vue'
+import {useI18n} from 'vue-i18n'
+import {useRouter, useRoute} from 'vue-router'
 import Button from 'primevue/button'
 import Card from 'primevue/card'
 import Message from 'primevue/message'
 import FinancialDataComparison from '../components/FinancialDataComparison.vue'
 import DatasetSelector from '../components/DatasetSelector.vue'
+import {meta} from "eslint-plugin-vue";
 
 // Vue composables
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-const { t } = useI18n()
+const {t} = useI18n()
 const router = useRouter()
 const route = useRoute()
 
@@ -137,7 +138,9 @@ const handleSelectorError = (error: string) => {
 const handleScalingChanged = (scalingId: string | null) => {
   selectedScaling.value = scalingId
   updateURL()
-  console.log('Selected scaling changed:', scalingId)
+  if (meta.env.DEV) {
+    console.log('Selected scaling changed:', scalingId)
+  }
 }
 
 const loadDemoData = () => {
@@ -168,7 +171,6 @@ const openFullView = () => {
 
 const handleDatasetsChanged = () => {
   updateURL()
-  console.log('Selected datasets changed:', selectedDatasets.value)
 }
 
 // URL management functions
@@ -220,10 +222,12 @@ const loadStateFromURL = () => {
     selectedScaling.value = null
   }
 
-  console.log('Loaded state from URL:', {
-    datasets: selectedDatasets.value,
-    scaling: selectedScaling.value,
-  })
+  if (meta.env.DEV) {
+    console.log('Loaded state from URL:', {
+      datasets: selectedDatasets.value,
+      scaling: selectedScaling.value,
+    })
+  }
 }
 
 // Lifecycle hooks
@@ -237,7 +241,7 @@ watch(
   () => {
     loadStateFromURL()
   },
-  { deep: true },
+  {deep: true},
 )
 
 // Watch for selectedDatasets changes
@@ -246,6 +250,6 @@ watch(
   () => {
     handleDatasetsChanged()
   },
-  { deep: true },
+  {deep: true},
 )
 </script>

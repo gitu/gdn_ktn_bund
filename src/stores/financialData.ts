@@ -23,9 +23,13 @@ export const useFinancialDataStore = defineStore('financialData', () => {
   const loadedDatasetCount = ref(0)
   const currentScalingId = ref<string | null>(null)
   const datasets = ref<string[]>([])
+  const isApplyingScaling = ref(false)
 
   // Dependencies
   const statsDataLoader = StatsDataLoader.getInstance()
+
+  // Cache for scaling factors to avoid redundant API calls
+  const scalingFactorCache = new Map<string, number | null>()
 
   // Computed
   const hasValidData = computed(() => {
@@ -42,6 +46,8 @@ export const useFinancialDataStore = defineStore('financialData', () => {
     loadedDatasetCount.value = 0
     error.value = null
     currentScalingId.value = null
+    isApplyingScaling.value = false
+    scalingFactorCache.clear()
   }
 
   const loadDatasets = async () => {
@@ -135,8 +141,20 @@ export const useFinancialDataStore = defineStore('financialData', () => {
   }
 
   const setScaling = async (scalingId: string | null) => {
+    // Prevent concurrent scaling operations
+    if (isApplyingScaling.value) {
+      console.log('Scaling operation already in progress, skipping')
+      return
+    }
+
+    // Skip if scaling hasn't actually changed
+    if (scalingId === currentScalingId.value) {
+      console.log('Scaling ID unchanged, skipping')
+      return
+    }
+
     try {
-      console.log('Setting scaling:', scalingId)
+      isApplyingScaling.value = true
       currentScalingId.value = scalingId
 
       if (!combinedFinancialData.value) return
@@ -164,6 +182,8 @@ export const useFinancialDataStore = defineStore('financialData', () => {
     } catch (scalingError) {
       console.error('Error setting scaling:', scalingError)
       error.value = 'Error applying scaling to datasets'
+    } finally {
+      isApplyingScaling.value = false
     }
   }
 
@@ -188,7 +208,6 @@ export const useFinancialDataStore = defineStore('financialData', () => {
           if (EntitySemanticMapper.isCantonSpecific(entityId)) {
             const cantonCode = EntitySemanticMapper.getCantonCodeFromEntity(entityId)
             if (cantonCode) {
-              console.log('cantonCode', cantonCode)
               const canton = await getCantonByAbbreviation(cantonCode.toUpperCase())
               geoId = canton?.cantonId || 'XYX'
             }
@@ -202,19 +221,6 @@ export const useFinancialDataStore = defineStore('financialData', () => {
         }
 
         // Load scaling data for this entity
-        console.log(
-          'Loading scaling factor for entity:',
-          entityCode,
-          'entityId:',
-          entityId,
-          'geoId:',
-          geoId,
-          'year:',
-          year,
-          'source:',
-          source,
-        )
-
         const scalingFactor = await loadScalingFactorForEntity(
           scalingId,
           geoId,
@@ -222,7 +228,6 @@ export const useFinancialDataStore = defineStore('financialData', () => {
           source,
         )
 
-        console.log('Scaling factor result:', scalingFactor, 'for entity', entityCode)
         if (scalingFactor !== null && scalingFactor > 0) {
           entity.scalingFactor = scalingFactor
           entity.scalingInfo = {
@@ -232,13 +237,6 @@ export const useFinancialDataStore = defineStore('financialData', () => {
             en: `${scalingInfo.name} (${scalingInfo.unit})`,
           }
           entity.scalingMode = 'divide' // Divide financial values by scaling factor for per-capita/per-unit values
-          console.log(
-            `Successfully applied scaling to entity ${entityCode}: factor=${scalingFactor}`,
-          )
-        } else {
-          console.warn(
-            `No valid scaling factor found for entity ${entityCode}: factor=${scalingFactor}`,
-          )
         }
       } catch (entityError) {
         console.error(`Error applying scaling to entity ${entityCode}:`, entityError)
@@ -253,10 +251,16 @@ export const useFinancialDataStore = defineStore('financialData', () => {
     year: number,
     source: 'gdn' | 'std',
   ): Promise<number | null> => {
+    // Create cache key
+    const cacheKey = `${scalingId}:${entityId}:${year}:${source}`
+
+    // Check cache first
+    if (scalingFactorCache.has(cacheKey)) {
+      return scalingFactorCache.get(cacheKey)!
+    }
+
     try {
-      console.log(
-        `Loading scaling factor: scalingId=${scalingId}, entityId=${entityId}, year=${year}, source=${source}`,
-      )
+      let value: number | null = null
 
       if (source === 'gdn') {
         // For municipalities, load GDN data
@@ -264,34 +268,34 @@ export const useFinancialDataStore = defineStore('financialData', () => {
           geoIds: [entityId],
         })
 
-        console.log(`GDN data result for ${entityId}:`, result.data)
         const record = result.data.find(
           (r: { geoId: string; value: number }) => r.geoId === entityId,
         )
-        const value = record ? record.value : null
-        console.log(`Found GDN record for ${entityId}:`, record, 'value:', value)
-        return value
+        value = record ? record.value : null
       } else {
         if (entityId === 'bund') {
           const bundResult = await statsDataLoader.getBundData(scalingId, year)
-          console.log(`Bund data result:`, bundResult)
-          return bundResult.totalValue
-        }
-        // For standard entities, load KTN data if applicable
-        const result = await statsDataLoader.loadKtnData(scalingId, year, {
-          geoIds: [entityId],
-        })
+          value = bundResult.totalValue
+        } else {
+          // For standard entities, load KTN data if applicable
+          const result = await statsDataLoader.loadKtnData(scalingId, year, {
+            geoIds: [entityId],
+          })
 
-        console.log(`KTN data result for ${entityId}:`, result.data)
-        const record = result.data.find(
-          (r: { geoId: string; value: number }) => r.geoId === entityId,
-        )
-        const value = record ? record.value : null
-        console.log(`Found KTN record for ${entityId}:`, record, 'value:', value)
-        return value
+          const record = result.data.find(
+            (r: { geoId: string; value: number }) => r.geoId === entityId,
+          )
+          value = record ? record.value : null
+        }
       }
+
+      // Cache the result
+      scalingFactorCache.set(cacheKey, value)
+      return value
     } catch (loadError) {
       console.error(`Error loading scaling factor for entity ${entityId}:`, loadError)
+      // Cache null result to avoid repeated failed requests
+      scalingFactorCache.set(cacheKey, null)
       return null
     }
   }
@@ -304,6 +308,7 @@ export const useFinancialDataStore = defineStore('financialData', () => {
     loadedDatasetCount,
     currentScalingId,
     datasets,
+    isApplyingScaling,
 
     // Computed
     hasValidData,
