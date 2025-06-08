@@ -61,13 +61,13 @@
 </template>
 
 <script setup lang="ts">
-import {ref, computed, watch} from 'vue'
-import {useI18n} from 'vue-i18n'
+import { ref, computed, watch } from 'vue'
+import { useI18n } from 'vue-i18n'
 import Message from 'primevue/message'
 import FinancialDataDisplay from './FinancialDataDisplay.vue'
 import FinancialDataScalingSelector from './FinancialDataScalingSelector.vue'
-import {useFinancialDataStore} from '@/stores/financialData'
-import type {MultiLanguageLabels} from '@/types/DataStructures'
+import { useFinancialDataStore } from '@/stores/financialData'
+import type { MultiLanguageLabels } from '@/types/DataStructures'
 
 // Props
 interface Props {
@@ -88,7 +88,7 @@ interface Emits {
 const emit = defineEmits<Emits>()
 
 // Vue i18n and store
-const {locale} = useI18n()
+const { locale } = useI18n()
 const financialDataStore = useFinancialDataStore()
 
 // Local UI state
@@ -157,7 +157,7 @@ watch(
       await loadDatasets()
     }, 50) // 50ms debounce
   },
-  {immediate: true},
+  { immediate: true },
 )
 
 // Watch for selectedScaling prop changes (simplified)
@@ -171,6 +171,6 @@ watch(
       emit('scalingChanged', scalingValue)
     }
   },
-  {immediate: true},
+  { immediate: true },
 )
 </script>

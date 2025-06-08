@@ -1,5 +1,5 @@
 <template>
-  <div class="max-w-7xl mx-auto p-8">
+  <div class="max-w-7xl mx-auto">
     <!-- Header -->
     <div class="text-center mb-8">
       <h1 class="text-4xl font-bold text-surface-900 dark:text-surface-50 mb-2">
@@ -13,7 +13,7 @@
     <!-- Dataset Selection Section -->
     <Card class="mb-12">
       <template #content>
-        <DatasetSelector v-model="selectedDatasets" @error="handleSelectorError"/>
+        <DatasetSelector v-model="selectedDatasets" @error="handleSelectorError" />
       </template>
     </Card>
 
@@ -90,19 +90,17 @@
 </template>
 
 <script setup lang="ts">
-import {ref, watch, onMounted} from 'vue'
-import {useI18n} from 'vue-i18n'
-import {useRouter, useRoute} from 'vue-router'
+import { ref, watch, onMounted } from 'vue'
+import { useI18n } from 'vue-i18n'
+import { useRouter, useRoute } from 'vue-router'
 import Button from 'primevue/button'
 import Card from 'primevue/card'
 import Message from 'primevue/message'
 import FinancialDataComparison from '../components/FinancialDataComparison.vue'
 import DatasetSelector from '../components/DatasetSelector.vue'
-import {meta} from "eslint-plugin-vue";
-
 // Vue composables
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-const {t} = useI18n()
+const { t } = useI18n()
 const router = useRouter()
 const route = useRoute()
 
@@ -138,7 +136,7 @@ const handleSelectorError = (error: string) => {
 const handleScalingChanged = (scalingId: string | null) => {
   selectedScaling.value = scalingId
   updateURL()
-  if (meta.env.DEV) {
+  if (import.meta.env.DEV) {
     console.log('Selected scaling changed:', scalingId)
   }
 }
@@ -222,7 +220,7 @@ const loadStateFromURL = () => {
     selectedScaling.value = null
   }
 
-  if (meta.env.DEV) {
+  if (import.meta.env.DEV) {
     console.log('Loaded state from URL:', {
       datasets: selectedDatasets.value,
       scaling: selectedScaling.value,
@@ -241,7 +239,7 @@ watch(
   () => {
     loadStateFromURL()
   },
-  {deep: true},
+  { deep: true },
 )
 
 // Watch for selectedDatasets changes
@@ -250,6 +248,6 @@ watch(
   () => {
     handleDatasetsChanged()
   },
-  {deep: true},
+  { deep: true },
 )
 </script>

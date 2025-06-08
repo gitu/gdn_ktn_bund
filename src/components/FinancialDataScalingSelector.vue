@@ -72,7 +72,7 @@
                       {{ getEntityDisplayName(entity) }}
                     </div>
                     <div class="entity-year text-sm text-surface-600 dark:text-surface-300 mb-1">
-                      {{ $t('financialDataDisplay.yearInfo', {year: entity.year}) }}
+                      {{ $t('financialDataDisplay.yearInfo', { year: entity.year }) }}
                     </div>
                     <div
                       v-if="entity.scalingFactor !== undefined"
@@ -99,15 +99,15 @@
 </template>
 
 <script setup lang="ts">
-import {ref, computed, watch, onMounted} from 'vue'
-import {useI18n} from 'vue-i18n'
+import { ref, computed, watch, onMounted } from 'vue'
+import { useI18n } from 'vue-i18n'
 import Select from 'primevue/select'
 import Message from 'primevue/message'
-import {StatsDataLoader} from '@/utils/StatsDataLoader'
-import {GeographicalDataLoader} from '@/utils/GeographicalDataLoader'
-import type {StatsAvailabilityInfo} from '@/types/StatsData'
-import type {FinancialData} from '@/types/FinancialDataStructure'
-import type {MultiLanguageLabels} from '@/types/DataStructures'
+import { StatsDataLoader } from '@/utils/StatsDataLoader'
+import { GeographicalDataLoader } from '@/utils/GeographicalDataLoader'
+import type { StatsAvailabilityInfo } from '@/types/StatsData'
+import type { FinancialData } from '@/types/FinancialDataStructure'
+import type { MultiLanguageLabels } from '@/types/DataStructures'
 import Button from 'primevue/button'
 
 // Props
@@ -130,7 +130,7 @@ interface Emits {
 const emit = defineEmits<Emits>()
 
 // Vue i18n
-const {locale, t} = useI18n()
+const { locale, t } = useI18n()
 
 // Types
 interface ScalingOption {
@@ -302,18 +302,15 @@ watch(
       }
     }
   },
-  {immediate: true},
+  { immediate: true },
 )
 
 // Watch for data readiness to apply scaling
-watch(
-  [() => availableStats.value.length, () => props.financialData?.entities?.size],
-  async () => {
-    if (shouldApplyScaling()) {
-      await applyScalingDebounced()
-    }
-  },
-)
+watch([() => availableStats.value.length, () => props.financialData?.entities?.size], async () => {
+  if (shouldApplyScaling()) {
+    await applyScalingDebounced()
+  }
+})
 
 // Watch for locale changes to update labels (no scaling application needed)
 watch(

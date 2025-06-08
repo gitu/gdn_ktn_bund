@@ -1,15 +1,11 @@
 <script setup lang="ts">
-import { useI18n } from 'vue-i18n'
 import Card from 'primevue/card'
 import Button from 'primevue/button'
 
-// Vue i18n (used in template)
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-const { t } = useI18n()
 </script>
 
 <template>
-  <main class="max-w-6xl mx-auto p-8" data-testid="home-main">
+  <main class="max-w-6xl mx-auto" data-testid="home-main">
     <!-- Header Section -->
     <Card class="mb-8" data-testid="home-header">
       <template #content>
