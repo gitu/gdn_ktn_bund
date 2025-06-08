@@ -154,6 +154,18 @@
       "frontend": "Frontend: Vue 3, TypeScript, PrimeVue",
       "testing": "Testing: Vitest, Vue Test Utils",
       "build": "Build: Vite, ESLint"
+    },
+    "buildInfo": {
+      "title": "Build Information",
+      "buildTime": "Built on",
+      "commit": "Commit",
+      "fullCommit": "Full commit hash"
+    },
+    "repository": {
+      "title": "Source Code",
+      "description": "This project is open source and available on GitHub.",
+      "viewOnGitHub": "View on GitHub",
+      "contribute": "Contribute"
     }
   },
   "treeNavigator": {

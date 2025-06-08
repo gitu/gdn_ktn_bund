@@ -265,12 +265,7 @@ const applyScalingToEntities = async (scalingId: string, scalingInfo: ScalingInf
         source,
       )
 
-      console.log(
-        'Scaling factor result:',
-        scalingFactor,
-        'for entity',
-        entityCode,
-      )
+      console.log('Scaling factor result:', scalingFactor, 'for entity', entityCode)
       if (scalingFactor !== null && scalingFactor > 0) {
         entity.scalingFactor = scalingFactor
         entity.scalingInfo = {
@@ -282,7 +277,9 @@ const applyScalingToEntities = async (scalingId: string, scalingInfo: ScalingInf
         entity.scalingMode = 'divide' // Divide financial values by scaling factor for per-capita/per-unit values
         console.log(`Successfully applied scaling to entity ${entityCode}: factor=${scalingFactor}`)
       } else {
-        console.warn(`No valid scaling factor found for entity ${entityCode}: factor=${scalingFactor}`)
+        console.warn(
+          `No valid scaling factor found for entity ${entityCode}: factor=${scalingFactor}`,
+        )
       }
     } catch (error) {
       console.error(`Error applying scaling to entity ${entityCode}:`, error)
@@ -298,7 +295,9 @@ const loadScalingFactorForEntity = async (
   source: 'gdn' | 'std',
 ): Promise<number | null> => {
   try {
-    console.log(`Loading scaling factor: scalingId=${scalingId}, entityId=${entityId}, year=${year}, source=${source}`)
+    console.log(
+      `Loading scaling factor: scalingId=${scalingId}, entityId=${entityId}, year=${year}, source=${source}`,
+    )
 
     if (source === 'gdn') {
       // For municipalities, load GDN data
