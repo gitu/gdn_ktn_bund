@@ -507,7 +507,7 @@ export class DataLoader {
     )
 
     // Reduced logging for performance
-    if (import.meta.env.MODE === 'development') {
+    if (import.meta.env.DEV) {
       console.log(
         `Calculated sums for ${entityCode}. Balance sheet: ${balanceSheetResult.sum} (${balanceSheetResult.nodeCount} nodes), Income statement: ${incomeStatementResult.sum} (${incomeStatementResult.nodeCount} nodes)`,
       )
