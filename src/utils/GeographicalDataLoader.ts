@@ -209,9 +209,6 @@ export class GeographicalDataLoader {
    */
   async getMunicipalityByGdnId(gdnId: string): Promise<Municipality | undefined> {
     const catalog = await this.loadGeographicalDataCatalog()
-    console.log(catalog.indexes.municipalityByGdnId)
-    console.log(gdnId)
-    console.log(catalog.indexes.municipalityByGdnId.get(gdnId))
     return catalog.indexes.municipalityByGdnId.get(gdnId)
   }
 

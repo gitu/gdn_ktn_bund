@@ -132,13 +132,11 @@ const handleError = (error: string) => {
 
 const handleDataLoaded = (count: number) => {
   dataLoadedCount.value = count
-  console.log(`Loaded ${count} datasets in full view`)
 }
 
 const handleScalingChanged = (scalingId: string | null) => {
   selectedScaling.value = scalingId
   updateURL()
-  console.log('Selected scaling changed in full view:', scalingId)
 }
 
 const loadDatasetsFromRoute = () => {
@@ -168,9 +166,6 @@ const loadDatasetsFromRoute = () => {
     } else {
       selectedScaling.value = null
     }
-
-    console.log('Loaded datasets from route:', datasets.value)
-    console.log('Loaded scaling from route:', selectedScaling.value)
   } catch (error) {
     console.error('Error loading datasets from route:', error)
     handleError(t('financialDataFullView.noDataMessage'))

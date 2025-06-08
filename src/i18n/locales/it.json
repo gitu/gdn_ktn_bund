@@ -146,7 +146,11 @@
       "title": "Informazioni sui dati",
       "description": "L'applicazione utilizza dati finanziari ufficiali svizzeri di comuni e cantoni.",
       "sources": "Fonti dati: Amministrazione federale delle finanze e uffici statistici cantonali",
-      "coverage": "Copertura: 2015-2023, tutti i comuni e cantoni svizzeri"
+      "coverage": "Copertura: 2015-2023, tutti i comuni e cantoni svizzeri",
+      "officialSources": "Fonti dati ufficiali",
+      "federalFinanceAdmin": "Amministrazione federale delle finanze",
+      "federalFinanceAdminUrl": "https://www.efv.admin.ch/efv/it/home/themen/finanzstatistik/daten.html",
+      "viewOfficialData": "Visualizza dati ufficiali"
     },
     "technology": {
       "title": "Tecnologia",
@@ -187,41 +191,19 @@
     "currentLanguage": "Lingua attuale"
   },
   "homeView": {
-    "title": "Navigatore ad albero dei dati finanziari svizzeri",
-    "subtitle": "Esplora le strutture gerarchiche dei dati finanziari per comuni e cantoni svizzeri",
+    "title": "Esploratore di dati finanziari svizzeri",
+    "subtitle": "Confronta i dati finanziari di comuni, cantoni e confederazione svizzeri",
     "description": {
-      "title": "Confronta i dati finanziari comunali",
-      "intro": "Questo sito web ti consente di analizzare e confrontare i dati finanziari di diverse entità comunali. Scopri le tendenze finanziarie e le differenze tra comuni e cantoni svizzeri.",
-      "capabilities": "Puoi analizzare e confrontare i seguenti tipi di dati:",
-      "bilanzDescription": "Dati di bilancio - Attività, passività e patrimonio netto dei comuni",
-      "incomeDescription": "Dati del conto economico - Confronto tra ricavi (entrate) e spese (uscite)",
-      "footer": "Seleziona una dimensione e naviga attraverso la struttura gerarchica per esplorare i dati finanziari dettagliati."
+      "title": "Confronta i dati finanziari tra entità svizzere",
+      "intro": "Analizza e confronta i bilanci di più entità governative svizzere affiancati. Esplora bilanci, conti economici e dati di spesa per scoprire tendenze e differenze finanziarie.",
+      "scalingFeature": "Scala i dati finanziari per popolazione, demografia o altri fattori per confronti significativi tra entità di dimensioni diverse."
     },
     "cta": {
-      "title": "Inizia a esplorare i dati",
-      "description": "Inizia ad analizzare i dati finanziari di vari comuni e cantoni svizzeri.",
-      "buttonText": "Apri esploratore ad albero",
-      "comparisonButtonText": "Confronta dati finanziari",
-      "learnMoreButtonText": "Scopri di più"
-    },
-    "dimensionLabel": "Dimensione:",
-    "dimensions": {
-      "ertrag": "Ricavi (Entrate)",
-      "aufwand": "Spese (Costi)",
-      "bilanz": "Bilancio"
-    },
-    "selectedNode": "Nodo selezionato",
-    "code": "Codice",
-    "searchResults": "Risultati di ricerca",
-    "moreResults": "... e altri {count} risultati",
-    "aboutTitle": "Informazioni sulla struttura ad albero",
-    "aboutDescription": "Questo navigatore ad albero mostra la struttura gerarchica dei dati finanziari svizzeri. I dati sono organizzati per codici conto dove i codici più lunghi rappresentano sottocategorie più specifiche di codici più brevi.",
-    "aboutItems": {
-      "ertrag": "Categorie di ricavi e entrate",
-      "aufwand": "Categorie di spese e costi",
-      "bilanz": "Voci di bilancio (attività e passività)"
-    },
-    "aboutFooter": "Ogni nodo mostra il codice conto, le etichette multilingue e i valori disponibili. Utilizza la funzione di ricerca per trovare rapidamente conti o categorie specifiche."
+      "title": "Pronto per iniziare?",
+      "description": "Inizia a confrontare i dati finanziari di comuni, cantoni e confederazione svizzeri.",
+      "startButtonText": "Inizia il confronto",
+      "aboutButtonText": "Scopri di più"
+    }
   },
   "financialDataScalingSelector": {
     "title": "Scalatura dei dati",

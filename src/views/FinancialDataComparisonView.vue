@@ -1,5 +1,5 @@
 <template>
-  <div class="max-w-7xl mx-auto p-8">
+  <div class="max-w-7xl mx-auto">
     <!-- Header -->
     <div class="text-center mb-8">
       <h1 class="text-4xl font-bold text-surface-900 dark:text-surface-50 mb-2">
@@ -98,7 +98,6 @@ import Card from 'primevue/card'
 import Message from 'primevue/message'
 import FinancialDataComparison from '../components/FinancialDataComparison.vue'
 import DatasetSelector from '../components/DatasetSelector.vue'
-
 // Vue composables
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const { t } = useI18n()
@@ -137,7 +136,9 @@ const handleSelectorError = (error: string) => {
 const handleScalingChanged = (scalingId: string | null) => {
   selectedScaling.value = scalingId
   updateURL()
-  console.log('Selected scaling changed:', scalingId)
+  if (import.meta.env.DEV) {
+    console.log('Selected scaling changed:', scalingId)
+  }
 }
 
 const loadDemoData = () => {
@@ -168,7 +169,6 @@ const openFullView = () => {
 
 const handleDatasetsChanged = () => {
   updateURL()
-  console.log('Selected datasets changed:', selectedDatasets.value)
 }
 
 // URL management functions
@@ -220,10 +220,12 @@ const loadStateFromURL = () => {
     selectedScaling.value = null
   }
 
-  console.log('Loaded state from URL:', {
-    datasets: selectedDatasets.value,
-    scaling: selectedScaling.value,
-  })
+  if (import.meta.env.DEV) {
+    console.log('Loaded state from URL:', {
+      datasets: selectedDatasets.value,
+      scaling: selectedScaling.value,
+    })
+  }
 }
 
 // Lifecycle hooks

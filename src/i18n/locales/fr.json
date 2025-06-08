@@ -146,7 +146,11 @@
       "title": "Informations sur les données",
       "description": "L'application utilise des données financières officielles suisses des communes et cantons.",
       "sources": "Sources de données: Administration fédérale des finances et offices statistiques cantonaux",
-      "coverage": "Couverture: 2015-2023, toutes les communes et cantons suisses"
+      "coverage": "Couverture: 2015-2023, toutes les communes et cantons suisses",
+      "officialSources": "Sources de données officielles",
+      "federalFinanceAdmin": "Administration fédérale des finances",
+      "federalFinanceAdminUrl": "https://www.efv.admin.ch/efv/fr/home/themen/finanzstatistik/daten.html",
+      "viewOfficialData": "Voir les données officielles"
     },
     "technology": {
       "title": "Technologie",
@@ -187,41 +191,19 @@
     "currentLanguage": "Langue actuelle"
   },
   "homeView": {
-    "title": "Navigateur d'arbre de données financières suisses",
-    "subtitle": "Explorez les structures de données financières hiérarchiques pour les communes et cantons suisses",
+    "title": "Explorateur de données financières suisses",
+    "subtitle": "Comparez les données financières des communes, cantons et confédération suisses",
     "description": {
-      "title": "Comparer les données financières communales",
-      "intro": "Ce site web vous permet d'analyser et de comparer les données financières de différentes entités communales. Découvrez les tendances financières et les différences entre les communes et cantons suisses.",
-      "capabilities": "Vous pouvez analyser et comparer les types de données suivants :",
-      "bilanzDescription": "Données de bilan - Actifs, passifs et capitaux propres des communes",
-      "incomeDescription": "Données de compte de résultat - Comparaison des revenus (recettes) et des dépenses (charges)",
-      "footer": "Sélectionnez une dimension et naviguez dans la structure hiérarchique pour explorer les données financières détaillées."
+      "title": "Comparer les données financières entre entités suisses",
+      "intro": "Analysez et comparez les états financiers de plusieurs entités gouvernementales suisses côte à côte. Explorez les bilans, comptes de résultat et données de dépenses pour découvrir les tendances et différences financières.",
+      "scalingFeature": "Mettez à l'échelle les données financières par population, démographie ou autres facteurs pour des comparaisons significatives entre entités de tailles différentes."
     },
     "cta": {
-      "title": "Commencer l'exploration des données",
-      "description": "Commencez à analyser les données financières de diverses communes et cantons suisses.",
-      "buttonText": "Ouvrir l'explorateur d'arbre",
-      "comparisonButtonText": "Comparer les données financières",
-      "learnMoreButtonText": "En savoir plus"
-    },
-    "dimensionLabel": "Dimension :",
-    "dimensions": {
-      "ertrag": "Revenus (Recettes)",
-      "aufwand": "Dépenses (Coûts)",
-      "bilanz": "Bilan"
-    },
-    "selectedNode": "Nœud sélectionné",
-    "code": "Code",
-    "searchResults": "Résultats de recherche",
-    "moreResults": "... et {count} résultats supplémentaires",
-    "aboutTitle": "À propos de la structure arborescente",
-    "aboutDescription": "Ce navigateur d'arbre affiche la structure hiérarchique des données financières suisses. Les données sont organisées par codes de compte où les codes plus longs représentent des sous-catégories plus spécifiques de codes plus courts.",
-    "aboutItems": {
-      "ertrag": "Catégories de revenus et recettes",
-      "aufwand": "Catégories de dépenses et coûts",
-      "bilanz": "Éléments du bilan (actifs et passifs)"
-    },
-    "aboutFooter": "Chaque nœud affiche le code de compte, les libellés multilingues et les valeurs disponibles. Utilisez la fonction de recherche pour trouver rapidement des comptes ou catégories spécifiques."
+      "title": "Prêt à commencer ?",
+      "description": "Commencez à comparer les données financières des communes, cantons et confédération suisses.",
+      "startButtonText": "Commencer la comparaison",
+      "aboutButtonText": "En savoir plus"
+    }
   },
   "financialDataScalingSelector": {
     "title": "Mise à l'échelle des données",

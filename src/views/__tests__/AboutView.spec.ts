@@ -83,18 +83,18 @@ describe('AboutView', () => {
     expect(buildTimeText).toContain('abc1234')
   })
 
-  it('renders all feature cards', () => {
+  it('renders all main sections', () => {
     const wrapper = mount(AboutView, {
       global: {
         plugins: [i18n],
       },
     })
 
-    expect(wrapper.text()).toContain('Hierarchical tree navigation')
-    expect(wrapper.text()).toContain('Interactive table view')
-    expect(wrapper.text()).toContain('Comprehensive data browser')
-    expect(wrapper.text()).toContain('Multi-language support')
-    expect(wrapper.text()).toContain('Responsive design')
+    expect(wrapper.text()).toContain('Data Information')
+    expect(wrapper.text()).toContain('Technology')
+    expect(wrapper.text()).toContain('Build Information')
+    expect(wrapper.text()).toContain('Source Code')
+    expect(wrapper.text()).toContain('Vue 3, TypeScript, PrimeVue')
   })
 
   it('opens GitHub repository when button is clicked', async () => {
@@ -104,7 +104,10 @@ describe('AboutView', () => {
       },
     })
 
-    const githubButton = wrapper.find('button')
+    // Find all buttons and get the GitHub one (should be the second button in the repository section)
+    const buttons = wrapper.findAll('button')
+    // The Federal Finance Admin button is first, GitHub buttons are second and third
+    const githubButton = buttons[1] // "View on GitHub" button
     await githubButton.trigger('click')
 
     expect(mockOpen).toHaveBeenCalledWith(

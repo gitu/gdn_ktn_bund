@@ -466,10 +466,6 @@ export class DataLoader {
       // Step 4: Calculate and add sums directly to the tree
       const fullEntityCode = `${source}/${model}/${financialCode}:${year}`
       this.calculateEntitySum(financialData, fullEntityCode)
-      console.log(
-        `Calculated sums for ${fullEntityCode} in ${financialData.metadata.source}`,
-        financialData,
-      )
 
       return financialData
     } catch (error) {
@@ -510,10 +506,12 @@ export class DataLoader {
       unit,
     )
 
-    // print statistics
-    console.log(
-      `Calculated sums for ${entityCode} in ${financialData.metadata.source}. Balance sheet: ${balanceSheetResult.sum} (${balanceSheetResult.nodeCount} nodes), Income statement: ${incomeStatementResult.sum} (${incomeStatementResult.nodeCount} nodes)`,
-    )
+    // Reduced logging for performance
+    if (import.meta.env.DEV) {
+      console.log(
+        `Calculated sums for ${entityCode}. Balance sheet: ${balanceSheetResult.sum} (${balanceSheetResult.nodeCount} nodes), Income statement: ${incomeStatementResult.sum} (${incomeStatementResult.nodeCount} nodes)`,
+      )
+    }
   }
 
   /**

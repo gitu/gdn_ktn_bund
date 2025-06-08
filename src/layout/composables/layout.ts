@@ -19,20 +19,20 @@ interface LayoutState {
 }
 
 const layoutConfig = reactive<LayoutConfig>({
-  preset: 'Aura',
+  preset: 'Lara',
   primary: 'emerald',
   surface: null,
   darkTheme: false,
-  menuMode: 'overlay',
+  menuMode: 'static',
 })
 
 const layoutState = reactive<LayoutState>({
-  staticMenuDesktopInactive: false,
+  staticMenuDesktopInactive: true,
   overlayMenuActive: false,
   profileSidebarVisible: false,
   configSidebarVisible: false,
   staticMenuMobileActive: false,
-  menuHoverActive: false, // Default is false to align with UI/UX requirements; change dynamically if needed
+  menuHoverActive: false,
   activeMenuItem: null,
 })
 

@@ -128,8 +128,6 @@ const handleScalingError = (errorMessage: string) => {
 
 const handleScalingChanged = async (scalingId: string | null) => {
   try {
-    console.log('Scaling changed from selector:', scalingId)
-
     // Apply scaling through store (store will calculate scaling info internally)
     await financialDataStore.setScaling(scalingId)
 
@@ -141,50 +139,38 @@ const handleScalingChanged = async (scalingId: string | null) => {
   }
 }
 
+// Consolidated watcher to prevent redundant operations
+let loadingTimeout: ReturnType<typeof setTimeout> | null = null
+
 // Watch for dataset changes
 watch(
   () => props.datasets,
   async (newDatasets) => {
-    // Update store with new datasets
-    financialDataStore.setDatasets(newDatasets)
-    await loadDatasets()
+    // Debounce dataset loading to prevent rapid successive calls
+    if (loadingTimeout) {
+      clearTimeout(loadingTimeout)
+    }
+
+    loadingTimeout = setTimeout(async () => {
+      // Update store with new datasets
+      financialDataStore.setDatasets(newDatasets)
+      await loadDatasets()
+    }, 50) // 50ms debounce
   },
   { immediate: true },
 )
 
-// Watch for selectedScaling prop changes
+// Watch for selectedScaling prop changes (simplified)
 watch(
   () => props.selectedScaling,
   async (newScaling) => {
     const scalingValue = newScaling ?? null
 
-    // Handle scaling prop changes
+    // Only emit if scaling actually changed
     if (scalingValue !== currentScalingId.value) {
-      console.log('Selected scaling changed:', scalingValue)
-
-      if (!scalingValue) {
-        // Clear scaling
-        await financialDataStore.setScaling(null)
-      }
-      // Note: For applying scaling with scaling info, we rely on the FinancialDataScalingSelector
-      // to emit the scalingChanged event with the scaling info when it's ready
-
-      // Emit scaling change to parent
       emit('scalingChanged', scalingValue)
     }
   },
   { immediate: true },
-)
-
-// Watch for when data is loaded to trigger scaling if needed
-watch(
-  () => financialDataStore.hasValidData,
-  async (hasData) => {
-    // If we have data and a selected scaling from props, trigger the scaling selector to apply it
-    if (hasData && props.selectedScaling) {
-      console.log('Data loaded, triggering scaling application for:', props.selectedScaling)
-      // The FinancialDataScalingSelector should handle this through its own watchers
-    }
-  },
 )
 </script>

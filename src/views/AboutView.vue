@@ -22,82 +22,6 @@
         </Card>
       </div>
 
-      <!-- Features Section -->
-      <div class="col-span-12 xl:col-span-6">
-        <Card class="shadow-2">
-          <template #content>
-            <div class="flex align-items-center justify-content-between mb-4">
-              <h2 class="text-2xl font-semibold text-surface-900 dark:text-surface-50 m-0">
-                {{ t('aboutView.features.title') }}
-              </h2>
-              <i class="pi pi-star text-primary-500 text-2xl"></i>
-            </div>
-            <div class="grid grid-cols-2 gap-6 xl:grid-cols-3">
-              <div>
-                <div class="surface-card p-4 border-round shadow-1 h-full">
-                  <div class="text-center">
-                    <div class="text-4xl mb-3">🌳</div>
-                    <div
-                      class="text-lg font-medium text-surface-900 dark:text-surface-50 leading-tight m-0"
-                    >
-                      {{ t('aboutView.features.treeNavigation') }}
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div>
-                <div class="surface-card p-4 border-round shadow-1 h-full">
-                  <div class="text-center">
-                    <div class="text-4xl mb-3">📊</div>
-                    <div
-                      class="text-lg font-medium text-surface-900 dark:text-surface-50 leading-tight m-0"
-                    >
-                      {{ t('aboutView.features.tableView') }}
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div>
-                <div class="surface-card p-4 border-round shadow-1 h-full">
-                  <div class="text-center">
-                    <div class="text-4xl mb-3">🔍</div>
-                    <div
-                      class="text-lg font-medium text-surface-900 dark:text-surface-50 leading-tight m-0"
-                    >
-                      {{ t('aboutView.features.dataBrowser') }}
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div>
-                <div class="surface-card p-4 border-round shadow-1 h-full">
-                  <div class="text-center">
-                    <div class="text-4xl mb-3">🌐</div>
-                    <div
-                      class="text-lg font-medium text-surface-900 dark:text-surface-50 leading-tight m-0"
-                    >
-                      {{ t('aboutView.features.multiLanguage') }}
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div>
-                <div class="surface-card p-4 border-round shadow-1 h-full">
-                  <div class="text-center">
-                    <div class="text-4xl mb-3">📱</div>
-                    <div
-                      class="text-lg font-medium text-surface-900 dark:text-surface-50 leading-tight m-0"
-                    >
-                      {{ t('aboutView.features.responsive') }}
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </template>
-        </Card>
-      </div>
-
       <!-- Data Info and Technology Row -->
       <div class="col-span-12 xl:col-span-6">
         <Card class="shadow-2 h-full">
@@ -125,6 +49,17 @@
                 <p class="text-surface-700 dark:text-surface-200 m-0">
                   {{ t('aboutView.dataInfo.coverage') }}
                 </p>
+              </div>
+              <div class="mt-3">
+                <h4 class="text-surface-900 dark:text-surface-50 mb-3">
+                  {{ t('aboutView.dataInfo.officialSources') }}
+                </h4>
+                <Button
+                  :label="t('aboutView.dataInfo.federalFinanceAdmin')"
+                  icon="pi pi-external-link"
+                  class="p-button-outlined p-button-sm mb-2 w-full"
+                  @click="openFederalFinanceAdmin"
+                />
               </div>
             </div>
           </template>
@@ -287,5 +222,11 @@ const GITHUB_REPOSITORY_URL = 'https://github.com/gitu/gdn_ktn_bund'
 // Open GitHub repository
 const openGitHubRepository = () => {
   window.open(GITHUB_REPOSITORY_URL, '_blank', 'noopener,noreferrer')
+}
+
+// Open Federal Finance Administration data page
+const openFederalFinanceAdmin = () => {
+  const url = t('aboutView.dataInfo.federalFinanceAdminUrl')
+  window.open(url, '_blank', 'noopener,noreferrer')
 }
 </script>
