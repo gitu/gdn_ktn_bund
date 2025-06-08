@@ -146,7 +146,11 @@
       "title": "Dateninformationen",
       "description": "Die Anwendung verwendet offizielle Schweizer Finanzdaten von Gemeinden und Kantonen.",
       "sources": "Datenquellen: Eidgenössische Finanzverwaltung und kantonale Statistikämter",
-      "coverage": "Abdeckung: 2015-2023, alle Schweizer Gemeinden und Kantone"
+      "coverage": "Abdeckung: 2015-2023, alle Schweizer Gemeinden und Kantone",
+      "officialSources": "Offizielle Datenquellen",
+      "federalFinanceAdmin": "Eidgenössische Finanzverwaltung",
+      "federalFinanceAdminUrl": "https://www.efv.admin.ch/efv/de/home/themen/finanzstatistik/daten.html",
+      "viewOfficialData": "Offizielle Daten anzeigen"
     },
     "technology": {
       "title": "Technologie",
@@ -187,41 +191,19 @@
     "currentLanguage": "Aktuelle Sprache"
   },
   "homeView": {
-    "title": "Schweizer Finanzdaten-Baum-Navigator",
-    "subtitle": "Erkunden Sie hierarchische Finanzdatenstrukturen für Schweizer Gemeinden und Kantone",
+    "title": "Schweizer Finanzdaten-Explorer",
+    "subtitle": "Vergleichen Sie Finanzdaten von Schweizer Gemeinden, Kantonen und dem Bund",
     "description": {
-      "title": "Finanzdaten von Gemeinden vergleichen",
-      "intro": "Diese Website ermöglicht es Ihnen, Finanzdaten verschiedener kommunaler Einheiten zu analysieren und zu vergleichen. Entdecken Sie finanzielle Trends und Unterschiede zwischen Schweizer Gemeinden und Kantonen.",
-      "capabilities": "Sie können folgende Datentypen analysieren und vergleichen:",
-      "bilanzDescription": "Bilanzpositionen - Vermögen, Schulden und Eigenkapital der Gemeinden",
-      "incomeDescription": "Erfolgsrechnung - Einnahmen (Ertrag) und Ausgaben (Aufwand) im Vergleich",
-      "footer": "Wählen Sie eine Dimension aus und navigieren Sie durch die hierarchische Struktur, um detaillierte Finanzdaten zu erkunden."
+      "title": "Finanzdaten verschiedener Schweizer Einheiten vergleichen",
+      "intro": "Analysieren und vergleichen Sie Finanzberichte mehrerer Schweizer Regierungseinheiten nebeneinander. Erkunden Sie Bilanzen, Erfolgsrechnungen und Ausgabendaten, um finanzielle Trends und Unterschiede zu entdecken.",
+      "scalingFeature": "Skalieren Sie Finanzdaten nach Bevölkerung, Demografie oder anderen Faktoren für aussagekräftige Vergleiche zwischen Einheiten unterschiedlicher Größe."
     },
     "cta": {
-      "title": "Jetzt Daten erkunden",
-      "description": "Beginnen Sie mit der Analyse von Finanzdaten verschiedener Schweizer Gemeinden und Kantone.",
-      "buttonText": "Baum-Explorer öffnen",
-      "comparisonButtonText": "Finanzdaten vergleichen",
-      "learnMoreButtonText": "Mehr erfahren"
-    },
-    "dimensionLabel": "Dimension:",
-    "dimensions": {
-      "ertrag": "Ertrag (Einnahmen)",
-      "aufwand": "Aufwand (Ausgaben)",
-      "bilanz": "Bilanz (Bilanz)"
-    },
-    "selectedNode": "Ausgewählter Knoten",
-    "code": "Code",
-    "searchResults": "Suchergebnisse",
-    "moreResults": "... und {count} weitere Ergebnisse",
-    "aboutTitle": "Über die Baumstruktur",
-    "aboutDescription": "Dieser Baum-Navigator zeigt die hierarchische Struktur der Schweizer Finanzdaten an. Die Daten sind nach Kontocodes organisiert, wobei längere Codes spezifischere Unterkategorien kürzerer Codes darstellen.",
-    "aboutItems": {
-      "ertrag": "Einnahmen- und Ertragskategorien",
-      "aufwand": "Ausgaben- und Kostenkategorien",
-      "bilanz": "Bilanzpositionen (Aktiva und Passiva)"
-    },
-    "aboutFooter": "Jeder Knoten zeigt den Kontocode, mehrsprachige Bezeichnungen und verfügbare Werte an. Verwenden Sie die Suchfunktion, um schnell bestimmte Konten oder Kategorien zu finden."
+      "title": "Bereit zum Start?",
+      "description": "Beginnen Sie mit dem Vergleich von Finanzdaten von Schweizer Gemeinden, Kantonen und dem Bund.",
+      "startButtonText": "Jetzt vergleichen",
+      "aboutButtonText": "Mehr erfahren"
+    }
   },
   "financialDataScalingSelector": {
     "title": "Datenskalierung",

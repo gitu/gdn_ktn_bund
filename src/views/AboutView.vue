@@ -22,7 +22,6 @@
         </Card>
       </div>
 
-
       <!-- Data Info and Technology Row -->
       <div class="col-span-12 xl:col-span-6">
         <Card class="shadow-2 h-full">
@@ -50,6 +49,17 @@
                 <p class="text-surface-700 dark:text-surface-200 m-0">
                   {{ t('aboutView.dataInfo.coverage') }}
                 </p>
+              </div>
+              <div class="mt-3">
+                <h4 class="text-surface-900 dark:text-surface-50 mb-3">
+                  {{ t('aboutView.dataInfo.officialSources') }}
+                </h4>
+                <Button
+                  :label="t('aboutView.dataInfo.federalFinanceAdmin')"
+                  icon="pi pi-external-link"
+                  class="p-button-outlined p-button-sm mb-2 w-full"
+                  @click="openFederalFinanceAdmin"
+                />
               </div>
             </div>
           </template>
@@ -212,5 +222,11 @@ const GITHUB_REPOSITORY_URL = 'https://github.com/gitu/gdn_ktn_bund'
 // Open GitHub repository
 const openGitHubRepository = () => {
   window.open(GITHUB_REPOSITORY_URL, '_blank', 'noopener,noreferrer')
+}
+
+// Open Federal Finance Administration data page
+const openFederalFinanceAdmin = () => {
+  const url = t('aboutView.dataInfo.federalFinanceAdminUrl')
+  window.open(url, '_blank', 'noopener,noreferrer')
 }
 </script>
