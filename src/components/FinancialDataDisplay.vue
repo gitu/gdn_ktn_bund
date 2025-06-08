@@ -196,8 +196,10 @@ const showCodes = ref(props.initialShowCodes)
 const freezeFirstColumn = ref(props.initialFreezeFirstColumn)
 const showZeroValues = ref(props.initialShowZeroValues)
 const scalingEnabled = ref(true)
-// Force reactivity trigger for scaling changes
-const scalingUpdateTrigger = ref(0)
+// Computed property to reactively track scaling changes
+const scalingState = computed(() => ({
+  enabled: scalingEnabled.value,
+}))
 
 // Computed properties
 const hasValidData = computed(() => {
