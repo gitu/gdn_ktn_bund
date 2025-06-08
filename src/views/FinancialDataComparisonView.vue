@@ -41,7 +41,7 @@
           severity="secondary"
           outlined
           @click="openFullView"
-          class="flex-shrink-0"
+          class="shrink-0"
         />
       </div>
 

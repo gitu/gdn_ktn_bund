@@ -5,7 +5,7 @@
         sessionStorage.redirect = location.href;
         const l = window.location
         l.replace(
-            l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '') + '/'
+            l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '') + '/?r=' + Math.random()
         );
     </script>
 </head>

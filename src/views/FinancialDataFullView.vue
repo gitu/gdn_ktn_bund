@@ -11,7 +11,7 @@
             severity="secondary"
             outlined
             @click="goBackToComparison"
-            class="flex-shrink-0"
+            class="shrink-0"
           />
         </div>
 
