@@ -12,7 +12,9 @@
               <p class="text-xl text-surface-600 dark:text-surface-300 mb-4">
                 {{ t('aboutView.subtitle') }}
               </p>
-              <p class="text-lg text-surface-700 dark:text-surface-200 leading-relaxed max-w-4xl mx-auto">
+              <p
+                class="text-lg text-surface-700 dark:text-surface-200 leading-relaxed max-w-4xl mx-auto"
+              >
                 {{ t('aboutView.description') }}
               </p>
             </div>
@@ -35,7 +37,9 @@
                 <div class="surface-card p-4 border-round shadow-1 h-full">
                   <div class="text-center">
                     <div class="text-4xl mb-3">🌳</div>
-                    <div class="text-lg font-medium text-surface-900 dark:text-surface-50 leading-tight m-0">
+                    <div
+                      class="text-lg font-medium text-surface-900 dark:text-surface-50 leading-tight m-0"
+                    >
                       {{ t('aboutView.features.treeNavigation') }}
                     </div>
                   </div>
@@ -45,7 +49,9 @@
                 <div class="surface-card p-4 border-round shadow-1 h-full">
                   <div class="text-center">
                     <div class="text-4xl mb-3">📊</div>
-                    <div class="text-lg font-medium text-surface-900 dark:text-surface-50 leading-tight m-0">
+                    <div
+                      class="text-lg font-medium text-surface-900 dark:text-surface-50 leading-tight m-0"
+                    >
                       {{ t('aboutView.features.tableView') }}
                     </div>
                   </div>
@@ -55,7 +61,9 @@
                 <div class="surface-card p-4 border-round shadow-1 h-full">
                   <div class="text-center">
                     <div class="text-4xl mb-3">🔍</div>
-                    <div class="text-lg font-medium text-surface-900 dark:text-surface-50 leading-tight m-0">
+                    <div
+                      class="text-lg font-medium text-surface-900 dark:text-surface-50 leading-tight m-0"
+                    >
                       {{ t('aboutView.features.dataBrowser') }}
                     </div>
                   </div>
@@ -65,7 +73,9 @@
                 <div class="surface-card p-4 border-round shadow-1 h-full">
                   <div class="text-center">
                     <div class="text-4xl mb-3">🌐</div>
-                    <div class="text-lg font-medium text-surface-900 dark:text-surface-50 leading-tight m-0">
+                    <div
+                      class="text-lg font-medium text-surface-900 dark:text-surface-50 leading-tight m-0"
+                    >
                       {{ t('aboutView.features.multiLanguage') }}
                     </div>
                   </div>
@@ -75,7 +85,9 @@
                 <div class="surface-card p-4 border-round shadow-1 h-full">
                   <div class="text-center">
                     <div class="text-4xl mb-3">📱</div>
-                    <div class="text-lg font-medium text-surface-900 dark:text-surface-50 leading-tight m-0">
+                    <div
+                      class="text-lg font-medium text-surface-900 dark:text-surface-50 leading-tight m-0"
+                    >
                       {{ t('aboutView.features.responsive') }}
                     </div>
                   </div>
@@ -100,12 +112,16 @@
               {{ t('aboutView.dataInfo.description') }}
             </p>
             <div class="flex flex-column gap-3">
-              <div class="surface-50 dark:surface-800 p-3 border-round border-left-3 border-primary">
+              <div
+                class="surface-50 dark:surface-800 p-3 border-round border-left-3 border-primary"
+              >
                 <p class="text-surface-700 dark:text-surface-200 m-0">
                   {{ t('aboutView.dataInfo.sources') }}
                 </p>
               </div>
-              <div class="surface-50 dark:surface-800 p-3 border-round border-left-3 border-primary">
+              <div
+                class="surface-50 dark:surface-800 p-3 border-round border-left-3 border-primary"
+              >
                 <p class="text-surface-700 dark:text-surface-200 m-0">
                   {{ t('aboutView.dataInfo.coverage') }}
                 </p>
@@ -128,17 +144,23 @@
               {{ t('aboutView.technology.description') }}
             </p>
             <div class="flex flex-column gap-3">
-              <div class="surface-50 dark:surface-800 p-3 border-round border-left-3 border-primary">
+              <div
+                class="surface-50 dark:surface-800 p-3 border-round border-left-3 border-primary"
+              >
                 <p class="text-surface-700 dark:text-surface-200 m-0">
                   {{ t('aboutView.technology.frontend') }}
                 </p>
               </div>
-              <div class="surface-50 dark:surface-800 p-3 border-round border-left-3 border-primary">
+              <div
+                class="surface-50 dark:surface-800 p-3 border-round border-left-3 border-primary"
+              >
                 <p class="text-surface-700 dark:text-surface-200 m-0">
                   {{ t('aboutView.technology.testing') }}
                 </p>
               </div>
-              <div class="surface-50 dark:surface-800 p-3 border-round border-left-3 border-primary">
+              <div
+                class="surface-50 dark:surface-800 p-3 border-round border-left-3 border-primary"
+              >
                 <p class="text-surface-700 dark:text-surface-200 m-0">
                   {{ t('aboutView.technology.build') }}
                 </p>
@@ -162,22 +184,34 @@
               <div class="flex align-items-center gap-3">
                 <i class="pi pi-calendar text-surface-600"></i>
                 <div>
-                  <span class="text-surface-600 dark:text-surface-300">{{ t('aboutView.buildInfo.buildTime') }}:</span>
-                  <span class="text-surface-900 dark:text-surface-50 font-medium ml-2">{{ buildTimestamp }}</span>
+                  <span class="text-surface-600 dark:text-surface-300"
+                    >{{ t('aboutView.buildInfo.buildTime') }}:</span
+                  >
+                  <span class="text-surface-900 dark:text-surface-50 font-medium ml-2">{{
+                    buildTimestamp
+                  }}</span>
                 </div>
               </div>
               <div class="flex align-items-center gap-3">
                 <i class="pi pi-code text-surface-600"></i>
                 <div>
-                  <span class="text-surface-600 dark:text-surface-300">{{ t('aboutView.buildInfo.commit') }}:</span>
-                  <span class="text-surface-900 dark:text-surface-50 font-medium ml-2 font-mono">{{ appVersion }}</span>
+                  <span class="text-surface-600 dark:text-surface-300"
+                    >{{ t('aboutView.buildInfo.commit') }}:</span
+                  >
+                  <span class="text-surface-900 dark:text-surface-50 font-medium ml-2 font-mono">{{
+                    appVersion
+                  }}</span>
                 </div>
               </div>
               <div class="flex align-items-center gap-3" v-if="fullCommitHash !== appVersion">
                 <i class="pi pi-info-circle text-surface-600"></i>
                 <div>
-                  <span class="text-surface-600 dark:text-surface-300 text-sm">{{ t('aboutView.buildInfo.fullCommit') }}:</span>
-                  <span class="text-surface-700 dark:text-surface-300 text-sm ml-2 font-mono">{{ fullCommitHash }}</span>
+                  <span class="text-surface-600 dark:text-surface-300 text-sm"
+                    >{{ t('aboutView.buildInfo.fullCommit') }}:</span
+                  >
+                  <span class="text-surface-700 dark:text-surface-300 text-sm ml-2 font-mono">{{
+                    fullCommitHash
+                  }}</span>
                 </div>
               </div>
             </div>

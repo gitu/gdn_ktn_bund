@@ -415,12 +415,14 @@ describe('FinancialDataScalingSelector', () => {
     expect(wrapper.emitted('scalingChanged')).toBeTruthy()
     const emittedEvents = wrapper.emitted('scalingChanged') as Array<[string | null, object | null]>
     expect(emittedEvents[0][0]).toBe('pop')
-    expect(emittedEvents[0][1]).toEqual(expect.objectContaining({
-      id: 'pop',
-      name: expect.any(String),
-      unit: expect.any(String),
-      description: expect.any(String),
-    }))
+    expect(emittedEvents[0][1]).toEqual(
+      expect.objectContaining({
+        id: 'pop',
+        name: expect.any(String),
+        unit: expect.any(String),
+        description: expect.any(String),
+      }),
+    )
   })
 
   it('should handle prop changes for selectedScaling', async () => {

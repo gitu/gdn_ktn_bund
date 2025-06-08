@@ -20,18 +20,20 @@
           {{ $t('financialDataScalingSelector.scaling') }}
         </h4>
         <FloatLabel class="w-full" variant="on">
-        <Select
-          id="scaling-selector"
-          v-model="internalSelectedScaling"
-          :options="scalingOptions"
-          option-label="label"
-          option-value="value"
-          class="w-full"
-          @change="onScalingChange"
-          data-testid="scaling-dropdown"
-          size="large"
-        />
-          <label for="scaling-selector"> {{ $t('financialDataScalingSelector.selectScaling') }}</label>
+          <Select
+            id="scaling-selector"
+            v-model="internalSelectedScaling"
+            :options="scalingOptions"
+            option-label="label"
+            option-value="value"
+            class="w-full"
+            @change="onScalingChange"
+            data-testid="scaling-dropdown"
+            size="large"
+          />
+          <label for="scaling-selector">
+            {{ $t('financialDataScalingSelector.selectScaling') }}</label
+          >
         </FloatLabel>
       </div>
     </div>

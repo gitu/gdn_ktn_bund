@@ -27,44 +27,44 @@ const i18n = createI18n({
           tableView: 'Interactive table view',
           dataBrowser: 'Comprehensive data browser',
           multiLanguage: 'Multi-language support',
-          responsive: 'Responsive design'
+          responsive: 'Responsive design',
         },
         dataInfo: {
           title: 'Data Information',
           description: 'Official Swiss financial data from municipalities and cantons.',
           sources: 'Data sources: Federal Finance Administration',
-          coverage: 'Coverage: 2015-2023, all Swiss municipalities'
+          coverage: 'Coverage: 2015-2023, all Swiss municipalities',
         },
         technology: {
           title: 'Technology',
           description: 'Built with modern web technologies.',
           frontend: 'Frontend: Vue 3, TypeScript, PrimeVue',
           testing: 'Testing: Vitest, Vue Test Utils',
-          build: 'Build: Vite, ESLint'
+          build: 'Build: Vite, ESLint',
         },
         buildInfo: {
           title: 'Build Information',
           buildTime: 'Built on',
           commit: 'Commit',
-          fullCommit: 'Full commit hash'
+          fullCommit: 'Full commit hash',
         },
         repository: {
           title: 'Source Code',
           description: 'This project is open source and available on GitHub.',
           viewOnGitHub: 'View on GitHub',
-          contribute: 'Contribute'
-        }
-      }
-    }
-  }
+          contribute: 'Contribute',
+        },
+      },
+    },
+  },
 })
 
 describe('AboutView', () => {
   it('renders the main title correctly', () => {
     const wrapper = mount(AboutView, {
       global: {
-        plugins: [i18n]
-      }
+        plugins: [i18n],
+      },
     })
 
     expect(wrapper.find('h1').text()).toBe('About This Application')
@@ -73,8 +73,8 @@ describe('AboutView', () => {
   it('displays build information correctly', () => {
     const wrapper = mount(AboutView, {
       global: {
-        plugins: [i18n]
-      }
+        plugins: [i18n],
+      },
     })
 
     const buildTimeText = wrapper.text()
@@ -86,8 +86,8 @@ describe('AboutView', () => {
   it('renders all feature cards', () => {
     const wrapper = mount(AboutView, {
       global: {
-        plugins: [i18n]
-      }
+        plugins: [i18n],
+      },
     })
 
     expect(wrapper.text()).toContain('Hierarchical tree navigation')
@@ -100,8 +100,8 @@ describe('AboutView', () => {
   it('opens GitHub repository when button is clicked', async () => {
     const wrapper = mount(AboutView, {
       global: {
-        plugins: [i18n]
-      }
+        plugins: [i18n],
+      },
     })
 
     const githubButton = wrapper.find('button')
@@ -110,15 +110,15 @@ describe('AboutView', () => {
     expect(mockOpen).toHaveBeenCalledWith(
       'https://github.com/gitu/gdn_ktn_bund',
       '_blank',
-      'noopener,noreferrer'
+      'noopener,noreferrer',
     )
   })
 
   it('has proper test marker for e2e tests', () => {
     const wrapper = mount(AboutView, {
       global: {
-        plugins: [i18n]
-      }
+        plugins: [i18n],
+      },
     })
 
     expect(wrapper.find('[data-testid="about-main"]').exists()).toBe(true)
