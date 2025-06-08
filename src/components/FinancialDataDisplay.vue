@@ -441,18 +441,12 @@ watch(
 
 // Watch for scaling factor changes in entities and trigger reactivity
 watch(
-  () => {
-    if (!props.financialData?.entities) return []
-    // Create a reactive dependency on all entity scaling factors
-    const scalingFactors: Array<{ entityCode: string; scalingFactor?: number; scalingMode?: string }> = []
-    for (const [entityCode, entity] of props.financialData.entities) {
-      scalingFactors.push({
-        entityCode,
-        scalingFactor: entity.scalingFactor,
-        scalingMode: entity.scalingMode,
-      })
+  () => props.financialData?.entities,
+  (newEntities, oldEntities) => {
+    if (newEntities !== oldEntities) {
+      // Increment trigger to force re-computation of all getValue calls
+      scalingUpdateTrigger.value++
     }
-    return scalingFactors
   },
   () => {
     // Increment trigger to force re-computation of all getValue calls
