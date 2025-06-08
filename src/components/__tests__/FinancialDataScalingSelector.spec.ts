@@ -253,7 +253,7 @@ describe('FinancialDataScalingSelector', () => {
     await wrapper.vm.$nextTick()
 
     expect(wrapper.emitted('scalingChanged')).toBeTruthy()
-    expect(wrapper.emitted('scalingChanged')![0]).toEqual(['pop', expect.any(Object)])
+    expect(wrapper.emitted('scalingChanged')![0]).toEqual(['pop'])
   })
 
   it('should emit scalingChanged with null when no scaling is selected', async () => {
@@ -277,7 +277,7 @@ describe('FinancialDataScalingSelector', () => {
     await wrapper.vm.$nextTick()
 
     expect(wrapper.emitted('scalingChanged')).toBeTruthy()
-    expect(wrapper.emitted('scalingChanged')![0]).toEqual([null, null])
+    expect(wrapper.emitted('scalingChanged')![0]).toEqual([null])
   })
 
   it('should display current scaling info when scaling is selected', async () => {
@@ -415,14 +415,6 @@ describe('FinancialDataScalingSelector', () => {
     expect(wrapper.emitted('scalingChanged')).toBeTruthy()
     const emittedEvents = wrapper.emitted('scalingChanged') as Array<[string | null, object | null]>
     expect(emittedEvents[0][0]).toBe('pop')
-    expect(emittedEvents[0][1]).toEqual(
-      expect.objectContaining({
-        id: 'pop',
-        name: expect.any(String),
-        unit: expect.any(String),
-        description: expect.any(String),
-      }),
-    )
   })
 
   it('should handle prop changes for selectedScaling', async () => {

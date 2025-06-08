@@ -123,7 +123,7 @@ void props
 
 // Emits
 interface Emits {
-  scalingChanged: [scalingId: string | null, scalingInfo: ScalingInfo | null]
+  scalingChanged: [scalingId: string | null]
   error: [error: string]
 }
 
@@ -139,14 +139,6 @@ interface ScalingOption {
   statsId?: string
   unit?: MultiLanguageLabels
   description?: MultiLanguageLabels
-}
-
-interface ScalingInfo {
-  id: string
-  name: string
-  unit: string
-  description: string
-  factor?: number
 }
 
 // Reactive state
@@ -210,21 +202,6 @@ const getEntityDisplayName = (entity: { code?: string; name?: MultiLanguageLabel
   return entity.name[currentLocale] || entity.name.de || entity.code || 'Unknown Entity'
 }
 
-const currentScalingInfo = computed<ScalingInfo | null>(() => {
-  if (!internalSelectedScaling.value) return null
-
-  const stat = availableStats.value.find((s) => s.id === internalSelectedScaling.value)
-  if (!stat) return null
-
-  const currentLocale = locale.value as keyof MultiLanguageLabels
-  return {
-    id: stat.id,
-    name: stat.name[currentLocale] || stat.name.en || stat.id,
-    unit: stat.unit[currentLocale] || stat.unit.en || '',
-    description: t('financialDataScalingSelector.scalingInfo.description'),
-  }
-})
-
 // Methods
 const loadAvailableStats = async () => {
   try {
@@ -256,16 +233,19 @@ const onScalingChange = async () => {
   try {
     if (!internalSelectedScaling.value) {
       // No scaling selected - remove scaling
-      emit('scalingChanged', null, null)
+      emit('scalingChanged', null)
       return
     }
 
-    const scalingInfo = currentScalingInfo.value
-    if (!scalingInfo) {
+    // Validate that the scaling ID exists in available stats
+    const scalingExists = availableStats.value.some(
+      (stat) => stat.id === internalSelectedScaling.value,
+    )
+    if (!scalingExists) {
       throw new Error('Invalid scaling selection')
     }
 
-    emit('scalingChanged', internalSelectedScaling.value, scalingInfo)
+    emit('scalingChanged', internalSelectedScaling.value)
   } catch (err) {
     console.error('Error applying scaling:', err)
     const errorMessage = t('financialDataScalingSelector.errors.applyingFailed')
@@ -282,13 +262,44 @@ onMounted(() => {
 // Watch for selectedScaling prop changes
 watch(
   () => props.selectedScaling,
-  (newScaling) => {
+  async (newScaling) => {
     const scalingValue = newScaling ?? null
     if (scalingValue !== internalSelectedScaling.value) {
       internalSelectedScaling.value = scalingValue
+
+      // Auto-apply scaling when prop changes and we have the necessary data
+      if (scalingValue && availableStats.value.length > 0 && props.financialData?.entities.size) {
+        await onScalingChange()
+      }
     }
   },
   { immediate: true },
+)
+
+// Watch for availableStats to apply scaling if needed
+watch(
+  () => availableStats.value,
+  async () => {
+    // If we have a selected scaling from props and financial data, apply it
+    if (
+      internalSelectedScaling.value &&
+      availableStats.value.length > 0 &&
+      props.financialData?.entities.size
+    ) {
+      await onScalingChange()
+    }
+  },
+)
+
+// Watch for financial data changes to apply scaling if needed
+watch(
+  () => props.financialData?.entities.size,
+  async (hasEntities) => {
+    // If we have entities and a selected scaling, apply it
+    if (hasEntities && internalSelectedScaling.value && availableStats.value.length > 0) {
+      await onScalingChange()
+    }
+  },
 )
 
 // Watch for locale changes to update labels
