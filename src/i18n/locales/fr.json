@@ -234,8 +234,8 @@
     }
   },
   "financialDataComparison": {
-    "title": "Comparaison des données financières",
-    "subtitle": "Comparez les jeux de données financières côte à côte en utilisant une structure arborescente hiérarchique",
+    "title": "Sélectionner les données financières à comparer",
+    "subtitle": "Choisissez et comparez les états financiers de différentes entités gouvernementales suisses",
     "loading": "Chargement des données financières...",
     "error": "Erreur lors du chargement des données",
     "noData": "Aucune donnée disponible pour la comparaison",
@@ -260,7 +260,7 @@
     "comparisonDescription": "Comparaison de {count} jeux de données sélectionnés",
     "demoTitle": "Comparaison de démonstration",
     "demoResults": "Résultats de démonstration",
-    "demoDescription": "Cet exemple compare trois jeux de données de 2016:",
+    "demoDescription": "Choisissez parmi ces collections d'exemples de jeux de données pour explorer les fonctionnalités de comparaison:",
     "demoDataset1": "Commune 010002",
     "demoDataset1Description": "Données spécifiques de commune",
     "demoDataset2": "Commune 010009",
@@ -268,6 +268,18 @@
     "demoDataset3": "Canton de Zurich (gdn_zh)",
     "demoDataset3Description": "Toutes les communes du canton de Zurich",
     "loadDemoData": "Charger les données de démonstration",
+    "sampleDatasets": {
+      "governmentalLevels": {
+        "name": "Comparaison de tous les niveaux gouvernementaux",
+        "description": "Comparez les données des communes, cantons et niveau fédéral agrégées par niveau"
+      },
+      "zurichMunicipalities": {
+        "name": "Comparaison des communes zurichoises",
+        "description": "Comparez différentes communes du canton de Zurich avec mise à l'échelle démographique"
+      }
+    },
+    "selectSampleDataset": "Sélectionner un jeu de données d'exemple",
+    "loadSelectedSample": "Charger l'exemple sélectionné",
     "openFullView": "Ouvrir en plein écran",
     "openFullViewTooltip": "Ouvre la vue de comparaison actuelle dans un mode plein écran dédié"
   },
