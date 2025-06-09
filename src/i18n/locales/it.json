@@ -227,7 +227,9 @@
       "population": "Popolazione",
       "area": "Superficie",
       "households": "Famiglie",
-      "employees": "Dipendenti"
+      "employees": "Dipendenti",
+      "total_area": "Superficie totale",
+      "workplaces": "Luoghi di lavoro"
     },
     "errors": {
       "loadingFailed": "Caricamento delle opzioni di scalatura fallito",

@@ -227,7 +227,9 @@
       "population": "Population",
       "area": "Area",
       "households": "Households",
-      "employees": "Employees"
+      "employees": "Employees",
+      "total_area": "Total Area",
+      "workplaces": "Workplaces"
     },
     "errors": {
       "loadingFailed": "Failed to load scaling options",

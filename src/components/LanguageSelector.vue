@@ -81,7 +81,9 @@ const toggle = (event: Event): void => {
 
 const selectLanguage = (language: SupportedLanguage): void => {
   // Update both the global i18n locale and the local reactive locale
-  ;(i18n.global.locale as unknown as { value: string }).value = language
+  if (i18n.global && 'locale' in i18n.global) {
+    ;(i18n.global.locale as unknown as { value: string }).value = language
+  }
   locale.value = language
 }
 

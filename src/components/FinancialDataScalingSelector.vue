@@ -227,7 +227,7 @@ const loadAvailableStats = async () => {
     const stats = await statsDataLoader.getAvailableStats()
 
     // Filter for relevant scaling statistics (population, area, etc.)
-    availableStats.value = stats;
+    availableStats.value = stats
   } catch (err) {
     console.error('Error loading available statistics:', err)
     error.value = t('financialDataScalingSelector.errors.loadingFailed')

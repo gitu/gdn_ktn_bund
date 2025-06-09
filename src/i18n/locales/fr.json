@@ -227,7 +227,9 @@
       "population": "Population",
       "area": "Superficie",
       "households": "Ménages",
-      "employees": "Employés"
+      "employees": "Employés",
+      "total_area": "Superficie totale",
+      "workplaces": "Lieux de travail"
     },
     "errors": {
       "loadingFailed": "Échec du chargement des options de mise à l'échelle",

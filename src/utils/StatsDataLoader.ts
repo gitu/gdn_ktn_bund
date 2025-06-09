@@ -117,11 +117,10 @@ export class StatsDataLoader {
       })
 
       if (parseResult.errors.length > 0) {
-        debugger
         console.warn('CSV parsing warnings:', parseResult.errors)
       }
 
-      return parseResult.data as (string[])[]
+      return parseResult.data as string[][]
     } catch (error) {
       throw new Error(
         `Error loading CSV data from ${dataPath}: ${error instanceof Error ? error.message : 'Unknown error'}`,
@@ -399,7 +398,7 @@ export class StatsDataLoader {
     year: number,
     cantonId: string,
   ): Promise<ProcessedStatsRecord | null> {
-    const result = await this.loadKtnData(statsId, year, {geoIds: [cantonId]})
+    const result = await this.loadKtnData(statsId, year, { geoIds: [cantonId] })
     return result.data[0] || null
   }
 
@@ -411,7 +410,7 @@ export class StatsDataLoader {
     year: number,
     municipalityId: string,
   ): Promise<ProcessedStatsRecord | null> {
-    const result = await this.loadGdnData(statsId, year, {geoIds: [municipalityId]})
+    const result = await this.loadGdnData(statsId, year, { geoIds: [municipalityId] })
     return result.data[0] || null
   }
 
@@ -438,7 +437,7 @@ export class StatsDataLoader {
     year: number,
     namePattern: string,
   ): Promise<ProcessedStatsRecord[]> {
-    const result = await this.loadGdnData(statsId, year, {geoNamePattern: namePattern})
+    const result = await this.loadGdnData(statsId, year, { geoNamePattern: namePattern })
     return result.data
   }
 
@@ -557,8 +556,8 @@ export class StatsDataLoader {
       total,
       average,
       median,
-      min: {value: minRecord.value, entity: minRecord.key},
-      max: {value: maxRecord.value, entity: maxRecord.key},
+      min: { value: minRecord.value, entity: minRecord.key },
+      max: { value: maxRecord.value, entity: maxRecord.key },
       standardDeviation,
       count: values.length,
     }

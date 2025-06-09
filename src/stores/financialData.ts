@@ -232,22 +232,34 @@ export const useFinancialDataStore = defineStore('financialData', () => {
         if (scalingFactor !== null && scalingFactor > 0) {
           entity.scalingFactor = scalingFactor
           entity.scalingInfo = {
-            de: i18n.global.t('financialDataScalingSelector.scalingInfo.format', {
-              name: scalingInfo.name.de,
-              unit: scalingInfo.unit.de,
-            }),
-            fr: i18n.global.t('financialDataScalingSelector.scalingInfo.format', {
-              name: scalingInfo.name.fr,
-              unit: scalingInfo.unit.fr,
-            }),
-            it: i18n.global.t('financialDataScalingSelector.scalingInfo.format', {
-              name: scalingInfo.name.it,
-              unit: scalingInfo.unit.it,
-            }),
-            en: i18n.global.t('financialDataScalingSelector.scalingInfo.format', {
-              name: scalingInfo.name.en,
-              unit: scalingInfo.unit.en,
-            }),
+            de: (i18n.global as { t: (key: string, params?: Record<string, unknown>) => string }).t(
+              'financialDataScalingSelector.scalingInfo.format',
+              {
+                name: scalingInfo.name.de,
+                unit: scalingInfo.unit.de,
+              },
+            ),
+            fr: (i18n.global as { t: (key: string, params?: Record<string, unknown>) => string }).t(
+              'financialDataScalingSelector.scalingInfo.format',
+              {
+                name: scalingInfo.name.fr,
+                unit: scalingInfo.unit.fr,
+              },
+            ),
+            it: (i18n.global as { t: (key: string, params?: Record<string, unknown>) => string }).t(
+              'financialDataScalingSelector.scalingInfo.format',
+              {
+                name: scalingInfo.name.it,
+                unit: scalingInfo.unit.it,
+              },
+            ),
+            en: (i18n.global as { t: (key: string, params?: Record<string, unknown>) => string }).t(
+              'financialDataScalingSelector.scalingInfo.format',
+              {
+                name: scalingInfo.name.en,
+                unit: scalingInfo.unit.en,
+              },
+            ),
           }
           entity.scalingMode = 'divide' // Divide financial values by scaling factor for per-capita/per-unit values
         }

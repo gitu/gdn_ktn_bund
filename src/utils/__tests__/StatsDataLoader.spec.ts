@@ -40,6 +40,14 @@ const mockStatsCatalog: StatsCatalog = {
       mode: 'absolute',
       source: 'STATPOP via atlas.bfs.admin.ch',
       lastUpdate: '2024-08-21',
+      dataFormat: {
+        type: 'csv',
+        delimiter: ';',
+        quoteChar: '"',
+        header: true,
+        key_field: 'GEO_ID',
+        value_field: 'VALUE',
+      },
       data: {
         ktn: [
           {
@@ -200,39 +208,11 @@ describe('StatsDataLoader', () => {
         data: [
           {
             GEO_ID: '1',
-            GEO_NAME: 'Zürich',
-            VARIABLE: 'Anzahl Einwohner/-innen am Jahresende',
             VALUE: '1605508',
-            UNIT: 'Einwohner/Innen',
-            STATUS: 'A',
-            STATUS_DESC: 'Normaler Wert',
-            DESC_VAL: '',
-            PERIOD_REF: '2023-12-31',
-            SOURCE: 'BFS',
-            LAST_UPDATE: '2024-07-24',
-            GEOM_CODE: 'kant',
-            GEOM: 'Kantone',
-            GEOM_PERIOD: '2022-01-01',
-            MAP_ID: '27862',
-            MAP_URL: 'https://example.com',
           },
           {
             GEO_ID: '2',
-            GEO_NAME: 'Bern',
-            VARIABLE: 'Anzahl Einwohner/-innen am Jahresende',
             VALUE: '1063533',
-            UNIT: 'Einwohner/Innen',
-            STATUS: 'A',
-            STATUS_DESC: 'Normaler Wert',
-            DESC_VAL: '',
-            PERIOD_REF: '2023-12-31',
-            SOURCE: 'BFS',
-            LAST_UPDATE: '2024-07-24',
-            GEOM_CODE: 'kant',
-            GEOM: 'Kantone',
-            GEOM_PERIOD: '2022-01-01',
-            MAP_ID: '27862',
-            MAP_URL: 'https://example.com',
           },
         ],
         errors: [],
@@ -244,14 +224,8 @@ describe('StatsDataLoader', () => {
 
       expect(result.data).toHaveLength(2)
       expect(result.data[0]).toEqual({
-        geoId: '1',
-        geoName: 'Zürich',
+        key: '1',
         value: 1605508,
-        unit: 'Einwohner/Innen',
-        year: 2023,
-        status: 'A',
-        source: 'BFS',
-        lastUpdate: '2024-07-24',
       })
 
       expect(result.metadata.dataType).toBe('ktn')
@@ -263,7 +237,7 @@ describe('StatsDataLoader', () => {
       const result = await loader.loadKtnData('pop', 2023, { geoIds: ['1'] })
 
       expect(result.data).toHaveLength(1)
-      expect(result.data[0].geoId).toBe('1')
+      expect(result.data[0].key).toBe('1')
     })
 
     it('should handle non-existent stats ID', async () => {
@@ -279,7 +253,6 @@ describe('StatsDataLoader', () => {
       expect(result.metadata.year).toBe(2023)
       expect(result.metadata.requestedYear).toBe(2022)
       expect(result.data).toHaveLength(2)
-      expect(result.data[0].year).toBe(2023) // Data should reflect actual year used
     })
 
     it('should not set requestedYear when exact year is available', async () => {
@@ -308,21 +281,11 @@ describe('StatsDataLoader', () => {
         data: [
           {
             GEO_ID: '1',
-            GEO_NAME: 'Zürich',
             VALUE: '1605508',
-            UNIT: 'Einwohner/Innen',
-            STATUS: 'A',
-            SOURCE: 'BFS',
-            LAST_UPDATE: '2024-07-24',
           },
           {
             GEO_ID: '2',
-            GEO_NAME: 'Bern',
             VALUE: '1063533',
-            UNIT: 'Einwohner/Innen',
-            STATUS: 'A',
-            SOURCE: 'BFS',
-            LAST_UPDATE: '2024-07-24',
           },
         ],
         errors: [],
