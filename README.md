@@ -394,7 +394,7 @@ This project demonstrates best practices for AI-assisted development:
 
 ## 📄 License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+This project is open source but keep in mind that the data used in this project is not open source and cannot be used for commercial purposes. For commercial use please contact the Swiss Federal Finance Administration.
 
 ## 🙏 Acknowledgments
 
