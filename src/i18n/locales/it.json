@@ -219,9 +219,11 @@
       "title": "Informazioni sulla scalatura",
       "description": "I fattori di scala aiutano a normalizzare i dati per un migliore confronto tra entità di dimensioni diverse.",
       "currentScaling": "Scalatura attuale: {name}",
-      "unit": "Unità: {unit}"
+      "unit": "Unità: {unit}",
+      "format": "{name} ({unit})"
     },
     "options": {
+      "pop": "Popolazione",
       "population": "Popolazione",
       "area": "Superficie",
       "households": "Famiglie",

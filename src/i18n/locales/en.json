@@ -219,9 +219,11 @@
       "title": "Scaling Information",
       "description": "Scaling factors help normalize data for better comparison between entities of different sizes.",
       "currentScaling": "Current scaling: {name}",
-      "unit": "Unit: {unit}"
+      "unit": "Unit: {unit}",
+      "format": "{name} ({unit})"
     },
     "options": {
+      "pop": "Population",
       "population": "Population",
       "area": "Area",
       "households": "Households",

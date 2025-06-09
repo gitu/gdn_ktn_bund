@@ -40,7 +40,7 @@ test.describe('Select Element from Dataset Selector', () => {
     await page.goto('/c?datasets=gdn/fs/194141:2022,std/fs/ktn_ag:2022,std/fs/bund:2022,std/fs/sv_ahv:2022');
 
     await page.getByRole('combobox').click();
-    await page.getByRole('option', { name: 'Anzahl Einwohner/-innen am' }).click();
+    await page.getByRole('option', { name: 'Bevölkerung' }).click();
     await expect(page.getByRole('cell', { name: 'Finanzieller Wert für Reinach' }).first()).toContainText('14.244 CHF');
     await expect(page.getByRole('cell', { name: 'Finanzieller Wert für Kanton' }).first()).toContainText('6.718 CHF');
     await expect(page.getByRole('cell', { name: 'Finanzieller Wert für Bund (' }).first()).toContainText('20.115 CHF');

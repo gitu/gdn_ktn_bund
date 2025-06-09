@@ -7,6 +7,7 @@
     "split": "node scripts/processData.js",
     "build-data": "node scripts/buildAvailableData.js",
     "convert-xml": "node scripts/convertXmlToCsv.js",
+    "fetch-atlas": "node scripts/fetchAtlasData.js",
     "dev": "vite",
     "build": "run-s build-data type-check \"build-only {@}\" --",
     "preview": "vite preview",

@@ -7,6 +7,7 @@ import { EntitySemanticMapper } from '@/utils/EntitySemanticMapper'
 import { getCantonByAbbreviation, getMunicipalityByGdnId } from '@/utils/GeographicalDataLoader'
 import type { FinancialData } from '@/types/FinancialDataStructure'
 import type { MultiLanguageLabels } from '@/types/DataStructures.ts'
+import { i18n } from '@/i18n'
 
 interface ScalingInfo {
   id: string
@@ -231,10 +232,22 @@ export const useFinancialDataStore = defineStore('financialData', () => {
         if (scalingFactor !== null && scalingFactor > 0) {
           entity.scalingFactor = scalingFactor
           entity.scalingInfo = {
-            de: `${scalingInfo.name} (${scalingInfo.unit})`,
-            fr: `${scalingInfo.name} (${scalingInfo.unit})`,
-            it: `${scalingInfo.name} (${scalingInfo.unit})`,
-            en: `${scalingInfo.name} (${scalingInfo.unit})`,
+            de: i18n.global.t('financialDataScalingSelector.scalingInfo.format', {
+              name: scalingInfo.name.de,
+              unit: scalingInfo.unit.de,
+            }),
+            fr: i18n.global.t('financialDataScalingSelector.scalingInfo.format', {
+              name: scalingInfo.name.fr,
+              unit: scalingInfo.unit.fr,
+            }),
+            it: i18n.global.t('financialDataScalingSelector.scalingInfo.format', {
+              name: scalingInfo.name.it,
+              unit: scalingInfo.unit.it,
+            }),
+            en: i18n.global.t('financialDataScalingSelector.scalingInfo.format', {
+              name: scalingInfo.name.en,
+              unit: scalingInfo.unit.en,
+            }),
           }
           entity.scalingMode = 'divide' // Divide financial values by scaling factor for per-capita/per-unit values
         }
@@ -268,9 +281,7 @@ export const useFinancialDataStore = defineStore('financialData', () => {
           geoIds: [entityId],
         })
 
-        const record = result.data.find(
-          (r: { geoId: string; value: number }) => r.geoId === entityId,
-        )
+        const record = result.data.find((r: { key: string; value: number }) => r.key === entityId)
         value = record ? record.value : null
       } else {
         if (entityId === 'bund') {
@@ -282,9 +293,7 @@ export const useFinancialDataStore = defineStore('financialData', () => {
             geoIds: [entityId],
           })
 
-          const record = result.data.find(
-            (r: { geoId: string; value: number }) => r.geoId === entityId,
-          )
+          const record = result.data.find((r: { key: string; value: number }) => r.key === entityId)
           value = record ? record.value : null
         }
       }

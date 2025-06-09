@@ -219,9 +219,11 @@
       "title": "Informations sur la mise à l'échelle",
       "description": "Les facteurs d'échelle aident à normaliser les données pour une meilleure comparaison entre entités de tailles différentes.",
       "currentScaling": "Mise à l'échelle actuelle: {name}",
-      "unit": "Unité: {unit}"
+      "unit": "Unité: {unit}",
+      "format": "{name} ({unit})"
     },
     "options": {
+      "pop": "Population",
       "population": "Population",
       "area": "Superficie",
       "households": "Ménages",

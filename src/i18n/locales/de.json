@@ -219,13 +219,17 @@
       "title": "Skalierungsinformationen",
       "description": "Skalierungsfaktoren helfen dabei, Daten für bessere Vergleiche zwischen Entitäten unterschiedlicher Größe zu normalisieren.",
       "currentScaling": "Aktuelle Skalierung: {name}",
-      "unit": "Einheit: {unit}"
+      "unit": "Einheit: {unit}",
+      "format": "{name} ({unit})"
     },
     "options": {
+      "pop": "Bevölkerung",
       "population": "Bevölkerung",
       "area": "Fläche",
       "households": "Haushalte",
-      "employees": "Beschäftigte"
+      "employees": "Beschäftigte",
+      "total_area": "Gesamtfläche",
+      "workplaces": "Arbeitsplätze"
     },
     "errors": {
       "loadingFailed": "Fehler beim Laden der Skalierungsoptionen",

@@ -163,9 +163,25 @@ const scalingOptions = computed<ScalingOption[]>(() => {
 
   // Add available statistics as scaling options
   availableStats.value.forEach((stat) => {
-    const currentLocale = locale.value as keyof MultiLanguageLabels
+    // Try to get translation key first, fallback to stat name
+    const translationKey = `financialDataScalingSelector.options.${stat.id}`
+    let label: string
+
+    try {
+      // Check if translation exists
+      label = t(translationKey)
+      // If translation returns the key itself, it doesn't exist
+      if (label === translationKey) {
+        throw new Error('Translation not found')
+      }
+    } catch {
+      // Fallback to stat name from data
+      const currentLocale = locale.value as keyof MultiLanguageLabels
+      label = stat.name[currentLocale] || stat.name.en || stat.id
+    }
+
     options.push({
-      label: stat.name[currentLocale] || stat.name.en || stat.id,
+      label,
       value: stat.id,
       statsId: stat.id,
       unit: stat.unit,
@@ -211,15 +227,7 @@ const loadAvailableStats = async () => {
     const stats = await statsDataLoader.getAvailableStats()
 
     // Filter for relevant scaling statistics (population, area, etc.)
-    availableStats.value = stats.filter((stat: StatsAvailabilityInfo) => {
-      const id = stat.id.toLowerCase()
-      return (
-        id.includes('pop') ||
-        id.includes('area') ||
-        id.includes('household') ||
-        id.includes('employee')
-      )
-    })
+    availableStats.value = stats;
   } catch (err) {
     console.error('Error loading available statistics:', err)
     error.value = t('financialDataScalingSelector.errors.loadingFailed')

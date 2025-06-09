@@ -109,8 +109,10 @@ const i18nMessages = {
           'Scaling factors help normalize data for better comparison between entities of different sizes.',
         currentScaling: 'Current scaling: {name}',
         unit: 'Unit: {unit}',
+        format: '{name} ({unit})',
       },
       options: {
+        pop: 'Population',
         population: 'Population',
         area: 'Area',
         households: 'Households',
@@ -150,6 +152,7 @@ const i18nMessages = {
         unit: 'Einheit: {unit}',
       },
       options: {
+        pop: 'Bevölkerung',
         population: 'Bevölkerung',
         area: 'Fläche',
         households: 'Haushalte',
@@ -164,6 +167,7 @@ const i18nMessages = {
     financialDataDisplay: {
       scalingInfo: {
         title: 'Skalierungsinformationen',
+        format: '{name} ({unit})',
       },
       yearInfo: 'Jahr: {year}',
       scalingFactor: 'Skalierungsfaktor: {factor}',

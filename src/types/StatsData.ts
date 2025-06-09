@@ -20,6 +20,8 @@ export interface StatsDataEntry {
   lastUpdate: string
   /** Mode of the statistic */
   mode: 'absolute' | 'per_capita'
+  /** Data format configuration for parsing CSV files */
+  dataFormat: DataFormat
   /** Available data files organized by type */
   data: {
     /** Canton-level data files */
@@ -27,6 +29,24 @@ export interface StatsDataEntry {
     /** Municipality-level data files */
     gdn?: StatsDataFile[]
   }
+}
+
+/**
+ * Data format configuration for CSV parsing
+ */
+export interface DataFormat {
+  /** File type (currently only 'csv' supported) */
+  type: 'csv'
+  /** CSV delimiter character */
+  delimiter: string
+  /** Quote character for CSV parsing */
+  quoteChar: string
+  /** Whether the CSV file has headers */
+  header: boolean
+  /** Field name or index for the key/ID field */
+  key_field: string | number
+  /** Field name or index for the value field */
+  value_field: string | number
 }
 
 /**
@@ -51,62 +71,19 @@ export interface StatsCatalog {
 
 /**
  * Raw CSV record from statistical data files
+ * Can be either a named record (with headers) or an array-like record (indexed access)
  */
 export interface StatsDataRecord {
-  /** Geographic ID */
-  GEO_ID: string
-  /** Geographic name (canton or municipality name) */
-  GEO_NAME: string
-  /** Variable description */
-  VARIABLE: string
-  /** Statistical value */
-  VALUE: string
-  /** Unit of measurement */
-  UNIT: string
-  /** Status code */
-  STATUS: string
-  /** Status description */
-  STATUS_DESC: string
-  /** Description value (usually empty) */
-  DESC_VAL: string
-  /** Period reference date */
-  PERIOD_REF: string
-  /** Data source */
-  SOURCE: string
-  /** Last update date */
-  LAST_UPDATE: string
-  /** Geometry code */
-  GEOM_CODE: string
-  /** Geometry description */
-  GEOM: string
-  /** Geometry period */
-  GEOM_PERIOD: string
-  /** Map ID for atlas reference */
-  MAP_ID: string
-  /** Map URL for atlas reference */
-  MAP_URL: string
+  key?: string
+  value?: string
 }
 
 /**
  * Processed statistical data record
  */
 export interface ProcessedStatsRecord {
-  /** Geographic ID */
-  geoId: string
-  /** Geographic name (canton or municipality name) */
-  geoName: string
-  /** Numerical value */
+  key: string
   value: number
-  /** Unit of measurement */
-  unit: string
-  /** Year of the data */
-  year: number
-  /** Status code */
-  status: string
-  /** Data source */
-  source: string
-  /** Last update date */
-  lastUpdate: string
 }
 
 /**
