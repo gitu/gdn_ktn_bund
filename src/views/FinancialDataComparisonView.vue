@@ -66,12 +66,40 @@
             {{ $t('financialDataComparison.demoTitle') }}
           </h2>
 
-          <div class="mb-8">
-            <Button
-              :label="$t('financialDataComparison.loadDemoData')"
-              icon="pi pi-play"
-              @click="loadDemoData"
-            />
+          <p class="text-surface-600 dark:text-surface-300 mb-6">
+            {{ $t('financialDataComparison.demoDescription') }}
+          </p>
+
+          <div class="flex flex-col gap-4 max-w-2xl mx-auto">
+            <div
+              v-for="(sample, key) in sampleDatasets"
+              :key="key"
+              class="border border-surface-200 dark:border-surface-700 rounded-lg p-4 hover:bg-surface-50 dark:hover:bg-surface-800 transition-colors cursor-pointer"
+              @click="loadSampleDataset(key)"
+            >
+              <div class="flex justify-between items-start">
+                <div class="text-left flex-1">
+                  <h3 class="font-semibold text-surface-900 dark:text-surface-50 mb-2">
+                    {{ $t(`financialDataComparison.sampleDatasets.${key}.name`) }}
+                  </h3>
+                  <p class="text-sm text-surface-600 dark:text-surface-300 mb-3">
+                    {{ $t(`financialDataComparison.sampleDatasets.${key}.description`) }}
+                  </p>
+                  <div class="text-xs text-surface-500 dark:text-surface-400">
+                    {{ sample.datasets.length }} datasets
+                    <span v-if="sample.scaling">
+                      • {{ $t('financialDataScaling.options.' + sample.scaling) }}</span
+                    >
+                  </div>
+                </div>
+                <Button
+                  :label="$t('financialDataComparison.loadDemoData')"
+                  icon="pi pi-play"
+                  size="small"
+                  @click.stop="loadSampleDataset(key)"
+                />
+              </div>
+            </div>
           </div>
         </div>
       </template>
@@ -98,6 +126,13 @@ import Card from 'primevue/card'
 import Message from 'primevue/message'
 import FinancialDataComparison from '../components/FinancialDataComparison.vue'
 import DatasetSelector from '../components/DatasetSelector.vue'
+
+// Types
+interface SampleDataset {
+  datasets: string[]
+  scaling?: string
+}
+
 // Vue composables
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const { t } = useI18n()
@@ -111,11 +146,26 @@ const selectedDatasets = ref<string[]>([])
 const selectedScaling = ref<string | null>(null)
 
 // Sample datasets for demonstration
-const sampleDatasets = [
-  'gdn/fs/010002:2016', // Municipality 010002 in 2016
-  'gdn/fs/010009:2016', // Municipality 010009 in 2016
-  'std/fs/gdn_zh:2016', // All municipalities in Canton Zurich in 2016
-]
+const sampleDatasets: Record<string, SampleDataset> = {
+  governmentalLevels: {
+    datasets: [
+      'std/fs/gdn:2022',
+      'std/fs/ktn:2022',
+      'std/fs/bund:2022',
+      'std/fs/bund_ktn_gdn:2022',
+    ],
+  },
+  zurichMunicipalities: {
+    datasets: [
+      'gdn/fs/010261:2022',
+      'gdn/fs/010230:2022',
+      'gdn/fs/010156:2022',
+      'gdn/fs/010058:2022',
+      'std/fs/gdn_zh:2022',
+    ],
+    scaling: 'pop',
+  },
+}
 
 // Event handlers
 const handleError = (error: string) => {
@@ -141,9 +191,17 @@ const handleScalingChanged = (scalingId: string | null) => {
   }
 }
 
-const loadDemoData = () => {
-  selectedDatasets.value = sampleDatasets
-  updateURL()
+const loadSampleDataset = (sampleKey: string) => {
+  const sample = sampleDatasets[sampleKey as keyof typeof sampleDatasets]
+  if (sample) {
+    selectedDatasets.value = sample.datasets
+    if (sample.scaling) {
+      selectedScaling.value = sample.scaling
+    } else {
+      selectedScaling.value = null
+    }
+    updateURL()
+  }
 }
 
 const openFullView = () => {

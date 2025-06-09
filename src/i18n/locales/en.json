@@ -234,8 +234,8 @@
     }
   },
   "financialDataComparison": {
-    "title": "Financial Data Comparison",
-    "subtitle": "Compare financial datasets side-by-side using hierarchical tree structure",
+    "title": "Select Financial Data to Compare",
+    "subtitle": "Choose and compare different Swiss governmental entities' financial statements to discover insights",
     "loading": "Loading financial data...",
     "error": "Error loading data",
     "noData": "No data available for comparison",
@@ -260,7 +260,7 @@
     "comparisonDescription": "Comparing {count} selected datasets",
     "demoTitle": "Demo Comparison",
     "demoResults": "Demo Results",
-    "demoDescription": "This example compares three datasets from 2016:",
+    "demoDescription": "Choose from these sample dataset collections to explore the comparison features:",
     "demoDataset1": "Municipality 010002",
     "demoDataset1Description": "Specific municipality data",
     "demoDataset2": "Municipality 010009",
@@ -268,6 +268,18 @@
     "demoDataset3": "Canton Zurich (gdn_zh)",
     "demoDataset3Description": "All municipalities in Canton Zurich",
     "loadDemoData": "Load Demo Data",
+    "sampleDatasets": {
+      "governmentalLevels": {
+        "name": "All Governmental Levels Comparison",
+        "description": "Compare municipalities, cantons, and federal level data aggregated by level"
+      },
+      "zurichMunicipalities": {
+        "name": "Zurich Municipalities Comparison",
+        "description": "Compare different municipalities in Canton Zurich with population scaling"
+      }
+    },
+    "selectSampleDataset": "Select Sample Dataset",
+    "loadSelectedSample": "Load Selected Sample",
     "openFullView": "Open Full View",
     "openFullViewTooltip": "Opens the current comparison view in a dedicated full-screen mode"
   },

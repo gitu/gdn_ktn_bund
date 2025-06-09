@@ -234,8 +234,8 @@
     }
   },
   "financialDataComparison": {
-    "title": "Confronto dati finanziari",
-    "subtitle": "Confronta i set di dati finanziari affiancati utilizzando una struttura ad albero gerarchica",
+    "title": "Seleziona dati finanziari da confrontare",
+    "subtitle": "Scegli e confronta i bilanci di diverse entità governative svizzere per scoprire informazioni",
     "loading": "Caricamento dati finanziari...",
     "error": "Errore nel caricamento dei dati",
     "noData": "Nessun dato disponibile per il confronto",
@@ -260,7 +260,7 @@
     "comparisonDescription": "Confronto di {count} dataset selezionati",
     "demoTitle": "Confronto dimostrativo",
     "demoResults": "Risultati dimostrativi",
-    "demoDescription": "Questo esempio confronta tre dataset del 2016:",
+    "demoDescription": "Scegli tra queste collezioni di dataset di esempio per esplorare le funzionalità di confronto:",
     "demoDataset1": "Comune 010002",
     "demoDataset1Description": "Dati specifici del comune",
     "demoDataset2": "Comune 010009",
@@ -268,6 +268,18 @@
     "demoDataset3": "Cantone Zurigo (gdn_zh)",
     "demoDataset3Description": "Tutti i comuni del cantone Zurigo",
     "loadDemoData": "Carica dati dimostrativi",
+    "sampleDatasets": {
+      "governmentalLevels": {
+        "name": "Confronto di tutti i livelli governativi",
+        "description": "Confronta i dati di comuni, cantoni e livello federale aggregati per livello"
+      },
+      "zurichMunicipalities": {
+        "name": "Confronto dei comuni zurighesi",
+        "description": "Confronta diversi comuni del cantone Zurigo con scalatura demografica"
+      }
+    },
+    "selectSampleDataset": "Seleziona dataset di esempio",
+    "loadSelectedSample": "Carica esempio selezionato",
     "openFullView": "Apri vista completa",
     "openFullViewTooltip": "Apre la vista di confronto attuale in modalità schermo intero dedicata"
   },

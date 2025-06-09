@@ -3,7 +3,7 @@ import {test, expect} from '@playwright/test';
 test.describe('Select Element from Dataset Selector', () => {
   test('select element from dataset selector and open full view', async ({page}) => {
     await page.goto('/financial-comparison');
-    await expect(page.locator('h1')).toContainText('Finanzdatenvergleich');
+    await expect(page.locator('h1')).toContainText('Finanzdaten zum Vergleich auswählen');
     await page.getByRole('textbox', {name: 'Nach Datensätzen suchen...'}).click();
     await page.getByRole('textbox', {name: 'Nach Datensätzen suchen...'}).fill('aargau');
     await expect(page.locator('tbody')).toContainText('Alle Gemeinden des Kantons Aargau');
