@@ -17,6 +17,14 @@
       "mode": "absolut",
       "source": "STATPOP via atlas.bfs.admin.ch",
       "lastUpdate": "2024-08-21",
+      "dataFormat": {
+        "type": "csv",
+        "delimiter": ";",
+        "quoteChar": "\"",
+        "header": true,
+        "key_field": "GEO_ID",
+        "value_field": "VALUE"
+      },
       "data": {
         "ktn": [
           {
@@ -30,6 +38,128 @@
             "year": 2023,
             "file": "pop/gdn/2023.csv",
             "atlasId": "27864"
+          }
+        ]
+      }
+    },
+    {
+      "id": "total_area",
+      "name": {
+        "de": "Gesamtfläche",
+        "fr": "Superficie totale",
+        "it": "Superficie totale",
+        "en": "Total area"
+      },
+      "unit": {
+        "de": "ha",
+        "fr": "ha",
+        "it": "ha",
+        "en": "ha"
+      },
+      "mode": "absolut",
+      "source": "BFS",
+      "lastUpdate": "2018",
+      "dataFormat": {
+        "type": "csv",
+        "delimiter": ",",
+        "quoteChar": "\"",
+        "header": true,
+        "key_field": 0,
+        "value_field": 1
+      },
+      "data": {
+        "ktn": [
+          {
+            "year": 2018,
+            "file": "area/area-data-ktn.csv"
+          }
+        ],
+        "gdn": [
+          {
+            "year": 2018,
+            "file": "area/area-data-gdn.csv"
+          }
+        ]
+      }
+    },
+    {
+      "id": "overbuilt",
+      "name": {
+        "de": "Künstlich angelegte Flächen",
+        "fr": "Superficie artificiellement aménagée",
+        "it": "Superficie artificialmente ammodernata",
+        "en": "Artificially created areas"
+      },
+      "unit": {
+        "de": "ha",
+        "fr": "ha",
+        "it": "ha",
+        "en": "ha"
+      },
+      "mode": "absolut",
+      "source": "BFS",
+      "lastUpdate": "2018",
+      "dataFormat": {
+        "type": "csv",
+        "delimiter": ",",
+        "quoteChar": "\"",
+        "header": true,
+        "key_field": 0,
+        "value_field": 2
+      },
+      "data": {
+        "ktn": [
+          {
+            "year": 2018,
+            "file": "area/area-data-ktn.csv"
+          }
+        ],
+        "gdn": [
+          {
+            "year": 2018,
+            "file": "area/area-data-gdn.csv"
+          }
+        ]
+      }
+    },
+    {
+      "id": "workplaces",
+      "name": {
+        "de": "Arbeitsplätze",
+        "fr": "Postes de travail",
+        "it": "Posti di lavoro",
+        "en": "Jobs"
+      },
+      "unit": {
+        "de": "Berufstätige/Innen",
+        "fr": "Personnes actives",
+        "it": "Persone attive",
+        "en": "Employed persons"
+      },
+      "mode": "per_capita",
+      "source": "BFS",
+      "lastUpdate": "2023-11-30",
+      "dataFormat": {
+        "type": "csv",
+        "delimiter": ";",
+        "quoteChar": "\"",
+        "header": true,
+        "key_field": "GEO_ID",
+        "value_field": "VALUE"
+      },
+      "data": {
+        "ktn": [
+          {
+            "year": 2023,
+            "file": "jobs/ktn/2023.csv",
+            "atlasId": "27300"
+          }
+        ],
+        "gdn": [
+          {
+            "year": 2023,
+            "file": "jobs/gdn/2023.csv",
+            "atlasId": "27299"
           }
         ]
       }

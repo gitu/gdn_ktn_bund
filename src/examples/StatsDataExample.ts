@@ -60,21 +60,21 @@ export async function exampleAdvancedUsage() {
 
     console.log('Large cantons (>500k population):')
     largeCantons.data.forEach((canton) => {
-      console.log(`  ${canton.geoName}: ${canton.value.toLocaleString()}`)
+      console.log(`  ${canton.key}: ${canton.value.toLocaleString()}`)
     })
 
     // Get top 5 most populous cantons
     const topCantons = await loader.getTopEntities('pop', 2023, 'ktn', 5)
     console.log('\nTop 5 most populous cantons:')
     topCantons.forEach((canton, index) => {
-      console.log(`  ${index + 1}. ${canton.geoName}: ${canton.value.toLocaleString()}`)
+      console.log(`  ${index + 1}. ${canton.key}: ${canton.value.toLocaleString()}`)
     })
 
     // Search municipalities by name
     const zurichMunicipalities = await loader.searchMunicipalities('pop', 2023, 'Zürich')
     console.log(`\nMunicipalities with "Zürich" in name: ${zurichMunicipalities.length}`)
     zurichMunicipalities.forEach((municipality) => {
-      console.log(`  ${municipality.geoName}: ${municipality.value.toLocaleString()}`)
+      console.log(`  ${municipality.key}: ${municipality.value.toLocaleString()}`)
     })
   } catch (error) {
     console.error('Error in advanced usage:', error)

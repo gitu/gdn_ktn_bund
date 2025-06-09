@@ -6,6 +6,7 @@ import * as Papa from 'papaparse'
 import type {
   StatsCatalog,
   StatsDataEntry,
+  DataFormat,
   StatsDataRecord,
   ProcessedStatsRecord,
   StatsDataResult,
@@ -72,7 +73,6 @@ export class StatsDataLoader {
    */
   async getAvailableStats(): Promise<StatsAvailabilityInfo[]> {
     const catalog = await this.loadStatsCatalog()
-
     return catalog.stats.map((entry) => ({
       id: entry.id,
       name: entry.name,
@@ -93,9 +93,12 @@ export class StatsDataLoader {
   }
 
   /**
-   * Load and parse CSV data from a given path
+   * Load and parse CSV data from a given path using the specified data format
    */
-  private async loadCsvData(dataPath: string): Promise<StatsDataRecord[]> {
+  private async loadCsvData(
+    dataPath: string,
+    dataFormat: DataFormat,
+  ): Promise<(StatsDataRecord | string[])[]> {
     try {
       const response = await fetch(dataPath)
       if (!response.ok) {
@@ -104,20 +107,20 @@ export class StatsDataLoader {
 
       const csvText = await response.text()
 
-      // Parse CSV using Papa Parse with semicolon delimiter (BFS standard)
+      // Use the data format configuration for parsing
       const parseResult = Papa.parse(csvText, {
-        header: true,
+        header: dataFormat.header,
         skipEmptyLines: true,
-        delimiter: ';',
-        quoteChar: '"',
+        delimiter: dataFormat.delimiter,
+        quoteChar: dataFormat.quoteChar,
         transform: (value: string) => value.trim(),
-      }) as Papa.ParseResult<StatsDataRecord>
+      })
 
       if (parseResult.errors.length > 0) {
         console.warn('CSV parsing warnings:', parseResult.errors)
       }
 
-      return parseResult.data
+      return parseResult.data as string[][]
     } catch (error) {
       throw new Error(
         `Error loading CSV data from ${dataPath}: ${error instanceof Error ? error.message : 'Unknown error'}`,
@@ -128,25 +131,87 @@ export class StatsDataLoader {
   /**
    * Process raw CSV records into standardized format
    */
-  private processStatsRecords(rawRecords: StatsDataRecord[], year: number): ProcessedStatsRecord[] {
+  private processStatsRecords(
+    rawRecords: (StatsDataRecord | string[])[],
+    year: number,
+    dataFormat: DataFormat,
+  ): ProcessedStatsRecord[] {
     return rawRecords
-      .map((record) => ({
-        geoId: record.GEO_ID,
-        geoName: record.GEO_NAME,
-        value: parseFloat(record.VALUE) || 0,
-        unit: record.UNIT,
-        year: year,
-        status: record.STATUS,
-        source: record.SOURCE,
-        lastUpdate: record.LAST_UPDATE,
-      }))
+      .map((record) => {
+        // Extract values based on field configuration
+        const key = this.extractFieldValue(record, dataFormat.key_field)
+        const value = this.extractFieldValue(record, dataFormat.value_field)
+
+        return {
+          key: key || '',
+          value: parseFloat(value) || 0,
+        }
+      })
       .filter((record) => {
         // Filter out invalid records if validation is enabled
         if (this.config.validateData) {
-          return !isNaN(record.value) && record.geoId && record.geoName
+          return !isNaN(record.value) && record.key
         }
         return true
       })
+  }
+
+  /**
+   * Get data format with backward compatibility
+   */
+  private getDataFormat(entry: StatsDataEntry): DataFormat {
+    // If dataFormat is present, use it
+    if (entry.dataFormat) {
+      return entry.dataFormat
+    }
+
+    // Backward compatibility: create default format for entries without dataFormat
+    return {
+      type: 'csv',
+      delimiter: ';',
+      quoteChar: '"',
+      header: true,
+      key_field: 'GEO_ID',
+      value_field: 'VALUE',
+    }
+  }
+
+  /**
+   * Extract field value from record using either field name or index
+   */
+  private extractFieldValue(
+    record: StatsDataRecord | string[],
+    fieldConfig: string | number,
+  ): string {
+    if (typeof fieldConfig === 'string') {
+      // Use field name - record should be an object
+      if (Array.isArray(record)) {
+        console.warn('Trying to access named field on array record')
+        return ''
+      }
+      // For simplified interface, map common field names to our interface
+      if (fieldConfig === 'GEO_ID' || fieldConfig === 'key') {
+        return (
+          (record as Record<string, string>).GEO_ID || (record as Record<string, string>).key || ''
+        )
+      }
+      if (fieldConfig === 'VALUE' || fieldConfig === 'value') {
+        return (
+          (record as Record<string, string>).VALUE || (record as Record<string, string>).value || ''
+        )
+      }
+      // Fallback for any other field names
+      return (record as Record<string, string>)[fieldConfig] || ''
+    } else {
+      // Use field index
+      if (Array.isArray(record)) {
+        return record[fieldConfig] || ''
+      } else {
+        // Convert object to array for index access
+        const values = Object.values(record)
+        return values[fieldConfig] || ''
+      }
+    }
   }
 
   /**
@@ -159,15 +224,15 @@ export class StatsDataLoader {
     if (!filters) return records
 
     return records.filter((record) => {
-      // Filter by geographic IDs
-      if (filters.geoIds && !filters.geoIds.includes(record.geoId)) {
+      // Filter by geographic IDs (now using key field)
+      if (filters.geoIds && !filters.geoIds.includes(record.key)) {
         return false
       }
 
-      // Filter by geographic name pattern
+      // Filter by geographic name pattern (now using key field)
       if (
         filters.geoNamePattern &&
-        !record.geoName.toLowerCase().includes(filters.geoNamePattern.toLowerCase())
+        !record.key.toLowerCase().includes(filters.geoNamePattern.toLowerCase())
       ) {
         return false
       }
@@ -233,8 +298,9 @@ export class StatsDataLoader {
     }
 
     const dataPath = `/data/stats/${ktnFile.file}`
-    const rawData = await this.loadCsvData(dataPath)
-    const processedData = this.processStatsRecords(rawData, actualYear)
+    const dataFormat = this.getDataFormat(entry)
+    const rawData = await this.loadCsvData(dataPath, dataFormat)
+    const processedData = this.processStatsRecords(rawData, actualYear, dataFormat)
     const filteredData = this.applyFilters(processedData, filters)
 
     return {
@@ -246,7 +312,7 @@ export class StatsDataLoader {
         year: actualYear,
         requestedYear: year !== actualYear ? year : undefined,
         dataType: 'ktn',
-        unit: filteredData[0]?.unit,
+        unit: entry.unit?.de || entry.unit?.en || '',
         mode: entry.mode,
         name: entry.name,
       },
@@ -280,8 +346,9 @@ export class StatsDataLoader {
     }
 
     const dataPath = `/data/stats/${gdnFile.file}`
-    const rawData = await this.loadCsvData(dataPath)
-    const processedData = this.processStatsRecords(rawData, actualYear)
+    const dataFormat = this.getDataFormat(entry)
+    const rawData = await this.loadCsvData(dataPath, dataFormat)
+    const processedData = this.processStatsRecords(rawData, actualYear, dataFormat)
     const filteredData = this.applyFilters(processedData, filters)
 
     return {
@@ -293,7 +360,7 @@ export class StatsDataLoader {
         year: actualYear,
         requestedYear: year !== actualYear ? year : undefined,
         dataType: 'gdn',
-        unit: filteredData[0]?.unit,
+        unit: entry.unit?.de || entry.unit?.en || '',
         mode: entry.mode,
         name: entry.name,
       },
@@ -307,7 +374,7 @@ export class StatsDataLoader {
     const ktnResult = await this.loadKtnData(statsId, year)
 
     const totalValue = ktnResult.data.reduce((sum, record) => sum + record.value, 0)
-    const unit = ktnResult.data[0]?.unit || ''
+    const unit = ktnResult.metadata.unit || ''
 
     return {
       totalValue,
@@ -417,20 +484,20 @@ export class StatsDataLoader {
     ])
 
     // Create maps for easier lookup
-    const year1Map = new Map(result1.data.map((record) => [record.geoId, record]))
-    const year2Map = new Map(result2.data.map((record) => [record.geoId, record]))
+    const year1Map = new Map(result1.data.map((record) => [record.key, record]))
+    const year2Map = new Map(result2.data.map((record) => [record.key, record]))
 
     // Calculate changes for entities present in both years
     const changes = []
-    for (const [geoId, record1] of year1Map) {
-      const record2 = year2Map.get(geoId)
+    for (const [key, record1] of year1Map) {
+      const record2 = year2Map.get(key)
       if (record2) {
         const absoluteChange = record2.value - record1.value
         const percentageChange = record1.value !== 0 ? (absoluteChange / record1.value) * 100 : 0
 
         changes.push({
-          geoId,
-          geoName: record1.geoName,
+          geoId: key,
+          geoName: key, // Using key as name since we don't have separate name field
           year1Value: record1.value,
           year2Value: record2.value,
           absoluteChange,
@@ -489,8 +556,8 @@ export class StatsDataLoader {
       total,
       average,
       median,
-      min: { value: minRecord.value, entity: minRecord.geoName },
-      max: { value: maxRecord.value, entity: maxRecord.geoName },
+      min: { value: minRecord.value, entity: minRecord.key },
+      max: { value: maxRecord.value, entity: maxRecord.key },
       standardDeviation,
       count: values.length,
     }
