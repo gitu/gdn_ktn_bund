@@ -81,8 +81,8 @@ jobs:
         run: npm run build
       - name: Install playwright browsers
         run: npx playwright install ${{ matrix.browser }} --with-deps
-        if: "${{ matrix.browser != 'chromium' }}"
       - name: Run e2e tests (${{ matrix.browser }})
+        if: "${{ matrix.browser == 'chromium' }}"
         run: npx playwright test --project=${{ matrix.browser }}
       - name: Upload playwright report
         if: always()
