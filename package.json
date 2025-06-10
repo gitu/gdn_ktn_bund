@@ -29,7 +29,7 @@
   "dependencies": {
     "@primeuix/themes": "^1.0.0",
     "@tailwindcss/vite": "^4.1.8",
-    "chart.js": "3.3.2",
+    "chart.js": "4.4.9",
     "papaparse": "^5.5.3",
     "pinia": "^3.0.3",
     "primeicons": "^7.0.0",
