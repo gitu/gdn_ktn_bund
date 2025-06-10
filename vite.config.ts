@@ -8,6 +8,7 @@ import vueDevTools from 'vite-plugin-vue-devtools'
 import tailwindcss from '@tailwindcss/vite'
 import { PrimeVueResolver } from '@primevue/auto-import-resolver';
 import Components from 'unplugin-vue-components/vite';
+import {cloudflare} from "@cloudflare/vite-plugin";
 
 // Get current Git commit hash
 function getGitCommitHash(): string {
@@ -39,7 +40,8 @@ export default defineConfig({
     Components({
       resolvers: [PrimeVueResolver()]
     }),
-  ],
+    cloudflare()
+],
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url))
