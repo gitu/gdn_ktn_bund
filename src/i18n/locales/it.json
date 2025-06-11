@@ -397,5 +397,57 @@
     "noDataMessage": "Seleziona i dataset nella vista di confronto principale prima di aprire la vista completa.",
     "loadingDatasets": "Caricamento dataset...",
     "datasetsLoaded": "{count} dataset caricati"
+  },
+  "comparison": {
+    "title": "Confronto dati finanziari",
+    "subtitle": "Confronta valori tra diverse entità e periodi",
+    "cellToCell": "Cella a cella",
+    "columnToColumn": "Colonna a colonna",
+    "base": "Base",
+    "target": "Obiettivo",
+    "percentageChange": "Variazione",
+    "absoluteChange": "Variazione assoluta",
+    "activeComparisons": "{count} confronto attivo | {count} confronti attivi",
+    "noComparisons": "Nessun confronto attivo",
+    "selectBase": "Clicca su una cella o intestazione di colonna per selezionare il valore base",
+    "selectTarget": "Clicca su un'altra cella o intestazione di colonna per confrontare",
+    "cancelSelection": "Annulla selezione",
+    "clearAll": "Cancella tutto",
+    "clearAllTooltip": "Rimuovi tutti i confronti attivi",
+    "removeComparison": "Rimuovi confronto",
+    "calculationError": "Impossibile calcolare il confronto",
+    "divisionByZero": "Impossibile calcolare la variazione percentuale da zero",
+    "invalidValues": "Valori numerici non validi",
+    "helpTitle": "Come usare i confronti:",
+    "helpCellToCell": "Clicca su due celle nella stessa riga per confrontare i loro valori",
+    "helpColumnToColumn": "Clicca su due intestazioni di colonna per confrontare intere colonne",
+    "helpKeyboardShortcuts": "Usa Esc per annullare, Ctrl+Canc per cancellare tutto",
+    "keyboardShortcuts": "Scorciatoie da tastiera",
+    "shortcutCancel": "Annulla selezione",
+    "shortcutClearAll": "Cancella tutti i confronti",
+    "tooltipPosition": {
+      "top": "Alto",
+      "bottom": "Basso",
+      "left": "Sinistra",
+      "right": "Destra"
+    },
+    "displayOptions": {
+      "showTooltips": "Mostra tooltip",
+      "showOverlays": "Mostra sovrapposizioni",
+      "showPercentageChange": "Mostra variazione percentuale",
+      "showAbsoluteChange": "Mostra variazione assoluta",
+      "decimalPlaces": "Cifre decimali"
+    },
+    "states": {
+      "idle": "Pronto per la selezione",
+      "baseSelected": "Base selezionata",
+      "targetSelecting": "Seleziona obiettivo",
+      "comparing": "Confronto"
+    },
+    "errors": {
+      "invalidComparison": "Confronto non valido",
+      "calculationFailed": "Calcolo fallito",
+      "noData": "Nessun dato disponibile per il confronto"
+    }
   }
 }

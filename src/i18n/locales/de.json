@@ -397,5 +397,57 @@
     "noDataMessage": "Bitte wählen Sie Datensätze in der Hauptvergleichsansicht aus, bevor Sie die Vollansicht öffnen.",
     "loadingDatasets": "Lade Datensätze...",
     "datasetsLoaded": "{count} Datensätze geladen"
+  },
+  "comparison": {
+    "title": "Finanzdatenvergleich",
+    "subtitle": "Vergleichen Sie Werte zwischen verschiedenen Entitäten und Zeiträumen",
+    "cellToCell": "Zelle-zu-Zelle",
+    "columnToColumn": "Spalte-zu-Spalte",
+    "base": "Basis",
+    "target": "Ziel",
+    "percentageChange": "Änderung",
+    "absoluteChange": "Absolute Änderung",
+    "activeComparisons": "{count} aktiver Vergleich | {count} aktive Vergleiche",
+    "noComparisons": "Keine aktiven Vergleiche",
+    "selectBase": "Klicken Sie auf eine Zelle oder Spaltenüberschrift, um den Basiswert auszuwählen",
+    "selectTarget": "Klicken Sie auf eine andere Zelle oder Spaltenüberschrift zum Vergleichen",
+    "cancelSelection": "Auswahl abbrechen",
+    "clearAll": "Alle löschen",
+    "clearAllTooltip": "Alle aktiven Vergleiche entfernen",
+    "removeComparison": "Vergleich entfernen",
+    "calculationError": "Vergleich kann nicht berechnet werden",
+    "divisionByZero": "Prozentuale Änderung von Null kann nicht berechnet werden",
+    "invalidValues": "Ungültige numerische Werte",
+    "helpTitle": "So verwenden Sie Vergleiche:",
+    "helpCellToCell": "Klicken Sie auf zwei Zellen in derselben Zeile, um ihre Werte zu vergleichen",
+    "helpColumnToColumn": "Klicken Sie auf zwei Spaltenüberschriften, um ganze Spalten zu vergleichen",
+    "helpKeyboardShortcuts": "Verwenden Sie Esc zum Abbrechen, Strg+Entf zum Löschen aller",
+    "keyboardShortcuts": "Tastenkürzel",
+    "shortcutCancel": "Auswahl abbrechen",
+    "shortcutClearAll": "Alle Vergleiche löschen",
+    "tooltipPosition": {
+      "top": "Oben",
+      "bottom": "Unten",
+      "left": "Links",
+      "right": "Rechts"
+    },
+    "displayOptions": {
+      "showTooltips": "Tooltips anzeigen",
+      "showOverlays": "Overlays anzeigen",
+      "showPercentageChange": "Prozentuale Änderung anzeigen",
+      "showAbsoluteChange": "Absolute Änderung anzeigen",
+      "decimalPlaces": "Dezimalstellen"
+    },
+    "states": {
+      "idle": "Bereit zur Auswahl",
+      "baseSelected": "Basis ausgewählt",
+      "targetSelecting": "Ziel auswählen",
+      "comparing": "Vergleiche"
+    },
+    "errors": {
+      "invalidComparison": "Ungültiger Vergleich",
+      "calculationFailed": "Berechnung fehlgeschlagen",
+      "noData": "Keine Daten für Vergleich verfügbar"
+    }
   }
 }

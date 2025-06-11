@@ -397,5 +397,57 @@
     "noDataMessage": "Veuillez sélectionner des jeux de données dans la vue de comparaison principale avant d'ouvrir la vue complète.",
     "loadingDatasets": "Chargement des jeux de données...",
     "datasetsLoaded": "{count} jeux de données chargés"
+  },
+  "comparison": {
+    "title": "Comparaison de données financières",
+    "subtitle": "Comparez les valeurs entre différentes entités et périodes",
+    "cellToCell": "Cellule à cellule",
+    "columnToColumn": "Colonne à colonne",
+    "base": "Base",
+    "target": "Cible",
+    "percentageChange": "Changement",
+    "absoluteChange": "Changement absolu",
+    "activeComparisons": "{count} comparaison active | {count} comparaisons actives",
+    "noComparisons": "Aucune comparaison active",
+    "selectBase": "Cliquez sur une cellule ou un en-tête de colonne pour sélectionner la valeur de base",
+    "selectTarget": "Cliquez sur une autre cellule ou un en-tête de colonne pour comparer",
+    "cancelSelection": "Annuler la sélection",
+    "clearAll": "Tout effacer",
+    "clearAllTooltip": "Supprimer toutes les comparaisons actives",
+    "removeComparison": "Supprimer la comparaison",
+    "calculationError": "Impossible de calculer la comparaison",
+    "divisionByZero": "Impossible de calculer le changement en pourcentage à partir de zéro",
+    "invalidValues": "Valeurs numériques invalides",
+    "helpTitle": "Comment utiliser les comparaisons :",
+    "helpCellToCell": "Cliquez sur deux cellules de la même ligne pour comparer leurs valeurs",
+    "helpColumnToColumn": "Cliquez sur deux en-têtes de colonne pour comparer des colonnes entières",
+    "helpKeyboardShortcuts": "Utilisez Échap pour annuler, Ctrl+Suppr pour tout effacer",
+    "keyboardShortcuts": "Raccourcis clavier",
+    "shortcutCancel": "Annuler la sélection",
+    "shortcutClearAll": "Effacer toutes les comparaisons",
+    "tooltipPosition": {
+      "top": "Haut",
+      "bottom": "Bas",
+      "left": "Gauche",
+      "right": "Droite"
+    },
+    "displayOptions": {
+      "showTooltips": "Afficher les info-bulles",
+      "showOverlays": "Afficher les superpositions",
+      "showPercentageChange": "Afficher le changement en pourcentage",
+      "showAbsoluteChange": "Afficher le changement absolu",
+      "decimalPlaces": "Décimales"
+    },
+    "states": {
+      "idle": "Prêt à sélectionner",
+      "baseSelected": "Base sélectionnée",
+      "targetSelecting": "Sélectionner la cible",
+      "comparing": "Comparaison"
+    },
+    "errors": {
+      "invalidComparison": "Comparaison invalide",
+      "calculationFailed": "Échec du calcul",
+      "noData": "Aucune donnée disponible pour la comparaison"
+    }
   }
 }

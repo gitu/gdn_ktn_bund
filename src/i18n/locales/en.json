@@ -397,5 +397,57 @@
     "noDataMessage": "Please select datasets in the main comparison view before opening the full view.",
     "loadingDatasets": "Loading datasets...",
     "datasetsLoaded": "{count} datasets loaded"
+  },
+  "comparison": {
+    "title": "Financial Data Comparison",
+    "subtitle": "Compare values across different entities and time periods",
+    "cellToCell": "Cell-to-Cell",
+    "columnToColumn": "Column-to-Column",
+    "base": "Base",
+    "target": "Target",
+    "percentageChange": "Change",
+    "absoluteChange": "Absolute Change",
+    "activeComparisons": "{count} active comparison | {count} active comparisons",
+    "noComparisons": "No active comparisons",
+    "selectBase": "Click on a cell or column header to select the base value",
+    "selectTarget": "Click on another cell or column header to compare",
+    "cancelSelection": "Cancel Selection",
+    "clearAll": "Clear All",
+    "clearAllTooltip": "Remove all active comparisons",
+    "removeComparison": "Remove comparison",
+    "calculationError": "Unable to calculate comparison",
+    "divisionByZero": "Cannot calculate percentage change from zero",
+    "invalidValues": "Invalid numeric values",
+    "helpTitle": "How to use comparisons:",
+    "helpCellToCell": "Click two cells in the same row to compare their values",
+    "helpColumnToColumn": "Click two column headers to compare entire columns",
+    "helpKeyboardShortcuts": "Use Esc to cancel selection, Ctrl+Del to clear all",
+    "keyboardShortcuts": "Keyboard Shortcuts",
+    "shortcutCancel": "Cancel selection",
+    "shortcutClearAll": "Clear all comparisons",
+    "tooltipPosition": {
+      "top": "Top",
+      "bottom": "Bottom",
+      "left": "Left",
+      "right": "Right"
+    },
+    "displayOptions": {
+      "showTooltips": "Show tooltips",
+      "showOverlays": "Show overlays",
+      "showPercentageChange": "Show percentage change",
+      "showAbsoluteChange": "Show absolute change",
+      "decimalPlaces": "Decimal places"
+    },
+    "states": {
+      "idle": "Ready to select",
+      "baseSelected": "Base selected",
+      "targetSelecting": "Select target",
+      "comparing": "Comparing"
+    },
+    "errors": {
+      "invalidComparison": "Invalid comparison",
+      "calculationFailed": "Calculation failed",
+      "noData": "No data available for comparison"
+    }
   }
 }
