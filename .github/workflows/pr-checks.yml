@@ -80,7 +80,11 @@ jobs:
       - name: Build application
         run: npm run build
       - name: Install playwright browsers
+        if: "${{ matrix.browser != 'chromium' }}"
         run: npx playwright install ${{ matrix.browser }} --with-deps
+      - name: Install playwright without deps
+        if: "${{ matrix.browser == 'chromium' }}"
+        run: npx playwright install ${{ matrix.browser }}
       - name: Run e2e tests (${{ matrix.browser }})
         run: npx playwright test --project=${{ matrix.browser }}
       - name: Upload playwright report
