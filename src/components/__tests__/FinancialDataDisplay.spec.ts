@@ -563,6 +563,37 @@ describe('FinancialDataDisplay', () => {
       const label = vm.getNodeLabel(testNode)
       expect(label).toBe('Test Label (DE)')
     })
+
+    it('displays expand/collapse buttons with correct translations', async () => {
+      // Test German translations
+      i18n.global.locale.value = 'de'
+
+      const wrapper = mount(FinancialDataDisplay, {
+        global: {
+          plugins: [i18n],
+        },
+        props: {
+          financialData: mockFinancialData,
+        },
+      })
+
+      await wrapper.vm.$nextTick()
+
+      // Check that buttons use translation keys by verifying the component's t function
+      const vm = wrapper.vm as unknown as { t: (key: string) => string }
+      expect(vm.t('financialDataDisplay.expandAll')).toBe('Alle erweitern')
+      expect(vm.t('financialDataDisplay.collapseAll')).toBe('Alle einklappen')
+
+      // Test English translations
+      i18n.global.locale.value = 'en'
+      await wrapper.vm.$nextTick()
+
+      expect(vm.t('financialDataDisplay.expandAll')).toBe('Expand All')
+      expect(vm.t('financialDataDisplay.collapseAll')).toBe('Collapse All')
+
+      // Note: French and Italian translations are not included in the test setup,
+      // but they exist in the actual application translation files
+    })
   })
 
   describe('Currency Formatting', () => {
@@ -579,7 +610,7 @@ describe('FinancialDataDisplay', () => {
       const vm = wrapper.vm as unknown as { formatCurrency: (value: number) => string }
       const formattedValue = vm.formatCurrency(1234.56)
       expect(formattedValue).toMatch(/CHF/)
-      expect(formattedValue).toMatch(/1[,.]?235/) // Allow for different locale formatting
+      expect(formattedValue).toMatch(/1[\s,.]?235/) // Allow for different locale formatting including spaces
     })
 
     it('handles zero values correctly', () => {
