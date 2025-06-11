@@ -5,7 +5,7 @@ import Papa from 'papaparse';
 console.log('Starting data processing...');
 
 // Paths to the input CSV files
-const gdnInputFilePath = path.resolve('data/gdn_ab_5000.csv');
+const gdnInputFilePath = path.resolve('data/gdn_ab_5000-d.csv');
 const stdInputFilePath = path.resolve('data/standardauswertung.csv');
 const codelistInputFilePath = path.resolve('data/standardauswertung_codelist.csv');
 
