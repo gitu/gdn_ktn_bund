@@ -35,7 +35,7 @@ playwright-report/
 
 
 # ignore big data files
-/data/gdn_ab_5000.csv
+/data/gdn_ab_5000-d.csv
 /data/standardauswertung.csv
 
 /.wrangler
