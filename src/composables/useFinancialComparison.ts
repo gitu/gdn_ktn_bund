@@ -1,14 +1,12 @@
-import { ref, computed, reactive } from 'vue'
+import { computed, reactive } from 'vue'
 import type {
   ComparisonState,
   ComparisonBase,
   ComparisonTarget,
   ActiveComparison,
   ComparisonCalculationResult,
-  CellIdentifier,
-  ColumnIdentifier,
   ComparisonType,
-  ComparisonDisplayOptions
+  ComparisonDisplayOptions,
 } from '@/types/FinancialComparison'
 import type { FinancialDataEntity } from '@/types/FinancialDataStructure'
 
@@ -21,7 +19,7 @@ export function useFinancialComparison() {
     selectionMode: 'idle',
     baseSelection: null,
     activeComparisons: [],
-    hoveredCell: null
+    hoveredCell: null,
   })
 
   const displayOptions = reactive<ComparisonDisplayOptions>({
@@ -29,7 +27,7 @@ export function useFinancialComparison() {
     showOverlays: true,
     showPercentageChange: true,
     showAbsoluteChange: false,
-    decimalPlaces: 1
+    decimalPlaces: 1,
   })
 
   // Computed properties
@@ -42,14 +40,17 @@ export function useFinancialComparison() {
     return `comparison_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`
   }
 
-  const calculateComparison = (baseValue: number, targetValue: number): ComparisonCalculationResult => {
+  const calculateComparison = (
+    baseValue: number,
+    targetValue: number,
+  ): ComparisonCalculationResult => {
     // Handle edge cases
     if (!isFinite(baseValue) || !isFinite(targetValue)) {
       return {
         percentageChange: 0,
         absoluteChange: 0,
         isValid: false,
-        errorMessage: 'Invalid numeric values'
+        errorMessage: 'Invalid numeric values',
       }
     }
 
@@ -57,7 +58,7 @@ export function useFinancialComparison() {
       return {
         percentageChange: 0,
         absoluteChange: 0,
-        isValid: true
+        isValid: true,
       }
     }
 
@@ -66,7 +67,7 @@ export function useFinancialComparison() {
         percentageChange: Infinity,
         absoluteChange: targetValue,
         isValid: false,
-        errorMessage: 'Cannot calculate percentage change from zero'
+        errorMessage: 'Cannot calculate percentage change from zero',
       }
     }
 
@@ -76,20 +77,20 @@ export function useFinancialComparison() {
     return {
       percentageChange,
       absoluteChange,
-      isValid: true
+      isValid: true,
     }
   }
 
   const formatPercentageChange = (percentageChange: number): string => {
     if (!isFinite(percentageChange)) return 'N/A'
-    
+
     const sign = percentageChange >= 0 ? '+' : ''
     return `${sign}${percentageChange.toFixed(displayOptions.decimalPlaces)}%`
   }
 
   const formatAbsoluteChange = (absoluteChange: number): string => {
     if (!isFinite(absoluteChange)) return 'N/A'
-    
+
     const sign = absoluteChange >= 0 ? '+' : ''
     return `${sign}${new Intl.NumberFormat('de-CH', {
       style: 'currency',
@@ -105,7 +106,7 @@ export function useFinancialComparison() {
     entityCode: string,
     value: number,
     displayName: string,
-    type: ComparisonType = 'cell-to-cell'
+    type: ComparisonType = 'cell-to-cell',
   ) => {
     if (state.selectionMode === 'idle') {
       // First click - select base
@@ -114,7 +115,7 @@ export function useFinancialComparison() {
         rowCode,
         entityCode,
         value,
-        displayName
+        displayName,
       }
       state.selectionMode = 'base-selected'
     } else if (state.selectionMode === 'base-selected' && state.baseSelection) {
@@ -124,7 +125,7 @@ export function useFinancialComparison() {
         rowCode,
         entityCode,
         value,
-        displayName
+        displayName,
       }
 
       createComparison(state.baseSelection, target)
@@ -135,7 +136,7 @@ export function useFinancialComparison() {
   const selectColumn = (
     entityCode: string,
     entity: FinancialDataEntity,
-    allRowValues: Map<string, { value: number; displayName: string }>
+    _allRowValues: Map<string, { value: number; displayName: string }>,
   ) => {
     // For column comparisons, we'll create multiple comparisons for each row
     if (state.selectionMode === 'idle') {
@@ -145,7 +146,7 @@ export function useFinancialComparison() {
         rowCode: '*', // Wildcard for all rows
         entityCode,
         value: 0, // Not used for column comparisons
-        displayName: entity.name.de || entity.code
+        displayName: entity.name.de || entity.code,
       }
       state.selectionMode = 'base-selected'
     } else if (state.selectionMode === 'base-selected' && state.baseSelection) {
@@ -157,7 +158,7 @@ export function useFinancialComparison() {
 
   const createComparison = (base: ComparisonBase, target: ComparisonTarget) => {
     const calculation = calculateComparison(base.value, target.value)
-    
+
     const comparison: ActiveComparison = {
       id: generateComparisonId(),
       base,
@@ -165,14 +166,14 @@ export function useFinancialComparison() {
       percentageChange: calculation.percentageChange,
       absoluteChange: calculation.absoluteChange,
       isValid: calculation.isValid,
-      createdAt: new Date()
+      createdAt: new Date(),
     }
 
     state.activeComparisons.push(comparison)
   }
 
   const removeComparison = (comparisonId: string) => {
-    const index = state.activeComparisons.findIndex(c => c.id === comparisonId)
+    const index = state.activeComparisons.findIndex((c) => c.id === comparisonId)
     if (index !== -1) {
       state.activeComparisons.splice(index, 1)
     }
@@ -190,30 +191,34 @@ export function useFinancialComparison() {
 
   // Cell state helpers
   const getCellState = (rowCode: string, entityCode: string) => {
-    const isBaseSelected = state.baseSelection?.rowCode === rowCode && 
-                          state.baseSelection?.entityCode === entityCode
-    
-    const hasComparison = state.activeComparisons.some(c => 
-      (c.base.rowCode === rowCode && c.base.entityCode === entityCode) ||
-      (c.target.rowCode === rowCode && c.target.entityCode === entityCode)
+    const isBaseSelected =
+      state.baseSelection?.rowCode === rowCode && state.baseSelection?.entityCode === entityCode
+
+    const hasComparison = state.activeComparisons.some(
+      (c) =>
+        (c.base.rowCode === rowCode && c.base.entityCode === entityCode) ||
+        (c.target.rowCode === rowCode && c.target.entityCode === entityCode),
     )
 
-    const isHovered = state.hoveredCell?.rowCode === rowCode && 
-                     state.hoveredCell?.entityCode === entityCode
+    const isHovered =
+      state.hoveredCell?.rowCode === rowCode && state.hoveredCell?.entityCode === entityCode
 
     return {
       isBaseSelected,
       hasComparison,
       isHovered,
-      isSelectable: state.selectionMode === 'base-selected' && !isBaseSelected
+      isSelectable: state.selectionMode === 'base-selected' && !isBaseSelected,
     }
   }
 
   const getComparisonForCell = (rowCode: string, entityCode: string): ActiveComparison | null => {
-    return state.activeComparisons.find(c => 
-      (c.base.rowCode === rowCode && c.base.entityCode === entityCode) ||
-      (c.target.rowCode === rowCode && c.target.entityCode === entityCode)
-    ) || null
+    return (
+      state.activeComparisons.find(
+        (c) =>
+          (c.base.rowCode === rowCode && c.base.entityCode === entityCode) ||
+          (c.target.rowCode === rowCode && c.target.entityCode === entityCode),
+      ) || null
+    )
   }
 
   // Mouse event handlers
@@ -238,12 +243,12 @@ export function useFinancialComparison() {
     // State
     state,
     displayOptions,
-    
+
     // Computed
     hasActiveComparisons,
     isSelecting,
     hasBaseSelection,
-    
+
     // Methods
     selectCell,
     selectColumn,
@@ -255,9 +260,9 @@ export function useFinancialComparison() {
     handleCellHover,
     handleCellLeave,
     handleKeyboardShortcut,
-    
+
     // Formatters
     formatPercentageChange,
-    formatAbsoluteChange
+    formatAbsoluteChange,
   }
 }

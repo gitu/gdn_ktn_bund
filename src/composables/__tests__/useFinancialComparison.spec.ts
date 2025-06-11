@@ -33,7 +33,7 @@ describe('useFinancialComparison', () => {
         rowCode: 'row1',
         entityCode: 'entity1',
         value: 1000,
-        displayName: 'Test Entity 1'
+        displayName: 'Test Entity 1',
       })
       expect(comparison.hasBaseSelection.value).toBe(true)
       expect(comparison.isSelecting.value).toBe(true)
@@ -42,14 +42,14 @@ describe('useFinancialComparison', () => {
     it('should create comparison on second click', () => {
       // First click - select base
       comparison.selectCell('row1', 'entity1', 1000, 'Test Entity 1')
-      
+
       // Second click - create comparison
       comparison.selectCell('row1', 'entity2', 1500, 'Test Entity 2')
 
       expect(comparison.state.selectionMode).toBe('idle')
       expect(comparison.state.baseSelection).toBeNull()
       expect(comparison.state.activeComparisons).toHaveLength(1)
-      
+
       const activeComparison = comparison.state.activeComparisons[0]
       expect(activeComparison.base.value).toBe(1000)
       expect(activeComparison.target.value).toBe(1500)
@@ -104,26 +104,26 @@ describe('useFinancialComparison', () => {
       // Create some test comparisons
       comparison.selectCell('row1', 'entity1', 1000, 'Entity 1')
       comparison.selectCell('row1', 'entity2', 1200, 'Entity 2')
-      
+
       comparison.selectCell('row2', 'entity1', 500, 'Entity 1')
       comparison.selectCell('row2', 'entity2', 600, 'Entity 2')
     })
 
     it('should remove specific comparison', () => {
       expect(comparison.state.activeComparisons).toHaveLength(2)
-      
+
       const firstComparisonId = comparison.state.activeComparisons[0].id
       comparison.removeComparison(firstComparisonId)
-      
+
       expect(comparison.state.activeComparisons).toHaveLength(1)
       expect(comparison.state.activeComparisons[0].id).not.toBe(firstComparisonId)
     })
 
     it('should clear all comparisons', () => {
       expect(comparison.state.activeComparisons).toHaveLength(2)
-      
+
       comparison.clearAllComparisons()
-      
+
       expect(comparison.state.activeComparisons).toHaveLength(0)
       expect(comparison.state.selectionMode).toBe('idle')
       expect(comparison.state.baseSelection).toBeNull()
@@ -150,7 +150,7 @@ describe('useFinancialComparison', () => {
       const comparisonForCell = comparison.getComparisonForCell('row1', 'entity1')
       expect(comparisonForCell).not.toBeNull()
       expect(comparisonForCell?.base.entityCode).toBe('entity1')
-      
+
       const noComparison = comparison.getComparisonForCell('row2', 'entity1')
       expect(noComparison).toBeNull()
     })

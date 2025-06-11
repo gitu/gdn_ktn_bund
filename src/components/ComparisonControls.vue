@@ -28,7 +28,7 @@
             {{ $t('comparison.activeComparisons', { count: activeComparisons.length }) }}
           </span>
         </div>
-        
+
         <div class="header-actions">
           <Button
             :label="$t('comparison.clearAll')"
@@ -48,7 +48,7 @@
           v-for="comparison in activeComparisons"
           :key="comparison.id"
           class="comparison-item"
-          :class="{ 'invalid': !comparison.isValid }"
+          :class="{ invalid: !comparison.isValid }"
         >
           <div class="comparison-info">
             <div class="comparison-summary">
@@ -56,12 +56,9 @@
               <i class="pi pi-arrow-right comparison-arrow"></i>
               <span class="target-info">{{ comparison.target.displayName }}</span>
             </div>
-            
+
             <div class="comparison-result">
-              <span 
-                class="percentage-change"
-                :class="getChangeClass(comparison.percentageChange)"
-              >
+              <span class="percentage-change" :class="getChangeClass(comparison.percentageChange)">
                 {{ formatPercentageChange(comparison.percentageChange) }}
               </span>
             </div>
@@ -136,7 +133,7 @@ interface Emits {
 
 const props = withDefaults(defineProps<Props>(), {
   showComparisonsList: true,
-  showKeyboardShortcuts: false
+  showKeyboardShortcuts: false,
 })
 
 const emit = defineEmits<Emits>()
@@ -165,7 +162,7 @@ const removeComparison = (id: string) => {
 
 const formatPercentageChange = (percentageChange: number): string => {
   if (!isFinite(percentageChange)) return 'N/A'
-  
+
   const sign = percentageChange >= 0 ? '+' : ''
   return `${sign}${percentageChange.toFixed(1)}%`
 }

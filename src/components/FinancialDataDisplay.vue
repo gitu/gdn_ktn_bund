@@ -57,8 +57,18 @@
         >
           <template #header>
             <div class="flex flex-wrap justify-end gap-2">
-              <Button text icon="pi pi-plus" :label="$t('financialDataDisplay.expandAll')" @click="expandAll" />
-              <Button text icon="pi pi-minus" :label="$t('financialDataDisplay.collapseAll')" @click="collapseAll" />
+              <Button
+                text
+                icon="pi pi-plus"
+                :label="$t('financialDataDisplay.expandAll')"
+                @click="expandAll"
+              />
+              <Button
+                text
+                icon="pi pi-minus"
+                :label="$t('financialDataDisplay.collapseAll')"
+                @click="collapseAll"
+              />
             </div>
           </template>
           <template #footer>
@@ -89,8 +99,18 @@
 
               <!-- Right side: Action buttons -->
               <div class="flex gap-2">
-                <Button text icon="pi pi-plus" :label="$t('financialDataDisplay.expandAll')" @click="expandAll" />
-                <Button text icon="pi pi-minus" :label="$t('financialDataDisplay.collapseAll')" @click="collapseAll" />
+                <Button
+                  text
+                  icon="pi pi-plus"
+                  :label="$t('financialDataDisplay.expandAll')"
+                  @click="expandAll"
+                />
+                <Button
+                  text
+                  icon="pi pi-minus"
+                  :label="$t('financialDataDisplay.collapseAll')"
+                  @click="collapseAll"
+                />
               </div>
             </div>
           </template>
@@ -129,7 +149,10 @@
               >
                 <div class="entity-name">{{ getEntityDisplayName(entity) }}</div>
                 <div class="entity-year">{{ entity.year }}</div>
-                <div v-if="props.enableComparison && comparison.isSelecting.value" class="selection-indicator">
+                <div
+                  v-if="props.enableComparison && comparison.isSelecting.value"
+                  class="selection-indicator"
+                >
                   <i class="pi pi-hand-pointer"></i>
                 </div>
               </div>
@@ -138,8 +161,10 @@
               <div
                 class="value-cell"
                 :class="getCellClasses((node.data || node).code, entityCode as string)"
-                @click="handleCellClick((node.data || node), entityCode as string, entity)"
-                @mouseenter="handleCellHover((node.data || node).code, entityCode as string, $event)"
+                @click="handleCellClick(node.data || node, entityCode as string, entity)"
+                @mouseenter="
+                  handleCellHover((node.data || node).code, entityCode as string, $event)
+                "
                 @mouseleave="handleCellLeave"
               >
                 <span
@@ -164,11 +189,18 @@
 
                 <!-- Comparison indicator -->
                 <div
-                  v-if="props.enableComparison && getCellComparison((node.data || node).code, entityCode as string)"
+                  v-if="
+                    props.enableComparison &&
+                    getCellComparison((node.data || node).code, entityCode as string)
+                  "
                   class="comparison-indicator"
                 >
                   <span class="comparison-badge">
-                    {{ formatComparisonChange(getCellComparison((node.data || node).code, entityCode as string)) }}
+                    {{
+                      formatComparisonChange(
+                        getCellComparison((node.data || node).code, entityCode as string),
+                      )
+                    }}
                   </span>
                 </div>
               </div>
@@ -188,7 +220,7 @@
         position: 'fixed',
         left: hoveredTooltip.position.x + 'px',
         top: hoveredTooltip.position.y + 'px',
-        zIndex: 1000
+        zIndex: 1000,
       }"
       @remove="handleRemoveComparison"
     />
@@ -257,7 +289,10 @@ const showCodes = ref(props.initialShowCodes)
 const freezeFirstColumn = ref(props.initialFreezeFirstColumn)
 const showZeroValues = ref(props.initialShowZeroValues)
 const scalingEnabled = ref(true)
-const hoveredTooltip = ref<{ comparison: ActiveComparison; position: { x: number; y: number } } | null>(null)
+const hoveredTooltip = ref<{
+  comparison: ActiveComparison
+  position: { x: number; y: number }
+} | null>(null)
 
 // Computed properties
 const hasValidData = computed(() => {
@@ -469,7 +504,11 @@ const collapseAll = () => {
 }
 
 // Comparison event handlers
-const handleCellClick = (node: FinancialDataNode, entityCode: string, entity: FinancialDataEntity) => {
+const handleCellClick = (
+  node: FinancialDataNode,
+  entityCode: string,
+  entity: FinancialDataEntity,
+) => {
   if (!props.enableComparison || !hasValue(node, entityCode)) return
 
   const value = getValue(node, entityCode)
@@ -500,8 +539,8 @@ const handleCellHover = (rowCode: string, entityCode: string, event: MouseEvent)
       comparison: cellComparison,
       position: {
         x: event.clientX + 10,
-        y: event.clientY - 10
-      }
+        y: event.clientY - 10,
+      },
     }
   }
 }
@@ -540,7 +579,7 @@ const getCellClasses = (rowCode: string, entityCode: string) => {
     'cell-base-selected': cellState.isBaseSelected,
     'cell-has-comparison': cellState.hasComparison,
     'cell-selectable': cellState.isSelectable,
-    'cell-hovered': cellState.isHovered
+    'cell-hovered': cellState.isHovered,
   }
 }
 
@@ -550,7 +589,7 @@ const getColumnHeaderClasses = (entityCode: string) => {
   void entityCode // TODO: Use entityCode for column-specific styling
   return {
     'column-selectable': comparison.isSelecting.value,
-    'column-clickable': true
+    'column-clickable': true,
   }
 }
 
@@ -778,7 +817,8 @@ onUnmounted(() => {
 }
 
 @keyframes pulse {
-  0%, 100% {
+  0%,
+  100% {
     opacity: 1;
     transform: scale(1);
   }

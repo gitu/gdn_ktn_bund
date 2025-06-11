@@ -1,9 +1,5 @@
 <template>
-  <div
-    v-if="comparison && showTooltip"
-    class="comparison-tooltip"
-    :class="tooltipClasses"
-  >
+  <div v-if="comparison && showTooltip" class="comparison-tooltip" :class="tooltipClasses">
     <div class="tooltip-content">
       <div class="comparison-header">
         <span class="comparison-type">{{ comparisonTypeLabel }}</span>
@@ -15,7 +11,7 @@
           <i class="pi pi-times"></i>
         </button>
       </div>
-      
+
       <div class="comparison-details">
         <div class="comparison-values">
           <div class="value-row">
@@ -29,19 +25,19 @@
             <span class="entity">{{ comparison.target.displayName }}</span>
           </div>
         </div>
-        
+
         <div class="comparison-result">
           <div class="percentage-change" :class="changeClasses">
             <i :class="changeIcon"></i>
             <span class="change-value">{{ formattedPercentageChange }}</span>
           </div>
-          
+
           <div v-if="showAbsoluteChange" class="absolute-change">
             <span class="change-label">{{ $t('comparison.absoluteChange') }}:</span>
             <span class="change-value">{{ formattedAbsoluteChange }}</span>
           </div>
         </div>
-        
+
         <div v-if="!comparison.isValid" class="error-message">
           <i class="pi pi-exclamation-triangle"></i>
           <span>{{ $t('comparison.calculationError') }}</span>
@@ -70,7 +66,7 @@ interface Emits {
 const props = withDefaults(defineProps<Props>(), {
   showTooltip: true,
   showAbsoluteChange: false,
-  position: 'top'
+  position: 'top',
 })
 
 defineEmits<Emits>()
@@ -78,14 +74,14 @@ const { t, locale } = useI18n()
 
 const comparisonTypeLabel = computed(() => {
   if (!props.comparison) return ''
-  return props.comparison.base.type === 'cell-to-cell' 
+  return props.comparison.base.type === 'cell-to-cell'
     ? t('comparison.cellToCell')
     : t('comparison.columnToColumn')
 })
 
 const formattedPercentageChange = computed(() => {
   if (!props.comparison || !props.comparison.isValid) return 'N/A'
-  
+
   const change = props.comparison.percentageChange
   const sign = change >= 0 ? '+' : ''
   return `${sign}${change.toFixed(1)}%`
@@ -93,7 +89,7 @@ const formattedPercentageChange = computed(() => {
 
 const formattedAbsoluteChange = computed(() => {
   if (!props.comparison || !props.comparison.isValid) return 'N/A'
-  
+
   const change = props.comparison.absoluteChange
   const sign = change >= 0 ? '+' : ''
   return `${sign}${formatValue(Math.abs(change))}`
@@ -101,7 +97,7 @@ const formattedAbsoluteChange = computed(() => {
 
 const changeClasses = computed(() => {
   if (!props.comparison || !props.comparison.isValid) return 'neutral'
-  
+
   const change = props.comparison.percentageChange
   if (change > 0) return 'positive'
   if (change < 0) return 'negative'
@@ -110,7 +106,7 @@ const changeClasses = computed(() => {
 
 const changeIcon = computed(() => {
   if (!props.comparison || !props.comparison.isValid) return 'pi pi-minus'
-  
+
   const change = props.comparison.percentageChange
   if (change > 0) return 'pi pi-arrow-up'
   if (change < 0) return 'pi pi-arrow-down'
@@ -120,8 +116,8 @@ const changeIcon = computed(() => {
 const tooltipClasses = computed(() => [
   `tooltip-${props.position}`,
   {
-    'tooltip-error': props.comparison && !props.comparison.isValid
-  }
+    'tooltip-error': props.comparison && !props.comparison.isValid,
+  },
 ])
 
 const formatValue = (value: number): string => {
