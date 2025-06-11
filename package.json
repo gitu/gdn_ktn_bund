@@ -47,7 +47,7 @@
     "@intlify/eslint-plugin-vue-i18n": "^4.0.1",
     "@playwright/test": "^1.53.0",
     "@primevue/auto-import-resolver": "^4.3.5",
-    "@tailwindcss/postcss": "^4.1.8",
+    "@tailwindcss/postcss": "^4.1.10",
     "@tsconfig/node22": "^22.0.1",
     "@types/jsdom": "^21.1.7",
     "@types/node": "^24.0.0",
