@@ -4,7 +4,7 @@
  */
 {
 	"$schema": "node_modules/wrangler/config-schema.json",
-	"name": "gdn_ktn_bund",
+	"name": "gdn-ktn-bund",
 	"compatibility_date": "2025-06-10",
 	"main": "server/index.ts",
 	"assets": {
