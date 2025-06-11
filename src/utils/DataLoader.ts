@@ -12,8 +12,10 @@ import type {
 } from '../types/FinancialDataStructure'
 
 import type { DataRecord, GdnDataInfo, MultiLanguageLabels } from '../types/DataStructures'
+import type { AccountCodeFilterConfig, FilterResult } from '../types/DataFilters'
 
 import { EntitySemanticMapper } from './EntitySemanticMapper'
+import { AccountCodeFilter } from './AccountCodeFilter'
 
 export interface DataLoaderResult {
   data: DataRecord[]
@@ -33,6 +35,33 @@ import stdInfo from '../data/std-info.json'
  * DataLoader class for loading CSV financial data and integrating it into tree structures
  */
 export class DataLoader {
+  private accountCodeFilter: AccountCodeFilter
+
+  constructor(filterConfig?: AccountCodeFilterConfig) {
+    this.accountCodeFilter = new AccountCodeFilter(filterConfig)
+  }
+
+  /**
+   * Update the account code filter configuration
+   */
+  updateFilterConfig(config: AccountCodeFilterConfig): void {
+    this.accountCodeFilter.updateConfig(config)
+  }
+
+  /**
+   * Get the current filter configuration
+   */
+  getFilterConfig(): AccountCodeFilterConfig {
+    return this.accountCodeFilter.getConfig()
+  }
+
+  /**
+   * Get filter statistics
+   */
+  getFilterStats() {
+    return this.accountCodeFilter.getFilterStats()
+  }
+
   /**
    * Validate if GDN data exists for the given parameters
    */
@@ -375,12 +404,26 @@ export class DataLoader {
     year: string,
     model: string,
     source: 'gdn' | 'std',
-  ): void {
+  ): FilterResult | void {
     const fullEntityCode = `${source}/${model}/${entityCode}:${year}`
 
     // Filter data to only include relevant dimensions
     const relevantDimensions = ['bilanz', 'aufwand', 'ertrag']
-    const filteredData = this.filterDataByDimension(data, relevantDimensions)
+    const dimensionFilteredData = this.filterDataByDimension(data, relevantDimensions)
+
+    // Apply account code filtering
+    const { filteredRecords: filteredData, result: filterResult } =
+      this.accountCodeFilter.filterDataRecords(dimensionFilteredData, source, model)
+
+    // Log filtering results if enabled
+    if (filterResult.wasFiltered && import.meta.env.DEV) {
+      console.log(
+        `Account code filtering applied for ${fullEntityCode}: ${filterResult.excludedCount} records excluded (${filterResult.excludedCodes.length} unique account codes)`,
+      )
+      if (this.accountCodeFilter.getConfig().logFiltered) {
+        console.log('Excluded account codes:', filterResult.excludedCodes)
+      }
+    }
 
     // Group data by arten (account code)
     const dataByArten = new Map<string, DataRecord[]>()
@@ -428,6 +471,9 @@ export class DataLoader {
         )
       }
     })
+
+    // Return filter result for debugging/monitoring purposes
+    return filterResult
   }
 
   /**
@@ -461,11 +507,25 @@ export class DataLoader {
       this.fillEntityMetadata(financialData, financialCode, year, model, source, result.metadata)
 
       // Step 3: Load the data from CSV files into the right place in the tree
-      this.loadDataIntoTree(financialData, result.data, financialCode, year, model, source)
+      const filterResult = this.loadDataIntoTree(
+        financialData,
+        result.data,
+        financialCode,
+        year,
+        model,
+        source,
+      )
 
       // Step 4: Calculate and add sums directly to the tree
       const fullEntityCode = `${source}/${model}/${financialCode}:${year}`
       this.calculateEntitySum(financialData, fullEntityCode)
+
+      // Log filtering summary if filtering was applied
+      if (filterResult && filterResult.wasFiltered && import.meta.env.DEV) {
+        console.log(
+          `Data loading completed for ${fullEntityCode}. Filtering summary: ${filterResult.originalCount} → ${filterResult.filteredCount} records (${filterResult.excludedCount} excluded)`,
+        )
+      }
 
       return financialData
     } catch (error) {
