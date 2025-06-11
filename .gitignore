@@ -38,3 +38,4 @@ playwright-report/
 /data/gdn_ab_5000.csv
 /data/standardauswertung.csv
 
+/.wrangler
