@@ -78,11 +78,16 @@
                       v-if="entity.scalingFactor !== undefined"
                       class="entity-scaling text-sm text-surface-600 dark:text-surface-300"
                     >
-                      {{
-                        $t('financialDataDisplay.scalingFactor', {
-                          factor: entity.scalingFactor.toLocaleString(),
-                        })
-                      }}
+                      <div v-if="entity.scalingInfo">
+                        {{ entity.scalingInfo[locale] || entity.scalingInfo.en || entity.scalingInfo.de }}
+                      </div>
+                      <div v-else>
+                        {{
+                          $t('financialDataDisplay.scalingFactor', {
+                            factor: entity.scalingFactor.toLocaleString(),
+                          })
+                        }}
+                      </div>
                     </div>
                     <div v-else class="no-scaling text-sm text-surface-500 dark:text-surface-400">
                       {{ $t('financialDataDisplay.noScalingFactor') }}
