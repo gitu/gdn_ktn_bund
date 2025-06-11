@@ -73,6 +73,16 @@
                   :onLabel="$t('financialDataDisplay.codesShown')"
                   :offLabel="$t('financialDataDisplay.showCodes')"
                 />
+                <ToggleButton
+                  v-model="unitScalingEnabled"
+                  :aria-label="
+                    unitScalingEnabled
+                      ? $t('unitScaling.settings.enableScaling')
+                      : $t('unitScaling.settings.enableScaling')
+                  "
+                  :onLabel="$t('unitScaling.units.thousand.abbreviated') + '/' + $t('unitScaling.units.million.abbreviated')"
+                  :offLabel="$t('unitScaling.settings.enableScaling')"
+                />
               </div>
 
               <!-- Right side: Action buttons -->
@@ -156,6 +166,7 @@ import type {
   FinancialDataNode,
 } from '@/types/FinancialDataStructure'
 import type { MultiLanguageLabels } from '@/types/DataStructures'
+import { useConfigurableUnitScaling } from '@/composables/useUnitScaling'
 
 // Props
 interface Props {
@@ -189,6 +200,9 @@ const emit = defineEmits<Emits>()
 // Vue i18n
 const { locale, t } = useI18n()
 
+// Unit scaling composable
+const unitScaling = useConfigurableUnitScaling()
+
 // Reactive state
 const expandedKeys = ref<Record<string, boolean>>({})
 const expandedAll = ref(props.initialExpandedAll)
@@ -196,6 +210,7 @@ const showCodes = ref(props.initialShowCodes)
 const freezeFirstColumn = ref(props.initialFreezeFirstColumn)
 const showZeroValues = ref(props.initialShowZeroValues)
 const scalingEnabled = ref(true)
+const unitScalingEnabled = ref(false)
 
 // Computed properties
 const hasValidData = computed(() => {
@@ -369,6 +384,11 @@ const getValue = (node: FinancialDataNode, entityCode: string): number => {
 }
 
 const formatCurrency = (value: number): string => {
+  if (unitScalingEnabled.value) {
+    const result = unitScaling.formatCurrency(value, 'CHF')
+    return result.formatted
+  }
+
   return new Intl.NumberFormat(locale.value, {
     style: 'currency',
     currency: 'CHF',

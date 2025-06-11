@@ -397,5 +397,45 @@
     "noDataMessage": "Please select datasets in the main comparison view before opening the full view.",
     "loadingDatasets": "Loading datasets...",
     "datasetsLoaded": "{count} datasets loaded"
+  },
+  "unitScaling": {
+    "title": "Unit Scaling",
+    "description": "Format large numbers with appropriate unit abbreviations",
+    "units": {
+      "thousand": {
+        "abbreviated": "K",
+        "full": "Thousand"
+      },
+      "million": {
+        "abbreviated": "M",
+        "full": "Million"
+      },
+      "billion": {
+        "abbreviated": "B",
+        "full": "Billion"
+      },
+      "trillion": {
+        "abbreviated": "T",
+        "full": "Trillion"
+      }
+    },
+    "settings": {
+      "title": "Unit Scaling Settings",
+      "enableScaling": "Enable unit scaling",
+      "useAbbreviated": "Use abbreviated units (K, M, B)",
+      "useFull": "Use full unit names (Thousand, Million, Billion)",
+      "threshold": "Scaling threshold",
+      "precision": "Decimal precision",
+      "thresholdDescription": "Minimum value to apply unit scaling",
+      "precisionDescription": "Number of decimal places to show"
+    },
+    "examples": {
+      "title": "Examples",
+      "value1000": "1,000 → 1K",
+      "value1500": "1,500 → 1.5K",
+      "value1000000": "1,000,000 → 1M",
+      "value2500000": "2,500,000 → 2.5M",
+      "value1000000000": "1,000,000,000 → 1B"
+    }
   }
 }

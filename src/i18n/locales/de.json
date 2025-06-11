@@ -397,5 +397,45 @@
     "noDataMessage": "Bitte wählen Sie Datensätze in der Hauptvergleichsansicht aus, bevor Sie die Vollansicht öffnen.",
     "loadingDatasets": "Lade Datensätze...",
     "datasetsLoaded": "{count} Datensätze geladen"
+  },
+  "unitScaling": {
+    "title": "Einheitenskalierung",
+    "description": "Große Zahlen mit entsprechenden Einheitenabkürzungen formatieren",
+    "units": {
+      "thousand": {
+        "abbreviated": "T",
+        "full": "Tausend"
+      },
+      "million": {
+        "abbreviated": "Mio",
+        "full": "Million"
+      },
+      "billion": {
+        "abbreviated": "Mrd",
+        "full": "Milliarde"
+      },
+      "trillion": {
+        "abbreviated": "T",
+        "full": "Billion"
+      }
+    },
+    "settings": {
+      "title": "Einheitenskalierung Einstellungen",
+      "enableScaling": "Einheitenskalierung aktivieren",
+      "useAbbreviated": "Abgekürzte Einheiten verwenden (T, Mio, Mrd)",
+      "useFull": "Vollständige Einheitennamen verwenden (Tausend, Million, Milliarde)",
+      "threshold": "Skalierungsschwelle",
+      "precision": "Dezimalgenauigkeit",
+      "thresholdDescription": "Mindestwert für die Anwendung der Einheitenskalierung",
+      "precisionDescription": "Anzahl der anzuzeigenden Dezimalstellen"
+    },
+    "examples": {
+      "title": "Beispiele",
+      "value1000": "1.000 → 1T",
+      "value1500": "1.500 → 1,5T",
+      "value1000000": "1.000.000 → 1Mio",
+      "value2500000": "2.500.000 → 2,5Mio",
+      "value1000000000": "1.000.000.000 → 1Mrd"
+    }
   }
 }

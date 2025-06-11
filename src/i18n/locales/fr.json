@@ -397,5 +397,45 @@
     "noDataMessage": "Veuillez sélectionner des jeux de données dans la vue de comparaison principale avant d'ouvrir la vue complète.",
     "loadingDatasets": "Chargement des jeux de données...",
     "datasetsLoaded": "{count} jeux de données chargés"
+  },
+  "unitScaling": {
+    "title": "Mise à l'échelle des unités",
+    "description": "Formater les grands nombres avec des abréviations d'unités appropriées",
+    "units": {
+      "thousand": {
+        "abbreviated": "k",
+        "full": "Millier"
+      },
+      "million": {
+        "abbreviated": "M",
+        "full": "Million"
+      },
+      "billion": {
+        "abbreviated": "Md",
+        "full": "Milliard"
+      },
+      "trillion": {
+        "abbreviated": "T",
+        "full": "Billion"
+      }
+    },
+    "settings": {
+      "title": "Paramètres de mise à l'échelle des unités",
+      "enableScaling": "Activer la mise à l'échelle des unités",
+      "useAbbreviated": "Utiliser des unités abrégées (k, M, Md)",
+      "useFull": "Utiliser des noms d'unités complets (Millier, Million, Milliard)",
+      "threshold": "Seuil de mise à l'échelle",
+      "precision": "Précision décimale",
+      "thresholdDescription": "Valeur minimale pour appliquer la mise à l'échelle des unités",
+      "precisionDescription": "Nombre de décimales à afficher"
+    },
+    "examples": {
+      "title": "Exemples",
+      "value1000": "1 000 → 1k",
+      "value1500": "1 500 → 1,5k",
+      "value1000000": "1 000 000 → 1M",
+      "value2500000": "2 500 000 → 2,5M",
+      "value1000000000": "1 000 000 000 → 1Md"
+    }
   }
 }

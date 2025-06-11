@@ -397,5 +397,45 @@
     "noDataMessage": "Seleziona i dataset nella vista di confronto principale prima di aprire la vista completa.",
     "loadingDatasets": "Caricamento dataset...",
     "datasetsLoaded": "{count} dataset caricati"
+  },
+  "unitScaling": {
+    "title": "Scalatura delle unità",
+    "description": "Formattare numeri grandi con abbreviazioni di unità appropriate",
+    "units": {
+      "thousand": {
+        "abbreviated": "k",
+        "full": "Migliaio"
+      },
+      "million": {
+        "abbreviated": "Mln",
+        "full": "Milione"
+      },
+      "billion": {
+        "abbreviated": "Mrd",
+        "full": "Miliardo"
+      },
+      "trillion": {
+        "abbreviated": "T",
+        "full": "Trilione"
+      }
+    },
+    "settings": {
+      "title": "Impostazioni scalatura unità",
+      "enableScaling": "Abilita scalatura unità",
+      "useAbbreviated": "Usa unità abbreviate (k, Mln, Mrd)",
+      "useFull": "Usa nomi completi delle unità (Migliaio, Milione, Miliardo)",
+      "threshold": "Soglia di scalatura",
+      "precision": "Precisione decimale",
+      "thresholdDescription": "Valore minimo per applicare la scalatura delle unità",
+      "precisionDescription": "Numero di cifre decimali da mostrare"
+    },
+    "examples": {
+      "title": "Esempi",
+      "value1000": "1.000 → 1k",
+      "value1500": "1.500 → 1,5k",
+      "value1000000": "1.000.000 → 1Mln",
+      "value2500000": "2.500.000 → 2,5Mln",
+      "value1000000000": "1.000.000.000 → 1Mrd"
+    }
   }
 }
