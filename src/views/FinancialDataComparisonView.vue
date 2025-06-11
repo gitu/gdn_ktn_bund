@@ -11,9 +11,26 @@
     </div>
 
     <!-- Dataset Selection Section -->
-    <Card class="mb-12">
+    <Card class="mb-6">
       <template #content>
         <DatasetSelector v-model="selectedDatasets" @error="handleSelectorError" />
+      </template>
+    </Card>
+
+    <!-- Filter Controls Section -->
+    <Card class="mb-12">
+      <template #title>
+        <div class="flex items-center gap-2">
+          <i class="pi pi-filter text-primary"></i>
+          {{ $t('filterControls.title') }}
+        </div>
+      </template>
+      <template #content>
+        <FilterControls
+          @filters-applied="handleFiltersApplied"
+          @filters-reset="handleFiltersReset"
+          @config-changed="handleFilterConfigChanged"
+        />
       </template>
     </Card>
 
@@ -126,6 +143,8 @@ import Card from 'primevue/card'
 import Message from 'primevue/message'
 import FinancialDataComparison from '../components/FinancialDataComparison.vue'
 import DatasetSelector from '../components/DatasetSelector.vue'
+import FilterControls from '../components/FilterControls.vue'
+import type { AccountCodeFilterConfig } from '../types/DataFilters'
 
 // Types
 interface SampleDataset {
@@ -188,6 +207,28 @@ const handleScalingChanged = (scalingId: string | null) => {
   updateURL()
   if (import.meta.env.DEV) {
     console.log('Selected scaling changed:', scalingId)
+  }
+}
+
+const handleFiltersApplied = (config: AccountCodeFilterConfig) => {
+  if (import.meta.env.DEV) {
+    console.log('Filters applied:', config)
+  }
+  // The FilterControls component already handles updating the store
+  // and reloading data, so we just need to clear any error messages
+  errorMessage.value = null
+}
+
+const handleFiltersReset = () => {
+  if (import.meta.env.DEV) {
+    console.log('Filters reset')
+  }
+  errorMessage.value = null
+}
+
+const handleFilterConfigChanged = (config: AccountCodeFilterConfig) => {
+  if (import.meta.env.DEV) {
+    console.log('Filter config changed:', config)
   }
 }
 

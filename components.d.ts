@@ -10,6 +10,7 @@ declare module 'vue' {
   export interface GlobalComponents {
     DataBrowser: typeof import('./src/components/DataBrowser.vue')['default']
     DatasetSelector: typeof import('./src/components/DatasetSelector.vue')['default']
+    FilterControls: typeof import('./src/components/FilterControls.vue')['default']
     FinancialDataComparison: typeof import('./src/components/FinancialDataComparison.vue')['default']
     FinancialDataDisplay: typeof import('./src/components/FinancialDataDisplay.vue')['default']
     FinancialDataScalingSelector: typeof import('./src/components/FinancialDataScalingSelector.vue')['default']
