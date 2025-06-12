@@ -36,6 +36,7 @@ export interface ComparisonState {
   selectionMode: 'idle' | 'base-selected' | 'target-selecting'
   baseSelection: ComparisonBase | null
   activeComparisons: ActiveComparison[]
+  activeColumnComparisons: ColumnComparison[]
   hoveredCell: {
     rowCode: string
     entityCode: string
@@ -57,6 +58,26 @@ export interface CellIdentifier {
 export interface ColumnIdentifier {
   entityCode: string
   entity: FinancialDataEntity
+}
+
+export interface ColumnComparison {
+  id: string
+  baseEntityCode: string
+  targetEntityCode: string
+  baseDisplayName: string
+  targetDisplayName: string
+  createdAt: Date
+}
+
+export interface RowComparisonResult {
+  rowCode: string
+  rowDisplayName: string
+  baseValue: number
+  targetValue: number
+  percentageChange: number
+  absoluteChange: number
+  isValid: boolean
+  errorMessage?: string
 }
 
 export interface ComparisonDisplayOptions {

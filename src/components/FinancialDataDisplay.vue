@@ -155,6 +155,17 @@
                 >
                   <i class="pi pi-hand-pointer"></i>
                 </div>
+                <!-- Column comparison remove button -->
+                <div
+                  v-if="
+                    props.enableComparison && getColumnComparisonForEntity(entityCode as string)
+                  "
+                  class="column-comparison-remove"
+                  @click.stop="handleRemoveColumnComparison(entityCode as string)"
+                  :title="$t('comparison.columnComparison.removeColumnComparison')"
+                >
+                  <i class="pi pi-times"></i>
+                </div>
               </div>
             </template>
             <template #body="{ node }">
@@ -203,6 +214,28 @@
                     }}
                   </span>
                 </div>
+
+                <!-- Column comparison indicator -->
+                <div
+                  v-if="
+                    props.enableComparison &&
+                    getColumnComparisonResult((node.data || node).code, entityCode as string)
+                  "
+                  class="column-comparison-indicator"
+                >
+                  <span
+                    class="column-comparison-badge"
+                    :class="
+                      getColumnComparisonBadgeClass((node.data || node).code, entityCode as string)
+                    "
+                  >
+                    {{
+                      formatColumnComparisonChange(
+                        getColumnComparisonResult((node.data || node).code, entityCode as string),
+                      )
+                    }}
+                  </span>
+                </div>
               </div>
             </template>
           </Column>
@@ -243,7 +276,7 @@ import type {
   FinancialDataNode,
 } from '@/types/FinancialDataStructure'
 import type { MultiLanguageLabels } from '@/types/DataStructures'
-import type { ActiveComparison } from '@/types/FinancialComparison'
+import type { ActiveComparison, RowComparisonResult } from '@/types/FinancialComparison'
 
 // Props
 interface Props {
@@ -520,11 +553,8 @@ const handleCellClick = (
 const handleColumnHeaderClick = (entityCode: string, entity: FinancialDataEntity) => {
   if (!props.enableComparison) return
 
-  // For column comparisons, we could implement this to compare entire columns
-  // For now, we'll focus on cell-to-cell comparisons
-  // TODO: Implement column-to-column comparison
-  void entityCode
-  void entity
+  const displayName = getEntityDisplayName(entity)
+  comparison.selectColumn(entityCode, entity, displayName)
 }
 
 const handleCellHover = (rowCode: string, entityCode: string, event: MouseEvent) => {
@@ -586,10 +616,13 @@ const getCellClasses = (rowCode: string, entityCode: string) => {
 const getColumnHeaderClasses = (entityCode: string) => {
   if (!props.enableComparison) return {}
 
-  void entityCode // TODO: Use entityCode for column-specific styling
+  const columnState = comparison.getColumnState(entityCode)
   return {
     'column-selectable': comparison.isSelecting.value,
     'column-clickable': true,
+    'column-base-selected': columnState.isBaseSelected,
+    'column-has-comparison': columnState.hasColumnComparison,
+    'column-target-selectable': columnState.isSelectable,
   }
 }
 
@@ -601,6 +634,105 @@ const getCellComparison = (rowCode: string, entityCode: string) => {
 const formatComparisonChange = (comparisonData: ActiveComparison | null) => {
   if (!comparisonData || !comparisonData.isValid) return ''
   return comparison.formatPercentageChange(comparisonData.percentageChange)
+}
+
+// Column comparison helper methods
+const getColumnComparisonForEntity = (entityCode: string) => {
+  if (!props.enableComparison) return null
+  return comparison.getColumnComparisonForEntity(entityCode)
+}
+
+const getColumnComparisonResult = (rowCode: string, entityCode: string) => {
+  if (!props.enableComparison) return null
+
+  const columnComparison = comparison.getColumnComparisonForEntity(entityCode)
+  if (!columnComparison) return null
+
+  // Get the base and target values for this row
+  const baseValue = getValueForEntity(rowCode, columnComparison.baseEntityCode)
+  const targetValue = getValueForEntity(rowCode, entityCode)
+
+  if (baseValue === null || targetValue === null) return null
+
+  const rowDisplayName = getRowDisplayName(rowCode)
+  return comparison.calculateRowComparison(rowCode, rowDisplayName, baseValue, targetValue)
+}
+
+const getValueForEntity = (rowCode: string, entityCode: string): number | null => {
+  if (!props.financialData) return null
+
+  // Find the node with the given rowCode
+  const findNode = (nodes: FinancialDataNode[]): FinancialDataNode | null => {
+    for (const node of nodes) {
+      if (node.code === rowCode) return node
+      const found = findNode(node.children)
+      if (found) return found
+    }
+    return null
+  }
+
+  let targetNode: FinancialDataNode | null = null
+
+  if (props.financialData.balanceSheet) {
+    targetNode = findNode([props.financialData.balanceSheet])
+  }
+
+  if (!targetNode && props.financialData.incomeStatement) {
+    targetNode = findNode([props.financialData.incomeStatement])
+  }
+
+  if (!targetNode || !hasValue(targetNode, entityCode)) return null
+
+  return getValue(targetNode, entityCode)
+}
+
+const getRowDisplayName = (rowCode: string): string => {
+  if (!props.financialData) return rowCode
+
+  // Find the node with the given rowCode
+  const findNode = (nodes: FinancialDataNode[]): FinancialDataNode | null => {
+    for (const node of nodes) {
+      if (node.code === rowCode) return node
+      const found = findNode(node.children)
+      if (found) return found
+    }
+    return null
+  }
+
+  let targetNode: FinancialDataNode | null = null
+
+  if (props.financialData.balanceSheet) {
+    targetNode = findNode([props.financialData.balanceSheet])
+  }
+
+  if (!targetNode && props.financialData.incomeStatement) {
+    targetNode = findNode([props.financialData.incomeStatement])
+  }
+
+  return targetNode ? getNodeLabel(targetNode) : rowCode
+}
+
+const formatColumnComparisonChange = (result: RowComparisonResult | null) => {
+  if (!result || !result.isValid) return ''
+  return comparison.formatPercentageChange(result.percentageChange)
+}
+
+const getColumnComparisonBadgeClass = (rowCode: string, entityCode: string) => {
+  const result = getColumnComparisonResult(rowCode, entityCode)
+  if (!result || !result.isValid) return ''
+
+  return {
+    'comparison-positive': result.percentageChange > 0,
+    'comparison-negative': result.percentageChange < 0,
+    'comparison-neutral': result.percentageChange === 0,
+  }
+}
+
+const handleRemoveColumnComparison = (entityCode: string) => {
+  const columnComparison = comparison.getColumnComparisonForEntity(entityCode)
+  if (columnComparison) {
+    comparison.removeColumnComparison(columnComparison.id)
+  }
 }
 
 // Validation function
@@ -755,6 +887,43 @@ onUnmounted(() => {
   border-color: var(--blue-500);
 }
 
+.entity-header.column-base-selected {
+  background-color: var(--blue-100);
+  border: 2px solid var(--blue-500);
+}
+
+.entity-header.column-has-comparison {
+  background-color: var(--green-50);
+  border: 1px solid var(--green-300);
+}
+
+.entity-header.column-target-selectable {
+  border: 2px dashed var(--yellow-400);
+  background-color: var(--yellow-50);
+}
+
+.column-comparison-remove {
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background-color: var(--red-500);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 0.7rem;
+  transition: all 0.2s ease;
+}
+
+.column-comparison-remove:hover {
+  background-color: var(--red-600);
+  transform: scale(1.1);
+}
+
 .entity-name {
   font-weight: 600;
   font-size: 0.875rem;
@@ -805,6 +974,38 @@ onUnmounted(() => {
 
 .comparison-badge.neutral {
   background: var(--gray-600);
+}
+
+/* Column comparison styles */
+.column-comparison-indicator {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  z-index: 2;
+}
+
+.column-comparison-badge {
+  font-size: 0.65rem;
+  font-weight: 600;
+  padding: 2px 4px;
+  border-radius: 3px;
+  color: white;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+  min-width: 30px;
+  text-align: center;
+  display: inline-block;
+}
+
+.column-comparison-badge.comparison-positive {
+  background: var(--green-500);
+}
+
+.column-comparison-badge.comparison-negative {
+  background: var(--red-500);
+}
+
+.column-comparison-badge.comparison-neutral {
+  background: var(--gray-500);
 }
 
 .selection-indicator {

@@ -448,6 +448,15 @@
       "invalidComparison": "Invalid comparison",
       "calculationFailed": "Calculation failed",
       "noData": "No data available for comparison"
+    },
+    "columnComparison": {
+      "title": "Column Comparison",
+      "removeColumnComparison": "Remove column comparison",
+      "baseColumn": "Base Column",
+      "targetColumn": "Target Column",
+      "selectBaseColumn": "Click on a column header to select it as the base",
+      "selectTargetColumn": "Click on another column header to compare",
+      "comparisonActive": "Column comparison active"
     }
   }
 }

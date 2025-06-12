@@ -189,3 +189,194 @@ describe('useFinancialComparison', () => {
     })
   })
 })
+
+describe('useFinancialComparison - Column Comparisons', () => {
+  let comparison: ReturnType<typeof useFinancialComparison>
+
+  beforeEach(() => {
+    comparison = useFinancialComparison()
+  })
+
+  const createMockEntity = (code: string, name: string) => ({
+    code,
+    name: { de: name, en: name, fr: name, it: name },
+    year: '2022',
+    metadata: {
+      source: 'test',
+      loadedAt: '2022-01-01T00:00:00.000Z',
+      recordCount: 1,
+    },
+    model: 'test',
+    source: 'test',
+    description: { de: 'Test', en: 'Test', fr: 'Test', it: 'Test' },
+  })
+
+  it('should select base column correctly', () => {
+    const mockEntity = createMockEntity('entity1', 'Entity 1')
+
+    comparison.selectColumn('entity1', mockEntity, 'Entity 1')
+
+    expect(comparison.state.selectionMode).toBe('base-selected')
+    expect(comparison.state.baseSelection).toEqual({
+      type: 'column-to-column',
+      rowCode: '*',
+      entityCode: 'entity1',
+      value: 0,
+      displayName: 'Entity 1',
+    })
+  })
+
+  it('should create column comparison on second selection', () => {
+    const mockEntity1 = createMockEntity('entity1', 'Entity 1')
+    const mockEntity2 = createMockEntity('entity2', 'Entity 2')
+
+    // First selection (base)
+    comparison.selectColumn('entity1', mockEntity1, 'Entity 1')
+
+    // Second selection (target)
+    comparison.selectColumn('entity2', mockEntity2, 'Entity 2')
+
+    expect(comparison.state.activeColumnComparisons).toHaveLength(1)
+    expect(comparison.state.activeColumnComparisons[0]).toMatchObject({
+      baseEntityCode: 'entity1',
+      targetEntityCode: 'entity2',
+      baseDisplayName: 'Entity 1',
+      targetDisplayName: 'Entity 2',
+    })
+    expect(comparison.state.selectionMode).toBe('idle')
+  })
+
+  it('should not create column comparison for same entity', () => {
+    const mockEntity = createMockEntity('entity1', 'Entity 1')
+
+    // First selection (base)
+    comparison.selectColumn('entity1', mockEntity, 'Entity 1')
+
+    // Second selection (same entity)
+    comparison.selectColumn('entity1', mockEntity, 'Entity 1')
+
+    expect(comparison.state.activeColumnComparisons).toHaveLength(0)
+    expect(comparison.state.selectionMode).toBe('idle')
+  })
+
+  it('should replace existing column comparison for target entity', () => {
+    const mockEntity1 = createMockEntity('entity1', 'Entity 1')
+    const mockEntity2 = createMockEntity('entity2', 'Entity 2')
+    const mockEntity3 = createMockEntity('entity3', 'Entity 3')
+
+    // Create first comparison: entity1 -> entity2
+    comparison.selectColumn('entity1', mockEntity1, 'Entity 1')
+    comparison.selectColumn('entity2', mockEntity2, 'Entity 2')
+
+    // Create second comparison: entity3 -> entity2 (should replace first)
+    comparison.selectColumn('entity3', mockEntity3, 'Entity 3')
+    comparison.selectColumn('entity2', mockEntity2, 'Entity 2')
+
+    expect(comparison.state.activeColumnComparisons).toHaveLength(1)
+    expect(comparison.state.activeColumnComparisons[0]).toMatchObject({
+      baseEntityCode: 'entity3',
+      targetEntityCode: 'entity2',
+    })
+  })
+
+  it('should get column state correctly', () => {
+    const mockEntity1 = createMockEntity('entity1', 'Entity 1')
+    const mockEntity2 = createMockEntity('entity2', 'Entity 2')
+
+    // Test initial state
+    let state = comparison.getColumnState('entity1')
+    expect(state).toEqual({
+      isBaseSelected: false,
+      hasColumnComparison: false,
+      isTargetColumn: false,
+      isSelectable: false,
+    })
+
+    // Test base selected state
+    comparison.selectColumn('entity1', mockEntity1, 'Entity 1')
+    state = comparison.getColumnState('entity1')
+    expect(state.isBaseSelected).toBe(true)
+    expect(state.isSelectable).toBe(false)
+
+    // Test target selectable state
+    state = comparison.getColumnState('entity2')
+    expect(state.isSelectable).toBe(true)
+
+    // Test after creating comparison
+    comparison.selectColumn('entity2', mockEntity2, 'Entity 2')
+    state = comparison.getColumnState('entity2')
+    expect(state.hasColumnComparison).toBe(true)
+    expect(state.isTargetColumn).toBe(true)
+  })
+
+  it('should calculate row comparison correctly', () => {
+    const result = comparison.calculateRowComparison('row1', 'Test Row', 100, 150)
+
+    expect(result).toEqual({
+      rowCode: 'row1',
+      rowDisplayName: 'Test Row',
+      baseValue: 100,
+      targetValue: 150,
+      percentageChange: 50,
+      absoluteChange: 50,
+      isValid: true,
+    })
+  })
+
+  it('should handle division by zero in row comparison', () => {
+    const result = comparison.calculateRowComparison('row1', 'Test Row', 0, 150)
+
+    expect(result.isValid).toBe(false)
+    expect(result.errorMessage).toBe('Cannot calculate percentage change from zero')
+  })
+
+  it('should remove column comparison correctly', () => {
+    const mockEntity1 = createMockEntity('entity1', 'Entity 1')
+    const mockEntity2 = createMockEntity('entity2', 'Entity 2')
+
+    // Create comparison
+    comparison.selectColumn('entity1', mockEntity1, 'Entity 1')
+    comparison.selectColumn('entity2', mockEntity2, 'Entity 2')
+
+    const comparisonId = comparison.state.activeColumnComparisons[0].id
+
+    // Remove comparison
+    comparison.removeColumnComparison(comparisonId)
+
+    expect(comparison.state.activeColumnComparisons).toHaveLength(0)
+  })
+
+  it('should clear all comparisons including column comparisons', () => {
+    const mockEntity1 = createMockEntity('entity1', 'Entity 1')
+    const mockEntity2 = createMockEntity('entity2', 'Entity 2')
+
+    // Create cell comparison
+    comparison.selectCell('row1', 'entity1', 100, 'Test Cell 1', 'cell-to-cell')
+    comparison.selectCell('row1', 'entity2', 200, 'Test Cell 2', 'cell-to-cell')
+
+    // Create column comparison
+    comparison.selectColumn('entity1', mockEntity1, 'Entity 1')
+    comparison.selectColumn('entity2', mockEntity2, 'Entity 2')
+
+    // Clear all
+    comparison.clearAllComparisons()
+
+    expect(comparison.state.activeComparisons).toHaveLength(0)
+    expect(comparison.state.activeColumnComparisons).toHaveLength(0)
+    expect(comparison.state.selectionMode).toBe('idle')
+  })
+
+  it('should detect active comparisons including column comparisons', () => {
+    expect(comparison.hasActiveComparisons.value).toBe(false)
+
+    // Add column comparison
+    const mockEntity1 = createMockEntity('entity1', 'Entity 1')
+    const mockEntity2 = createMockEntity('entity2', 'Entity 2')
+
+    comparison.selectColumn('entity1', mockEntity1, 'Entity 1')
+    comparison.selectColumn('entity2', mockEntity2, 'Entity 2')
+
+    expect(comparison.hasActiveComparisons.value).toBe(true)
+    expect(comparison.hasActiveColumnComparisons.value).toBe(true)
+  })
+})

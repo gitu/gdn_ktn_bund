@@ -448,6 +448,15 @@
       "invalidComparison": "Confronto non valido",
       "calculationFailed": "Calcolo fallito",
       "noData": "Nessun dato disponibile per il confronto"
+    },
+    "columnComparison": {
+      "title": "Confronto colonne",
+      "removeColumnComparison": "Rimuovi confronto colonne",
+      "baseColumn": "Colonna base",
+      "targetColumn": "Colonna target",
+      "selectBaseColumn": "Clicca su un'intestazione di colonna per selezionarla come base",
+      "selectTargetColumn": "Clicca su un'altra intestazione di colonna per confrontare",
+      "comparisonActive": "Confronto colonne attivo"
     }
   }
 }

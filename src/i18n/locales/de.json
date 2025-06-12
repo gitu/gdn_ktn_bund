@@ -448,6 +448,15 @@
       "invalidComparison": "Ungültiger Vergleich",
       "calculationFailed": "Berechnung fehlgeschlagen",
       "noData": "Keine Daten für Vergleich verfügbar"
+    },
+    "columnComparison": {
+      "title": "Spaltenvergleich",
+      "removeColumnComparison": "Spaltenvergleich entfernen",
+      "baseColumn": "Basisspalte",
+      "targetColumn": "Zielspalte",
+      "selectBaseColumn": "Klicken Sie auf eine Spaltenüberschrift, um sie als Basis auszuwählen",
+      "selectTargetColumn": "Klicken Sie auf eine andere Spaltenüberschrift zum Vergleichen",
+      "comparisonActive": "Spaltenvergleich aktiv"
     }
   }
 }
