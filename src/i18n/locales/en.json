@@ -397,5 +397,78 @@
     "noDataMessage": "Please select datasets in the main comparison view before opening the full view.",
     "loadingDatasets": "Loading datasets...",
     "datasetsLoaded": "{count} datasets loaded"
+  },
+  "filterControls": {
+    "title": "Account Code Filtering",
+    "description": "Configure filters to exclude specific account codes from calculations and improve data quality.",
+    "enableFiltering": "Enable Filtering",
+    "enableFilteringDescription": "Apply account code filters to exclude specific categories from calculations",
+    "enabled": "Enabled",
+    "disabled": "Disabled",
+    "presets": {
+      "title": "Quick Presets",
+      "description": "Apply common filtering scenarios with one click"
+    },
+    "customRules": {
+      "title": "Custom Filter Rules",
+      "addRule": "Add Rule",
+      "noRules": "No custom rules defined. Add a rule to get started.",
+      "ruleName": "Rule Name",
+      "patternType": "Pattern Type",
+      "pattern": "Pattern",
+      "removeRule": "Remove Rule",
+      "newRuleName": "New Filter Rule"
+    },
+    "patternTypes": {
+      "startsWith": "Starts With",
+      "endsWith": "Ends With",
+      "contains": "Contains",
+      "exact": "Exact Match",
+      "regex": "Regular Expression"
+    },
+    "actions": {
+      "include": "Include",
+      "exclude": "Exclude",
+      "applyFilters": "Apply Filters",
+      "resetFilters": "Reset Filters",
+      "enableDebugLogging": "Debug Logging"
+    },
+    "combineMode": {
+      "title": "Rule Combination",
+      "description": "How to combine multiple filter rules",
+      "and": "AND (All rules must match)",
+      "or": "OR (Any rule can match)"
+    },
+    "preview": {
+      "title": "Filter Preview",
+      "filteringActive": "Filtering Active",
+      "active": "Active",
+      "inactive": "Inactive",
+      "totalRules": "Total Rules",
+      "enabledRules": "Enabled Rules",
+      "includeRules": "Include Rules",
+      "excludeRules": "Exclude Rules",
+      "lastFilterResult": "Last Filter Result",
+      "originalCount": "Original Records",
+      "filteredCount": "Filtered Records",
+      "excludedCount": "Excluded Records",
+      "excludedCodes": "Excluded Codes"
+    },
+    "validation": {
+      "patternRequired": "Pattern is required",
+      "invalidRegex": "Invalid regular expression: {error}"
+    },
+    "messages": {
+      "filteringEnabled": "Filtering enabled",
+      "filteringDisabled": "Filtering disabled",
+      "ruleRemoved": "Filter rule removed",
+      "presetApplied": "Preset applied",
+      "filtersApplied": "Filters applied successfully",
+      "dataReloaded": "Data has been reloaded with new filters",
+      "errorApplyingFilters": "Error applying filters",
+      "filtersReset": "Filters reset to default",
+      "debugLoggingEnabled": "Debug logging enabled",
+      "debugLoggingDisabled": "Debug logging disabled"
+    }
   }
 }
