@@ -7,6 +7,8 @@ import { EntitySemanticMapper } from '@/utils/EntitySemanticMapper'
 import { getCantonByAbbreviation, getMunicipalityByGdnId } from '@/utils/GeographicalDataLoader'
 import type { FinancialData } from '@/types/FinancialDataStructure'
 import type { MultiLanguageLabels } from '@/types/DataStructures.ts'
+import type { AccountCodeFilterConfig } from '@/types/DataFilters'
+import { DEFAULT_FILTER_CONFIG } from '@/types/DataFilters'
 import { i18n } from '@/i18n'
 
 interface ScalingInfo {
@@ -25,6 +27,7 @@ export const useFinancialDataStore = defineStore('financialData', () => {
   const currentScalingId = ref<string | null>(null)
   const datasets = ref<string[]>([])
   const isApplyingScaling = ref(false)
+  const filterConfig = ref<AccountCodeFilterConfig>({ ...DEFAULT_FILTER_CONFIG })
 
   // Dependencies
   const statsDataLoader = StatsDataLoader.getInstance()
@@ -51,6 +54,14 @@ export const useFinancialDataStore = defineStore('financialData', () => {
     scalingFactorCache.clear()
   }
 
+  const updateFilterConfig = (newConfig: Partial<AccountCodeFilterConfig>) => {
+    filterConfig.value = { ...filterConfig.value, ...newConfig }
+  }
+
+  const resetFilterConfig = () => {
+    filterConfig.value = { ...DEFAULT_FILTER_CONFIG }
+  }
+
   const loadDatasets = async () => {
     if (datasets.value.length === 0) {
       clearData()
@@ -64,7 +75,7 @@ export const useFinancialDataStore = defineStore('financialData', () => {
     try {
       // Start with empty financial data structure
       combinedFinancialData.value = createEmptyFinancialDataStructure()
-      const dataLoader = new DataLoader()
+      const dataLoader = new DataLoader(filterConfig.value)
 
       // Load each dataset into the combined structure
       for (const dataset of datasets.value) {
@@ -330,6 +341,7 @@ export const useFinancialDataStore = defineStore('financialData', () => {
     currentScalingId,
     datasets,
     isApplyingScaling,
+    filterConfig,
 
     // Computed
     hasValidData,
@@ -340,5 +352,7 @@ export const useFinancialDataStore = defineStore('financialData', () => {
     loadDatasets,
     setScaling,
     getScalingInfo,
+    updateFilterConfig,
+    resetFilterConfig,
   }
 })
