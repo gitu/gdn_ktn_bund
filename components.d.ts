@@ -8,6 +8,8 @@ export {}
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
+    ComparisonControls: typeof import('./src/components/ComparisonControls.vue')['default']
+    ComparisonTooltip: typeof import('./src/components/ComparisonTooltip.vue')['default']
     DataBrowser: typeof import('./src/components/DataBrowser.vue')['default']
     DatasetSelector: typeof import('./src/components/DatasetSelector.vue')['default']
     FinancialDataComparison: typeof import('./src/components/FinancialDataComparison.vue')['default']

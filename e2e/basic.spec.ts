@@ -21,6 +21,10 @@ test.describe('Select Element from Dataset Selector', () => {
 
   test('comparison view loads with correct headers', async ({page}) => {
     await page.goto('/c?datasets=gdn/fs/194141:2022,std/fs/ktn_ag:2022,std/fs/bund:2022,std/fs/sv_ahv:2022');
+
+    // Wait for the table to load
+    await expect(page.locator('thead')).toBeVisible({ timeout: 20000 });
+
     await expect(page.locator('thead')).toContainText('Reinach (AG)');
     await expect(page.locator('thead')).toContainText('Kanton Aargau');
     await expect(page.locator('thead')).toContainText('Bund (CH)');
@@ -30,6 +34,10 @@ test.describe('Select Element from Dataset Selector', () => {
 
   test('comarison view loads with correct data', async ({page}) => {
     await page.goto('/c?datasets=gdn/fs/194141:2022,std/fs/ktn_ag:2022,std/fs/bund:2022,std/fs/sv_ahv:2022');
+
+    // Wait for the first cell to be visible before checking content
+    await expect(page.getByRole('cell', { name: 'Finanzieller Wert für Reinach' }).first()).toBeVisible({ timeout: 20000 });
+
     await expect(page.getByRole('cell', { name: 'Finanzieller Wert für Reinach' }).first()).toContainText('135.302.448 CHF');
     await expect(page.getByRole('cell', { name: 'Finanzieller Wert für Kanton' }).first()).toContainText('4.865.841.581 CHF');
     await expect(page.getByRole('cell', { name: 'Finanzieller Wert für Bund (' }).first()).toContainText('180.271.592.516 CHF');
@@ -39,9 +47,14 @@ test.describe('Select Element from Dataset Selector', () => {
   test('select different scaling factors', async ({page}) => {
     await page.goto('/c?datasets=gdn/fs/194141:2022,std/fs/ktn_ag:2022,std/fs/bund:2022,std/fs/sv_ahv:2022');
 
+    // Wait for initial data to load
+    await expect(page.getByRole('cell', { name: 'Finanzieller Wert für Reinach' }).first()).toBeVisible({ timeout: 20000 });
+
     await page.getByRole('combobox').click();
     await page.getByRole('option', { name: 'Bevölkerung' }).click();
-    await expect(page.getByRole('cell', { name: 'Finanzieller Wert für Reinach' }).first()).toContainText('14.244 CHF');
+
+    // Wait for scaling to be applied
+    await expect(page.getByRole('cell', { name: 'Finanzieller Wert für Reinach' }).first()).toContainText('14.244 CHF', { timeout: 10000 });
     await expect(page.getByRole('cell', { name: 'Finanzieller Wert für Kanton' }).first()).toContainText('6.718 CHF');
     await expect(page.getByRole('cell', { name: 'Finanzieller Wert für Bund (' }).first()).toContainText('20.115 CHF');
     await expect(page.getByRole('cell', { name: 'Finanzieller Wert für Alters' }).first()).toContainText('5.439 CHF');
