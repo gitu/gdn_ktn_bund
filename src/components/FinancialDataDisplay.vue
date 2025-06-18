@@ -45,8 +45,18 @@
         >
           <template #header>
             <div class="flex flex-wrap justify-end gap-2">
-              <Button text icon="pi pi-plus" :label="$t('financialDataDisplay.expandAll')" @click="expandAll" />
-              <Button text icon="pi pi-minus" :label="$t('financialDataDisplay.collapseAll')" @click="collapseAll" />
+              <Button
+                text
+                icon="pi pi-plus"
+                :label="$t('financialDataDisplay.expandAll')"
+                @click="expandAll"
+              />
+              <Button
+                text
+                icon="pi pi-minus"
+                :label="$t('financialDataDisplay.collapseAll')"
+                @click="collapseAll"
+              />
             </div>
           </template>
           <template #footer>
@@ -77,8 +87,18 @@
 
               <!-- Right side: Action buttons -->
               <div class="flex gap-2">
-                <Button text icon="pi pi-plus" :label="$t('financialDataDisplay.expandAll')" @click="expandAll" />
-                <Button text icon="pi pi-minus" :label="$t('financialDataDisplay.collapseAll')" @click="collapseAll" />
+                <Button
+                  text
+                  icon="pi pi-plus"
+                  :label="$t('financialDataDisplay.expandAll')"
+                  @click="expandAll"
+                />
+                <Button
+                  text
+                  icon="pi pi-minus"
+                  :label="$t('financialDataDisplay.collapseAll')"
+                  @click="collapseAll"
+                />
               </div>
             </div>
           </template>
