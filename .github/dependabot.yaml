@@ -23,10 +23,3 @@ updates:
     schedule:
       # Check for updates to GitHub Actions every week
       interval: "weekly"
-    groups:
-      github-actions-non-breaking:
-        patterns:
-          - "*"
-        update-types:
-          - "version-update:semver-minor"
-          - "version-update:semver-patch"
