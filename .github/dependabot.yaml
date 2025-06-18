@@ -7,8 +7,26 @@ updates:
     # Check the npm registry for updates every day (weekdays)
     schedule:
       interval: "daily"
+    groups:
+      production-dependencies-non-breaking:
+        dependency-type: "production"
+        update-types:
+          - "minor"
+          - "patch"
+      development-dependencies-non-breaking:
+        dependency-type: "development"
+        update-types:
+          - "minor"
+          - "patch"
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
       # Check for updates to GitHub Actions every week
       interval: "weekly"
+    groups:
+      github-actions-non-breaking:
+        patterns:
+          - "*"
+        update-types:
+          - "version-update:semver-minor"
+          - "version-update:semver-patch"
