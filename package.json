@@ -43,7 +43,7 @@
     "vue-router": "^4.5.0"
   },
   "devDependencies": {
-    "@cloudflare/vite-plugin": "^1.6.0",
+    "@cloudflare/vite-plugin": "^1.7.0",
     "@intlify/eslint-plugin-vue-i18n": "^4.0.1",
     "@playwright/test": "^1.53.0",
     "@primevue/auto-import-resolver": "^4.3.5",
