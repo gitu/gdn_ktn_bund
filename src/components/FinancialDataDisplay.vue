@@ -42,6 +42,7 @@
           columnResizeMode="expand"
           showGridlines
           scrollable
+          data-testid="tree-table"
         >
           <template #header>
             <div class="flex flex-wrap justify-end gap-2">
@@ -445,6 +446,7 @@ const scalingEnabled = ref(true)
 // Column comparison state
 const selectedColumn = ref<string | null>(null)
 const internalComparisonPairs = ref<Record<string, string[]>>(props.comparisonPairs || {})
+const isInternalUpdate = ref(false)
 
 // Popover state
 const popoverRef = ref<InstanceType<typeof Popover> | null>(null)
@@ -458,7 +460,7 @@ const selectedComparisonData = ref<{
 watch(
   () => props.comparisonPairs,
   (newComparisonPairs) => {
-    if (newComparisonPairs) {
+    if (newComparisonPairs && !isInternalUpdate.value) {
       internalComparisonPairs.value = { ...newComparisonPairs }
     }
   },
@@ -469,7 +471,12 @@ watch(
 watch(
   internalComparisonPairs,
   (newComparisonPairs) => {
+    isInternalUpdate.value = true
     emit('comparisonChanged', { ...newComparisonPairs })
+    // Reset the flag after a microtask to allow the parent to update
+    Promise.resolve().then(() => {
+      isInternalUpdate.value = false
+    })
   },
   { deep: true },
 )
@@ -897,23 +904,32 @@ const handleColumnClick = (entityCode: string) => {
     const baseColumn = selectedColumn.value
     const compareColumn = entityCode
 
-    // Add comparison to the compare column
-    if (!internalComparisonPairs.value[compareColumn]) {
-      internalComparisonPairs.value[compareColumn] = []
+    // Create a new object to avoid direct mutation issues
+    const newComparisonPairs = { ...internalComparisonPairs.value }
+    
+    // Initialize array if it doesn't exist
+    if (!newComparisonPairs[compareColumn]) {
+      newComparisonPairs[compareColumn] = []
     }
 
-    const comparisons = internalComparisonPairs.value[compareColumn]
+    const comparisons = [...newComparisonPairs[compareColumn]]
     const existingIndex = comparisons.indexOf(baseColumn)
 
     // Toggle the comparison
     if (existingIndex > -1) {
       comparisons.splice(existingIndex, 1)
       if (comparisons.length === 0) {
-        delete internalComparisonPairs.value[compareColumn]
+        delete newComparisonPairs[compareColumn]
+      } else {
+        newComparisonPairs[compareColumn] = comparisons
       }
     } else {
       comparisons.push(baseColumn)
+      newComparisonPairs[compareColumn] = comparisons
     }
+
+    // Update the reactive reference with the new object
+    internalComparisonPairs.value = newComparisonPairs
 
     // Reset selection
     selectedColumn.value = null
