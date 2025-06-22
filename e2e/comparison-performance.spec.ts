@@ -16,7 +16,7 @@ test.describe('Comparison View Performance', () => {
     
     const loadTime = Date.now() - startTime
     
-    test.info().log(`Comparison view loaded in ${loadTime}ms`)
+    console.log(`Comparison view loaded in ${loadTime}ms`)
     
     // Performance assertion - should load within 5 seconds
     expect(loadTime).toBeLessThan(5000)
@@ -82,8 +82,9 @@ test.describe('Comparison View Performance', () => {
     // Start timing scaling change
     const scalingStartTime = Date.now()
     
-    // Change scaling to population
+    // Wait for scaling selector to be available and change to population
     const scalingSelector = page.locator('select').first()
+    await expect(scalingSelector).toBeVisible({ timeout: 10000 })
     await scalingSelector.selectOption({ value: 'pop' })
     
     // Wait for values to update by checking that the value has changed

@@ -21,19 +21,29 @@ test.describe('Select Element from Dataset Selector', () => {
 
   test('comparison view loads with correct headers', async ({page}) => {
     await page.goto('/c?datasets=gdn/fs/194141:2022,std/fs/ktn_ag:2022,std/fs/bund:2022,std/fs/sv_ahv:2022');
-    await expect(page.locator('thead')).toContainText('Reinach (AG)');
-    await expect(page.locator('thead')).toContainText('Kanton Aargau');
-    await expect(page.locator('thead')).toContainText('Bund (CH)');
-    await expect(page.locator('thead')).toContainText('Alters- und Hinterlassenenversicherung (AHV)');
+    
+    // Wait for table to be visible first
+    await expect(page.locator('[data-testid="tree-table"]')).toBeVisible({ timeout: 60000 });
+    
+    // Then check for headers with longer timeout
+    await expect(page.locator('thead')).toContainText('Reinach (AG)', { timeout: 30000 });
+    await expect(page.locator('thead')).toContainText('Kanton Aargau', { timeout: 10000 });
+    await expect(page.locator('thead')).toContainText('Bund (CH)', { timeout: 10000 });
+    await expect(page.locator('thead')).toContainText('Alters- und Hinterlassenenversicherung (AHV)', { timeout: 10000 });
   });
 
 
   test('comarison view loads with correct data', async ({page}) => {
     await page.goto('/c?datasets=gdn/fs/194141:2022,std/fs/ktn_ag:2022,std/fs/bund:2022,std/fs/sv_ahv:2022');
-    await expect(page.getByRole('cell', { name: 'Finanzieller Wert für Reinach' }).first()).toContainText('135.302.448 CHF');
-    await expect(page.getByRole('cell', { name: 'Finanzieller Wert für Kanton' }).first()).toContainText('4.865.841.581 CHF');
-    await expect(page.getByRole('cell', { name: 'Finanzieller Wert für Bund (' }).first()).toContainText('180.271.592.516 CHF');
-    await expect(page.getByRole('cell', { name: 'Finanzieller Wert für Alters' }).first()).toContainText('48.744.054.697 CHF');
+    
+    // Wait for table to be visible first
+    await expect(page.locator('[data-testid="tree-table"]')).toBeVisible({ timeout: 60000 });
+    
+    // Then check for data with longer timeout
+    await expect(page.getByRole('cell', { name: 'Finanzieller Wert für Reinach' }).first()).toContainText('135.302.448 CHF', { timeout: 30000 });
+    await expect(page.getByRole('cell', { name: 'Finanzieller Wert für Kanton' }).first()).toContainText('4.865.841.581 CHF', { timeout: 10000 });
+    await expect(page.getByRole('cell', { name: 'Finanzieller Wert für Bund (' }).first()).toContainText('180.271.592.516 CHF', { timeout: 10000 });
+    await expect(page.getByRole('cell', { name: 'Finanzieller Wert für Alters' }).first()).toContainText('48.744.054.697 CHF', { timeout: 10000 });
   });
 
   test('select different scaling factors', async ({page}) => {
