@@ -2,13 +2,14 @@ import { ref, computed } from 'vue'
 import { defineStore } from 'pinia'
 import { DataLoader } from '@/utils/DataLoader'
 import { StatsDataLoader } from '@/utils/StatsDataLoader'
-import { CustomScalingFormula, type ScalingVariable } from '@/utils/CustomScalingFormula'
+import { CustomScalingFormula, CUSTOM_SCALING_PREFIX, type ScalingVariable } from '@/utils/CustomScalingFormula'
 import { createEmptyFinancialDataStructure } from '@/data/emptyFinancialDataStructure'
 import { EntitySemanticMapper } from '@/utils/EntitySemanticMapper'
 import { getCantonByAbbreviation, getMunicipalityByGdnId } from '@/utils/GeographicalDataLoader'
 import type { FinancialData, FinancialDataEntity } from '@/types/FinancialDataStructure'
 import type { MultiLanguageLabels } from '@/types/DataStructures.ts'
 import { i18n } from '@/i18n'
+
 
 interface ScalingInfo {
   id: string
@@ -183,9 +184,9 @@ export const useFinancialDataStore = defineStore('financialData', () => {
         return
       }
 
-      // Check if this is a custom formula (starts with "custom:")
-      if (scalingId.startsWith('custom:')) {
-        const formula = scalingId.substring(7) // Remove "custom:" prefix
+      // Check if this is a custom formula (starts with the custom prefix)
+      if (scalingId.startsWith(CUSTOM_SCALING_PREFIX)) {
+        const formula = scalingId.substring(CUSTOM_SCALING_PREFIX.length) // Remove custom prefix
         await applyCustomScalingFormula(formula)
         return
       }
@@ -272,7 +273,7 @@ export const useFinancialDataStore = defineStore('financialData', () => {
                   parseInt(year),
                   source,
                 )
-                if (factorValue !== null && factorValue > 0) {
+                if (factorValue !== null) {
                   scalingVariables.set(factorId, {
                     id: factorId,
                     name: stat.name,

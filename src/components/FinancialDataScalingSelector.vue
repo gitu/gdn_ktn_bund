@@ -199,10 +199,11 @@ import InputText from 'primevue/inputtext'
 import FloatLabel from 'primevue/floatlabel'
 import { StatsDataLoader } from '@/utils/StatsDataLoader'
 import { GeographicalDataLoader } from '@/utils/GeographicalDataLoader'
-import { CustomScalingFormula } from '@/utils/CustomScalingFormula'
+import { CustomScalingFormula, CUSTOM_SCALING_PREFIX } from '@/utils/CustomScalingFormula'
 import type { StatsAvailabilityInfo } from '@/types/StatsData'
 import type { FinancialData } from '@/types/FinancialDataStructure'
 import type { MultiLanguageLabels } from '@/types/DataStructures'
+
 
 // Props
 interface Props {
@@ -290,8 +291,8 @@ const scalingOptions = computed<ScalingOption[]>(() => {
   })
 
   // Add custom formula option if one is currently applied
-  if (internalSelectedScaling.value?.startsWith('custom:')) {
-    const formula = internalSelectedScaling.value.substring(7)
+  if (internalSelectedScaling.value?.startsWith(CUSTOM_SCALING_PREFIX)) {
+    const formula = internalSelectedScaling.value.substring(CUSTOM_SCALING_PREFIX.length)
     const displayName = CustomScalingFormula.getFormulaDisplayName(
       formula,
       availableStats.value,
@@ -375,7 +376,7 @@ const onCustomFormulaInput = () => {
 
 const applyCustomFormula = () => {
   if (customFormulaValidation.value?.isValid && customFormulaInput.value) {
-    const customScalingId = `custom:${customFormulaInput.value}`
+    const customScalingId = `${CUSTOM_SCALING_PREFIX}${customFormulaInput.value}`
     emit('scalingChanged', customScalingId)
 
     // Update the selector to show "Custom Formula"
@@ -414,7 +415,7 @@ const onScalingChange = async () => {
     }
 
     // Validate that the scaling ID exists in available stats (skip validation for custom formulas)
-    const isCustomFormula = internalSelectedScaling.value.startsWith('custom:')
+    const isCustomFormula = internalSelectedScaling.value.startsWith(CUSTOM_SCALING_PREFIX)
     if (!isCustomFormula) {
       const scalingExists = availableStats.value.some(
         (stat) => stat.id === internalSelectedScaling.value,
@@ -477,8 +478,8 @@ watch(
       internalSelectedScaling.value = scalingValue
 
       // Handle custom formulas from URL
-      if (scalingValue && scalingValue.startsWith('custom:')) {
-        const formula = scalingValue.substring(7) // Remove "custom:" prefix
+      if (scalingValue && scalingValue.startsWith(CUSTOM_SCALING_PREFIX)) {
+        const formula = scalingValue.substring(CUSTOM_SCALING_PREFIX.length) // Remove custom prefix
         customFormulaInput.value = formula
         showCustomFormula.value = true
 

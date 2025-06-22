@@ -10,6 +10,9 @@
 import type { StatsAvailabilityInfo } from '@/types/StatsData'
 import type { MultiLanguageLabels } from '@/types/DataStructures'
 
+// Constants
+export const CUSTOM_SCALING_PREFIX = 'custom:'
+
 export interface CustomScalingResult {
   isValid: boolean
   result?: number
