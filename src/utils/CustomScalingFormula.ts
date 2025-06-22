@@ -9,9 +9,11 @@
 
 import type { StatsAvailabilityInfo } from '@/types/StatsData'
 import type { MultiLanguageLabels } from '@/types/DataStructures'
+import { ScalingOptimization, type OptimizationTarget, type OptimizationResult, type OptimizationOptions } from './ScalingOptimization'
 
 // Constants
 export const CUSTOM_SCALING_PREFIX = 'custom:'
+export const OPTIMIZED_SCALING_PREFIX = 'optimized:'
 
 export interface CustomScalingResult {
   isValid: boolean
@@ -369,6 +371,39 @@ export class CustomScalingFormula {
     }
 
     return output
+  }
+
+  /**
+   * Generate optimized scaling formula based on financial data
+   */
+  static generateOptimizedFormula(
+    targets: OptimizationTarget[],
+    availableStats: StatsAvailabilityInfo[],
+    options: OptimizationOptions = {}
+  ): OptimizationResult {
+    return ScalingOptimization.optimizeScalingFormula(targets, availableStats, options)
+  }
+
+  /**
+   * Check if scaling ID is an optimized formula
+   */
+  static isOptimizedFormula(scalingId: string): boolean {
+    return scalingId.startsWith(OPTIMIZED_SCALING_PREFIX)
+  }
+
+  /**
+   * Extract formula from optimized scaling ID
+   */
+  static extractOptimizedFormula(scalingId: string): string | null {
+    if (!this.isOptimizedFormula(scalingId)) return null
+    return scalingId.substring(OPTIMIZED_SCALING_PREFIX.length)
+  }
+
+  /**
+   * Create optimized scaling ID from formula
+   */
+  static createOptimizedScalingId(formula: string): string {
+    return `${OPTIMIZED_SCALING_PREFIX}${formula}`
   }
 
   /**

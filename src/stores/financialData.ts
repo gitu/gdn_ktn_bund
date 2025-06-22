@@ -2,7 +2,7 @@ import { ref, computed } from 'vue'
 import { defineStore } from 'pinia'
 import { DataLoader } from '@/utils/DataLoader'
 import { StatsDataLoader } from '@/utils/StatsDataLoader'
-import { CustomScalingFormula, CUSTOM_SCALING_PREFIX, type ScalingVariable } from '@/utils/CustomScalingFormula'
+import { CustomScalingFormula, CUSTOM_SCALING_PREFIX, OPTIMIZED_SCALING_PREFIX, type ScalingVariable } from '@/utils/CustomScalingFormula'
 import { createEmptyFinancialDataStructure } from '@/data/emptyFinancialDataStructure'
 import { EntitySemanticMapper } from '@/utils/EntitySemanticMapper'
 import { getCantonByAbbreviation, getMunicipalityByGdnId } from '@/utils/GeographicalDataLoader'
@@ -188,6 +188,13 @@ export const useFinancialDataStore = defineStore('financialData', () => {
       if (scalingId.startsWith(CUSTOM_SCALING_PREFIX)) {
         const formula = scalingId.substring(CUSTOM_SCALING_PREFIX.length) // Remove custom prefix
         await applyCustomScalingFormula(formula)
+        return
+      }
+
+      // Check if this is an optimized formula (starts with the optimized prefix)
+      if (scalingId.startsWith(OPTIMIZED_SCALING_PREFIX)) {
+        const formula = scalingId.substring(OPTIMIZED_SCALING_PREFIX.length) // Remove optimized prefix
+        await applyCustomScalingFormula(formula) // Use same logic as custom formulas
         return
       }
 

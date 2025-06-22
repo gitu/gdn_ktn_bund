@@ -235,6 +235,12 @@
       "title": "Benutzerdefinierte Formel",
       "placeholder": "Formel eingeben (z.B. 1.5*pop+30*area)",
       "apply": "Benutzerdefinierte Formel anwenden",
+      "optimize": "Optimieren",
+      "optimizationSuccess": "Formel erfolgreich optimiert!",
+      "optimizationFormula": "Optimierte Formel",
+      "optimizationQuality": "Qualität (R²)",
+      "optimizationFailed": "Optimierung fehlgeschlagen",
+      "applyOptimized": "Optimierte Formel anwenden",
       "valid": "Gültige Formel mit: {factors}",
       "help": {
         "title": "Erstellen Sie benutzerdefinierte Skalierungsformeln mit mathematischen Ausdrücken:",

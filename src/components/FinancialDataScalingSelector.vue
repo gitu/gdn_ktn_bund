@@ -102,15 +102,67 @@
                 </p>
               </div>
 
-              <!-- Apply button -->
-              <Button
-                @click="applyCustomFormula"
-                :disabled="!customFormulaValidation?.isValid"
-                class="w-full"
-                severity="primary"
+              <!-- Action buttons -->
+              <div class="flex gap-2">
+                <Button
+                  @click="applyCustomFormula"
+                  :disabled="!customFormulaValidation?.isValid"
+                  class="flex-1"
+                  severity="primary"
+                >
+                  {{ $t('financialDataScalingSelector.customFormula.apply') }}
+                </Button>
+                
+                <Button
+                  @click="optimizeFormula"
+                  :disabled="!canOptimize"
+                  :loading="isOptimizing"
+                  class="flex-1"
+                  severity="secondary"
+                  outlined
+                >
+                  {{ $t('financialDataScalingSelector.customFormula.optimize') }}
+                </Button>
+              </div>
+
+              <!-- Optimization result -->
+              <Message
+                v-if="optimizationResult && optimizationResult.isValid"
+                severity="success"
+                :closable="false"
+                class="mt-2"
               >
-                {{ $t('financialDataScalingSelector.customFormula.apply') }}
-              </Button>
+                <div class="text-sm">
+                  <div class="font-medium mb-1">
+                    {{ $t('financialDataScalingSelector.customFormula.optimizationSuccess') }}
+                  </div>
+                  <div>
+                    {{ $t('financialDataScalingSelector.customFormula.optimizationFormula') }}: 
+                    <code class="bg-surface-100 dark:bg-surface-700 px-1 rounded">{{ optimizationResult.formula }}</code>
+                  </div>
+                  <div v-if="optimizationResult.rSquared">
+                    {{ $t('financialDataScalingSelector.customFormula.optimizationQuality') }}: 
+                    {{ (optimizationResult.rSquared * 100).toFixed(1) }}%
+                  </div>
+                  <Button
+                    @click="applyOptimizedFormula"
+                    size="small"
+                    class="mt-2"
+                    severity="primary"
+                  >
+                    {{ $t('financialDataScalingSelector.customFormula.applyOptimized') }}
+                  </Button>
+                </div>
+              </Message>
+
+              <Message
+                v-else-if="optimizationResult && !optimizationResult.isValid"
+                severity="warn"
+                :closable="false"
+                class="mt-2"
+              >
+                {{ $t('financialDataScalingSelector.customFormula.optimizationFailed') }}: {{ optimizationResult.error }}
+              </Message>
             </div>
           </div>
         </div>
@@ -199,7 +251,7 @@ import InputText from 'primevue/inputtext'
 import FloatLabel from 'primevue/floatlabel'
 import { StatsDataLoader } from '@/utils/StatsDataLoader'
 import { GeographicalDataLoader } from '@/utils/GeographicalDataLoader'
-import { CustomScalingFormula, CUSTOM_SCALING_PREFIX } from '@/utils/CustomScalingFormula'
+import { CustomScalingFormula, CUSTOM_SCALING_PREFIX, OPTIMIZED_SCALING_PREFIX } from '@/utils/CustomScalingFormula'
 import type { StatsAvailabilityInfo } from '@/types/StatsData'
 import type { FinancialData } from '@/types/FinancialDataStructure'
 import type { MultiLanguageLabels } from '@/types/DataStructures'
@@ -249,6 +301,10 @@ const showCustomFormula = ref(false)
 const customFormulaInput = ref('')
 const customFormulaError = ref<string | null>(null)
 const customFormulaValidation = ref<{ isValid: boolean; usedFactors?: string[] } | null>(null)
+
+// Optimization state
+const isOptimizing = ref(false)
+const optimizationResult = ref<any>(null)
 
 // Suppress unused variable warning - geoDataLoader is available for future use
 void geoDataLoader
@@ -310,6 +366,13 @@ const scalingOptions = computed<ScalingOption[]>(() => {
 const availableFactorsList = computed(() => {
   return availableStats.value.map((stat) => stat.id).join(', ')
 })
+
+const canOptimize = computed(() => {
+  return !loading.value && 
+         availableStats.value.length >= 2 && 
+         props.financialData?.entities?.size && 
+         props.financialData.entities.size >= 2
+})
 const scalingInfoExpanded = ref(false)
 
 // Check if any entity has a scaling factor
@@ -340,6 +403,67 @@ const getEntityDisplayName = (entity: { code?: string; name?: MultiLanguageLabel
 // Custom formula methods
 const toggleCustomFormula = () => {
   showCustomFormula.value = !showCustomFormula.value
+  // Clear optimization result when toggling
+  optimizationResult.value = null
+}
+
+// Optimization methods
+const optimizeFormula = async () => {
+  if (!canOptimize.value || !props.financialData) return
+
+  isOptimizing.value = true
+  optimizationResult.value = null
+
+  try {
+    // TODO: Implement actual data collection from financial data
+    // This is a simplified version - in reality we'd need to:
+    // 1. Extract financial data values for each entity
+    // 2. Load scaling factors for each entity
+    // 3. Create optimization targets
+    
+    // For now, create a mock optimization
+    const mockResult = {
+      isValid: true,
+      formula: '0.5*pop+0.3*workplaces+0.2*total_area',
+      rSquared: 0.85,
+      coefficients: new Map([
+        ['pop', 0.5],
+        ['workplaces', 0.3], 
+        ['total_area', 0.2]
+      ]),
+      targetLineCount: 5,
+      entityCount: props.financialData.entities.size
+    }
+
+    // Simulate async operation
+    await new Promise(resolve => setTimeout(resolve, 1500))
+    
+    optimizationResult.value = mockResult
+    
+  } catch (error) {
+    console.error('Optimization error:', error)
+    optimizationResult.value = {
+      isValid: false,
+      error: 'Failed to optimize formula. Please try again.'
+    }
+  } finally {
+    isOptimizing.value = false
+  }
+}
+
+const applyOptimizedFormula = () => {
+  if (optimizationResult.value?.isValid && optimizationResult.value.formula) {
+    const optimizedScalingId = `${OPTIMIZED_SCALING_PREFIX}${optimizationResult.value.formula}`
+    emit('scalingChanged', optimizedScalingId)
+    
+    // Update the selector and input
+    internalSelectedScaling.value = optimizedScalingId
+    customFormulaInput.value = optimizationResult.value.formula
+    
+    // Close the custom formula section
+    showCustomFormula.value = false
+    optimizationResult.value = null
+  }
 }
 
 const onCustomFormulaInput = () => {

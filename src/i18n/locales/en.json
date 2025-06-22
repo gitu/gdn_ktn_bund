@@ -235,6 +235,12 @@
       "title": "Custom Formula",
       "placeholder": "Enter formula (e.g., 1.5*pop+30*area)",
       "apply": "Apply Custom Formula",
+      "optimize": "Optimize",
+      "optimizationSuccess": "Formula optimized successfully!",
+      "optimizationFormula": "Optimized formula",
+      "optimizationQuality": "Quality (R²)",
+      "optimizationFailed": "Optimization failed",
+      "applyOptimized": "Apply Optimized Formula",
       "valid": "Valid formula using: {factors}",
       "help": {
         "title": "Create custom scaling formulas using mathematical expressions:",

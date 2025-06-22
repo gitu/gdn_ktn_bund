@@ -235,6 +235,12 @@
       "title": "Formule personnalisée",
       "placeholder": "Entrer la formule (ex. 1.5*pop+30*area)",
       "apply": "Appliquer la formule personnalisée",
+      "optimize": "Optimiser",
+      "optimizationSuccess": "Formule optimisée avec succès!",
+      "optimizationFormula": "Formule optimisée",
+      "optimizationQuality": "Qualité (R²)",
+      "optimizationFailed": "Optimisation échouée",
+      "applyOptimized": "Appliquer la formule optimisée",
       "valid": "Formule valide utilisant: {factors}",
       "help": {
         "title": "Créez des formules de mise à l'échelle personnalisées avec des expressions mathématiques:",

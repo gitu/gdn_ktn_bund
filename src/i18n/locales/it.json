@@ -235,6 +235,12 @@
       "title": "Formula personalizzata",
       "placeholder": "Inserire la formula (es. 1.5*pop+30*area)",
       "apply": "Applica formula personalizzata",
+      "optimize": "Ottimizza",
+      "optimizationSuccess": "Formula ottimizzata con successo!",
+      "optimizationFormula": "Formula ottimizzata",
+      "optimizationQuality": "Qualità (R²)",
+      "optimizationFailed": "Ottimizzazione fallita",
+      "applyOptimized": "Applica formula ottimizzata",
       "valid": "Formula valida che utilizza: {factors}",
       "help": {
         "title": "Crea formule di scalatura personalizzate usando espressioni matematiche:",
