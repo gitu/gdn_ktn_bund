@@ -16,7 +16,7 @@ test.describe('Comparison View Performance', () => {
     
     const loadTime = Date.now() - startTime
     
-    console.log(`Comparison view loaded in ${loadTime}ms`)
+    test.info().log(`Comparison view loaded in ${loadTime}ms`)
     
     // Performance assertion - should load within 5 seconds
     expect(loadTime).toBeLessThan(5000)
