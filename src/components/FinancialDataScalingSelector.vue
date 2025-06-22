@@ -35,6 +35,85 @@
             {{ $t('financialDataScalingSelector.selectScaling') }}</label
           >
         </FloatLabel>
+
+        <!-- Custom formula section -->
+        <div class="custom-formula-section mt-4">
+          <Button
+            @click="toggleCustomFormula"
+            :aria-expanded="showCustomFormula"
+            class="custom-formula-toggle w-full justify-between"
+            severity="secondary"
+            outlined
+          >
+            <span>{{ $t('financialDataScalingSelector.customFormula.title') }}</span>
+            <i :class="showCustomFormula ? 'pi pi-chevron-up' : 'pi pi-chevron-down'"></i>
+          </Button>
+
+          <div
+            v-if="showCustomFormula"
+            class="custom-formula-content mt-4 p-4 bg-surface-50 dark:bg-surface-800 rounded-lg"
+          >
+            <div class="flex flex-col gap-4">
+              <!-- Formula input -->
+              <FloatLabel class="w-full">
+                <InputText
+                  id="custom-formula-input"
+                  v-model="customFormulaInput"
+                  class="w-full"
+                  :class="{ 'p-invalid': customFormulaError }"
+                  @input="onCustomFormulaInput"
+                  data-testid="custom-formula-input"
+                />
+                <label for="custom-formula-input">
+                  {{ $t('financialDataScalingSelector.customFormula.placeholder') }}
+                </label>
+              </FloatLabel>
+
+              <!-- Formula validation message -->
+              <Message v-if="customFormulaError" severity="error" :closable="false">
+                {{ customFormulaError }}
+              </Message>
+
+              <Message
+                v-else-if="customFormulaInput && customFormulaValidation?.isValid"
+                severity="success"
+                :closable="false"
+              >
+                {{
+                  $t('financialDataScalingSelector.customFormula.valid', {
+                    factors: customFormulaValidation.usedFactors?.join(', ') || '',
+                  })
+                }}
+              </Message>
+
+              <!-- Formula help -->
+              <div class="formula-help text-sm text-surface-600 dark:text-surface-300">
+                <p class="mb-2">
+                  {{ $t('financialDataScalingSelector.customFormula.help.title') }}
+                </p>
+                <ul class="list-disc ml-4 space-y-1">
+                  <li>{{ $t('financialDataScalingSelector.customFormula.help.example1') }}</li>
+                  <li>{{ $t('financialDataScalingSelector.customFormula.help.example2') }}</li>
+                  <li>{{ $t('financialDataScalingSelector.customFormula.help.example3') }}</li>
+                </ul>
+                <p class="mt-2">
+                  {{ $t('financialDataScalingSelector.customFormula.help.availableFactors') }}
+                  <strong>{{ availableFactorsList }}</strong>
+                </p>
+              </div>
+
+              <!-- Apply button -->
+              <Button
+                @click="applyCustomFormula"
+                :disabled="!customFormulaValidation?.isValid"
+                class="w-full"
+                severity="primary"
+              >
+                {{ $t('financialDataScalingSelector.customFormula.apply') }}
+              </Button>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -115,12 +194,16 @@ import { ref, computed, watch, onMounted } from 'vue'
 import { useI18n } from 'vue-i18n'
 import Select from 'primevue/select'
 import Message from 'primevue/message'
+import Button from 'primevue/button'
+import InputText from 'primevue/inputtext'
+import FloatLabel from 'primevue/floatlabel'
 import { StatsDataLoader } from '@/utils/StatsDataLoader'
 import { GeographicalDataLoader } from '@/utils/GeographicalDataLoader'
+import { CustomScalingFormula, CUSTOM_SCALING_PREFIX } from '@/utils/CustomScalingFormula'
 import type { StatsAvailabilityInfo } from '@/types/StatsData'
 import type { FinancialData } from '@/types/FinancialDataStructure'
 import type { MultiLanguageLabels } from '@/types/DataStructures'
-import Button from 'primevue/button'
+
 
 // Props
 interface Props {
@@ -160,6 +243,12 @@ const internalSelectedScaling = ref<string | null>(null)
 const availableStats = ref<StatsAvailabilityInfo[]>([])
 const statsDataLoader = StatsDataLoader.getInstance()
 const geoDataLoader = GeographicalDataLoader.getInstance()
+
+// Custom formula state
+const showCustomFormula = ref(false)
+const customFormulaInput = ref('')
+const customFormulaError = ref<string | null>(null)
+const customFormulaValidation = ref<{ isValid: boolean; usedFactors?: string[] } | null>(null)
 
 // Suppress unused variable warning - geoDataLoader is available for future use
 void geoDataLoader
@@ -201,7 +290,25 @@ const scalingOptions = computed<ScalingOption[]>(() => {
     })
   })
 
+  // Add custom formula option if one is currently applied
+  if (internalSelectedScaling.value?.startsWith(CUSTOM_SCALING_PREFIX)) {
+    const formula = internalSelectedScaling.value.substring(CUSTOM_SCALING_PREFIX.length)
+    const displayName = CustomScalingFormula.getFormulaDisplayName(
+      formula,
+      availableStats.value,
+      locale.value,
+    )
+    options.push({
+      label: displayName,
+      value: internalSelectedScaling.value,
+    })
+  }
+
   return options
+})
+
+const availableFactorsList = computed(() => {
+  return availableStats.value.map((stat) => stat.id).join(', ')
 })
 const scalingInfoExpanded = ref(false)
 
@@ -228,6 +335,56 @@ const getEntityDisplayName = (entity: { code?: string; name?: MultiLanguageLabel
   if (!entity || !entity.name) return entity?.code || 'Unknown Entity'
   const currentLocale = locale.value as keyof MultiLanguageLabels
   return entity.name[currentLocale] || entity.name.de || entity.code || 'Unknown Entity'
+}
+
+// Custom formula methods
+const toggleCustomFormula = () => {
+  showCustomFormula.value = !showCustomFormula.value
+}
+
+const onCustomFormulaInput = () => {
+  if (!customFormulaInput.value.trim()) {
+    customFormulaError.value = null
+    customFormulaValidation.value = null
+    return
+  }
+
+  // Wait for stats to load if they haven't yet
+  if (availableStats.value.length === 0 && !loading.value) {
+    customFormulaError.value = 'Scaling factors are still loading. Please try again.'
+    customFormulaValidation.value = null
+    return
+  }
+
+  try {
+    const validation = CustomScalingFormula.validateFormula(
+      customFormulaInput.value,
+      availableStats.value,
+    )
+    customFormulaValidation.value = validation
+
+    if (validation.isValid) {
+      customFormulaError.value = null
+    } else {
+      customFormulaError.value = validation.error || 'Invalid formula'
+    }
+  } catch (error) {
+    customFormulaError.value = error instanceof Error ? error.message : 'Validation error'
+    customFormulaValidation.value = null
+  }
+}
+
+const applyCustomFormula = () => {
+  if (customFormulaValidation.value?.isValid && customFormulaInput.value) {
+    const customScalingId = `${CUSTOM_SCALING_PREFIX}${customFormulaInput.value}`
+    emit('scalingChanged', customScalingId)
+
+    // Update the selector to show "Custom Formula"
+    internalSelectedScaling.value = customScalingId
+
+    // Close the custom formula section
+    showCustomFormula.value = false
+  }
 }
 
 // Methods
@@ -257,12 +414,15 @@ const onScalingChange = async () => {
       return
     }
 
-    // Validate that the scaling ID exists in available stats
-    const scalingExists = availableStats.value.some(
-      (stat) => stat.id === internalSelectedScaling.value,
-    )
-    if (!scalingExists) {
-      throw new Error('Invalid scaling selection')
+    // Validate that the scaling ID exists in available stats (skip validation for custom formulas)
+    const isCustomFormula = internalSelectedScaling.value.startsWith(CUSTOM_SCALING_PREFIX)
+    if (!isCustomFormula) {
+      const scalingExists = availableStats.value.some(
+        (stat) => stat.id === internalSelectedScaling.value,
+      )
+      if (!scalingExists) {
+        throw new Error('Invalid scaling selection')
+      }
     }
 
     emit('scalingChanged', internalSelectedScaling.value)
@@ -317,6 +477,27 @@ watch(
     if (scalingValue !== internalSelectedScaling.value) {
       internalSelectedScaling.value = scalingValue
 
+      // Handle custom formulas from URL
+      if (scalingValue && scalingValue.startsWith(CUSTOM_SCALING_PREFIX)) {
+        const formula = scalingValue.substring(CUSTOM_SCALING_PREFIX.length) // Remove custom prefix
+        customFormulaInput.value = formula
+        showCustomFormula.value = true
+
+        // Validate the formula after stats are loaded
+        if (availableStats.value.length > 0) {
+          onCustomFormulaInput()
+        }
+        // If stats aren't loaded yet, validation will happen in the watcher below
+      } else {
+        // Clear custom formula when switching to regular scaling
+        if (customFormulaInput.value) {
+          customFormulaInput.value = ''
+          customFormulaError.value = null
+          customFormulaValidation.value = null
+          showCustomFormula.value = false
+        }
+      }
+
       if (scalingValue) {
         await applyScalingDebounced()
       }
@@ -327,6 +508,15 @@ watch(
 
 // Watch for data readiness to apply scaling
 watch([() => availableStats.value.length, () => props.financialData?.entities?.size], async () => {
+  // Validate custom formula if one is pending and stats are now loaded
+  if (
+    customFormulaInput.value &&
+    availableStats.value.length > 0 &&
+    !customFormulaValidation.value
+  ) {
+    onCustomFormulaInput()
+  }
+
   if (shouldApplyScaling()) {
     await applyScalingDebounced()
   }

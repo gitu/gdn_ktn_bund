@@ -231,6 +231,19 @@
       "total_area": "Superficie totale",
       "workplaces": "Luoghi di lavoro"
     },
+    "customFormula": {
+      "title": "Formula personalizzata",
+      "placeholder": "Inserire la formula (es. 1.5*pop+30*area)",
+      "apply": "Applica formula personalizzata",
+      "valid": "Formula valida che utilizza: {factors}",
+      "help": {
+        "title": "Crea formule di scalatura personalizzate usando espressioni matematiche:",
+        "example1": "1.5*pop+30*total_area (combinazione ponderata)",
+        "example2": "pop/total_area (densità di popolazione)",
+        "example3": "(pop+workplaces)*0.5 (misura media)",
+        "availableFactors": "Fattori disponibili:"
+      }
+    },
     "errors": {
       "loadingFailed": "Caricamento delle opzioni di scalatura fallito",
       "applyingFailed": "Applicazione del fattore di scala fallita",

@@ -231,6 +231,19 @@
       "total_area": "Gesamtfläche",
       "workplaces": "Arbeitsplätze"
     },
+    "customFormula": {
+      "title": "Benutzerdefinierte Formel",
+      "placeholder": "Formel eingeben (z.B. 1.5*pop+30*area)",
+      "apply": "Benutzerdefinierte Formel anwenden",
+      "valid": "Gültige Formel mit: {factors}",
+      "help": {
+        "title": "Erstellen Sie benutzerdefinierte Skalierungsformeln mit mathematischen Ausdrücken:",
+        "example1": "1.5*pop+30*total_area (gewichtete Kombination)",
+        "example2": "pop/total_area (Bevölkerungsdichte)",
+        "example3": "(pop+workplaces)*0.5 (Durchschnittsmass)",
+        "availableFactors": "Verfügbare Faktoren:"
+      }
+    },
     "errors": {
       "loadingFailed": "Fehler beim Laden der Skalierungsoptionen",
       "applyingFailed": "Fehler beim Anwenden des Skalierungsfaktors",

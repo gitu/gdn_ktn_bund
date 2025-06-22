@@ -114,7 +114,7 @@ const goBackToComparison = () => {
   }
 
   if (selectedScaling.value) {
-    query.scaling = selectedScaling.value
+    query.scaling = encodeURIComponent(selectedScaling.value)
   }
 
   router.push({
@@ -172,9 +172,9 @@ const loadDatasetsFromRoute = () => {
       datasets.value = []
     }
 
-    // Load scaling from URL
+    // Load scaling from URL (URL decode for custom formulas)
     if (typeof scalingParam === 'string' && scalingParam.trim()) {
-      selectedScaling.value = scalingParam
+      selectedScaling.value = decodeURIComponent(scalingParam)
     } else {
       selectedScaling.value = null
     }
@@ -221,7 +221,7 @@ const updateURL = () => {
   }
 
   if (selectedScaling.value) {
-    query.scaling = selectedScaling.value
+    query.scaling = encodeURIComponent(selectedScaling.value)
   }
 
   // Update comparison pairs using simple format: "columnA,baseA|columnB,baseB"

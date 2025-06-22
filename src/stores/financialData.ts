@@ -2,12 +2,14 @@ import { ref, computed } from 'vue'
 import { defineStore } from 'pinia'
 import { DataLoader } from '@/utils/DataLoader'
 import { StatsDataLoader } from '@/utils/StatsDataLoader'
+import { CustomScalingFormula, CUSTOM_SCALING_PREFIX, type ScalingVariable } from '@/utils/CustomScalingFormula'
 import { createEmptyFinancialDataStructure } from '@/data/emptyFinancialDataStructure'
 import { EntitySemanticMapper } from '@/utils/EntitySemanticMapper'
 import { getCantonByAbbreviation, getMunicipalityByGdnId } from '@/utils/GeographicalDataLoader'
 import type { FinancialData, FinancialDataEntity } from '@/types/FinancialDataStructure'
 import type { MultiLanguageLabels } from '@/types/DataStructures.ts'
 import { i18n } from '@/i18n'
+
 
 interface ScalingInfo {
   id: string
@@ -182,7 +184,14 @@ export const useFinancialDataStore = defineStore('financialData', () => {
         return
       }
 
-      // Get scaling information from the scaling ID
+      // Check if this is a custom formula (starts with the custom prefix)
+      if (scalingId.startsWith(CUSTOM_SCALING_PREFIX)) {
+        const formula = scalingId.substring(CUSTOM_SCALING_PREFIX.length) // Remove custom prefix
+        await applyCustomScalingFormula(formula)
+        return
+      }
+
+      // Get scaling information from the scaling ID (traditional scaling)
       const scalingInfo = await getScalingInfo(scalingId)
       if (!scalingInfo) {
         console.error(`Failed to get scaling info for ID: ${scalingId}`)
@@ -197,6 +206,130 @@ export const useFinancialDataStore = defineStore('financialData', () => {
       error.value = 'Error applying scaling to datasets'
     } finally {
       isApplyingScaling.value = false
+    }
+  }
+
+  const applyCustomScalingFormula = async (formula: string) => {
+    if (!combinedFinancialData.value) return
+
+    try {
+      // Get available stats for validation
+      const availableStats = await statsDataLoader.getAvailableStats()
+
+      // Validate the formula
+      const validation = CustomScalingFormula.validateFormula(formula, availableStats)
+      if (!validation.isValid) {
+        error.value = `Invalid custom formula: ${validation.error}`
+        return
+      }
+
+      // Prepare scaling requests for all entities
+      const entityScalingPromises: Array<{
+        entityCode: string
+        entity: FinancialDataEntity
+        promise: Promise<number | null>
+      }> = []
+
+      for (const [entityCode, entity] of combinedFinancialData.value.entities) {
+        try {
+          // Extract entity information from the entity code
+          const parts = entityCode.split('/')
+          if (parts.length !== 3) continue
+
+          const source = parts[0] as 'gdn' | 'std'
+          const entityAndYear = parts[2]
+          const [entityId, year] = entityAndYear.split(':')
+
+          if (!entityId || !year) continue
+
+          // Create promise for calculating custom scaling
+          const customScalingPromise = (async () => {
+            // Load all required scaling factors for this entity
+            const scalingVariables = new Map<string, ScalingVariable>()
+
+            let geoId = ''
+            if (source === 'std') {
+              if (EntitySemanticMapper.isCantonSpecific(entityId)) {
+                const cantonCode = EntitySemanticMapper.getCantonCodeFromEntity(entityId)
+                if (cantonCode) {
+                  const canton = await getCantonByAbbreviation(cantonCode.toUpperCase())
+                  geoId = canton?.cantonId || 'XYX'
+                }
+              } else {
+                geoId = 'bund'
+              }
+            } else if (source === 'gdn') {
+              const municipality = await getMunicipalityByGdnId(entityId)
+              geoId = municipality?.municipalityId || entityId
+            }
+
+            // Load all scaling factors needed by the formula
+            for (const factorId of validation.usedFactors || []) {
+              const stat = availableStats.find((s) => s.id === factorId)
+              if (stat) {
+                const factorValue = await loadScalingFactorForEntity(
+                  factorId,
+                  geoId,
+                  parseInt(year),
+                  source,
+                )
+                if (factorValue !== null) {
+                  scalingVariables.set(factorId, {
+                    id: factorId,
+                    name: stat.name,
+                    value: factorValue,
+                    unit: stat.unit,
+                  })
+                }
+              }
+            }
+
+            // Evaluate the formula with the loaded variables
+            const result = CustomScalingFormula.evaluateFormula(formula, scalingVariables)
+            if (result.isValid && result.result !== undefined) {
+              return result.result
+            }
+
+            return null
+          })()
+
+          entityScalingPromises.push({
+            entityCode,
+            entity,
+            promise: customScalingPromise,
+          })
+        } catch (error) {
+          console.error(`Error preparing custom scaling for entity ${entityCode}:`, error)
+        }
+      }
+
+      // Execute all scaling calculations in parallel
+      const results = await Promise.allSettled(entityScalingPromises.map((req) => req.promise))
+
+      // Apply results to entities
+      for (let i = 0; i < entityScalingPromises.length; i++) {
+        const { entity } = entityScalingPromises[i]
+        const result = results[i]
+
+        if (result.status === 'fulfilled' && result.value !== null && result.value > 0) {
+          entity.scalingFactor = result.value
+          entity.scalingInfo = {
+            de: `Benutzerdefinierte Formel: ${CustomScalingFormula.getFormulaDisplayName(formula, availableStats, 'de')}`,
+            fr: `Formule personnalisée: ${CustomScalingFormula.getFormulaDisplayName(formula, availableStats, 'fr')}`,
+            it: `Formula personalizzata: ${CustomScalingFormula.getFormulaDisplayName(formula, availableStats, 'it')}`,
+            en: `Custom formula: ${CustomScalingFormula.getFormulaDisplayName(formula, availableStats, 'en')}`,
+          }
+          entity.scalingMode = 'divide'
+        } else {
+          // Clear scaling if calculation failed
+          entity.scalingFactor = undefined
+          entity.scalingInfo = undefined
+          entity.scalingMode = undefined
+        }
+      }
+    } catch (scalingError) {
+      console.error('Error applying custom scaling formula:', scalingError)
+      error.value = 'Error applying custom scaling formula'
     }
   }
 

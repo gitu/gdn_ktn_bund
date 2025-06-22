@@ -231,6 +231,19 @@
       "total_area": "Total Area",
       "workplaces": "Workplaces"
     },
+    "customFormula": {
+      "title": "Custom Formula",
+      "placeholder": "Enter formula (e.g., 1.5*pop+30*area)",
+      "apply": "Apply Custom Formula",
+      "valid": "Valid formula using: {factors}",
+      "help": {
+        "title": "Create custom scaling formulas using mathematical expressions:",
+        "example1": "1.5*pop+30*total_area (weighted combination)",
+        "example2": "pop/total_area (population density)",
+        "example3": "(pop+workplaces)*0.5 (average measure)",
+        "availableFactors": "Available factors:"
+      }
+    },
     "errors": {
       "loadingFailed": "Failed to load scaling options",
       "applyingFailed": "Failed to apply scaling factor",
