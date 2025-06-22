@@ -31,6 +31,12 @@ describe('DataLoader', () => {
     mockFinancialData = createEmptyFinancialDataStructure()
     vi.clearAllMocks()
     mockPapaParse.mockClear()
+
+    // Clear the static CSV cache to avoid test interference
+    // @ts-expect-error - accessing private static property for testing
+    DataLoader.csvCache?.clear?.()
+    // @ts-expect-error - accessing private static property for testing
+    DataLoader.cacheTimestamps?.clear?.()
   })
 
   describe('validateGdnData', () => {
@@ -508,6 +514,127 @@ describe('DataLoader', () => {
 
       // Test hasSumValues method
       expect(dataLoader.hasSumValues(balanceRootNode)).toBe(false) // Should be false since we don't use :sum suffix
+    })
+  })
+
+  describe('CSV Caching', () => {
+    it('should cache CSV responses to avoid redundant network requests', async () => {
+      // Test the loadCsvData method directly to verify caching behavior
+      const mockCsvData = `arten,funk,jahr,value,dim,unit
+100,,2022,1000000,bilanz,CHF`
+
+      const mockParsedData = [
+        { arten: '100', funk: '', jahr: '2022', value: '1000000', dim: 'bilanz', unit: 'CHF' },
+      ]
+
+      mockFetch.mockResolvedValue({
+        ok: true,
+        text: vi.fn().mockResolvedValue(mockCsvData),
+        status: 200,
+        statusText: 'OK',
+      })
+
+      mockPapaParse.mockReturnValue({
+        data: mockParsedData,
+        errors: [],
+        meta: {
+          fields: ['arten', 'funk', 'jahr', 'value', 'dim', 'unit'],
+        },
+      } as any)
+
+      const testPath = '/data/gdn/fs/010002/2022.csv'
+
+      // First call - should fetch from network
+      const result1 = await dataLoader['loadCsvData'](testPath)
+      expect(result1).toHaveLength(1)
+      expect(mockFetch).toHaveBeenCalledTimes(1)
+
+      // Second call - should use cached data
+      const result2 = await dataLoader['loadCsvData'](testPath)
+      expect(result2).toHaveLength(1)
+      expect(mockFetch).toHaveBeenCalledTimes(1) // No additional calls
+    })
+
+    it('should expire cached CSV data after 5 minutes', async () => {
+      const mockCsvData = `arten,funk,jahr,value,dim,unit
+100,,2022,1000000,bilanz,CHF`
+
+      const mockParsedData = [
+        { arten: '100', funk: '', jahr: '2022', value: '1000000', dim: 'bilanz', unit: 'CHF' },
+      ]
+
+      mockFetch.mockResolvedValue({
+        ok: true,
+        text: vi.fn().mockResolvedValue(mockCsvData),
+        status: 200,
+        statusText: 'OK',
+      })
+
+      mockPapaParse.mockReturnValue({
+        data: mockParsedData,
+        errors: [],
+        meta: {
+          fields: ['arten', 'funk', 'jahr', 'value', 'dim', 'unit'],
+        },
+      } as any)
+
+      // Mock Date.now to simulate time passing
+      const originalDateNow = Date.now
+      let mockTime = 1000000
+      vi.spyOn(Date, 'now').mockImplementation(() => mockTime)
+
+      try {
+        const testPath = '/data/gdn/fs/010002/2022.csv'
+
+        // First call
+        await dataLoader['loadCsvData'](testPath)
+        expect(mockFetch).toHaveBeenCalledTimes(1)
+
+        // Advance time by 6 minutes (beyond 5-minute cache expiry)
+        mockTime += 6 * 60 * 1000
+
+        // Second call - should refetch due to expired cache
+        await dataLoader['loadCsvData'](testPath)
+        expect(mockFetch).toHaveBeenCalledTimes(2)
+      } finally {
+        vi.spyOn(Date, 'now').mockImplementation(originalDateNow)
+      }
+    })
+
+    it('should handle cache misses for different file paths', async () => {
+      const mockCsvData = `arten,funk,jahr,value,dim,unit
+100,,2022,1000000,bilanz,CHF`
+
+      const mockParsedData = [
+        { arten: '100', funk: '', jahr: '2022', value: '1000000', dim: 'bilanz', unit: 'CHF' },
+      ]
+
+      mockFetch.mockResolvedValue({
+        ok: true,
+        text: vi.fn().mockResolvedValue(mockCsvData),
+        status: 200,
+        statusText: 'OK',
+      })
+
+      mockPapaParse.mockReturnValue({
+        data: mockParsedData,
+        errors: [],
+        meta: {
+          fields: ['arten', 'funk', 'jahr', 'value', 'dim', 'unit'],
+        },
+      } as any)
+
+      const path1 = '/data/gdn/fs/010002/2022.csv'
+      const path2 = '/data/gdn/fs/010002/2021.csv'
+
+      // Load different paths - should result in separate network calls
+      const result1 = await dataLoader['loadCsvData'](path1)
+      const result2 = await dataLoader['loadCsvData'](path2)
+
+      expect(result1).toHaveLength(1)
+      expect(result2).toHaveLength(1)
+      // Each path should have triggered separate network calls
+      expect(mockFetch).toHaveBeenCalledTimes(2)
     })
   })
 })

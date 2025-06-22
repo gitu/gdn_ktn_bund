@@ -112,8 +112,7 @@ Cached in browser for performance.
 - Always add tests when modifying code (per copilot-instructions.md)
 
 #### Code Quality Standards
-- Run `npm run lint` before committing
-- Run `npm run format` to ensure consistent formatting
+- Run `npm run pre-commit` before committing
 - No direct pushes to main - always use pull requests
 - TypeScript strict mode enabled - no `any` types
 
