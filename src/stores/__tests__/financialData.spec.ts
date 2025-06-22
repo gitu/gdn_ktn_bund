@@ -52,11 +52,25 @@ describe('financialData store', () => {
   describe('Parallel Dataset Loading', () => {
     it('should handle mixed success and failure scenarios correctly', async () => {
       const store = useFinancialDataStore()
-      
+
       // Mock DataLoader instance
       const mockDataLoaderInstance = {
         loadAndIntegrateFinancialData: vi.fn(),
-      }
+        validateGdnData: vi.fn(),
+        validateStdData: vi.fn(),
+        loadCsvData: vi.fn(),
+        loadGdnData: vi.fn(),
+        loadStdData: vi.fn(),
+        calculateEntitySum: vi.fn(),
+        getSumFromNode: vi.fn(),
+        hasSumValues: vi.fn(),
+        findNodeByCode: vi.fn(),
+        findAccountByCode: vi.fn(),
+        getAccountingStandards: vi.fn(),
+        getAllAccountCodes: vi.fn(),
+        validateAccountCode: vi.fn(),
+        getAccountHierarchy: vi.fn(),
+      } as Partial<DataLoader>
       MockedDataLoader.mockImplementation(() => mockDataLoaderInstance)
 
       // Set up datasets
@@ -80,11 +94,25 @@ describe('financialData store', () => {
 
     it('should count successful loads correctly when some datasets fail', async () => {
       const store = useFinancialDataStore()
-      
+
       // Mock DataLoader instance
       const mockDataLoaderInstance = {
         loadAndIntegrateFinancialData: vi.fn(),
-      }
+        validateGdnData: vi.fn(),
+        validateStdData: vi.fn(),
+        loadCsvData: vi.fn(),
+        loadGdnData: vi.fn(),
+        loadStdData: vi.fn(),
+        calculateEntitySum: vi.fn(),
+        getSumFromNode: vi.fn(),
+        hasSumValues: vi.fn(),
+        findNodeByCode: vi.fn(),
+        findAccountByCode: vi.fn(),
+        getAccountingStandards: vi.fn(),
+        getAllAccountCodes: vi.fn(),
+        validateAccountCode: vi.fn(),
+        getAccountHierarchy: vi.fn(),
+      } as Partial<DataLoader>
       MockedDataLoader.mockImplementation(() => mockDataLoaderInstance)
 
       // Set up datasets
@@ -106,11 +134,25 @@ describe('financialData store', () => {
 
     it('should handle all datasets failing gracefully', async () => {
       const store = useFinancialDataStore()
-      
+
       // Mock DataLoader instance
       const mockDataLoaderInstance = {
         loadAndIntegrateFinancialData: vi.fn(),
-      }
+        validateGdnData: vi.fn(),
+        validateStdData: vi.fn(),
+        loadCsvData: vi.fn(),
+        loadGdnData: vi.fn(),
+        loadStdData: vi.fn(),
+        calculateEntitySum: vi.fn(),
+        getSumFromNode: vi.fn(),
+        hasSumValues: vi.fn(),
+        findNodeByCode: vi.fn(),
+        findAccountByCode: vi.fn(),
+        getAccountingStandards: vi.fn(),
+        getAllAccountCodes: vi.fn(),
+        validateAccountCode: vi.fn(),
+        getAccountHierarchy: vi.fn(),
+      } as Partial<DataLoader>
       MockedDataLoader.mockImplementation(() => mockDataLoaderInstance)
 
       // Set up datasets
@@ -118,8 +160,9 @@ describe('financialData store', () => {
       store.setDatasets(datasets)
 
       // Mock all datasets to fail
-      mockDataLoaderInstance.loadAndIntegrateFinancialData
-        .mockRejectedValue(new Error('Server error'))
+      mockDataLoaderInstance.loadAndIntegrateFinancialData.mockRejectedValue(
+        new Error('Server error'),
+      )
 
       // Attempt to load datasets
       await store.loadDatasets()
@@ -133,7 +176,7 @@ describe('financialData store', () => {
 
     it('should handle malformed dataset identifiers', async () => {
       const store = useFinancialDataStore()
-      
+
       // Set up malformed datasets
       const datasets = ['invalid-format', 'gdn/fs', 'gdn/fs/010002'] // Missing parts
       store.setDatasets(datasets)
@@ -149,7 +192,7 @@ describe('financialData store', () => {
 
     it('should handle empty entity or year in dataset identifier', async () => {
       const store = useFinancialDataStore()
-      
+
       // Set up datasets with empty entity/year
       const datasets = ['gdn/fs/:2022', 'gdn/fs/010002:'] // Empty entity and year
       store.setDatasets(datasets)
@@ -165,11 +208,25 @@ describe('financialData store', () => {
 
     it('should handle parallel loading without race conditions', async () => {
       const store = useFinancialDataStore()
-      
+
       // Mock DataLoader instance
       const mockDataLoaderInstance = {
         loadAndIntegrateFinancialData: vi.fn(),
-      }
+        validateGdnData: vi.fn(),
+        validateStdData: vi.fn(),
+        loadCsvData: vi.fn(),
+        loadGdnData: vi.fn(),
+        loadStdData: vi.fn(),
+        calculateEntitySum: vi.fn(),
+        getSumFromNode: vi.fn(),
+        hasSumValues: vi.fn(),
+        findNodeByCode: vi.fn(),
+        findAccountByCode: vi.fn(),
+        getAccountingStandards: vi.fn(),
+        getAllAccountCodes: vi.fn(),
+        validateAccountCode: vi.fn(),
+        getAccountHierarchy: vi.fn(),
+      } as Partial<DataLoader>
       MockedDataLoader.mockImplementation(() => mockDataLoaderInstance)
 
       // Set up datasets
@@ -177,16 +234,15 @@ describe('financialData store', () => {
       store.setDatasets(datasets)
 
       // Mock datasets to succeed with different delays
-      mockDataLoaderInstance.loadAndIntegrateFinancialData
-        .mockImplementation(async () => {
-          await new Promise(resolve => setTimeout(resolve, Math.random() * 100))
-          return undefined
-        })
+      mockDataLoaderInstance.loadAndIntegrateFinancialData.mockImplementation(async () => {
+        await new Promise((resolve) => setTimeout(resolve, Math.random() * 100))
+        return undefined
+      })
 
       // Start multiple concurrent loads
       const loadPromise1 = store.loadDatasets()
       const loadPromise2 = store.loadDatasets()
-      
+
       await Promise.all([loadPromise1, loadPromise2])
 
       // Should not have errors and should handle concurrency properly
@@ -199,11 +255,25 @@ describe('financialData store', () => {
   describe('Error Handling', () => {
     it('should handle unknown errors gracefully', async () => {
       const store = useFinancialDataStore()
-      
+
       // Mock DataLoader instance
       const mockDataLoaderInstance = {
         loadAndIntegrateFinancialData: vi.fn(),
-      }
+        validateGdnData: vi.fn(),
+        validateStdData: vi.fn(),
+        loadCsvData: vi.fn(),
+        loadGdnData: vi.fn(),
+        loadStdData: vi.fn(),
+        calculateEntitySum: vi.fn(),
+        getSumFromNode: vi.fn(),
+        hasSumValues: vi.fn(),
+        findNodeByCode: vi.fn(),
+        findAccountByCode: vi.fn(),
+        getAccountingStandards: vi.fn(),
+        getAllAccountCodes: vi.fn(),
+        validateAccountCode: vi.fn(),
+        getAccountHierarchy: vi.fn(),
+      } as Partial<DataLoader>
       MockedDataLoader.mockImplementation(() => mockDataLoaderInstance)
 
       // Set up datasets
@@ -211,8 +281,7 @@ describe('financialData store', () => {
       store.setDatasets(datasets)
 
       // Mock dataset to throw non-Error object
-      mockDataLoaderInstance.loadAndIntegrateFinancialData
-        .mockRejectedValue('String error')
+      mockDataLoaderInstance.loadAndIntegrateFinancialData.mockRejectedValue('String error')
 
       // Attempt to load datasets
       await store.loadDatasets()

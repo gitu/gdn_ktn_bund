@@ -630,7 +630,7 @@ describe('DataLoader', () => {
       // Load different paths - should result in separate network calls
       const result1 = await dataLoader['loadCsvData'](path1)
       const result2 = await dataLoader['loadCsvData'](path2)
-      
+
       expect(result1).toHaveLength(1)
       expect(result2).toHaveLength(1)
       // Each path should have triggered separate network calls
