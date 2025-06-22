@@ -213,7 +213,6 @@ const loadDatasetsFromRoute = () => {
   }
 }
 
-
 const updateURL = () => {
   const query: Record<string, string> = {}
 
@@ -244,12 +243,14 @@ const updateURL = () => {
   const currentQueryString = new URLSearchParams(currentQuery as Record<string, string>).toString()
 
   if (newQueryString !== currentQueryString) {
-    router.replace({
-      name: 'financial-data-full-view',
-      query: Object.keys(query).length > 0 ? query : undefined,
-    }).catch(() => {
-      // Ignore navigation errors silently
-    })
+    router
+      .replace({
+        name: 'financial-data-full-view',
+        query: Object.keys(query).length > 0 ? query : undefined,
+      })
+      .catch(() => {
+        // Ignore navigation errors silently
+      })
   }
 }
 

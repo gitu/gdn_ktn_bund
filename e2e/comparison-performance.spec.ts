@@ -8,21 +8,8 @@ test.describe('Comparison View Performance', () => {
     // Navigate to comparison view with multiple datasets
     await page.goto('/c?datasets=gdn/fs/010261:2022,gdn/fs/010230:2022,gdn/fs/010156:2022,gdn/fs/010058:2022,std/fs/gdn_zh:2022')
     
-    // Debug: Wait for page to load and check what's available
-    await page.waitForLoadState('networkidle')
-    
-    // Wait for the main content to be mounted
-    await page.waitForSelector('.min-h-screen', { timeout: 10000 })
-    
-    // Check if there's an error message
-    const errorMessage = await page.locator('[severity="error"]').count()
-    if (errorMessage > 0) {
-      const errorText = await page.locator('[severity="error"]').textContent()
-      console.log('Error found on page:', errorText)
-    }
-    
     // Wait for the tree table to be visible and data to load
-    await page.waitForSelector('[data-testid="tree-table"]', { timeout: 60000 })
+    await expect(page.locator('[data-testid="tree-table"]')).toBeVisible({ timeout: 60000 })
     
     // Wait for first data cell to have content (indicates data has loaded)
     await expect(page.locator('[data-testid="tree-table"] tbody tr:first-child td:nth-child(2)')).not.toHaveText('', { timeout: 30000 })
@@ -45,11 +32,8 @@ test.describe('Comparison View Performance', () => {
     // Navigate with fewer datasets for faster loading
     await page.goto('/c?datasets=gdn/fs/010261:2022,gdn/fs/010230:2022')
     
-    // Wait for page load
-    await page.waitForLoadState('networkidle')
-    
     // Wait for table and data
-    await page.waitForSelector('[data-testid="tree-table"]', { timeout: 30000 })
+    await expect(page.locator('[data-testid="tree-table"]')).toBeVisible({ timeout: 30000 })
     await expect(page.locator('[data-testid="tree-table"] tbody tr:first-child td:nth-child(2)')).not.toHaveText('', { timeout: 30000 })
     
     const loadTime = Date.now() - startTime
@@ -63,8 +47,8 @@ test.describe('Comparison View Performance', () => {
   test('should create comparisons instantly after data is loaded', async ({ page }) => {
     // First load the data
     await page.goto('/c?datasets=gdn/fs/010261:2022,gdn/fs/010230:2022,gdn/fs/010156:2022')
-    await page.waitForSelector('[data-testid="tree-table"]', { timeout: 30000 })
-    await expect(page.locator('.tree-table tbody tr:first-child td:nth-child(2)')).not.toHaveText('', { timeout: 30000 })
+    await expect(page.locator('[data-testid="tree-table"]')).toBeVisible({ timeout: 30000 })
+    await expect(page.locator('[data-testid="tree-table"] tbody tr:first-child td:nth-child(2)')).not.toHaveText('', { timeout: 30000 })
     
     // Now measure how long it takes to create a comparison
     const comparisonStartTime = Date.now()
@@ -89,30 +73,28 @@ test.describe('Comparison View Performance', () => {
   test('should switch scaling factors quickly', async ({ page }) => {
     // Load data first
     await page.goto('/c?datasets=gdn/fs/010261:2022,gdn/fs/010230:2022')
-    await page.waitForSelector('[data-testid="tree-table"]', { timeout: 30000 })
-    await expect(page.locator('.tree-table tbody tr:first-child td:nth-child(2)')).not.toHaveText('', { timeout: 30000 })
+    await expect(page.locator('[data-testid="tree-table"]')).toBeVisible({ timeout: 30000 })
+    await expect(page.locator('[data-testid="tree-table"] tbody tr:first-child td:nth-child(2)')).not.toHaveText('', { timeout: 30000 })
     
     // Get initial value
-    const initialValue = await page.locator('.tree-table tbody tr:first-child td:nth-child(2)').textContent()
+    const initialValue = await page.locator('[data-testid="tree-table"] tbody tr:first-child td:nth-child(2)').textContent()
     
     // Start timing scaling change
     const scalingStartTime = Date.now()
     
     // Change scaling to population
     const scalingSelector = page.locator('select').first()
-    if (await scalingSelector.isVisible()) {
-      await scalingSelector.selectOption({ value: 'pop' })
-      
-      // Wait for values to update by checking that the value has changed
-      await expect(page.locator('.tree-table tbody tr:first-child td:nth-child(2)')).not.toHaveText(initialValue || '', { timeout: 5000 })
-      
-      const scalingTime = Date.now() - scalingStartTime
-      
-      console.log(`Scaling change applied in ${scalingTime}ms`)
-      
-      // Scaling should be applied quickly - under 2 seconds
-      expect(scalingTime).toBeLessThan(2000)
-    }
+    await scalingSelector.selectOption({ value: 'pop' })
+    
+    // Wait for values to update by checking that the value has changed
+    await expect(page.locator('[data-testid="tree-table"] tbody tr:first-child td:nth-child(2)')).not.toHaveText(initialValue || '', { timeout: 5000 })
+    
+    const scalingTime = Date.now() - scalingStartTime
+    
+    console.log(`Scaling change applied in ${scalingTime}ms`)
+    
+    // Scaling should be applied quickly - under 2 seconds
+    expect(scalingTime).toBeLessThan(2000)
   })
 
   test('should handle large dataset load performance', async ({ page }) => {
@@ -122,8 +104,8 @@ test.describe('Comparison View Performance', () => {
     await page.goto('/c?datasets=gdn/fs/010261:2022,gdn/fs/010230:2022,gdn/fs/010156:2022,gdn/fs/010058:2022,gdn/fs/010069:2022,std/fs/gdn_zh:2022,std/fs/ktn_zh:2022')
     
     // Wait for data to load - allow more time for larger dataset
-    await page.waitForSelector('[data-testid="tree-table"]', { timeout: 45000 })
-    await expect(page.locator('.tree-table tbody tr:first-child td:nth-child(2)')).not.toHaveText('', { timeout: 45000 })
+    await expect(page.locator('[data-testid="tree-table"]')).toBeVisible({ timeout: 45000 })
+    await expect(page.locator('[data-testid="tree-table"] tbody tr:first-child td:nth-child(2)')).not.toHaveText('', { timeout: 45000 })
     
     const loadTime = Date.now() - startTime
     

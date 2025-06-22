@@ -605,7 +605,7 @@ const nonZeroValueCache = new Map<string, boolean>()
 const transformNodeToTreeTableData = (node: FinancialDataNode): TreeTableNode[] => {
   // Create cache key based on node properties and current settings
   const cacheKey = `${node.code}-${showZeroValues.value}-${scalingEnabled.value}-${locale.value}`
-  
+
   // Check cache first
   if (treeTransformCache.has(cacheKey)) {
     return treeTransformCache.get(cacheKey)!
@@ -633,21 +633,21 @@ const transformNodeToTreeTableData = (node: FinancialDataNode): TreeTableNode[] 
 
   const rootNode = transformNode(node)
   const result = rootNode ? [rootNode] : []
-  
+
   // Cache the result
   treeTransformCache.set(cacheKey, result)
-  
+
   return result
 }
 
 const hasAnyNonZeroValueMemoized = (node: FinancialDataNode): boolean => {
   const cacheKey = node.code
-  
+
   // Check cache first
   if (nonZeroValueCache.has(cacheKey)) {
     return nonZeroValueCache.get(cacheKey)!
   }
-  
+
   // Check if this node has any non-zero values
   for (const [, value] of node.values) {
     if (value.value !== 0) {
@@ -658,21 +658,11 @@ const hasAnyNonZeroValueMemoized = (node: FinancialDataNode): boolean => {
 
   // Check children recursively
   const hasNonZeroChildren = node.children.some((child) => hasAnyNonZeroValueMemoized(child))
-  
+
   // Cache the result
   nonZeroValueCache.set(cacheKey, hasNonZeroChildren)
-  
+
   return hasNonZeroChildren
-}
-
-const hasAnyNonZeroValue = (node: FinancialDataNode): boolean => {
-  // Check if this node has any non-zero values
-  for (const [, value] of node.values) {
-    if (value.value !== 0) return true
-  }
-
-  // Check children recursively
-  return node.children.some((child) => hasAnyNonZeroValue(child))
 }
 
 const getNodeLabel = (node: FinancialDataNode): string => {
@@ -948,7 +938,7 @@ const handleColumnClick = (entityCode: string) => {
 
     // Create a new object to avoid direct mutation issues
     const newComparisonPairs = { ...internalComparisonPairs.value }
-    
+
     // Initialize array if it doesn't exist
     if (!newComparisonPairs[compareColumn]) {
       newComparisonPairs[compareColumn] = []
@@ -1008,7 +998,7 @@ watch(
     // Clear caches when financial data changes
     treeTransformCache.clear()
     nonZeroValueCache.clear()
-    
+
     if (newData) {
       validateFinancialData(newData)
     }
@@ -1017,14 +1007,11 @@ watch(
 )
 
 // Watch for settings changes that affect cached data
-watch(
-  [showZeroValues, scalingEnabled, locale],
-  () => {
-    // Clear caches when display settings change
-    treeTransformCache.clear()
-    nonZeroValueCache.clear()
-  }
-)
+watch([showZeroValues, scalingEnabled, locale], () => {
+  // Clear caches when display settings change
+  treeTransformCache.clear()
+  nonZeroValueCache.clear()
+})
 
 // Initialize component
 onMounted(() => {

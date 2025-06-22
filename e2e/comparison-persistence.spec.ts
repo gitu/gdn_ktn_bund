@@ -146,6 +146,6 @@ test.describe('Comparison Persistence', () => {
     expect(finalUrl).not.toContain('comparisons=')
     
     // Verify comparison tags are no longer visible
-    await expect(page.locator('.comparison-tag')).not.toBeVisible()
+    await expect(page.locator('.comparison-tag')).toBeHidden()
   })
 })

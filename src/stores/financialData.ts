@@ -67,7 +67,7 @@ export const useFinancialDataStore = defineStore('financialData', () => {
       const dataLoader = new DataLoader()
 
       // Parse all datasets first to validate them
-      const parsedDatasets = datasets.value.map(dataset => {
+      const parsedDatasets = datasets.value.map((dataset) => {
         const parts = dataset.split('/')
         if (parts.length !== 3) {
           throw new Error(`Invalid dataset identifier format: ${dataset}`)
@@ -106,15 +106,15 @@ export const useFinancialDataStore = defineStore('financialData', () => {
 
       // Wait for all datasets to load
       const results = await Promise.all(loadPromises)
-      
+
       // Check for any errors and count successful loads
-      const errors = results.filter(r => !r.success)
+      const errors = results.filter((r) => !r.success)
       if (errors.length > 0) {
         // If any dataset failed, throw the first error
         throw new Error(errors[0].error)
       }
-      
-      loadedDatasetCount.value = results.filter(r => r.success).length
+
+      loadedDatasetCount.value = results.filter((r) => r.success).length
 
       // Apply scaling if applicable
       if (currentScalingId.value) {
@@ -243,18 +243,13 @@ export const useFinancialDataStore = defineStore('financialData', () => {
           }
 
           // Load scaling data for this entity
-          return await loadScalingFactorForEntity(
-            scalingId,
-            geoId,
-            parseInt(year),
-            source,
-          )
+          return await loadScalingFactorForEntity(scalingId, geoId, parseInt(year), source)
         })()
 
         scalingRequests.push({
           entityCode,
           entity,
-          promise: scalingPromise
+          promise: scalingPromise,
         })
       } catch (error) {
         console.error(`Error preparing scaling request for entity ${entityCode}:`, error)
@@ -262,13 +257,13 @@ export const useFinancialDataStore = defineStore('financialData', () => {
     }
 
     // Execute all scaling requests in parallel
-    const results = await Promise.allSettled(scalingRequests.map(req => req.promise))
-    
+    const results = await Promise.allSettled(scalingRequests.map((req) => req.promise))
+
     // Apply results to entities
     for (let i = 0; i < scalingRequests.length; i++) {
       const { entity } = scalingRequests[i]
       const result = results[i]
-      
+
       if (result.status === 'fulfilled' && result.value !== null && result.value > 0) {
         const scalingFactor = result.value
         entity.scalingFactor = scalingFactor
@@ -296,16 +291,18 @@ export const useFinancialDataStore = defineStore('financialData', () => {
           ),
           en: (i18n.global as { t: (key: string, params?: Record<string, unknown>) => string }).t(
             'financialDataScalingSelector.scalingInfo.format',
-              {
-                name: scalingInfo.name.en,
-                unit: scalingInfo.unit.en,
-              },
-            ),
-          }
-          entity.scalingMode = 'divide' // Divide financial values by scaling factor for per-capita/per-unit values
+            {
+              name: scalingInfo.name.en,
+              unit: scalingInfo.unit.en,
+            },
+          ),
         }
+        entity.scalingMode = 'divide' // Divide financial values by scaling factor for per-capita/per-unit values
       } else if (result.status === 'rejected') {
-        console.error(`Error loading scaling factor for entity ${scalingRequests[i].entityCode}:`, result.reason)
+        console.error(
+          `Error loading scaling factor for entity ${scalingRequests[i].entityCode}:`,
+          result.reason,
+        )
         // Continue with other entities even if one fails
       }
     }
