@@ -598,10 +598,22 @@ const calculateProfitLossNode = (node: FinancialDataNode): FinancialDataNode | n
   }
 }
 
+// Memoization cache for tree transformations
+const treeTransformCache = new Map<string, TreeTableNode[]>()
+const nonZeroValueCache = new Map<string, boolean>()
+
 const transformNodeToTreeTableData = (node: FinancialDataNode): TreeTableNode[] => {
+  // Create cache key based on node properties and current settings
+  const cacheKey = `${node.code}-${showZeroValues.value}-${scalingEnabled.value}-${locale.value}`
+  
+  // Check cache first
+  if (treeTransformCache.has(cacheKey)) {
+    return treeTransformCache.get(cacheKey)!
+  }
+
   const transformNode = (n: FinancialDataNode, parentKey = ''): TreeTableNode | null => {
     const key = parentKey ? `${parentKey}-${n.code}` : n.code
-    const hasVisibleValues = showZeroValues.value ? true : hasAnyNonZeroValue(n)
+    const hasVisibleValues = showZeroValues.value ? true : hasAnyNonZeroValueMemoized(n)
 
     if (!hasVisibleValues && n.children.length === 0) {
       return null
@@ -620,7 +632,37 @@ const transformNodeToTreeTableData = (node: FinancialDataNode): TreeTableNode[] 
   }
 
   const rootNode = transformNode(node)
-  return rootNode ? [rootNode] : []
+  const result = rootNode ? [rootNode] : []
+  
+  // Cache the result
+  treeTransformCache.set(cacheKey, result)
+  
+  return result
+}
+
+const hasAnyNonZeroValueMemoized = (node: FinancialDataNode): boolean => {
+  const cacheKey = node.code
+  
+  // Check cache first
+  if (nonZeroValueCache.has(cacheKey)) {
+    return nonZeroValueCache.get(cacheKey)!
+  }
+  
+  // Check if this node has any non-zero values
+  for (const [, value] of node.values) {
+    if (value.value !== 0) {
+      nonZeroValueCache.set(cacheKey, true)
+      return true
+    }
+  }
+
+  // Check children recursively
+  const hasNonZeroChildren = node.children.some((child) => hasAnyNonZeroValueMemoized(child))
+  
+  // Cache the result
+  nonZeroValueCache.set(cacheKey, hasNonZeroChildren)
+  
+  return hasNonZeroChildren
 }
 
 const hasAnyNonZeroValue = (node: FinancialDataNode): boolean => {
@@ -963,11 +1005,25 @@ const validateFinancialData = (data: FinancialData) => {
 watch(
   () => props.financialData,
   (newData) => {
+    // Clear caches when financial data changes
+    treeTransformCache.clear()
+    nonZeroValueCache.clear()
+    
     if (newData) {
       validateFinancialData(newData)
     }
   },
   { immediate: true },
+)
+
+// Watch for settings changes that affect cached data
+watch(
+  [showZeroValues, scalingEnabled, locale],
+  () => {
+    // Clear caches when display settings change
+    treeTransformCache.clear()
+    nonZeroValueCache.clear()
+  }
 )
 
 // Initialize component

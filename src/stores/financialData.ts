@@ -66,25 +66,28 @@ export const useFinancialDataStore = defineStore('financialData', () => {
       combinedFinancialData.value = createEmptyFinancialDataStructure()
       const dataLoader = new DataLoader()
 
-      // Load each dataset into the combined structure
-      for (const dataset of datasets.value) {
+      // Parse all datasets first to validate them
+      const parsedDatasets = datasets.value.map(dataset => {
+        const parts = dataset.split('/')
+        if (parts.length !== 3) {
+          throw new Error(`Invalid dataset identifier format: ${dataset}`)
+        }
+
+        const source = parts[0] as 'gdn' | 'std'
+        const model = parts[1]
+        const entityAndYear = parts[2]
+        const [entity, year] = entityAndYear.split(':')
+
+        if (!entity || !year) {
+          throw new Error(`Invalid entity:year format in dataset: ${dataset}`)
+        }
+
+        return { dataset, source, model, entity, year }
+      })
+
+      // Load all datasets in parallel
+      const loadPromises = parsedDatasets.map(async ({ dataset, source, model, entity, year }) => {
         try {
-          // Parse dataset identifier (e.g., 'gdn/fs/010002:2016')
-          const parts = dataset.split('/')
-          if (parts.length !== 3) {
-            throw new Error(`Invalid dataset identifier format: ${dataset}`)
-          }
-
-          const source = parts[0] as 'gdn' | 'std'
-          const model = parts[1]
-          const entityAndYear = parts[2]
-          const [entity, year] = entityAndYear.split(':')
-
-          if (!entity || !year) {
-            throw new Error(`Invalid entity:year format in dataset: ${dataset}`)
-          }
-
-          // Load and integrate data into the combined structure
           await dataLoader.loadAndIntegrateFinancialData(
             entity,
             model,
@@ -92,15 +95,26 @@ export const useFinancialDataStore = defineStore('financialData', () => {
             combinedFinancialData.value,
             source,
           )
-
-          loadedDatasetCount.value++
+          return { success: true, dataset }
         } catch (datasetError) {
           console.error(`Error loading dataset ${dataset}:`, datasetError)
           const errorMessage =
             datasetError instanceof Error ? datasetError.message : 'Unknown error'
-          throw new Error(`Dataset ${dataset}: ${errorMessage}`)
+          return { success: false, dataset, error: `Dataset ${dataset}: ${errorMessage}` }
         }
+      })
+
+      // Wait for all datasets to load
+      const results = await Promise.all(loadPromises)
+      
+      // Check for any errors and count successful loads
+      const errors = results.filter(r => !r.success)
+      if (errors.length > 0) {
+        // If any dataset failed, throw the first error
+        throw new Error(errors[0].error)
       }
+      
+      loadedDatasetCount.value = results.filter(r => r.success).length
 
       // Apply scaling if applicable
       if (currentScalingId.value) {
@@ -189,6 +203,13 @@ export const useFinancialDataStore = defineStore('financialData', () => {
   const applyScalingToEntities = async (scalingId: string, scalingInfo: ScalingInfo) => {
     if (!combinedFinancialData.value) return
 
+    // Prepare all scaling requests first
+    const scalingRequests: Array<{
+      entityCode: string
+      entity: FinancialDataEntity
+      promise: Promise<number | null>
+    }> = []
+
     for (const [entityCode, entity] of combinedFinancialData.value.entities) {
       try {
         // Extract entity information from the entity code
@@ -201,58 +222,80 @@ export const useFinancialDataStore = defineStore('financialData', () => {
 
         if (!entityId || !year) continue
 
-        let geoId = ''
-        if (source === 'std') {
-          // Map canton-specific entities to their canton code
-          if (EntitySemanticMapper.isCantonSpecific(entityId)) {
-            const cantonCode = EntitySemanticMapper.getCantonCodeFromEntity(entityId)
-            if (cantonCode) {
-              const canton = await getCantonByAbbreviation(cantonCode.toUpperCase())
-              geoId = canton?.cantonId || 'XYX'
+        // Create promise for loading scaling factor
+        const scalingPromise = (async () => {
+          let geoId = ''
+          if (source === 'std') {
+            // Map canton-specific entities to their canton code
+            if (EntitySemanticMapper.isCantonSpecific(entityId)) {
+              const cantonCode = EntitySemanticMapper.getCantonCodeFromEntity(entityId)
+              if (cantonCode) {
+                const canton = await getCantonByAbbreviation(cantonCode.toUpperCase())
+                geoId = canton?.cantonId || 'XYX'
+              }
+            } else {
+              // assume bund for now
+              geoId = 'bund'
             }
-          } else {
-            // assume bund for now
-            geoId = 'bund'
+          } else if (source === 'gdn') {
+            const municipality = await getMunicipalityByGdnId(entityId)
+            geoId = municipality?.municipalityId || entityId // Use gdnId or fallback to entityId
           }
-        } else if (source === 'gdn') {
-          const municipality = await getMunicipalityByGdnId(entityId)
-          geoId = municipality?.municipalityId || entityId // Use gdnId or fallback to entityId
-        }
 
-        // Load scaling data for this entity
-        const scalingFactor = await loadScalingFactorForEntity(
-          scalingId,
-          geoId,
-          parseInt(year),
-          source,
-        )
+          // Load scaling data for this entity
+          return await loadScalingFactorForEntity(
+            scalingId,
+            geoId,
+            parseInt(year),
+            source,
+          )
+        })()
 
-        if (scalingFactor !== null && scalingFactor > 0) {
-          entity.scalingFactor = scalingFactor
-          entity.scalingInfo = {
-            de: (i18n.global as { t: (key: string, params?: Record<string, unknown>) => string }).t(
-              'financialDataScalingSelector.scalingInfo.format',
-              {
-                name: scalingInfo.name.de,
-                unit: scalingInfo.unit.de,
-              },
-            ),
-            fr: (i18n.global as { t: (key: string, params?: Record<string, unknown>) => string }).t(
-              'financialDataScalingSelector.scalingInfo.format',
-              {
-                name: scalingInfo.name.fr,
-                unit: scalingInfo.unit.fr,
-              },
-            ),
-            it: (i18n.global as { t: (key: string, params?: Record<string, unknown>) => string }).t(
-              'financialDataScalingSelector.scalingInfo.format',
-              {
-                name: scalingInfo.name.it,
-                unit: scalingInfo.unit.it,
-              },
-            ),
-            en: (i18n.global as { t: (key: string, params?: Record<string, unknown>) => string }).t(
-              'financialDataScalingSelector.scalingInfo.format',
+        scalingRequests.push({
+          entityCode,
+          entity,
+          promise: scalingPromise
+        })
+      } catch (error) {
+        console.error(`Error preparing scaling request for entity ${entityCode}:`, error)
+      }
+    }
+
+    // Execute all scaling requests in parallel
+    const results = await Promise.allSettled(scalingRequests.map(req => req.promise))
+    
+    // Apply results to entities
+    for (let i = 0; i < scalingRequests.length; i++) {
+      const { entity } = scalingRequests[i]
+      const result = results[i]
+      
+      if (result.status === 'fulfilled' && result.value !== null && result.value > 0) {
+        const scalingFactor = result.value
+        entity.scalingFactor = scalingFactor
+        entity.scalingInfo = {
+          de: (i18n.global as { t: (key: string, params?: Record<string, unknown>) => string }).t(
+            'financialDataScalingSelector.scalingInfo.format',
+            {
+              name: scalingInfo.name.de,
+              unit: scalingInfo.unit.de,
+            },
+          ),
+          fr: (i18n.global as { t: (key: string, params?: Record<string, unknown>) => string }).t(
+            'financialDataScalingSelector.scalingInfo.format',
+            {
+              name: scalingInfo.name.fr,
+              unit: scalingInfo.unit.fr,
+            },
+          ),
+          it: (i18n.global as { t: (key: string, params?: Record<string, unknown>) => string }).t(
+            'financialDataScalingSelector.scalingInfo.format',
+            {
+              name: scalingInfo.name.it,
+              unit: scalingInfo.unit.it,
+            },
+          ),
+          en: (i18n.global as { t: (key: string, params?: Record<string, unknown>) => string }).t(
+            'financialDataScalingSelector.scalingInfo.format',
               {
                 name: scalingInfo.name.en,
                 unit: scalingInfo.unit.en,
@@ -261,8 +304,8 @@ export const useFinancialDataStore = defineStore('financialData', () => {
           }
           entity.scalingMode = 'divide' // Divide financial values by scaling factor for per-capita/per-unit values
         }
-      } catch (entityError) {
-        console.error(`Error applying scaling to entity ${entityCode}:`, entityError)
+      } else if (result.status === 'rejected') {
+        console.error(`Error loading scaling factor for entity ${scalingRequests[i].entityCode}:`, result.reason)
         // Continue with other entities even if one fails
       }
     }

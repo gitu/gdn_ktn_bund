@@ -33,6 +33,12 @@ import stdInfo from '../data/std-info.json'
  * DataLoader class for loading CSV financial data and integrating it into tree structures
  */
 export class DataLoader {
+  // Static cache for CSV responses to avoid redundant network requests
+  private static csvCache = new Map<string, DataRecord[]>()
+  
+  // Cache expiry time (5 minutes)
+  private static cacheExpiry = 5 * 60 * 1000
+  private static cacheTimestamps = new Map<string, number>()
   /**
    * Validate if GDN data exists for the given parameters
    */
@@ -127,6 +133,17 @@ export class DataLoader {
    * Load and parse CSV data from a given path using Papa Parse
    */
   private async loadCsvData(dataPath: string): Promise<DataRecord[]> {
+    // Check cache first
+    const now = Date.now()
+    const cacheKey = dataPath
+    const cachedData = DataLoader.csvCache.get(cacheKey)
+    const cacheTime = DataLoader.cacheTimestamps.get(cacheKey)
+    
+    // Return cached data if it exists and is not expired
+    if (cachedData && cacheTime && (now - cacheTime) < DataLoader.cacheExpiry) {
+      return cachedData
+    }
+    
     try {
       const response = await fetch(dataPath)
       if (!response.ok) {
@@ -181,6 +198,10 @@ export class DataLoader {
           } as DataRecord)
         }
       }
+
+      // Cache the parsed data
+      DataLoader.csvCache.set(cacheKey, records)
+      DataLoader.cacheTimestamps.set(cacheKey, now)
 
       return records
     } catch (error) {
