@@ -144,13 +144,11 @@ export const useFinancialDataStore = defineStore('financialData', () => {
   const setScaling = async (scalingId: string | null) => {
     // Prevent concurrent scaling operations
     if (isApplyingScaling.value) {
-      console.log('Scaling operation already in progress, skipping')
       return
     }
 
     // Skip if scaling hasn't actually changed
     if (scalingId === currentScalingId.value) {
-      console.log('Scaling ID unchanged, skipping')
       return
     }
 

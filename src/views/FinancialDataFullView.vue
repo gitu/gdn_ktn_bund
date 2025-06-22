@@ -62,9 +62,11 @@
         <FinancialDataComparison
           :datasets="datasets"
           :selected-scaling="selectedScaling"
+          :comparison-pairs="comparisonPairs"
           @error="handleError"
           @dataLoaded="handleDataLoaded"
           @scaling-changed="handleScalingChanged"
+          @comparison-changed="handleComparisonChanged"
         />
       </div>
     </div>
@@ -95,6 +97,7 @@ const loading = ref(true)
 const datasets = ref<string[]>([])
 const dataLoadedCount = ref(0)
 const selectedScaling = ref<string | null>(null)
+const comparisonPairs = ref<Record<string, string[]>>({})
 
 // Computed properties
 const hasValidData = computed(() => {
@@ -139,6 +142,14 @@ const handleScalingChanged = (scalingId: string | null) => {
   updateURL()
 }
 
+const handleComparisonChanged = (newComparisonPairs: Record<string, string[]>) => {
+  comparisonPairs.value = newComparisonPairs
+  // Use requestAnimationFrame to break out of the current reactive cycle
+  requestAnimationFrame(() => {
+    updateURL()
+  })
+}
+
 const loadDatasetsFromRoute = () => {
   loading.value = true
 
@@ -146,6 +157,7 @@ const loadDatasetsFromRoute = () => {
     // Get datasets from route query parameters
     const datasetsParam = route.query.datasets
     const scalingParam = route.query.scaling
+    const comparisonsParam = route.query.comparisons
 
     if (typeof datasetsParam === 'string') {
       // Single dataset or comma-separated list
@@ -166,6 +178,33 @@ const loadDatasetsFromRoute = () => {
     } else {
       selectedScaling.value = null
     }
+
+    // Load comparisons from URL - simple format: "columnA,baseA|columnB,baseB"
+    if (typeof comparisonsParam === 'string' && comparisonsParam.trim()) {
+      try {
+        const pairs = comparisonsParam.split('|')
+        const newComparisonPairs: Record<string, string[]> = {}
+
+        pairs.forEach((pair) => {
+          const [column, base] = pair.split(',')
+          if (column && base) {
+            if (!newComparisonPairs[column]) {
+              newComparisonPairs[column] = []
+            }
+            if (!newComparisonPairs[column].includes(base)) {
+              newComparisonPairs[column].push(base)
+            }
+          }
+        })
+
+        comparisonPairs.value = newComparisonPairs
+      } catch (error) {
+        console.warn('Failed to parse comparisons from URL:', error)
+        comparisonPairs.value = {}
+      }
+    } else {
+      comparisonPairs.value = {}
+    }
   } catch (error) {
     console.error('Error loading datasets from route:', error)
     handleError(t('financialDataFullView.noDataMessage'))
@@ -173,6 +212,7 @@ const loadDatasetsFromRoute = () => {
     loading.value = false
   }
 }
+
 
 const updateURL = () => {
   const query: Record<string, string> = {}
@@ -185,6 +225,19 @@ const updateURL = () => {
     query.scaling = selectedScaling.value
   }
 
+  // Update comparison pairs using simple format: "columnA,baseA|columnB,baseB"
+  if (Object.keys(comparisonPairs.value).length > 0) {
+    const pairs: string[] = []
+    Object.entries(comparisonPairs.value).forEach(([column, bases]) => {
+      bases.forEach((base) => {
+        pairs.push(`${column},${base}`)
+      })
+    })
+    if (pairs.length > 0) {
+      query.comparisons = pairs.join('|')
+    }
+  }
+
   // Only update if the query actually changed
   const currentQuery = route.query
   const newQueryString = new URLSearchParams(query).toString()
@@ -194,6 +247,8 @@ const updateURL = () => {
     router.replace({
       name: 'financial-data-full-view',
       query: Object.keys(query).length > 0 ? query : undefined,
+    }).catch(() => {
+      // Ignore navigation errors silently
     })
   }
 }

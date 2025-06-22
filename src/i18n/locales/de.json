@@ -337,6 +337,23 @@
       "scalingToggle": "Skalierung umschalten für bessere Vergleichbarkeit",
       "noValue": "Kein Wert verfügbar"
     },
+    "comparisonModeOn": "Vergleichsmodus aktiv",
+    "comparisonModeOff": "Vergleichsmodus",
+    "clickToSelectBase": "Basisspalte zum Vergleichen auswählen",
+    "clickToCompareWith": "Mit ausgewählter Spalte vergleichen",
+    "comparison": {
+      "title": "Vergleich",
+      "versus": "vs.",
+      "difference": "Differenz (%)",
+      "noData": "Keine Daten verfügbar",
+      "tooltipDetail": "{columnName}: {columnValue}\nvs {baseName}: {baseValue}\nDifferenz: {percentage}",
+      "value": "Wert",
+      "absoluteDiff": "Absolute Differenz",
+      "percentageDiff": "Prozentuale Differenz",
+      "entity": "Entität",
+      "directComparison": "Direkter Vergleich",
+      "allValuesInRow": "Alle Werte in dieser Zeile"
+    },
     "errors": {
       "invalidData": "Ungültige Finanzdaten",
       "missingBalanceSheet": "Bilanz fehlt",

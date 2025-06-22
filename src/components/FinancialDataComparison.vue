@@ -29,7 +29,9 @@
           :initial-expanded-all="expandedAll"
           :initial-show-codes="showCodes"
           :initial-show-zero-values="!hideZeroValues"
+          :comparison-pairs="props.comparisonPairs"
           @error="handleDatasetError"
+          @comparison-changed="handleComparisonChanged"
         />
       </div>
       <!-- Scaling selector -->
@@ -73,6 +75,7 @@ import type { MultiLanguageLabels } from '@/types/DataStructures'
 interface Props {
   datasets: string[]
   selectedScaling?: string | null
+  comparisonPairs?: Record<string, string[]>
 }
 
 const isDev = import.meta.env.MODE === 'development'
@@ -83,6 +86,7 @@ interface Emits {
   error: [error: string]
   dataLoaded: [count: number]
   scalingChanged: [scalingId: string | null]
+  comparisonChanged: [comparisonPairs: Record<string, string[]>]
 }
 
 const emit = defineEmits<Emits>()
@@ -137,6 +141,10 @@ const handleScalingChanged = async (scalingId: string | null) => {
     console.error('Error handling scaling change:', error)
     emit('error', 'Error applying scaling to datasets')
   }
+}
+
+const handleComparisonChanged = (comparisonPairs: Record<string, string[]>) => {
+  emit('comparisonChanged', comparisonPairs)
 }
 
 // Consolidated watcher to prevent redundant operations

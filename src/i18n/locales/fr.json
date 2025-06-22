@@ -337,6 +337,23 @@
       "scalingToggle": "Basculer la mise à l'échelle pour une meilleure comparabilité",
       "noValue": "Aucune valeur disponible"
     },
+    "comparisonModeOn": "Mode de comparaison actif",
+    "comparisonModeOff": "Mode de comparaison",
+    "clickToSelectBase": "Sélectionner la colonne de base pour la comparaison",
+    "clickToCompareWith": "Comparer avec la colonne sélectionnée",
+    "comparison": {
+      "title": "Comparaison",
+      "versus": "vs.",
+      "difference": "Différence (%)",
+      "noData": "Aucune donnée disponible",
+      "tooltipDetail": "{columnName}: {columnValue}\nvs {baseName}: {baseValue}\nDifférence: {percentage}",
+      "value": "Valeur",
+      "absoluteDiff": "Différence absolue",
+      "percentageDiff": "Différence en pourcentage",
+      "entity": "Entité",
+      "directComparison": "Comparaison directe",
+      "allValuesInRow": "Toutes les valeurs de cette ligne"
+    },
     "errors": {
       "invalidData": "Données financières invalides",
       "missingBalanceSheet": "Bilan manquant",
