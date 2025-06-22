@@ -83,9 +83,9 @@ test.describe('Comparison View Performance', () => {
     const scalingStartTime = Date.now()
     
     // Wait for scaling selector to be available and change to population
-    const scalingSelector = page.locator('select').first()
-    await expect(scalingSelector).toBeVisible({ timeout: 10000 })
-    await scalingSelector.selectOption({ value: 'pop' })
+    await expect(page.getByRole('combobox')).toBeVisible({ timeout: 10000 })
+    await page.getByRole('combobox').click()
+    await page.getByRole('option', { name: 'Bevölkerung' }).click()
     
     // Wait for values to update by checking that the value has changed
     await expect(page.locator('[data-testid="tree-table"] tbody tr:first-child td:nth-child(2)')).not.toHaveText(initialValue || '', { timeout: 5000 })
