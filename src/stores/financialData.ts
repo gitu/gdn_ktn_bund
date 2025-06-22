@@ -5,7 +5,7 @@ import { StatsDataLoader } from '@/utils/StatsDataLoader'
 import { createEmptyFinancialDataStructure } from '@/data/emptyFinancialDataStructure'
 import { EntitySemanticMapper } from '@/utils/EntitySemanticMapper'
 import { getCantonByAbbreviation, getMunicipalityByGdnId } from '@/utils/GeographicalDataLoader'
-import type { FinancialData } from '@/types/FinancialDataStructure'
+import type { FinancialData, FinancialDataEntity } from '@/types/FinancialDataStructure'
 import type { MultiLanguageLabels } from '@/types/DataStructures.ts'
 import { i18n } from '@/i18n'
 
@@ -92,7 +92,7 @@ export const useFinancialDataStore = defineStore('financialData', () => {
             entity,
             model,
             year,
-            combinedFinancialData.value,
+            combinedFinancialData.value!,
             source,
           )
           return { success: true, dataset }

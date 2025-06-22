@@ -31,6 +31,12 @@ describe('DataLoader', () => {
     mockFinancialData = createEmptyFinancialDataStructure()
     vi.clearAllMocks()
     mockPapaParse.mockClear()
+
+    // Clear the static CSV cache to avoid test interference
+    // @ts-expect-error - accessing private static property for testing
+    DataLoader.csvCache?.clear?.()
+    // @ts-expect-error - accessing private static property for testing
+    DataLoader.cacheTimestamps?.clear?.()
   })
 
   describe('validateGdnData', () => {
