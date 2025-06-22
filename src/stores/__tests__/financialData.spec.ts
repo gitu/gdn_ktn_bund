@@ -3,6 +3,11 @@ import { setActivePinia, createPinia } from 'pinia'
 import { useFinancialDataStore } from '../financialData'
 import { DataLoader } from '@/utils/DataLoader'
 
+// Create a mock type for DataLoader that allows partial implementation
+type MockDataLoader = Partial<DataLoader> & {
+  loadAndIntegrateFinancialData: ReturnType<typeof vi.fn>
+}
+
 // Mock DataLoader
 vi.mock('@/utils/DataLoader')
 const MockedDataLoader = vi.mocked(DataLoader)
@@ -55,25 +60,18 @@ describe('financialData store', () => {
 
       // Mock DataLoader instance
       const mockDataLoaderInstance = {
-        loadAndIntegrateFinancialData: vi.fn(),
         validateGdnData: vi.fn(),
         validateStdData: vi.fn(),
-        loadCsvData: vi.fn(),
         loadGdnData: vi.fn(),
         loadStdData: vi.fn(),
+        fillEntityMetadata: vi.fn(),
+        loadDataIntoTree: vi.fn(),
+        loadAndIntegrateFinancialData: vi.fn(),
         calculateEntitySum: vi.fn(),
         getSumFromNode: vi.fn(),
         hasSumValues: vi.fn(),
-        findNodeByCode: vi.fn(),
-        findAccountByCode: vi.fn(),
-        getAccountingStandards: vi.fn(),
-        getAllAccountCodes: vi.fn(),
-        validateAccountCode: vi.fn(),
-        getAccountHierarchy: vi.fn(),
-        filterDataByDimension: vi.fn(),
-        aggregateDataRecords: vi.fn(),
-      } as any
-      MockedDataLoader.mockImplementation(() => mockDataLoaderInstance)
+      } as MockDataLoader
+      MockedDataLoader.mockImplementation(() => mockDataLoaderInstance as unknown as DataLoader)
 
       // Set up datasets
       const datasets = ['gdn/fs/010002:2022', 'gdn/fs/010003:2022', 'gdn/fs/010004:2022']
@@ -99,25 +97,18 @@ describe('financialData store', () => {
 
       // Mock DataLoader instance
       const mockDataLoaderInstance = {
-        loadAndIntegrateFinancialData: vi.fn(),
         validateGdnData: vi.fn(),
         validateStdData: vi.fn(),
-        loadCsvData: vi.fn(),
         loadGdnData: vi.fn(),
         loadStdData: vi.fn(),
+        fillEntityMetadata: vi.fn(),
+        loadDataIntoTree: vi.fn(),
+        loadAndIntegrateFinancialData: vi.fn(),
         calculateEntitySum: vi.fn(),
         getSumFromNode: vi.fn(),
         hasSumValues: vi.fn(),
-        findNodeByCode: vi.fn(),
-        findAccountByCode: vi.fn(),
-        getAccountingStandards: vi.fn(),
-        getAllAccountCodes: vi.fn(),
-        validateAccountCode: vi.fn(),
-        getAccountHierarchy: vi.fn(),
-        filterDataByDimension: vi.fn(),
-        aggregateDataRecords: vi.fn(),
-      } as any
-      MockedDataLoader.mockImplementation(() => mockDataLoaderInstance)
+      } as MockDataLoader
+      MockedDataLoader.mockImplementation(() => mockDataLoaderInstance as unknown as DataLoader)
 
       // Set up datasets
       const datasets = ['gdn/fs/010002:2022', 'gdn/fs/010003:2022']
@@ -141,25 +132,18 @@ describe('financialData store', () => {
 
       // Mock DataLoader instance
       const mockDataLoaderInstance = {
-        loadAndIntegrateFinancialData: vi.fn(),
         validateGdnData: vi.fn(),
         validateStdData: vi.fn(),
-        loadCsvData: vi.fn(),
         loadGdnData: vi.fn(),
         loadStdData: vi.fn(),
+        fillEntityMetadata: vi.fn(),
+        loadDataIntoTree: vi.fn(),
+        loadAndIntegrateFinancialData: vi.fn(),
         calculateEntitySum: vi.fn(),
         getSumFromNode: vi.fn(),
         hasSumValues: vi.fn(),
-        findNodeByCode: vi.fn(),
-        findAccountByCode: vi.fn(),
-        getAccountingStandards: vi.fn(),
-        getAllAccountCodes: vi.fn(),
-        validateAccountCode: vi.fn(),
-        getAccountHierarchy: vi.fn(),
-        filterDataByDimension: vi.fn(),
-        aggregateDataRecords: vi.fn(),
-      } as any
-      MockedDataLoader.mockImplementation(() => mockDataLoaderInstance)
+      } as MockDataLoader
+      MockedDataLoader.mockImplementation(() => mockDataLoaderInstance as unknown as DataLoader)
 
       // Set up datasets
       const datasets = ['gdn/fs/010002:2022', 'gdn/fs/010003:2022']
@@ -217,25 +201,18 @@ describe('financialData store', () => {
 
       // Mock DataLoader instance
       const mockDataLoaderInstance = {
-        loadAndIntegrateFinancialData: vi.fn(),
         validateGdnData: vi.fn(),
         validateStdData: vi.fn(),
-        loadCsvData: vi.fn(),
         loadGdnData: vi.fn(),
         loadStdData: vi.fn(),
+        fillEntityMetadata: vi.fn(),
+        loadDataIntoTree: vi.fn(),
+        loadAndIntegrateFinancialData: vi.fn(),
         calculateEntitySum: vi.fn(),
         getSumFromNode: vi.fn(),
         hasSumValues: vi.fn(),
-        findNodeByCode: vi.fn(),
-        findAccountByCode: vi.fn(),
-        getAccountingStandards: vi.fn(),
-        getAllAccountCodes: vi.fn(),
-        validateAccountCode: vi.fn(),
-        getAccountHierarchy: vi.fn(),
-        filterDataByDimension: vi.fn(),
-        aggregateDataRecords: vi.fn(),
-      } as any
-      MockedDataLoader.mockImplementation(() => mockDataLoaderInstance)
+      } as MockDataLoader
+      MockedDataLoader.mockImplementation(() => mockDataLoaderInstance as unknown as DataLoader)
 
       // Set up datasets
       const datasets = ['gdn/fs/010002:2022', 'gdn/fs/010003:2022', 'gdn/fs/010004:2022']
@@ -266,25 +243,18 @@ describe('financialData store', () => {
 
       // Mock DataLoader instance
       const mockDataLoaderInstance = {
-        loadAndIntegrateFinancialData: vi.fn(),
         validateGdnData: vi.fn(),
         validateStdData: vi.fn(),
-        loadCsvData: vi.fn(),
         loadGdnData: vi.fn(),
         loadStdData: vi.fn(),
+        fillEntityMetadata: vi.fn(),
+        loadDataIntoTree: vi.fn(),
+        loadAndIntegrateFinancialData: vi.fn(),
         calculateEntitySum: vi.fn(),
         getSumFromNode: vi.fn(),
         hasSumValues: vi.fn(),
-        findNodeByCode: vi.fn(),
-        findAccountByCode: vi.fn(),
-        getAccountingStandards: vi.fn(),
-        getAllAccountCodes: vi.fn(),
-        validateAccountCode: vi.fn(),
-        getAccountHierarchy: vi.fn(),
-        filterDataByDimension: vi.fn(),
-        aggregateDataRecords: vi.fn(),
-      } as any
-      MockedDataLoader.mockImplementation(() => mockDataLoaderInstance)
+      } as MockDataLoader
+      MockedDataLoader.mockImplementation(() => mockDataLoaderInstance as unknown as DataLoader)
 
       // Set up datasets
       const datasets = ['gdn/fs/010002:2022']
