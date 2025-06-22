@@ -255,9 +255,9 @@ const updateURL = () => {
     delete query.datasets
   }
 
-  // Update scaling
+  // Update scaling (URL encode for custom formulas)
   if (selectedScaling.value) {
-    query.scaling = selectedScaling.value
+    query.scaling = encodeURIComponent(selectedScaling.value)
   } else {
     delete query.scaling
   }
@@ -306,9 +306,9 @@ const loadStateFromURL = () => {
     selectedDatasets.value = []
   }
 
-  // Load scaling from URL
+  // Load scaling from URL (URL decode for custom formulas)
   if (typeof scalingParam === 'string' && scalingParam.trim()) {
-    selectedScaling.value = scalingParam
+    selectedScaling.value = decodeURIComponent(scalingParam)
   } else {
     selectedScaling.value = null
   }

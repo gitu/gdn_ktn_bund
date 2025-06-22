@@ -81,6 +81,8 @@ export class StatsDataLoader {
       availableGdnYears: entry.data.gdn?.map((file) => file.year) || [],
       source: entry.source,
       lastUpdate: entry.lastUpdate,
+      type: 'scaling', // Mark all stats as available for scaling
+      description: entry.name, // Use name as description
     }))
   }
 

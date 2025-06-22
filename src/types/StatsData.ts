@@ -158,6 +158,10 @@ export interface StatsAvailabilityInfo {
   source: string
   /** Last update date */
   lastUpdate: string
+  /** Type of statistic (e.g., 'scaling' for use in scaling formulas) */
+  type: string
+  /** Description of the statistic */
+  description: MultiLanguageLabels
 }
 
 /**

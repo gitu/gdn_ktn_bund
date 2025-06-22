@@ -160,6 +160,8 @@ describe('StatsDataLoader', () => {
         id: 'pop',
         name: mockStatsCatalog.stats[0].name,
         unit: mockStatsCatalog.stats[0].unit,
+        type: 'scaling',
+        description: mockStatsCatalog.stats[0].name,
         availableKtnYears: [2023],
         availableGdnYears: [2023],
         source: 'STATPOP via atlas.bfs.admin.ch',
