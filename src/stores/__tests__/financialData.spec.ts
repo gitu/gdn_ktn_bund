@@ -70,7 +70,9 @@ describe('financialData store', () => {
         getAllAccountCodes: vi.fn(),
         validateAccountCode: vi.fn(),
         getAccountHierarchy: vi.fn(),
-      } as Partial<DataLoader>
+        filterDataByDimension: vi.fn(),
+        aggregateDataRecords: vi.fn(),
+      } as any
       MockedDataLoader.mockImplementation(() => mockDataLoaderInstance)
 
       // Set up datasets
@@ -112,7 +114,9 @@ describe('financialData store', () => {
         getAllAccountCodes: vi.fn(),
         validateAccountCode: vi.fn(),
         getAccountHierarchy: vi.fn(),
-      } as Partial<DataLoader>
+        filterDataByDimension: vi.fn(),
+        aggregateDataRecords: vi.fn(),
+      } as any
       MockedDataLoader.mockImplementation(() => mockDataLoaderInstance)
 
       // Set up datasets
@@ -152,7 +156,9 @@ describe('financialData store', () => {
         getAllAccountCodes: vi.fn(),
         validateAccountCode: vi.fn(),
         getAccountHierarchy: vi.fn(),
-      } as Partial<DataLoader>
+        filterDataByDimension: vi.fn(),
+        aggregateDataRecords: vi.fn(),
+      } as any
       MockedDataLoader.mockImplementation(() => mockDataLoaderInstance)
 
       // Set up datasets
@@ -226,7 +232,9 @@ describe('financialData store', () => {
         getAllAccountCodes: vi.fn(),
         validateAccountCode: vi.fn(),
         getAccountHierarchy: vi.fn(),
-      } as Partial<DataLoader>
+        filterDataByDimension: vi.fn(),
+        aggregateDataRecords: vi.fn(),
+      } as any
       MockedDataLoader.mockImplementation(() => mockDataLoaderInstance)
 
       // Set up datasets
@@ -273,7 +281,9 @@ describe('financialData store', () => {
         getAllAccountCodes: vi.fn(),
         validateAccountCode: vi.fn(),
         getAccountHierarchy: vi.fn(),
-      } as Partial<DataLoader>
+        filterDataByDimension: vi.fn(),
+        aggregateDataRecords: vi.fn(),
+      } as any
       MockedDataLoader.mockImplementation(() => mockDataLoaderInstance)
 
       // Set up datasets
