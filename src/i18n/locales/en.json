@@ -288,6 +288,23 @@
     "openFullViewTooltip": "Opens the current comparison view in a dedicated full-screen mode"
   },
   "financialDataDisplay": {
+    "comparisonModeOn": "Comparison mode active",
+    "comparisonModeOff": "Comparison mode",
+    "clickToSelectBase": "Select base column for comparison",
+    "clickToCompareWith": "Compare with selected column",
+    "comparison": {
+      "title": "Comparison",
+      "versus": "vs.",
+      "difference": "Difference (%)",
+      "noData": "No data available",
+      "tooltipDetail": "{columnName}: {columnValue}\nvs {baseName}: {baseValue}\nDifference: {percentage}",
+      "value": "Value",
+      "absoluteDiff": "Absolute Difference",
+      "percentageDiff": "Percentage Difference",
+      "entity": "Entity",
+      "directComparison": "Direct Comparison",
+      "allValuesInRow": "All Values in This Row"
+    },
     "title": "Financial Data Display",
     "financialData": "Financial Data",
     "balanceSheet": "Balance Sheet",

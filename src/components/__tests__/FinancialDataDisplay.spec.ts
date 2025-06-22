@@ -9,6 +9,20 @@ import type {
 } from '@/types/FinancialDataStructure'
 import type { MultiLanguageLabels } from '@/types/DataStructures'
 
+// Mock vue-router
+const mockRoute = {
+  query: {},
+  name: 'test-route',
+}
+const mockRouter = {
+  replace: vi.fn(),
+}
+
+vi.mock('vue-router', () => ({
+  useRoute: () => mockRoute,
+  useRouter: () => mockRouter,
+}))
+
 // Mock PrimeVue components with proper rendering
 vi.mock('primevue/treetable', () => ({
   default: {
@@ -63,6 +77,19 @@ vi.mock('primevue/togglebutton', () => ({
       '<button class="mock-togglebutton" data-pc-name="togglebutton" @click="$emit(\'update:modelValue\', !modelValue)">{{ modelValue ? onLabel : offLabel }}</button>',
     props: ['modelValue', 'onLabel', 'offLabel'],
     emits: ['update:modelValue'],
+  },
+}))
+
+vi.mock('primevue/popover', () => ({
+  default: {
+    name: 'Popover',
+    template: '<div class="mock-popover" data-pc-name="popover"><slot></slot></div>',
+    props: ['target'],
+    methods: {
+      toggle: vi.fn(),
+      show: vi.fn(),
+      hide: vi.fn(),
+    },
   },
 }))
 

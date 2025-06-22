@@ -493,25 +493,12 @@ export class DataLoader {
     }
 
     // Calculate and add sums to balance sheet tree
-    const balanceSheetResult = this.calculateAndAddSumsToTree(
-      financialData.balanceSheet,
-      entityCode,
-      unit,
-    )
+    this.calculateAndAddSumsToTree(financialData.balanceSheet, entityCode, unit)
 
     // Calculate and add sums to income statement tree
-    const incomeStatementResult = this.calculateAndAddSumsToTree(
-      financialData.incomeStatement,
-      entityCode,
-      unit,
-    )
+    this.calculateAndAddSumsToTree(financialData.incomeStatement, entityCode, unit)
 
     // Reduced logging for performance
-    if (import.meta.env.DEV) {
-      console.log(
-        `Calculated sums for ${entityCode}. Balance sheet: ${balanceSheetResult.sum} (${balanceSheetResult.nodeCount} nodes), Income statement: ${incomeStatementResult.sum} (${incomeStatementResult.nodeCount} nodes)`,
-      )
-    }
   }
 
   /**

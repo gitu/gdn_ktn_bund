@@ -50,9 +50,11 @@
           <FinancialDataComparison
             :datasets="selectedDatasets"
             :selected-scaling="selectedScaling"
+            :comparison-pairs="comparisonPairs"
             @error="handleError"
             @dataLoaded="handleDataLoaded"
             @scaling-changed="handleScalingChanged"
+            @comparison-changed="handleComparisonChanged"
           />
         </template>
       </Card>
@@ -144,6 +146,7 @@ const errorMessage = ref<string | null>(null)
 const dataLoadedCount = ref(0)
 const selectedDatasets = ref<string[]>([])
 const selectedScaling = ref<string | null>(null)
+const comparisonPairs = ref<Record<string, string[]>>({})
 
 // Sample datasets for demonstration
 const sampleDatasets: Record<string, SampleDataset> = {
@@ -186,9 +189,11 @@ const handleSelectorError = (error: string) => {
 const handleScalingChanged = (scalingId: string | null) => {
   selectedScaling.value = scalingId
   updateURL()
-  if (import.meta.env.DEV) {
-    console.log('Selected scaling changed:', scalingId)
-  }
+}
+
+const handleComparisonChanged = (newComparisonPairs: Record<string, string[]>) => {
+  comparisonPairs.value = newComparisonPairs
+  updateURL()
 }
 
 const loadSampleDataset = (sampleKey: string) => {
@@ -233,12 +238,41 @@ const handleDatasetsChanged = () => {
 const updateURL = () => {
   const query: Record<string, string> = {}
 
+  // Preserve existing query parameters
+  Object.keys(route.query).forEach((key) => {
+    const value = route.query[key]
+    if (typeof value === 'string') {
+      query[key] = value
+    } else if (Array.isArray(value) && value.length > 0 && typeof value[0] === 'string') {
+      query[key] = value[0] as string
+    }
+  })
+
+  // Update datasets
   if (selectedDatasets.value.length > 0) {
     query.datasets = selectedDatasets.value.join(',')
+  } else {
+    delete query.datasets
   }
 
+  // Update scaling
   if (selectedScaling.value) {
     query.scaling = selectedScaling.value
+  } else {
+    delete query.scaling
+  }
+
+  // Update comparison pairs using simple format: "columnA,baseA|columnB,baseB"
+  if (Object.keys(comparisonPairs.value).length > 0) {
+    const pairs: string[] = []
+    Object.entries(comparisonPairs.value).forEach(([column, bases]) => {
+      bases.forEach((base) => {
+        pairs.push(`${column},${base}`)
+      })
+    })
+    query.comparisons = pairs.join('|')
+  } else {
+    delete query.comparisons
   }
 
   // Only update if the query actually changed
@@ -257,6 +291,7 @@ const updateURL = () => {
 const loadStateFromURL = () => {
   const datasetsParam = route.query.datasets
   const scalingParam = route.query.scaling
+  const comparisonsParam = route.query.comparisons
 
   // Load datasets from URL
   if (typeof datasetsParam === 'string' && datasetsParam.trim()) {
@@ -278,11 +313,31 @@ const loadStateFromURL = () => {
     selectedScaling.value = null
   }
 
-  if (import.meta.env.DEV) {
-    console.log('Loaded state from URL:', {
-      datasets: selectedDatasets.value,
-      scaling: selectedScaling.value,
-    })
+  // Load comparisons from URL - new simple format: "columnA,baseA|columnB,baseB"
+  if (typeof comparisonsParam === 'string' && comparisonsParam.trim()) {
+    try {
+      const pairs = comparisonsParam.split('|')
+      const newComparisonPairs: Record<string, string[]> = {}
+
+      pairs.forEach((pair) => {
+        const [column, base] = pair.split(',')
+        if (column && base) {
+          if (!newComparisonPairs[column]) {
+            newComparisonPairs[column] = []
+          }
+          if (!newComparisonPairs[column].includes(base)) {
+            newComparisonPairs[column].push(base)
+          }
+        }
+      })
+
+      comparisonPairs.value = newComparisonPairs
+    } catch (error) {
+      console.warn('Failed to parse comparisons from URL:', error)
+      comparisonPairs.value = {}
+    }
+  } else {
+    comparisonPairs.value = {}
   }
 }
 

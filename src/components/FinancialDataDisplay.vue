@@ -126,50 +126,272 @@
             :key="entityCode"
             :field="`values.${entityCode}`"
             class="value-column"
+            :class="{
+              'column-selected': selectedColumn === entityCode,
+              'column-has-comparisons': internalComparisonPairs[entityCode as string]?.length > 0,
+              'column-clickable': true,
+            }"
           >
             <template #header>
-              <div class="entity-header">
+              <div
+                class="entity-header"
+                @click="handleColumnClick(entityCode as string)"
+                :title="
+                  selectedColumn
+                    ? $t('financialDataDisplay.clickToCompareWith')
+                    : $t('financialDataDisplay.clickToSelectBase')
+                "
+              >
                 <div class="entity-name">{{ getEntityDisplayName(entity) }}</div>
                 <div class="entity-year">{{ entity.year }}</div>
+                <div v-if="selectedColumn === entityCode" class="selection-indicator">
+                  <i class="pi pi-arrow-right"></i>
+                </div>
+                <div
+                  v-if="getColumnComparisons(entityCode as string).length > 0"
+                  class="comparison-indicators"
+                >
+                  <div class="comparison-list">
+                    <span
+                      v-for="comparison in getColumnComparisons(entityCode as string)"
+                      :key="comparison.code"
+                      class="comparison-entity"
+                    >
+                      vs {{ comparison.name }}
+                    </span>
+                  </div>
+                </div>
               </div>
             </template>
             <template #body="{ node }">
               <div class="value-cell">
-                <span
-                  v-if="hasValue(node.data || node, entityCode as string)"
-                  class="financial-value"
-                  :class="{ 'pnl-value': (node.data?.code || node.code) === 'pnl' }"
-                  :aria-label="
-                    $t('financialDataDisplay.accessibility.financialValue', {
-                      entity: getEntityDisplayName(entity),
-                    })
+                <div class="value-content">
+                  <span
+                    v-if="hasValue(node.data || node, entityCode as string)"
+                    class="financial-value"
+                    :class="{
+                      'pnl-value': (node.data?.code || node.code) === 'pnl',
+                      'comparison-mode': internalComparisonPairs[entityCode as string]?.length > 0,
+                      'comparison-positive':
+                        internalComparisonPairs[entityCode as string]?.length > 0 &&
+                        getComparisonDiff(
+                          node.data || node,
+                          entityCode as string,
+                          internalComparisonPairs[entityCode as string][0],
+                        ) > 0,
+                      'comparison-negative':
+                        internalComparisonPairs[entityCode as string]?.length > 0 &&
+                        getComparisonDiff(
+                          node.data || node,
+                          entityCode as string,
+                          internalComparisonPairs[entityCode as string][0],
+                        ) < 0,
+                      clickable:
+                        internalComparisonPairs[entityCode as string]?.length === 0 ||
+                        !internalComparisonPairs[entityCode as string],
+                    }"
+                    :aria-label="
+                      $t('financialDataDisplay.accessibility.financialValue', {
+                        entity: getEntityDisplayName(entity),
+                      })
+                    "
+                    @click="handleValueClick($event, node.data || node, entityCode as string)"
+                  >
+                    <template v-if="internalComparisonPairs[entityCode as string]?.length > 0">
+                      {{
+                        formatMainCellComparison(
+                          node.data || node,
+                          entityCode as string,
+                          internalComparisonPairs[entityCode as string][0],
+                        )
+                      }}
+                    </template>
+                    <template v-else>
+                      {{ formatCurrency(getValue(node.data || node, entityCode as string)) }}
+                    </template>
+                  </span>
+                  <span
+                    v-else
+                    class="no-value"
+                    :aria-label="$t('financialDataDisplay.accessibility.noValue')"
+                  >
+                    -
+                  </span>
+                </div>
+                <div
+                  v-if="
+                    internalComparisonPairs[entityCode as string]?.length > 0 &&
+                    hasValue(node.data || node, entityCode as string)
                   "
+                  class="comparison-tags"
                 >
-                  {{ formatCurrency(getValue(node.data || node, entityCode as string)) }}
-                </span>
-                <span
-                  v-else
-                  class="no-value"
-                  :aria-label="$t('financialDataDisplay.accessibility.noValue')"
-                >
-                  -
-                </span>
+                  <span
+                    v-for="baseColumn in internalComparisonPairs[entityCode as string]"
+                    :key="baseColumn"
+                    @click="
+                      handleComparisonClick(
+                        $event,
+                        node.data || node,
+                        entityCode as string,
+                        baseColumn,
+                      )
+                    "
+                    class="comparison-tag clickable"
+                    :class="`tag-${getComparisonSeverity(node.data || node, entityCode as string, baseColumn)}`"
+                  >
+                    {{ formatCurrency(getValue(node.data || node, entityCode as string)) }}
+                  </span>
+                </div>
               </div>
             </template>
           </Column>
         </TreeTable>
       </div>
+
+      <!-- Comparison Popover -->
+      <Popover ref="popoverRef" class="comparison-popover">
+        <template v-if="getPopoverComparisonData()">
+          <div class="popover-content">
+            <div class="popover-header">
+              <h4>{{ getPopoverComparisonData()?.accountLabel }}</h4>
+              <p class="comparison-subtitle" v-if="getPopoverComparisonData()?.baseName">
+                {{ getPopoverComparisonData()?.columnName }} vs
+                {{ getPopoverComparisonData()?.baseName }}
+              </p>
+            </div>
+
+            <div class="comparison-section" v-if="getPopoverComparisonData()?.baseName">
+              <h5>{{ $t('financialDataDisplay.comparison.directComparison') }}</h5>
+              <div class="comparison-table">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>{{ $t('financialDataDisplay.comparison.entity') }}</th>
+                      <th>{{ $t('financialDataDisplay.comparison.value') }}</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td class="entity-name">{{ getPopoverComparisonData()?.columnName }}</td>
+                      <td class="value">
+                        {{ formatCurrency(getPopoverComparisonData()?.columnValue || 0) }}
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class="entity-name">{{ getPopoverComparisonData()?.baseName }}</td>
+                      <td class="value">
+                        {{ formatCurrency(getPopoverComparisonData()?.baseValue || 0) }}
+                      </td>
+                    </tr>
+                  </tbody>
+                  <tfoot>
+                    <tr class="difference-row">
+                      <td class="label">
+                        {{ $t('financialDataDisplay.comparison.absoluteDiff') }}
+                      </td>
+                      <td
+                        class="value"
+                        :class="{
+                          positive: (getPopoverComparisonData()?.absoluteDiff || 0) >= 0,
+                          negative: (getPopoverComparisonData()?.absoluteDiff || 0) < 0,
+                        }"
+                      >
+                        {{ formatCurrency(getPopoverComparisonData()?.absoluteDiff || 0) }}
+                      </td>
+                    </tr>
+                    <tr class="difference-row">
+                      <td class="label">
+                        {{ $t('financialDataDisplay.comparison.percentageDiff') }}
+                      </td>
+                      <td
+                        class="value"
+                        :class="{
+                          positive: (getPopoverComparisonData()?.diff ?? 0) >= 0,
+                          negative: (getPopoverComparisonData()?.diff ?? 0) < 0,
+                        }"
+                      >
+                        {{ formatPercentage(getPopoverComparisonData()?.diff ?? null) }}
+                      </td>
+                    </tr>
+                  </tfoot>
+                </table>
+              </div>
+            </div>
+
+            <div
+              class="all-values-section"
+              v-if="(getPopoverComparisonData()?.allRowValues?.length ?? 0) > 0"
+            >
+              <h5 v-if="!getPopoverComparisonData()?.baseName">
+                {{ getPopoverComparisonData()?.accountLabel }}
+              </h5>
+              <h5 v-else>{{ $t('financialDataDisplay.comparison.allValuesInRow') }}</h5>
+              <div class="all-values-table">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>{{ $t('financialDataDisplay.comparison.entity') }}</th>
+                      <th>{{ $t('financialDataDisplay.comparison.value') }}</th>
+                      <th>{{ $t('financialDataDisplay.comparison.difference') }}</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr
+                      v-for="rowValue in getPopoverComparisonData()?.allRowValues ?? []"
+                      :key="rowValue.entityCode"
+                      :class="{
+                        highlighted:
+                          rowValue.entityCode === getPopoverComparisonData()?.columnCode ||
+                          rowValue.entityCode === getPopoverComparisonData()?.baseColumnCode,
+                      }"
+                    >
+                      <td class="entity-name">{{ rowValue.name }}</td>
+                      <td class="value">{{ rowValue.formattedValue }}</td>
+                      <td
+                        class="value"
+                        :class="{
+                          positive:
+                            (calculatePercentageDiff(
+                              rowValue.value,
+                              getPopoverComparisonData()?.columnValue ?? 0,
+                            ) ?? 0) >= 0,
+                          negative:
+                            (calculatePercentageDiff(
+                              rowValue.value,
+                              getPopoverComparisonData()?.columnValue ?? 0,
+                            ) ?? 0) < 0,
+                        }"
+                      >
+                        {{
+                          formatPercentage(
+                            calculatePercentageDiff(
+                              rowValue.value,
+                              getPopoverComparisonData()?.columnValue ?? 0,
+                            ),
+                          )
+                        }}
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </template>
+      </Popover>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted, ref, watch } from 'vue'
+import { computed, onMounted, ref, watch, withDefaults } from 'vue'
 import { useI18n } from 'vue-i18n'
 import TreeTable from 'primevue/treetable'
 import Column from 'primevue/column'
 import Button from 'primevue/button'
 import ToggleButton from 'primevue/togglebutton'
+import Popover from 'primevue/popover'
+
 import type {
   FinancialData,
   FinancialDataEntity,
@@ -186,6 +408,7 @@ interface Props {
   initialShowCodes?: boolean
   initialFreezeFirstColumn?: boolean
   initialShowZeroValues?: boolean
+  comparisonPairs?: Record<string, string[]>
 }
 
 const props = withDefaults(defineProps<Props>(), {
@@ -196,12 +419,14 @@ const props = withDefaults(defineProps<Props>(), {
   initialFreezeFirstColumn: false,
   initialShowCodes: false,
   initialShowZeroValues: false,
+  comparisonPairs: () => ({}),
 })
 
 // Emits
 interface Emits {
   nodeSelected: [nodeCode: string, nodeData: FinancialDataNode]
   error: [error: string]
+  comparisonChanged: [comparisonPairs: Record<string, string[]>]
 }
 
 const emit = defineEmits<Emits>()
@@ -216,6 +441,38 @@ const showCodes = ref(props.initialShowCodes)
 const freezeFirstColumn = ref(props.initialFreezeFirstColumn)
 const showZeroValues = ref(props.initialShowZeroValues)
 const scalingEnabled = ref(true)
+
+// Column comparison state
+const selectedColumn = ref<string | null>(null)
+const internalComparisonPairs = ref<Record<string, string[]>>(props.comparisonPairs || {})
+
+// Popover state
+const popoverRef = ref<InstanceType<typeof Popover> | null>(null)
+const selectedComparisonData = ref<{
+  node: FinancialDataNode
+  columnCode: string
+  baseColumnCode: string
+} | null>(null)
+
+// Watch for prop changes and emit comparison changes
+watch(
+  () => props.comparisonPairs,
+  (newComparisonPairs) => {
+    if (newComparisonPairs) {
+      internalComparisonPairs.value = { ...newComparisonPairs }
+    }
+  },
+  { deep: true, immediate: true },
+)
+
+// Watch internal comparison pairs and emit changes
+watch(
+  internalComparisonPairs,
+  (newComparisonPairs) => {
+    emit('comparisonChanged', { ...newComparisonPairs })
+  },
+  { deep: true },
+)
 
 // Computed properties
 const hasValidData = computed(() => {
@@ -244,6 +501,21 @@ const entityYears = computed(() => {
 
 // Suppress unused variable warning - entityYears is computed for potential future use
 void entityYears.value
+
+// Get comparison info for headers
+const getColumnComparisons = (entityCode: string) => {
+  const comparisons = internalComparisonPairs.value[entityCode]
+  if (!comparisons?.length || !props.financialData?.entities) return []
+
+  return comparisons.map((baseCode) => {
+    const baseEntity = props.financialData!.entities.get(baseCode)
+    return {
+      code: baseCode,
+      entity: baseEntity,
+      name: baseEntity ? getEntityDisplayName(baseEntity) : baseCode,
+    }
+  })
+}
 
 // TreeTable node interface
 interface TreeTableNode {
@@ -397,6 +669,192 @@ const formatCurrency = (value: number): string => {
   }).format(value)
 }
 
+const formatPercentage = (value: number | null): string => {
+  if (value === null || isNaN(value)) return '-'
+  const sign = value > 0 ? '+' : ''
+  return `${sign}${value.toFixed(1)}%`
+}
+
+// Format comparison tag
+// Get comparison difference for styling
+const getComparisonDiff = (
+  node: FinancialDataNode,
+  columnCode: string,
+  baseColumnCode: string,
+): number => {
+  try {
+    if (!hasValue(node, columnCode) || !hasValue(node, baseColumnCode)) {
+      return 0
+    }
+
+    const columnValue = getValue(node, columnCode)
+    const baseValue = getValue(node, baseColumnCode)
+    const diff = calculatePercentageDiff(columnValue, baseValue)
+
+    return diff ?? 0
+  } catch (error) {
+    console.error('Error in getComparisonDiff:', error)
+    return 0
+  }
+}
+
+// Format percentage for main cell when in comparison mode
+const formatMainCellComparison = (
+  node: FinancialDataNode,
+  columnCode: string,
+  baseColumnCode: string,
+): string => {
+  try {
+    if (!hasValue(node, columnCode) || !hasValue(node, baseColumnCode)) {
+      return '-'
+    }
+
+    const columnValue = getValue(node, columnCode)
+    const baseValue = getValue(node, baseColumnCode)
+    const diff = calculatePercentageDiff(columnValue, baseValue)
+
+    return formatPercentage(diff)
+  } catch (error) {
+    console.error('Error in formatMainCellComparison:', error)
+    return '-'
+  }
+}
+
+// Get comparison severity for tag color
+const getComparisonSeverity = (
+  node: FinancialDataNode,
+  columnCode: string,
+  baseColumnCode: string,
+): 'success' | 'danger' | 'secondary' => {
+  try {
+    if (!hasValue(node, columnCode) || !hasValue(node, baseColumnCode)) return 'secondary'
+
+    const columnValue = getValue(node, columnCode)
+    const baseValue = getValue(node, baseColumnCode)
+    const diff = calculatePercentageDiff(columnValue, baseValue)
+
+    if (diff === null || diff === 0) return 'secondary'
+
+    // For negative values (expenses), interpret differently:
+    // If both values are negative (expenses), a more negative value is worse (red)
+    // If both values are positive (revenue), a higher value is better (green)
+    if (baseValue < 0 && columnValue < 0) {
+      // Both are expenses/negative values
+      // Less negative (closer to 0) is better
+      return columnValue > baseValue ? 'success' : 'danger'
+    } else {
+      // Normal case: higher is better
+      return diff > 0 ? 'success' : 'danger'
+    }
+  } catch (error) {
+    console.error('Error in getComparisonSeverity:', error)
+    return 'secondary'
+  }
+}
+
+// Handle comparison tag click to show popover
+const handleComparisonClick = (
+  event: Event,
+  node: FinancialDataNode,
+  columnCode: string,
+  baseColumnCode: string,
+) => {
+  event.stopPropagation()
+  selectedComparisonData.value = { node, columnCode, baseColumnCode }
+  if (popoverRef.value) {
+    popoverRef.value.toggle(event)
+  }
+}
+
+// Handle value click to show all values popover
+const handleValueClick = (event: Event, node: FinancialDataNode, columnCode: string) => {
+  event.stopPropagation()
+  // Only show popover if no comparison is active for this column
+  if (
+    !internalComparisonPairs.value[columnCode] ||
+    internalComparisonPairs.value[columnCode].length === 0
+  ) {
+    selectedComparisonData.value = { node, columnCode, baseColumnCode: '' }
+    if (popoverRef.value) {
+      popoverRef.value.toggle(event)
+    }
+  }
+}
+
+// Get all column values for the same row
+const getAllRowValues = (node: FinancialDataNode) => {
+  if (!props.financialData?.entities) return []
+
+  const values = []
+  for (const [entityCode, entity] of props.financialData.entities) {
+    if (hasValue(node, entityCode)) {
+      values.push({
+        entityCode,
+        entity,
+        name: getEntityDisplayName(entity),
+        value: getValue(node, entityCode),
+        formattedValue: formatCurrency(getValue(node, entityCode)),
+      })
+    }
+  }
+
+  return values
+}
+
+// Get comparison data for popover
+const getPopoverComparisonData = () => {
+  if (!selectedComparisonData.value) return null
+
+  const { node, columnCode, baseColumnCode } = selectedComparisonData.value
+
+  if (!hasValue(node, columnCode) || !props.financialData?.entities) {
+    return null
+  }
+
+  const columnEntity = props.financialData.entities.get(columnCode)
+  if (!columnEntity) return null
+
+  // Handle case with no comparison (just showing all values)
+  if (!baseColumnCode) {
+    return {
+      columnName: getEntityDisplayName(columnEntity),
+      columnValue: getValue(node, columnCode),
+      columnCode,
+      baseName: null,
+      baseValue: null,
+      baseColumnCode: null,
+      diff: null,
+      absoluteDiff: null,
+      accountLabel: getNodeLabel(node),
+      allRowValues: getAllRowValues(node),
+    }
+  }
+
+  // Handle comparison case
+  if (!hasValue(node, baseColumnCode)) return null
+
+  const baseEntity = props.financialData.entities.get(baseColumnCode)
+  if (!baseEntity) return null
+
+  const columnValue = getValue(node, columnCode)
+  const baseValue = getValue(node, baseColumnCode)
+  const diff = calculatePercentageDiff(columnValue, baseValue)
+  const absoluteDiff = columnValue - baseValue
+
+  return {
+    columnName: getEntityDisplayName(columnEntity),
+    columnValue,
+    columnCode,
+    baseName: getEntityDisplayName(baseEntity),
+    baseValue,
+    baseColumnCode,
+    diff,
+    absoluteDiff,
+    accountLabel: getNodeLabel(node),
+    allRowValues: getAllRowValues(node),
+  }
+}
+
 // Event handlers
 const onNodeExpand = (node: TreeTableNode | { key: string }) => {
   expandedKeys.value[node.key] = true
@@ -424,6 +882,48 @@ const expandAll = () => {
 
 const collapseAll = () => {
   expandedKeys.value = {}
+}
+
+// Column selection handler
+const handleColumnClick = (entityCode: string) => {
+  if (selectedColumn.value === null) {
+    // First click - select base column
+    selectedColumn.value = entityCode
+  } else if (selectedColumn.value === entityCode) {
+    // Clicking the same column - deselect
+    selectedColumn.value = null
+  } else {
+    // Second click - create comparison pair
+    const baseColumn = selectedColumn.value
+    const compareColumn = entityCode
+
+    // Add comparison to the compare column
+    if (!internalComparisonPairs.value[compareColumn]) {
+      internalComparisonPairs.value[compareColumn] = []
+    }
+
+    const comparisons = internalComparisonPairs.value[compareColumn]
+    const existingIndex = comparisons.indexOf(baseColumn)
+
+    // Toggle the comparison
+    if (existingIndex > -1) {
+      comparisons.splice(existingIndex, 1)
+      if (comparisons.length === 0) {
+        delete internalComparisonPairs.value[compareColumn]
+      }
+    } else {
+      comparisons.push(baseColumn)
+    }
+
+    // Reset selection
+    selectedColumn.value = null
+  }
+}
+
+// Calculate percentage difference
+const calculatePercentageDiff = (value1: number, value2: number): number | null => {
+  if (value2 === 0) return null
+  return ((value1 - value2) / value2) * 100
 }
 
 // Validation function
@@ -477,6 +977,46 @@ onMounted(() => {
 .value-cell {
   text-align: right;
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.value-content {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.comparison-tags {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 0.25rem;
+}
+
+.comparison-tag {
+  font-size: 0.75rem;
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.375rem;
+  font-weight: 600;
+  background-color: var(--color-surface-200);
+  color: var(--text-color);
+  transition: all 0.2s ease;
+}
+
+.comparison-tag.clickable {
+  cursor: pointer;
+}
+
+.comparison-tag.clickable:hover {
+  transform: scale(1.05);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.comparison-tag.tag-secondary {
+  background-color: var(--color-surface-100);
+  color: var(--text-color-secondary);
+  border: 1px solid var(--color-surface-300);
 }
 
 .financial-value {
@@ -487,6 +1027,29 @@ onMounted(() => {
 
 .financial-value.pnl-value {
   font-weight: 700;
+}
+
+.financial-value.comparison-mode {
+  font-weight: 600;
+  font-size: 0.95em;
+}
+
+.financial-value.comparison-positive {
+  color: var(--color-green-700);
+}
+
+.financial-value.comparison-negative {
+  color: var(--color-red-700);
+}
+
+.financial-value.clickable {
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.financial-value.clickable:hover {
+  opacity: 0.8;
+  text-decoration: underline;
 }
 
 .value-column {
@@ -502,12 +1065,160 @@ onMounted(() => {
 .entity-name {
   font-weight: 600;
   font-size: 0.875rem;
+  white-space: break-spaces;
 }
 
 .entity-year {
   font-size: 0.75rem;
   color: var(--text-color-secondary);
   font-weight: 400;
+}
+
+.comparison-indicators {
+  margin-top: 0.25rem;
+  padding-top: 0.25rem;
+  border-top: 1px solid var(--color-surface-300);
+}
+
+.comparison-info {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 0.625rem;
+  color: var(--color-primary-600);
+  margin-bottom: 0.125rem;
+}
+
+.comparison-count {
+  font-weight: 600;
+}
+
+.comparison-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.125rem;
+}
+
+.comparison-entity {
+  font-size: 0.625rem;
+  color: var(--text-color-secondary);
+  font-weight: 500;
+  white-space: wrap;
+}
+
+/* Popover styling */
+.comparison-popover {
+  max-width: 600px;
+  min-width: 400px;
+}
+
+.popover-content {
+  padding: 1rem;
+}
+
+.popover-header h4 {
+  margin: 0 0 0.25rem 0;
+  color: var(--text-color);
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.comparison-subtitle {
+  margin: 0 0 1rem 0;
+  color: var(--text-color-secondary);
+  font-size: 0.875rem;
+}
+
+.comparison-section,
+.all-values-section {
+  margin-bottom: 1.5rem;
+}
+
+.comparison-section:last-child,
+.all-values-section:last-child {
+  margin-bottom: 0;
+}
+
+.comparison-section h5,
+.all-values-section h5 {
+  margin: 0 0 0.75rem 0;
+  color: var(--text-color);
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.025em;
+}
+
+.comparison-table table,
+.all-values-table table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.875rem;
+  background: white;
+  border-radius: 0.375rem;
+  overflow: hidden;
+  border: 1px solid var(--color-surface-200);
+}
+
+.comparison-table th,
+.comparison-table td,
+.all-values-table th,
+.all-values-table td {
+  padding: 0.5rem 0.75rem;
+  text-align: left;
+  border-bottom: 1px solid var(--color-surface-200);
+}
+
+.comparison-table th,
+.all-values-table th {
+  background-color: var(--color-surface-50);
+  font-weight: 600;
+  color: var(--text-color);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.025em;
+}
+
+.comparison-table .entity-name,
+.all-values-table .entity-name {
+  font-weight: 500;
+  color: var(--text-color);
+}
+
+.comparison-table .value,
+.all-values-table .value {
+  font-family: monospace;
+  font-weight: 600;
+  text-align: right;
+}
+
+.comparison-table .difference-row {
+  background-color: var(--color-surface-50);
+}
+
+.comparison-table .difference-row .label {
+  font-weight: 600;
+  color: var(--text-color-secondary);
+}
+
+.comparison-table .value.positive,
+.all-values-table .value.positive {
+  color: var(--color-green-700);
+}
+
+.comparison-table .value.negative,
+.all-values-table .value.negative {
+  color: var(--color-red-700);
+}
+
+.comparison-table tfoot tr:last-child td,
+.all-values-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.all-values-table .highlighted {
+  background-color: var(--color-primary-50);
+  font-weight: 600;
 }
 
 .controls {
@@ -522,5 +1233,79 @@ onMounted(() => {
 .control-label {
   cursor: pointer;
   user-select: none;
+}
+
+/* Column selection styles */
+.column-clickable .entity-header {
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.column-clickable .entity-header:hover {
+  background-color: var(--surface-hover);
+}
+
+.column-selected {
+  background-color: var(--color-primary-100) !important;
+  border: 2px solid var(--color-primary-500);
+}
+
+.column-has-comparisons {
+  background-color: var(--color-surface-50);
+}
+
+.column-selected .entity-header {
+  position: relative;
+}
+
+.selection-indicator {
+  color: var(--color-primary-500);
+  font-size: 0.875rem;
+  margin-top: 0.25rem;
+}
+
+/* Comparison display styles */
+.comparison-display {
+  background-color: var(--color-surface-50);
+  border: 1px solid var(--surface-border);
+  border-radius: var(--content-border-radius);
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+
+.comparison-header h3 {
+  margin: 0 0 0.5rem 0;
+  color: var(--text-color);
+  font-size: 1.125rem;
+}
+
+.comparison-subtitle {
+  color: var(--text-color-secondary);
+  font-size: 0.875rem;
+  margin: 0;
+}
+
+/* Comparison column styles */
+.comparison-column {
+  min-width: 100px;
+  text-align: right;
+}
+
+.comparison-cell {
+  text-align: right;
+  width: 100%;
+}
+
+.comparison-value {
+  font-weight: 600;
+  font-family: monospace;
+}
+
+.positive {
+  color: var(--color-success-fg);
+}
+
+.negative {
+  color: var(--color-danger-fg);
 }
 </style>
