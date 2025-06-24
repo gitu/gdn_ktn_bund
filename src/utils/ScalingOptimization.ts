@@ -200,54 +200,58 @@ export class ScalingOptimization {
 
       // For single entity, use simple normalization instead of variance minimization
       if (scalingVariables.size === 1) {
-        console.log('Single entity detected - using normalization approach instead of variance minimization')
-        
+        console.log(
+          'Single entity detected - using normalization approach instead of variance minimization',
+        )
+
         // Get the single entity's data
         const entityCode = Array.from(scalingVariables.keys())[0]
         const entityVars = scalingVariables.get(entityCode)!
-        
+
         // Create simple normalization targets (target value = 1000 for each account)
         const optimizationTargets: OptimizationTarget[] = []
         console.log(`Creating optimization targets for ${varianceTargets.length} accounts`)
         for (const account of varianceTargets) {
           const accountCode = account.accountCode
           const targetValue = account.entityValues.get(entityCode)
-          
+
           if (targetValue && targetValue > 0) {
             optimizationTargets.push({
               entityCode: `${entityCode}_${accountCode}`,
               targetValue: Math.log(Math.max(targetValue, 1)), // Log transform for better scaling
-              scalingFactors: entityVars
+              scalingFactors: entityVars,
             })
             console.log(`  Added target for account ${accountCode}: value=${targetValue}`)
           } else {
             console.log(`  Skipped account ${accountCode}: no data or zero value`)
           }
         }
-        
+
         if (optimizationTargets.length === 0) {
           return {
             isValid: false,
             error: 'No valid data for single entity optimization',
           }
         }
-        
+
         // For single entity with insufficient data points, create a balanced formula
         if (optimizationTargets.length < availableStats.length) {
-          console.log(`Single entity: ${optimizationTargets.length} targets < ${availableStats.length} factors`)
-          
+          console.log(
+            `Single entity: ${optimizationTargets.length} targets < ${availableStats.length} factors`,
+          )
+
           // Create coefficients that normalize all factors to the same value
           const coefficients = new Map<string, number>()
           const targetNormalizedValue = 1.0 // Each factor contributes 1.0
           const formulaParts: string[] = []
-          
+
           for (const stat of availableStats) {
             const value = entityVars.get(stat.id)
             if (value && value > 0) {
               // Calculate coefficient to normalize this factor to targetNormalizedValue
               const coefficient = targetNormalizedValue / value
               coefficients.set(stat.id, coefficient)
-              
+
               // Format coefficient nicely
               let formattedCoeff: string
               if (coefficient < 0.0001) {
@@ -259,16 +263,18 @@ export class ScalingOptimization {
               } else {
                 formattedCoeff = coefficient.toFixed(2)
               }
-              
+
               formulaParts.push(`${formattedCoeff}*${stat.id}`)
-              console.log(`  Factor ${stat.id}=${value} → coefficient=${formattedCoeff} (normalized to ${targetNormalizedValue})`)
+              console.log(
+                `  Factor ${stat.id}=${value} → coefficient=${formattedCoeff} (normalized to ${targetNormalizedValue})`,
+              )
             }
           }
-          
+
           // Join all parts with + to create the complete formula
           const formula = formulaParts.join(' + ')
           console.log(`Creating balanced formula: ${formula}`)
-          
+
           return {
             isValid: true,
             formula,
@@ -276,34 +282,34 @@ export class ScalingOptimization {
             rSquared: 0, // No R² for simple formula
             targetLineCount: varianceTargets.length,
             entityCount: 1,
-            accountSummary: summary.map(s => ({
+            accountSummary: summary.map((s) => ({
               ...s,
               improvement: 0, // No improvement calculation for single entity
               beforeVariance: s.currentVariance,
               afterVariance: s.currentVariance,
               beforeCV: s.currentCV,
-              afterCV: s.currentCV
-            }))
+              afterCV: s.currentCV,
+            })),
           }
         }
-        
+
         // Run optimization with the normalization targets
         const result = this.optimizeScalingFormula(optimizationTargets, availableStats, {
           ...options,
           minRSquared: 0.01, // Very low threshold for single entity
         })
-        
+
         return {
           ...result,
           entityCount: 1,
-          accountSummary: summary.map(s => ({
+          accountSummary: summary.map((s) => ({
             ...s,
             improvement: 0, // No improvement calculation for single entity
             beforeVariance: s.currentVariance,
             afterVariance: s.currentVariance,
             beforeCV: s.currentCV,
-            afterCV: s.currentCV
-          }))
+            afterCV: s.currentCV,
+          })),
         }
       }
 
@@ -528,19 +534,23 @@ export class ScalingOptimization {
         }
       }
     }
-    
+
     // Detect if this is single entity optimization (all targets have same base entity code)
-    const uniqueEntities = new Set(validTargets.map(t => {
-      // Extract base entity code (before any account code suffix)
-      const parts = t.entityCode.split('_')
-      // Remove account code suffix if present (last part after underscore)
-      return parts.length > 1 && /^\d+$/.test(parts[parts.length - 1]) 
-        ? parts.slice(0, -1).join('_')
-        : t.entityCode
-    }))
+    const uniqueEntities = new Set(
+      validTargets.map((t) => {
+        // Extract base entity code (before any account code suffix)
+        const parts = t.entityCode.split('_')
+        // Remove account code suffix if present (last part after underscore)
+        return parts.length > 1 && /^\d+$/.test(parts[parts.length - 1])
+          ? parts.slice(0, -1).join('_')
+          : t.entityCode
+      }),
+    )
     const isSingleEntity = uniqueEntities.size === 1
-    
-    console.log(`prepareMatrices: ${validTargets.length} valid targets, isSingleEntity: ${isSingleEntity}`)
+
+    console.log(
+      `prepareMatrices: ${validTargets.length} valid targets, isSingleEntity: ${isSingleEntity}`,
+    )
 
     // Find factors that have data for most targets
     for (const factorId of factorIds) {
@@ -624,7 +634,9 @@ export class ScalingOptimization {
       )
       // For single entity, allow optimization if we have at least 1 data point
       if (isSingleEntity && X.length >= 1) {
-        console.warn(`Single entity with ${X.length} data points and ${validFactorIds.length} factors - proceeding`)
+        console.warn(
+          `Single entity with ${X.length} data points and ${validFactorIds.length} factors - proceeding`,
+        )
         return { X, Y, validFactorIds }
       }
       return { X: [], Y: [], validFactorIds: [] }

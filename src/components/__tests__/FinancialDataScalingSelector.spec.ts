@@ -148,7 +148,8 @@ const i18nMessages = {
         title: 'Custom Formula',
         optimization: {
           title: 'Account-Specific Optimization',
-          description: 'Optimize scaling formula to minimize differences for specific account codes',
+          description:
+            'Optimize scaling formula to minimize differences for specific account codes',
           targetCodes: 'Target Account Codes',
           optimize: 'Optimize for Account Codes',
           entitySelection: {
@@ -529,33 +530,52 @@ describe('FinancialDataScalingSelector', () => {
 
   it('should load municipality names for GDN entities', async () => {
     // Mock financial data with GDN entities
-    const mockFinancialData = {
-      balanceSheet: new Map(),
-      incomeStatement: new Map(),
-      metadata: { structure: 'complete', dataVersion: '1.0', entityType: 'gdn' },
+    const mockFinancialData: FinancialData = {
+      balanceSheet: {
+        code: 'balance',
+        labels: { de: 'Bilanz', fr: 'Bilan', it: 'Bilancio', en: 'Balance Sheet' },
+        values: new Map(),
+        children: [],
+      },
+      incomeStatement: {
+        code: 'income',
+        labels: {
+          de: 'Erfolgsrechnung',
+          fr: 'Compte de résultat',
+          it: 'Conto economico',
+          en: 'Income Statement',
+        },
+        values: new Map(),
+        children: [],
+      },
+      metadata: { source: 'test', loadedAt: '2023-01-01', recordCount: 2 },
       entities: new Map([
         [
           'gdn/model1/010002:2023',
           {
             code: 'gdn/model1/010002:2023',
-            labels: { de: 'Test', fr: 'Test', it: 'Test', en: 'Test' },
+            name: { de: 'Test', fr: 'Test', it: 'Test', en: 'Test' },
             description: { de: 'Test', fr: 'Test', it: 'Test', en: 'Test' },
-            year: 2023,
+            year: '2023',
+            model: 'model1',
+            source: 'gdn',
             scalingFactor: 1000,
             scalingInfo: { de: 'Test', fr: 'Test', it: 'Test', en: 'Test' },
-            data: new Map(),
+            metadata: { source: 'test', loadedAt: '2023-01-01', recordCount: 1 },
           },
         ],
         [
           'gdn/model1/010156:2023',
           {
             code: 'gdn/model1/010156:2023',
-            labels: { de: 'Test', fr: 'Test', it: 'Test', en: 'Test' },
+            name: { de: 'Test', fr: 'Test', it: 'Test', en: 'Test' },
             description: { de: 'Test', fr: 'Test', it: 'Test', en: 'Test' },
-            year: 2023,
+            year: '2023',
+            model: 'model1',
+            source: 'gdn',
             scalingFactor: 1500,
             scalingInfo: { de: 'Test', fr: 'Test', it: 'Test', en: 'Test' },
-            data: new Map(),
+            metadata: { source: 'test', loadedAt: '2023-01-01', recordCount: 1 },
           },
         ],
       ]),
@@ -563,7 +583,7 @@ describe('FinancialDataScalingSelector', () => {
 
     const wrapper = mount(FinancialDataScalingSelector, {
       props: {
-        financialData: mockFinancialData as Partial<FinancialData>,
+        financialData: mockFinancialData,
         selectedScaling: null,
       },
       global: {
@@ -580,32 +600,51 @@ describe('FinancialDataScalingSelector', () => {
     expect(getMunicipalityByGdnId).toHaveBeenCalledWith('010156')
 
     // Check that entity display names are properly set
-    const vm = wrapper.vm as { availableEntities: Array<{ displayName: string }> }
+    const vm = wrapper.vm as unknown as { availableEntities: Array<{ displayName: string }> }
     const availableEntities = vm.availableEntities
-    
+
     // Should have 2 entities
     expect(availableEntities).toHaveLength(2)
-    
+
     // Entity names should eventually include municipality names
     // (Note: In tests this might still show fallback names due to async loading)
     const entityNames = availableEntities.map((e) => e.displayName)
-    expect(entityNames.some((name: string) => name.includes('010002') || name.includes('Affoltern'))).toBeTruthy()
+    expect(
+      entityNames.some((name: string) => name.includes('010002') || name.includes('Affoltern')),
+    ).toBeTruthy()
   })
 
   it('should handle entity and scaling factor selection for optimization', async () => {
-    const mockFinancialData = {
-      balanceSheet: new Map(),
-      incomeStatement: new Map(),
-      metadata: { structure: 'complete', dataVersion: '1.0', entityType: 'gdn' },
+    const mockFinancialData: FinancialData = {
+      balanceSheet: {
+        code: 'balance',
+        labels: { de: 'Bilanz', fr: 'Bilan', it: 'Bilancio', en: 'Balance Sheet' },
+        values: new Map(),
+        children: [],
+      },
+      incomeStatement: {
+        code: 'income',
+        labels: {
+          de: 'Erfolgsrechnung',
+          fr: 'Compte de résultat',
+          it: 'Conto economico',
+          en: 'Income Statement',
+        },
+        values: new Map(),
+        children: [],
+      },
+      metadata: { source: 'test', loadedAt: '2023-01-01', recordCount: 1 },
       entities: new Map([
         [
           'gdn/model1/010002:2023',
           {
             code: 'gdn/model1/010002:2023',
-            labels: { de: 'Test', fr: 'Test', it: 'Test', en: 'Test' },
+            name: { de: 'Test', fr: 'Test', it: 'Test', en: 'Test' },
             description: { de: 'Test', fr: 'Test', it: 'Test', en: 'Test' },
-            year: 2023,
-            data: new Map(),
+            year: '2023',
+            model: 'model1',
+            source: 'gdn',
+            metadata: { source: 'test', loadedAt: '2023-01-01', recordCount: 1 },
           },
         ],
       ]),
@@ -613,7 +652,7 @@ describe('FinancialDataScalingSelector', () => {
 
     const wrapper = mount(FinancialDataScalingSelector, {
       props: {
-        financialData: mockFinancialData as Partial<FinancialData>,
+        financialData: mockFinancialData,
         selectedScaling: null,
       },
       global: {
@@ -624,7 +663,10 @@ describe('FinancialDataScalingSelector', () => {
     await new Promise((resolve) => setTimeout(resolve, 100))
     await wrapper.vm.$nextTick()
 
-    const vm = wrapper.vm as { selectedEntities: string[]; selectedScalingFactors: string[] }
+    const vm = wrapper.vm as unknown as {
+      selectedEntities: string[]
+      selectedScalingFactors: string[]
+    }
 
     // Check that entities are selected by default
     expect(vm.selectedEntities).toContain('gdn/model1/010002:2023')

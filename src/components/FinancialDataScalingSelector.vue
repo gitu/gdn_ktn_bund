@@ -130,7 +130,6 @@
                     id="target-accounts-input"
                     v-model="targetAccountCodes"
                     class="w-full"
-
                     @input="onTargetAccountsInput"
                   />
                   <label for="target-accounts-input">
@@ -159,7 +158,15 @@
                 </Button>
 
                 <!-- Entity Selection -->
-                <Fieldset :legend="$t('financialDataScalingSelector.customFormula.optimization.entitySelection.title')" class="mt-4" :toggleable="true">
+                <Fieldset
+                  :legend="
+                    $t(
+                      'financialDataScalingSelector.customFormula.optimization.entitySelection.title',
+                    )
+                  "
+                  class="mt-4"
+                  :toggleable="true"
+                >
                   <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
                     <div
                       v-for="entity in availableEntities"
@@ -178,26 +185,37 @@
                   </div>
                   <div class="mt-2 flex gap-2">
                     <Button
-                      @click="selectedEntities = availableEntities.map(e => e.code)"
+                      @click="selectedEntities = availableEntities.map((e) => e.code)"
                       size="small"
                       severity="secondary"
                       text
                     >
-                      {{ $t('financialDataScalingSelector.customFormula.optimization.entitySelection.selectAll') }}
+                      {{
+                        $t(
+                          'financialDataScalingSelector.customFormula.optimization.entitySelection.selectAll',
+                        )
+                      }}
                     </Button>
-                    <Button
-                      @click="selectedEntities = []"
-                      size="small"
-                      severity="secondary"
-                      text
-                    >
-                      {{ $t('financialDataScalingSelector.customFormula.optimization.entitySelection.selectNone') }}
+                    <Button @click="selectedEntities = []" size="small" severity="secondary" text>
+                      {{
+                        $t(
+                          'financialDataScalingSelector.customFormula.optimization.entitySelection.selectNone',
+                        )
+                      }}
                     </Button>
                   </div>
                 </Fieldset>
 
                 <!-- Scaling Factor Selection -->
-                <Fieldset :legend="$t('financialDataScalingSelector.customFormula.optimization.factorSelection.title')" class="mt-4" :toggleable="true">
+                <Fieldset
+                  :legend="
+                    $t(
+                      'financialDataScalingSelector.customFormula.optimization.factorSelection.title',
+                    )
+                  "
+                  class="mt-4"
+                  :toggleable="true"
+                >
                   <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
                     <div
                       v-for="factor in availableScalingFactorsList"
@@ -216,12 +234,16 @@
                   </div>
                   <div class="mt-2 flex gap-2">
                     <Button
-                      @click="selectedScalingFactors = availableScalingFactorsList.map(f => f.id)"
+                      @click="selectedScalingFactors = availableScalingFactorsList.map((f) => f.id)"
                       size="small"
                       severity="secondary"
                       text
                     >
-                      {{ $t('financialDataScalingSelector.customFormula.optimization.factorSelection.selectAll') }}
+                      {{
+                        $t(
+                          'financialDataScalingSelector.customFormula.optimization.factorSelection.selectAll',
+                        )
+                      }}
                     </Button>
                     <Button
                       @click="selectedScalingFactors = []"
@@ -229,7 +251,11 @@
                       severity="secondary"
                       text
                     >
-                      {{ $t('financialDataScalingSelector.customFormula.optimization.factorSelection.selectNone') }}
+                      {{
+                        $t(
+                          'financialDataScalingSelector.customFormula.optimization.factorSelection.selectNone',
+                        )
+                      }}
                     </Button>
                   </div>
                 </Fieldset>
@@ -549,7 +575,7 @@ const availableEntities = computed(() => {
   // Force reactivity by depending on the version
   void municipalityNamesVersion.value
 
-  return Array.from(props.financialData.entities.keys()).map(entityCode => {
+  return Array.from(props.financialData.entities.keys()).map((entityCode) => {
     // Extract entity information for display
     const parts = entityCode.split('/')
     const source = parts[0]
@@ -587,7 +613,7 @@ const availableEntities = computed(() => {
       displayName,
       source,
       entityId,
-      year
+      year,
     }
   })
 })
@@ -597,7 +623,7 @@ const loadMunicipalityNames = async () => {
   if (!props.financialData?.entities) return
 
   const gdnEntityIds = new Set<string>()
-  
+
   // Collect all GDN entity IDs
   for (const entityCode of props.financialData.entities.keys()) {
     const parts = entityCode.split('/')
@@ -609,7 +635,6 @@ const loadMunicipalityNames = async () => {
       }
     }
   }
-
 
   // Load municipality names for each GDN ID
   for (const gdnId of gdnEntityIds) {
@@ -628,14 +653,14 @@ const loadMunicipalityNames = async () => {
 }
 
 const availableScalingFactorsList = computed(() => {
-  return availableStats.value.map(stat => {
+  return availableStats.value.map((stat) => {
     const currentLocale = locale.value as keyof MultiLanguageLabels
     const label = stat.name[currentLocale] || stat.name.en || stat.id
 
     return {
       id: stat.id,
       label,
-      description: stat.name
+      description: stat.name,
     }
   })
 })
@@ -877,7 +902,7 @@ const optimizeFormula = async () => {
 
     // Create filtered scaling variables for optimization (only selected entities and factors)
     const filteredScalingVariables = new Map<string, Map<string, number>>()
-    
+
     for (const entityCode of selectedEntities.value) {
       const allFactors = allScalingVariables.get(entityCode)
       if (allFactors) {
@@ -895,15 +920,17 @@ const optimizeFormula = async () => {
     }
 
     // Run account-specific optimization with selected scaling factors only
-    const selectedStats = availableStats.value.filter(stat => selectedScalingFactors.value.includes(stat.id))
-    
+    const selectedStats = availableStats.value.filter((stat) =>
+      selectedScalingFactors.value.includes(stat.id),
+    )
+
     // Debug logging
     console.log(`Selected entities: ${selectedEntities.value.length}`)
     console.log(`Selected scaling factors: ${selectedScalingFactors.value.length}`)
     console.log(`All scaling variables loaded: ${allScalingVariables.size}`)
     console.log(`Filtered scaling variables for optimization: ${filteredScalingVariables.size}`)
     console.log(`Account codes: [${accountCodes.join(', ')}]`)
-    
+
     const result = ScalingOptimization.optimizeForAccountCodes(
       props.financialData,
       accountCodes,
@@ -1059,7 +1086,7 @@ watch(
       loadMunicipalityNames()
     }
   },
-  { deep: true }
+  { deep: true },
 )
 
 // Watch for changes in available stats to initialize scaling factors selection
@@ -1068,10 +1095,10 @@ watch(
   (newStats) => {
     if (newStats && newStats.length > 0) {
       // Initialize all scaling factors as selected by default
-      selectedScalingFactors.value = newStats.map(stat => stat.id)
+      selectedScalingFactors.value = newStats.map((stat) => stat.id)
     }
   },
-  { immediate: true }
+  { immediate: true },
 )
 
 // Consolidated watcher to prevent redundant scaling applications

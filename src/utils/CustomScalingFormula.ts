@@ -215,9 +215,9 @@ export class CustomScalingFormula {
   private static extractVariables(formula: string): string[] {
     // Tokenize the formula properly first
     const tokens = this.tokenizeExpression(formula)
-    
+
     // Filter to get only variable names (not numbers or operators)
-    const variables = tokens.filter(token => {
+    const variables = tokens.filter((token) => {
       // Skip operators
       if ('+-*/()'.includes(token)) return false
       // Skip numbers (including scientific notation)

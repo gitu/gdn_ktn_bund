@@ -8,12 +8,31 @@ describe('CustomScalingFormula', () => {
   describe('tokenizeExpression', () => {
     it('should correctly tokenize scientific notation', () => {
       // Access private method through type casting for testing
-      const tokenize = (expr: string) => (CustomScalingFormula as unknown as { tokenizeExpression: (expr: string) => string[] }).tokenizeExpression(expr)
-      
+      const tokenize = (expr: string) =>
+        (
+          CustomScalingFormula as unknown as { tokenizeExpression: (expr: string) => string[] }
+        ).tokenizeExpression(expr)
+
       expect(tokenize('1.23e-4 * pop')).toEqual(['1.23e-4', '*', 'pop'])
       expect(tokenize('5.67E+2*area')).toEqual(['5.67E+2', '*', 'area'])
-      expect(tokenize('1e-6 * pop + 2.5e+3 * area')).toEqual(['1e-6', '*', 'pop', '+', '2.5e+3', '*', 'area'])
-      expect(tokenize('0.0002*pop + 0.0005*employment')).toEqual(['0.0002', '*', 'pop', '+', '0.0005', '*', 'employment'])
+      expect(tokenize('1e-6 * pop + 2.5e+3 * area')).toEqual([
+        '1e-6',
+        '*',
+        'pop',
+        '+',
+        '2.5e+3',
+        '*',
+        'area',
+      ])
+      expect(tokenize('0.0002*pop + 0.0005*employment')).toEqual([
+        '0.0002',
+        '*',
+        'pop',
+        '+',
+        '0.0005',
+        '*',
+        'employment',
+      ])
     })
   })
   const mockAvailableStats: StatsAvailabilityInfo[] = [
@@ -173,11 +192,17 @@ describe('CustomScalingFormula', () => {
     it('should validate formulas with scientific notation', () => {
       const result1 = CustomScalingFormula.validateFormula('1.23e-4 * pop', mockAvailableStats)
       expect(result1.isValid).toBe(true)
-      
-      const result2 = CustomScalingFormula.validateFormula('5.67E+2 * area + 1e-6 * pop', mockAvailableStats)
+
+      const result2 = CustomScalingFormula.validateFormula(
+        '5.67E+2 * area + 1e-6 * pop',
+        mockAvailableStats,
+      )
       expect(result2.isValid).toBe(true)
-      
-      const result3 = CustomScalingFormula.validateFormula('0.0002*pop + 0.0005*employment', mockAvailableStats)
+
+      const result3 = CustomScalingFormula.validateFormula(
+        '0.0002*pop + 0.0005*employment',
+        mockAvailableStats,
+      )
       expect(result3.isValid).toBe(true)
     })
   })
@@ -242,24 +267,27 @@ describe('CustomScalingFormula', () => {
 
     it('should evaluate formulas with scientific notation', () => {
       const variables = createScalingVariables({ pop: 10000, area: 50, employment: 2000 })
-      
+
       // Test simple scientific notation
       const result1 = CustomScalingFormula.evaluateFormula('1e-3 * pop', variables)
       expect(result1.isValid).toBe(true)
       expect(result1.result).toBe(10) // 0.001 * 10000 = 10
-      
+
       // Test with exponent
       const result2 = CustomScalingFormula.evaluateFormula('1.5e-4 * pop', variables)
       expect(result2.isValid).toBe(true)
       expect(result2.result).toBeCloseTo(1.5) // 0.00015 * 10000 = 1.5
-      
+
       // Test positive exponent
       const result3 = CustomScalingFormula.evaluateFormula('2e+2 * area', variables)
       expect(result3.isValid).toBe(true)
       expect(result3.result).toBe(10000) // 200 * 50 = 10000
-      
+
       // Test complex formula with multiple scientific notation values
-      const result4 = CustomScalingFormula.evaluateFormula('1e-3 * pop + 5e-4 * employment', variables)
+      const result4 = CustomScalingFormula.evaluateFormula(
+        '1e-3 * pop + 5e-4 * employment',
+        variables,
+      )
       expect(result4.isValid).toBe(true)
       expect(result4.result).toBe(11) // 0.001 * 10000 + 0.0005 * 2000 = 10 + 1 = 11
     })
