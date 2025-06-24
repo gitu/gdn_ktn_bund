@@ -1,6 +1,6 @@
 /**
  * Financial Data Extractor
- * 
+ *
  * Utilities for extracting specific account code values from financial data
  * to support account-targeted optimization.
  */
@@ -26,29 +26,31 @@ export class FinancialDataExtractor {
    */
   static extractAccountValues(
     financialData: FinancialData,
-    accountCodes: string[]
+    accountCodes: string[],
   ): Map<string, AccountCodeValue[]> {
     const results = new Map<string, AccountCodeValue[]>()
-    
+
     // Initialize results for each account code
-    accountCodes.forEach(code => {
+    accountCodes.forEach((code) => {
       results.set(code, [])
     })
 
     // Search through all entities
-    console.log(`FinancialDataExtractor: Searching for account codes [${accountCodes.join(', ')}] in ${financialData.entities.size} entities`)
-    
+    console.log(
+      `FinancialDataExtractor: Searching for account codes [${accountCodes.join(', ')}] in ${financialData.entities.size} entities`,
+    )
+
     for (const [entityCode, entity] of financialData.entities) {
       const year = entity.year?.toString() || '2022'
-      
+
       // Search for account codes in both balance sheet and income statement
-      accountCodes.forEach(accountCode => {
+      accountCodes.forEach((accountCode) => {
         // Search in income statement (contains codes like 36, 46)
         if (financialData.incomeStatement) {
           const value = this.findAccountValueInTree(
-            financialData.incomeStatement, 
-            accountCode, 
-            entityCode
+            financialData.incomeStatement,
+            accountCode,
+            entityCode,
           )
           if (value !== null) {
             console.log(`  Found account ${accountCode} for entity ${entityCode}: ${value}`)
@@ -56,37 +58,45 @@ export class FinancialDataExtractor {
               entityCode,
               accountCode,
               value,
-              year
+              year,
             })
           }
         }
 
         // Search in balance sheet (contains codes like 10, 20)
-        if (financialData.balanceSheet && !results.get(accountCode)!.some(r => r.entityCode === entityCode)) {
+        if (
+          financialData.balanceSheet &&
+          !results.get(accountCode)!.some((r) => r.entityCode === entityCode)
+        ) {
           const value = this.findAccountValueInTree(
-            financialData.balanceSheet, 
-            accountCode, 
-            entityCode
+            financialData.balanceSheet,
+            accountCode,
+            entityCode,
           )
           if (value !== null) {
-            console.log(`  Found account ${accountCode} for entity ${entityCode}: ${value} (from balance sheet)`)
+            console.log(
+              `  Found account ${accountCode} for entity ${entityCode}: ${value} (from balance sheet)`,
+            )
             results.get(accountCode)!.push({
               entityCode,
               accountCode,
               value,
-              year
+              year,
             })
           }
         }
       })
     }
-    
+
     // Log summary
-    accountCodes.forEach(code => {
+    accountCodes.forEach((code) => {
       const values = results.get(code) || []
       console.log(`FinancialDataExtractor: Account ${code} found in ${values.length} entities`)
       if (values.length > 0) {
-        const sample = values.slice(0, 3).map(v => `${v.entityCode}: ${v.value}`).join(', ')
+        const sample = values
+          .slice(0, 3)
+          .map((v) => `${v.entityCode}: ${v.value}`)
+          .join(', ')
         console.log(`  Sample values: ${sample}${values.length > 3 ? '...' : ''}`)
       }
     })
@@ -100,7 +110,7 @@ export class FinancialDataExtractor {
   private static findAccountValueInTree(
     node: FinancialDataNode,
     targetAccountCode: string,
-    entityCode: string
+    entityCode: string,
   ): number | null {
     // Check if this node matches the target account code
     if (node.code === targetAccountCode) {
@@ -124,12 +134,12 @@ export class FinancialDataExtractor {
    */
   static createVarianceTargets(
     accountValues: Map<string, AccountCodeValue[]>,
-    targetVariance: number = 0.1 // Small non-zero variance
+    targetVariance: number = 0.1, // Small non-zero variance
   ): AccountVarianceTarget[] {
     const targets: AccountVarianceTarget[] = []
 
     console.log(`Creating variance targets from ${accountValues.size} account codes`)
-    
+
     for (const [accountCode, values] of accountValues) {
       console.log(`  Account ${accountCode}: ${values.length} values`)
       if (values.length < 2) {
@@ -139,18 +149,18 @@ export class FinancialDataExtractor {
 
       // Create entity values map
       const entityValues = new Map<string, number>()
-      values.forEach(v => {
+      values.forEach((v) => {
         entityValues.set(v.entityCode, Math.abs(v.value)) // Use absolute values
       })
 
       // Skip if all values are zero
-      const nonZeroValues = Array.from(entityValues.values()).filter(v => v > 0)
+      const nonZeroValues = Array.from(entityValues.values()).filter((v) => v > 0)
       if (nonZeroValues.length === 0) continue
 
       targets.push({
         accountCode,
         entityValues,
-        targetVariance
+        targetVariance,
       })
     }
 
@@ -166,7 +176,7 @@ export class FinancialDataExtractor {
 
     const mean = values.reduce((sum, v) => sum + v, 0) / values.length
     const variance = values.reduce((sum, v) => sum + Math.pow(v - mean, 2), 0) / values.length
-    
+
     return variance
   }
 
@@ -182,7 +192,7 @@ export class FinancialDataExtractor {
 
     const variance = this.calculateVariance(entityValues)
     const standardDeviation = Math.sqrt(variance)
-    
+
     return standardDeviation / mean // CV = σ/μ
   }
 
@@ -191,7 +201,7 @@ export class FinancialDataExtractor {
    */
   static prepareAccountOptimizationTargets(
     financialData: FinancialData,
-    accountCodes: string[]
+    accountCodes: string[],
   ): {
     targets: AccountVarianceTarget[]
     summary: {
@@ -203,26 +213,26 @@ export class FinancialDataExtractor {
     }[]
   } {
     console.log(`Preparing account optimization targets for codes: [${accountCodes.join(', ')}]`)
-    
+
     // Extract account values
     const accountValues = this.extractAccountValues(financialData, accountCodes)
-    
+
     // Create variance targets
     const targets = this.createVarianceTargets(accountValues, 0.05) // Target 5% coefficient of variation
-    
+
     // Create summary
-    const summary = targets.map(target => {
+    const summary = targets.map((target) => {
       const values = Array.from(target.entityValues.values())
       const meanValue = values.reduce((sum, v) => sum + v, 0) / values.length
       const currentVariance = this.calculateVariance(target.entityValues)
       const currentCV = this.calculateCoefficientOfVariation(target.entityValues)
-      
+
       return {
         accountCode: target.accountCode,
         entityCount: target.entityValues.size,
         currentVariance,
         currentCV,
-        meanValue
+        meanValue,
       }
     })
 
@@ -234,7 +244,7 @@ export class FinancialDataExtractor {
    */
   static validateAccountCodes(
     financialData: FinancialData,
-    accountCodes: string[]
+    accountCodes: string[],
   ): {
     valid: string[]
     invalid: string[]
@@ -245,8 +255,8 @@ export class FinancialDataExtractor {
     const found = new Map<string, number>()
 
     const accountValues = this.extractAccountValues(financialData, accountCodes)
-    
-    accountCodes.forEach(code => {
+
+    accountCodes.forEach((code) => {
       const values = accountValues.get(code) || []
       if (values.length > 0) {
         valid.push(code)

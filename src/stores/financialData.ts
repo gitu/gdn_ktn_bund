@@ -2,14 +2,17 @@ import { ref, computed } from 'vue'
 import { defineStore } from 'pinia'
 import { DataLoader } from '@/utils/DataLoader'
 import { StatsDataLoader } from '@/utils/StatsDataLoader'
-import { CustomScalingFormula, CUSTOM_SCALING_PREFIX, type ScalingVariable } from '@/utils/CustomScalingFormula'
+import {
+  CustomScalingFormula,
+  CUSTOM_SCALING_PREFIX,
+  type ScalingVariable,
+} from '@/utils/CustomScalingFormula'
 import { createEmptyFinancialDataStructure } from '@/data/emptyFinancialDataStructure'
 import { EntitySemanticMapper } from '@/utils/EntitySemanticMapper'
 import { getCantonByAbbreviation, getMunicipalityByGdnId } from '@/utils/GeographicalDataLoader'
 import type { FinancialData, FinancialDataEntity } from '@/types/FinancialDataStructure'
 import type { MultiLanguageLabels } from '@/types/DataStructures.ts'
 import { i18n } from '@/i18n'
-
 
 interface ScalingInfo {
   id: string
@@ -190,7 +193,6 @@ export const useFinancialDataStore = defineStore('financialData', () => {
         await applyCustomScalingFormula(formula)
         return
       }
-
 
       // Get scaling information from the scaling ID (traditional scaling)
       const scalingInfo = await getScalingInfo(scalingId)

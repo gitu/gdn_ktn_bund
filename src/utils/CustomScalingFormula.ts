@@ -9,7 +9,12 @@
 
 import type { StatsAvailabilityInfo } from '@/types/StatsData'
 import type { MultiLanguageLabels } from '@/types/DataStructures'
-import { ScalingOptimization, type OptimizationTarget, type OptimizationResult, type OptimizationOptions } from './ScalingOptimization'
+import {
+  ScalingOptimization,
+  type OptimizationTarget,
+  type OptimizationResult,
+  type OptimizationOptions,
+} from './ScalingOptimization'
 
 // Constants
 export const CUSTOM_SCALING_PREFIX = 'custom:'
@@ -378,7 +383,7 @@ export class CustomScalingFormula {
   static generateOptimizedFormula(
     targets: OptimizationTarget[],
     availableStats: StatsAvailabilityInfo[],
-    options: OptimizationOptions = {}
+    options: OptimizationOptions = {},
   ): OptimizationResult {
     return ScalingOptimization.optimizeScalingFormula(targets, availableStats, options)
   }

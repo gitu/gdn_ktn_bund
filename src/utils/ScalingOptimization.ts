@@ -1,9 +1,9 @@
 /**
  * Scaling Formula Optimization
- * 
+ *
  * Automatically finds the best linear combination of scaling factors that minimizes
  * differences between entities for specific financial data lines.
- * 
+ *
  * Uses least squares regression to solve: minimize ||Y - Xβ||²
  * Where:
  * - Y = target values (financial data for specific lines)
@@ -68,55 +68,61 @@ export class ScalingOptimization {
     accountCodes: string[],
     availableStats: StatsAvailabilityInfo[],
     scalingVariables: Map<string, Map<string, number>>, // entityCode -> (factorId -> value)
-    options: OptimizationOptions = {}
+    options: OptimizationOptions = {},
   ): AccountOptimizationResult {
     try {
       const {
         minRSquared = 0.1, // Much lower threshold since we're optimizing for specific targets, not general fit
         includeIntercept: _includeIntercept = true,
-        varianceWeight = 1.0
+        varianceWeight = 1.0,
       } = options
 
       // Parse account code groups (codes separated by + are summed together)
-      const accountGroups: string[][] = accountCodes.map(codeGroup => {
+      const accountGroups: string[][] = accountCodes.map((codeGroup) => {
         // Split by + to handle combinations like "400+401"
-        return codeGroup.split('+').map(code => code.trim()).filter(code => code)
+        return codeGroup
+          .split('+')
+          .map((code) => code.trim())
+          .filter((code) => code)
       })
-      
+
       console.log(`Parsing account code groups:`)
       accountGroups.forEach((group, i) => {
         console.log(`  Group ${i + 1}: [${group.join('+')}]`)
       })
-      
+
       // Validate all individual codes
       const allIndividualCodes = accountGroups.flat()
-      const validation = FinancialDataExtractor.validateAccountCodes(financialData, allIndividualCodes)
+      const validation = FinancialDataExtractor.validateAccountCodes(
+        financialData,
+        allIndividualCodes,
+      )
       console.log(`  Valid codes: [${validation.valid.join(', ')}]`)
       console.log(`  Invalid codes: [${validation.invalid.join(', ')}]`)
-      
+
       if (validation.valid.length === 0) {
         return {
           isValid: false,
-          error: `No valid account codes found. Invalid: ${validation.invalid.join(', ')}`
+          error: `No valid account codes found. Invalid: ${validation.invalid.join(', ')}`,
         }
       }
 
       // Prepare optimization targets for account groups
       const groupedTargets: AccountVarianceTarget[] = []
       const groupedSummary: AccountSummary[] = []
-      
+
       // Process each account group
       for (let groupIndex = 0; groupIndex < accountGroups.length; groupIndex++) {
         const group = accountGroups[groupIndex]
-        const validCodesInGroup = group.filter(code => validation.valid.includes(code))
-        
+        const validCodesInGroup = group.filter((code) => validation.valid.includes(code))
+
         if (validCodesInGroup.length === 0) continue
-        
+
         // For single account, use existing method
         if (validCodesInGroup.length === 1) {
           const { targets, summary } = FinancialDataExtractor.prepareAccountOptimizationTargets(
-            financialData, 
-            validCodesInGroup
+            financialData,
+            validCodesInGroup,
           )
           groupedTargets.push(...targets)
           groupedSummary.push(...summary)
@@ -124,95 +130,105 @@ export class ScalingOptimization {
           // For multiple accounts (sum), create combined target
           const groupName = validCodesInGroup.join('+')
           const entitySums = new Map<string, number>()
-          
+
           // Sum values across all accounts in the group for each entity
           for (const accountCode of validCodesInGroup) {
-            const accountData = FinancialDataExtractor.extractAccountValues(financialData, [accountCode])
+            const accountData = FinancialDataExtractor.extractAccountValues(financialData, [
+              accountCode,
+            ])
             const values = accountData.get(accountCode) || []
-            
+
             for (const { entityCode, value } of values) {
               const currentSum = entitySums.get(entityCode) || 0
               entitySums.set(entityCode, currentSum + Math.abs(value))
             }
           }
-          
+
           // Create variance target for the summed values
           if (entitySums.size >= 2) {
             const target: AccountVarianceTarget = {
               accountCode: groupName,
               entityValues: entitySums,
-              targetVariance: 0
+              targetVariance: 0,
             }
             groupedTargets.push(target)
-            
+
             // Create summary for the group
             const values = Array.from(entitySums.values())
             const mean = values.reduce((sum, v) => sum + v, 0) / values.length
             const variance = FinancialDataExtractor.calculateVariance(entitySums)
             const cv = FinancialDataExtractor.calculateCoefficientOfVariation(entitySums)
-            
+
             groupedSummary.push({
               accountCode: groupName,
               entityCount: entitySums.size,
               currentVariance: variance,
               currentCV: cv,
-              meanValue: mean
+              meanValue: mean,
             })
-            
-            console.log(`  Account group ${groupName}: ${entitySums.size} entities, mean=${mean.toLocaleString()}, CV=${cv.toFixed(3)}`)
+
+            console.log(
+              `  Account group ${groupName}: ${entitySums.size} entities, mean=${mean.toLocaleString()}, CV=${cv.toFixed(3)}`,
+            )
           }
         }
       }
-      
+
       const varianceTargets = groupedTargets
       const summary = groupedSummary
 
       if (varianceTargets.length === 0) {
         return {
           isValid: false,
-          error: 'No financial data found for the specified account codes'
+          error: 'No financial data found for the specified account codes',
         }
       }
-      
+
       // Log optimization goals
       console.log(`\nOptimization Goals:`)
-      console.log(`  Minimize variance for ${validation.valid.length} account codes across entities`)
-      console.log(`  Variance weight: ${varianceWeight} (1.0 = pure variance minimization, 0.0 = maintain relative values)`)
-      summary.forEach(s => {
-        console.log(`  Account ${s.accountCode}: ${s.entityCount} entities, mean=${s.meanValue.toLocaleString()}, CV=${s.currentCV.toFixed(3)}`)
+      console.log(
+        `  Minimize variance for ${validation.valid.length} account codes across entities`,
+      )
+      console.log(
+        `  Variance weight: ${varianceWeight} (1.0 = pure variance minimization, 0.0 = maintain relative values)`,
+      )
+      summary.forEach((s) => {
+        console.log(
+          `  Account ${s.accountCode}: ${s.entityCount} entities, mean=${s.meanValue.toLocaleString()}, CV=${s.currentCV.toFixed(3)}`,
+        )
       })
 
       // Create optimization targets that minimize variance
       const optimizationTargets = this.createVarianceMinimizationTargets(
         varianceTargets,
         scalingVariables,
-        varianceWeight
+        varianceWeight,
       )
 
       if (optimizationTargets.length < 2) {
         return {
           isValid: false,
-          error: 'Insufficient data points for optimization (need at least 2 entities)'
+          error: 'Insufficient data points for optimization (need at least 2 entities)',
         }
       }
 
       // Run optimization
       const result = this.optimizeScalingFormula(optimizationTargets, availableStats, {
         ...options,
-        minRSquared
+        minRSquared,
       })
 
       if (!result.isValid) {
         return {
           ...result,
-          accountSummary: summary.map(s => ({
+          accountSummary: summary.map((s) => ({
             ...s,
             beforeVariance: s.currentVariance,
             afterVariance: s.currentVariance,
             beforeCV: s.currentCV,
             afterCV: s.currentCV,
-            improvement: 0
-          }))
+            improvement: 0,
+          })),
         }
       }
 
@@ -221,18 +237,17 @@ export class ScalingOptimization {
         varianceTargets,
         result.coefficients!,
         scalingVariables,
-        summary
+        summary,
       )
 
       return {
         ...result,
-        accountSummary
+        accountSummary,
       }
-
     } catch (error) {
       return {
         isValid: false,
-        error: error instanceof Error ? error.message : 'Account optimization error'
+        error: error instanceof Error ? error.message : 'Account optimization error',
       }
     }
   }
@@ -243,98 +258,102 @@ export class ScalingOptimization {
   static optimizeScalingFormula(
     targets: OptimizationTarget[],
     availableStats: StatsAvailabilityInfo[],
-    options: OptimizationOptions = {}
+    options: OptimizationOptions = {},
   ): OptimizationResult {
     try {
       const {
         minRSquared = 0.7,
         includeIntercept = true,
-        maxIterations: _maxIterations = 1000
+        maxIterations: _maxIterations = 1000,
       } = options
 
       if (targets.length < 2) {
         return {
           isValid: false,
-          error: 'At least 2 entities required for optimization'
+          error: 'At least 2 entities required for optimization',
         }
       }
 
       // Get available scaling factor IDs
-      const factorIds = availableStats.map(stat => stat.id)
-      
+      const factorIds = availableStats.map((stat) => stat.id)
+
       if (factorIds.length === 0) {
         return {
           isValid: false,
-          error: 'No scaling factors available for optimization'
+          error: 'No scaling factors available for optimization',
         }
       }
 
       // Prepare data matrices
       const { X, Y, validFactorIds } = this.prepareMatrices(targets, factorIds, includeIntercept)
-      
+
       if (X.length === 0 || Y.length === 0) {
         return {
           isValid: false,
-          error: 'No valid data points found for optimization'
+          error: 'No valid data points found for optimization',
         }
       }
 
       // Log the optimization problem
       console.log(`\nOptimization Problem:`)
-      console.log(`  Solving for ${validFactorIds.length} factors${includeIntercept ? ' + intercept' : ''}: [${validFactorIds.join(', ')}]`)
+      console.log(
+        `  Solving for ${validFactorIds.length} factors${includeIntercept ? ' + intercept' : ''}: [${validFactorIds.join(', ')}]`,
+      )
       console.log(`  ${X.length} data points (equations)`)
-      console.log(`  Target value range: ${Math.min(...Y).toExponential(3)} to ${Math.max(...Y).toExponential(3)}`)
+      console.log(
+        `  Target value range: ${Math.min(...Y).toExponential(3)} to ${Math.max(...Y).toExponential(3)}`,
+      )
 
       // Solve least squares: β = (X'X)⁻¹X'Y
       const coefficients = this.solveLeastSquares(X, Y)
-      
+
       if (!coefficients) {
         return {
           isValid: false,
-          error: 'Unable to solve optimization problem (matrix may be singular)'
+          error: 'Unable to solve optimization problem (matrix may be singular)',
         }
       }
 
       // Calculate R-squared
       const rSquared = this.calculateRSquared(X, Y, coefficients)
-      
+
       // Log fit diagnostics
       console.log(`\nOptimization Fit Diagnostics:`)
       console.log(`  R² = ${rSquared.toFixed(4)}`)
-      
+
       // Calculate and log residuals
-      const predicted = X.map(row => 
-        row.reduce((sum, x, i) => sum + x * coefficients[i], 0)
-      )
+      const predicted = X.map((row) => row.reduce((sum, x, i) => sum + x * coefficients[i], 0))
       const residuals = Y.map((y, i) => y - predicted[i])
       const maxResidual = Math.max(...residuals.map(Math.abs))
       const avgResidual = residuals.reduce((sum, r) => sum + Math.abs(r), 0) / residuals.length
-      
+
       console.log(`  Max residual: ${maxResidual.toExponential(3)}`)
       console.log(`  Avg residual: ${avgResidual.toExponential(3)}`)
-      console.log(`  Target range: ${Math.min(...Y).toExponential(3)} to ${Math.max(...Y).toExponential(3)}`)
-      
+      console.log(
+        `  Target range: ${Math.min(...Y).toExponential(3)} to ${Math.max(...Y).toExponential(3)}`,
+      )
+
       // For account-specific optimization, we care more about achieving target values than R²
       // So we'll proceed even with low R² if residuals are reasonable
       const relativeError = avgResidual / (Math.max(...Y) - Math.min(...Y))
       console.log(`  Relative error: ${(relativeError * 100).toFixed(2)}%`)
-      
+
       if (rSquared < minRSquared && relativeError > 0.5) {
         return {
           isValid: false,
-          error: `Optimization quality too low (R² = ${rSquared.toFixed(3)}, relative error = ${(relativeError * 100).toFixed(1)}%)`
+          error: `Optimization quality too low (R² = ${rSquared.toFixed(3)}, relative error = ${(relativeError * 100).toFixed(1)}%)`,
         }
       }
 
       // Build formula string (will be used with CUSTOM_SCALING_PREFIX)
       const formula = this.buildFormulaString(coefficients, validFactorIds, includeIntercept)
-      
+
       // Create coefficient map for result
       const coefficientMap = new Map<string, number>()
       validFactorIds.forEach((factorId, index) => {
         coefficientMap.set(factorId, coefficients[includeIntercept ? index + 1 : index])
       })
-      
+
       if (includeIntercept && coefficients[0] !== 0) {
         coefficientMap.set('_intercept', coefficients[0])
       }
@@ -343,14 +362,14 @@ export class ScalingOptimization {
       console.log(`\\nOptimized Coefficients (formula will use custom: prefix):`)
       const coefficientLabels = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j']
       let labelIndex = 0
-      
+
       validFactorIds.forEach((factorId) => {
         const coefficient = coefficientMap.get(factorId)!
         const label = coefficientLabels[labelIndex] || `coeff${labelIndex}`
         console.log(`  ${label} = ${coefficient.toFixed(6)} (${factorId})`)
         labelIndex++
       })
-      
+
       if (coefficientMap.has('_intercept')) {
         const intercept = coefficientMap.get('_intercept')!
         const label = coefficientLabels[labelIndex] || `coeff${labelIndex}`
@@ -362,14 +381,13 @@ export class ScalingOptimization {
         formula,
         coefficients: coefficientMap,
         rSquared,
-        targetLineCount: new Set(targets.map(t => this.extractFinancialCode(t.entityCode))).size,
-        entityCount: new Set(targets.map(t => this.extractEntityId(t.entityCode))).size
+        targetLineCount: new Set(targets.map((t) => this.extractFinancialCode(t.entityCode))).size,
+        entityCount: new Set(targets.map((t) => this.extractEntityId(t.entityCode))).size,
       }
-
     } catch (error) {
       return {
         isValid: false,
-        error: error instanceof Error ? error.message : 'Unknown optimization error'
+        error: error instanceof Error ? error.message : 'Unknown optimization error',
       }
     }
   }
@@ -380,8 +398,8 @@ export class ScalingOptimization {
   private static prepareMatrices(
     targets: OptimizationTarget[],
     factorIds: string[],
-    includeIntercept: boolean
-  ): { X: number[][], Y: number[], validFactorIds: string[] } {
+    includeIntercept: boolean,
+  ): { X: number[][]; Y: number[]; validFactorIds: string[] } {
     const validTargets: OptimizationTarget[] = []
     const validFactorIds: string[] = []
 
@@ -404,23 +422,23 @@ export class ScalingOptimization {
 
     // Find factors that have data for most targets
     for (const factorId of factorIds) {
-      const validCount = validTargets.filter(target => {
+      const validCount = validTargets.filter((target) => {
         const value = target.scalingFactors.get(factorId)
         return typeof value === 'number' && isFinite(value)
       }).length
-      
+
       // Require factor to be available for at least 80% of targets
       if (validCount >= Math.ceil(validTargets.length * 0.8)) {
         // Check if this factor has sufficient variance
         const values = validTargets
-          .map(target => target.scalingFactors.get(factorId))
-          .filter(val => typeof val === 'number' && isFinite(val)) as number[]
-        
+          .map((target) => target.scalingFactors.get(factorId))
+          .filter((val) => typeof val === 'number' && isFinite(val)) as number[]
+
         if (values.length >= 2) {
           const mean = values.reduce((sum, v) => sum + v, 0) / values.length
           const variance = values.reduce((sum, v) => sum + Math.pow(v - mean, 2), 0) / values.length
           const cv = mean > 0 ? Math.sqrt(variance) / Math.abs(mean) : 0
-          
+
           // Only include factors with sufficient variation (CV > 0.01 = 1%)
           if (cv > 0.01) {
             validFactorIds.push(factorId)
@@ -442,12 +460,12 @@ export class ScalingOptimization {
 
     for (const target of validTargets) {
       const row: number[] = []
-      
+
       // Add intercept term if requested
       if (includeIntercept) {
         row.push(1)
       }
-      
+
       // Add scaling factors
       let hasAllFactors = true
       for (const factorId of validFactorIds) {
@@ -459,7 +477,7 @@ export class ScalingOptimization {
           break
         }
       }
-      
+
       if (hasAllFactors) {
         X.push(row)
         Y.push(target.targetValue)
@@ -468,7 +486,9 @@ export class ScalingOptimization {
 
     // Check if we have enough data points and sufficient target variation
     if (X.length < validFactorIds.length + 1) {
-      console.warn(`Insufficient data points: ${X.length} points for ${validFactorIds.length} factors`)
+      console.warn(
+        `Insufficient data points: ${X.length} points for ${validFactorIds.length} factors`,
+      )
       return { X: [], Y: [], validFactorIds: [] }
     }
 
@@ -477,8 +497,9 @@ export class ScalingOptimization {
       const yMean = Y.reduce((sum, y) => sum + y, 0) / Y.length
       const yVariance = Y.reduce((sum, y) => sum + Math.pow(y - yMean, 2), 0) / Y.length
       const yCV = yMean > 0 ? Math.sqrt(yVariance) / Math.abs(yMean) : 0
-      
-      if (yCV < 0.001) { // Less than 0.1% variation
+
+      if (yCV < 0.001) {
+        // Less than 0.1% variation
         console.warn(`Target values have insufficient variation (CV: ${yCV.toFixed(6)})`)
         return { X: [], Y: [], validFactorIds: [] }
       }
@@ -499,39 +520,40 @@ export class ScalingOptimization {
 
       // Normalize X matrix to improve numerical stability
       const { normalizedX, scales } = this.normalizeMatrix(X)
-      
+
       // Also normalize Y values to similar scale
       const yScale = Math.max(...Y.map(Math.abs)) || 1
-      const normalizedY = Y.map(y => y / yScale)
-      
+      const normalizedY = Y.map((y) => y / yScale)
+
       // Calculate X'X (X transpose times X)
       const Xt = this.transpose(normalizedX)
       const XtX = this.matrixMultiply(Xt, normalizedX)
-      
+
       // Calculate X'Y (X transpose times Y)
       const XtY = this.matrixVectorMultiply(Xt, normalizedY)
-      
+
       // Check matrix condition and add appropriate regularization
       const conditionNumber = this.estimateConditionNumber(XtX)
       const regularization = Math.max(1e-6, conditionNumber * 1e-12)
-      
-      console.log(`Matrix condition number: ${conditionNumber.toExponential(2)}, regularization: ${regularization.toExponential(2)}`)
-      
+
+      console.log(
+        `Matrix condition number: ${conditionNumber.toExponential(2)}, regularization: ${regularization.toExponential(2)}`,
+      )
+
       // Add regularization to diagonal
       for (let i = 0; i < XtX.length; i++) {
         XtX[i][i] += regularization
       }
-      
+
       // Solve (X'X)β = X'Y using Gaussian elimination
       const normalizedCoeffs = this.solveLinearSystem(XtX, XtY)
       if (!normalizedCoeffs) return null
-      
+
       // Denormalize coefficients (accounting for both X and Y scaling)
       const denormalizedCoeffs = this.denormalizeCoefficients(normalizedCoeffs, scales)
-      
+
       // Adjust for Y scaling
-      return denormalizedCoeffs.map(coeff => coeff * yScale)
-      
+      return denormalizedCoeffs.map((coeff) => coeff * yScale)
     } catch (error) {
       console.error('Error in least squares solving:', error)
       return null
@@ -543,21 +565,17 @@ export class ScalingOptimization {
    */
   private static calculateRSquared(X: number[][], Y: number[], coefficients: number[]): number {
     // Calculate predicted values
-    const predicted = X.map(row => 
-      row.reduce((sum, x, i) => sum + x * coefficients[i], 0)
-    )
-    
+    const predicted = X.map((row) => row.reduce((sum, x, i) => sum + x * coefficients[i], 0))
+
     // Calculate total sum of squares
     const yMean = Y.reduce((sum, y) => sum + y, 0) / Y.length
     const totalSumSquares = Y.reduce((sum, y) => sum + Math.pow(y - yMean, 2), 0)
-    
+
     // Calculate residual sum of squares
-    const residualSumSquares = Y.reduce((sum, y, i) => 
-      sum + Math.pow(y - predicted[i], 2), 0
-    )
-    
+    const residualSumSquares = Y.reduce((sum, y, i) => sum + Math.pow(y - predicted[i], 2), 0)
+
     // R² = 1 - (SS_res / SS_tot)
-    return totalSumSquares === 0 ? 1 : 1 - (residualSumSquares / totalSumSquares)
+    return totalSumSquares === 0 ? 1 : 1 - residualSumSquares / totalSumSquares
   }
 
   /**
@@ -566,13 +584,13 @@ export class ScalingOptimization {
   private static buildFormulaString(
     coefficients: number[],
     factorIds: string[],
-    includeIntercept: boolean
+    includeIntercept: boolean,
   ): string {
     const terms: string[] = []
     const threshold = 1e-6 // Ignore very small coefficients
 
     let startIndex = 0
-    
+
     // Handle intercept
     if (includeIntercept) {
       const intercept = coefficients[0]
@@ -598,7 +616,7 @@ export class ScalingOptimization {
           // Always use fixed notation (no scientific notation)
           coeffStr = coeff.toFixed(6) + '*'
         }
-        
+
         const term = `${coeffStr}${factorId}`
         terms.push(coeff >= 0 && terms.length > 0 ? `+${term}` : term)
       }
@@ -612,7 +630,7 @@ export class ScalingOptimization {
    */
   private static transpose(matrix: number[][]): number[][] {
     if (matrix.length === 0) return []
-    return matrix[0].map((_, colIndex) => matrix.map(row => row[colIndex]))
+    return matrix[0].map((_, colIndex) => matrix.map((row) => row[colIndex]))
   }
 
   private static matrixMultiply(A: number[][], B: number[][]): number[][] {
@@ -631,7 +649,7 @@ export class ScalingOptimization {
   }
 
   private static matrixVectorMultiply(A: number[][], b: number[]): number[] {
-    return A.map(row => row.reduce((sum, val, i) => sum + val * b[i], 0))
+    return A.map((row) => row.reduce((sum, val, i) => sum + val * b[i], 0))
   }
 
   private static solveLinearSystem(A: number[][], b: number[]): number[] | null {
@@ -649,7 +667,7 @@ export class ScalingOptimization {
       }
 
       // Swap rows
-      [augmented[i], augmented[maxRow]] = [augmented[maxRow], augmented[i]]
+      ;[augmented[i], augmented[maxRow]] = [augmented[maxRow], augmented[i]]
 
       // Check for singular matrix with better threshold
       if (Math.abs(augmented[i][i]) < 1e-12) {
@@ -682,14 +700,14 @@ export class ScalingOptimization {
   /**
    * Normalize matrix columns to improve numerical stability
    */
-  private static normalizeMatrix(X: number[][]): { normalizedX: number[][], scales: number[] } {
+  private static normalizeMatrix(X: number[][]): { normalizedX: number[][]; scales: number[] } {
     if (X.length === 0 || X[0].length === 0) {
       return { normalizedX: X, scales: [] }
     }
 
     const normalizedX: number[][] = []
     const scales: number[] = []
-    
+
     // Calculate column scales (max absolute value in each column)
     for (let j = 0; j < X[0].length; j++) {
       let maxVal = 0
@@ -698,7 +716,7 @@ export class ScalingOptimization {
       }
       scales[j] = maxVal > 1e-12 ? maxVal : 1.0 // Avoid division by zero
     }
-    
+
     // Normalize each column
     for (let i = 0; i < X.length; i++) {
       const normalizedRow: number[] = []
@@ -707,7 +725,7 @@ export class ScalingOptimization {
       }
       normalizedX[i] = normalizedRow
     }
-    
+
     return { normalizedX, scales }
   }
 
@@ -716,7 +734,7 @@ export class ScalingOptimization {
    */
   private static denormalizeCoefficients(normalizedCoeffs: number[], scales: number[]): number[] {
     const coeffs: number[] = []
-    
+
     for (let i = 0; i < normalizedCoeffs.length; i++) {
       if (i < scales.length) {
         coeffs[i] = normalizedCoeffs[i] / scales[i]
@@ -724,7 +742,7 @@ export class ScalingOptimization {
         coeffs[i] = normalizedCoeffs[i] // Intercept term doesn't need scaling
       }
     }
-    
+
     return coeffs
   }
 
@@ -733,23 +751,24 @@ export class ScalingOptimization {
    */
   private static estimateConditionNumber(matrix: number[][]): number {
     if (matrix.length === 0 || matrix[0].length === 0) return 1.0
-    
+
     // Simple approach: ratio of max to min diagonal elements after normalization
     let maxDiag = 0
     let minDiag = Number.POSITIVE_INFINITY
-    
+
     for (let i = 0; i < Math.min(matrix.length, matrix[0].length); i++) {
       const val = Math.abs(matrix[i][i])
-      if (val > 1e-15) { // Avoid very small values
+      if (val > 1e-15) {
+        // Avoid very small values
         maxDiag = Math.max(maxDiag, val)
         minDiag = Math.min(minDiag, val)
       }
     }
-    
+
     if (minDiag === Number.POSITIVE_INFINITY || minDiag < 1e-15) {
       return 1e12 // Very ill-conditioned
     }
-    
+
     return maxDiag / minDiag
   }
 
@@ -759,43 +778,51 @@ export class ScalingOptimization {
   private static createVarianceMinimizationTargets(
     varianceTargets: AccountVarianceTarget[],
     scalingVariables: Map<string, Map<string, number>>,
-    _varianceWeight: number
+    _varianceWeight: number,
   ): OptimizationTarget[] {
     const targets: OptimizationTarget[] = []
 
-    console.log(`Creating variance minimization targets for ${varianceTargets.length} account codes`)
-    
+    console.log(
+      `Creating variance minimization targets for ${varianceTargets.length} account codes`,
+    )
+
     // Sort variance targets by account code to ensure consistent ordering
-    const sortedVarTargets = [...varianceTargets].sort((a, b) => a.accountCode.localeCompare(b.accountCode))
-    
+    const sortedVarTargets = [...varianceTargets].sort((a, b) =>
+      a.accountCode.localeCompare(b.accountCode),
+    )
+
     // First account code targets 100,000 for all entities
     let referenceScalingRatios: Map<string, number> | null = null
-    
+
     for (let i = 0; i < sortedVarTargets.length; i++) {
       const varTarget = sortedVarTargets[i]
       const entityValues = Array.from(varTarget.entityValues.entries())
       const isFirstAccount = i === 0
-      
+
       console.log(`  Account ${varTarget.accountCode}: ${entityValues.length} entities`)
-      
+
       // Log the original values for this account
       const sortedEntities = entityValues.sort((a, b) => a[1] - b[1])
       console.log(`    Original values:`)
       sortedEntities.forEach(([entity, value]) => {
         console.log(`      ${entity}: ${value.toLocaleString()}`)
       })
-      
+
       // Calculate and log variance/CV
       const currentVariance = FinancialDataExtractor.calculateVariance(varTarget.entityValues)
-      const currentCV = FinancialDataExtractor.calculateCoefficientOfVariation(varTarget.entityValues)
-      console.log(`    Current variance: ${currentVariance.toExponential(3)}, CV: ${currentCV.toFixed(3)}`)
-      
+      const currentCV = FinancialDataExtractor.calculateCoefficientOfVariation(
+        varTarget.entityValues,
+      )
+      console.log(
+        `    Current variance: ${currentVariance.toExponential(3)}, CV: ${currentCV.toFixed(3)}`,
+      )
+
       // Calculate target values based on strategy
       if (isFirstAccount) {
         // First account: target 100,000 for all entities
         console.log(`    Using fixed target of 100,000 for all entities (first account)`)
         referenceScalingRatios = new Map<string, number>()
-        
+
         for (const [entityCode, originalValue] of entityValues) {
           const entityScalingVars = scalingVariables.get(entityCode)
           if (entityScalingVars && entityScalingVars.size > 0) {
@@ -807,24 +834,26 @@ export class ScalingOptimization {
             const targetValue = originalValue / desiredScaledValue
             const scalingRatio = desiredScaledValue / originalValue
             referenceScalingRatios.set(entityCode, scalingRatio)
-            
-            console.log(`    Creating target for ${entityCode}: original=${originalValue.toLocaleString()}, scaling target=${targetValue.toFixed(6)} (to achieve scaled value of ${desiredScaledValue.toLocaleString()})`)
-            
+
+            console.log(
+              `    Creating target for ${entityCode}: original=${originalValue.toLocaleString()}, scaling target=${targetValue.toFixed(6)} (to achieve scaled value of ${desiredScaledValue.toLocaleString()})`,
+            )
+
             targets.push({
               entityCode,
               targetValue,
-              scalingFactors: entityScalingVars
+              scalingFactors: entityScalingVars,
             })
           }
         }
       } else if (referenceScalingRatios) {
         // Subsequent accounts: scale based on first account's ratio
         console.log(`    Using scaled targets based on first account's ratios`)
-        
+
         for (const [entityCode, originalValue] of entityValues) {
           const entityScalingVars = scalingVariables.get(entityCode)
           const scalingRatio = referenceScalingRatios.get(entityCode)
-          
+
           if (entityScalingVars && entityScalingVars.size > 0 && scalingRatio !== undefined) {
             // Apply the same scaling ratio as the first account
             // If first account scales by ratio R, this account should also scale by R
@@ -832,13 +861,15 @@ export class ScalingOptimization {
             // Therefore: scalingFormula = originalValue / (originalValue * scalingRatio) = 1 / scalingRatio
             const desiredScaledValue = originalValue * scalingRatio
             const targetValue = originalValue / desiredScaledValue
-            
-            console.log(`    Creating target for ${entityCode}: original=${originalValue.toLocaleString()}, scaling target=${targetValue.toFixed(6)} (to achieve scaled value of ${desiredScaledValue.toLocaleString()})`)
-            
+
+            console.log(
+              `    Creating target for ${entityCode}: original=${originalValue.toLocaleString()}, scaling target=${targetValue.toFixed(6)} (to achieve scaled value of ${desiredScaledValue.toLocaleString()})`,
+            )
+
             targets.push({
               entityCode,
               targetValue,
-              scalingFactors: entityScalingVars
+              scalingFactors: entityScalingVars,
             })
           }
         }
@@ -848,9 +879,13 @@ export class ScalingOptimization {
     console.log(`Created ${targets.length} optimization targets`)
     if (targets.length > 0) {
       const sample = targets.slice(0, 3)
-      sample.forEach(t => {
-        const factors = Array.from(t.scalingFactors.entries()).map(([k, v]) => `${k}=${v}`).join(', ')
-        console.log(`  Target: entity=${t.entityCode}, targetValue=${t.targetValue}, factors=[${factors}]`)
+      sample.forEach((t) => {
+        const factors = Array.from(t.scalingFactors.entries())
+          .map(([k, v]) => `${k}=${v}`)
+          .join(', ')
+        console.log(
+          `  Target: entity=${t.entityCode}, targetValue=${t.targetValue}, factors=[${factors}]`,
+        )
       })
       if (targets.length > 3) console.log(`  ... and ${targets.length - 3} more targets`)
     }
@@ -865,10 +900,10 @@ export class ScalingOptimization {
     varianceTargets: AccountVarianceTarget[],
     coefficients: Map<string, number>,
     scalingVariables: Map<string, Map<string, number>>,
-    originalSummary: AccountSummary[]
+    originalSummary: AccountSummary[],
   ): AccountImprovementSummary[] {
-    return originalSummary.map(summary => {
-      const varTarget = varianceTargets.find(vt => vt.accountCode === summary.accountCode)
+    return originalSummary.map((summary) => {
+      const varTarget = varianceTargets.find((vt) => vt.accountCode === summary.accountCode)
       if (!varTarget) {
         return {
           ...summary,
@@ -876,38 +911,38 @@ export class ScalingOptimization {
           afterVariance: summary.currentVariance,
           beforeCV: summary.currentCV,
           afterCV: summary.currentCV,
-          improvement: 0
+          improvement: 0,
         }
       }
 
       // Calculate scaled values using the optimized coefficients
       const scaledValues = new Map<string, number>()
-      
+
       console.log(`\n  Calculating scaled values for account ${summary.accountCode}:`)
-      
+
       for (const [entityCode, originalValue] of varTarget.entityValues) {
         const entityScaling = scalingVariables.get(entityCode)
         if (entityScaling) {
           // Apply the optimized scaling formula
           let scalingFactor = 0
           const formulaParts: string[] = []
-          
+
           // Build formula parts with coefficient labels
           const coefficientLabels = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j']
           let labelIndex = 0
-          
+
           for (const [factorId, coefficient] of coefficients) {
             if (factorId !== '_intercept' && entityScaling.has(factorId)) {
               const factorValue = entityScaling.get(factorId) || 0
               const contribution = coefficient * factorValue
               scalingFactor += contribution
-              
+
               const label = coefficientLabels[labelIndex] || `coeff${labelIndex}`
               formulaParts.push(`${label}*${factorId}(${factorValue.toLocaleString()})`)
               labelIndex++
             }
           }
-          
+
           // Add intercept if present
           if (coefficients.has('_intercept')) {
             const intercept = coefficients.get('_intercept')!
@@ -915,30 +950,32 @@ export class ScalingOptimization {
             const label = coefficientLabels[labelIndex] || `coeff${labelIndex}`
             formulaParts.push(label)
           }
-          
+
           // Apply scaling (avoid division by zero)
           const scaledValue = scalingFactor > 0 ? originalValue / scalingFactor : originalValue
           scaledValues.set(entityCode, scaledValue)
-          
+
           // Extract entity type and ID for cleaner display
           const entityParts = entityCode.split('/')
           const entityType = entityParts[0] || 'entity'
           const entityId = entityParts[2]?.split(':')[0] || entityCode
           const entityDisplay = `${entityType}${entityId}`
-          
+
           // Format in requested style with custom: prefix: gdn1: data(36,332232)/(custom:a*pop(3990)+b*total_area(3331)+c)=1000
           const formulaDisplay = formulaParts.length > 0 ? formulaParts.join('+') : '1'
-          console.log(`    ${entityDisplay}: data(${summary.accountCode},${originalValue.toLocaleString()})/(custom:${formulaDisplay})=${Math.round(scaledValue).toLocaleString()}`)
+          console.log(
+            `    ${entityDisplay}: data(${summary.accountCode},${originalValue.toLocaleString()})/(custom:${formulaDisplay})=${Math.round(scaledValue).toLocaleString()}`,
+          )
         }
       }
 
       // Calculate new variance and CV
       const afterVariance = FinancialDataExtractor.calculateVariance(scaledValues)
       const afterCV = FinancialDataExtractor.calculateCoefficientOfVariation(scaledValues)
-      
+
       // Calculate improvement (reduction in coefficient of variation)
-      const improvement = summary.currentCV > 0 ? 
-        ((summary.currentCV - afterCV) / summary.currentCV) * 100 : 0
+      const improvement =
+        summary.currentCV > 0 ? ((summary.currentCV - afterCV) / summary.currentCV) * 100 : 0
 
       return {
         ...summary,
@@ -946,7 +983,7 @@ export class ScalingOptimization {
         afterVariance,
         beforeCV: summary.currentCV,
         afterCV,
-        improvement
+        improvement,
       }
     })
   }
