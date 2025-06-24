@@ -229,7 +229,8 @@
       "households": "Haushalte",
       "employees": "Beschäftigte",
       "total_area": "Gesamtfläche",
-      "workplaces": "Arbeitsplätze"
+      "workplaces": "Arbeitsplätze",
+      "overbuilt": "Überbaut"
     },
     "customFormula": {
       "title": "Benutzerdefinierte Formel",
@@ -241,6 +242,15 @@
       "optimizationQuality": "Qualität (R²)",
       "optimizationFailed": "Optimierung fehlgeschlagen",
       "applyOptimized": "Optimierte Formel anwenden",
+      "optimization": {
+        "title": "Kontenspezifische Optimierung",
+        "description": "Optimiere Skalierungsformel um Unterschiede für spezifische Konten zu minimieren",
+        "targetCodes": "Ziel-Kontencodes (durch Komma getrennt)",
+        "optimize": "Für Kontencodes optimieren"
+      },
+      "manual": {
+        "title": "Manuelle Formeleingabe"
+      },
       "valid": "Gültige Formel mit: {factors}",
       "help": {
         "title": "Erstellen Sie benutzerdefinierte Skalierungsformeln mit mathematischen Ausdrücken:",

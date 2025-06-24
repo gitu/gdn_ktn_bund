@@ -229,7 +229,8 @@
       "households": "Households",
       "employees": "Employees",
       "total_area": "Total Area",
-      "workplaces": "Workplaces"
+      "workplaces": "Workplaces",
+      "overbuilt": "Built-up Area"
     },
     "customFormula": {
       "title": "Custom Formula",
@@ -241,6 +242,15 @@
       "optimizationQuality": "Quality (R²)",
       "optimizationFailed": "Optimization failed",
       "applyOptimized": "Apply Optimized Formula",
+      "optimization": {
+        "title": "Account-Specific Optimization",
+        "description": "Optimize scaling formula to minimize differences for specific account codes",
+        "targetCodes": "Target Account Codes (comma-separated)",
+        "optimize": "Optimize for Account Codes"
+      },
+      "manual": {
+        "title": "Manual Formula Entry"
+      },
       "valid": "Valid formula using: {factors}",
       "help": {
         "title": "Create custom scaling formulas using mathematical expressions:",

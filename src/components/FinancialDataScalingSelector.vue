@@ -86,6 +86,19 @@
                 }}
               </Message>
 
+              <!-- Manual formula section -->
+              <div class="manual-formula-section mt-4">
+
+                <Button
+                  @click="applyCustomFormula"
+                  :disabled="!customFormulaValidation?.isValid"
+                  class="w-full"
+                  severity="primary"
+                >
+                  {{ $t('financialDataScalingSelector.customFormula.apply') }}
+                </Button>
+              </div>
+
               <!-- Formula help -->
               <div class="formula-help text-sm text-surface-600 dark:text-surface-300">
                 <p class="mb-2">
@@ -102,28 +115,49 @@
                 </p>
               </div>
 
-              <!-- Action buttons -->
-              <div class="flex gap-2">
-                <Button
-                  @click="applyCustomFormula"
-                  :disabled="!customFormulaValidation?.isValid"
-                  class="flex-1"
-                  severity="primary"
+              <!-- Target account codes for optimization -->
+              <div class="optimization-section mt-4 p-4 bg-surface-50 dark:bg-surface-800 rounded-lg border">
+                <h5 class="text-sm font-medium mb-2">
+                  {{ $t('financialDataScalingSelector.customFormula.optimization.title') }}
+                </h5>
+                <p class="text-xs text-surface-600 dark:text-surface-300 mb-3">
+                  {{ $t('financialDataScalingSelector.customFormula.optimization.description') }}
+                </p>
+
+                <FloatLabel class="w-full mb-3">
+                  <InputText
+                    id="target-accounts-input"
+                    v-model="targetAccountCodes"
+                    class="w-full"
+                    placeholder="36,46 or 400+401,46"
+                    @input="onTargetAccountsInput"
+                  />
+                  <label for="target-accounts-input">
+                    {{ $t('financialDataScalingSelector.customFormula.optimization.targetCodes') }}
+                  </label>
+                </FloatLabel>
+
+                <Message
+                  v-if="targetAccountsError"
+                  severity="warn"
+                  :closable="false"
+                  class="text-xs"
                 >
-                  {{ $t('financialDataScalingSelector.customFormula.apply') }}
-                </Button>
-                
+                  {{ targetAccountsError }}
+                </Message>
+
                 <Button
                   @click="optimizeFormula"
-                  :disabled="!canOptimize"
+                  :disabled="!canOptimizeWithTargets"
                   :loading="isOptimizing"
-                  class="flex-1"
+                  class="w-full"
                   severity="secondary"
                   outlined
                 >
-                  {{ $t('financialDataScalingSelector.customFormula.optimize') }}
+                  {{ $t('financialDataScalingSelector.customFormula.optimization.optimize') }}
                 </Button>
               </div>
+
 
               <!-- Optimization result -->
               <Message
@@ -137,13 +171,30 @@
                     {{ $t('financialDataScalingSelector.customFormula.optimizationSuccess') }}
                   </div>
                   <div>
-                    {{ $t('financialDataScalingSelector.customFormula.optimizationFormula') }}: 
+                    {{ $t('financialDataScalingSelector.customFormula.optimizationFormula') }}:
                     <code class="bg-surface-100 dark:bg-surface-700 px-1 rounded">{{ optimizationResult.formula }}</code>
                   </div>
                   <div v-if="optimizationResult.rSquared">
-                    {{ $t('financialDataScalingSelector.customFormula.optimizationQuality') }}: 
+                    {{ $t('financialDataScalingSelector.customFormula.optimizationQuality') }}:
                     {{ (optimizationResult.rSquared * 100).toFixed(1) }}%
                   </div>
+
+                  <!-- Account Summary -->
+                  <div v-if="optimizationResult.accountSummary && optimizationResult.accountSummary.length > 0" class="mt-3">
+                    <div class="font-medium mb-2">Account Optimization Results:</div>
+                    <div class="space-y-1">
+                      <div
+                        v-for="account in optimizationResult.accountSummary"
+                        :key="account.accountCode"
+                        class="text-xs bg-surface-50 dark:bg-surface-800 p-2 rounded"
+                      >
+                        <div class="font-medium">Account {{ account.accountCode }} ({{ account.entityCount }} entities)</div>
+                        <div>CV improvement: {{ account.improvement.toFixed(1) }}%</div>
+                        <div>Before: {{ account.beforeCV.toFixed(3) }} → After: {{ account.afterCV.toFixed(3) }}</div>
+                      </div>
+                    </div>
+                  </div>
+
                   <Button
                     @click="applyOptimizedFormula"
                     size="small"
@@ -250,8 +301,10 @@ import Button from 'primevue/button'
 import InputText from 'primevue/inputtext'
 import FloatLabel from 'primevue/floatlabel'
 import { StatsDataLoader } from '@/utils/StatsDataLoader'
-import { GeographicalDataLoader } from '@/utils/GeographicalDataLoader'
-import { CustomScalingFormula, CUSTOM_SCALING_PREFIX, OPTIMIZED_SCALING_PREFIX } from '@/utils/CustomScalingFormula'
+import { GeographicalDataLoader, getCantonByAbbreviation, getMunicipalityByGdnId } from '@/utils/GeographicalDataLoader'
+import { EntitySemanticMapper } from '@/utils/EntitySemanticMapper'
+import { CustomScalingFormula, CUSTOM_SCALING_PREFIX } from '@/utils/CustomScalingFormula'
+import { ScalingOptimization, type AccountOptimizationResult } from '@/utils/ScalingOptimization'
 import type { StatsAvailabilityInfo } from '@/types/StatsData'
 import type { FinancialData } from '@/types/FinancialDataStructure'
 import type { MultiLanguageLabels } from '@/types/DataStructures'
@@ -304,7 +357,9 @@ const customFormulaValidation = ref<{ isValid: boolean; usedFactors?: string[] }
 
 // Optimization state
 const isOptimizing = ref(false)
-const optimizationResult = ref<any>(null)
+const optimizationResult = ref<AccountOptimizationResult | null>(null)
+const targetAccountCodes = ref('36,46')
+const targetAccountsError = ref<string | null>(null)
 
 // Suppress unused variable warning - geoDataLoader is available for future use
 void geoDataLoader
@@ -368,10 +423,16 @@ const availableFactorsList = computed(() => {
 })
 
 const canOptimize = computed(() => {
-  return !loading.value && 
-         availableStats.value.length >= 2 && 
-         props.financialData?.entities?.size && 
+  return !loading.value &&
+         availableStats.value.length >= 2 &&
+         props.financialData?.entities?.size &&
          props.financialData.entities.size >= 2
+})
+
+const canOptimizeWithTargets = computed(() => {
+  return canOptimize.value &&
+         targetAccountCodes.value.trim() &&
+         !targetAccountsError.value
 })
 const scalingInfoExpanded = ref(false)
 
@@ -407,6 +468,36 @@ const toggleCustomFormula = () => {
   optimizationResult.value = null
 }
 
+// Target account validation
+const onTargetAccountsInput = () => {
+  const input = targetAccountCodes.value.trim()
+  if (!input) {
+    targetAccountsError.value = null
+    return
+  }
+
+  // Validate comma-separated account codes (with + for sums)
+  const codeGroups = input.split(',').map(group => group.trim()).filter(group => group)
+  const invalidGroups: string[] = []
+  
+  for (const group of codeGroups) {
+    // Split by + and validate each individual code
+    const codes = group.split('+').map(code => code.trim()).filter(code => code)
+    const invalidCodes = codes.filter(code => !/^\d+$/.test(code))
+    if (invalidCodes.length > 0 || codes.length === 0) {
+      invalidGroups.push(group)
+    }
+  }
+
+  if (invalidGroups.length > 0) {
+    targetAccountsError.value = `Invalid account codes: ${invalidGroups.join(', ')}. Use numeric codes only, optionally combined with + (e.g., 400+401).`
+  } else if (codeGroups.length === 0) {
+    targetAccountsError.value = 'Please enter at least one account code.'
+  } else {
+    targetAccountsError.value = null
+  }
+}
+
 // Optimization methods
 const optimizeFormula = async () => {
   if (!canOptimize.value || !props.financialData) return
@@ -415,31 +506,144 @@ const optimizeFormula = async () => {
   optimizationResult.value = null
 
   try {
-    // TODO: Implement actual data collection from financial data
-    // This is a simplified version - in reality we'd need to:
-    // 1. Extract financial data values for each entity
-    // 2. Load scaling factors for each entity
-    // 3. Create optimization targets
-    
-    // For now, create a mock optimization
-    const mockResult = {
-      isValid: true,
-      formula: '0.5*pop+0.3*workplaces+0.2*total_area',
-      rSquared: 0.85,
-      coefficients: new Map([
-        ['pop', 0.5],
-        ['workplaces', 0.3], 
-        ['total_area', 0.2]
-      ]),
-      targetLineCount: 5,
-      entityCount: props.financialData.entities.size
+    // Parse target account codes
+    const input = targetAccountCodes.value.trim()
+    const accountCodes = input ? input.split(',').map(code => code.trim()).filter(code => code) : []
+
+    if (accountCodes.length === 0) {
+      optimizationResult.value = {
+        isValid: false,
+        error: 'Please enter target account codes (e.g., 36,46)'
+      }
+      return
     }
 
-    // Simulate async operation
-    await new Promise(resolve => setTimeout(resolve, 1500))
-    
-    optimizationResult.value = mockResult
-    
+    // Load scaling factors for all entities (adapted from store logic)
+    const scalingVariables = new Map<string, Map<string, number>>()
+
+    for (const [entityCode] of props.financialData.entities) {
+      try {
+        // Extract entity information from the entity code
+        const parts = entityCode.split('/')
+        if (parts.length !== 3) continue
+
+        const source = parts[0] as 'gdn' | 'std'
+        const entityAndYear = parts[2]
+        const [entityId, year] = entityAndYear.split(':')
+
+        if (!entityId || !year) continue
+
+        // Determine geoId for the entity
+        let geoId = ''
+        if (source === 'std') {
+          // Map canton-specific entities to their canton code
+          if (EntitySemanticMapper.isCantonSpecific(entityId)) {
+            const cantonCode = EntitySemanticMapper.getCantonCodeFromEntity(entityId)
+            if (cantonCode) {
+              const canton = await getCantonByAbbreviation(cantonCode.toUpperCase())
+              geoId = canton?.cantonId || ''
+            }
+          } else {
+            // Federal/confederation data
+            geoId = 'bund'
+          }
+        } else if (source === 'gdn') {
+          // For municipalities, get the proper municipality ID
+          const municipality = await getMunicipalityByGdnId(entityId)
+          geoId = municipality?.municipalityId || entityId // Use municipalityId or fallback to entityId
+          console.log(`  Municipality lookup for ${entityId}: found=${!!municipality}, geoId=${geoId}`)
+        }
+
+        if (!geoId) {
+          console.warn(`No geoId determined for entity ${entityCode} (source: ${source}, entityId: ${entityId})`)
+          continue
+        }
+
+        // Load scaling factors for this entity
+        const entityVariables = new Map<string, number>()
+
+        console.log(`Loading scaling data for entity ${entityCode} (source: ${source}, geoId: ${geoId}, year: ${year})`)
+
+        for (const stat of availableStats.value) {
+          try {
+            let value: number | null = null
+
+            if (source === 'gdn') {
+              // Load municipality data using GDN loader
+              const result = await statsDataLoader.loadGdnData(stat.id, parseInt(year), {
+                geoIds: [geoId]
+              })
+              const record = result.data.find((r: { key: string; value: number }) => r.key === geoId)
+              value = record ? record.value : null
+              console.log(`  ${stat.id}: ${value} (municipality via loadGdnData)`)
+            } else if (source === 'std') {
+              if (geoId === 'bund') {
+                // Load federal data
+                const result = await statsDataLoader.getBundData(stat.id, parseInt(year))
+                value = result?.totalValue || null
+                console.log(`  ${stat.id}: ${value} (federal)`)
+              } else {
+                // Load canton data using KTN loader
+                const result = await statsDataLoader.loadKtnData(stat.id, parseInt(year), {
+                  geoIds: [geoId]
+                })
+                const record = result.data.find((r: { key: string; value: number }) => r.key === geoId)
+                value = record ? record.value : null
+                console.log(`  ${stat.id}: ${value} (canton via loadKtnData)`)
+              }
+            }
+
+            if (value !== null && value > 0) {
+              entityVariables.set(stat.id, value)
+            }
+          } catch (error) {
+            console.warn(`Failed to load ${stat.id} for entity ${entityCode}:`, error)
+          }
+        }
+
+        if (entityVariables.size > 0) {
+          scalingVariables.set(entityCode, entityVariables)
+          console.log(`  Successfully loaded ${entityVariables.size} scaling factors for ${entityCode}`)
+        } else {
+          console.warn(`  No scaling factors loaded for ${entityCode}`)
+        }
+
+      } catch (error) {
+        console.warn(`Failed to process entity ${entityCode}:`, error)
+      }
+    }
+
+    console.log(`Total entities with scaling data: ${scalingVariables.size}`)
+
+    // Log summary of scaling variables
+    for (const [entityCode, variables] of scalingVariables) {
+      const values = Array.from(variables.entries())
+      console.log(`Entity ${entityCode}:`, values)
+    }
+
+    if (scalingVariables.size === 0) {
+      optimizationResult.value = {
+        isValid: false,
+        error: 'No scaling factors could be loaded for any entities. Please ensure statistical data is available.'
+      }
+      return
+    }
+
+    // Run account-specific optimization
+    const result = ScalingOptimization.optimizeForAccountCodes(
+      props.financialData,
+      accountCodes,
+      availableStats.value,
+      scalingVariables,
+      {
+        minRSquared: 0.5, // Lower threshold for account optimization
+        includeIntercept: true,
+        varianceWeight: 0.8 // Prioritize variance minimization
+      }
+    )
+
+    optimizationResult.value = result
+
   } catch (error) {
     console.error('Optimization error:', error)
     optimizationResult.value = {
@@ -453,13 +657,13 @@ const optimizeFormula = async () => {
 
 const applyOptimizedFormula = () => {
   if (optimizationResult.value?.isValid && optimizationResult.value.formula) {
-    const optimizedScalingId = `${OPTIMIZED_SCALING_PREFIX}${optimizationResult.value.formula}`
+    const optimizedScalingId = `${CUSTOM_SCALING_PREFIX}${optimizationResult.value.formula}`
     emit('scalingChanged', optimizedScalingId)
-    
+
     // Update the selector and input
     internalSelectedScaling.value = optimizedScalingId
     customFormulaInput.value = optimizationResult.value.formula
-    
+
     // Close the custom formula section
     showCustomFormula.value = false
     optimizationResult.value = null

@@ -229,7 +229,8 @@
       "households": "Ménages",
       "employees": "Employés",
       "total_area": "Superficie totale",
-      "workplaces": "Lieux de travail"
+      "workplaces": "Lieux de travail",
+      "overbuilt": "Construit"
     },
     "customFormula": {
       "title": "Formule personnalisée",
@@ -241,6 +242,15 @@
       "optimizationQuality": "Qualité (R²)",
       "optimizationFailed": "Optimisation échouée",
       "applyOptimized": "Appliquer la formule optimisée",
+      "optimization": {
+        "title": "Optimisation par compte spécifique",
+        "description": "Optimiser la formule d'échelle pour minimiser les différences pour des codes de compte spécifiques",
+        "targetCodes": "Codes de compte cibles (séparés par des virgules)",
+        "optimize": "Optimiser pour les codes de compte"
+      },
+      "manual": {
+        "title": "Saisie manuelle de formule"
+      },
       "valid": "Formule valide utilisant: {factors}",
       "help": {
         "title": "Créez des formules de mise à l'échelle personnalisées avec des expressions mathématiques:",
