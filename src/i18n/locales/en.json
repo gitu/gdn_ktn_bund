@@ -246,7 +246,17 @@
         "title": "Account-Specific Optimization",
         "description": "Optimize scaling formula to minimize differences for specific account codes",
         "targetCodes": "Target Account Codes (comma-separated)",
-        "optimize": "Optimize for Account Codes"
+        "optimize": "Optimize for Account Codes",
+        "entitySelection": {
+          "title": "Select Entities for Optimization",
+          "selectAll": "Select All",
+          "selectNone": "Select None"
+        },
+        "factorSelection": {
+          "title": "Select Scaling Factors",
+          "selectAll": "Select All",
+          "selectNone": "Select None"
+        }
       },
       "manual": {
         "title": "Manual Formula Entry"

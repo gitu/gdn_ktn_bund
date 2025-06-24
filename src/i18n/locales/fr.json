@@ -246,7 +246,17 @@
         "title": "Optimisation par compte spécifique",
         "description": "Optimiser la formule d'échelle pour minimiser les différences pour des codes de compte spécifiques",
         "targetCodes": "Codes de compte cibles (séparés par des virgules)",
-        "optimize": "Optimiser pour les codes de compte"
+        "optimize": "Optimiser pour les codes de compte",
+        "entitySelection": {
+          "title": "Sélectionner les entités pour l'optimisation",
+          "selectAll": "Tout sélectionner",
+          "selectNone": "Aucune sélection"
+        },
+        "factorSelection": {
+          "title": "Sélectionner les facteurs d'échelle",
+          "selectAll": "Tout sélectionner",
+          "selectNone": "Aucune sélection"
+        }
       },
       "manual": {
         "title": "Saisie manuelle de formule"

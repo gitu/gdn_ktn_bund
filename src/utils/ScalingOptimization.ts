@@ -198,17 +198,126 @@ export class ScalingOptimization {
         )
       })
 
-      // Create optimization targets that minimize variance
+      // For single entity, use simple normalization instead of variance minimization
+      if (scalingVariables.size === 1) {
+        console.log('Single entity detected - using normalization approach instead of variance minimization')
+        
+        // Get the single entity's data
+        const entityCode = Array.from(scalingVariables.keys())[0]
+        const entityVars = scalingVariables.get(entityCode)!
+        
+        // Create simple normalization targets (target value = 1000 for each account)
+        const optimizationTargets: OptimizationTarget[] = []
+        console.log(`Creating optimization targets for ${varianceTargets.length} accounts`)
+        for (const account of varianceTargets) {
+          const accountCode = account.accountCode
+          const targetValue = account.entityValues.get(entityCode)
+          
+          if (targetValue && targetValue > 0) {
+            optimizationTargets.push({
+              entityCode: `${entityCode}_${accountCode}`,
+              targetValue: Math.log(Math.max(targetValue, 1)), // Log transform for better scaling
+              scalingFactors: entityVars
+            })
+            console.log(`  Added target for account ${accountCode}: value=${targetValue}`)
+          } else {
+            console.log(`  Skipped account ${accountCode}: no data or zero value`)
+          }
+        }
+        
+        if (optimizationTargets.length === 0) {
+          return {
+            isValid: false,
+            error: 'No valid data for single entity optimization',
+          }
+        }
+        
+        // For single entity with insufficient data points, create a balanced formula
+        if (optimizationTargets.length < availableStats.length) {
+          console.log(`Single entity: ${optimizationTargets.length} targets < ${availableStats.length} factors`)
+          
+          // Create coefficients that normalize all factors to the same value
+          const coefficients = new Map<string, number>()
+          const targetNormalizedValue = 1.0 // Each factor contributes 1.0
+          const formulaParts: string[] = []
+          
+          for (const stat of availableStats) {
+            const value = entityVars.get(stat.id)
+            if (value && value > 0) {
+              // Calculate coefficient to normalize this factor to targetNormalizedValue
+              const coefficient = targetNormalizedValue / value
+              coefficients.set(stat.id, coefficient)
+              
+              // Format coefficient nicely
+              let formattedCoeff: string
+              if (coefficient < 0.0001) {
+                formattedCoeff = coefficient.toExponential(2)
+              } else if (coefficient < 0.01) {
+                formattedCoeff = coefficient.toFixed(6)
+              } else if (coefficient < 1) {
+                formattedCoeff = coefficient.toFixed(4)
+              } else {
+                formattedCoeff = coefficient.toFixed(2)
+              }
+              
+              formulaParts.push(`${formattedCoeff}*${stat.id}`)
+              console.log(`  Factor ${stat.id}=${value} → coefficient=${formattedCoeff} (normalized to ${targetNormalizedValue})`)
+            }
+          }
+          
+          // Join all parts with + to create the complete formula
+          const formula = formulaParts.join(' + ')
+          console.log(`Creating balanced formula: ${formula}`)
+          
+          return {
+            isValid: true,
+            formula,
+            coefficients,
+            rSquared: 0, // No R² for simple formula
+            targetLineCount: varianceTargets.length,
+            entityCount: 1,
+            accountSummary: summary.map(s => ({
+              ...s,
+              improvement: 0, // No improvement calculation for single entity
+              beforeVariance: s.currentVariance,
+              afterVariance: s.currentVariance,
+              beforeCV: s.currentCV,
+              afterCV: s.currentCV
+            }))
+          }
+        }
+        
+        // Run optimization with the normalization targets
+        const result = this.optimizeScalingFormula(optimizationTargets, availableStats, {
+          ...options,
+          minRSquared: 0.01, // Very low threshold for single entity
+        })
+        
+        return {
+          ...result,
+          entityCount: 1,
+          accountSummary: summary.map(s => ({
+            ...s,
+            improvement: 0, // No improvement calculation for single entity
+            beforeVariance: s.currentVariance,
+            afterVariance: s.currentVariance,
+            beforeCV: s.currentCV,
+            afterCV: s.currentCV
+          }))
+        }
+      }
+
+      // Create optimization targets that minimize variance (multi-entity case)
       const optimizationTargets = this.createVarianceMinimizationTargets(
         varianceTargets,
         scalingVariables,
         varianceWeight,
       )
 
-      if (optimizationTargets.length < 2) {
+      if (optimizationTargets.length < 1) {
         return {
           isValid: false,
-          error: 'Insufficient data points for optimization (need at least 2 entities)',
+          error: 'Insufficient data points for optimization (need at least 1 entity)',
         }
       }
 
@@ -267,10 +376,10 @@ export class ScalingOptimization {
         maxIterations: _maxIterations = 1000,
       } = options
 
-      if (targets.length < 2) {
+      if (targets.length < 1) {
         return {
           isValid: false,
-          error: 'At least 2 entities required for optimization',
+          error: 'At least 1 entity required for optimization',
         }
       }
 
@@ -419,6 +528,19 @@ export class ScalingOptimization {
         }
       }
     }
+    
+    // Detect if this is single entity optimization (all targets have same base entity code)
+    const uniqueEntities = new Set(validTargets.map(t => {
+      // Extract base entity code (before any account code suffix)
+      const parts = t.entityCode.split('_')
+      // Remove account code suffix if present (last part after underscore)
+      return parts.length > 1 && /^\d+$/.test(parts[parts.length - 1]) 
+        ? parts.slice(0, -1).join('_')
+        : t.entityCode
+    }))
+    const isSingleEntity = uniqueEntities.size === 1
+    
+    console.log(`prepareMatrices: ${validTargets.length} valid targets, isSingleEntity: ${isSingleEntity}`)
 
     // Find factors that have data for most targets
     for (const factorId of factorIds) {
@@ -434,7 +556,11 @@ export class ScalingOptimization {
           .map((target) => target.scalingFactors.get(factorId))
           .filter((val) => typeof val === 'number' && isFinite(val)) as number[]
 
-        if (values.length >= 2) {
+        if (isSingleEntity && values.length > 0) {
+          // For single entity optimization, include all factors with valid data (no variance check)
+          validFactorIds.push(factorId)
+          console.log(`Factor ${factorId} included for single entity optimization`)
+        } else if (values.length >= 2) {
           const mean = values.reduce((sum, v) => sum + v, 0) / values.length
           const variance = values.reduce((sum, v) => sum + Math.pow(v - mean, 2), 0) / values.length
           const cv = mean > 0 ? Math.sqrt(variance) / Math.abs(mean) : 0
@@ -445,6 +571,9 @@ export class ScalingOptimization {
           } else {
             console.warn(`Factor ${factorId} excluded due to low variance (CV: ${cv.toFixed(4)})`)
           }
+        } else if (values.length === 1 && !isSingleEntity) {
+          // This shouldn't happen in multi-entity mode
+          console.warn(`Factor ${factorId} has only one value in multi-entity mode`)
         }
       }
     }
@@ -484,16 +613,25 @@ export class ScalingOptimization {
       }
     }
 
-    // Check if we have enough data points and sufficient target variation
-    if (X.length < validFactorIds.length + 1) {
+    // Check if we have enough data points
+    // For single entity: need at least 1 equation (can use any number of factors)
+    // For multi-entity: need more points than factors + intercept
+    const interceptCount = includeIntercept ? 1 : 0
+    const minRequired = isSingleEntity ? 1 : validFactorIds.length + interceptCount
+    if (X.length < minRequired) {
       console.warn(
-        `Insufficient data points: ${X.length} points for ${validFactorIds.length} factors`,
+        `Insufficient data points: ${X.length} points for ${validFactorIds.length} factors (need at least ${minRequired})`,
       )
+      // For single entity, allow optimization if we have at least 1 data point
+      if (isSingleEntity && X.length >= 1) {
+        console.warn(`Single entity with ${X.length} data points and ${validFactorIds.length} factors - proceeding`)
+        return { X, Y, validFactorIds }
+      }
       return { X: [], Y: [], validFactorIds: [] }
     }
 
-    // Check target value variation
-    if (Y.length >= 2) {
+    // Check target value variation (skip for single entity)
+    if (Y.length >= 2 && !isSingleEntity) {
       const yMean = Y.reduce((sum, y) => sum + y, 0) / Y.length
       const yVariance = Y.reduce((sum, y) => sum + Math.pow(y - yMean, 2), 0) / Y.length
       const yCV = yMean > 0 ? Math.sqrt(yVariance) / Math.abs(yMean) : 0

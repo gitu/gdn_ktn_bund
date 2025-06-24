@@ -246,7 +246,17 @@
         "title": "Ottimizzazione specifica per conto",
         "description": "Ottimizza la formula di scala per minimizzare le differenze per codici conto specifici",
         "targetCodes": "Codici conto target (separati da virgola)",
-        "optimize": "Ottimizza per codici conto"
+        "optimize": "Ottimizza per codici conto",
+        "entitySelection": {
+          "title": "Seleziona entità per l'ottimizzazione",
+          "selectAll": "Seleziona tutto",
+          "selectNone": "Deseleziona tutto"
+        },
+        "factorSelection": {
+          "title": "Seleziona fattori di scala",
+          "selectAll": "Seleziona tutto",
+          "selectNone": "Deseleziona tutto"
+        }
       },
       "manual": {
         "title": "Inserimento manuale formula"

@@ -138,15 +138,13 @@ describe('ScalingOptimization', () => {
   })
 
   describe('Input validation', () => {
-    it('should require at least 2 entities', () => {
-      const targets = createOptimizationTargets([
-        { entity: 'entity1', target: 100, factors: { pop: 50, workplaces: 25 } },
-      ])
+    it('should require at least 1 entity', () => {
+      const targets = createOptimizationTargets([])
 
       const result = ScalingOptimization.optimizeScalingFormula(targets, mockAvailableStats)
 
       expect(result.isValid).toBe(false)
-      expect(result.error).toContain('At least 2 entities required')
+      expect(result.error).toContain('At least 1 entity required')
     })
 
     it('should require available scaling factors', () => {

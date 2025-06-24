@@ -130,7 +130,7 @@
                     id="target-accounts-input"
                     v-model="targetAccountCodes"
                     class="w-full"
-                    placeholder="36,46 or 400+401,46"
+
                     @input="onTargetAccountsInput"
                   />
                   <label for="target-accounts-input">
@@ -157,6 +157,82 @@
                 >
                   {{ $t('financialDataScalingSelector.customFormula.optimization.optimize') }}
                 </Button>
+
+                <!-- Entity Selection -->
+                <Fieldset :legend="$t('financialDataScalingSelector.customFormula.optimization.entitySelection.title')" class="mt-4" :toggleable="true">
+                  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
+                    <div
+                      v-for="entity in availableEntities"
+                      :key="entity.code"
+                      class="flex items-center gap-2"
+                    >
+                      <Checkbox
+                        :id="`entity-${entity.code}`"
+                        v-model="selectedEntities"
+                        :value="entity.code"
+                      />
+                      <label :for="`entity-${entity.code}`" class="text-sm">
+                        {{ entity.displayName }}
+                      </label>
+                    </div>
+                  </div>
+                  <div class="mt-2 flex gap-2">
+                    <Button
+                      @click="selectedEntities = availableEntities.map(e => e.code)"
+                      size="small"
+                      severity="secondary"
+                      text
+                    >
+                      {{ $t('financialDataScalingSelector.customFormula.optimization.entitySelection.selectAll') }}
+                    </Button>
+                    <Button
+                      @click="selectedEntities = []"
+                      size="small"
+                      severity="secondary"
+                      text
+                    >
+                      {{ $t('financialDataScalingSelector.customFormula.optimization.entitySelection.selectNone') }}
+                    </Button>
+                  </div>
+                </Fieldset>
+
+                <!-- Scaling Factor Selection -->
+                <Fieldset :legend="$t('financialDataScalingSelector.customFormula.optimization.factorSelection.title')" class="mt-4" :toggleable="true">
+                  <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
+                    <div
+                      v-for="factor in availableScalingFactorsList"
+                      :key="factor.id"
+                      class="flex items-center gap-2"
+                    >
+                      <Checkbox
+                        :id="`factor-${factor.id}`"
+                        v-model="selectedScalingFactors"
+                        :value="factor.id"
+                      />
+                      <label :for="`factor-${factor.id}`" class="text-sm">
+                        {{ factor.label }}
+                      </label>
+                    </div>
+                  </div>
+                  <div class="mt-2 flex gap-2">
+                    <Button
+                      @click="selectedScalingFactors = availableScalingFactorsList.map(f => f.id)"
+                      size="small"
+                      severity="secondary"
+                      text
+                    >
+                      {{ $t('financialDataScalingSelector.customFormula.optimization.factorSelection.selectAll') }}
+                    </Button>
+                    <Button
+                      @click="selectedScalingFactors = []"
+                      size="small"
+                      severity="secondary"
+                      text
+                    >
+                      {{ $t('financialDataScalingSelector.customFormula.optimization.factorSelection.selectNone') }}
+                    </Button>
+                  </div>
+                </Fieldset>
               </div>
 
               <!-- Optimization result -->
@@ -314,6 +390,8 @@ import Message from 'primevue/message'
 import Button from 'primevue/button'
 import InputText from 'primevue/inputtext'
 import FloatLabel from 'primevue/floatlabel'
+import Checkbox from 'primevue/checkbox'
+import Fieldset from 'primevue/fieldset'
 import { StatsDataLoader } from '@/utils/StatsDataLoader'
 import {
   GeographicalDataLoader,
@@ -377,6 +455,10 @@ const isOptimizing = ref(false)
 const optimizationResult = ref<AccountOptimizationResult | null>(null)
 const targetAccountCodes = ref('36,46')
 const targetAccountsError = ref<string | null>(null)
+
+// Entity and scaling factor selection state
+const selectedEntities = ref<string[]>([])
+const selectedScalingFactors = ref<string[]>([])
 
 // Suppress unused variable warning - geoDataLoader is available for future use
 void geoDataLoader
@@ -444,12 +526,118 @@ const canOptimize = computed(() => {
     !loading.value &&
     availableStats.value.length >= 2 &&
     props.financialData?.entities?.size &&
-    props.financialData.entities.size >= 2
+    props.financialData.entities.size >= 1 &&
+    selectedEntities.value.length >= 1 &&
+    selectedScalingFactors.value.length >= 1
   )
 })
 
 const canOptimizeWithTargets = computed(() => {
   return canOptimize.value && targetAccountCodes.value.trim() && !targetAccountsError.value
+})
+
+// Store municipality names for caching
+const municipalityNames = ref<Map<string, string>>(new Map())
+// Reactive trigger to update computed properties when municipality names change
+const municipalityNamesVersion = ref(0)
+
+const availableEntities = computed(() => {
+  if (!props.financialData?.entities) return []
+
+  // Explicitly depend on municipalityNames and version to ensure reactivity
+  const municipalityNamesMap = municipalityNames.value
+  // Force reactivity by depending on the version
+  void municipalityNamesVersion.value
+
+  return Array.from(props.financialData.entities.keys()).map(entityCode => {
+    // Extract entity information for display
+    const parts = entityCode.split('/')
+    const source = parts[0]
+    const entityAndYear = parts[2]
+    const [entityId, year] = entityAndYear.split(':')
+
+    let displayName = `${source}/${entityId} (${year})`
+
+    // Handle GDN numeric IDs first with municipality lookup
+    if (source === 'gdn' && /^\d+$/.test(entityId)) {
+      const cachedName = municipalityNamesMap.get(entityId)
+      if (cachedName) {
+        displayName = `${cachedName} (${year})`
+      } else {
+        displayName = `Municipality ${entityId} (${year})`
+      }
+    } else {
+      // Try to get human-readable name from EntitySemanticMapper for non-GDN entities
+      try {
+        const entityDisplayName = EntitySemanticMapper.getEntityDisplayName(entityId)
+        const currentLocale = locale.value as keyof MultiLanguageLabels
+        const humanReadableName = entityDisplayName[currentLocale] || entityDisplayName.en
+
+        if (humanReadableName && !humanReadableName.includes('Unknown')) {
+          displayName = `${humanReadableName} (${year})`
+        }
+      } catch (error) {
+        // Use fallback display name if mapping fails
+        console.warn(`Failed to get display name for entity ${entityId}:`, error)
+      }
+    }
+
+    return {
+      code: entityCode,
+      displayName,
+      source,
+      entityId,
+      year
+    }
+  })
+})
+
+// Load municipality names when component mounts or when financial data changes
+const loadMunicipalityNames = async () => {
+  if (!props.financialData?.entities) return
+
+  const gdnEntityIds = new Set<string>()
+  
+  // Collect all GDN entity IDs
+  for (const entityCode of props.financialData.entities.keys()) {
+    const parts = entityCode.split('/')
+    if (parts[0] === 'gdn') {
+      const entityAndYear = parts[2]
+      const [entityId] = entityAndYear.split(':')
+      if (/^\d+$/.test(entityId)) {
+        gdnEntityIds.add(entityId)
+      }
+    }
+  }
+
+
+  // Load municipality names for each GDN ID
+  for (const gdnId of gdnEntityIds) {
+    if (!municipalityNames.value.has(gdnId)) {
+      try {
+        const municipality = await getMunicipalityByGdnId(gdnId)
+        if (municipality) {
+          municipalityNames.value.set(gdnId, municipality.municipalityLongName)
+          municipalityNamesVersion.value++ // Trigger reactivity
+        }
+      } catch (error) {
+        console.warn(`Failed to load municipality name for GDN ID ${gdnId}:`, error)
+      }
+    }
+  }
+}
+
+const availableScalingFactorsList = computed(() => {
+  return availableStats.value.map(stat => {
+    const currentLocale = locale.value as keyof MultiLanguageLabels
+    const label = stat.name[currentLocale] || stat.name.en || stat.id
+
+    return {
+      id: stat.id,
+      label,
+      description: stat.name
+    }
+  })
 })
 const scalingInfoExpanded = ref(false)
 
@@ -546,8 +734,25 @@ const optimizeFormula = async () => {
       return
     }
 
-    // Load scaling factors for all entities (adapted from store logic)
-    const scalingVariables = new Map<string, Map<string, number>>()
+    // Validate selections
+    if (selectedEntities.value.length === 0) {
+      optimizationResult.value = {
+        isValid: false,
+        error: 'Please select at least one entity for optimization.',
+      }
+      return
+    }
+
+    if (selectedScalingFactors.value.length === 0) {
+      optimizationResult.value = {
+        isValid: false,
+        error: 'Please select at least one scaling factor for optimization.',
+      }
+      return
+    }
+
+    // Load scaling factors for ALL entities (not just selected ones)
+    const allScalingVariables = new Map<string, Map<string, number>>()
 
     for (const [entityCode] of props.financialData.entities) {
       try {
@@ -598,6 +803,7 @@ const optimizeFormula = async () => {
           `Loading scaling data for entity ${entityCode} (source: ${source}, geoId: ${geoId}, year: ${year})`,
         )
 
+        // Load ALL scaling factors for this entity (not just selected ones)
         for (const stat of availableStats.value) {
           try {
             let value: number | null = null
@@ -640,7 +846,7 @@ const optimizeFormula = async () => {
         }
 
         if (entityVariables.size > 0) {
-          scalingVariables.set(entityCode, entityVariables)
+          allScalingVariables.set(entityCode, entityVariables)
           console.log(
             `  Successfully loaded ${entityVariables.size} scaling factors for ${entityCode}`,
           )
@@ -652,15 +858,15 @@ const optimizeFormula = async () => {
       }
     }
 
-    console.log(`Total entities with scaling data: ${scalingVariables.size}`)
+    console.log(`Total entities with scaling data: ${allScalingVariables.size}`)
 
     // Log summary of scaling variables
-    for (const [entityCode, variables] of scalingVariables) {
+    for (const [entityCode, variables] of allScalingVariables) {
       const values = Array.from(variables.entries())
       console.log(`Entity ${entityCode}:`, values)
     }
 
-    if (scalingVariables.size === 0) {
+    if (allScalingVariables.size === 0) {
       optimizationResult.value = {
         isValid: false,
         error:
@@ -669,15 +875,43 @@ const optimizeFormula = async () => {
       return
     }
 
-    // Run account-specific optimization
+    // Create filtered scaling variables for optimization (only selected entities and factors)
+    const filteredScalingVariables = new Map<string, Map<string, number>>()
+    
+    for (const entityCode of selectedEntities.value) {
+      const allFactors = allScalingVariables.get(entityCode)
+      if (allFactors) {
+        const selectedFactors = new Map<string, number>()
+        for (const factorId of selectedScalingFactors.value) {
+          const value = allFactors.get(factorId)
+          if (value !== undefined) {
+            selectedFactors.set(factorId, value)
+          }
+        }
+        if (selectedFactors.size > 0) {
+          filteredScalingVariables.set(entityCode, selectedFactors)
+        }
+      }
+    }
+
+    // Run account-specific optimization with selected scaling factors only
+    const selectedStats = availableStats.value.filter(stat => selectedScalingFactors.value.includes(stat.id))
+    
+    // Debug logging
+    console.log(`Selected entities: ${selectedEntities.value.length}`)
+    console.log(`Selected scaling factors: ${selectedScalingFactors.value.length}`)
+    console.log(`All scaling variables loaded: ${allScalingVariables.size}`)
+    console.log(`Filtered scaling variables for optimization: ${filteredScalingVariables.size}`)
+    console.log(`Account codes: [${accountCodes.join(', ')}]`)
+    
     const result = ScalingOptimization.optimizeForAccountCodes(
       props.financialData,
       accountCodes,
-      availableStats.value,
-      scalingVariables,
+      selectedStats,
+      filteredScalingVariables,
       {
-        minRSquared: 0.5, // Lower threshold for account optimization
-        includeIntercept: true,
+        minRSquared: 0.1, // Lower threshold for single entity optimization
+        includeIntercept: selectedEntities.value.length > 1, // No intercept for single entity
         varianceWeight: 0.8, // Prioritize variance minimization
       },
     )
@@ -804,7 +1038,41 @@ const onScalingChange = async () => {
 // Lifecycle hooks
 onMounted(() => {
   loadAvailableStats()
+
+  // Initialize entity selection with all entities if available
+  if (props.financialData?.entities) {
+    selectedEntities.value = Array.from(props.financialData.entities.keys())
+  }
+
+  // Load municipality names
+  loadMunicipalityNames()
 })
+
+// Watch for changes in financial data to update entity selection
+watch(
+  () => props.financialData,
+  (newData) => {
+    if (newData?.entities) {
+      // Initialize all entities as selected by default
+      selectedEntities.value = Array.from(newData.entities.keys())
+      // Load municipality names for the new data
+      loadMunicipalityNames()
+    }
+  },
+  { deep: true }
+)
+
+// Watch for changes in available stats to initialize scaling factors selection
+watch(
+  availableStats,
+  (newStats) => {
+    if (newStats && newStats.length > 0) {
+      // Initialize all scaling factors as selected by default
+      selectedScalingFactors.value = newStats.map(stat => stat.id)
+    }
+  },
+  { immediate: true }
+)
 
 // Consolidated watcher to prevent redundant scaling applications
 let scalingTimeout: ReturnType<typeof setTimeout> | null = null

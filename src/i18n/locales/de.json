@@ -245,8 +245,18 @@
       "optimization": {
         "title": "Kontenspezifische Optimierung",
         "description": "Optimiere Skalierungsformel um Unterschiede für spezifische Konten zu minimieren",
-        "targetCodes": "Ziel-Kontencodes (durch Komma getrennt)",
-        "optimize": "Für Kontencodes optimieren"
+        "targetCodes": "Ziel-Kontencodes (zB. 36,46 oder 400+401)",
+        "optimize": "Für Kontencodes optimieren",
+        "entitySelection": {
+          "title": "Entitäten für Optimierung auswählen",
+          "selectAll": "Alle auswählen",
+          "selectNone": "Keine auswählen"
+        },
+        "factorSelection": {
+          "title": "Skalierungsfaktoren auswählen",
+          "selectAll": "Alle auswählen",
+          "selectNone": "Keine auswählen"
+        }
       },
       "manual": {
         "title": "Manuelle Formeleingabe"

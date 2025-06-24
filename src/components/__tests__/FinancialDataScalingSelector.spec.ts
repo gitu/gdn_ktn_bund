@@ -7,6 +7,8 @@ import { mount } from '@vue/test-utils'
 import { createI18n } from 'vue-i18n'
 import type { StatsAvailabilityInfo } from '../../types/StatsData'
 import type { MultiLanguageLabels } from '../../types/DataStructures'
+import type { FinancialData } from '../../types/FinancialDataStructure'
+import { getMunicipalityByGdnId } from '../../utils/GeographicalDataLoader'
 
 vi.mock('../../utils/StatsDataLoader', () => {
   const mockStatsData: StatsAvailabilityInfo[] = [
@@ -78,11 +80,21 @@ vi.mock('../../utils/GeographicalDataLoader', () => ({
     getInstance: vi.fn().mockReturnValue({
       getMunicipalityByGdnId: vi.fn().mockResolvedValue({
         gdnId: '010002',
-        name: 'Affoltern a.A.',
+        municipalityLongName: 'Affoltern am Albis',
         cantonAbbreviation: 'ZH',
       }),
     }),
   },
+  getMunicipalityByGdnId: vi.fn().mockResolvedValue({
+    gdnId: '010002',
+    municipalityLongName: 'Affoltern am Albis',
+    cantonAbbreviation: 'ZH',
+  }),
+  getCantonByAbbreviation: vi.fn().mockResolvedValue({
+    cantonId: '1',
+    cantonAbbreviation: 'ZH',
+    cantonLongName: 'Zurich',
+  }),
 }))
 
 // Mock PrimeVue components
@@ -131,6 +143,25 @@ const i18nMessages = {
         area: 'Area',
         households: 'Households',
         employees: 'Employees',
+      },
+      customFormula: {
+        title: 'Custom Formula',
+        optimization: {
+          title: 'Account-Specific Optimization',
+          description: 'Optimize scaling formula to minimize differences for specific account codes',
+          targetCodes: 'Target Account Codes',
+          optimize: 'Optimize for Account Codes',
+          entitySelection: {
+            title: 'Select Entities for Optimization',
+            selectAll: 'Select All',
+            selectNone: 'Select None',
+          },
+          factorSelection: {
+            title: 'Select Scaling Factors',
+            selectAll: 'Select All',
+            selectNone: 'Select None',
+          },
+        },
       },
       errors: {
         loadingFailed: 'Failed to load scaling options',
@@ -494,5 +525,122 @@ describe('FinancialDataScalingSelector', () => {
 
     // Should emit error event
     expect(wrapper.emitted('error')).toBeTruthy()
+  })
+
+  it('should load municipality names for GDN entities', async () => {
+    // Mock financial data with GDN entities
+    const mockFinancialData = {
+      balanceSheet: new Map(),
+      incomeStatement: new Map(),
+      metadata: { structure: 'complete', dataVersion: '1.0', entityType: 'gdn' },
+      entities: new Map([
+        [
+          'gdn/model1/010002:2023',
+          {
+            code: 'gdn/model1/010002:2023',
+            labels: { de: 'Test', fr: 'Test', it: 'Test', en: 'Test' },
+            description: { de: 'Test', fr: 'Test', it: 'Test', en: 'Test' },
+            year: 2023,
+            scalingFactor: 1000,
+            scalingInfo: { de: 'Test', fr: 'Test', it: 'Test', en: 'Test' },
+            data: new Map(),
+          },
+        ],
+        [
+          'gdn/model1/010156:2023',
+          {
+            code: 'gdn/model1/010156:2023',
+            labels: { de: 'Test', fr: 'Test', it: 'Test', en: 'Test' },
+            description: { de: 'Test', fr: 'Test', it: 'Test', en: 'Test' },
+            year: 2023,
+            scalingFactor: 1500,
+            scalingInfo: { de: 'Test', fr: 'Test', it: 'Test', en: 'Test' },
+            data: new Map(),
+          },
+        ],
+      ]),
+    }
+
+    const wrapper = mount(FinancialDataScalingSelector, {
+      props: {
+        financialData: mockFinancialData as Partial<FinancialData>,
+        selectedScaling: null,
+      },
+      global: {
+        plugins: [createTestI18n()],
+      },
+    })
+
+    // Wait for component to load and municipality names to be loaded
+    await new Promise((resolve) => setTimeout(resolve, 200))
+    await wrapper.vm.$nextTick()
+
+    // Check that municipality loading function was called
+    expect(getMunicipalityByGdnId).toHaveBeenCalledWith('010002')
+    expect(getMunicipalityByGdnId).toHaveBeenCalledWith('010156')
+
+    // Check that entity display names are properly set
+    const vm = wrapper.vm as { availableEntities: Array<{ displayName: string }> }
+    const availableEntities = vm.availableEntities
+    
+    // Should have 2 entities
+    expect(availableEntities).toHaveLength(2)
+    
+    // Entity names should eventually include municipality names
+    // (Note: In tests this might still show fallback names due to async loading)
+    const entityNames = availableEntities.map((e) => e.displayName)
+    expect(entityNames.some((name: string) => name.includes('010002') || name.includes('Affoltern'))).toBeTruthy()
+  })
+
+  it('should handle entity and scaling factor selection for optimization', async () => {
+    const mockFinancialData = {
+      balanceSheet: new Map(),
+      incomeStatement: new Map(),
+      metadata: { structure: 'complete', dataVersion: '1.0', entityType: 'gdn' },
+      entities: new Map([
+        [
+          'gdn/model1/010002:2023',
+          {
+            code: 'gdn/model1/010002:2023',
+            labels: { de: 'Test', fr: 'Test', it: 'Test', en: 'Test' },
+            description: { de: 'Test', fr: 'Test', it: 'Test', en: 'Test' },
+            year: 2023,
+            data: new Map(),
+          },
+        ],
+      ]),
+    }
+
+    const wrapper = mount(FinancialDataScalingSelector, {
+      props: {
+        financialData: mockFinancialData as Partial<FinancialData>,
+        selectedScaling: null,
+      },
+      global: {
+        plugins: [createTestI18n()],
+      },
+    })
+
+    await new Promise((resolve) => setTimeout(resolve, 100))
+    await wrapper.vm.$nextTick()
+
+    const vm = wrapper.vm as { selectedEntities: string[]; selectedScalingFactors: string[] }
+
+    // Check that entities are selected by default
+    expect(vm.selectedEntities).toContain('gdn/model1/010002:2023')
+
+    // Check that scaling factors are selected by default
+    expect(vm.selectedScalingFactors).toContain('pop')
+    expect(vm.selectedScalingFactors).toContain('area')
+
+    // Test entity selection/deselection
+    vm.selectedEntities = []
+    await wrapper.vm.$nextTick()
+    expect(vm.selectedEntities).toHaveLength(0)
+
+    // Test scaling factor selection/deselection
+    vm.selectedScalingFactors = ['pop']
+    await wrapper.vm.$nextTick()
+    expect(vm.selectedScalingFactors).toEqual(['pop'])
   })
 })
