@@ -9,6 +9,12 @@
 
 import type { StatsAvailabilityInfo } from '@/types/StatsData'
 import type { MultiLanguageLabels } from '@/types/DataStructures'
+import {
+  ScalingOptimization,
+  type OptimizationTarget,
+  type OptimizationResult,
+  type OptimizationOptions,
+} from './ScalingOptimization'
 
 // Constants
 export const CUSTOM_SCALING_PREFIX = 'custom:'
@@ -197,25 +203,31 @@ export class CustomScalingFormula {
    * Normalize formula by removing spaces and standardizing format
    */
   private static normalizeFormula(formula: string): string {
-    return formula
-      .trim()
-      .replace(/\s+/g, '') // Remove all whitespace
-      .replace(/([+\-*/()])/g, ' $1 ') // Add spaces around operators
-      .replace(/\s+/g, ' ') // Normalize multiple spaces
-      .trim()
+    // First tokenize to preserve scientific notation
+    const tokens = this.tokenizeExpression(formula.trim())
+    // Rejoin with consistent spacing
+    return tokens.join(' ')
   }
 
   /**
    * Extract variable names from the formula
    */
   private static extractVariables(formula: string): string[] {
-    // Remove operators and numbers, split by spaces, filter out empty strings
-    const tokens = formula
-      .split(/[+\-*/()\s]+/)
-      .filter((token) => token.trim() !== '' && isNaN(Number(token)))
+    // Tokenize the formula properly first
+    const tokens = this.tokenizeExpression(formula)
+
+    // Filter to get only variable names (not numbers or operators)
+    const variables = tokens.filter((token) => {
+      // Skip operators
+      if ('+-*/()'.includes(token)) return false
+      // Skip numbers (including scientific notation)
+      if (!isNaN(Number(token))) return false
+      // What remains should be variable names
+      return true
+    })
 
     // Return unique variables
-    return Array.from(new Set(tokens))
+    return Array.from(new Set(variables))
   }
 
   /**
@@ -273,6 +285,60 @@ export class CustomScalingFormula {
   }
 
   /**
+   * Tokenize an expression to handle scientific notation and operators properly
+   */
+  private static tokenizeExpression(expression: string): string[] {
+    const tokens: string[] = []
+    let current = ''
+    let i = 0
+
+    while (i < expression.length) {
+      const char = expression[i]
+
+      // Skip whitespace
+      if (/\s/.test(char)) {
+        if (current) {
+          tokens.push(current)
+          current = ''
+        }
+        i++
+        continue
+      }
+
+      // Handle operators and parentheses
+      if ('+-*/()'.includes(char)) {
+        // Special case: might be part of scientific notation (e.g., 1.23e-4)
+        if ((char === '+' || char === '-') && current && /[eE]$/.test(current)) {
+          // This is part of scientific notation
+          current += char
+          i++
+          continue
+        }
+
+        // Push any accumulated token
+        if (current) {
+          tokens.push(current)
+          current = ''
+        }
+        tokens.push(char)
+        i++
+        continue
+      }
+
+      // Accumulate other characters (numbers, variables, etc.)
+      current += char
+      i++
+    }
+
+    // Don't forget the last token
+    if (current) {
+      tokens.push(current)
+    }
+
+    return tokens
+  }
+
+  /**
    * Safely evaluate a mathematical expression without using eval()
    */
   private static safeEvaluate(expression: string): number {
@@ -326,7 +392,8 @@ export class CustomScalingFormula {
    * Convert infix notation to postfix notation using Shunting Yard algorithm
    */
   private static infixToPostfix(expression: string): string[] {
-    const tokens = expression.split(/\s+/).filter((token) => token !== '')
+    // Tokenize the expression to handle scientific notation properly
+    const tokens = this.tokenizeExpression(expression)
     const output: string[] = []
     const operators: string[] = []
 
@@ -369,6 +436,17 @@ export class CustomScalingFormula {
     }
 
     return output
+  }
+
+  /**
+   * Generate optimized scaling formula based on financial data
+   */
+  static generateOptimizedFormula(
+    targets: OptimizationTarget[],
+    availableStats: StatsAvailabilityInfo[],
+    options: OptimizationOptions = {},
+  ): OptimizationResult {
+    return ScalingOptimization.optimizeScalingFormula(targets, availableStats, options)
   }
 
   /**

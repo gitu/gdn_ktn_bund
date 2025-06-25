@@ -146,3 +146,5 @@ scripts/           # Node.js data processing
 4. **Deployment**: Static site deployed to Cloudflare. Build process includes data generation steps.
 
 5. **AI Development Heritage**: This codebase was developed through AI-human collaboration. Maintain consistency with existing patterns and conventions established throughout the codebase.
+
+6. **Pre Commit**: Before every commit run npm run pre-commit and fix *ALL* errors.

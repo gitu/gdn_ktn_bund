@@ -229,12 +229,38 @@
       "households": "Haushalte",
       "employees": "Beschäftigte",
       "total_area": "Gesamtfläche",
-      "workplaces": "Arbeitsplätze"
+      "workplaces": "Arbeitsplätze",
+      "overbuilt": "Überbaut"
     },
     "customFormula": {
       "title": "Benutzerdefinierte Formel",
       "placeholder": "Formel eingeben (z.B. 1.5*pop+30*area)",
       "apply": "Benutzerdefinierte Formel anwenden",
+      "optimize": "Optimieren",
+      "optimizationSuccess": "Formel erfolgreich optimiert!",
+      "optimizationFormula": "Optimierte Formel",
+      "optimizationQuality": "Qualität (R²)",
+      "optimizationFailed": "Optimierung fehlgeschlagen",
+      "applyOptimized": "Optimierte Formel anwenden",
+      "optimization": {
+        "title": "Kontenspezifische Optimierung",
+        "description": "Optimiere Skalierungsformel um Unterschiede für spezifische Konten zu minimieren",
+        "targetCodes": "Ziel-Kontencodes (zB. 36,46 oder 400+401)",
+        "optimize": "Für Kontencodes optimieren",
+        "entitySelection": {
+          "title": "Entitäten für Optimierung auswählen",
+          "selectAll": "Alle auswählen",
+          "selectNone": "Keine auswählen"
+        },
+        "factorSelection": {
+          "title": "Skalierungsfaktoren auswählen",
+          "selectAll": "Alle auswählen",
+          "selectNone": "Keine auswählen"
+        }
+      },
+      "manual": {
+        "title": "Manuelle Formeleingabe"
+      },
       "valid": "Gültige Formel mit: {factors}",
       "help": {
         "title": "Erstellen Sie benutzerdefinierte Skalierungsformeln mit mathematischen Ausdrücken:",

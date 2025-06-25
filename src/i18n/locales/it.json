@@ -229,12 +229,38 @@
       "households": "Famiglie",
       "employees": "Dipendenti",
       "total_area": "Superficie totale",
-      "workplaces": "Luoghi di lavoro"
+      "workplaces": "Luoghi di lavoro",
+      "overbuilt": "Area edificata"
     },
     "customFormula": {
       "title": "Formula personalizzata",
       "placeholder": "Inserire la formula (es. 1.5*pop+30*area)",
       "apply": "Applica formula personalizzata",
+      "optimize": "Ottimizza",
+      "optimizationSuccess": "Formula ottimizzata con successo!",
+      "optimizationFormula": "Formula ottimizzata",
+      "optimizationQuality": "Qualità (R²)",
+      "optimizationFailed": "Ottimizzazione fallita",
+      "applyOptimized": "Applica formula ottimizzata",
+      "optimization": {
+        "title": "Ottimizzazione specifica per conto",
+        "description": "Ottimizza la formula di scala per minimizzare le differenze per codici conto specifici",
+        "targetCodes": "Codici conto target (separati da virgola)",
+        "optimize": "Ottimizza per codici conto",
+        "entitySelection": {
+          "title": "Seleziona entità per l'ottimizzazione",
+          "selectAll": "Seleziona tutto",
+          "selectNone": "Deseleziona tutto"
+        },
+        "factorSelection": {
+          "title": "Seleziona fattori di scala",
+          "selectAll": "Seleziona tutto",
+          "selectNone": "Deseleziona tutto"
+        }
+      },
+      "manual": {
+        "title": "Inserimento manuale formula"
+      },
       "valid": "Formula valida che utilizza: {factors}",
       "help": {
         "title": "Crea formule di scalatura personalizzate usando espressioni matematiche:",
