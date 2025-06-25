@@ -10,6 +10,7 @@ import {
 import { createEmptyFinancialDataStructure } from '@/data/emptyFinancialDataStructure'
 import { EntitySemanticMapper } from '@/utils/EntitySemanticMapper'
 import { getCantonByAbbreviation, getMunicipalityByGdnId } from '@/utils/GeographicalDataLoader'
+import { Logger } from '@/utils/Logger'
 import type { FinancialData, FinancialDataEntity } from '@/types/FinancialDataStructure'
 import type { MultiLanguageLabels } from '@/types/DataStructures.ts'
 import { i18n } from '@/i18n'
@@ -102,7 +103,7 @@ export const useFinancialDataStore = defineStore('financialData', () => {
           )
           return { success: true, dataset }
         } catch (datasetError) {
-          console.error(`Error loading dataset ${dataset}:`, datasetError)
+          Logger.error('Failed to load dataset', datasetError, { dataset })
           const errorMessage =
             datasetError instanceof Error ? datasetError.message : 'Unknown error'
           return { success: false, dataset, error: `Dataset ${dataset}: ${errorMessage}` }
@@ -145,7 +146,7 @@ export const useFinancialDataStore = defineStore('financialData', () => {
     try {
       const statsEntry = await statsDataLoader.getStatsEntry(scalingId)
       if (!statsEntry) {
-        console.warn(`Statistics entry not found for scaling ID: ${scalingId}`)
+        Logger.warn('Statistics entry not found for scaling ID', { scalingId })
         return null
       }
 
@@ -155,7 +156,7 @@ export const useFinancialDataStore = defineStore('financialData', () => {
         unit: statsEntry.unit,
       }
     } catch (error) {
-      console.error('Error getting scaling info:', error)
+      Logger.error('Failed to get scaling info', error)
       return null
     }
   }
@@ -197,7 +198,7 @@ export const useFinancialDataStore = defineStore('financialData', () => {
       // Get scaling information from the scaling ID (traditional scaling)
       const scalingInfo = await getScalingInfo(scalingId)
       if (!scalingInfo) {
-        console.error(`Failed to get scaling info for ID: ${scalingId}`)
+        Logger.error('Failed to get scaling info', undefined, { scalingId })
         error.value = 'Invalid scaling selection'
         return
       }
@@ -205,7 +206,7 @@ export const useFinancialDataStore = defineStore('financialData', () => {
       // Apply scaling to all entities
       await applyScalingToEntities(scalingId, scalingInfo)
     } catch (scalingError) {
-      console.error('Error setting scaling:', scalingError)
+      Logger.error('Failed to set scaling', scalingError)
       error.value = 'Error applying scaling to datasets'
     } finally {
       isApplyingScaling.value = false
@@ -302,7 +303,7 @@ export const useFinancialDataStore = defineStore('financialData', () => {
             promise: customScalingPromise,
           })
         } catch (error) {
-          console.error(`Error preparing custom scaling for entity ${entityCode}:`, error)
+          Logger.error('Failed to prepare custom scaling for entity', error, { entityCode })
         }
       }
 
@@ -331,7 +332,7 @@ export const useFinancialDataStore = defineStore('financialData', () => {
         }
       }
     } catch (scalingError) {
-      console.error('Error applying custom scaling formula:', scalingError)
+      Logger.error('Failed to apply custom scaling formula', scalingError)
       error.value = 'Error applying custom scaling formula'
     }
   }
@@ -388,7 +389,7 @@ export const useFinancialDataStore = defineStore('financialData', () => {
           promise: scalingPromise,
         })
       } catch (error) {
-        console.error(`Error preparing scaling request for entity ${entityCode}:`, error)
+        Logger.error('Failed to prepare scaling request for entity', error, { entityCode })
       }
     }
 
@@ -435,10 +436,9 @@ export const useFinancialDataStore = defineStore('financialData', () => {
         }
         entity.scalingMode = 'divide' // Divide financial values by scaling factor for per-capita/per-unit values
       } else if (result.status === 'rejected') {
-        console.error(
-          `Error loading scaling factor for entity ${scalingRequests[i].entityCode}:`,
-          result.reason,
-        )
+        Logger.error('Failed to load scaling factor for entity', result.reason, {
+          entityCode: scalingRequests[i].entityCode
+        })
         // Continue with other entities even if one fails
       }
     }
@@ -488,7 +488,7 @@ export const useFinancialDataStore = defineStore('financialData', () => {
       scalingFactorCache.set(cacheKey, value)
       return value
     } catch (loadError) {
-      console.error(`Error loading scaling factor for entity ${entityId}:`, loadError)
+      Logger.error('Failed to load scaling factor for entity', loadError, { entityId })
       // Cache null result to avoid repeated failed requests
       scalingFactorCache.set(cacheKey, null)
       return null

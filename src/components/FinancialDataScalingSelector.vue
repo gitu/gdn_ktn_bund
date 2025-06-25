@@ -427,6 +427,7 @@ import {
 import { EntitySemanticMapper } from '@/utils/EntitySemanticMapper'
 import { CustomScalingFormula, CUSTOM_SCALING_PREFIX } from '@/utils/CustomScalingFormula'
 import { ScalingOptimization, type AccountOptimizationResult } from '@/utils/ScalingOptimization'
+import { Logger } from '@/utils/Logger'
 import type { StatsAvailabilityInfo } from '@/types/StatsData'
 import type { FinancialData } from '@/types/FinancialDataStructure'
 import type { MultiLanguageLabels } from '@/types/DataStructures'
@@ -604,7 +605,7 @@ const availableEntities = computed(() => {
         }
       } catch (error) {
         // Use fallback display name if mapping fails
-        console.warn(`Failed to get display name for entity ${entityId}:`, error)
+        Logger.warn('Failed to get display name for entity', { entityId, error })
       }
     }
 
@@ -646,7 +647,7 @@ const loadMunicipalityNames = async () => {
           municipalityNamesVersion.value++ // Trigger reactivity
         }
       } catch (error) {
-        console.warn(`Failed to load municipality name for GDN ID ${gdnId}:`, error)
+        Logger.warn('Failed to load municipality name', { gdnId, error })
       }
     }
   }
@@ -883,12 +884,14 @@ const optimizeFormula = async () => {
       }
     }
 
-    console.log(`Total entities with scaling data: ${allScalingVariables.size}`)
+    Logger.optimization('Loaded scaling data for entities', {
+      entityCount: allScalingVariables.size
+    })
 
     // Log summary of scaling variables
     for (const [entityCode, variables] of allScalingVariables) {
       const values = Array.from(variables.entries())
-      console.log(`Entity ${entityCode}:`, values)
+      Logger.optimization('Entity scaling variables', { entityCode, values })
     }
 
     if (allScalingVariables.size === 0) {
@@ -925,11 +928,13 @@ const optimizeFormula = async () => {
     )
 
     // Debug logging
-    console.log(`Selected entities: ${selectedEntities.value.length}`)
-    console.log(`Selected scaling factors: ${selectedScalingFactors.value.length}`)
-    console.log(`All scaling variables loaded: ${allScalingVariables.size}`)
-    console.log(`Filtered scaling variables for optimization: ${filteredScalingVariables.size}`)
-    console.log(`Account codes: [${accountCodes.join(', ')}]`)
+    Logger.optimization('Starting optimization', {
+      selectedEntities: selectedEntities.value.length,
+      selectedScalingFactors: selectedScalingFactors.value.length,
+      allScalingVariables: allScalingVariables.size,
+      filteredScalingVariables: filteredScalingVariables.size,
+      accountCodes
+    })
 
     const result = ScalingOptimization.optimizeForAccountCodes(
       props.financialData,
@@ -945,7 +950,7 @@ const optimizeFormula = async () => {
 
     optimizationResult.value = result
   } catch (error) {
-    console.error('Optimization error:', error)
+    Logger.error('Optimization failed', error)
     optimizationResult.value = {
       isValid: false,
       error: 'Failed to optimize formula. Please try again.',
@@ -1026,7 +1031,7 @@ const loadAvailableStats = async () => {
     // Filter for relevant scaling statistics (population, area, etc.)
     availableStats.value = stats
   } catch (err) {
-    console.error('Error loading available statistics:', err)
+    Logger.error('Failed to load available statistics', err)
     error.value = t('financialDataScalingSelector.errors.loadingFailed')
     emit('error', error.value)
   } finally {
@@ -1055,7 +1060,7 @@ const onScalingChange = async () => {
 
     emit('scalingChanged', internalSelectedScaling.value)
   } catch (err) {
-    console.error('Error applying scaling:', err)
+    Logger.error('Failed to apply scaling', err)
     const errorMessage = t('financialDataScalingSelector.errors.applyingFailed')
     error.value = errorMessage
     emit('error', errorMessage)
