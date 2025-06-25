@@ -7,16 +7,21 @@ test.describe('Account Code Combinations in Optimization', () => {
     await expect(page.locator('h1')).toContainText('Finanzdaten zum Vergleich auswählen')
   })
 
-  test('should accept account codes with + separator in UI', async ({ page }) => {
-    // Add some datasets to work with
+  // Helper function to add dataset and open custom formula
+  async function setupDatasetAndOpenCustomFormula(page) {
     await page.getByRole('textbox', { name: 'Nach Datensätzen suchen...' }).fill('aargau')
     await page.getByRole('row', { name: 'Alle Gemeinden des Kantons' }).getByLabel('Hinzufügen (2022)').click()
     
-    // Wait for the scaling selector to appear
-    await page.waitForSelector('[data-testid="scaling-dropdown"]', { timeout: 10000 })
+    // Wait for the scaling selector to be visible and interactable
+    const scalingDropdown = page.locator('[data-testid="scaling-dropdown"]')
+    await expect(scalingDropdown).toBeVisible({ timeout: 10000 })
     
-    // Click on custom formula option - this should be visible now
+    // Click on custom formula option
     await page.getByText('Benutzerdefinierte Formel').click()
+  }
+
+  test('should accept account codes with + separator in UI', async ({ page }) => {
+    await setupDatasetAndOpenCustomFormula(page)
     
     // Enter account codes with + separator
     const targetAccountsInput = page.locator('#target-accounts-input')
@@ -31,13 +36,7 @@ test.describe('Account Code Combinations in Optimization', () => {
   })
 
   test('should validate account code format', async ({ page }) => {
-    // Add some datasets to work with
-    await page.getByRole('textbox', { name: 'Nach Datensätzen suchen...' }).fill('aargau')
-    await page.getByRole('row', { name: 'Alle Gemeinden des Kantons' }).getByLabel('Hinzufügen (2022)').click()
-    
-    // Wait for the scaling selector to appear and click custom formula
-    await page.waitForSelector('[data-testid="scaling-dropdown"]', { timeout: 10000 })
-    await page.getByText('Benutzerdefinierte Formel').click()
+    await setupDatasetAndOpenCustomFormula(page)
     
     // Test invalid format
     const targetAccountsInput = page.locator('#target-accounts-input')
@@ -55,13 +54,7 @@ test.describe('Account Code Combinations in Optimization', () => {
   })
 
   test('should handle multiple account combinations in input', async ({ page }) => {
-    // Add some datasets to work with
-    await page.getByRole('textbox', { name: 'Nach Datensätzen suchen...' }).fill('aargau')
-    await page.getByRole('row', { name: 'Alle Gemeinden des Kantons' }).getByLabel('Hinzufügen (2022)').click()
-    
-    // Wait for the scaling selector to appear and click custom formula
-    await page.waitForSelector('[data-testid="scaling-dropdown"]', { timeout: 10000 })
-    await page.getByText('Benutzerdefinierte Formel').click()
+    await setupDatasetAndOpenCustomFormula(page)
     
     // Enter multiple combinations
     const targetAccountsInput = page.locator('#target-accounts-input')
@@ -76,13 +69,7 @@ test.describe('Account Code Combinations in Optimization', () => {
   })
 
   test('should show proper placeholder text', async ({ page }) => {
-    // Add some datasets to work with
-    await page.getByRole('textbox', { name: 'Nach Datensätzen suchen...' }).fill('aargau')
-    await page.getByRole('row', { name: 'Alle Gemeinden des Kantons' }).getByLabel('Hinzufügen (2022)').click()
-    
-    // Wait for the scaling selector to appear and click custom formula
-    await page.waitForSelector('[data-testid="scaling-dropdown"]', { timeout: 10000 })
-    await page.getByText('Benutzerdefinierte Formel').click()
+    await setupDatasetAndOpenCustomFormula(page)
     
     // Check that the target accounts input field is visible and has the expected default value
     const targetAccountsInput = page.locator('#target-accounts-input')
