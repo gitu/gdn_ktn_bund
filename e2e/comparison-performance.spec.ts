@@ -16,10 +16,8 @@ test.describe('Comparison View Performance', () => {
 
     const loadTime = Date.now() - startTime
 
-    console.log(`Comparison view loaded in ${loadTime}ms`)
-
-    // Performance assertion - should load within 5 seconds
-    //expect(loadTime).toBeLessThan(5000)
+    // Performance assertion - should load within 10 seconds
+    expect(loadTime).toBeLessThan(10000)
 
     // Verify data is actually loaded by checking for specific financial values
     const firstDataCell = page.locator('[data-testid="tree-table"] tbody tr:first-child td:nth-child(2)')
@@ -38,7 +36,6 @@ test.describe('Comparison View Performance', () => {
 
     const loadTime = Date.now() - startTime
 
-    console.log(`Simple comparison loaded in ${loadTime}ms`)
 
     // Should be very fast for 2 datasets - under 3 seconds
     expect(loadTime).toBeLessThan(3000)
@@ -64,7 +61,6 @@ test.describe('Comparison View Performance', () => {
 
     const comparisonTime = Date.now() - comparisonStartTime
 
-    console.log(`Comparison created in ${comparisonTime}ms`)
 
     // Comparison creation should be nearly instant - under 500ms
     expect(comparisonTime).toBeLessThan(500)
@@ -92,7 +88,6 @@ test.describe('Comparison View Performance', () => {
 
     const scalingTime = Date.now() - scalingStartTime
 
-    console.log(`Scaling change applied in ${scalingTime}ms`)
 
     // Scaling should be applied quickly - under 2 seconds
     expect(scalingTime).toBeLessThan(2000)
@@ -110,7 +105,6 @@ test.describe('Comparison View Performance', () => {
 
     const loadTime = Date.now() - startTime
 
-    console.log(`Large dataset comparison loaded in ${loadTime}ms`)
 
     // Even large datasets should load within 10 seconds
     expect(loadTime).toBeLessThan(10000)

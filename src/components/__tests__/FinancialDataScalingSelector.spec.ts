@@ -413,10 +413,9 @@ describe('FinancialDataScalingSelector', () => {
     expect(wrapper.text()).toContain('Skalierungsfaktor auswählen')
   })
 
-  it('should handle error states', async () => {
-    // This test is skipped as the mock setup doesn't support dynamic re-mocking
+  it.skip('should handle error states', async () => {
     // The component error handling is tested through integration tests
-    expect(true).toBe(true)
+    // This test is skipped as the mock setup doesn't support dynamic re-mocking
   })
 
   it('should filter relevant scaling statistics', async () => {
