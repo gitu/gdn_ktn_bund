@@ -12,21 +12,21 @@ test.describe('Account Code Combinations in Optimization', () => {
     await page.getByRole('textbox', { name: 'Nach Datensätzen suchen...' }).fill('aargau')
     await page.getByRole('row', { name: 'Alle Gemeinden des Kantons' }).getByLabel('Hinzufügen (2022)').click()
     
-    // Open the scaling selector
-    await page.getByRole('button', { name: 'Skalierung' }).click()
+    // Wait for the scaling selector to appear
+    await page.waitForSelector('[data-testid="scaling-dropdown"]', { timeout: 10000 })
     
-    // Click on custom formula option
+    // Click on custom formula option - this should be visible now
     await page.getByText('Benutzerdefinierte Formel').click()
     
     // Enter account codes with + separator
-    const targetAccountsInput = page.getByPlaceholder('36,46 or 400+401,46')
+    const targetAccountsInput = page.locator('#target-accounts-input')
     await targetAccountsInput.fill('400+401,46')
     
     // Verify no validation error appears
     await expect(page.getByText('Invalid account codes')).toBeHidden()
     
     // The optimize button should be enabled
-    const optimizeButton = page.getByRole('button', { name: 'Formel optimieren' })
+    const optimizeButton = page.getByRole('button', { name: 'Für Kontencodes optimieren' })
     await expect(optimizeButton).toBeEnabled()
   })
 
@@ -35,12 +35,12 @@ test.describe('Account Code Combinations in Optimization', () => {
     await page.getByRole('textbox', { name: 'Nach Datensätzen suchen...' }).fill('aargau')
     await page.getByRole('row', { name: 'Alle Gemeinden des Kantons' }).getByLabel('Hinzufügen (2022)').click()
     
-    // Open scaling selector
-    await page.getByRole('button', { name: 'Skalierung' }).click()
+    // Wait for the scaling selector to appear and click custom formula
+    await page.waitForSelector('[data-testid="scaling-dropdown"]', { timeout: 10000 })
     await page.getByText('Benutzerdefinierte Formel').click()
     
     // Test invalid format
-    const targetAccountsInput = page.getByPlaceholder('36,46 or 400+401,46')
+    const targetAccountsInput = page.locator('#target-accounts-input')
     await targetAccountsInput.fill('abc+123')
     
     // Should show validation error
@@ -59,19 +59,19 @@ test.describe('Account Code Combinations in Optimization', () => {
     await page.getByRole('textbox', { name: 'Nach Datensätzen suchen...' }).fill('aargau')
     await page.getByRole('row', { name: 'Alle Gemeinden des Kantons' }).getByLabel('Hinzufügen (2022)').click()
     
-    // Open scaling selector
-    await page.getByRole('button', { name: 'Skalierung' }).click()
+    // Wait for the scaling selector to appear and click custom formula
+    await page.waitForSelector('[data-testid="scaling-dropdown"]', { timeout: 10000 })
     await page.getByText('Benutzerdefinierte Formel').click()
     
     // Enter multiple combinations
-    const targetAccountsInput = page.getByPlaceholder('36,46 or 400+401,46')
+    const targetAccountsInput = page.locator('#target-accounts-input')
     await targetAccountsInput.fill('400+401,36+46,30')
     
     // Should not show validation error
     await expect(page.getByText(/Invalid account codes/)).toBeHidden()
     
     // The optimize button should be enabled
-    const optimizeButton = page.getByRole('button', { name: 'Formel optimieren' })
+    const optimizeButton = page.getByRole('button', { name: 'Für Kontencodes optimieren' })
     await expect(optimizeButton).toBeEnabled()
   })
 
@@ -80,13 +80,14 @@ test.describe('Account Code Combinations in Optimization', () => {
     await page.getByRole('textbox', { name: 'Nach Datensätzen suchen...' }).fill('aargau')
     await page.getByRole('row', { name: 'Alle Gemeinden des Kantons' }).getByLabel('Hinzufügen (2022)').click()
     
-    // Open scaling selector
-    await page.getByRole('button', { name: 'Skalierung' }).click()
+    // Wait for the scaling selector to appear and click custom formula
+    await page.waitForSelector('[data-testid="scaling-dropdown"]', { timeout: 10000 })
     await page.getByText('Benutzerdefinierte Formel').click()
     
-    // Check that placeholder shows the + syntax example
-    const targetAccountsInput = page.getByPlaceholder('36,46 or 400+401,46')
+    // Check that the target accounts input field is visible and has the expected default value
+    const targetAccountsInput = page.locator('#target-accounts-input')
     await expect(targetAccountsInput).toBeVisible()
-    await expect(targetAccountsInput).toHaveAttribute('placeholder', '36,46 or 400+401,46')
+    // The input should have a default value showing the expected format
+    await expect(targetAccountsInput).toHaveValue('36,46')
   })
 })
