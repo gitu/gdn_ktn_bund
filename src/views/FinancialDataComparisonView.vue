@@ -136,6 +136,7 @@ interface SampleDataset {
 }
 
 // Vue composables
+// t is used in template, not in script
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const { t } = useI18n()
 const router = useRouter()

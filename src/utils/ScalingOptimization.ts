@@ -14,6 +14,8 @@
 import type { StatsAvailabilityInfo } from '@/types/StatsData'
 import type { FinancialData } from '@/types/FinancialDataStructure'
 import { FinancialDataExtractor, type AccountVarianceTarget } from './FinancialDataExtractor'
+import { Logger } from './Logger'
+import { OPTIMIZATION_CONSTANTS } from '@/constants/optimization'
 
 export interface OptimizationTarget {
   entityCode: string
@@ -33,10 +35,10 @@ export interface OptimizationResult {
 
 export interface OptimizationOptions {
   targetLines?: string[] // Specific financial codes to optimize for
-  minRSquared?: number // Minimum R² to accept (default: 0.7)
-  includeIntercept?: boolean // Whether to include constant term (default: true)
-  maxIterations?: number // Maximum optimization iterations (default: 1000)
-  varianceWeight?: number // Weight for variance minimization vs absolute fitting (default: 1.0)
+  minRSquared?: number // Minimum R² to accept
+  includeIntercept?: boolean // Whether to include constant term
+  maxIterations?: number // Maximum optimization iterations
+  varianceWeight?: number // Weight for variance minimization vs absolute fitting
 }
 
 export interface AccountSummary {
@@ -72,9 +74,9 @@ export class ScalingOptimization {
   ): AccountOptimizationResult {
     try {
       const {
-        minRSquared = 0.1, // Much lower threshold since we're optimizing for specific targets, not general fit
+        minRSquared = OPTIMIZATION_CONSTANTS.ACCOUNT_CODE_R_SQUARED_THRESHOLD,
         includeIntercept: _includeIntercept = true,
-        varianceWeight = 1.0,
+        varianceWeight = OPTIMIZATION_CONSTANTS.DEFAULT_VARIANCE_WEIGHT,
       } = options
 
       // Parse account code groups (codes separated by + are summed together)
@@ -86,9 +88,8 @@ export class ScalingOptimization {
           .filter((code) => code)
       })
 
-      console.log(`Parsing account code groups:`)
-      accountGroups.forEach((group, i) => {
-        console.log(`  Group ${i + 1}: [${group.join('+')}]`)
+      Logger.optimization('Parsing account code groups', {
+        groups: accountGroups.map((group, i) => ({ index: i + 1, codes: group }))
       })
 
       // Validate all individual codes
@@ -97,8 +98,10 @@ export class ScalingOptimization {
         financialData,
         allIndividualCodes,
       )
-      console.log(`  Valid codes: [${validation.valid.join(', ')}]`)
-      console.log(`  Invalid codes: [${validation.invalid.join(', ')}]`)
+      Logger.optimization('Account code validation', {
+        valid: validation.valid,
+        invalid: validation.invalid
+      })
 
       if (validation.valid.length === 0) {
         return {
@@ -167,9 +170,12 @@ export class ScalingOptimization {
               meanValue: mean,
             })
 
-            console.log(
-              `  Account group ${groupName}: ${entitySums.size} entities, mean=${mean.toLocaleString()}, CV=${cv.toFixed(3)}`,
-            )
+            Logger.optimization('Account group processed', {
+              groupName,
+              entityCount: entitySums.size,
+              mean,
+              cv
+            })
           }
         }
       }
@@ -185,24 +191,22 @@ export class ScalingOptimization {
       }
 
       // Log optimization goals
-      console.log(`\nOptimization Goals:`)
-      console.log(
-        `  Minimize variance for ${validation.valid.length} account codes across entities`,
-      )
-      console.log(
-        `  Variance weight: ${varianceWeight} (1.0 = pure variance minimization, 0.0 = maintain relative values)`,
-      )
-      summary.forEach((s) => {
-        console.log(
-          `  Account ${s.accountCode}: ${s.entityCount} entities, mean=${s.meanValue.toLocaleString()}, CV=${s.currentCV.toFixed(3)}`,
-        )
+      Logger.optimization('Optimization goals set', {
+        accountCodeCount: validation.valid.length,
+        varianceWeight,
+        accountSummaries: summary.map(s => ({
+          accountCode: s.accountCode,
+          entityCount: s.entityCount,
+          mean: s.meanValue,
+          cv: s.currentCV
+        }))
       })
 
       // For single entity, use simple normalization instead of variance minimization
       if (scalingVariables.size === 1) {
-        console.log(
-          'Single entity detected - using normalization approach instead of variance minimization',
-        )
+        Logger.optimization('Single entity detected', {
+          approach: 'normalization instead of variance minimization'
+        })
 
         // Get the single entity's data
         const entityCode = Array.from(scalingVariables.keys())[0]
@@ -210,7 +214,9 @@ export class ScalingOptimization {
 
         // Create simple normalization targets (target value = 1000 for each account)
         const optimizationTargets: OptimizationTarget[] = []
-        console.log(`Creating optimization targets for ${varianceTargets.length} accounts`)
+        Logger.optimization('Creating optimization targets', {
+          accountCount: varianceTargets.length
+        })
         for (const account of varianceTargets) {
           const accountCode = account.accountCode
           const targetValue = account.entityValues.get(entityCode)
@@ -221,9 +227,15 @@ export class ScalingOptimization {
               targetValue: Math.log(Math.max(targetValue, 1)), // Log transform for better scaling
               scalingFactors: entityVars,
             })
-            console.log(`  Added target for account ${accountCode}: value=${targetValue}`)
+            Logger.optimization('Added optimization target', {
+              accountCode,
+              targetValue
+            })
           } else {
-            console.log(`  Skipped account ${accountCode}: no data or zero value`)
+            Logger.optimization('Skipped account', {
+              accountCode,
+              reason: 'no data or zero value'
+            })
           }
         }
 
@@ -236,9 +248,10 @@ export class ScalingOptimization {
 
         // For single entity with insufficient data points, create a balanced formula
         if (optimizationTargets.length < availableStats.length) {
-          console.log(
-            `Single entity: ${optimizationTargets.length} targets < ${availableStats.length} factors`,
-          )
+          Logger.optimization('Single entity insufficient data', {
+            targetCount: optimizationTargets.length,
+            factorCount: availableStats.length
+          })
 
           // Create coefficients that normalize all factors to the same value
           const coefficients = new Map<string, number>()
@@ -265,15 +278,18 @@ export class ScalingOptimization {
               }
 
               formulaParts.push(`${formattedCoeff}*${stat.id}`)
-              console.log(
-                `  Factor ${stat.id}=${value} → coefficient=${formattedCoeff} (normalized to ${targetNormalizedValue})`,
-              )
+              Logger.optimization('Factor normalized', {
+                factorId: stat.id,
+                value,
+                coefficient: formattedCoeff,
+                targetValue: targetNormalizedValue
+              })
             }
           }
 
           // Join all parts with + to create the complete formula
           const formula = formulaParts.join(' + ')
-          console.log(`Creating balanced formula: ${formula}`)
+          Logger.optimization('Balanced formula created', { formula })
 
           return {
             isValid: true,
