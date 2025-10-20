@@ -45,7 +45,7 @@
   "devDependencies": {
     "@cloudflare/vite-plugin": "^1.9.6",
     "@intlify/eslint-plugin-vue-i18n": "^4.0.1",
-    "@playwright/test": "^1.54.1",
+    "@playwright/test": "^1.56.1",
     "@primevue/auto-import-resolver": "^4.3.6",
     "@tailwindcss/postcss": "^4.1.11",
     "@tsconfig/node22": "^22.0.1",
