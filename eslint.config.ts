@@ -8,6 +8,8 @@ import skipFormatting from '@vue/eslint-config-prettier/skip-formatting'
 import vueI18n from '@intlify/eslint-plugin-vue-i18n'
 
 
+type VueTsConfig = Parameters<typeof defineConfigWithVueTs>[number]
+
 // To allow more languages other than `ts` in `.vue` files, uncomment the following lines:
 // import { configureVueProject } from '@vue/eslint-config-typescript'
 // configureVueProject({ scriptLangs: ['ts', 'tsx'] })
@@ -36,7 +38,8 @@ export default defineConfigWithVueTs(
   ...pluginOxlint.configs['flat/recommended'],
   skipFormatting,
 
-  ...(vueI18n.configs.recommended as unknown as Parameters<typeof defineConfigWithVueTs>),
+  // The i18n plugin's config objects are valid ESLint flat configs; its typings are just stricter than ours
+  ...(vueI18n.configs.recommended as unknown as VueTsConfig[]),
   {
     rules: {
       '@intlify/vue-i18n/no-missing-keys': 'error',

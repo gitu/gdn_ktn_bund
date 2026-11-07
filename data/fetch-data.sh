@@ -2,7 +2,7 @@
 set -e
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
-cd $DIR
+cd "$DIR"
 
 # Since 2025 the EFV serves the Finanzstatistik CSVs from its data portal (the old
 # efv.admin.ch/dam/... links return 404). Links as listed on https://www.efv.admin.ch/de/fs-daten
