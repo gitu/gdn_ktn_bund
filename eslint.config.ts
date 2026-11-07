@@ -36,7 +36,7 @@ export default defineConfigWithVueTs(
   ...pluginOxlint.configs['flat/recommended'],
   skipFormatting,
 
-  ...vueI18n.configs.recommended,
+  ...(vueI18n.configs.recommended as unknown as Parameters<typeof defineConfigWithVueTs>),
   {
     rules: {
       '@intlify/vue-i18n/no-missing-keys': 'error',
