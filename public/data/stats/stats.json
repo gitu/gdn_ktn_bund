@@ -15,8 +15,8 @@
         "en": "Inhabitants"
       },
       "mode": "absolut",
-      "source": "STATPOP via atlas.bfs.admin.ch",
-      "lastUpdate": "2024-08-21",
+      "source": "STATPOP (BFS), px-x-0102010000_101, Stichtag 31.12.",
+      "lastUpdate": "2026-11-07",
       "dataFormat": {
         "type": "csv",
         "delimiter": ";",
@@ -28,16 +28,574 @@
       "data": {
         "ktn": [
           {
+            "year": 2015,
+            "file": "pop/ktn/2015.csv"
+          },
+          {
+            "year": 2016,
+            "file": "pop/ktn/2016.csv"
+          },
+          {
+            "year": 2017,
+            "file": "pop/ktn/2017.csv"
+          },
+          {
+            "year": 2018,
+            "file": "pop/ktn/2018.csv"
+          },
+          {
+            "year": 2019,
+            "file": "pop/ktn/2019.csv"
+          },
+          {
+            "year": 2020,
+            "file": "pop/ktn/2020.csv"
+          },
+          {
+            "year": 2021,
+            "file": "pop/ktn/2021.csv"
+          },
+          {
+            "year": 2022,
+            "file": "pop/ktn/2022.csv"
+          },
+          {
             "year": 2023,
-            "file": "pop/ktn/2023.csv",
-            "atlasId": "27862"
+            "file": "pop/ktn/2023.csv"
+          },
+          {
+            "year": 2024,
+            "file": "pop/ktn/2024.csv"
+          },
+          {
+            "year": 2025,
+            "file": "pop/ktn/2025.csv"
           }
         ],
         "gdn": [
           {
+            "year": 2015,
+            "file": "pop/gdn/2015.csv"
+          },
+          {
+            "year": 2016,
+            "file": "pop/gdn/2016.csv"
+          },
+          {
+            "year": 2017,
+            "file": "pop/gdn/2017.csv"
+          },
+          {
+            "year": 2018,
+            "file": "pop/gdn/2018.csv"
+          },
+          {
+            "year": 2019,
+            "file": "pop/gdn/2019.csv"
+          },
+          {
+            "year": 2020,
+            "file": "pop/gdn/2020.csv"
+          },
+          {
+            "year": 2021,
+            "file": "pop/gdn/2021.csv"
+          },
+          {
+            "year": 2022,
+            "file": "pop/gdn/2022.csv"
+          },
+          {
             "year": 2023,
-            "file": "pop/gdn/2023.csv",
-            "atlasId": "27864"
+            "file": "pop/gdn/2023.csv"
+          },
+          {
+            "year": 2024,
+            "file": "pop/gdn/2024.csv"
+          },
+          {
+            "year": 2025,
+            "file": "pop/gdn/2025.csv"
+          }
+        ]
+      }
+    },
+    {
+      "id": "pop_0_19",
+      "name": {
+        "de": "Einwohner/-innen im Alter von 0–19 Jahren",
+        "fr": "Habitants âgés de 0 à 19 ans",
+        "it": "Abitanti di età compresa tra 0 e 19 anni",
+        "en": "Inhabitants aged 0–19"
+      },
+      "unit": {
+        "de": "Einwohner/Innen",
+        "fr": "Habitants",
+        "it": "Abitanti",
+        "en": "Inhabitants"
+      },
+      "mode": "absolut",
+      "source": "STATPOP (BFS), px-x-0102010000_101, Stichtag 31.12.",
+      "lastUpdate": "2026-11-07",
+      "dataFormat": {
+        "type": "csv",
+        "delimiter": ";",
+        "quoteChar": "\"",
+        "header": true,
+        "key_field": "GEO_ID",
+        "value_field": "VALUE"
+      },
+      "data": {
+        "ktn": [
+          {
+            "year": 2015,
+            "file": "pop_0_19/ktn/2015.csv"
+          },
+          {
+            "year": 2016,
+            "file": "pop_0_19/ktn/2016.csv"
+          },
+          {
+            "year": 2017,
+            "file": "pop_0_19/ktn/2017.csv"
+          },
+          {
+            "year": 2018,
+            "file": "pop_0_19/ktn/2018.csv"
+          },
+          {
+            "year": 2019,
+            "file": "pop_0_19/ktn/2019.csv"
+          },
+          {
+            "year": 2020,
+            "file": "pop_0_19/ktn/2020.csv"
+          },
+          {
+            "year": 2021,
+            "file": "pop_0_19/ktn/2021.csv"
+          },
+          {
+            "year": 2022,
+            "file": "pop_0_19/ktn/2022.csv"
+          },
+          {
+            "year": 2023,
+            "file": "pop_0_19/ktn/2023.csv"
+          },
+          {
+            "year": 2024,
+            "file": "pop_0_19/ktn/2024.csv"
+          },
+          {
+            "year": 2025,
+            "file": "pop_0_19/ktn/2025.csv"
+          }
+        ],
+        "gdn": [
+          {
+            "year": 2015,
+            "file": "pop_0_19/gdn/2015.csv"
+          },
+          {
+            "year": 2016,
+            "file": "pop_0_19/gdn/2016.csv"
+          },
+          {
+            "year": 2017,
+            "file": "pop_0_19/gdn/2017.csv"
+          },
+          {
+            "year": 2018,
+            "file": "pop_0_19/gdn/2018.csv"
+          },
+          {
+            "year": 2019,
+            "file": "pop_0_19/gdn/2019.csv"
+          },
+          {
+            "year": 2020,
+            "file": "pop_0_19/gdn/2020.csv"
+          },
+          {
+            "year": 2021,
+            "file": "pop_0_19/gdn/2021.csv"
+          },
+          {
+            "year": 2022,
+            "file": "pop_0_19/gdn/2022.csv"
+          },
+          {
+            "year": 2023,
+            "file": "pop_0_19/gdn/2023.csv"
+          },
+          {
+            "year": 2024,
+            "file": "pop_0_19/gdn/2024.csv"
+          },
+          {
+            "year": 2025,
+            "file": "pop_0_19/gdn/2025.csv"
+          }
+        ]
+      }
+    },
+    {
+      "id": "pop_20_64",
+      "name": {
+        "de": "Einwohner/-innen im Alter von 20–64 Jahren",
+        "fr": "Habitants âgés de 20 à 64 ans",
+        "it": "Abitanti di età compresa tra 20 e 64 anni",
+        "en": "Inhabitants aged 20–64"
+      },
+      "unit": {
+        "de": "Einwohner/Innen",
+        "fr": "Habitants",
+        "it": "Abitanti",
+        "en": "Inhabitants"
+      },
+      "mode": "absolut",
+      "source": "STATPOP (BFS), px-x-0102010000_101, Stichtag 31.12.",
+      "lastUpdate": "2026-11-07",
+      "dataFormat": {
+        "type": "csv",
+        "delimiter": ";",
+        "quoteChar": "\"",
+        "header": true,
+        "key_field": "GEO_ID",
+        "value_field": "VALUE"
+      },
+      "data": {
+        "ktn": [
+          {
+            "year": 2015,
+            "file": "pop_20_64/ktn/2015.csv"
+          },
+          {
+            "year": 2016,
+            "file": "pop_20_64/ktn/2016.csv"
+          },
+          {
+            "year": 2017,
+            "file": "pop_20_64/ktn/2017.csv"
+          },
+          {
+            "year": 2018,
+            "file": "pop_20_64/ktn/2018.csv"
+          },
+          {
+            "year": 2019,
+            "file": "pop_20_64/ktn/2019.csv"
+          },
+          {
+            "year": 2020,
+            "file": "pop_20_64/ktn/2020.csv"
+          },
+          {
+            "year": 2021,
+            "file": "pop_20_64/ktn/2021.csv"
+          },
+          {
+            "year": 2022,
+            "file": "pop_20_64/ktn/2022.csv"
+          },
+          {
+            "year": 2023,
+            "file": "pop_20_64/ktn/2023.csv"
+          },
+          {
+            "year": 2024,
+            "file": "pop_20_64/ktn/2024.csv"
+          },
+          {
+            "year": 2025,
+            "file": "pop_20_64/ktn/2025.csv"
+          }
+        ],
+        "gdn": [
+          {
+            "year": 2015,
+            "file": "pop_20_64/gdn/2015.csv"
+          },
+          {
+            "year": 2016,
+            "file": "pop_20_64/gdn/2016.csv"
+          },
+          {
+            "year": 2017,
+            "file": "pop_20_64/gdn/2017.csv"
+          },
+          {
+            "year": 2018,
+            "file": "pop_20_64/gdn/2018.csv"
+          },
+          {
+            "year": 2019,
+            "file": "pop_20_64/gdn/2019.csv"
+          },
+          {
+            "year": 2020,
+            "file": "pop_20_64/gdn/2020.csv"
+          },
+          {
+            "year": 2021,
+            "file": "pop_20_64/gdn/2021.csv"
+          },
+          {
+            "year": 2022,
+            "file": "pop_20_64/gdn/2022.csv"
+          },
+          {
+            "year": 2023,
+            "file": "pop_20_64/gdn/2023.csv"
+          },
+          {
+            "year": 2024,
+            "file": "pop_20_64/gdn/2024.csv"
+          },
+          {
+            "year": 2025,
+            "file": "pop_20_64/gdn/2025.csv"
+          }
+        ]
+      }
+    },
+    {
+      "id": "pop_65plus",
+      "name": {
+        "de": "Einwohner/-innen ab 65 Jahren",
+        "fr": "Habitants de 65 ans et plus",
+        "it": "Abitanti di 65 anni e più",
+        "en": "Inhabitants aged 65 and over"
+      },
+      "unit": {
+        "de": "Einwohner/Innen",
+        "fr": "Habitants",
+        "it": "Abitanti",
+        "en": "Inhabitants"
+      },
+      "mode": "absolut",
+      "source": "STATPOP (BFS), px-x-0102010000_101, Stichtag 31.12.",
+      "lastUpdate": "2026-11-07",
+      "dataFormat": {
+        "type": "csv",
+        "delimiter": ";",
+        "quoteChar": "\"",
+        "header": true,
+        "key_field": "GEO_ID",
+        "value_field": "VALUE"
+      },
+      "data": {
+        "ktn": [
+          {
+            "year": 2015,
+            "file": "pop_65plus/ktn/2015.csv"
+          },
+          {
+            "year": 2016,
+            "file": "pop_65plus/ktn/2016.csv"
+          },
+          {
+            "year": 2017,
+            "file": "pop_65plus/ktn/2017.csv"
+          },
+          {
+            "year": 2018,
+            "file": "pop_65plus/ktn/2018.csv"
+          },
+          {
+            "year": 2019,
+            "file": "pop_65plus/ktn/2019.csv"
+          },
+          {
+            "year": 2020,
+            "file": "pop_65plus/ktn/2020.csv"
+          },
+          {
+            "year": 2021,
+            "file": "pop_65plus/ktn/2021.csv"
+          },
+          {
+            "year": 2022,
+            "file": "pop_65plus/ktn/2022.csv"
+          },
+          {
+            "year": 2023,
+            "file": "pop_65plus/ktn/2023.csv"
+          },
+          {
+            "year": 2024,
+            "file": "pop_65plus/ktn/2024.csv"
+          },
+          {
+            "year": 2025,
+            "file": "pop_65plus/ktn/2025.csv"
+          }
+        ],
+        "gdn": [
+          {
+            "year": 2015,
+            "file": "pop_65plus/gdn/2015.csv"
+          },
+          {
+            "year": 2016,
+            "file": "pop_65plus/gdn/2016.csv"
+          },
+          {
+            "year": 2017,
+            "file": "pop_65plus/gdn/2017.csv"
+          },
+          {
+            "year": 2018,
+            "file": "pop_65plus/gdn/2018.csv"
+          },
+          {
+            "year": 2019,
+            "file": "pop_65plus/gdn/2019.csv"
+          },
+          {
+            "year": 2020,
+            "file": "pop_65plus/gdn/2020.csv"
+          },
+          {
+            "year": 2021,
+            "file": "pop_65plus/gdn/2021.csv"
+          },
+          {
+            "year": 2022,
+            "file": "pop_65plus/gdn/2022.csv"
+          },
+          {
+            "year": 2023,
+            "file": "pop_65plus/gdn/2023.csv"
+          },
+          {
+            "year": 2024,
+            "file": "pop_65plus/gdn/2024.csv"
+          },
+          {
+            "year": 2025,
+            "file": "pop_65plus/gdn/2025.csv"
+          }
+        ]
+      }
+    },
+    {
+      "id": "pop_foreign",
+      "name": {
+        "de": "Ausländische Einwohner/-innen",
+        "fr": "Habitants de nationalité étrangère",
+        "it": "Abitanti di nazionalità straniera",
+        "en": "Foreign inhabitants"
+      },
+      "unit": {
+        "de": "Einwohner/Innen",
+        "fr": "Habitants",
+        "it": "Abitanti",
+        "en": "Inhabitants"
+      },
+      "mode": "absolut",
+      "source": "STATPOP (BFS), px-x-0102010000_101, Stichtag 31.12.",
+      "lastUpdate": "2026-11-07",
+      "dataFormat": {
+        "type": "csv",
+        "delimiter": ";",
+        "quoteChar": "\"",
+        "header": true,
+        "key_field": "GEO_ID",
+        "value_field": "VALUE"
+      },
+      "data": {
+        "ktn": [
+          {
+            "year": 2015,
+            "file": "pop_foreign/ktn/2015.csv"
+          },
+          {
+            "year": 2016,
+            "file": "pop_foreign/ktn/2016.csv"
+          },
+          {
+            "year": 2017,
+            "file": "pop_foreign/ktn/2017.csv"
+          },
+          {
+            "year": 2018,
+            "file": "pop_foreign/ktn/2018.csv"
+          },
+          {
+            "year": 2019,
+            "file": "pop_foreign/ktn/2019.csv"
+          },
+          {
+            "year": 2020,
+            "file": "pop_foreign/ktn/2020.csv"
+          },
+          {
+            "year": 2021,
+            "file": "pop_foreign/ktn/2021.csv"
+          },
+          {
+            "year": 2022,
+            "file": "pop_foreign/ktn/2022.csv"
+          },
+          {
+            "year": 2023,
+            "file": "pop_foreign/ktn/2023.csv"
+          },
+          {
+            "year": 2024,
+            "file": "pop_foreign/ktn/2024.csv"
+          },
+          {
+            "year": 2025,
+            "file": "pop_foreign/ktn/2025.csv"
+          }
+        ],
+        "gdn": [
+          {
+            "year": 2015,
+            "file": "pop_foreign/gdn/2015.csv"
+          },
+          {
+            "year": 2016,
+            "file": "pop_foreign/gdn/2016.csv"
+          },
+          {
+            "year": 2017,
+            "file": "pop_foreign/gdn/2017.csv"
+          },
+          {
+            "year": 2018,
+            "file": "pop_foreign/gdn/2018.csv"
+          },
+          {
+            "year": 2019,
+            "file": "pop_foreign/gdn/2019.csv"
+          },
+          {
+            "year": 2020,
+            "file": "pop_foreign/gdn/2020.csv"
+          },
+          {
+            "year": 2021,
+            "file": "pop_foreign/gdn/2021.csv"
+          },
+          {
+            "year": 2022,
+            "file": "pop_foreign/gdn/2022.csv"
+          },
+          {
+            "year": 2023,
+            "file": "pop_foreign/gdn/2023.csv"
+          },
+          {
+            "year": 2024,
+            "file": "pop_foreign/gdn/2024.csv"
+          },
+          {
+            "year": 2025,
+            "file": "pop_foreign/gdn/2025.csv"
           }
         ]
       }
@@ -137,8 +695,8 @@
         "en": "Employed persons"
       },
       "mode": "per_capita",
-      "source": "BFS",
-      "lastUpdate": "2023-11-30",
+      "source": "STATENT (BFS), px-x-0602010000_102, Referenzperiode Dezember",
+      "lastUpdate": "2026-11-07",
       "dataFormat": {
         "type": "csv",
         "delimiter": ";",
@@ -150,16 +708,686 @@
       "data": {
         "ktn": [
           {
+            "year": 2015,
+            "file": "workplaces/ktn/2015.csv"
+          },
+          {
+            "year": 2016,
+            "file": "workplaces/ktn/2016.csv"
+          },
+          {
+            "year": 2017,
+            "file": "workplaces/ktn/2017.csv"
+          },
+          {
+            "year": 2018,
+            "file": "workplaces/ktn/2018.csv"
+          },
+          {
+            "year": 2019,
+            "file": "workplaces/ktn/2019.csv"
+          },
+          {
+            "year": 2020,
+            "file": "workplaces/ktn/2020.csv"
+          },
+          {
+            "year": 2021,
+            "file": "workplaces/ktn/2021.csv"
+          },
+          {
+            "year": 2022,
+            "file": "workplaces/ktn/2022.csv"
+          },
+          {
             "year": 2023,
-            "file": "jobs/ktn/2023.csv",
-            "atlasId": "27300"
+            "file": "workplaces/ktn/2023.csv"
+          },
+          {
+            "year": 2024,
+            "file": "workplaces/ktn/2024.csv"
           }
         ],
         "gdn": [
           {
+            "year": 2015,
+            "file": "workplaces/gdn/2015.csv"
+          },
+          {
+            "year": 2016,
+            "file": "workplaces/gdn/2016.csv"
+          },
+          {
+            "year": 2017,
+            "file": "workplaces/gdn/2017.csv"
+          },
+          {
+            "year": 2018,
+            "file": "workplaces/gdn/2018.csv"
+          },
+          {
+            "year": 2019,
+            "file": "workplaces/gdn/2019.csv"
+          },
+          {
+            "year": 2020,
+            "file": "workplaces/gdn/2020.csv"
+          },
+          {
+            "year": 2021,
+            "file": "workplaces/gdn/2021.csv"
+          },
+          {
+            "year": 2022,
+            "file": "workplaces/gdn/2022.csv"
+          },
+          {
             "year": 2023,
-            "file": "jobs/gdn/2023.csv",
-            "atlasId": "27299"
+            "file": "workplaces/gdn/2023.csv"
+          },
+          {
+            "year": 2024,
+            "file": "workplaces/gdn/2024.csv"
+          }
+        ]
+      }
+    },
+    {
+      "id": "fte",
+      "name": {
+        "de": "Vollzeitäquivalente",
+        "fr": "Équivalents plein temps",
+        "it": "Equivalenti a tempo pieno",
+        "en": "Full-time equivalents (FTE)"
+      },
+      "unit": {
+        "de": "Vollzeitäquivalente",
+        "fr": "Équivalents plein temps",
+        "it": "Equivalenti a tempo pieno",
+        "en": "Full-time equivalents"
+      },
+      "mode": "absolut",
+      "source": "STATENT (BFS), px-x-0602010000_102, Referenzperiode Dezember",
+      "lastUpdate": "2026-11-07",
+      "dataFormat": {
+        "type": "csv",
+        "delimiter": ";",
+        "quoteChar": "\"",
+        "header": true,
+        "key_field": "GEO_ID",
+        "value_field": "VALUE"
+      },
+      "data": {
+        "ktn": [
+          {
+            "year": 2015,
+            "file": "fte/ktn/2015.csv"
+          },
+          {
+            "year": 2016,
+            "file": "fte/ktn/2016.csv"
+          },
+          {
+            "year": 2017,
+            "file": "fte/ktn/2017.csv"
+          },
+          {
+            "year": 2018,
+            "file": "fte/ktn/2018.csv"
+          },
+          {
+            "year": 2019,
+            "file": "fte/ktn/2019.csv"
+          },
+          {
+            "year": 2020,
+            "file": "fte/ktn/2020.csv"
+          },
+          {
+            "year": 2021,
+            "file": "fte/ktn/2021.csv"
+          },
+          {
+            "year": 2022,
+            "file": "fte/ktn/2022.csv"
+          },
+          {
+            "year": 2023,
+            "file": "fte/ktn/2023.csv"
+          },
+          {
+            "year": 2024,
+            "file": "fte/ktn/2024.csv"
+          }
+        ],
+        "gdn": [
+          {
+            "year": 2015,
+            "file": "fte/gdn/2015.csv"
+          },
+          {
+            "year": 2016,
+            "file": "fte/gdn/2016.csv"
+          },
+          {
+            "year": 2017,
+            "file": "fte/gdn/2017.csv"
+          },
+          {
+            "year": 2018,
+            "file": "fte/gdn/2018.csv"
+          },
+          {
+            "year": 2019,
+            "file": "fte/gdn/2019.csv"
+          },
+          {
+            "year": 2020,
+            "file": "fte/gdn/2020.csv"
+          },
+          {
+            "year": 2021,
+            "file": "fte/gdn/2021.csv"
+          },
+          {
+            "year": 2022,
+            "file": "fte/gdn/2022.csv"
+          },
+          {
+            "year": 2023,
+            "file": "fte/gdn/2023.csv"
+          },
+          {
+            "year": 2024,
+            "file": "fte/gdn/2024.csv"
+          }
+        ]
+      }
+    },
+    {
+      "id": "establishments",
+      "name": {
+        "de": "Arbeitsstätten",
+        "fr": "Établissements",
+        "it": "Stabilimenti",
+        "en": "Establishments"
+      },
+      "unit": {
+        "de": "Arbeitsstätten",
+        "fr": "Établissements",
+        "it": "Stabilimenti",
+        "en": "Establishments"
+      },
+      "mode": "absolut",
+      "source": "STATENT (BFS), px-x-0602010000_102, Referenzperiode Dezember",
+      "lastUpdate": "2026-11-07",
+      "dataFormat": {
+        "type": "csv",
+        "delimiter": ";",
+        "quoteChar": "\"",
+        "header": true,
+        "key_field": "GEO_ID",
+        "value_field": "VALUE"
+      },
+      "data": {
+        "ktn": [
+          {
+            "year": 2015,
+            "file": "establishments/ktn/2015.csv"
+          },
+          {
+            "year": 2016,
+            "file": "establishments/ktn/2016.csv"
+          },
+          {
+            "year": 2017,
+            "file": "establishments/ktn/2017.csv"
+          },
+          {
+            "year": 2018,
+            "file": "establishments/ktn/2018.csv"
+          },
+          {
+            "year": 2019,
+            "file": "establishments/ktn/2019.csv"
+          },
+          {
+            "year": 2020,
+            "file": "establishments/ktn/2020.csv"
+          },
+          {
+            "year": 2021,
+            "file": "establishments/ktn/2021.csv"
+          },
+          {
+            "year": 2022,
+            "file": "establishments/ktn/2022.csv"
+          },
+          {
+            "year": 2023,
+            "file": "establishments/ktn/2023.csv"
+          },
+          {
+            "year": 2024,
+            "file": "establishments/ktn/2024.csv"
+          }
+        ],
+        "gdn": [
+          {
+            "year": 2015,
+            "file": "establishments/gdn/2015.csv"
+          },
+          {
+            "year": 2016,
+            "file": "establishments/gdn/2016.csv"
+          },
+          {
+            "year": 2017,
+            "file": "establishments/gdn/2017.csv"
+          },
+          {
+            "year": 2018,
+            "file": "establishments/gdn/2018.csv"
+          },
+          {
+            "year": 2019,
+            "file": "establishments/gdn/2019.csv"
+          },
+          {
+            "year": 2020,
+            "file": "establishments/gdn/2020.csv"
+          },
+          {
+            "year": 2021,
+            "file": "establishments/gdn/2021.csv"
+          },
+          {
+            "year": 2022,
+            "file": "establishments/gdn/2022.csv"
+          },
+          {
+            "year": 2023,
+            "file": "establishments/gdn/2023.csv"
+          },
+          {
+            "year": 2024,
+            "file": "establishments/gdn/2024.csv"
+          }
+        ]
+      }
+    },
+    {
+      "id": "jobs_primary",
+      "name": {
+        "de": "Beschäftigte im Primärsektor (Landwirtschaft)",
+        "fr": "Emplois du secteur primaire (agriculture)",
+        "it": "Addetti del settore primario (agricoltura)",
+        "en": "Jobs in the primary sector (agriculture)"
+      },
+      "unit": {
+        "de": "Berufstätige/Innen",
+        "fr": "Personnes actives",
+        "it": "Persone attive",
+        "en": "Employed persons"
+      },
+      "mode": "absolut",
+      "source": "STATENT (BFS), px-x-0602010000_102, Referenzperiode Dezember",
+      "lastUpdate": "2026-11-07",
+      "dataFormat": {
+        "type": "csv",
+        "delimiter": ";",
+        "quoteChar": "\"",
+        "header": true,
+        "key_field": "GEO_ID",
+        "value_field": "VALUE"
+      },
+      "data": {
+        "ktn": [
+          {
+            "year": 2015,
+            "file": "jobs_primary/ktn/2015.csv"
+          },
+          {
+            "year": 2016,
+            "file": "jobs_primary/ktn/2016.csv"
+          },
+          {
+            "year": 2017,
+            "file": "jobs_primary/ktn/2017.csv"
+          },
+          {
+            "year": 2018,
+            "file": "jobs_primary/ktn/2018.csv"
+          },
+          {
+            "year": 2019,
+            "file": "jobs_primary/ktn/2019.csv"
+          },
+          {
+            "year": 2020,
+            "file": "jobs_primary/ktn/2020.csv"
+          },
+          {
+            "year": 2021,
+            "file": "jobs_primary/ktn/2021.csv"
+          },
+          {
+            "year": 2022,
+            "file": "jobs_primary/ktn/2022.csv"
+          },
+          {
+            "year": 2023,
+            "file": "jobs_primary/ktn/2023.csv"
+          },
+          {
+            "year": 2024,
+            "file": "jobs_primary/ktn/2024.csv"
+          }
+        ],
+        "gdn": [
+          {
+            "year": 2015,
+            "file": "jobs_primary/gdn/2015.csv"
+          },
+          {
+            "year": 2016,
+            "file": "jobs_primary/gdn/2016.csv"
+          },
+          {
+            "year": 2017,
+            "file": "jobs_primary/gdn/2017.csv"
+          },
+          {
+            "year": 2018,
+            "file": "jobs_primary/gdn/2018.csv"
+          },
+          {
+            "year": 2019,
+            "file": "jobs_primary/gdn/2019.csv"
+          },
+          {
+            "year": 2020,
+            "file": "jobs_primary/gdn/2020.csv"
+          },
+          {
+            "year": 2021,
+            "file": "jobs_primary/gdn/2021.csv"
+          },
+          {
+            "year": 2022,
+            "file": "jobs_primary/gdn/2022.csv"
+          },
+          {
+            "year": 2023,
+            "file": "jobs_primary/gdn/2023.csv"
+          },
+          {
+            "year": 2024,
+            "file": "jobs_primary/gdn/2024.csv"
+          }
+        ]
+      }
+    },
+    {
+      "id": "jobs_secondary",
+      "name": {
+        "de": "Beschäftigte im Sekundärsektor (Industrie, Bau)",
+        "fr": "Emplois du secteur secondaire (industrie, construction)",
+        "it": "Addetti del settore secondario (industria, costruzioni)",
+        "en": "Jobs in the secondary sector (industry, construction)"
+      },
+      "unit": {
+        "de": "Berufstätige/Innen",
+        "fr": "Personnes actives",
+        "it": "Persone attive",
+        "en": "Employed persons"
+      },
+      "mode": "absolut",
+      "source": "STATENT (BFS), px-x-0602010000_102, Referenzperiode Dezember",
+      "lastUpdate": "2026-11-07",
+      "dataFormat": {
+        "type": "csv",
+        "delimiter": ";",
+        "quoteChar": "\"",
+        "header": true,
+        "key_field": "GEO_ID",
+        "value_field": "VALUE"
+      },
+      "data": {
+        "ktn": [
+          {
+            "year": 2015,
+            "file": "jobs_secondary/ktn/2015.csv"
+          },
+          {
+            "year": 2016,
+            "file": "jobs_secondary/ktn/2016.csv"
+          },
+          {
+            "year": 2017,
+            "file": "jobs_secondary/ktn/2017.csv"
+          },
+          {
+            "year": 2018,
+            "file": "jobs_secondary/ktn/2018.csv"
+          },
+          {
+            "year": 2019,
+            "file": "jobs_secondary/ktn/2019.csv"
+          },
+          {
+            "year": 2020,
+            "file": "jobs_secondary/ktn/2020.csv"
+          },
+          {
+            "year": 2021,
+            "file": "jobs_secondary/ktn/2021.csv"
+          },
+          {
+            "year": 2022,
+            "file": "jobs_secondary/ktn/2022.csv"
+          },
+          {
+            "year": 2023,
+            "file": "jobs_secondary/ktn/2023.csv"
+          },
+          {
+            "year": 2024,
+            "file": "jobs_secondary/ktn/2024.csv"
+          }
+        ],
+        "gdn": [
+          {
+            "year": 2015,
+            "file": "jobs_secondary/gdn/2015.csv"
+          },
+          {
+            "year": 2016,
+            "file": "jobs_secondary/gdn/2016.csv"
+          },
+          {
+            "year": 2017,
+            "file": "jobs_secondary/gdn/2017.csv"
+          },
+          {
+            "year": 2018,
+            "file": "jobs_secondary/gdn/2018.csv"
+          },
+          {
+            "year": 2019,
+            "file": "jobs_secondary/gdn/2019.csv"
+          },
+          {
+            "year": 2020,
+            "file": "jobs_secondary/gdn/2020.csv"
+          },
+          {
+            "year": 2021,
+            "file": "jobs_secondary/gdn/2021.csv"
+          },
+          {
+            "year": 2022,
+            "file": "jobs_secondary/gdn/2022.csv"
+          },
+          {
+            "year": 2023,
+            "file": "jobs_secondary/gdn/2023.csv"
+          },
+          {
+            "year": 2024,
+            "file": "jobs_secondary/gdn/2024.csv"
+          }
+        ]
+      }
+    },
+    {
+      "id": "jobs_tertiary",
+      "name": {
+        "de": "Beschäftigte im Tertiärsektor (Dienstleistungen)",
+        "fr": "Emplois du secteur tertiaire (services)",
+        "it": "Addetti del settore terziario (servizi)",
+        "en": "Jobs in the tertiary sector (services)"
+      },
+      "unit": {
+        "de": "Berufstätige/Innen",
+        "fr": "Personnes actives",
+        "it": "Persone attive",
+        "en": "Employed persons"
+      },
+      "mode": "absolut",
+      "source": "STATENT (BFS), px-x-0602010000_102, Referenzperiode Dezember",
+      "lastUpdate": "2026-11-07",
+      "dataFormat": {
+        "type": "csv",
+        "delimiter": ";",
+        "quoteChar": "\"",
+        "header": true,
+        "key_field": "GEO_ID",
+        "value_field": "VALUE"
+      },
+      "data": {
+        "ktn": [
+          {
+            "year": 2015,
+            "file": "jobs_tertiary/ktn/2015.csv"
+          },
+          {
+            "year": 2016,
+            "file": "jobs_tertiary/ktn/2016.csv"
+          },
+          {
+            "year": 2017,
+            "file": "jobs_tertiary/ktn/2017.csv"
+          },
+          {
+            "year": 2018,
+            "file": "jobs_tertiary/ktn/2018.csv"
+          },
+          {
+            "year": 2019,
+            "file": "jobs_tertiary/ktn/2019.csv"
+          },
+          {
+            "year": 2020,
+            "file": "jobs_tertiary/ktn/2020.csv"
+          },
+          {
+            "year": 2021,
+            "file": "jobs_tertiary/ktn/2021.csv"
+          },
+          {
+            "year": 2022,
+            "file": "jobs_tertiary/ktn/2022.csv"
+          },
+          {
+            "year": 2023,
+            "file": "jobs_tertiary/ktn/2023.csv"
+          },
+          {
+            "year": 2024,
+            "file": "jobs_tertiary/ktn/2024.csv"
+          }
+        ],
+        "gdn": [
+          {
+            "year": 2015,
+            "file": "jobs_tertiary/gdn/2015.csv"
+          },
+          {
+            "year": 2016,
+            "file": "jobs_tertiary/gdn/2016.csv"
+          },
+          {
+            "year": 2017,
+            "file": "jobs_tertiary/gdn/2017.csv"
+          },
+          {
+            "year": 2018,
+            "file": "jobs_tertiary/gdn/2018.csv"
+          },
+          {
+            "year": 2019,
+            "file": "jobs_tertiary/gdn/2019.csv"
+          },
+          {
+            "year": 2020,
+            "file": "jobs_tertiary/gdn/2020.csv"
+          },
+          {
+            "year": 2021,
+            "file": "jobs_tertiary/gdn/2021.csv"
+          },
+          {
+            "year": 2022,
+            "file": "jobs_tertiary/gdn/2022.csv"
+          },
+          {
+            "year": 2023,
+            "file": "jobs_tertiary/gdn/2023.csv"
+          },
+          {
+            "year": 2024,
+            "file": "jobs_tertiary/gdn/2024.csv"
+          }
+        ]
+      }
+    },
+    {
+      "id": "road_length",
+      "name": {
+        "de": "Strassenlänge (ohne Nationalstrassen)",
+        "fr": "Longueur du réseau routier (sans les routes nationales)",
+        "it": "Lunghezza della rete stradale (escluse le strade nazionali)",
+        "en": "Road length (excluding national roads)"
+      },
+      "unit": {
+        "de": "km",
+        "fr": "km",
+        "it": "km",
+        "en": "km"
+      },
+      "mode": "absolut",
+      "source": "Strassenlänge ohne Nationalstrassen (BFS), ts-x-11.03.01.07",
+      "lastUpdate": "2026-11-07",
+      "dataFormat": {
+        "type": "csv",
+        "delimiter": ";",
+        "quoteChar": "\"",
+        "header": true,
+        "key_field": "GEO_ID",
+        "value_field": "VALUE"
+      },
+      "data": {
+        "ktn": [
+          {
+            "year": 2025,
+            "file": "road_length/ktn/2025.csv"
+          }
+        ],
+        "gdn": [
+          {
+            "year": 2025,
+            "file": "road_length/gdn/2025.csv"
           }
         ]
       }

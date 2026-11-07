@@ -1,50 +1,47 @@
 <template>
-  <div class="min-h-screen">
+  <div class="full-view">
     <!-- Header with back button -->
-    <div class="px-6 py-4">
-      <div class="flex items-center justify-between max-w-full">
-        <div class="flex items-center gap-6">
-          <Button
-            :label="$t('financialDataFullView.backToSelection')"
-            :title="$t('financialDataFullView.backToSelectionTooltip')"
-            icon="pi pi-arrow-left"
-            severity="secondary"
-            outlined
-            @click="goBackToComparison"
-            class="shrink-0"
-          />
-        </div>
+    <div class="full-view-header">
+      <Button
+        :label="$t('financialDataFullView.backToSelection')"
+        :title="$t('financialDataFullView.backToSelectionTooltip')"
+        icon="pi pi-arrow-left"
+        severity="secondary"
+        outlined
+        @click="goBackToComparison"
+        class="back-button"
+      />
 
-        <!-- Dataset count indicator -->
-        <div v-if="hasValidData" class="flex items-center gap-2 text-sm">
-          <i class="pi pi-database"></i>
-          <span>{{ $t('financialDataFullView.datasetsLoaded', { count: datasets.length }) }}</span>
-        </div>
+      <!-- Dataset count indicator -->
+      <div v-if="hasValidData" class="dataset-count">
+        <i class="pi pi-database" aria-hidden="true"></i>
+        <span>{{ $t('financialDataFullView.datasetsLoaded', { count: datasets.length }) }}</span>
       </div>
     </div>
 
     <!-- Main content area -->
-    <div class="p-6">
+    <div class="full-view-content">
       <!-- Loading state -->
-      <div v-if="loading" class="flex items-center justify-center py-16">
-        <div class="text-center">
-          <i class="pi pi-spin pi-spinner text-4xl text-primary-500 mb-4"></i>
-          <p class="text-lg text-surface-600 dark:text-surface-300">
-            {{ $t('financialDataFullView.loadingDatasets') }}
-          </p>
-        </div>
+      <div
+        v-if="loading"
+        class="full-view-loading"
+        role="status"
+        :aria-label="$t('financialDataFullView.loadingDatasets')"
+      >
+        <span class="sr-only">{{ $t('financialDataFullView.loadingDatasets') }}</span>
+        <Skeleton v-for="n in 4" :key="n" height="2.5rem" aria-hidden="true" />
       </div>
 
       <!-- No datasets state -->
-      <div v-else-if="!hasValidData" class="flex items-center justify-center py-16">
+      <div v-else-if="!hasValidData" class="flex items-center justify-center py-8">
         <Card class="max-w-md">
           <template #content>
             <div class="text-center">
               <i class="pi pi-exclamation-triangle text-4xl text-orange-500 mb-4"></i>
-              <h3 class="text-xl font-semibold text-surface-900 dark:text-surface-50 mb-2">
+              <h3 class="empty-title">
                 {{ $t('financialDataFullView.noDatasets') }}
               </h3>
-              <p class="text-surface-600 dark:text-surface-300 mb-6">
+              <p class="muted mb-6">
                 {{ $t('financialDataFullView.noDataMessage') }}
               </p>
               <Button
@@ -59,6 +56,7 @@
 
       <!-- Financial data display -->
       <div v-else class="w-full">
+        <RestOfCantonNotice :datasets="datasets" />
         <FinancialDataComparison
           :datasets="datasets"
           :selected-scaling="selectedScaling"
@@ -83,8 +81,10 @@ import { useI18n } from 'vue-i18n'
 import { useToast } from 'primevue/usetoast'
 import Button from 'primevue/button'
 import Card from 'primevue/card'
+import Skeleton from 'primevue/skeleton'
 import Toast from 'primevue/toast'
 import FinancialDataComparison from '@/components/FinancialDataComparison.vue'
+import RestOfCantonNotice from '@/components/RestOfCantonNotice.vue'
 
 // Composables
 const route = useRoute()
@@ -261,8 +261,59 @@ onMounted(() => {
 </script>
 
 <style scoped>
-/* Additional styles for full-screen layout */
-.min-h-screen {
-  min-height: 100vh;
+/* The layout already provides the page gutter: no extra padding here */
+.full-view-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem 1rem;
+  padding-bottom: 1rem;
+}
+
+.back-button {
+  flex: none;
+  min-height: 2.75rem;
+}
+
+.dataset-count {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+  color: var(--gk-muted);
+}
+
+.full-view-loading {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding: 1rem;
+  border: 1px solid var(--gk-border);
+  border-radius: var(--radius-lg);
+  background: var(--gk-surface);
+}
+
+.empty-title {
+  margin: 0 0 0.5rem;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--gk-ink);
+}
+
+.muted {
+  color: var(--gk-muted);
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }
 </style>

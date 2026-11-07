@@ -19,6 +19,11 @@ import type {
 /**
  * Singleton class for loading statistical data
  */
+/** Canton ids are the numbers 1-26 (see public/data/cantons.csv); other keys are regions or totals. */
+function isCantonId(key: string): boolean {
+  return /^\d+$/.test(key) && Number(key) >= 1 && Number(key) <= 26
+}
+
 export class StatsDataLoader {
   private static instance: StatsDataLoader
   private catalog: StatsCatalog | null = null
@@ -375,7 +380,12 @@ export class StatsDataLoader {
   async getBundData(statsId: string, year: number): Promise<BundStatsResult> {
     const ktnResult = await this.loadKtnData(statsId, year)
 
-    const totalValue = ktnResult.data.reduce((sum, record) => sum + record.value, 0)
+    // Some canton files (e.g. the area statistic) also hold a Switzerland total and large regions.
+    // Summing those too would count the country several times, so add up the 26 cantons only.
+    const cantons = ktnResult.data.filter((record) => isCantonId(record.key))
+    const rows = cantons.length > 0 ? cantons : ktnResult.data
+
+    const totalValue = rows.reduce((sum, record) => sum + record.value, 0)
     const unit = ktnResult.metadata.unit || ''
 
     return {
@@ -383,7 +393,7 @@ export class StatsDataLoader {
       unit,
       year: ktnResult.metadata.year,
       requestedYear: ktnResult.metadata.requestedYear,
-      cantonCount: ktnResult.data.length,
+      cantonCount: rows.length,
       metadata: {
         source: `stats/${statsId}/bund/${ktnResult.metadata.year}`,
         aggregatedAt: new Date().toISOString(),

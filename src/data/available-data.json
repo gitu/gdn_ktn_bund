@@ -23,7 +23,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "204551"
   },
@@ -51,7 +53,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "194001"
   },
@@ -78,7 +82,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "194271"
   },
@@ -105,7 +111,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "031051"
   },
@@ -133,7 +141,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "010131"
   },
@@ -161,7 +171,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "132761"
   },
@@ -189,7 +201,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "010002"
   },
@@ -217,7 +231,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "225401"
   },
@@ -245,7 +261,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ]
   },
   {
@@ -272,34 +290,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
-    ]
-  },
-  {
-    "id": "std_gdn_ai",
-    "type": "std",
-    "entityCode": "gdn_ai",
-    "displayName": {
-      "de": "Alle Gemeinden des Kantons Appenzell Inner Rhodes",
-      "fr": "Toutes les communes du canton Appenzell Rhodes-Intérieures",
-      "it": "Tutti i comuni del cantone Appenzello Interno",
-      "en": "All Municipalities of Canton Appenzell Inner Rhodes"
-    },
-    "description": {
-      "de": "Kombinierte Finanzdaten aus allen Gemeinden des Kantons Appenzell Innerrhoden",
-      "fr": "Données financières combinées de toutes les communes du canton Appenzell Rhodes-Intérieures",
-      "it": "Dati finanziari combinati di tutti i comuni del cantone Appenzello Interno",
-      "en": "Combined financial data from all municipalities within Canton Appenzell Inner Rhodes"
-    },
-    "availableYears": [
-      "2015",
-      "2016",
-      "2017",
-      "2018",
-      "2019",
-      "2020",
-      "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ]
   },
   {
@@ -307,7 +300,7 @@
     "type": "std",
     "entityCode": "gdn_ar",
     "displayName": {
-      "de": "Alle Gemeinden des Kantons Appenzell Outer Rhodes",
+      "de": "Alle Gemeinden des Kantons Appenzell Ausserrhoden",
       "fr": "Toutes les communes du canton Appenzell Rhodes-Extérieures",
       "it": "Tutti i comuni del cantone Appenzello Esterno",
       "en": "All Municipalities of Canton Appenzell Outer Rhodes"
@@ -326,24 +319,26 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ]
   },
   {
-    "id": "std_gdn_bs",
+    "id": "std_gdn_ai",
     "type": "std",
-    "entityCode": "gdn_bs",
+    "entityCode": "gdn_ai",
     "displayName": {
-      "de": "Alle Gemeinden des Kantons Basel-City",
-      "fr": "Toutes les communes du canton Bâle-Ville",
-      "it": "Tutti i comuni del cantone Basilea Città",
-      "en": "All Municipalities of Canton Basel-City"
+      "de": "Alle Gemeinden des Kantons Appenzell Innerrhoden",
+      "fr": "Toutes les communes du canton Appenzell Rhodes-Intérieures",
+      "it": "Tutti i comuni del cantone Appenzello Interno",
+      "en": "All Municipalities of Canton Appenzell Inner Rhodes"
     },
     "description": {
-      "de": "Kombinierte Finanzdaten aus allen Gemeinden des Kantons Basel-Stadt",
-      "fr": "Données financières combinées de toutes les communes du canton Bâle-Ville",
-      "it": "Dati finanziari combinati di tutti i comuni del cantone Basilea Città",
-      "en": "Combined financial data from all municipalities within Canton Basel-City"
+      "de": "Kombinierte Finanzdaten aus allen Gemeinden des Kantons Appenzell Innerrhoden",
+      "fr": "Données financières combinées de toutes les communes du canton Appenzell Rhodes-Intérieures",
+      "it": "Dati finanziari combinati di tutti i comuni del cantone Appenzello Interno",
+      "en": "Combined financial data from all municipalities within Canton Appenzell Inner Rhodes"
     },
     "availableYears": [
       "2015",
@@ -353,7 +348,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ]
   },
   {
@@ -361,7 +358,7 @@
     "type": "std",
     "entityCode": "gdn_bl",
     "displayName": {
-      "de": "Alle Gemeinden des Kantons Basel-Country",
+      "de": "Alle Gemeinden des Kantons Basel-Landschaft",
       "fr": "Toutes les communes du canton Bâle-Campagne",
       "it": "Tutti i comuni del cantone Basilea Campagna",
       "en": "All Municipalities of Canton Basel-Country"
@@ -380,7 +377,38 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
+    ]
+  },
+  {
+    "id": "std_gdn_bs",
+    "type": "std",
+    "entityCode": "gdn_bs",
+    "displayName": {
+      "de": "Alle Gemeinden des Kantons Basel-Stadt",
+      "fr": "Toutes les communes du canton Bâle-Ville",
+      "it": "Tutti i comuni del cantone Basilea Città",
+      "en": "All Municipalities of Canton Basel-City"
+    },
+    "description": {
+      "de": "Kombinierte Finanzdaten aus allen Gemeinden des Kantons Basel-Stadt",
+      "fr": "Données financières combinées de toutes les communes du canton Bâle-Ville",
+      "it": "Dati finanziari combinati di tutti i comuni del cantone Basilea Città",
+      "en": "Combined financial data from all municipalities within Canton Basel-City"
+    },
+    "availableYears": [
+      "2015",
+      "2016",
+      "2017",
+      "2018",
+      "2019",
+      "2020",
+      "2021",
+      "2022",
+      "2023",
+      "2024"
     ]
   },
   {
@@ -407,7 +435,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ]
   },
   {
@@ -415,7 +445,7 @@
     "type": "std",
     "entityCode": "gdn_fr",
     "displayName": {
-      "de": "Alle Gemeinden des Kantons Fribourg",
+      "de": "Alle Gemeinden des Kantons Freiburg",
       "fr": "Toutes les communes du canton Fribourg",
       "it": "Tutti i comuni del cantone Friborgo",
       "en": "All Municipalities of Canton Fribourg"
@@ -434,7 +464,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ]
   },
   {
@@ -442,7 +474,7 @@
     "type": "std",
     "entityCode": "gdn_ge",
     "displayName": {
-      "de": "Alle Gemeinden des Kantons Geneva",
+      "de": "Alle Gemeinden des Kantons Genf",
       "fr": "Toutes les communes du canton Genève",
       "it": "Tutti i comuni del cantone Ginevra",
       "en": "All Municipalities of Canton Geneva"
@@ -461,7 +493,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ]
   },
   {
@@ -488,7 +522,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ]
   },
   {
@@ -496,7 +532,7 @@
     "type": "std",
     "entityCode": "gdn_gr",
     "displayName": {
-      "de": "Alle Gemeinden des Kantons Grisons",
+      "de": "Alle Gemeinden des Kantons Graubünden",
       "fr": "Toutes les communes du canton Grisons",
       "it": "Tutti i comuni del cantone Grigioni",
       "en": "All Municipalities of Canton Grisons"
@@ -515,7 +551,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ]
   },
   {
@@ -542,7 +580,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ]
   },
   {
@@ -550,7 +590,7 @@
     "type": "std",
     "entityCode": "gdn_lu",
     "displayName": {
-      "de": "Alle Gemeinden des Kantons Lucerne",
+      "de": "Alle Gemeinden des Kantons Luzern",
       "fr": "Toutes les communes du canton Lucerne",
       "it": "Tutti i comuni del cantone Lucerna",
       "en": "All Municipalities of Canton Lucerne"
@@ -569,7 +609,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ]
   },
   {
@@ -577,7 +619,7 @@
     "type": "std",
     "entityCode": "gdn_ne",
     "displayName": {
-      "de": "Alle Gemeinden des Kantons Neuchâtel",
+      "de": "Alle Gemeinden des Kantons Neuenburg",
       "fr": "Toutes les communes du canton Neuchâtel",
       "it": "Tutti i comuni del cantone Neuchâtel",
       "en": "All Municipalities of Canton Neuchâtel"
@@ -596,7 +638,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ]
   },
   {
@@ -623,7 +667,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ]
   },
   {
@@ -650,7 +696,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ]
   },
   {
@@ -677,7 +725,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ]
   },
   {
@@ -704,7 +754,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ]
   },
   {
@@ -731,7 +783,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ]
   },
   {
@@ -758,7 +812,38 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
+    ]
+  },
+  {
+    "id": "std_gdn_ti",
+    "type": "std",
+    "entityCode": "gdn_ti",
+    "displayName": {
+      "de": "Alle Gemeinden des Kantons Tessin",
+      "fr": "Toutes les communes du canton Tessin",
+      "it": "Tutti i comuni del cantone Ticino",
+      "en": "All Municipalities of Canton Ticino"
+    },
+    "description": {
+      "de": "Kombinierte Finanzdaten aus allen Gemeinden des Kantons Tessin",
+      "fr": "Données financières combinées de toutes les communes du canton Tessin",
+      "it": "Dati finanziari combinati di tutti i comuni del cantone Ticino",
+      "en": "Combined financial data from all municipalities within Canton Ticino"
+    },
+    "availableYears": [
+      "2015",
+      "2016",
+      "2017",
+      "2018",
+      "2019",
+      "2020",
+      "2021",
+      "2022",
+      "2023",
+      "2024"
     ]
   },
   {
@@ -785,34 +870,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
-    ]
-  },
-  {
-    "id": "std_gdn_ti",
-    "type": "std",
-    "entityCode": "gdn_ti",
-    "displayName": {
-      "de": "Alle Gemeinden des Kantons Ticino",
-      "fr": "Toutes les communes du canton Tessin",
-      "it": "Tutti i comuni del cantone Ticino",
-      "en": "All Municipalities of Canton Ticino"
-    },
-    "description": {
-      "de": "Kombinierte Finanzdaten aus allen Gemeinden des Kantons Tessin",
-      "fr": "Données financières combinées de toutes les communes du canton Tessin",
-      "it": "Dati finanziari combinati di tutti i comuni del cantone Ticino",
-      "en": "Combined financial data from all municipalities within Canton Ticino"
-    },
-    "availableYears": [
-      "2015",
-      "2016",
-      "2017",
-      "2018",
-      "2019",
-      "2020",
-      "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ]
   },
   {
@@ -839,34 +899,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
-    ]
-  },
-  {
-    "id": "std_gdn_vs",
-    "type": "std",
-    "entityCode": "gdn_vs",
-    "displayName": {
-      "de": "Alle Gemeinden des Kantons Valais",
-      "fr": "Toutes les communes du canton Valais",
-      "it": "Tutti i comuni del cantone Vallese",
-      "en": "All Municipalities of Canton Valais"
-    },
-    "description": {
-      "de": "Kombinierte Finanzdaten aus allen Gemeinden des Kantons Wallis",
-      "fr": "Données financières combinées de toutes les communes du canton Valais",
-      "it": "Dati finanziari combinati di tutti i comuni del cantone Vallese",
-      "en": "Combined financial data from all municipalities within Canton Valais"
-    },
-    "availableYears": [
-      "2015",
-      "2016",
-      "2017",
-      "2018",
-      "2019",
-      "2020",
-      "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ]
   },
   {
@@ -874,7 +909,7 @@
     "type": "std",
     "entityCode": "gdn_vd",
     "displayName": {
-      "de": "Alle Gemeinden des Kantons Vaud",
+      "de": "Alle Gemeinden des Kantons Waadt",
       "fr": "Toutes les communes du canton Vaud",
       "it": "Tutti i comuni del cantone Vaud",
       "en": "All Municipalities of Canton Vaud"
@@ -893,7 +928,38 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
+    ]
+  },
+  {
+    "id": "std_gdn_vs",
+    "type": "std",
+    "entityCode": "gdn_vs",
+    "displayName": {
+      "de": "Alle Gemeinden des Kantons Wallis",
+      "fr": "Toutes les communes du canton Valais",
+      "it": "Tutti i comuni del cantone Vallese",
+      "en": "All Municipalities of Canton Valais"
+    },
+    "description": {
+      "de": "Kombinierte Finanzdaten aus allen Gemeinden des Kantons Wallis",
+      "fr": "Données financières combinées de toutes les communes du canton Valais",
+      "it": "Dati finanziari combinati di tutti i comuni del cantone Vallese",
+      "en": "Combined financial data from all municipalities within Canton Valais"
+    },
+    "availableYears": [
+      "2015",
+      "2016",
+      "2017",
+      "2018",
+      "2019",
+      "2020",
+      "2021",
+      "2022",
+      "2023",
+      "2024"
     ]
   },
   {
@@ -920,7 +986,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ]
   },
   {
@@ -928,7 +996,7 @@
     "type": "std",
     "entityCode": "gdn_zh",
     "displayName": {
-      "de": "Alle Gemeinden des Kantons Zurich",
+      "de": "Alle Gemeinden des Kantons Zürich",
       "fr": "Toutes les communes du canton Zurich",
       "it": "Tutti i comuni del cantone Zurigo",
       "en": "All Municipalities of Canton Zurich"
@@ -947,7 +1015,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ]
   },
   {
@@ -975,7 +1045,8 @@
       "2020",
       "2021",
       "2022",
-      "2023"
+      "2023",
+      "2024"
     ]
   },
   {
@@ -1003,7 +1074,9 @@
       "2020",
       "2021",
       "2022",
-      "2023"
+      "2023",
+      "2024",
+      "2025"
     ]
   },
   {
@@ -1030,7 +1103,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "132762"
   },
@@ -1058,7 +1133,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "061401"
   },
@@ -1086,7 +1163,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "041201"
   },
@@ -1114,7 +1193,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "051341"
   },
@@ -1143,7 +1224,9 @@
       "2020",
       "2021",
       "2022",
-      "2023"
+      "2023",
+      "2024",
+      "2025"
     ]
   },
   {
@@ -1170,7 +1253,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "173251"
   },
@@ -1198,7 +1283,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "204461"
   },
@@ -1226,7 +1313,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "163101"
   },
@@ -1251,7 +1340,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "215001"
   },
@@ -1280,7 +1371,9 @@
       "2020",
       "2021",
       "2022",
-      "2023"
+      "2023",
+      "2024",
+      "2025"
     ]
   },
   {
@@ -1307,7 +1400,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "204401"
   },
@@ -1335,7 +1430,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "132763"
   },
@@ -1363,7 +1460,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "051362"
   },
@@ -1388,7 +1487,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "215091"
   },
@@ -1416,7 +1517,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "173231"
   },
@@ -1444,7 +1547,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "091701"
   },
@@ -1472,7 +1577,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "173291"
   },
@@ -1500,7 +1607,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "194021"
   },
@@ -1546,7 +1655,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "112422"
   },
@@ -1573,7 +1684,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "010111"
   },
@@ -1601,9 +1714,33 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "010052"
+  },
+  {
+    "id": "gdn_010297",
+    "type": "gdn",
+    "entityCode": "010297",
+    "displayName": {
+      "de": "Bauma",
+      "fr": "Bauma",
+      "it": "Bauma",
+      "en": "Bauma"
+    },
+    "description": {
+      "de": "Finanzdaten der Gemeinde Bauma",
+      "fr": "Données financières de la commune Bauma",
+      "it": "Dati finanziari del comune Bauma",
+      "en": "Financial data for municipality Bauma"
+    },
+    "availableYears": [
+      "2015",
+      "2016"
+    ],
+    "municipalityNumber": "010297"
   },
   {
     "id": "gdn_112542",
@@ -1629,7 +1766,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "112542"
   },
@@ -1657,7 +1796,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "215002"
   },
@@ -1682,7 +1823,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "102053"
   },
@@ -1710,7 +1853,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "020861"
   },
@@ -1738,7 +1883,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "142932"
   },
@@ -1766,7 +1913,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "020351"
   },
@@ -1794,7 +1943,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "256607"
   },
@@ -1822,7 +1973,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "031081"
   },
@@ -1843,7 +1996,9 @@
       "en": "Financial data for municipality Bex"
     },
     "availableYears": [
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "225402"
   },
@@ -1871,7 +2026,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "215281"
   },
@@ -1896,7 +2053,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "112513"
   },
@@ -1924,7 +2083,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "020371"
   },
@@ -1952,7 +2113,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "132765"
   },
@@ -1979,7 +2142,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "010242"
   },
@@ -2007,7 +2172,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "132766"
   },
@@ -2035,7 +2202,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "204471"
   },
@@ -2063,7 +2232,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "020352"
   },
@@ -2091,7 +2262,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "010003"
   },
@@ -2119,7 +2292,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "132767"
   },
@@ -2147,7 +2322,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "246404"
   },
@@ -2174,7 +2351,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "194063"
   },
@@ -2202,7 +2381,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "236002"
   },
@@ -2230,7 +2411,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "194095"
   },
@@ -2257,7 +2440,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "010112"
   },
@@ -2285,7 +2470,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "031052"
   },
@@ -2313,7 +2500,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "173271"
   },
@@ -2341,7 +2530,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "194003"
   },
@@ -2368,7 +2559,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "010083"
   },
@@ -2396,7 +2589,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "010053"
   },
@@ -2424,7 +2619,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "102125"
   },
@@ -2453,7 +2650,9 @@
       "2020",
       "2021",
       "2022",
-      "2023"
+      "2023",
+      "2024",
+      "2025"
     ]
   },
   {
@@ -2480,7 +2679,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "071502"
   },
@@ -2508,7 +2709,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "020404"
   },
@@ -2536,7 +2739,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "225624"
   },
@@ -2558,7 +2763,9 @@
     },
     "availableYears": [
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "173395"
   },
@@ -2583,7 +2790,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "215226"
   },
@@ -2611,7 +2820,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "256608"
   },
@@ -2639,7 +2850,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "091702"
   },
@@ -2664,7 +2877,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "102325"
   },
@@ -2685,7 +2900,9 @@
       "en": "Financial data for municipality Chavannes-près-Renens"
     },
     "availableYears": [
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "225627"
   },
@@ -2711,7 +2928,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "225749"
   },
@@ -2739,7 +2958,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "256612"
   },
@@ -2767,7 +2988,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "256613"
   },
@@ -2795,7 +3018,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "215250"
   },
@@ -2823,7 +3048,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "183901"
   },
@@ -2846,7 +3073,9 @@
     "availableYears": [
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "236152"
   },
@@ -2874,7 +3103,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "256616"
   },
@@ -2902,7 +3133,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "256617"
   },
@@ -2925,7 +3158,9 @@
     "availableYears": [
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "236023"
   },
@@ -2950,7 +3185,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "102254"
   },
@@ -2976,7 +3213,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "236253"
   },
@@ -3004,7 +3243,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "225583"
   },
@@ -3032,7 +3273,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "031125"
   },
@@ -3060,7 +3303,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "183851"
   },
@@ -3088,7 +3333,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "266711"
   },
@@ -3116,7 +3363,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "112517"
   },
@@ -3143,7 +3392,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "010086"
   },
@@ -3171,7 +3422,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "173234"
   },
@@ -3199,7 +3452,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "010243"
   },
@@ -3226,7 +3481,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "010054"
   },
@@ -3252,7 +3509,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "183722"
   },
@@ -3277,7 +3536,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "112473"
   },
@@ -3305,7 +3566,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "010191"
   },
@@ -3333,7 +3596,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "102293"
   },
@@ -3358,7 +3623,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "112573"
   },
@@ -3385,7 +3652,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "010113"
   },
@@ -3413,7 +3682,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "031054"
   },
@@ -3441,7 +3712,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "173352"
   },
@@ -3462,7 +3735,9 @@
       "en": "Financial data for municipality Echallens"
     },
     "availableYears": [
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "225518"
   },
@@ -3490,7 +3765,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "225635"
   },
@@ -3517,7 +3794,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "010192"
   },
@@ -3544,9 +3823,38 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "010055"
+  },
+  {
+    "id": "gdn_204411",
+    "type": "gdn",
+    "entityCode": "204411",
+    "displayName": {
+      "de": "Egnach",
+      "fr": "Egnach",
+      "it": "Egnach",
+      "en": "Egnach"
+    },
+    "description": {
+      "de": "Finanzdaten der Gemeinde Egnach",
+      "fr": "Données financières de la commune Egnach",
+      "it": "Dati finanziari del comune Egnach",
+      "en": "Financial data for municipality Egnach"
+    },
+    "availableYears": [
+      "2018",
+      "2019",
+      "2020",
+      "2021",
+      "2022",
+      "2023",
+      "2024"
+    ],
+    "municipalityNumber": "204411"
   },
   {
     "id": "gdn_051301",
@@ -3572,7 +3880,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "051301"
   },
@@ -3594,7 +3904,9 @@
     },
     "availableYears": [
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "010294"
   },
@@ -3622,7 +3934,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "010056"
   },
@@ -3650,7 +3964,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "031024"
   },
@@ -3678,7 +3994,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "071505"
   },
@@ -3701,7 +4019,9 @@
     "availableYears": [
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "225584"
   },
@@ -3728,7 +4048,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "010151"
   },
@@ -3757,7 +4079,9 @@
       "2020",
       "2021",
       "2022",
-      "2023"
+      "2023",
+      "2024",
+      "2025"
     ]
   },
   {
@@ -3784,7 +4108,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "173342"
   },
@@ -3810,7 +4136,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "102054"
   },
@@ -3838,7 +4166,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "132768"
   },
@@ -3865,7 +4195,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "010193"
   },
@@ -3894,7 +4226,9 @@
       "2020",
       "2021",
       "2022",
-      "2023"
+      "2023",
+      "2024",
+      "2025"
     ]
   },
   {
@@ -3921,7 +4255,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "010172"
   },
@@ -3949,7 +4285,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "051321"
   },
@@ -3977,7 +4315,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "194027"
   },
@@ -4005,7 +4345,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "173402"
   },
@@ -4027,7 +4369,9 @@
     },
     "availableYears": [
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "173292"
   },
@@ -4053,7 +4397,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "020538"
   },
@@ -4081,7 +4427,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "204566"
   },
@@ -4109,7 +4457,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "051322"
   },
@@ -4137,7 +4487,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "132824"
   },
@@ -4165,7 +4517,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "102196"
   },
@@ -4192,7 +4546,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "194163"
   },
@@ -4220,7 +4576,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "020563"
   },
@@ -4243,7 +4601,9 @@
     "availableYears": [
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "236133"
   },
@@ -4271,7 +4631,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "173442"
   },
@@ -4299,7 +4661,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "051342"
   },
@@ -4324,7 +4688,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "215398"
   },
@@ -4352,7 +4718,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "194029"
   },
@@ -4380,7 +4748,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "132846"
   },
@@ -4408,7 +4778,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ]
   },
   {
@@ -4435,7 +4807,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "256621"
   },
@@ -4462,7 +4836,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "112519"
   },
@@ -4484,7 +4860,9 @@
     },
     "availableYears": [
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "010244"
   },
@@ -4509,7 +4887,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "102236"
   },
@@ -4537,7 +4917,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "225721"
   },
@@ -4565,7 +4947,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "081632"
   },
@@ -4593,7 +4977,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "081630"
   },
@@ -4621,7 +5007,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "081631"
   },
@@ -4649,7 +5037,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "010058"
   },
@@ -4677,7 +5067,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "173213"
   },
@@ -4705,7 +5097,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "173341"
   },
@@ -4733,7 +5127,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "173443"
   },
@@ -4760,7 +5156,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "010115"
   },
@@ -4788,7 +5186,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "173273"
   },
@@ -4816,7 +5216,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "194006"
   },
@@ -4843,7 +5245,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "010194"
   },
@@ -4871,7 +5275,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "112546"
   },
@@ -4897,7 +5303,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "112579"
   },
@@ -4922,7 +5330,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "266729"
   },
@@ -4949,7 +5359,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "020928"
   },
@@ -4977,7 +5389,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "071507"
   },
@@ -5005,7 +5419,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "153001"
   },
@@ -5032,7 +5448,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "010152"
   },
@@ -5059,7 +5477,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "020979"
   },
@@ -5087,7 +5507,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "010117"
   },
@@ -5114,7 +5536,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "031030"
   },
@@ -5141,7 +5565,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "031031"
   },
@@ -5168,7 +5594,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "010153"
   },
@@ -5216,7 +5644,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "010295"
   },
@@ -5244,7 +5674,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "031058"
   },
@@ -5272,7 +5704,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "091703"
   },
@@ -5295,9 +5729,38 @@
     "availableYears": [
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "020954"
+  },
+  {
+    "id": "gdn_183619",
+    "type": "gdn",
+    "entityCode": "183619",
+    "displayName": {
+      "de": "Ilanz/Glion",
+      "fr": "Ilanz/Glion",
+      "it": "Ilanz/Glion",
+      "en": "Ilanz/Glion"
+    },
+    "description": {
+      "de": "Finanzdaten der Gemeinde Ilanz/Glion",
+      "fr": "Données financières de la commune Ilanz/Glion",
+      "it": "Dati finanziari del comune Ilanz/Glion",
+      "en": "Financial data for municipality Ilanz/Glion"
+    },
+    "availableYears": [
+      "2018",
+      "2019",
+      "2020",
+      "2021",
+      "2022",
+      "2023",
+      "2024"
+    ],
+    "municipalityNumber": "183619"
   },
   {
     "id": "gdn_010174",
@@ -5343,7 +5806,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "010296"
   },
@@ -5371,7 +5836,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "051364"
   },
@@ -5399,7 +5866,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "020581"
   },
@@ -5428,7 +5897,9 @@
       "2020",
       "2021",
       "2022",
-      "2023"
+      "2023",
+      "2024",
+      "2025"
     ]
   },
   {
@@ -5455,7 +5926,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "020362"
   },
@@ -5482,7 +5955,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "020540"
   },
@@ -5509,7 +5984,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "194252"
   },
@@ -5531,7 +6008,9 @@
     },
     "availableYears": [
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "173313"
   },
@@ -5560,7 +6039,8 @@
       "2020",
       "2021",
       "2022",
-      "2023"
+      "2023",
+      "2024"
     ]
   },
   {
@@ -5587,7 +6067,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ]
   },
   {
@@ -5615,7 +6097,8 @@
       "2020",
       "2021",
       "2022",
-      "2023"
+      "2023",
+      "2024"
     ]
   },
   {
@@ -5642,7 +6125,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ]
   },
   {
@@ -5670,7 +6155,8 @@
       "2020",
       "2021",
       "2022",
-      "2023"
+      "2023",
+      "2024"
     ]
   },
   {
@@ -5697,7 +6183,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ]
   },
   {
@@ -5724,7 +6212,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ]
   },
   {
@@ -5751,7 +6241,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ]
   },
   {
@@ -5779,7 +6271,8 @@
       "2020",
       "2021",
       "2022",
-      "2023"
+      "2023",
+      "2024"
     ]
   },
   {
@@ -5807,7 +6300,8 @@
       "2020",
       "2021",
       "2022",
-      "2023"
+      "2023",
+      "2024"
     ]
   },
   {
@@ -5835,7 +6329,8 @@
       "2020",
       "2021",
       "2022",
-      "2023"
+      "2023",
+      "2024"
     ]
   },
   {
@@ -5862,7 +6357,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ]
   },
   {
@@ -5890,7 +6387,8 @@
       "2020",
       "2021",
       "2022",
-      "2023"
+      "2023",
+      "2024"
     ]
   },
   {
@@ -5917,7 +6415,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ]
   },
   {
@@ -5944,7 +6444,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ]
   },
   {
@@ -5972,7 +6474,8 @@
       "2020",
       "2021",
       "2022",
-      "2023"
+      "2023",
+      "2024"
     ]
   },
   {
@@ -6000,7 +6503,8 @@
       "2020",
       "2021",
       "2022",
-      "2023"
+      "2023",
+      "2024"
     ]
   },
   {
@@ -6027,7 +6531,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ]
   },
   {
@@ -6055,7 +6561,8 @@
       "2020",
       "2021",
       "2022",
-      "2023"
+      "2023",
+      "2024"
     ]
   },
   {
@@ -6082,7 +6589,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ]
   },
   {
@@ -6110,7 +6619,8 @@
       "2020",
       "2021",
       "2022",
-      "2023"
+      "2023",
+      "2024"
     ]
   },
   {
@@ -6137,7 +6647,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ]
   },
   {
@@ -6164,7 +6676,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ]
   },
   {
@@ -6192,7 +6706,8 @@
       "2020",
       "2021",
       "2022",
-      "2023"
+      "2023",
+      "2024"
     ]
   },
   {
@@ -6219,7 +6734,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ]
   },
   {
@@ -6247,7 +6764,8 @@
       "2020",
       "2021",
       "2022",
-      "2023"
+      "2023",
+      "2024"
     ]
   },
   {
@@ -6275,7 +6793,8 @@
       "2020",
       "2021",
       "2022",
-      "2023"
+      "2023",
+      "2024"
     ]
   },
   {
@@ -6302,7 +6821,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ]
   },
   {
@@ -6330,7 +6851,8 @@
       "2020",
       "2021",
       "2022",
-      "2023"
+      "2023",
+      "2024"
     ]
   },
   {
@@ -6357,7 +6879,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ]
   },
   {
@@ -6385,7 +6909,8 @@
       "2020",
       "2021",
       "2022",
-      "2023"
+      "2023",
+      "2024"
     ]
   },
   {
@@ -6412,7 +6937,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ]
   },
   {
@@ -6440,7 +6967,8 @@
       "2020",
       "2021",
       "2022",
-      "2023"
+      "2023",
+      "2024"
     ]
   },
   {
@@ -6467,7 +6995,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ]
   },
   {
@@ -6495,7 +7025,8 @@
       "2020",
       "2021",
       "2022",
-      "2023"
+      "2023",
+      "2024"
     ]
   },
   {
@@ -6522,7 +7053,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ]
   },
   {
@@ -6550,7 +7083,8 @@
       "2020",
       "2021",
       "2022",
-      "2023"
+      "2023",
+      "2024"
     ]
   },
   {
@@ -6577,7 +7111,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ]
   },
   {
@@ -6605,7 +7141,8 @@
       "2020",
       "2021",
       "2022",
-      "2023"
+      "2023",
+      "2024"
     ]
   },
   {
@@ -6633,7 +7170,8 @@
       "2020",
       "2021",
       "2022",
-      "2023"
+      "2023",
+      "2024"
     ]
   },
   {
@@ -6660,7 +7198,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ]
   },
   {
@@ -6687,7 +7227,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ]
   },
   {
@@ -6714,7 +7256,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ]
   },
   {
@@ -6742,7 +7286,8 @@
       "2020",
       "2021",
       "2022",
-      "2023"
+      "2023",
+      "2024"
     ]
   },
   {
@@ -6769,7 +7314,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ]
   },
   {
@@ -6796,7 +7343,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ]
   },
   {
@@ -6823,7 +7372,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ]
   },
   {
@@ -6851,7 +7402,8 @@
       "2020",
       "2021",
       "2022",
-      "2023"
+      "2023",
+      "2024"
     ]
   },
   {
@@ -6879,7 +7431,8 @@
       "2020",
       "2021",
       "2022",
-      "2023"
+      "2023",
+      "2024"
     ]
   },
   {
@@ -6907,7 +7460,8 @@
       "2020",
       "2021",
       "2022",
-      "2023"
+      "2023",
+      "2024"
     ]
   },
   {
@@ -6934,7 +7488,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ]
   },
   {
@@ -6962,7 +7518,8 @@
       "2020",
       "2021",
       "2022",
-      "2023"
+      "2023",
+      "2024"
     ]
   },
   {
@@ -6989,7 +7546,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ]
   },
   {
@@ -7016,7 +7575,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "061404"
   },
@@ -7041,7 +7602,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "102265"
   },
@@ -7068,7 +7631,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "010135"
   },
@@ -7095,7 +7660,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "020412"
   },
@@ -7119,7 +7686,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "173392"
   },
@@ -7147,7 +7716,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "010062"
   },
@@ -7175,7 +7746,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "020355"
   },
@@ -7202,7 +7775,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "020612"
   },
@@ -7230,7 +7805,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "204671"
   },
@@ -7258,7 +7835,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "031059"
   },
@@ -7286,7 +7865,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "010154"
   },
@@ -7314,7 +7895,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "051331"
   },
@@ -7342,7 +7925,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "194008"
   },
@@ -7370,7 +7955,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "246421"
   },
@@ -7395,7 +7982,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "246417"
   },
@@ -7423,7 +8012,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "246461"
   },
@@ -7451,7 +8042,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "225889"
   },
@@ -7479,7 +8072,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "051344"
   },
@@ -7507,7 +8102,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "256628"
   },
@@ -7535,7 +8132,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "183955"
   },
@@ -7563,7 +8162,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "020329"
   },
@@ -7590,7 +8191,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "010136"
   },
@@ -7617,7 +8220,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "020902"
   },
@@ -7645,7 +8250,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "132787"
   },
@@ -7673,7 +8280,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "225586"
   },
@@ -7701,7 +8310,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "132828"
   },
@@ -7729,7 +8340,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "256623"
   },
@@ -7757,7 +8370,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "246436"
   },
@@ -7778,7 +8393,9 @@
       "en": "Financial data for municipality Le Mont-sur-Lausanne"
     },
     "availableYears": [
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "225587"
   },
@@ -7805,7 +8422,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "020387"
   },
@@ -7833,7 +8452,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "194201"
   },
@@ -7861,7 +8482,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "132829"
   },
@@ -7888,7 +8511,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "010176"
   },
@@ -7916,7 +8541,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "215113"
   },
@@ -7941,7 +8568,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "215115"
   },
@@ -7969,7 +8598,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "215192"
   },
@@ -7994,7 +8625,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "225606"
   },
@@ -8022,7 +8655,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "031061"
   },
@@ -8050,7 +8685,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "020306"
   },
@@ -8078,7 +8715,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "031062"
   },
@@ -8106,7 +8745,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "010155"
   },
@@ -8131,7 +8772,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "102206"
   },
@@ -8159,7 +8802,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "236136"
   },
@@ -8184,7 +8829,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "215196"
   },
@@ -8211,7 +8858,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "010195"
   },
@@ -8238,7 +8887,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "031063"
   },
@@ -8266,7 +8917,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "010156"
   },
@@ -8294,7 +8947,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "194033"
   },
@@ -8318,7 +8973,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "173293"
   },
@@ -8346,7 +9003,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "215254"
   },
@@ -8373,7 +9032,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "194139"
   },
@@ -8399,7 +9060,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "010009"
   },
@@ -8427,7 +9090,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "256630"
   },
@@ -8455,7 +9120,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "246416"
   },
@@ -8480,7 +9147,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "215118"
   },
@@ -8508,7 +9177,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "194254"
   },
@@ -8536,7 +9207,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "236153"
   },
@@ -8564,7 +9237,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "225886"
   },
@@ -8592,7 +9267,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "225642"
   },
@@ -8613,7 +9290,9 @@
       "en": "Financial data for municipality Moudon"
     },
     "availableYears": [
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "225678"
   },
@@ -8641,7 +9320,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "020700"
   },
@@ -8669,7 +9350,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "020546"
   },
@@ -8697,7 +9380,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "132769"
   },
@@ -8725,7 +9410,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "204746"
   },
@@ -8753,7 +9440,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "020616"
   },
@@ -8780,7 +9469,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "194236"
   },
@@ -8808,7 +9499,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "020356"
   },
@@ -8836,7 +9529,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "102275"
   },
@@ -8864,7 +9559,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "132770"
   },
@@ -8889,7 +9586,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "236007"
   },
@@ -8916,7 +9615,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "010223"
   },
@@ -8939,7 +9640,9 @@
     "availableYears": [
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "236024"
   },
@@ -8967,7 +9670,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "246458"
   },
@@ -8994,7 +9699,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "020670"
   },
@@ -9021,7 +9728,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "194034"
   },
@@ -9049,7 +9758,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "031093"
   },
@@ -9077,7 +9788,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "142937"
   },
@@ -9105,7 +9818,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "020743"
   },
@@ -9128,7 +9843,9 @@
     "availableYears": [
       "2015",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "020981"
   },
@@ -9177,7 +9894,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "010090"
   },
@@ -9204,7 +9923,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "010064"
   },
@@ -9232,7 +9953,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "225724"
   },
@@ -9260,7 +9983,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "091706"
   },
@@ -9287,7 +10012,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "010245"
   },
@@ -9315,7 +10042,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "194010"
   },
@@ -9343,7 +10072,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "010092"
   },
@@ -9370,7 +10101,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "031095"
   },
@@ -9397,7 +10130,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "010137"
   },
@@ -9425,7 +10160,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "173254"
   },
@@ -9452,7 +10189,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "194038"
   },
@@ -9476,7 +10215,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "173407"
   },
@@ -9504,7 +10245,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "132771"
   },
@@ -9532,7 +10275,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "010010"
   },
@@ -9557,7 +10302,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "112407"
   },
@@ -9585,7 +10332,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "194280"
   },
@@ -9606,7 +10355,9 @@
       "en": "Financial data for municipality Ollon"
     },
     "availableYears": [
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "225409"
   },
@@ -9634,7 +10385,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "112581"
   },
@@ -9662,7 +10415,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "256631"
   },
@@ -9690,7 +10445,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "010066"
   },
@@ -9711,7 +10468,9 @@
       "en": "Financial data for municipality Orbe"
     },
     "availableYears": [
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "225757"
   },
@@ -9739,7 +10498,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "225805"
   },
@@ -9767,7 +10528,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "020363"
   },
@@ -9795,7 +10558,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "225822"
   },
@@ -9849,7 +10614,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "010177"
   },
@@ -9877,7 +10644,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "256633"
   },
@@ -9905,7 +10674,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "266800"
   },
@@ -9933,7 +10704,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "132831"
   },
@@ -9954,7 +10727,9 @@
       "en": "Financial data for municipality Préverenges"
     },
     "availableYears": [
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "225643"
   },
@@ -9982,7 +10757,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "225589"
   },
@@ -10010,7 +10787,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "225590"
   },
@@ -10038,9 +10817,32 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "173340"
+  },
+  {
+    "id": "gdn_173255",
+    "type": "gdn",
+    "entityCode": "173255",
+    "displayName": {
+      "de": "Rebstein",
+      "fr": "Rebstein",
+      "it": "Rebstein",
+      "en": "Rebstein"
+    },
+    "description": {
+      "de": "Finanzdaten der Gemeinde Rebstein",
+      "fr": "Données financières de la commune Rebstein",
+      "it": "Dati finanziari del comune Rebstein",
+      "en": "Financial data for municipality Rebstein"
+    },
+    "availableYears": [
+      "2019"
+    ],
+    "municipalityNumber": "173255"
   },
   {
     "id": "gdn_010096",
@@ -10066,7 +10868,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "010096"
   },
@@ -10094,7 +10898,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "031140"
   },
@@ -10121,7 +10927,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "194141"
   },
@@ -10149,7 +10957,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "132773"
   },
@@ -10177,7 +10987,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "225591"
   },
@@ -10205,7 +11017,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "194258"
   },
@@ -10233,7 +11047,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "010138"
   },
@@ -10261,7 +11077,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "122703"
   },
@@ -10289,7 +11107,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "091707"
   },
@@ -10310,7 +11130,9 @@
       "en": "Financial data for municipality Rolle"
     },
     "availableYears": [
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "225861"
   },
@@ -10338,7 +11160,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "204436"
   },
@@ -10366,7 +11190,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "102096"
   },
@@ -10393,7 +11219,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "031065"
   },
@@ -10421,7 +11249,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "173215"
   },
@@ -10445,7 +11275,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "173216"
   },
@@ -10472,7 +11304,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "031040"
   },
@@ -10500,7 +11334,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "194282"
   },
@@ -10527,7 +11363,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "010097"
   },
@@ -10554,7 +11392,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "194206"
   },
@@ -10581,7 +11421,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "010139"
   },
@@ -10608,7 +11450,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "031098"
   },
@@ -10636,7 +11480,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "010118"
   },
@@ -10664,7 +11510,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "020843"
   },
@@ -10692,7 +11540,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "061406"
   },
@@ -10719,7 +11569,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "020443"
   },
@@ -10747,7 +11599,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "225646"
   },
@@ -10768,9 +11622,34 @@
       "en": "Financial data for municipality Saint-Sulpice (VD)"
     },
     "availableYears": [
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "225648"
+  },
+  {
+    "id": "gdn_225568",
+    "type": "gdn",
+    "entityCode": "225568",
+    "displayName": {
+      "de": "Sainte-Croix",
+      "fr": "Sainte-Croix",
+      "it": "Sainte-Croix",
+      "en": "Sainte-Croix"
+    },
+    "description": {
+      "de": "Finanzdaten der Gemeinde Sainte-Croix",
+      "fr": "Données financières de la commune Sainte-Croix",
+      "it": "Dati finanziari del comune Sainte-Croix",
+      "en": "Financial data for municipality Sainte-Croix"
+    },
+    "availableYears": [
+      "2022",
+      "2023",
+      "2024"
+    ],
+    "municipalityNumber": "225568"
   },
   {
     "id": "gdn_173296",
@@ -10792,7 +11671,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "173296"
   },
@@ -10820,7 +11701,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "061407"
   },
@@ -10848,7 +11731,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "236265"
   },
@@ -10876,7 +11761,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "236141"
   },
@@ -10904,7 +11791,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "142939"
   },
@@ -10932,7 +11821,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "041213"
   },
@@ -10960,7 +11851,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "010247"
   },
@@ -10985,7 +11878,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "112583"
   },
@@ -11013,7 +11908,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "051346"
   },
@@ -11040,7 +11937,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "020855"
   },
@@ -11067,7 +11966,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "010197"
   },
@@ -11095,7 +11996,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "051372"
   },
@@ -11119,7 +12022,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "173274"
   },
@@ -11147,7 +12052,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "194209"
   },
@@ -11174,7 +12081,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "010227"
   },
@@ -11198,7 +12107,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "173275"
   },
@@ -11226,7 +12137,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "236248"
   },
@@ -11254,7 +12167,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "236266"
   },
@@ -11282,7 +12197,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "204761"
   },
@@ -11310,7 +12227,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "132861"
   },
@@ -11338,7 +12257,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "112601"
   },
@@ -11367,7 +12288,9 @@
       "2020",
       "2021",
       "2022",
-      "2023"
+      "2023",
+      "2024",
+      "2025"
     ]
   },
   {
@@ -11394,7 +12317,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "020768"
   },
@@ -11422,7 +12347,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "194040"
   },
@@ -11450,7 +12377,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "173203"
   },
@@ -11474,7 +12403,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "173236"
   },
@@ -11502,7 +12433,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "183787"
   },
@@ -11530,7 +12463,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ]
   },
   {
@@ -11557,7 +12492,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "010158"
   },
@@ -11585,7 +12522,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "071509"
   },
@@ -11613,7 +12552,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "020939"
   },
@@ -11641,7 +12582,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "091708"
   },
@@ -11669,7 +12612,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "194012"
   },
@@ -11696,7 +12641,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "020957"
   },
@@ -11724,7 +12671,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "031103"
   },
@@ -11748,7 +12697,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "102306"
   },
@@ -11776,7 +12727,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "204696"
   },
@@ -11804,7 +12757,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "153024"
   },
@@ -11828,7 +12783,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "173237"
   },
@@ -11856,7 +12813,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "010141"
   },
@@ -11884,7 +12843,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "142920"
   },
@@ -11912,7 +12873,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "132775"
   },
@@ -11940,7 +12903,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "256640"
   },
@@ -11968,7 +12933,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "020942"
   },
@@ -11996,7 +12963,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "112500"
   },
@@ -12018,9 +12987,736 @@
     },
     "availableYears": [
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "010228"
+  },
+  {
+    "id": "std_gdn_ag_rest",
+    "type": "std",
+    "entityCode": "gdn_ag_rest",
+    "displayName": {
+      "de": "Übrige Gemeinden AG (berechnet)",
+      "fr": "Autres communes AG (calculé)",
+      "it": "Altri comuni AG (calcolato)",
+      "en": "Other municipalities AG (calculated)"
+    },
+    "description": {
+      "de": "Berechnet: alle Gemeinden des Kantons Aargau zusammen, abzüglich der Gemeinden ab 5'000 Einwohnern. Näherung, siehe Hinweis.",
+      "fr": "Calculé : toutes les communes du canton Argovie ensemble, moins les communes de 5 000 habitants et plus. Approximation, voir la remarque.",
+      "it": "Calcolato: tutti i comuni del cantone Argovia insieme, meno i comuni da 5000 abitanti. Approssimazione, vedi l'avviso.",
+      "en": "Calculated: all municipalities of Canton Aargau together, minus the municipalities with 5,000 or more inhabitants. An approximation, see the note."
+    },
+    "availableYears": [
+      "2015",
+      "2016",
+      "2017",
+      "2018",
+      "2019",
+      "2020",
+      "2021",
+      "2022",
+      "2023",
+      "2024"
+    ]
+  },
+  {
+    "id": "std_gdn_ai_rest",
+    "type": "std",
+    "entityCode": "gdn_ai_rest",
+    "displayName": {
+      "de": "Übrige Gemeinden AI (berechnet)",
+      "fr": "Autres communes AI (calculé)",
+      "it": "Altri comuni AI (calcolato)",
+      "en": "Other municipalities AI (calculated)"
+    },
+    "description": {
+      "de": "Berechnet: alle Gemeinden des Kantons Appenzell Innerrhoden zusammen, abzüglich der Gemeinden ab 5'000 Einwohnern. Näherung, siehe Hinweis.",
+      "fr": "Calculé : toutes les communes du canton Appenzell Rhodes-Intérieures ensemble, moins les communes de 5 000 habitants et plus. Approximation, voir la remarque.",
+      "it": "Calcolato: tutti i comuni del cantone Appenzello Interno insieme, meno i comuni da 5000 abitanti. Approssimazione, vedi l'avviso.",
+      "en": "Calculated: all municipalities of Canton Appenzell Inner Rhodes together, minus the municipalities with 5,000 or more inhabitants. An approximation, see the note."
+    },
+    "availableYears": [
+      "2015",
+      "2016",
+      "2017",
+      "2018",
+      "2019",
+      "2020",
+      "2021",
+      "2022",
+      "2023",
+      "2024"
+    ]
+  },
+  {
+    "id": "std_gdn_ar_rest",
+    "type": "std",
+    "entityCode": "gdn_ar_rest",
+    "displayName": {
+      "de": "Übrige Gemeinden AR (berechnet)",
+      "fr": "Autres communes AR (calculé)",
+      "it": "Altri comuni AR (calcolato)",
+      "en": "Other municipalities AR (calculated)"
+    },
+    "description": {
+      "de": "Berechnet: alle Gemeinden des Kantons Appenzell Ausserrhoden zusammen, abzüglich der Gemeinden ab 5'000 Einwohnern. Näherung, siehe Hinweis.",
+      "fr": "Calculé : toutes les communes du canton Appenzell Rhodes-Extérieures ensemble, moins les communes de 5 000 habitants et plus. Approximation, voir la remarque.",
+      "it": "Calcolato: tutti i comuni del cantone Appenzello Esterno insieme, meno i comuni da 5000 abitanti. Approssimazione, vedi l'avviso.",
+      "en": "Calculated: all municipalities of Canton Appenzell Outer Rhodes together, minus the municipalities with 5,000 or more inhabitants. An approximation, see the note."
+    },
+    "availableYears": [
+      "2015",
+      "2016",
+      "2017",
+      "2018",
+      "2019",
+      "2020",
+      "2021",
+      "2022",
+      "2023",
+      "2024"
+    ]
+  },
+  {
+    "id": "std_gdn_be_rest",
+    "type": "std",
+    "entityCode": "gdn_be_rest",
+    "displayName": {
+      "de": "Übrige Gemeinden BE (berechnet)",
+      "fr": "Autres communes BE (calculé)",
+      "it": "Altri comuni BE (calcolato)",
+      "en": "Other municipalities BE (calculated)"
+    },
+    "description": {
+      "de": "Berechnet: alle Gemeinden des Kantons Bern zusammen, abzüglich der Gemeinden ab 5'000 Einwohnern. Näherung, siehe Hinweis.",
+      "fr": "Calculé : toutes les communes du canton Berne ensemble, moins les communes de 5 000 habitants et plus. Approximation, voir la remarque.",
+      "it": "Calcolato: tutti i comuni del cantone Berna insieme, meno i comuni da 5000 abitanti. Approssimazione, vedi l'avviso.",
+      "en": "Calculated: all municipalities of Canton Bern together, minus the municipalities with 5,000 or more inhabitants. An approximation, see the note."
+    },
+    "availableYears": [
+      "2015",
+      "2016",
+      "2017",
+      "2018",
+      "2019",
+      "2020",
+      "2021",
+      "2022",
+      "2023",
+      "2024"
+    ]
+  },
+  {
+    "id": "std_gdn_bl_rest",
+    "type": "std",
+    "entityCode": "gdn_bl_rest",
+    "displayName": {
+      "de": "Übrige Gemeinden BL (berechnet)",
+      "fr": "Autres communes BL (calculé)",
+      "it": "Altri comuni BL (calcolato)",
+      "en": "Other municipalities BL (calculated)"
+    },
+    "description": {
+      "de": "Berechnet: alle Gemeinden des Kantons Basel-Landschaft zusammen, abzüglich der Gemeinden ab 5'000 Einwohnern. Näherung, siehe Hinweis.",
+      "fr": "Calculé : toutes les communes du canton Bâle-Campagne ensemble, moins les communes de 5 000 habitants et plus. Approximation, voir la remarque.",
+      "it": "Calcolato: tutti i comuni del cantone Basilea Campagna insieme, meno i comuni da 5000 abitanti. Approssimazione, vedi l'avviso.",
+      "en": "Calculated: all municipalities of Canton Basel-Country together, minus the municipalities with 5,000 or more inhabitants. An approximation, see the note."
+    },
+    "availableYears": [
+      "2015",
+      "2016",
+      "2017",
+      "2018",
+      "2019",
+      "2020",
+      "2021",
+      "2022",
+      "2023",
+      "2024"
+    ]
+  },
+  {
+    "id": "std_gdn_bs_rest",
+    "type": "std",
+    "entityCode": "gdn_bs_rest",
+    "displayName": {
+      "de": "Übrige Gemeinden BS (berechnet)",
+      "fr": "Autres communes BS (calculé)",
+      "it": "Altri comuni BS (calcolato)",
+      "en": "Other municipalities BS (calculated)"
+    },
+    "description": {
+      "de": "Berechnet: alle Gemeinden des Kantons Basel-Stadt zusammen, abzüglich der Gemeinden ab 5'000 Einwohnern. Näherung, siehe Hinweis.",
+      "fr": "Calculé : toutes les communes du canton Bâle-Ville ensemble, moins les communes de 5 000 habitants et plus. Approximation, voir la remarque.",
+      "it": "Calcolato: tutti i comuni del cantone Basilea Città insieme, meno i comuni da 5000 abitanti. Approssimazione, vedi l'avviso.",
+      "en": "Calculated: all municipalities of Canton Basel-City together, minus the municipalities with 5,000 or more inhabitants. An approximation, see the note."
+    },
+    "availableYears": [
+      "2015",
+      "2016",
+      "2017",
+      "2018",
+      "2019",
+      "2020",
+      "2021",
+      "2022",
+      "2023",
+      "2024"
+    ]
+  },
+  {
+    "id": "std_gdn_fr_rest",
+    "type": "std",
+    "entityCode": "gdn_fr_rest",
+    "displayName": {
+      "de": "Übrige Gemeinden FR (berechnet)",
+      "fr": "Autres communes FR (calculé)",
+      "it": "Altri comuni FR (calcolato)",
+      "en": "Other municipalities FR (calculated)"
+    },
+    "description": {
+      "de": "Berechnet: alle Gemeinden des Kantons Freiburg zusammen, abzüglich der Gemeinden ab 5'000 Einwohnern. Näherung, siehe Hinweis.",
+      "fr": "Calculé : toutes les communes du canton Fribourg ensemble, moins les communes de 5 000 habitants et plus. Approximation, voir la remarque.",
+      "it": "Calcolato: tutti i comuni del cantone Friborgo insieme, meno i comuni da 5000 abitanti. Approssimazione, vedi l'avviso.",
+      "en": "Calculated: all municipalities of Canton Fribourg together, minus the municipalities with 5,000 or more inhabitants. An approximation, see the note."
+    },
+    "availableYears": [
+      "2015",
+      "2016",
+      "2017",
+      "2018",
+      "2019",
+      "2020",
+      "2021",
+      "2022",
+      "2023",
+      "2024"
+    ]
+  },
+  {
+    "id": "std_gdn_ge_rest",
+    "type": "std",
+    "entityCode": "gdn_ge_rest",
+    "displayName": {
+      "de": "Übrige Gemeinden GE (berechnet)",
+      "fr": "Autres communes GE (calculé)",
+      "it": "Altri comuni GE (calcolato)",
+      "en": "Other municipalities GE (calculated)"
+    },
+    "description": {
+      "de": "Berechnet: alle Gemeinden des Kantons Genf zusammen, abzüglich der Gemeinden ab 5'000 Einwohnern. Näherung, siehe Hinweis.",
+      "fr": "Calculé : toutes les communes du canton Genève ensemble, moins les communes de 5 000 habitants et plus. Approximation, voir la remarque.",
+      "it": "Calcolato: tutti i comuni del cantone Ginevra insieme, meno i comuni da 5000 abitanti. Approssimazione, vedi l'avviso.",
+      "en": "Calculated: all municipalities of Canton Geneva together, minus the municipalities with 5,000 or more inhabitants. An approximation, see the note."
+    },
+    "availableYears": [
+      "2015",
+      "2016",
+      "2017",
+      "2018",
+      "2019",
+      "2020",
+      "2021",
+      "2022",
+      "2023",
+      "2024"
+    ]
+  },
+  {
+    "id": "std_gdn_gr_rest",
+    "type": "std",
+    "entityCode": "gdn_gr_rest",
+    "displayName": {
+      "de": "Übrige Gemeinden GR (berechnet)",
+      "fr": "Autres communes GR (calculé)",
+      "it": "Altri comuni GR (calcolato)",
+      "en": "Other municipalities GR (calculated)"
+    },
+    "description": {
+      "de": "Berechnet: alle Gemeinden des Kantons Graubünden zusammen, abzüglich der Gemeinden ab 5'000 Einwohnern. Näherung, siehe Hinweis.",
+      "fr": "Calculé : toutes les communes du canton Grisons ensemble, moins les communes de 5 000 habitants et plus. Approximation, voir la remarque.",
+      "it": "Calcolato: tutti i comuni del cantone Grigioni insieme, meno i comuni da 5000 abitanti. Approssimazione, vedi l'avviso.",
+      "en": "Calculated: all municipalities of Canton Grisons together, minus the municipalities with 5,000 or more inhabitants. An approximation, see the note."
+    },
+    "availableYears": [
+      "2015",
+      "2016",
+      "2017",
+      "2018",
+      "2019",
+      "2020",
+      "2021",
+      "2022",
+      "2023",
+      "2024"
+    ]
+  },
+  {
+    "id": "std_gdn_ju_rest",
+    "type": "std",
+    "entityCode": "gdn_ju_rest",
+    "displayName": {
+      "de": "Übrige Gemeinden JU (berechnet)",
+      "fr": "Autres communes JU (calculé)",
+      "it": "Altri comuni JU (calcolato)",
+      "en": "Other municipalities JU (calculated)"
+    },
+    "description": {
+      "de": "Berechnet: alle Gemeinden des Kantons Jura zusammen, abzüglich der Gemeinden ab 5'000 Einwohnern. Näherung, siehe Hinweis.",
+      "fr": "Calculé : toutes les communes du canton Jura ensemble, moins les communes de 5 000 habitants et plus. Approximation, voir la remarque.",
+      "it": "Calcolato: tutti i comuni del cantone Giura insieme, meno i comuni da 5000 abitanti. Approssimazione, vedi l'avviso.",
+      "en": "Calculated: all municipalities of Canton Jura together, minus the municipalities with 5,000 or more inhabitants. An approximation, see the note."
+    },
+    "availableYears": [
+      "2015",
+      "2016",
+      "2017",
+      "2018",
+      "2019",
+      "2020",
+      "2021",
+      "2022",
+      "2023",
+      "2024"
+    ]
+  },
+  {
+    "id": "std_gdn_lu_rest",
+    "type": "std",
+    "entityCode": "gdn_lu_rest",
+    "displayName": {
+      "de": "Übrige Gemeinden LU (berechnet)",
+      "fr": "Autres communes LU (calculé)",
+      "it": "Altri comuni LU (calcolato)",
+      "en": "Other municipalities LU (calculated)"
+    },
+    "description": {
+      "de": "Berechnet: alle Gemeinden des Kantons Luzern zusammen, abzüglich der Gemeinden ab 5'000 Einwohnern. Näherung, siehe Hinweis.",
+      "fr": "Calculé : toutes les communes du canton Lucerne ensemble, moins les communes de 5 000 habitants et plus. Approximation, voir la remarque.",
+      "it": "Calcolato: tutti i comuni del cantone Lucerna insieme, meno i comuni da 5000 abitanti. Approssimazione, vedi l'avviso.",
+      "en": "Calculated: all municipalities of Canton Lucerne together, minus the municipalities with 5,000 or more inhabitants. An approximation, see the note."
+    },
+    "availableYears": [
+      "2015",
+      "2016",
+      "2017",
+      "2018",
+      "2019",
+      "2020",
+      "2021",
+      "2022",
+      "2023",
+      "2024"
+    ]
+  },
+  {
+    "id": "std_gdn_ne_rest",
+    "type": "std",
+    "entityCode": "gdn_ne_rest",
+    "displayName": {
+      "de": "Übrige Gemeinden NE (berechnet)",
+      "fr": "Autres communes NE (calculé)",
+      "it": "Altri comuni NE (calcolato)",
+      "en": "Other municipalities NE (calculated)"
+    },
+    "description": {
+      "de": "Berechnet: alle Gemeinden des Kantons Neuenburg zusammen, abzüglich der Gemeinden ab 5'000 Einwohnern. Näherung, siehe Hinweis.",
+      "fr": "Calculé : toutes les communes du canton Neuchâtel ensemble, moins les communes de 5 000 habitants et plus. Approximation, voir la remarque.",
+      "it": "Calcolato: tutti i comuni del cantone Neuchâtel insieme, meno i comuni da 5000 abitanti. Approssimazione, vedi l'avviso.",
+      "en": "Calculated: all municipalities of Canton Neuchâtel together, minus the municipalities with 5,000 or more inhabitants. An approximation, see the note."
+    },
+    "availableYears": [
+      "2015",
+      "2016",
+      "2017",
+      "2018",
+      "2019",
+      "2020",
+      "2021",
+      "2022",
+      "2023",
+      "2024"
+    ]
+  },
+  {
+    "id": "std_gdn_nw_rest",
+    "type": "std",
+    "entityCode": "gdn_nw_rest",
+    "displayName": {
+      "de": "Übrige Gemeinden NW (berechnet)",
+      "fr": "Autres communes NW (calculé)",
+      "it": "Altri comuni NW (calcolato)",
+      "en": "Other municipalities NW (calculated)"
+    },
+    "description": {
+      "de": "Berechnet: alle Gemeinden des Kantons Nidwalden zusammen, abzüglich der Gemeinden ab 5'000 Einwohnern. Näherung, siehe Hinweis.",
+      "fr": "Calculé : toutes les communes du canton Nidwald ensemble, moins les communes de 5 000 habitants et plus. Approximation, voir la remarque.",
+      "it": "Calcolato: tutti i comuni del cantone Nidvaldo insieme, meno i comuni da 5000 abitanti. Approssimazione, vedi l'avviso.",
+      "en": "Calculated: all municipalities of Canton Nidwalden together, minus the municipalities with 5,000 or more inhabitants. An approximation, see the note."
+    },
+    "availableYears": [
+      "2015",
+      "2016",
+      "2017",
+      "2018",
+      "2019",
+      "2020",
+      "2021",
+      "2022",
+      "2023",
+      "2024"
+    ]
+  },
+  {
+    "id": "std_gdn_ow_rest",
+    "type": "std",
+    "entityCode": "gdn_ow_rest",
+    "displayName": {
+      "de": "Übrige Gemeinden OW (berechnet)",
+      "fr": "Autres communes OW (calculé)",
+      "it": "Altri comuni OW (calcolato)",
+      "en": "Other municipalities OW (calculated)"
+    },
+    "description": {
+      "de": "Berechnet: alle Gemeinden des Kantons Obwalden zusammen, abzüglich der Gemeinden ab 5'000 Einwohnern. Näherung, siehe Hinweis.",
+      "fr": "Calculé : toutes les communes du canton Obwald ensemble, moins les communes de 5 000 habitants et plus. Approximation, voir la remarque.",
+      "it": "Calcolato: tutti i comuni del cantone Obvaldo insieme, meno i comuni da 5000 abitanti. Approssimazione, vedi l'avviso.",
+      "en": "Calculated: all municipalities of Canton Obwalden together, minus the municipalities with 5,000 or more inhabitants. An approximation, see the note."
+    },
+    "availableYears": [
+      "2015",
+      "2016",
+      "2017",
+      "2018",
+      "2019",
+      "2020",
+      "2021",
+      "2022",
+      "2023",
+      "2024"
+    ]
+  },
+  {
+    "id": "std_gdn_sg_rest",
+    "type": "std",
+    "entityCode": "gdn_sg_rest",
+    "displayName": {
+      "de": "Übrige Gemeinden SG (berechnet)",
+      "fr": "Autres communes SG (calculé)",
+      "it": "Altri comuni SG (calcolato)",
+      "en": "Other municipalities SG (calculated)"
+    },
+    "description": {
+      "de": "Berechnet: alle Gemeinden des Kantons St. Gallen zusammen, abzüglich der Gemeinden ab 5'000 Einwohnern. Näherung, siehe Hinweis.",
+      "fr": "Calculé : toutes les communes du canton Saint-Gall ensemble, moins les communes de 5 000 habitants et plus. Approximation, voir la remarque.",
+      "it": "Calcolato: tutti i comuni del cantone San Gallo insieme, meno i comuni da 5000 abitanti. Approssimazione, vedi l'avviso.",
+      "en": "Calculated: all municipalities of Canton St. Gallen together, minus the municipalities with 5,000 or more inhabitants. An approximation, see the note."
+    },
+    "availableYears": [
+      "2015",
+      "2016",
+      "2017",
+      "2018",
+      "2019",
+      "2020",
+      "2021",
+      "2022",
+      "2023",
+      "2024"
+    ]
+  },
+  {
+    "id": "std_gdn_sh_rest",
+    "type": "std",
+    "entityCode": "gdn_sh_rest",
+    "displayName": {
+      "de": "Übrige Gemeinden SH (berechnet)",
+      "fr": "Autres communes SH (calculé)",
+      "it": "Altri comuni SH (calcolato)",
+      "en": "Other municipalities SH (calculated)"
+    },
+    "description": {
+      "de": "Berechnet: alle Gemeinden des Kantons Schaffhausen zusammen, abzüglich der Gemeinden ab 5'000 Einwohnern. Näherung, siehe Hinweis.",
+      "fr": "Calculé : toutes les communes du canton Schaffhouse ensemble, moins les communes de 5 000 habitants et plus. Approximation, voir la remarque.",
+      "it": "Calcolato: tutti i comuni del cantone Sciaffusa insieme, meno i comuni da 5000 abitanti. Approssimazione, vedi l'avviso.",
+      "en": "Calculated: all municipalities of Canton Schaffhausen together, minus the municipalities with 5,000 or more inhabitants. An approximation, see the note."
+    },
+    "availableYears": [
+      "2015",
+      "2016",
+      "2017",
+      "2018",
+      "2019",
+      "2020",
+      "2021",
+      "2022",
+      "2023",
+      "2024"
+    ]
+  },
+  {
+    "id": "std_gdn_so_rest",
+    "type": "std",
+    "entityCode": "gdn_so_rest",
+    "displayName": {
+      "de": "Übrige Gemeinden SO (berechnet)",
+      "fr": "Autres communes SO (calculé)",
+      "it": "Altri comuni SO (calcolato)",
+      "en": "Other municipalities SO (calculated)"
+    },
+    "description": {
+      "de": "Berechnet: alle Gemeinden des Kantons Solothurn zusammen, abzüglich der Gemeinden ab 5'000 Einwohnern. Näherung, siehe Hinweis.",
+      "fr": "Calculé : toutes les communes du canton Soleure ensemble, moins les communes de 5 000 habitants et plus. Approximation, voir la remarque.",
+      "it": "Calcolato: tutti i comuni del cantone Soletta insieme, meno i comuni da 5000 abitanti. Approssimazione, vedi l'avviso.",
+      "en": "Calculated: all municipalities of Canton Solothurn together, minus the municipalities with 5,000 or more inhabitants. An approximation, see the note."
+    },
+    "availableYears": [
+      "2015",
+      "2016",
+      "2017",
+      "2018",
+      "2019",
+      "2020",
+      "2021",
+      "2022",
+      "2023",
+      "2024"
+    ]
+  },
+  {
+    "id": "std_gdn_sz_rest",
+    "type": "std",
+    "entityCode": "gdn_sz_rest",
+    "displayName": {
+      "de": "Übrige Gemeinden SZ (berechnet)",
+      "fr": "Autres communes SZ (calculé)",
+      "it": "Altri comuni SZ (calcolato)",
+      "en": "Other municipalities SZ (calculated)"
+    },
+    "description": {
+      "de": "Berechnet: alle Gemeinden des Kantons Schwyz zusammen, abzüglich der Gemeinden ab 5'000 Einwohnern. Näherung, siehe Hinweis.",
+      "fr": "Calculé : toutes les communes du canton Schwyz ensemble, moins les communes de 5 000 habitants et plus. Approximation, voir la remarque.",
+      "it": "Calcolato: tutti i comuni del cantone Svitto insieme, meno i comuni da 5000 abitanti. Approssimazione, vedi l'avviso.",
+      "en": "Calculated: all municipalities of Canton Schwyz together, minus the municipalities with 5,000 or more inhabitants. An approximation, see the note."
+    },
+    "availableYears": [
+      "2015",
+      "2016",
+      "2017",
+      "2018",
+      "2019",
+      "2020",
+      "2021",
+      "2022",
+      "2023",
+      "2024"
+    ]
+  },
+  {
+    "id": "std_gdn_tg_rest",
+    "type": "std",
+    "entityCode": "gdn_tg_rest",
+    "displayName": {
+      "de": "Übrige Gemeinden TG (berechnet)",
+      "fr": "Autres communes TG (calculé)",
+      "it": "Altri comuni TG (calcolato)",
+      "en": "Other municipalities TG (calculated)"
+    },
+    "description": {
+      "de": "Berechnet: alle Gemeinden des Kantons Thurgau zusammen, abzüglich der Gemeinden ab 5'000 Einwohnern. Näherung, siehe Hinweis.",
+      "fr": "Calculé : toutes les communes du canton Thurgovie ensemble, moins les communes de 5 000 habitants et plus. Approximation, voir la remarque.",
+      "it": "Calcolato: tutti i comuni del cantone Turgovia insieme, meno i comuni da 5000 abitanti. Approssimazione, vedi l'avviso.",
+      "en": "Calculated: all municipalities of Canton Thurgau together, minus the municipalities with 5,000 or more inhabitants. An approximation, see the note."
+    },
+    "availableYears": [
+      "2015",
+      "2016",
+      "2017",
+      "2018",
+      "2019",
+      "2020",
+      "2021",
+      "2022",
+      "2023",
+      "2024"
+    ]
+  },
+  {
+    "id": "std_gdn_ti_rest",
+    "type": "std",
+    "entityCode": "gdn_ti_rest",
+    "displayName": {
+      "de": "Übrige Gemeinden TI (berechnet)",
+      "fr": "Autres communes TI (calculé)",
+      "it": "Altri comuni TI (calcolato)",
+      "en": "Other municipalities TI (calculated)"
+    },
+    "description": {
+      "de": "Berechnet: alle Gemeinden des Kantons Tessin zusammen, abzüglich der Gemeinden ab 5'000 Einwohnern. Näherung, siehe Hinweis.",
+      "fr": "Calculé : toutes les communes du canton Tessin ensemble, moins les communes de 5 000 habitants et plus. Approximation, voir la remarque.",
+      "it": "Calcolato: tutti i comuni del cantone Ticino insieme, meno i comuni da 5000 abitanti. Approssimazione, vedi l'avviso.",
+      "en": "Calculated: all municipalities of Canton Ticino together, minus the municipalities with 5,000 or more inhabitants. An approximation, see the note."
+    },
+    "availableYears": [
+      "2015",
+      "2016",
+      "2017",
+      "2018",
+      "2019",
+      "2020",
+      "2021",
+      "2022",
+      "2023",
+      "2024"
+    ]
+  },
+  {
+    "id": "std_gdn_ur_rest",
+    "type": "std",
+    "entityCode": "gdn_ur_rest",
+    "displayName": {
+      "de": "Übrige Gemeinden UR (berechnet)",
+      "fr": "Autres communes UR (calculé)",
+      "it": "Altri comuni UR (calcolato)",
+      "en": "Other municipalities UR (calculated)"
+    },
+    "description": {
+      "de": "Berechnet: alle Gemeinden des Kantons Uri zusammen, abzüglich der Gemeinden ab 5'000 Einwohnern. Näherung, siehe Hinweis.",
+      "fr": "Calculé : toutes les communes du canton Uri ensemble, moins les communes de 5 000 habitants et plus. Approximation, voir la remarque.",
+      "it": "Calcolato: tutti i comuni del cantone Uri insieme, meno i comuni da 5000 abitanti. Approssimazione, vedi l'avviso.",
+      "en": "Calculated: all municipalities of Canton Uri together, minus the municipalities with 5,000 or more inhabitants. An approximation, see the note."
+    },
+    "availableYears": [
+      "2015",
+      "2016",
+      "2017",
+      "2018",
+      "2019",
+      "2020",
+      "2021",
+      "2022",
+      "2023",
+      "2024"
+    ]
+  },
+  {
+    "id": "std_gdn_vd_rest",
+    "type": "std",
+    "entityCode": "gdn_vd_rest",
+    "displayName": {
+      "de": "Übrige Gemeinden VD (berechnet)",
+      "fr": "Autres communes VD (calculé)",
+      "it": "Altri comuni VD (calcolato)",
+      "en": "Other municipalities VD (calculated)"
+    },
+    "description": {
+      "de": "Berechnet: alle Gemeinden des Kantons Waadt zusammen, abzüglich der Gemeinden ab 5'000 Einwohnern. Näherung, siehe Hinweis.",
+      "fr": "Calculé : toutes les communes du canton Vaud ensemble, moins les communes de 5 000 habitants et plus. Approximation, voir la remarque.",
+      "it": "Calcolato: tutti i comuni del cantone Vaud insieme, meno i comuni da 5000 abitanti. Approssimazione, vedi l'avviso.",
+      "en": "Calculated: all municipalities of Canton Vaud together, minus the municipalities with 5,000 or more inhabitants. An approximation, see the note."
+    },
+    "availableYears": [
+      "2015",
+      "2016",
+      "2017",
+      "2018",
+      "2019",
+      "2020",
+      "2021",
+      "2022",
+      "2023",
+      "2024"
+    ]
+  },
+  {
+    "id": "std_gdn_vs_rest",
+    "type": "std",
+    "entityCode": "gdn_vs_rest",
+    "displayName": {
+      "de": "Übrige Gemeinden VS (berechnet)",
+      "fr": "Autres communes VS (calculé)",
+      "it": "Altri comuni VS (calcolato)",
+      "en": "Other municipalities VS (calculated)"
+    },
+    "description": {
+      "de": "Berechnet: alle Gemeinden des Kantons Wallis zusammen, abzüglich der Gemeinden ab 5'000 Einwohnern. Näherung, siehe Hinweis.",
+      "fr": "Calculé : toutes les communes du canton Valais ensemble, moins les communes de 5 000 habitants et plus. Approximation, voir la remarque.",
+      "it": "Calcolato: tutti i comuni del cantone Vallese insieme, meno i comuni da 5000 abitanti. Approssimazione, vedi l'avviso.",
+      "en": "Calculated: all municipalities of Canton Valais together, minus the municipalities with 5,000 or more inhabitants. An approximation, see the note."
+    },
+    "availableYears": [
+      "2015",
+      "2016",
+      "2017",
+      "2018",
+      "2019",
+      "2020",
+      "2021",
+      "2022",
+      "2023",
+      "2024"
+    ]
+  },
+  {
+    "id": "std_gdn_zg_rest",
+    "type": "std",
+    "entityCode": "gdn_zg_rest",
+    "displayName": {
+      "de": "Übrige Gemeinden ZG (berechnet)",
+      "fr": "Autres communes ZG (calculé)",
+      "it": "Altri comuni ZG (calcolato)",
+      "en": "Other municipalities ZG (calculated)"
+    },
+    "description": {
+      "de": "Berechnet: alle Gemeinden des Kantons Zug zusammen, abzüglich der Gemeinden ab 5'000 Einwohnern. Näherung, siehe Hinweis.",
+      "fr": "Calculé : toutes les communes du canton Zoug ensemble, moins les communes de 5 000 habitants et plus. Approximation, voir la remarque.",
+      "it": "Calcolato: tutti i comuni del cantone Zugo insieme, meno i comuni da 5000 abitanti. Approssimazione, vedi l'avviso.",
+      "en": "Calculated: all municipalities of Canton Zug together, minus the municipalities with 5,000 or more inhabitants. An approximation, see the note."
+    },
+    "availableYears": [
+      "2015",
+      "2016",
+      "2017",
+      "2018",
+      "2019",
+      "2020",
+      "2021",
+      "2022",
+      "2023",
+      "2024"
+    ]
+  },
+  {
+    "id": "std_gdn_zh_rest",
+    "type": "std",
+    "entityCode": "gdn_zh_rest",
+    "displayName": {
+      "de": "Übrige Gemeinden ZH (berechnet)",
+      "fr": "Autres communes ZH (calculé)",
+      "it": "Altri comuni ZH (calcolato)",
+      "en": "Other municipalities ZH (calculated)"
+    },
+    "description": {
+      "de": "Berechnet: alle Gemeinden des Kantons Zürich zusammen, abzüglich der Gemeinden ab 5'000 Einwohnern. Näherung, siehe Hinweis.",
+      "fr": "Calculé : toutes les communes du canton Zurich ensemble, moins les communes de 5 000 habitants et plus. Approximation, voir la remarque.",
+      "it": "Calcolato: tutti i comuni del cantone Zurigo insieme, meno i comuni da 5000 abitanti. Approssimazione, vedi l'avviso.",
+      "en": "Calculated: all municipalities of Canton Zurich together, minus the municipalities with 5,000 or more inhabitants. An approximation, see the note."
+    },
+    "availableYears": [
+      "2015",
+      "2016",
+      "2017",
+      "2018",
+      "2019",
+      "2020",
+      "2021",
+      "2022",
+      "2023",
+      "2024"
+    ]
   },
   {
     "id": "gdn_020944",
@@ -12045,7 +13741,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "020944"
   },
@@ -12073,7 +13771,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "010159"
   },
@@ -12096,7 +13796,9 @@
     "availableYears": [
       "2015",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "010248"
   },
@@ -12124,7 +13826,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "091709"
   },
@@ -12152,7 +13856,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "020593"
   },
@@ -12179,7 +13885,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "194044"
   },
@@ -12207,7 +13915,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "010250"
   },
@@ -12234,7 +13944,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "020551"
   },
@@ -12262,7 +13974,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "010198"
   },
@@ -12286,7 +14000,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "173339"
   },
@@ -12314,7 +14030,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "173408"
   },
@@ -12336,7 +14054,9 @@
     },
     "availableYears": [
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "236037"
   },
@@ -12364,7 +14084,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "246487"
   },
@@ -12392,7 +14114,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "246512"
   },
@@ -12419,7 +14143,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "020359"
   },
@@ -12447,7 +14173,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "256643"
   },
@@ -12475,7 +14203,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "256644"
   },
@@ -12498,7 +14228,9 @@
     "availableYears": [
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "236025"
   },
@@ -12526,7 +14258,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "225890"
   },
@@ -12554,7 +14288,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "256645"
   },
@@ -12582,7 +14318,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "102228"
   },
@@ -12603,7 +14341,9 @@
       "en": "Financial data for municipality Villeneuve (VD)"
     },
     "availableYears": [
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "225414"
   },
@@ -12630,7 +14370,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "194080"
   },
@@ -12658,7 +14400,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "236297"
   },
@@ -12686,7 +14430,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "010199"
   },
@@ -12734,7 +14480,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "010293"
   },
@@ -12761,7 +14509,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "010120"
   },
@@ -12785,7 +14535,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "173298"
   },
@@ -12813,7 +14565,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "010069"
   },
@@ -12841,7 +14595,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "051349"
   },
@@ -12866,7 +14622,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "112586"
   },
@@ -12893,9 +14651,38 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "010200"
+  },
+  {
+    "id": "gdn_204781",
+    "type": "gdn",
+    "entityCode": "204781",
+    "displayName": {
+      "de": "Wängi",
+      "fr": "Wängi",
+      "it": "Wängi",
+      "en": "Wängi"
+    },
+    "description": {
+      "de": "Finanzdaten der Gemeinde Wängi",
+      "fr": "Données financières de la commune Wängi",
+      "it": "Dati finanziari del comune Wängi",
+      "en": "Financial data for municipality Wängi"
+    },
+    "availableYears": [
+      "2018",
+      "2019",
+      "2020",
+      "2021",
+      "2022",
+      "2023",
+      "2024"
+    ],
+    "municipalityNumber": "204781"
   },
   {
     "id": "gdn_173276",
@@ -12921,7 +14708,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "173276"
   },
@@ -12945,7 +14734,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "173379"
   },
@@ -12973,7 +14764,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "204946"
   },
@@ -13001,7 +14794,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "194045"
   },
@@ -13028,7 +14823,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "010014"
   },
@@ -13056,7 +14853,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "010121"
   },
@@ -13084,7 +14883,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "173238"
   },
@@ -13111,7 +14912,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "010298"
   },
@@ -13139,7 +14942,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "173427"
   },
@@ -13166,7 +14971,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "031151"
   },
@@ -13193,9 +15000,34 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "194123"
+  },
+  {
+    "id": "gdn_010072",
+    "type": "gdn",
+    "entityCode": "010072",
+    "displayName": {
+      "de": "Winkel",
+      "fr": "Winkel",
+      "it": "Winkel",
+      "en": "Winkel"
+    },
+    "description": {
+      "de": "Finanzdaten der Gemeinde Winkel",
+      "fr": "Données financières de la commune Winkel",
+      "it": "Dati finanziari del comune Winkel",
+      "en": "Financial data for municipality Winkel"
+    },
+    "availableYears": [
+      "2016",
+      "2017",
+      "2018"
+    ],
+    "municipalityNumber": "010072"
   },
   {
     "id": "gdn_010230",
@@ -13221,7 +15053,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "010230"
   },
@@ -13245,7 +15079,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "173204"
   },
@@ -13273,7 +15109,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "194082"
   },
@@ -13301,7 +15139,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "020360"
   },
@@ -13329,7 +15169,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "051323"
   },
@@ -13357,7 +15199,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "020627"
   },
@@ -13382,7 +15226,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "102309"
   },
@@ -13409,7 +15255,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "194048"
   },
@@ -13437,7 +15285,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "225938"
   },
@@ -13464,7 +15314,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "010231"
   },
@@ -13492,7 +15344,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "236300"
   },
@@ -13520,7 +15374,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "194289"
   },
@@ -13548,7 +15404,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "020361"
   },
@@ -13576,7 +15434,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "010161"
   },
@@ -13604,7 +15464,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "112534"
   },
@@ -13632,7 +15494,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "091711"
   },
@@ -13659,7 +15523,9 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "010160"
   },
@@ -13687,8 +15553,34 @@
       "2019",
       "2020",
       "2021",
-      "2022"
+      "2022",
+      "2023",
+      "2024"
     ],
     "municipalityNumber": "010261"
+  },
+  {
+    "id": "gdn_173426",
+    "type": "gdn",
+    "entityCode": "173426",
+    "displayName": {
+      "de": "Zuzwil (SG)",
+      "fr": "Zuzwil (SG)",
+      "it": "Zuzwil (SG)",
+      "en": "Zuzwil (SG)"
+    },
+    "description": {
+      "de": "Finanzdaten der Gemeinde Zuzwil (SG)",
+      "fr": "Données financières de la commune Zuzwil (SG)",
+      "it": "Dati finanziari del comune Zuzwil (SG)",
+      "en": "Financial data for municipality Zuzwil (SG)"
+    },
+    "availableYears": [
+      "2015",
+      "2016",
+      "2017",
+      "2018"
+    ],
+    "municipalityNumber": "173426"
   }
 ]

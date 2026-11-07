@@ -9,8 +9,8 @@ test.describe('Account Code Combinations in Optimization', () => {
 
   // Helper function to add dataset and open custom formula
   async function setupDatasetAndOpenCustomFormula(page) {
-    await page.getByRole('textbox', { name: 'Nach Datensätzen suchen...' }).fill('aargau')
-    await page.getByRole('row', { name: 'Alle Gemeinden des Kantons' }).getByLabel('Hinzufügen (2022)').click()
+    await page.getByRole('textbox', { name: 'Gemeinde oder Kanton suchen' }).fill('aargau')
+    await page.getByRole('row', { name: /^Alle Gemeinden des Kantons Aargau/ }).getByLabel(/Hinzufügen \(\d{4}\)/).click()
     
     // Wait for the scaling selector to be visible and interactable
     const scalingDropdown = page.locator('[data-testid="scaling-dropdown"]')

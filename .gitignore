@@ -39,3 +39,6 @@ playwright-report/
 /data/standardauswertung.csv
 
 /.wrangler
+# BFS PC-Axis cube downloaded by scripts/convertPxToStats.js (150 MB)
+/data/*.px
+/data/ts-x-*.csv

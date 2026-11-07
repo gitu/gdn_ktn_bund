@@ -34,8 +34,8 @@ test.describe('HomeView Translation Functionality', () => {
     await expect(page.getByTestId('home-subtitle')).toContainText('Vergleichen Sie Finanzdaten von Schweizer Gemeinden, Kantonen und dem Bund');
 
     // Check description section
-    await expect(page.getByTestId('home-description-title')).toContainText('Finanzdaten verschiedener Schweizer Einheiten vergleichen');
-    await expect(page.getByTestId('home-description-intro')).toContainText('Analysieren und vergleichen Sie Finanzberichte');
+    await expect(page.getByTestId('home-description-title')).toContainText('Gemeinden, Kantone und Bund nebeneinander vergleichen');
+    await expect(page.getByTestId('home-description-intro')).toContainText('Was nimmt Ihre Gemeinde ein');
 
     // Check CTA section
     await expect(page.getByTestId('home-cta-title')).toContainText('Bereit zum Start?');
@@ -69,8 +69,8 @@ test.describe('HomeView Translation Functionality', () => {
     await expect(page.getByTestId('home-subtitle')).toContainText('Compare financial data from Swiss municipalities, cantons, and federal government');
 
     // Check description section
-    await expect(page.getByTestId('home-description-title')).toContainText('Compare Financial Data Across Swiss Entities');
-    await expect(page.getByTestId('home-description-intro')).toContainText('Analyze and compare financial statements');
+    await expect(page.getByTestId('home-description-title')).toContainText('Compare municipalities, cantons and the federal government side by side');
+    await expect(page.getByTestId('home-description-intro')).toContainText('What does your municipality take in and spend');
 
     // Check CTA section
     await expect(page.getByTestId('home-cta-title')).toContainText('Ready to Start?');
@@ -110,8 +110,8 @@ test.describe('HomeView Translation Functionality', () => {
     await expect(page.getByTestId('home-subtitle')).toContainText('Comparez les données financières des communes, cantons et confédération suisses');
 
     // Check description section
-    await expect(page.getByTestId('home-description-title')).toContainText('Comparer les données financières entre entités suisses');
-    await expect(page.getByTestId('home-description-intro')).toContainText('Analysez et comparez les états financiers');
+    await expect(page.getByTestId('home-description-title')).toContainText('Comparer communes, cantons et Confédération côte à côte');
+    await expect(page.getByTestId('home-description-intro')).toContainText('Que rapporte et que dépense votre commune');
 
     // Check CTA section
     await expect(page.getByTestId('home-cta-title')).toContainText('Prêt à commencer ?');
@@ -143,8 +143,8 @@ test.describe('HomeView Translation Functionality', () => {
     await expect(page.getByTestId('home-subtitle')).toContainText('Confronta i dati finanziari di comuni, cantoni e confederazione svizzeri');
 
     // Check description section
-    await expect(page.getByTestId('home-description-title')).toContainText('Confronta i dati finanziari tra entità svizzere');
-    await expect(page.getByTestId('home-description-intro')).toContainText('Analizza e confronta i bilanci');
+    await expect(page.getByTestId('home-description-title')).toContainText('Confrontare comuni, cantoni e Confederazione fianco a fianco');
+    await expect(page.getByTestId('home-description-intro')).toContainText('Quanto incassa e quanto spende il tuo comune');
 
     // Check CTA section
     await expect(page.getByTestId('home-cta-title')).toContainText('Pronto per iniziare?');
@@ -172,7 +172,7 @@ test.describe('HomeView Translation Functionality', () => {
 
     // Verify German content is displayed again
     await expect(page.getByTestId('home-title')).toContainText('Schweizer Finanzdaten-Explorer');
-    await expect(page.getByTestId('home-description-title')).toContainText('Finanzdaten verschiedener Schweizer Einheiten vergleichen');
+    await expect(page.getByTestId('home-description-title')).toContainText('Gemeinden, Kantone und Bund nebeneinander vergleichen');
     await expect(page.getByTestId('home-cta-title')).toContainText('Bereit zum Start?');
   });
 

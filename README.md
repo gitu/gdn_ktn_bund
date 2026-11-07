@@ -235,7 +235,7 @@ npm run pre-commit        # Full quality check (lint + format + test + build)
 **Build data catalogs**
 ```bash
 npm run build-data        # Generate available-data.json
-npm run fetch-atlas       # Fetch latest statistical data
+npm run fetch-stats       # Rebuild scaling statistics (population, jobs, roads) from BFS
 ```
 
 ## 📁 Project Structure
@@ -279,7 +279,9 @@ gdn_ktn_bund/
 │       └── stats/           # Statistical scaling data
 ├── scripts/                 # Build and data processing scripts
 │   ├── buildAvailableData.js         # Generate data catalogs
-│   ├── fetchAtlasData.js             # Fetch statistical data
+│   ├── convertPxToStats.js           # STATPOP population statistics (BFS)
+│   ├── convertStatent.js             # STATENT jobs statistics (BFS)
+│   ├── convertRoads.js               # Road length statistics (BFS)
 │   └── processData.js                # Data transformation
 ├── e2e/                     # End-to-end tests
 ├── tests/                   # Unit tests

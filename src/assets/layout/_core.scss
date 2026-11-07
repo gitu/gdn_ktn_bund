@@ -2,10 +2,14 @@ html {
   height: 100%;
   font-size: 14px;
   line-height: 1.2;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  scroll-padding-top: calc(var(--topbar-h) + 1rem);
 }
 
 body {
-  font-family: 'Lato', sans-serif;
+  font-family: var(--font-sans);
+  font-optical-sizing: auto;
   color: var(--text-color);
   background-color: var(--surface-ground);
   margin: 0;
@@ -13,12 +17,55 @@ body {
   min-height: 100%;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  -webkit-tap-highlight-color: transparent;
+  overflow-wrap: break-word;
 }
 
 a {
   text-decoration: none;
 }
 
+button {
+  font-family: inherit;
+}
+
+// Money and counts line up in columns.
+.tabular,
+.p-datatable,
+.p-treetable {
+  font-variant-numeric: tabular-nums;
+}
+
 .layout-wrapper {
   min-height: 100vh;
+  min-height: 100dvh;
+}
+
+// iOS Safari zooms the page when a focused input is smaller than 16px.
+@media (max-width: 767px) {
+  input,
+  select,
+  textarea,
+  .p-inputtext,
+  .p-select-label,
+  .p-select-option {
+    font-size: 16px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
+  }
 }

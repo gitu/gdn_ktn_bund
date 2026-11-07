@@ -12,6 +12,7 @@ import {
   getByEntityCode,
   getAllAvailableYears,
   getCatalogStats,
+  getCatalogSummary,
   groupByType,
   getMunicipalitiesByCantonCode,
 } from '../AvailableDataLoader'
@@ -195,6 +196,25 @@ describe('AvailableDataLoader', () => {
       expect(stats.std).toBe(2)
       expect(stats.yearRange.earliest).toBe('2015')
       expect(stats.yearRange.latest).toBe('2023')
+    })
+  })
+
+  describe('getCatalogSummary', () => {
+    it('should summarise count and year range per type', () => {
+      const summary = getCatalogSummary(mockCatalog)
+      expect(summary.gdn.count).toBe(2)
+      expect(summary.std.count).toBe(2)
+      expect(summary.std.firstYear).toBe('2015')
+      expect(summary.std.lastYear).toBe('2023')
+      // Municipalities end one year earlier than the aggregates in the mock data
+      expect(summary.gdn.lastYear < summary.std.lastYear).toBe(true)
+    })
+
+    it('should return empty ranges for an empty catalog', () => {
+      expect(getCatalogSummary([])).toEqual({
+        gdn: { count: 0, firstYear: '', lastYear: '' },
+        std: { count: 0, firstYear: '', lastYear: '' },
+      })
     })
   })
 

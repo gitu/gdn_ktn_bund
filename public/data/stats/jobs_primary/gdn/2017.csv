@@ -1,0 +1,2090 @@
+"GEO_ID";"GEO_NAME";VALUE
+"1";"Aeugst am Albis";37
+"2";"Affoltern am Albis";53
+"3";"Bonstetten";28
+"4";"Hausen am Albis";98
+"5";"Hedingen";32
+"6";"Kappel am Albis";62
+"7";"Knonau";58
+"8";"Maschwanden";48
+"9";"Mettmenstetten";146
+"10";"Obfelden";55
+"11";"Ottenbach";35
+"12";"Rifferswil";47
+"13";"Stallikon";40
+"14";"Wettswil am Albis";17
+"22";"Benken (ZH)";97
+"23";"Berg am Irchel";41
+"24";"Buch am Irchel";74
+"25";"Dachsen";18
+"26";"Dorf";26
+"27";"Feuerthalen";5
+"28";"Flaach";151
+"29";"Flurlingen";5
+"31";"Henggart";29
+"33";"Kleinandelfingen";59
+"34";"Laufen-Uhwiesen";72
+"35";"Marthalen";94
+"37";"Ossingen";75
+"38";"Rheinau";15
+"39";"Thalheim an der Thur";45
+"40";"Trüllikon";97
+"41";"Truttikon";48
+"43";"Volken";28
+"51";"Bachenbülach";9
+"52";"Bassersdorf";38
+"53";"Bülach";92
+"54";"Dietlikon";10
+"55";"Eglisau";79
+"56";"Embrach";67
+"57";"Freienstein-Teufen";79
+"58";"Glattfelden";41
+"59";"Hochfelden";25
+"60";"Höri";41
+"61";"Hüntwangen";45
+"62";"Kloten";54
+"63";"Lufingen";16
+"64";"Nürensdorf";53
+"65";"Oberembrach";76
+"66";"Opfikon";13
+"67";"Rafz";211
+"68";"Rorbas";15
+"69";"Wallisellen";28
+"70";"Wasterkingen";20
+"71";"Wil (ZH)";71
+"72";"Winkel";98
+"81";"Bachs";90
+"82";"Boppelsen";132
+"83";"Buchs (ZH)";44
+"84";"Dällikon";145
+"85";"Dänikon";44
+"86";"Dielsdorf";22
+"87";"Hüttikon";16
+"88";"Neerach";40
+"89";"Niederglatt";26
+"90";"Niederhasli";60
+"91";"Niederweningen";47
+"92";"Oberglatt";27
+"93";"Oberweningen";33
+"94";"Otelfingen";67
+"95";"Regensberg";19
+"96";"Regensdorf";73
+"97";"Rümlang";94
+"98";"Schleinikon";24
+"99";"Schöfflisdorf";25
+"100";"Stadel";94
+"101";"Steinmaur";180
+"102";"Weiach";30
+"111";"Bäretswil";183
+"112";"Bubikon";106
+"113";"Dürnten";143
+"114";"Fischenthal";150
+"115";"Gossau (ZH)";153
+"116";"Grüningen";119
+"117";"Hinwil";175
+"118";"Rüti (ZH)";62
+"119";"Seegräben";134
+"120";"Wald (ZH)";169
+"121";"Wetzikon (ZH)";82
+"131";"Adliswil";12
+"135";"Kilchberg (ZH)";9
+"136";"Langnau am Albis";23
+"138";"Richterswil";68
+"139";"Rüschlikon";4
+"141";"Thalwil";8
+"151";"Erlenbach (ZH)";24
+"152";"Herrliberg";56
+"153";"Hombrechtikon";198
+"154";"Küsnacht (ZH)";96
+"155";"Männedorf";25
+"156";"Meilen";95
+"157";"Oetwil am See";53
+"158";"Stäfa";85
+"159";"Uetikon am See";24
+"161";"Zollikon";12
+"172";"Fehraltorf";57
+"173";"Hittnau";72
+"176";"Lindau";72
+"177";"Pfäffikon";207
+"178";"Russikon";143
+"180";"Weisslingen";65
+"181";"Wila";47
+"182";"Wildberg";71
+"191";"Dübendorf";149
+"192";"Egg";165
+"193";"Fällanden";20
+"194";"Greifensee";15
+"195";"Maur";98
+"196";"Mönchaltorf";59
+"197";"Schwerzenbach";91
+"198";"Uster";151
+"199";"Volketswil";63
+"200";"Wangen-Brüttisellen";32
+"211";"Altikon";65
+"213";"Brütten";62
+"214";"Dägerlen";74
+"215";"Dättlikon";31
+"216";"Dinhard";62
+"218";"Ellikon an der Thur";102
+"219";"Elsau";54
+"220";"Hagenbuch";52
+"221";"Hettlingen";53
+"223";"Neftenbach";140
+"224";"Pfungen";23
+"225";"Rickenbach (ZH)";74
+"226";"Schlatt (ZH)";43
+"227";"Seuzach";49
+"228";"Turbenthal";122
+"230";"Winterthur";215
+"231";"Zell (ZH)";85
+"241";"Aesch (ZH)";45
+"242";"Birmensdorf (ZH)";50
+"243";"Dietikon";36
+"245";"Oberengstringen";6
+"246";"Oetwil an der Limmat";7
+"247";"Schlieren";26
+"248";"Uitikon";17
+"249";"Unterengstringen";10
+"250";"Urdorf";30
+"251";"Weiningen (ZH)";47
+"261";"Zürich";211
+"291";"Andelfingen";132
+"292";"Stammheim";349
+"293";"Wädenswil";405
+"294";"Elgg";121
+"295";"Horgen";216
+"296";"Illnau-Effretikon";234
+"297";"Bauma";157
+"298";"Wiesendangen";175
+"301";"Aarberg";97
+"302";"Bargen (BE)";69
+"303";"Grossaffoltern";174
+"304";"Kallnach";235
+"305";"Kappelen";92
+"306";"Lyss";84
+"307";"Meikirch";74
+"309";"Radelfingen";111
+"310";"Rapperswil (BE)";222
+"311";"Schüpfen";157
+"312";"Seedorf (BE)";222
+"321";"Aarwangen";76
+"322";"Auswil";74
+"323";"Bannwil";49
+"324";"Bleienbach";51
+"325";"Busswil bei Melchnau";33
+"326";"Gondiswil";116
+"329";"Langenthal";123
+"331";"Lotzwil";37
+"332";"Madiswil";250
+"333";"Melchnau";100
+"335";"Oeschenbach";61
+"336";"Reisiswil";27
+"337";"Roggwil (BE)";36
+"338";"Rohrbach";42
+"339";"Rohrbachgraben";81
+"340";"Rütschelen";38
+"341";"Schwarzhäusern";14
+"342";"Thunstetten";146
+"344";"Ursenbach";114
+"345";"Wynau";39
+"351";"Bern";312
+"352";"Bolligen";127
+"353";"Bremgarten bei Bern";9
+"354";"Kirchlindach";107
+"355";"Köniz";386
+"356";"Muri bei Bern";29
+"357";"Oberbalm";175
+"358";"Stettlen";24
+"359";"Vechigen";235
+"360";"Wohlen bei Bern";285
+"361";"Zollikofen";409
+"362";"Ittigen";29
+"363";"Ostermundigen";23
+"371";"Biel/Bienne";50
+"372";"Evilard";20
+"381";"Arch";32
+"382";"Büetigen";27
+"383";"Büren an der Aare";107
+"385";"Diessbach bei Büren";108
+"386";"Dotzigen";23
+"387";"Lengnau (BE)";28
+"388";"Leuzigen";100
+"389";"Meienried";11
+"390";"Meinisberg";29
+"391";"Oberwil bei Büren";68
+"392";"Pieterlen";26
+"393";"Rüti bei Büren";42
+"394";"Wengi";75
+"401";"Aefligen";29
+"402";"Alchenstorf";83
+"403";"Bäriswil";14
+"404";"Burgdorf";29
+"405";"Ersigen";164
+"406";"Hasle bei Burgdorf";248
+"407";"Heimiswil";285
+"408";"Hellsau";20
+"409";"Hindelbank";69
+"410";"Höchstetten";40
+"411";"Kernenried";30
+"412";"Kirchberg (BE)";70
+"413";"Koppigen";59
+"414";"Krauchthal";131
+"415";"Lyssach";34
+"418";"Oberburg";130
+"420";"Rüdtligen-Alchenflüh";34
+"421";"Rumendingen";25
+"422";"Rüti bei Lyssach";23
+"424";"Wynigen";287
+"431";"Corgémont";59
+"432";"Cormoret";30
+"433";"Cortébert";54
+"434";"Courtelary";52
+"435";"La Ferrière";64
+"437";"Mont-Tramelan";35
+"438";"Orvin";54
+"441";"Renan (BE)";59
+"442";"Romont (BE)";19
+"443";"Saint-Imier";60
+"444";"Sonceboz-Sombeval";35
+"445";"Sonvilier";119
+"446";"Tramelan";103
+"448";"Villeret";40
+"449";"Sauge";25
+"450";"Péry-La Heutte";24
+"491";"Brüttelen";98
+"492";"Erlach";30
+"493";"Finsterhennen";55
+"494";"Gals";140
+"495";"Gampelen";90
+"496";"Ins";256
+"497";"Lüscherz";39
+"498";"Müntschemier";106
+"499";"Siselen";72
+"500";"Treiten";97
+"501";"Tschugg";13
+"502";"Vinelz";34
+"533";"Bätterkinden";67
+"535";"Deisswil bei Münchenbuchsee";17
+"538";"Fraubrunnen";284
+"540";"Jegenstorf";96
+"541";"Iffwil";63
+"543";"Mattstetten";22
+"544";"Moosseedorf";30
+"546";"Münchenbuchsee";67
+"551";"Urtenen-Schönbühl";44
+"552";"Utzenstorf";114
+"553";"Wiggiswil";20
+"554";"Wiler bei Utzenstorf";53
+"556";"Zielebach";21
+"557";"Zuzwil (BE)";33
+"561";"Adelboden";367
+"562";"Aeschi bei Spiez";164
+"563";"Frutigen";567
+"564";"Kandergrund";108
+"565";"Kandersteg";40
+"566";"Krattigen";42
+"567";"Reichenbach im Kandertal";325
+"571";"Beatenberg";60
+"572";"Bönigen";31
+"573";"Brienz (BE)";101
+"574";"Brienzwiler";23
+"575";"Därligen";14
+"576";"Grindelwald";267
+"577";"Gsteigwiler";25
+"578";"Gündlischwand";5
+"579";"Habkern";139
+"580";"Hofstetten bei Brienz";25
+"582";"Iseltwald";20
+"584";"Lauterbrunnen";129
+"585";"Leissigen";22
+"586";"Lütschental";32
+"587";"Matten bei Interlaken";45
+"588";"Niederried bei Interlaken";10
+"589";"Oberried am Brienzersee";16
+"590";"Ringgenberg (BE)";32
+"591";"Saxeten";19
+"592";"Schwanden bei Brienz";14
+"593";"Unterseen";62
+"594";"Wilderswil";44
+"602";"Arni (BE)";134
+"603";"Biglen";51
+"605";"Bowil";137
+"606";"Brenzikofen";24
+"607";"Freimettigen";29
+"608";"Grosshöchstetten";90
+"609";"Häutligen";36
+"610";"Herbligen";44
+"611";"Kiesen";30
+"612";"Konolfingen";173
+"613";"Landiswil";158
+"614";"Linden";177
+"615";"Mirchel";46
+"616";"Münsingen";244
+"617";"Niederhünigen";49
+"619";"Oberdiessbach";147
+"620";"Oberthal";133
+"622";"Oppligen";63
+"623";"Rubigen";60
+"626";"Walkringen";175
+"627";"Worb";214
+"628";"Zäziwil";91
+"629";"Oberhünigen";52
+"630";"Allmendingen";39
+"632";"Wichtrach";103
+"662";"Ferenbalm";90
+"663";"Frauenkappelen";58
+"665";"Gurbrü";85
+"666";"Kriechenwil";52
+"667";"Laupen";17
+"668";"Mühleberg";202
+"669";"Münchenwiler";29
+"670";"Neuenegg";208
+"671";"Wileroltigen";59
+"681";"Belprahon";5
+"683";"Champoz";28
+"687";"Corcelles (BE)";9
+"690";"Court";64
+"691";"Crémines";13
+"692";"Eschert";15
+"694";"Grandval";17
+"696";"Loveresse";19
+"700";"Moutier";42
+"701";"Perrefitte";24
+"703";"Reconvilier";16
+"704";"Roches (BE)";17
+"706";"Saicourt";41
+"707";"Saules (BE)";24
+"708";"Schelten";24
+"709";"Seehof";43
+"711";"Sorvilier";19
+"713";"Tavannes";49
+"715";"Rebévelier";24
+"716";"Petit-Val";106
+"717";"Valbirse";71
+"723";"La Neuveville";38
+"724";"Nods";48
+"726";"Plateau de Diesse";81
+"731";"Aegerten";7
+"732";"Bellmund";29
+"733";"Brügg";12
+"734";"Bühl";31
+"735";"Epsach";62
+"736";"Hagneck";19
+"737";"Hermrigen";24
+"738";"Jens";33
+"739";"Ipsach";7
+"740";"Ligerz";110
+"741";"Merzligen";16
+"742";"Mörigen";29
+"743";"Nidau";0
+"744";"Orpund";25
+"745";"Port";11
+"746";"Safnern";41
+"747";"Scheuren";35
+"748";"Schwadernau";32
+"749";"Studen (BE)";40
+"750";"Sutz-Lattrigen";35
+"751";"Täuffelen";83
+"754";"Walperswil";164
+"755";"Worben";74
+"756";"Twann-Tüscherz";134
+"761";"Därstetten";121
+"762";"Diemtigen";322
+"763";"Erlenbach im Simmental";141
+"766";"Oberwil im Simmental";166
+"767";"Reutigen";81
+"768";"Spiez";118
+"769";"Wimmis";68
+"770";"Stocken-Höfen";77
+"782";"Guttannen";50
+"783";"Hasliberg";121
+"784";"Innertkirchen";111
+"785";"Meiringen";146
+"786";"Schattenhalb";42
+"791";"Boltigen";221
+"792";"Lenk";305
+"793";"St. Stephan";234
+"794";"Zweisimmen";235
+"841";"Gsteig";101
+"842";"Lauenen";162
+"843";"Saanen";473
+"852";"Guggisberg";288
+"853";"Rüschegg";147
+"855";"Schwarzenburg";550
+"861";"Belp";247
+"863";"Burgistein";98
+"866";"Gerzensee";78
+"867";"Gurzelen";82
+"868";"Jaberg";18
+"869";"Kaufdorf";25
+"870";"Kehrsatz";47
+"872";"Kirchdorf (BE)";225
+"877";"Niedermuhlern";93
+"879";"Riggisberg";202
+"880";"Rüeggisberg";280
+"883";"Seftigen";114
+"884";"Toffen";37
+"885";"Uttigen";46
+"886";"Wattenwil";98
+"888";"Wald (BE)";148
+"889";"Thurnen";78
+"901";"Eggiwil";546
+"902";"Langnau im Emmental";509
+"903";"Lauperswil";243
+"904";"Röthenbach im Emmental";289
+"905";"Rüderswil";222
+"906";"Schangnau";246
+"907";"Signau";279
+"908";"Trub";366
+"909";"Trubschachen";140
+"921";"Amsoldingen";41
+"922";"Blumenstein";60
+"923";"Buchholterberg";186
+"924";"Eriz";89
+"925";"Fahrni";101
+"927";"Heiligenschwendi";40
+"928";"Heimberg";34
+"929";"Hilterfingen";7
+"931";"Homberg";85
+"932";"Horrenbach-Buchen";71
+"934";"Oberhofen am Thunersee";20
+"935";"Oberlangenegg";94
+"936";"Pohlern";30
+"938";"Sigriswil";295
+"939";"Steffisburg";188
+"940";"Teuffenthal (BE)";39
+"941";"Thierachern";73
+"942";"Thun";88
+"943";"Uebeschi";80
+"944";"Uetendorf";124
+"945";"Unterlangenegg";102
+"946";"Wachseldorn";53
+"948";"Forst-Längenbühl";75
+"951";"Affoltern im Emmental";163
+"952";"Dürrenroth";185
+"953";"Eriswil";164
+"954";"Huttwil";211
+"955";"Lützelflüh";336
+"956";"Rüegsau";195
+"957";"Sumiswald";463
+"958";"Trachselwald";182
+"959";"Walterswil (BE)";130
+"960";"Wyssachen";185
+"971";"Attiswil";74
+"972";"Berken";15
+"973";"Bettenhausen";38
+"976";"Graben";25
+"977";"Heimenhausen";57
+"979";"Herzogenbuchsee";40
+"980";"Inkwil";15
+"981";"Niederbipp";252
+"982";"Niederönz";16
+"983";"Oberbipp";46
+"985";"Ochlenberg";149
+"987";"Rumisberg";28
+"988";"Seeberg";158
+"989";"Thörigen";52
+"990";"Walliswil bei Niederbipp";11
+"991";"Walliswil bei Wangen";21
+"992";"Wangen an der Aare";75
+"995";"Wiedlisbach";45
+"1001";"Doppleschwand";86
+"1002";"Entlebuch";379
+"1004";"Flühli";240
+"1005";"Hasle (LU)";229
+"1007";"Romoos";191
+"1008";"Schüpfheim";413
+"1009";"Werthenstein";182
+"1010";"Escholzmatt-Marbach";730
+"1021";"Aesch (LU)";89
+"1023";"Ballwil";122
+"1024";"Emmen";127
+"1025";"Ermensee";50
+"1026";"Eschenbach (LU)";158
+"1030";"Hitzkirch";451
+"1031";"Hochdorf";141
+"1032";"Hohenrain";333
+"1033";"Inwil";133
+"1037";"Rain";127
+"1039";"Römerswil";243
+"1040";"Rothenburg";166
+"1041";"Schongau";144
+"1051";"Adligenswil";69
+"1052";"Buchrain";46
+"1053";"Dierikon";29
+"1054";"Ebikon";67
+"1055";"Gisikon";9
+"1056";"Greppen";30
+"1057";"Honau";16
+"1058";"Horw";136
+"1059";"Kriens";119
+"1061";"Luzern";147
+"1062";"Malters";328
+"1063";"Meggen";46
+"1064";"Meierskappel";108
+"1065";"Root";52
+"1066";"Schwarzenberg";138
+"1067";"Udligenswil";59
+"1068";"Vitznau";59
+"1069";"Weggis";131
+"1081";"Beromünster";474
+"1082";"Büron";65
+"1083";"Buttisholz";222
+"1084";"Eich";73
+"1085";"Geuensee";84
+"1086";"Grosswangen";336
+"1088";"Hildisrieden";111
+"1089";"Knutwil";103
+"1091";"Mauensee";61
+"1093";"Neuenkirch";357
+"1094";"Nottwil";144
+"1095";"Oberkirch";138
+"1097";"Rickenbach (LU)";97
+"1098";"Ruswil";610
+"1099";"Schenkon";87
+"1100";"Schlierbach";54
+"1102";"Sempach";105
+"1103";"Sursee";23
+"1104";"Triengen";259
+"1107";"Wolhusen";167
+"1121";"Alberswil";53
+"1122";"Altbüron";101
+"1123";"Altishofen";183
+"1125";"Dagmersellen";219
+"1127";"Egolzwil";44
+"1128";"Ettiswil";139
+"1129";"Fischbach";105
+"1131";"Grossdietwil";122
+"1132";"Hergiswil bei Willisau";369
+"1135";"Luthern";308
+"1136";"Menznau";295
+"1137";"Nebikon";34
+"1139";"Pfaffnau";172
+"1140";"Reiden";202
+"1142";"Roggliswil";74
+"1143";"Schötz";172
+"1145";"Ufhusen";157
+"1146";"Wauwil";210
+"1147";"Wikon";49
+"1150";"Zell (LU)";164
+"1151";"Willisau";532
+"1201";"Altdorf (UR)";107
+"1202";"Andermatt";43
+"1203";"Attinghausen";98
+"1205";"Bürglen (UR)";229
+"1206";"Erstfeld";96
+"1207";"Flüelen";42
+"1208";"Göschenen";17
+"1209";"Gurtnellen";65
+"1211";"Isenthal";116
+"1213";"Schattdorf";113
+"1214";"Seedorf (UR)";38
+"1215";"Seelisberg";62
+"1216";"Silenen";121
+"1217";"Sisikon";23
+"1218";"Spiringen";145
+"1219";"Unterschächen";106
+"1220";"Wassen";31
+"1301";"Einsiedeln";504
+"1311";"Gersau";113
+"1321";"Feusisberg";153
+"1322";"Freienbach";128
+"1323";"Wollerau";75
+"1331";"Küssnacht (SZ)";293
+"1341";"Altendorf";214
+"1342";"Galgenen";168
+"1343";"Innerthal";10
+"1344";"Lachen";10
+"1345";"Reichenburg";117
+"1346";"Schübelbach";193
+"1347";"Tuggen";113
+"1348";"Vorderthal";95
+"1349";"Wangen (SZ)";96
+"1361";"Alpthal";48
+"1362";"Arth";278
+"1363";"Illgau";66
+"1364";"Ingenbohl";80
+"1365";"Lauerz";59
+"1366";"Morschach";75
+"1367";"Muotathal";282
+"1368";"Oberiberg";82
+"1369";"Riemenstalden";19
+"1370";"Rothenthurm";122
+"1371";"Sattel";171
+"1372";"Schwyz";459
+"1373";"Steinen";158
+"1374";"Steinerberg";98
+"1375";"Unteriberg";144
+"1401";"Alpnach";185
+"1402";"Engelberg";166
+"1403";"Giswil";290
+"1404";"Kerns";389
+"1405";"Lungern";133
+"1406";"Sachseln";205
+"1407";"Sarnen";363
+"1501";"Beckenried";127
+"1502";"Buochs";119
+"1503";"Dallenwil";108
+"1504";"Emmetten";61
+"1505";"Ennetbürgen";100
+"1506";"Ennetmoos";150
+"1507";"Hergiswil (NW)";51
+"1508";"Oberdorf (NW)";160
+"1509";"Stans";97
+"1510";"Stansstad";57
+"1511";"Wolfenschiessen";204
+"1630";"Glarus Nord";452
+"1631";"Glarus Süd";457
+"1632";"Glarus";168
+"1701";"Baar";240
+"1702";"Cham";176
+"1703";"Hünenberg";305
+"1704";"Menzingen";268
+"1705";"Neuheim";75
+"1706";"Oberägeri";214
+"1707";"Risch";133
+"1708";"Steinhausen";55
+"1709";"Unterägeri";155
+"1710";"Walchwil";118
+"1711";"Zug";143
+"2008";"Châtillon (FR)";9
+"2011";"Cugy (FR)";97
+"2016";"Fétigny";22
+"2022";"Gletterens";15
+"2025";"Lully (FR)";40
+"2027";"Ménières";44
+"2029";"Montagny (FR)";125
+"2035";"Nuvilly";34
+"2038";"Prévondavaux";9
+"2041";"Saint-Aubin (FR)";62
+"2043";"Sévaz";10
+"2044";"Surpierre";74
+"2050";"Les Montets";56
+"2051";"Delley-Portalban";67
+"2053";"Belmont-Broye";158
+"2054";"Estavayer";236
+"2055";"Cheyres-Châbles";80
+"2061";"Auboranges";20
+"2063";"Billens-Hennens";40
+"2066";"Chapelle (Glâne)";11
+"2067";"Le Châtelard";66
+"2068";"Châtonnaye";43
+"2072";"Ecublens (FR)";32
+"2079";"Grangettes";23
+"2086";"Massonnens";36
+"2087";"Mézières (FR)";65
+"2089";"Montet (Glâne)";6
+"2096";"Romont (FR)";68
+"2097";"Rue";69
+"2099";"Siviriez";176
+"2102";"Ursy";102
+"2113";"Vuisternens-devant-Romont";204
+"2114";"Villorsonnens";126
+"2115";"Torny";66
+"2117";"Villaz";108
+"2121";"Haut-Intyamon";100
+"2122";"Pont-en-Ogoz";59
+"2123";"Botterens";16
+"2124";"Broc";17
+"2125";"Bulle";66
+"2129";"Corbières";30
+"2131";"Echarlens";38
+"2134";"Grandvillard";41
+"2135";"Gruyères";50
+"2137";"Hauteville";26
+"2138";"Jaun";67
+"2140";"Marsens";26
+"2143";"Morlon";21
+"2145";"Le Pâquier (FR)";26
+"2147";"Pont-la-Ville";44
+"2148";"Riaz";48
+"2149";"La Roche";83
+"2152";"Sâles";142
+"2153";"Sorens";69
+"2155";"Vaulruz";56
+"2160";"Vuadens";77
+"2162";"Bas-Intyamon";48
+"2163";"Val-de-Charmey";140
+"2173";"Autigny";46
+"2174";"Avry";41
+"2175";"Belfaux";60
+"2177";"Chénens";17
+"2183";"Corminboeuf";43
+"2186";"Cottens (FR)";37
+"2194";"Ferpicloz";11
+"2196";"Fribourg";26
+"2197";"Givisiez";6
+"2198";"Granges-Paccot";20
+"2200";"Grolley";34
+"2206";"Marly";15
+"2208";"Matran";7
+"2211";"Neyruz (FR)";15
+"2216";"Pierrafortscha";22
+"2217";"Ponthaux";39
+"2220";"Le Mouret";88
+"2226";"Treyvaux";77
+"2228";"Villars-sur-Glâne";14
+"2230";"Villarsel-sur-Marly";14
+"2233";"Hauterive (FR)";65
+"2234";"La Brillaz";47
+"2235";"La Sonnaz";59
+"2236";"Gibloux";176
+"2237";"Prez";110
+"2238";"Bois-d'Amont";86
+"2250";"Courgevaux";12
+"2254";"Courtepin";112
+"2257";"Cressier (FR)";40
+"2258";"Fräschels";40
+"2261";"Greng";58
+"2262";"Gurmels";146
+"2265";"Kerzers";189
+"2266";"Kleinbösingen";26
+"2271";"Meyriez";0
+"2272";"Misery-Courtion";73
+"2274";"Muntelier";4
+"2275";"Murten";431
+"2276";"Ried bei Kerzers";336
+"2284";"Mont-Vully";157
+"2292";"Brünisried";26
+"2293";"Düdingen";236
+"2294";"Giffers";48
+"2295";"Bösingen";131
+"2296";"Heitenried";104
+"2299";"Plaffeien";160
+"2300";"Plasselb";40
+"2301";"Rechthalten";62
+"2303";"St. Silvester";49
+"2304";"St. Ursen";121
+"2305";"Schmitten (FR)";99
+"2306";"Tafers";333
+"2307";"Tentlingen";25
+"2308";"Ueberstorf";137
+"2309";"Wünnewil-Flamatt";116
+"2321";"Attalens";37
+"2323";"Bossonnens";18
+"2325";"Châtel-Saint-Denis";106
+"2328";"Granges (Veveyse)";18
+"2333";"Remaufens";35
+"2335";"Saint-Martin (FR)";78
+"2336";"Semsales";62
+"2337";"Le Flon";61
+"2338";"La Verrerie";113
+"2401";"Egerkingen";29
+"2402";"Härkingen";28
+"2403";"Kestenholz";46
+"2404";"Neuendorf";52
+"2405";"Niederbuchsiten";47
+"2406";"Oberbuchsiten";22
+"2407";"Oensingen";65
+"2408";"Wolfwil";46
+"2421";"Aedermannsdorf";40
+"2422";"Balsthal";36
+"2424";"Herbetswil";51
+"2425";"Holderbank (SO)";64
+"2426";"Laupersdorf";99
+"2427";"Matzendorf";60
+"2428";"Mümliswil-Ramiswil";187
+"2430";"Welschenrohr-Gänsbrunnen";65
+"2445";"Biezwil";29
+"2455";"Lüterkofen-Ichertswil";28
+"2457";"Messen";99
+"2461";"Schnottwil";50
+"2463";"Unterramsern";19
+"2464";"Lüsslingen-Nennigkofen";55
+"2465";"Buchegg";229
+"2471";"Bättwil";28
+"2472";"Büren (SO)";34
+"2473";"Dornach";8
+"2474";"Gempen";34
+"2475";"Hochwald";53
+"2476";"Hofstetten-Flüh";31
+"2477";"Metzerlen-Mariastein";59
+"2478";"Nuglar-St. Pantaleon";36
+"2479";"Rodersdorf";33
+"2480";"Seewen";70
+"2481";"Witterswil";45
+"2491";"Hauenstein-Ifenthal";38
+"2492";"Kienberg";62
+"2493";"Lostorf";62
+"2495";"Niedergösgen";34
+"2497";"Obergösgen";19
+"2499";"Stüsslingen";47
+"2500";"Trimbach";40
+"2501";"Winznau";35
+"2502";"Wisen (SO)";23
+"2503";"Erlinsbach (SO)";44
+"2511";"Aeschi (SO)";50
+"2513";"Biberist";70
+"2516";"Deitingen";73
+"2517";"Derendingen";25
+"2518";"Etziken";30
+"2520";"Halten";35
+"2523";"Horriwil";19
+"2526";"Lohn-Ammannsegg";18
+"2527";"Luterbach";14
+"2528";"Obergerlafingen";11
+"2529";"Oekingen";14
+"2530";"Recherswil";39
+"2532";"Subingen";46
+"2535";"Drei Höfe";27
+"2541";"Balm bei Günsberg";17
+"2542";"Bellach";44
+"2543";"Bettlach";55
+"2544";"Feldbrunnen-St. Niklaus";10
+"2545";"Flumenthal";18
+"2546";"Grenchen";100
+"2547";"Günsberg";33
+"2548";"Hubersdorf";12
+"2549";"Kammersrohr";9
+"2551";"Lommiswil";37
+"2553";"Oberdorf (SO)";45
+"2554";"Riedholz";30
+"2555";"Rüttenen";26
+"2556";"Selzach";138
+"2571";"Boningen";27
+"2572";"Däniken";25
+"2573";"Dulliken";25
+"2574";"Eppenberg-Wöschnau";10
+"2575";"Fulenbach";48
+"2576";"Gretzenbach";30
+"2578";"Gunzgen";28
+"2579";"Hägendorf";34
+"2580";"Kappel (SO)";18
+"2581";"Olten";9
+"2582";"Rickenbach (SO)";4
+"2583";"Schönenwerd";6
+"2584";"Starrkirch-Wil";5
+"2585";"Walterswil (SO)";31
+"2586";"Wangen bei Olten";18
+"2601";"Solothurn";23
+"2611";"Bärschwil";43
+"2612";"Beinwil (SO)";91
+"2613";"Breitenbach";30
+"2614";"Büsserach";25
+"2615";"Erschwil";29
+"2616";"Fehren";21
+"2617";"Grindel";11
+"2618";"Himmelried";29
+"2619";"Kleinlützel";60
+"2620";"Meltingen";20
+"2621";"Nunningen";50
+"2622";"Zullwil";17
+"2701";"Basel";32
+"2702";"Bettingen";9
+"2703";"Riehen";35
+"2761";"Aesch (BL)";90
+"2762";"Allschwil";51
+"2763";"Arlesheim";21
+"2764";"Biel-Benken";66
+"2765";"Binningen";16
+"2766";"Birsfelden";9
+"2767";"Bottmingen";46
+"2768";"Ettingen";55
+"2769";"Münchenstein";24
+"2770";"Muttenz";34
+"2771";"Oberwil (BL)";63
+"2772";"Pfeffingen";23
+"2773";"Reinach (BL)";26
+"2774";"Schönenbuch";15
+"2775";"Therwil";134
+"2781";"Blauen";15
+"2782";"Brislach";41
+"2783";"Burg im Leimental";13
+"2784";"Dittingen";27
+"2785";"Duggingen";22
+"2786";"Grellingen";8
+"2787";"Laufen";17
+"2788";"Liesberg";35
+"2789";"Nenzlingen";17
+"2790";"Roggenburg";35
+"2791";"Röschenz";19
+"2792";"Wahlen";42
+"2793";"Zwingen";8
+"2821";"Arisdorf";79
+"2822";"Augst";25
+"2823";"Bubendorf";46
+"2824";"Frenkendorf";5
+"2825";"Füllinsdorf";72
+"2826";"Giebenach";8
+"2827";"Hersberg";12
+"2828";"Lausen";15
+"2829";"Liestal";63
+"2830";"Lupsingen";12
+"2831";"Pratteln";41
+"2832";"Ramlinsburg";23
+"2833";"Seltisberg";8
+"2834";"Ziefen";37
+"2841";"Anwil";49
+"2842";"Böckten";12
+"2843";"Buckten";19
+"2844";"Buus";90
+"2845";"Diepflingen";0
+"2846";"Gelterkinden";43
+"2847";"Häfelfingen";38
+"2848";"Hemmiken";32
+"2849";"Itingen";12
+"2850";"Känerkinden";20
+"2851";"Kilchberg (BL)";10
+"2852";"Läufelfingen";50
+"2853";"Maisprach";60
+"2854";"Nusshof";27
+"2855";"Oltingen";65
+"2856";"Ormalingen";62
+"2857";"Rickenbach (BL)";38
+"2858";"Rothenfluh";41
+"2859";"Rümlingen";15
+"2860";"Rünenberg";27
+"2861";"Sissach";101
+"2862";"Tecknau";10
+"2863";"Tenniken";29
+"2864";"Thürnen";22
+"2865";"Wenslingen";27
+"2866";"Wintersingen";44
+"2867";"Wittinsburg";22
+"2868";"Zeglingen";50
+"2869";"Zunzgen";71
+"2881";"Arboldswil";17
+"2882";"Bennwil";50
+"2883";"Bretzwil";61
+"2884";"Diegten";111
+"2885";"Eptingen";74
+"2886";"Hölstein";30
+"2888";"Langenbruck";67
+"2889";"Lauwil";25
+"2890";"Liedertswil";9
+"2891";"Niederdorf";69
+"2892";"Oberdorf (BL)";34
+"2893";"Reigoldswil";64
+"2894";"Titterten";25
+"2895";"Waldenburg";30
+"2901";"Gächlingen";76
+"2903";"Löhningen";58
+"2904";"Neunkirch";61
+"2914";"Büttenhardt";26
+"2915";"Dörflingen";54
+"2917";"Lohn (SH)";20
+"2919";"Stetten (SH)";18
+"2920";"Thayngen";199
+"2931";"Bargen (SH)";22
+"2932";"Beringen";68
+"2933";"Buchberg";62
+"2936";"Merishausen";44
+"2937";"Neuhausen am Rheinfall";34
+"2938";"Rüdlingen";53
+"2939";"Schaffhausen";130
+"2951";"Beggingen";56
+"2952";"Schleitheim";110
+"2953";"Siblingen";53
+"2961";"Buch (SH)";24
+"2962";"Hemishofen";46
+"2963";"Ramsen";98
+"2964";"Stein am Rhein";43
+"2971";"Hallau";203
+"2972";"Oberhallau";87
+"2973";"Trasadingen";63
+"2974";"Wilchingen";204
+"3001";"Herisau";228
+"3002";"Hundwil";132
+"3003";"Schönengrund";57
+"3004";"Schwellbrunn";149
+"3005";"Stein (AR)";87
+"3006";"Urnäsch";210
+"3007";"Waldstatt";59
+"3021";"Bühler";46
+"3022";"Gais";112
+"3023";"Speicher";63
+"3024";"Teufen (AR)";117
+"3025";"Trogen";58
+"3031";"Grub (AR)";49
+"3032";"Heiden";75
+"3033";"Lutzenberg";25
+"3034";"Rehetobel";53
+"3035";"Reute (AR)";36
+"3036";"Wald (AR)";56
+"3037";"Walzenhausen";47
+"3038";"Wolfhalden";53
+"3101";"Appenzell";181
+"3102";"Gonten";197
+"3104";"Schlatt-Haslen";203
+"3111";"Oberegg";113
+"3112";"Schwende-Rüte";352
+"3201";"Häggenschwil";112
+"3202";"Muolen";137
+"3203";"St. Gallen";206
+"3204";"Wittenbach";99
+"3211";"Berg (SG)";62
+"3212";"Eggersriet";80
+"3213";"Goldach";70
+"3214";"Mörschwil";104
+"3216";"Rorschacherberg";47
+"3217";"Steinach";78
+"3218";"Tübach";21
+"3219";"Untereggen";55
+"3231";"Au (SG)";50
+"3232";"Balgach";91
+"3233";"Berneck";73
+"3234";"Diepoldsau";156
+"3235";"Rheineck";4
+"3236";"St. Margrethen";52
+"3237";"Thal";73
+"3238";"Widnau";16
+"3251";"Altstätten";334
+"3252";"Eichberg";43
+"3253";"Marbach (SG)";86
+"3254";"Oberriet (SG)";332
+"3255";"Rebstein";27
+"3256";"Rüthi (SG)";49
+"3271";"Buchs (SG)";103
+"3272";"Gams";177
+"3273";"Grabs";209
+"3274";"Sennwald";194
+"3275";"Sevelen";127
+"3276";"Wartau";206
+"3291";"Bad Ragaz";94
+"3292";"Flums";270
+"3293";"Mels";305
+"3294";"Pfäfers";125
+"3295";"Quarten";124
+"3296";"Sargans";77
+"3297";"Vilters-Wangs";96
+"3298";"Walenstadt";118
+"3311";"Amden";133
+"3312";"Benken (SG)";210
+"3313";"Kaltbrunn";144
+"3315";"Schänis";244
+"3316";"Weesen";17
+"3338";"Schmerikon";22
+"3339";"Uznach";47
+"3340";"Rapperswil-Jona";88
+"3341";"Gommiswald";223
+"3342";"Eschenbach (SG)";401
+"3352";"Ebnat-Kappel";182
+"3359";"Wildhaus-Alt St. Johann";257
+"3360";"Nesslau";398
+"3374";"Lichtensteig";8
+"3379";"Wattwil";340
+"3392";"Kirchberg (SG)";389
+"3393";"Lütisburg";129
+"3394";"Mosnang";342
+"3395";"Bütschwil-Ganterschwil";235
+"3396";"Neckertal";566
+"3401";"Degersheim";125
+"3402";"Flawil";101
+"3405";"Jonschwil";108
+"3407";"Oberuzwil";146
+"3408";"Uzwil";88
+"3422";"Niederbüren";206
+"3423";"Niederhelfenschwil";201
+"3424";"Oberbüren";197
+"3426";"Zuzwil (SG)";70
+"3427";"Wil (SG)";135
+"3441";"Andwil (SG)";85
+"3442";"Gaiserwald";86
+"3443";"Gossau (SG)";290
+"3444";"Waldkirch";316
+"3506";"Vaz/Obervaz";74
+"3513";"Lantsch/Lenz";23
+"3514";"Schmitten (GR)";5
+"3542";"Albula/Alvra";108
+"3543";"Surses";181
+"3544";"Bergün Filisur";121
+"3551";"Brusio";144
+"3561";"Poschiavo";213
+"3572";"Falera";30
+"3575";"Laax";23
+"3581";"Sagogn";13
+"3582";"Schluein";13
+"3603";"Vals";76
+"3618";"Lumnezia";252
+"3619";"Ilanz/Glion";213
+"3633";"Fürstenau";13
+"3637";"Rothenbrunnen";11
+"3638";"Scharans";29
+"3640";"Sils im Domleschg";14
+"3661";"Cazis";126
+"3662";"Flerden";40
+"3663";"Masein";28
+"3668";"Thusis";22
+"3669";"Tschappina";38
+"3670";"Urmein";25
+"3672";"Safiental";188
+"3673";"Domleschg";143
+"3681";"Avers";44
+"3695";"Sufers";27
+"3701";"Andeer";37
+"3711";"Rongellen";5
+"3712";"Zillis-Reischen";29
+"3714";"Rheinwald";98
+"3715";"Muntogna da Schons";110
+"3721";"Bonaduz";70
+"3722";"Domat/Ems";50
+"3723";"Rhäzüns";11
+"3731";"Felsberg";31
+"3732";"Flims";48
+"3733";"Tamins";36
+"3734";"Trin";40
+"3746";"Zernez";87
+"3752";"Samnaun";43
+"3762";"Scuol";238
+"3764";"Valsot";103
+"3781";"Bever";15
+"3782";"Celerina/Schlarigna";25
+"3783";"Madulain";19
+"3784";"Pontresina";8
+"3785";"La Punt Chamues-ch";16
+"3786";"Samedan";25
+"3787";"St. Moritz";19
+"3788";"S-chanf";46
+"3789";"Sils im Engadin/Segl";26
+"3790";"Silvaplana";15
+"3791";"Zuoz";27
+"3792";"Bregaglia";90
+"3804";"Buseno";7
+"3805";"Castaneda";8
+"3808";"Rossa";4
+"3821";"Lostallo";64
+"3822";"Mesocco";44
+"3823";"Soazza";15
+"3831";"Cama";20
+"3832";"Grono";31
+"3834";"Roveredo (GR)";46
+"3835";"San Vittore";24
+"3837";"Calanca";33
+"3847";"Val Müstair";150
+"3851";"Davos";190
+"3861";"Fideris";54
+"3862";"Furna";54
+"3863";"Jenaz";65
+"3871";"Klosters";197
+"3881";"Conters im Prättigau";17
+"3882";"Küblis";49
+"3891";"Luzein";173
+"3901";"Chur";142
+"3911";"Churwalden";100
+"3921";"Arosa";133
+"3932";"Tschiertschen-Praden";20
+"3945";"Trimmis";63
+"3946";"Untervaz";99
+"3947";"Zizers";54
+"3951";"Fläsch";103
+"3952";"Jenins";117
+"3953";"Maienfeld";181
+"3954";"Malans";145
+"3955";"Landquart";252
+"3961";"Grüsch";140
+"3962";"Schiers";101
+"3972";"Seewis im Prättigau";93
+"3981";"Breil/Brigels";150
+"3982";"Disentis/Mustér";82
+"3983";"Medel (Lucmagn)";57
+"3985";"Sumvitg";96
+"3986";"Tujetsch";40
+"3987";"Trun";68
+"3988";"Obersaxen Mundaun";97
+"4001";"Aarau";36
+"4002";"Biberstein";17
+"4003";"Buchs (AG)";4
+"4004";"Densbüren";64
+"4005";"Erlinsbach (AG)";56
+"4006";"Gränichen";84
+"4007";"Hirschthal";70
+"4008";"Küttigen";76
+"4009";"Muhen";85
+"4010";"Oberentfelden";26
+"4012";"Suhr";42
+"4013";"Unterentfelden";28
+"4021";"Baden";52
+"4022";"Bellikon";31
+"4023";"Bergdietikon";48
+"4024";"Birmenstorf (AG)";141
+"4026";"Ennetbaden";27
+"4027";"Fislisbach";11
+"4028";"Freienwil";32
+"4029";"Gebenstorf";36
+"4030";"Killwangen";18
+"4031";"Künten";48
+"4032";"Mägenwil";30
+"4033";"Mellingen";24
+"4034";"Neuenhof";9
+"4035";"Niederrohrdorf";21
+"4037";"Oberrohrdorf";21
+"4038";"Obersiggenthal";36
+"4039";"Remetschwil";49
+"4040";"Spreitenbach";45
+"4041";"Stetten (AG)";65
+"4044";"Untersiggenthal";56
+"4045";"Wettingen";122
+"4046";"Wohlenschwil";62
+"4047";"Würenlingen";61
+"4048";"Würenlos";88
+"4049";"Ehrendingen";75
+"4061";"Arni (AG)";16
+"4062";"Berikon";37
+"4063";"Bremgarten (AG)";64
+"4064";"Büttikon";15
+"4065";"Dottikon";34
+"4066";"Eggenwil";34
+"4067";"Fischbach-Göslikon";25
+"4068";"Hägglingen";102
+"4071";"Jonen";65
+"4072";"Niederwil (AG)";71
+"4073";"Oberlunkhofen";52
+"4074";"Oberwil-Lieli";72
+"4075";"Rudolfstetten-Friedlisberg";24
+"4076";"Sarmenstorf";51
+"4077";"Tägerig";28
+"4078";"Uezwil";35
+"4079";"Unterlunkhofen";52
+"4080";"Villmergen";80
+"4081";"Widen";19
+"4082";"Wohlen (AG)";56
+"4083";"Zufikon";28
+"4084";"Islisberg";21
+"4091";"Auenstein";13
+"4092";"Birr";36
+"4093";"Birrhard";40
+"4095";"Brugg";20
+"4099";"Habsburg";10
+"4100";"Hausen (AG)";13
+"4104";"Lupfig";69
+"4105";"Mandach";38
+"4106";"Mönthal";16
+"4107";"Mülligen";11
+"4110";"Remigen";57
+"4111";"Riniken";24
+"4112";"Rüfenach";44
+"4117";"Thalheim (AG)";60
+"4120";"Veltheim (AG)";76
+"4121";"Villigen";51
+"4122";"Villnachern";37
+"4123";"Windisch";9
+"4124";"Bözberg";113
+"4125";"Schinznach";165
+"4131";"Beinwil am See";28
+"4132";"Birrwil";28
+"4134";"Dürrenäsch";26
+"4135";"Gontenschwil";89
+"4136";"Holziken";19
+"4137";"Leimbach (AG)";19
+"4138";"Leutwil";43
+"4139";"Menziken";39
+"4140";"Oberkulm";74
+"4141";"Reinach (AG)";47
+"4142";"Schlossrued";86
+"4143";"Schmiedrued";106
+"4144";"Schöftland";20
+"4145";"Teufenthal (AG)";27
+"4146";"Unterkulm";68
+"4147";"Zetzwil";41
+"4161";"Eiken";33
+"4163";"Frick";62
+"4164";"Gansingen";73
+"4165";"Gipf-Oberfrick";114
+"4169";"Kaisten";99
+"4170";"Laufenburg";91
+"4172";"Münchwilen (AG)";4
+"4173";"Oberhof";65
+"4175";"Oeschgen";29
+"4176";"Schwaderloch";15
+"4177";"Sisseln";4
+"4181";"Wittnau";45
+"4182";"Wölflinswil";101
+"4183";"Zeihen";82
+"4184";"Mettauertal";134
+"4185";"Böztal";143
+"4186";"Herznach-Ueken";108
+"4191";"Ammerswil";21
+"4192";"Boniswil";9
+"4193";"Brunegg";14
+"4194";"Dintikon";79
+"4195";"Egliswil";38
+"4196";"Fahrwangen";46
+"4197";"Hallwil";14
+"4198";"Hendschiken";27
+"4199";"Holderbank (AG)";6
+"4200";"Hunzenschwil";32
+"4201";"Lenzburg";34
+"4202";"Meisterschwanden";25
+"4203";"Möriken-Wildegg";36
+"4204";"Niederlenz";10
+"4205";"Othmarsingen";24
+"4206";"Rupperswil";23
+"4207";"Schafisheim";69
+"4208";"Seengen";93
+"4209";"Seon";85
+"4210";"Staufen";19
+"4221";"Abtwil";44
+"4222";"Aristau";88
+"4223";"Auw";93
+"4224";"Beinwil (Freiamt)";124
+"4226";"Besenbüren";33
+"4227";"Bettwil";50
+"4228";"Boswil";119
+"4229";"Bünzen";62
+"4230";"Buttwil";32
+"4231";"Dietwil";76
+"4232";"Geltwil";34
+"4233";"Kallern";46
+"4234";"Merenschwand";154
+"4235";"Mühlau";83
+"4236";"Muri (AG)";162
+"4237";"Oberrüti";57
+"4238";"Rottenschwil";29
+"4239";"Sins";262
+"4240";"Waltenschwil";56
+"4251";"Hellikon";68
+"4252";"Kaiseraugst";12
+"4253";"Magden";47
+"4254";"Möhlin";117
+"4255";"Mumpf";15
+"4256";"Obermumpf";34
+"4258";"Rheinfelden";18
+"4259";"Schupfart";48
+"4260";"Stein (AG)";6
+"4261";"Wallbach";31
+"4262";"Wegenstetten";60
+"4263";"Zeiningen";69
+"4264";"Zuzgen";56
+"4271";"Aarburg";11
+"4273";"Bottenwil";52
+"4274";"Brittnau";144
+"4275";"Kirchleerau";59
+"4276";"Kölliken";47
+"4277";"Moosleerau";28
+"4279";"Murgenthal";71
+"4280";"Oftringen";106
+"4281";"Reitnau";127
+"4282";"Rothrist";56
+"4283";"Safenwil";50
+"4284";"Staffelbach";64
+"4285";"Strengelbach";28
+"4286";"Uerkheim";85
+"4287";"Vordemwald";64
+"4288";"Wiliberg";14
+"4289";"Zofingen";62
+"4303";"Böttstein";30
+"4304";"Döttingen";46
+"4305";"Endingen";128
+"4306";"Fisibach";34
+"4307";"Full-Reuenthal";52
+"4309";"Klingnau";41
+"4310";"Koblenz";32
+"4311";"Leibstadt";61
+"4312";"Lengnau (AG)";103
+"4313";"Leuggern";118
+"4314";"Mellikon";11
+"4318";"Schneisingen";73
+"4319";"Siglistorf";21
+"4320";"Tegerfelden";78
+"4324";"Zurzach";134
+"4401";"Arbon";31
+"4406";"Dozwil";22
+"4411";"Egnach";382
+"4416";"Hefenhofen";71
+"4421";"Horn";10
+"4426";"Kesswil";139
+"4431";"Roggwil (TG)";158
+"4436";"Romanshorn";67
+"4441";"Salmsach";123
+"4446";"Sommeri";36
+"4451";"Uttwil";55
+"4461";"Amriswil";220
+"4471";"Bischofszell";79
+"4476";"Erlen";164
+"4486";"Hauptwil-Gottshaus";155
+"4495";"Hohentannen";99
+"4501";"Kradolf-Schönenberg";97
+"4506";"Sulgen";107
+"4511";"Zihlschlacht-Sitterdorf";126
+"4536";"Basadingen-Schlattingen";299
+"4545";"Diessenhofen";57
+"4546";"Schlatt (TG)";97
+"4551";"Aadorf";116
+"4561";"Felben-Wellhausen";48
+"4566";"Frauenfeld";130
+"4571";"Gachnang";77
+"4590";"Hüttlingen";115
+"4591";"Matzingen";69
+"4601";"Neunforn";120
+"4606";"Stettfurt";199
+"4611";"Thundorf";155
+"4616";"Uesslingen-Buch";163
+"4621";"Warth-Weiningen";90
+"4641";"Altnau";101
+"4643";"Bottighofen";5
+"4646";"Ermatingen";59
+"4651";"Gottlieben";0
+"4656";"Güttingen";107
+"4666";"Kemmental";223
+"4671";"Kreuzlingen";29
+"4681";"Langrickenbach";162
+"4683";"Lengwil";100
+"4691";"Münsterlingen";45
+"4696";"Tägerwilen";124
+"4701";"Wäldi";110
+"4711";"Affeltrangen";168
+"4716";"Bettwiesen";31
+"4721";"Bichelsee-Balterswil";82
+"4723";"Braunau";89
+"4724";"Eschlikon";42
+"4726";"Fischingen";228
+"4741";"Lommis";52
+"4746";"Münchwilen (TG)";76
+"4751";"Rickenbach (TG)";5
+"4756";"Schönholzerswilen";150
+"4761";"Sirnach";102
+"4776";"Tobel-Tägerschen";55
+"4781";"Wängi";141
+"4786";"Wilen (TG)";8
+"4791";"Wuppenau";126
+"4801";"Berlingen";17
+"4806";"Eschenz";82
+"4811";"Herdern";98
+"4816";"Homburg";242
+"4821";"Hüttwilen";137
+"4826";"Mammern";51
+"4831";"Müllheim";63
+"4841";"Pfyn";105
+"4846";"Raperswilen";69
+"4851";"Salenstein";49
+"4864";"Steckborn";36
+"4871";"Wagenhausen";65
+"4881";"Amlikon-Bissegg";170
+"4891";"Berg (TG)";161
+"4901";"Birwinken";147
+"4911";"Bürglen (TG)";112
+"4921";"Bussnang";277
+"4941";"Märstetten";182
+"4946";"Weinfelden";105
+"4951";"Wigoltingen";202
+"5001";"Arbedo-Castione";24
+"5002";"Bellinzona";356
+"5003";"Cadenazzo";80
+"5009";"Isone";17
+"5010";"Lumino";14
+"5017";"Sant'Antonino";62
+"5048";"Acquarossa";93
+"5049";"Blenio";117
+"5050";"Serravalle";112
+"5061";"Airolo";53
+"5064";"Bodio";6
+"5071";"Dalpe";5
+"5072";"Faido";109
+"5073";"Giornico";19
+"5076";"Personico";11
+"5077";"Pollegio";13
+"5078";"Prato (Leventina)";5
+"5079";"Quinto";76
+"5091";"Ascona";23
+"5096";"Brione sopra Minusio";4
+"5097";"Brissago";18
+"5108";"Gordola";56
+"5112";"Lavertezzo";33
+"5113";"Locarno";63
+"5115";"Losone";17
+"5118";"Minusio";8
+"5121";"Orselina";0
+"5125";"Ronco sopra Ascona";4
+"5131";"Tenero-Contra";22
+"5136";"Onsernone";30
+"5138";"Cugnasco-Gerra";58
+"5141";"Agno";8
+"5143";"Aranno";18
+"5144";"Arogno";27
+"5146";"Astano";10
+"5148";"Bedano";4
+"5149";"Bedigliora";11
+"5154";"Bissone";0
+"5161";"Cademario";17
+"5171";"Caslano";5
+"5176";"Comano";7
+"5180";"Cureglia";7
+"5181";"Curio";5
+"5186";"Grancia";4
+"5189";"Lamone";37
+"5192";"Lugano";105
+"5193";"Magliaso";13
+"5194";"Manno";13
+"5196";"Massagno";0
+"5199";"Mezzovico-Vira";17
+"5200";"Miglieglia";8
+"5203";"Morcote";0
+"5205";"Muzzano";76
+"5207";"Novaggio";12
+"5208";"Origlio";5
+"5210";"Paradiso";6
+"5212";"Ponte Capriasca";9
+"5216";"Pura";4
+"5225";"Sorengo";0
+"5226";"Capriasca";101
+"5227";"Torricella-Taverne";65
+"5231";"Vezia";7
+"5236";"Collina d'Oro";13
+"5237";"Alto Malcantone";26
+"5238";"Monteceneri";29
+"5239";"Tresa";85
+"5240";"Val Mara";20
+"5242";"Balerna";4
+"5249";"Castel San Pietro";72
+"5250";"Chiasso";20
+"5251";"Coldrerio";18
+"5254";"Mendrisio";166
+"5257";"Morbio Inferiore";6
+"5260";"Novazzano";65
+"5263";"Riva San Vitale";44
+"5266";"Stabio";40
+"5268";"Vacallo";0
+"5269";"Breggia";64
+"5281";"Biasca";70
+"5287";"Riviera";53
+"5304";"Bosco/Gurin";11
+"5307";"Campo (Vallemaggia)";7
+"5309";"Cerentino";10
+"5310";"Cevio";20
+"5315";"Linescio";4
+"5317";"Maggia";44
+"5323";"Lavizzara";59
+"5324";"Avegno Gordevio";74
+"5396";"Terre di Pedemonte";21
+"5397";"Centovalli";43
+"5398";"Gambarogno";81
+"5399";"Verzasca";44
+"5401";"Aigle";313
+"5402";"Bex";192
+"5403";"Chessel";89
+"5404";"Corbeyrier";12
+"5405";"Gryon";13
+"5406";"Lavey-Morcles";10
+"5407";"Leysin";36
+"5408";"Noville";93
+"5409";"Ollon";202
+"5410";"Ormont-Dessous";74
+"5411";"Ormont-Dessus";45
+"5412";"Rennaz";8
+"5413";"Roche (VD)";41
+"5414";"Villeneuve (VD)";39
+"5415";"Yvorne";216
+"5422";"Aubonne";135
+"5423";"Ballens";91
+"5424";"Berolle";21
+"5425";"Bière";72
+"5426";"Bougy-Villars";47
+"5427";"Féchy";55
+"5428";"Gimel";66
+"5430";"Marchissy";36
+"5431";"Mollens (VD)";34
+"5434";"Saint-George";30
+"5435";"Saint-Livres";39
+"5436";"Saint-Oyens";12
+"5437";"Saubraz";8
+"5451";"Avenches";135
+"5456";"Cudrefin";52
+"5458";"Faoug";26
+"5464";"Vully-les-Lacs";196
+"5471";"Bettens";21
+"5472";"Bournens";18
+"5473";"Boussens";16
+"5474";"La Chaux (Cossonay)";24
+"5475";"Chavannes-le-Veyron";21
+"5476";"Chevilly";13
+"5477";"Cossonay";46
+"5479";"Cuarnens";48
+"5480";"Daillens";42
+"5481";"Dizy";15
+"5482";"Eclépens";40
+"5483";"Ferreyres";11
+"5484";"Gollion";47
+"5485";"Grancy";18
+"5486";"L'Isle";40
+"5487";"Lussery-Villars";19
+"5488";"Mauraz";9
+"5489";"Mex (VD)";11
+"5491";"Mont-la-Ville";27
+"5492";"Montricher";49
+"5493";"Orny";32
+"5495";"Penthalaz";22
+"5496";"Penthaz";11
+"5497";"Pompaples";20
+"5498";"La Sarraz";17
+"5499";"Senarclens";16
+"5501";"Sullens";16
+"5503";"Vufflens-la-Ville";18
+"5511";"Assens";49
+"5512";"Bercher";18
+"5514";"Bottens";47
+"5515";"Bretigny-sur-Morrens";8
+"5516";"Cugy (VD)";15
+"5518";"Echallens";47
+"5520";"Essertines-sur-Yverdon";46
+"5521";"Etagnières";18
+"5522";"Fey";27
+"5523";"Froideville";17
+"5527";"Morrens (VD)";9
+"5529";"Oulens-sous-Echallens";38
+"5530";"Pailly";104
+"5531";"Penthéréaz";27
+"5533";"Poliez-Pittet";31
+"5534";"Rueyres";11
+"5535";"Saint-Barthélemy (VD)";33
+"5537";"Villars-le-Terroir";51
+"5539";"Vuarrens";48
+"5540";"Montilliez";81
+"5541";"Goumoëns";64
+"5551";"Bonvillars";43
+"5552";"Bullet";33
+"5553";"Champagne";21
+"5554";"Concise";68
+"5555";"Corcelles-près-Concise";36
+"5556";"Fiez";13
+"5557";"Fontaines-sur-Grandson";8
+"5559";"Giez";29
+"5561";"Grandson";9
+"5562";"Mauborget";12
+"5563";"Mutrux";12
+"5565";"Onnens (VD)";31
+"5566";"Provence";59
+"5568";"Sainte-Croix";74
+"5571";"Tévenon";40
+"5581";"Belmont-sur-Lausanne";10
+"5582";"Cheseaux-sur-Lausanne";38
+"5583";"Crissier";19
+"5584";"Epalinges";7
+"5585";"Jouxtens-Mézery";0
+"5586";"Lausanne";124
+"5587";"Le Mont-sur-Lausanne";60
+"5588";"Paudex";4
+"5590";"Pully";20
+"5591";"Renens (VD)";29
+"5592";"Romanel-sur-Lausanne";9
+"5601";"Chexbres";56
+"5604";"Forel (Lavaux)";104
+"5606";"Lutry";106
+"5607";"Puidoux";158
+"5609";"Rivaz";94
+"5611";"Savigny";96
+"5613";"Bourg-en-Lavaux";344
+"5621";"Aclens";21
+"5622";"Bremblens";43
+"5623";"Buchillon";12
+"5624";"Bussigny";10
+"5627";"Chavannes-près-Renens";0
+"5628";"Chigny";19
+"5629";"Clarmont";29
+"5631";"Denens";55
+"5632";"Denges";45
+"5633";"Echandens";30
+"5634";"Echichens";129
+"5635";"Ecublens (VD)";12
+"5636";"Etoy";109
+"5637";"Lavigny";31
+"5638";"Lonay";49
+"5639";"Lully (VD)";20
+"5640";"Lussy-sur-Morges";26
+"5642";"Morges";97
+"5643";"Préverenges";19
+"5645";"Romanel-sur-Morges";23
+"5646";"Saint-Prex";49
+"5648";"Saint-Sulpice (VD)";4
+"5649";"Tolochenaz";4
+"5651";"Villars-Sainte-Croix";5
+"5652";"Villars-sous-Yens";40
+"5653";"Vufflens-le-Château";59
+"5654";"Vullierens";38
+"5655";"Yens";78
+"5656";"Hautemorges";237
+"5661";"Boulens";21
+"5663";"Bussy-sur-Moudon";14
+"5665";"Chavannes-sur-Moudon";40
+"5669";"Curtilles";23
+"5671";"Dompierre (VD)";26
+"5673";"Hermenches";21
+"5674";"Lovatens";20
+"5675";"Lucens";103
+"5678";"Moudon";60
+"5680";"Ogens";18
+"5683";"Prévonloup";11
+"5684";"Rossenges";11
+"5688";"Syens";8
+"5692";"Vucherens";23
+"5693";"Montanaire";210
+"5702";"Arzier-Le Muids";24
+"5703";"Bassins";50
+"5704";"Begnins";74
+"5705";"Bogis-Bossey";14
+"5706";"Borex";26
+"5707";"Chavannes-de-Bogis";16
+"5708";"Chavannes-des-Bois";0
+"5709";"Chéserex";19
+"5710";"Coinsins";11
+"5711";"Commugny";39
+"5713";"Crans (VD)";13
+"5714";"Crassier";25
+"5715";"Duillier";18
+"5716";"Eysins";27
+"5717";"Founex";80
+"5718";"Genolier";22
+"5719";"Gingins";34
+"5720";"Givrins";39
+"5721";"Gland";93
+"5722";"Grens";29
+"5723";"Mies";8
+"5724";"Nyon";55
+"5725";"Prangins";17
+"5726";"La Rippe";26
+"5727";"Saint-Cergue";15
+"5728";"Signy-Avenex";26
+"5729";"Tannay";15
+"5730";"Trélex";24
+"5731";"Le Vaud";21
+"5732";"Vich";19
+"5741";"L'Abergement";19
+"5742";"Agiez";29
+"5743";"Arnex-sur-Orbe";69
+"5744";"Ballaigues";36
+"5745";"Baulmes";36
+"5746";"Bavois";42
+"5747";"Bofflens";37
+"5748";"Bretonnières";22
+"5749";"Chavornay";172
+"5750";"Les Clées";6
+"5752";"Croy";6
+"5754";"Juriens";24
+"5755";"Lignerolle";31
+"5756";"Montcherand";20
+"5757";"Orbe";32
+"5758";"La Praz";22
+"5759";"Premier";24
+"5760";"Rances";26
+"5761";"Romainmôtier-Envy";16
+"5762";"Sergey";8
+"5763";"Valeyres-sous-Rances";45
+"5764";"Vallorbe";35
+"5765";"Vaulion";55
+"5766";"Vuiteboeuf";23
+"5785";"Corcelles-le-Jorat";32
+"5790";"Maracon";50
+"5792";"Montpreveyres";7
+"5798";"Ropraz";27
+"5799";"Servion";13
+"5803";"Vulliens";40
+"5804";"Jorat-Menthue";68
+"5805";"Oron";193
+"5806";"Jorat-Mézières";126
+"5812";"Champtauroz";18
+"5813";"Chevroux";27
+"5816";"Corcelles-près-Payerne";120
+"5817";"Grandcour";73
+"5819";"Henniez";9
+"5821";"Missy";37
+"5822";"Payerne";91
+"5827";"Trey";59
+"5830";"Villarzel";47
+"5831";"Valbroye";272
+"5841";"Château-d'Oex";217
+"5842";"Rossinière";32
+"5843";"Rougemont";91
+"5851";"Allaman";48
+"5852";"Bursinel";18
+"5853";"Bursins";39
+"5854";"Burtigny";27
+"5856";"Essertines-sur-Rolle";47
+"5857";"Gilly";85
+"5858";"Luins";107
+"5859";"Mont-sur-Rolle";93
+"5860";"Perroy";64
+"5861";"Rolle";73
+"5862";"Tartegnin";41
+"5863";"Vinzel";29
+"5871";"L'Abbaye";22
+"5872";"Le Chenit";81
+"5873";"Le Lieu";37
+"5882";"Chardonne";121
+"5883";"Corseaux";34
+"5884";"Corsier-sur-Vevey";28
+"5885";"Jongny";12
+"5886";"Montreux";81
+"5889";"La Tour-de-Peilz";30
+"5890";"Vevey";5
+"5891";"Veytaux";6
+"5892";"Blonay - Saint-Légier";85
+"5902";"Belmont-sur-Yverdon";32
+"5903";"Bioley-Magnoux";17
+"5904";"Chamblon";0
+"5905";"Champvent";82
+"5907";"Chavannes-le-Chêne";7
+"5908";"Chêne-Pâquier";9
+"5910";"Cronay";40
+"5911";"Cuarny";23
+"5912";"Démoret";34
+"5913";"Donneloye";57
+"5914";"Ependes (VD)";16
+"5919";"Mathod";43
+"5921";"Molondin";22
+"5922";"Montagny-près-Yverdon";26
+"5923";"Oppens";78
+"5924";"Orges";19
+"5925";"Orzens";15
+"5926";"Pomy";42
+"5928";"Rovray";31
+"5929";"Suchy";33
+"5930";"Suscévaz";22
+"5931";"Treycovagnes";6
+"5932";"Ursins";15
+"5933";"Valeyres-sous-Montagny";23
+"5934";"Valeyres-sous-Ursins";20
+"5938";"Yverdon-les-Bains";267
+"5939";"Yvonand";41
+"6002";"Brig-Glis";88
+"6004";"Eggerberg";26
+"6007";"Naters";210
+"6008";"Ried-Brig";79
+"6009";"Simplon";40
+"6010";"Termen";34
+"6011";"Zwischbergen";8
+"6021";"Ardon";117
+"6022";"Chamoson";359
+"6023";"Conthey";301
+"6024";"Nendaz";268
+"6025";"Vétroz";230
+"6033";"Liddes";68
+"6034";"Orsières";137
+"6035";"Sembrancher";29
+"6037";"Val de Bagnes";290
+"6052";"Bellwald";12
+"6054";"Binn";14
+"6056";"Ernen";33
+"6057";"Fiesch";21
+"6058";"Fieschertal";27
+"6061";"Lax";15
+"6076";"Obergoms";53
+"6077";"Goms";111
+"6082";"Ayent";106
+"6083";"Evolène";139
+"6084";"Hérémence";61
+"6087";"Saint-Martin (VS)";21
+"6089";"Vex";42
+"6090";"Mont-Noble";20
+"6101";"Agarn";22
+"6102";"Albinen";9
+"6104";"Ergisch";26
+"6110";"Leuk";199
+"6111";"Leukerbad";24
+"6112";"Oberems";13
+"6113";"Salgesch";265
+"6116";"Varen";99
+"6117";"Guttet-Feschel";15
+"6118";"Gampel-Bratsch";95
+"6119";"Turtmann-Unterems";97
+"6131";"Bovernier";17
+"6133";"Fully";853
+"6134";"Isérables";60
+"6135";"Leytron";285
+"6136";"Martigny";317
+"6137";"Martigny-Combe";85
+"6139";"Riddes";123
+"6140";"Saillon";143
+"6141";"Saxon";312
+"6142";"Trient";4
+"6151";"Champéry";36
+"6152";"Collombey-Muraz";108
+"6153";"Monthey";49
+"6154";"Port-Valais";31
+"6156";"Troistorrents";49
+"6157";"Val-d'Illiez";92
+"6158";"Vionnaz";46
+"6159";"Vouvry";49
+"6173";"Bitsch";19
+"6177";"Grengiols";57
+"6181";"Riederalp";48
+"6191";"Ausserberg";62
+"6192";"Blatten";24
+"6193";"Bürchen";44
+"6194";"Eischoll";24
+"6197";"Kippel";9
+"6198";"Niedergesteln";40
+"6199";"Raron";80
+"6201";"Unterbäch";35
+"6202";"Wiler (Lötschen)";31
+"6203";"Mörel-Filet";27
+"6204";"Steg-Hohtenn";42
+"6205";"Bettmeralp";23
+"6211";"Collonges";24
+"6212";"Dorénaz";17
+"6213";"Evionnaz";11
+"6215";"Massongex";18
+"6217";"Saint-Maurice";33
+"6218";"Salvan";11
+"6219";"Vernayaz";19
+"6220";"Vérossaz";30
+"6232";"Chalais";73
+"6235";"Chippis";31
+"6238";"Grône";56
+"6239";"Icogne";16
+"6240";"Lens";211
+"6246";"Saint-Léonard";57
+"6248";"Sierre";209
+"6252";"Anniviers";108
+"6253";"Crans-Montana";152
+"6254";"Noble-Contrée";153
+"6261";"Arbaz";24
+"6263";"Grimisuat";86
+"6265";"Savièse";265
+"6266";"Sion";563
+"6267";"Veysonnaz";23
+"6281";"Baltschieder";33
+"6282";"Eisten";13
+"6283";"Embd";43
+"6285";"Grächen";46
+"6286";"Lalden";33
+"6287";"Randa";23
+"6288";"Saas-Almagell";18
+"6289";"Saas-Balen";22
+"6290";"Saas-Fee";6
+"6291";"Saas-Grund";61
+"6292";"St. Niklaus";115
+"6293";"Stalden (VS)";38
+"6294";"Staldenried";32
+"6295";"Täsch";12
+"6296";"Törbel";85
+"6297";"Visp";74
+"6298";"Visperterminen";105
+"6299";"Zeneggen";26
+"6300";"Zermatt";39
+"6404";"Boudry";70
+"6408";"Cortaillod";33
+"6413";"Rochefort";26
+"6416";"Milvignes";123
+"6417";"La Grande Béroche";216
+"6421";"La Chaux-de-Fonds";235
+"6422";"Les Planchettes";25
+"6423";"La Sagne";72
+"6432";"La Brévine";151
+"6433";"Brot-Plamboz";72
+"6434";"Le Cerneux-Péquignot";65
+"6435";"La Chaux-du-Milieu";57
+"6436";"Le Locle";103
+"6437";"Les Ponts-de-Martel";87
+"6451";"Cornaux";23
+"6452";"Cressier (NE)";26
+"6454";"Hauterive (NE)";10
+"6455";"Le Landeron";65
+"6456";"Lignières";54
+"6458";"Neuchâtel";113
+"6459";"Saint-Blaise";26
+"6461";"La Tène";40
+"6487";"Val-de-Ruz";368
+"6504";"La Côte-aux-Fées";42
+"6511";"Les Verrières";56
+"6512";"Val-de-Travers";307
+"6601";"Aire-la-Ville";7
+"6602";"Anières";51
+"6603";"Avully";33
+"6604";"Avusy";56
+"6605";"Bardonnex";75
+"6606";"Bellevue";7
+"6607";"Bernex";223
+"6608";"Carouge (GE)";13
+"6609";"Cartigny";27
+"6610";"Céligny";18
+"6611";"Chancy";7
+"6612";"Chêne-Bougeries";0
+"6613";"Chêne-Bourg";6
+"6614";"Choulex";33
+"6615";"Collex-Bossy";29
+"6616";"Collonge-Bellerive";16
+"6617";"Cologny";4
+"6618";"Confignon";17
+"6619";"Corsier (GE)";51
+"6620";"Dardagny";99
+"6621";"Genève";51
+"6622";"Genthod";12
+"6623";"Le Grand-Saconnex";4
+"6624";"Gy";32
+"6625";"Hermance";6
+"6626";"Jussy";70
+"6627";"Laconnex";33
+"6628";"Lancy";22
+"6629";"Meinier";71
+"6630";"Meyrin";55
+"6632";"Perly-Certoux";79
+"6633";"Plan-les-Ouates";39
+"6634";"Pregny-Chambésy";13
+"6635";"Presinge";20
+"6636";"Puplinge";21
+"6637";"Russin";39
+"6638";"Satigny";213
+"6639";"Soral";43
+"6640";"Thônex";9
+"6641";"Troinex";147
+"6642";"Vandoeuvres";22
+"6643";"Vernier";11
+"6644";"Versoix";32
+"6645";"Veyrier";39
+"6702";"Boécourt";37
+"6703";"Bourrignon";61
+"6704";"Châtillon (JU)";26
+"6706";"Courchapoix";28
+"6708";"Courrendlin";68
+"6709";"Courroux";83
+"6710";"Courtételle";36
+"6711";"Delémont";59
+"6712";"Develier";48
+"6713";"Ederswiler";19
+"6715";"Mervelier";31
+"6716";"Mettembert";6
+"6718";"Movelier";32
+"6719";"Pleigne";34
+"6721";"Rossemaison";17
+"6722";"Saulcy";39
+"6724";"Soyhières";16
+"6729";"Haute-Sorne";175
+"6730";"Val Terbi";160
+"6741";"Le Bémont (JU)";67
+"6742";"Les Bois";109
+"6743";"Les Breuleux";82
+"6745";"Les Enfers";31
+"6748";"Les Genevez (JU)";37
+"6750";"Lajoux (JU)";42
+"6751";"Montfaucon";62
+"6753";"Muriaux";114
+"6754";"Le Noirmont";59
+"6757";"Saignelégier";95
+"6758";"Saint-Brais";53
+"6759";"Soubey";36
+"6771";"Alle";69
+"6774";"Boncourt";45
+"6778";"Bure";41
+"6781";"Coeuve";61
+"6782";"Cornol";29
+"6783";"Courchavon";25
+"6784";"Courgenay";91
+"6785";"Courtedoux";29
+"6789";"Fahy";29
+"6790";"Fontenais";46
+"6792";"Grandfontaine";39
+"6800";"Porrentruy";54
+"6806";"Vendlincourt";30
+"6807";"Basse-Allaine";145
+"6808";"Clos du Doubs";207
+"6809";"Haute-Ajoie";140
+"6810";"La Baroche";109
+"6811";"Damphreux-Lugnez";40
+"6812";"Basse-Vendline";55
+"rest_3";"Übrige Gemeinden LU";9147
+"rest_4";"Übrige Gemeinden UR";1232
+"rest_5";"Übrige Gemeinden SZ";1772
+"rest_6";"Übrige Gemeinden OW";589
+"rest_7";"Übrige Gemeinden NW";867
+"rest_9";"Übrige Gemeinden ZG";461
+"rest_10";"Übrige Gemeinden FR";7626
+"rest_12";"Übrige Gemeinden BS";41
+"rest_13";"Übrige Gemeinden BL";2316
+"rest_14";"Übrige Gemeinden SH";1481
+"rest_15";"Übrige Gemeinden AR";1367
+"rest_16";"Übrige Gemeinden AI";865
+"rest_18";"Übrige Gemeinden GR";6529
+"rest_19";"Übrige Gemeinden AG";8750
+"rest_20";"Übrige Gemeinden TG";7587
+"rest_21";"Übrige Gemeinden TI";2542
+"rest_23";"Übrige Gemeinden VS";7993
+"rest_26";"Übrige Gemeinden JU";2933

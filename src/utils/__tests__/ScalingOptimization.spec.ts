@@ -2,6 +2,7 @@ import { describe, it, expect } from 'vitest'
 import { ScalingOptimization } from '../ScalingOptimization'
 import type { OptimizationTarget, OptimizationOptions } from '../ScalingOptimization'
 import type { StatsAvailabilityInfo } from '@/types/StatsData'
+import { financialDataFrom } from '../optimization/__tests__/testData'
 
 describe('ScalingOptimization', () => {
   const mockAvailableStats: StatsAvailabilityInfo[] = [
@@ -406,6 +407,146 @@ describe('ScalingOptimization', () => {
           .map((c) => c.trim())
           .filter((c) => c).length,
       ).toBe(0) // Multiple +
+    })
+  })
+
+  // -----------------------------------------------------------------------------------------------
+  // Added with the optimiser rework: the account-code entry point had no tests at all, and the
+  // generic regression now reports honest quality numbers.
+  // -----------------------------------------------------------------------------------------------
+  describe('optimizeForAccountCodes (facade over the new engine)', () => {
+    const codes = [
+      'gdn/fs/1:2024',
+      'gdn/fs/2:2024',
+      'gdn/fs/3:2024',
+      'gdn/fs/4:2024',
+      'gdn/fs/5:2024',
+      'gdn/fs/6:2024',
+    ]
+    const pop = [5000, 12000, 30000, 8000, 60000, 20000]
+    const area = [900, 1500, 2500, 700, 4000, 1800]
+    // amount = 3000 * (pop + 15 * area), account 46 is a quarter of that
+    const size = pop.map((p, i) => p + 15 * area[i])
+    const data = financialDataFrom(codes, {
+      '36': size.map((s) => 3000 * s),
+      '46': size.map((s) => 750 * s),
+      '38': [5, -3, 4, -2, 6, -1],
+    })
+    const vars = new Map(
+      codes.map((c, i) => [
+        c,
+        new Map([
+          ['pop', pop[i]],
+          ['total_area', area[i]],
+        ]),
+      ]),
+    )
+
+    it('finds the formula behind the accounts and reports the CV before/after per account', () => {
+      const r = ScalingOptimization.optimizeForAccountCodes(
+        data,
+        ['36', '46'],
+        mockAvailableStats.filter((s) => s.id !== 'workplaces'),
+        vars,
+        {
+          mode: 'nonneg',
+        },
+      )
+      expect(r.isValid).toBe(true)
+      const c = r.coefficients!
+      expect(c.get('total_area')! / c.get('pop')!).toBeCloseTo(15, 3)
+      expect(r.accountSummary).toHaveLength(2)
+      for (const a of r.accountSummary!) {
+        expect(a.beforeCV).toBeGreaterThan(0.5)
+        expect(a.afterCV).toBeLessThan(1e-3)
+        expect(a.improvement).toBeGreaterThan(99)
+        expect(a.cvCV).toBeLessThan(1e-3)
+      }
+      expect(r.rSquared).toBeGreaterThan(0.999)
+      expect(r.entityCount).toBe(6)
+      expect(r.fit?.metrics.cvMethod).toBe('loo')
+    })
+
+    it('does not depend on the order of the account codes (the old code fitted only the first one)', () => {
+      const stats = mockAvailableStats.filter((s) => s.id !== 'workplaces')
+      const a = ScalingOptimization.optimizeForAccountCodes(data, ['36', '46'], stats, vars)
+      const b = ScalingOptimization.optimizeForAccountCodes(data, ['46', '36'], stats, vars)
+      expect(a.formula).toBe(b.formula)
+    })
+
+    it('weights all accounts: a second account with a different shape changes the formula', () => {
+      const odd = financialDataFrom(codes, {
+        '36': size.map((s) => 3000 * s),
+        '46': pop.map((p) => 900 * p), // pure per-capita account
+      })
+      const stats = mockAvailableStats.filter((s) => s.id !== 'workplaces')
+      const only36 = ScalingOptimization.optimizeForAccountCodes(odd, ['36'], stats, vars)
+      const both = ScalingOptimization.optimizeForAccountCodes(odd, ['36', '46'], stats, vars)
+      expect(only36.formula).not.toBe(both.formula)
+    })
+
+    it('names invalid codes and rejects mixed-sign accounts instead of taking absolute values', () => {
+      const stats = mockAvailableStats
+      const unknown = ScalingOptimization.optimizeForAccountCodes(data, ['99'], stats, vars)
+      expect(unknown).toMatchObject({ isValid: false })
+      expect(unknown.error).toContain('99')
+      const mixed = ScalingOptimization.optimizeForAccountCodes(data, ['38'], stats, vars)
+      expect(mixed.isValid).toBe(false)
+    })
+
+    it('needs at least two entities (a single column has nothing to be compared with)', () => {
+      const one = new Map([[codes[0], vars.get(codes[0])!]])
+      const r = ScalingOptimization.optimizeForAccountCodes(data, ['36'], mockAvailableStats, one)
+      expect(r.isValid).toBe(false)
+      expect(r.error).toMatch(/At least 2 entities/)
+    })
+
+    it('sums "+" groups', () => {
+      const r = ScalingOptimization.optimizeForAccountCodes(
+        data,
+        ['36+46'],
+        mockAvailableStats.filter((s) => s.id !== 'workplaces'),
+        vars,
+      )
+      expect(r.isValid).toBe(true)
+      expect(r.accountSummary![0].accountCode).toBe('36+46')
+    })
+  })
+
+  describe('optimizeScalingFormula quality numbers', () => {
+    it('reports adjusted R² and a leave-one-out error that exposes overfitting', () => {
+      const targets = createOptimizationTargets(
+        [3, 7, 4, 9, 2, 8].map((v, i) => ({
+          entity: `e${i}`,
+          target: 100 + v * 10 + (i % 2 ? 7 : -5),
+          factors: { pop: 10 * v + i, workplaces: (i * 37) % 11, total_area: 5 + ((i * 13) % 7) },
+        })),
+      )
+      const simple = ScalingOptimization.optimizeScalingFormula(
+        targets,
+        mockAvailableStats.slice(0, 1),
+      )
+      const greedy = ScalingOptimization.optimizeScalingFormula(targets, mockAvailableStats)
+      expect(simple.adjustedRSquared).toBeLessThanOrEqual(simple.rSquared!)
+      expect(greedy.rSquared!).toBeGreaterThanOrEqual(simple.rSquared! - 1e-9)
+      expect(greedy.cvRmse).toBeDefined()
+      expect(greedy.cvRmse!).toBeGreaterThan(simple.cvRmse! * 0.5)
+    })
+
+    it('non-negative mode never returns a negative coefficient', () => {
+      const targets = createOptimizationTargets(
+        Array.from({ length: 8 }, (_, i) => ({
+          entity: `e${i}`,
+          target: 50 + 4 * i * i - 3 * ((i * 5) % 7),
+          factors: { pop: 10 + i * 3, workplaces: 40 - i * 4, total_area: 3 + ((i * 7) % 5) },
+        })),
+      )
+      const r = ScalingOptimization.optimizeScalingFormula(targets, mockAvailableStats, {
+        mode: 'nonneg',
+        includeIntercept: false,
+      })
+      expect(r.isValid).toBe(true)
+      for (const v of r.coefficients!.values()) expect(v).toBeGreaterThanOrEqual(0)
     })
   })
 })

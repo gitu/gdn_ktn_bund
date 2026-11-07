@@ -34,7 +34,10 @@ npm run pre-commit   # Full quality check before committing (lint + format + tes
 ```bash
 npm run build-data   # Generate available-data.json from public/data
 npm run generate-synth  # Generate synthetic canton data
-npm run fetch-atlas  # Fetch latest statistical data from Swiss Federal Statistical Office
+npm run fetch-data   # Download the EFV financial statistics CSVs into data/ (then: npm run split)
+npm run fetch-stats  # Rebuild scaling statistics (population by age, jobs, roads) from BFS downloads
+npm run build-rest   # Calculate "rest of canton" datasets (after split and fetch-stats)
+npm run update-data  # All of the above in the right order: fetch-data, split, fetch-stats, build-rest, build-data
 ```
 
 ## Architecture Overview
@@ -115,6 +118,15 @@ Cached in browser for performance.
 - Run `npm run pre-commit` before committing
 - No direct pushes to main - always use pull requests
 - TypeScript strict mode enabled - no `any` types
+
+### UI Conventions (mobile-first)
+- Design tokens live in `src/assets/layout/variables/_tokens.scss` (`--gk-*`, `--gutter`, `--topbar-h`, `--radius-*`); they switch with the `app-dark` class on `<html>`. Use them instead of hard-coded colours. Font is Inter Variable (self-hosted); use `font-variant-numeric: tabular-nums` for numbers.
+- Phones are `max-width: 767px` (`PHONE_QUERY` in `src/composables/useMediaQuery.ts`). Under 768px navigation is the bottom bar (`AppBottomNav`), lists are cards instead of tables, touch targets are at least 44px and inputs 16px.
+- No horizontal page scroll at 320-430px on any route; `e2e/mobile-layout.spec.ts` enforces it.
+- PrimeFlex classes (`flex-column`, `align-items-center`, `surface-50`, `border-round`) do not exist here; use Tailwind 4 utilities or scoped CSS.
+- Ready-made comparisons are defined once in `src/data/sampleComparisons.ts` (home page and empty comparison page); a unit test checks they exist in the catalogue.
+- Vite may serve stale CSS after editing a Sass partial in `src/assets/layout/`; restart the dev server.
+- Design rationale and backlog: `docs/ui-proposal.md`.
 
 ### File Organization
 ```

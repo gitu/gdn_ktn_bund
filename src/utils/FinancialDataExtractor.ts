@@ -5,7 +5,9 @@
  * to support account-targeted optimization.
  */
 
-import type { FinancialData, FinancialDataNode } from '@/types/FinancialDataStructure'
+import type { FinancialData } from '@/types/FinancialDataStructure'
+import { buildAccountIndex } from './optimization/accountTargets'
+import { Logger } from './Logger'
 
 export interface AccountCodeValue {
   entityCode: string
@@ -29,104 +31,24 @@ export class FinancialDataExtractor {
     accountCodes: string[],
   ): Map<string, AccountCodeValue[]> {
     const results = new Map<string, AccountCodeValue[]>()
+    accountCodes.forEach((code) => results.set(code, []))
 
-    // Initialize results for each account code
-    accountCodes.forEach((code) => {
-      results.set(code, [])
-    })
-
-    // Search through all entities
-    console.log(
-      `FinancialDataExtractor: Searching for account codes [${accountCodes.join(', ')}] in ${financialData.entities.size} entities`,
-    )
-
+    // One pass over the trees instead of one tree walk per (entity, account)
+    const index = buildAccountIndex(financialData)
     for (const [entityCode, entity] of financialData.entities) {
       const year = entity.year?.toString() || '2022'
-
-      // Search for account codes in both balance sheet and income statement
-      accountCodes.forEach((accountCode) => {
-        // Search in income statement (contains codes like 36, 46)
-        if (financialData.incomeStatement) {
-          const value = this.findAccountValueInTree(
-            financialData.incomeStatement,
-            accountCode,
-            entityCode,
-          )
-          if (value !== null) {
-            console.log(`  Found account ${accountCode} for entity ${entityCode}: ${value}`)
-            results.get(accountCode)!.push({
-              entityCode,
-              accountCode,
-              value,
-              year,
-            })
-          }
+      for (const accountCode of accountCodes) {
+        const value = index.get(accountCode)?.values.get(entityCode)?.value
+        if (typeof value === 'number') {
+          results.get(accountCode)!.push({ entityCode, accountCode, value, year })
         }
-
-        // Search in balance sheet (contains codes like 10, 20)
-        if (
-          financialData.balanceSheet &&
-          !results.get(accountCode)!.some((r) => r.entityCode === entityCode)
-        ) {
-          const value = this.findAccountValueInTree(
-            financialData.balanceSheet,
-            accountCode,
-            entityCode,
-          )
-          if (value !== null) {
-            console.log(
-              `  Found account ${accountCode} for entity ${entityCode}: ${value} (from balance sheet)`,
-            )
-            results.get(accountCode)!.push({
-              entityCode,
-              accountCode,
-              value,
-              year,
-            })
-          }
-        }
-      })
-    }
-
-    // Log summary
-    accountCodes.forEach((code) => {
-      const values = results.get(code) || []
-      console.log(`FinancialDataExtractor: Account ${code} found in ${values.length} entities`)
-      if (values.length > 0) {
-        const sample = values
-          .slice(0, 3)
-          .map((v) => `${v.entityCode}: ${v.value}`)
-          .join(', ')
-        console.log(`  Sample values: ${sample}${values.length > 3 ? '...' : ''}`)
       }
+    }
+    Logger.optimization('Extracted account values', {
+      entities: financialData.entities.size,
+      found: accountCodes.map((c) => [c, results.get(c)?.length ?? 0]),
     })
-
     return results
-  }
-
-  /**
-   * Find account value in a financial data tree
-   */
-  private static findAccountValueInTree(
-    node: FinancialDataNode,
-    targetAccountCode: string,
-    entityCode: string,
-  ): number | null {
-    // Check if this node matches the target account code
-    if (node.code === targetAccountCode) {
-      const value = node.values.get(entityCode)
-      return value?.value ?? null
-    }
-
-    // Search in children recursively
-    for (const child of node.children) {
-      const value = this.findAccountValueInTree(child, targetAccountCode, entityCode)
-      if (value !== null) {
-        return value
-      }
-    }
-
-    return null
   }
 
   /**
@@ -138,14 +60,8 @@ export class FinancialDataExtractor {
   ): AccountVarianceTarget[] {
     const targets: AccountVarianceTarget[] = []
 
-    console.log(`Creating variance targets from ${accountValues.size} account codes`)
-
     for (const [accountCode, values] of accountValues) {
-      console.log(`  Account ${accountCode}: ${values.length} values`)
-      if (values.length < 2) {
-        console.log(`    Skipping - need at least 2 entities`)
-        continue // Need at least 2 entities
-      }
+      if (values.length < 2) continue // Need at least 2 entities
 
       // Create entity values map
       const entityValues = new Map<string, number>()
@@ -212,8 +128,6 @@ export class FinancialDataExtractor {
       meanValue: number
     }[]
   } {
-    console.log(`Preparing account optimization targets for codes: [${accountCodes.join(', ')}]`)
-
     // Extract account values
     const accountValues = this.extractAccountValues(financialData, accountCodes)
 

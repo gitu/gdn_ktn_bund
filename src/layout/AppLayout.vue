@@ -4,6 +4,7 @@ import { computed, ref, watch } from 'vue'
 import AppFooter from './AppFooter.vue'
 import AppSidebar from './AppSidebar.vue'
 import AppTopbar from './AppTopbar.vue'
+import AppBottomNav from './AppBottomNav.vue'
 
 const { layoutConfig, layoutState, isSidebarActive } = useLayout()
 
@@ -67,10 +68,15 @@ function isOutsideClicked(event: Event): boolean {
     <app-sidebar></app-sidebar>
     <div class="layout-main-container">
       <div class="layout-main">
-        <router-view></router-view>
+        <router-view v-slot="{ Component }">
+          <transition name="page" mode="out-in">
+            <component :is="Component" />
+          </transition>
+        </router-view>
       </div>
       <app-footer></app-footer>
     </div>
+    <app-bottom-nav></app-bottom-nav>
     <div class="layout-mask animate-fadein"></div>
   </div>
   <Toast />

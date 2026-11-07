@@ -1,0 +1,70 @@
+@use 'mixins' as *;
+
+// Phone navigation: three destinations, thumb reach, safe-area aware.
+.layout-bottomnav {
+  display: none;
+}
+
+@media (max-width: 767px) {
+  .layout-bottomnav {
+    position: fixed;
+    z-index: 996;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    height: calc(var(--bottomnav-h) + env(safe-area-inset-bottom, 0));
+    padding: 0 0.5rem env(safe-area-inset-bottom, 0);
+    background-color: var(--gk-glass);
+    -webkit-backdrop-filter: saturate(180%) blur(14px);
+    backdrop-filter: saturate(180%) blur(14px);
+    border-top: 1px solid var(--gk-border);
+
+    a {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.2rem;
+      min-height: 2.75rem;
+      color: var(--gk-muted);
+      font-size: 0.75rem;
+      font-weight: 600;
+      border-radius: var(--radius-md);
+      transition: color 0.15s ease;
+
+      i {
+        font-size: 1.3rem;
+        padding: 0.15rem 1rem;
+        border-radius: 999px;
+        transition:
+          background-color 0.2s ease,
+          color 0.2s ease;
+      }
+
+      &:focus-visible {
+        @include focused();
+      }
+
+      // aria-current marks the exact match; router-link-active would also light up "/" everywhere.
+      &[aria-current='page'] {
+        color: var(--gk-accent-strong);
+
+        i {
+          background-color: color-mix(in srgb, var(--gk-accent) 16%, transparent);
+        }
+      }
+    }
+  }
+
+  // Keep content and footer clear of the bar.
+  .layout-wrapper .layout-main-container {
+    padding-bottom: calc(var(--bottomnav-h) + env(safe-area-inset-bottom, 0));
+  }
+
+  // Navigation lives at the bottom on phones; the drawer is for tablets and up.
+  .layout-topbar .layout-menu-button {
+    display: none;
+  }
+}

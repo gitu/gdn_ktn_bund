@@ -5,7 +5,7 @@
 {
 	"$schema": "node_modules/wrangler/config-schema.json",
 	"name": "gdn-ktn-bund",
-	"compatibility_date": "2025-06-10",
+	"compatibility_date": "2026-10-01",
 	"main": "server/index.ts",
 	"assets": {
 		"not_found_handling": "single-page-application"

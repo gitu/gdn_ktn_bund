@@ -8,11 +8,15 @@ export {}
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
+    BrandMark: typeof import('./src/components/BrandMark.vue')['default']
     DataBrowser: typeof import('./src/components/DataBrowser.vue')['default']
     DatasetSelector: typeof import('./src/components/DatasetSelector.vue')['default']
+    DeviationRanking: typeof import('./src/components/optimization/DeviationRanking.vue')['default']
+    DisclosureBox: typeof import('./src/components/optimization/DisclosureBox.vue')['default']
     FinancialDataComparison: typeof import('./src/components/FinancialDataComparison.vue')['default']
     FinancialDataDisplay: typeof import('./src/components/FinancialDataDisplay.vue')['default']
     FinancialDataScalingSelector: typeof import('./src/components/FinancialDataScalingSelector.vue')['default']
+    HowToRead: typeof import('./src/components/HowToRead.vue')['default']
     IconCommunity: typeof import('./src/components/icons/IconCommunity.vue')['default']
     IconDocumentation: typeof import('./src/components/icons/IconDocumentation.vue')['default']
     IconEcosystem: typeof import('./src/components/icons/IconEcosystem.vue')['default']
@@ -21,8 +25,18 @@ declare module 'vue' {
     IconTooling: typeof import('./src/components/icons/IconTooling.vue')['default']
     InputIcon: typeof import('primevue/inputicon')['default']
     LanguageSelector: typeof import('./src/components/LanguageSelector.vue')['default']
+    OptimizationResult: typeof import('./src/components/optimization/OptimizationResult.vue')['default']
+    OptimizerPanel: typeof import('./src/components/optimization/OptimizerPanel.vue')['default']
+    PlaceFacts: typeof import('./src/components/PlaceFacts.vue')['default']
+    RestOfCantonNotice: typeof import('./src/components/RestOfCantonNotice.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    ScenarioComparison: typeof import('./src/components/optimization/ScenarioComparison.vue')['default']
+    ScenarioEditor: typeof import('./src/components/optimization/ScenarioEditor.vue')['default']
+    ScenarioList: typeof import('./src/components/optimization/ScenarioList.vue')['default']
+    SensitivityTable: typeof import('./src/components/optimization/SensitivityTable.vue')['default']
+    SimulationPanel: typeof import('./src/components/optimization/SimulationPanel.vue')['default']
     Toast: typeof import('primevue/toast')['default']
+    WhatIfSimulation: typeof import('./src/components/optimization/WhatIfSimulation.vue')['default']
   }
 }
