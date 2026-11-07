@@ -25,7 +25,11 @@
     "treeExplorer": "Esploratore ad albero",
     "calendar": "Calendario",
     "messages": "Messaggi",
-    "profile": "Profilo"
+    "profile": "Profilo",
+    "openMenu": "Apri il menu",
+    "toggleTheme": "Cambia tema chiaro/scuro",
+    "main": "Navigazione principale",
+    "compare": "Confronta"
   },
   "dataBrowser": {
     "title": "Browser dati",
@@ -133,7 +137,7 @@
   "aboutView": {
     "title": "Informazioni su questa applicazione",
     "subtitle": "Esploratore di dati finanziari svizzeri",
-    "description": "Questa applicazione ti permette di esplorare e analizzare i dati finanziari svizzeri in vari formati interattivi.",
+    "description": "Questo sito permette di confrontare le finanze dei comuni, dei cantoni e della Confederazione svizzeri.",
     "features": {
       "title": "Funzionalità principali",
       "treeNavigation": "Navigazione ad albero gerarchica per dati finanziari",
@@ -144,9 +148,9 @@
     },
     "dataInfo": {
       "title": "Informazioni sui dati",
-      "description": "L'applicazione utilizza dati finanziari ufficiali svizzeri di comuni e cantoni.",
-      "sources": "Fonti dati: Amministrazione federale delle finanze e uffici statistici cantonali",
-      "coverage": "Copertura: 2015-2023, tutti i comuni e cantoni svizzeri",
+      "description": "I dati provengono dall'Amministrazione federale delle finanze e dall'Ufficio federale di statistica.",
+      "sources": "Fonti: Amministrazione federale delle finanze (statistica finanziaria), Ufficio federale di statistica (abitanti, addetti, superficie)",
+      "coverage": "Copertura: {gdnCount} comuni con oltre 5 000 abitanti ({gdnFrom}–{gdnTo}) e {stdCount} aggregati per la Confederazione, i cantoni e le assicurazioni sociali ({stdFrom}–{stdTo})",
       "officialSources": "Fonti dati ufficiali",
       "federalFinanceAdmin": "Amministrazione federale delle finanze",
       "federalFinanceAdminUrl": "https://www.efv.admin.ch/efv/it/home/themen/finanzstatistik/daten.html",
@@ -154,7 +158,7 @@
     },
     "technology": {
       "title": "Tecnologia",
-      "description": "Costruito con tecnologie web moderne per prestazioni ottimali e esperienza utente.",
+      "description": "Un'app web moderna, fluida anche sul telefono.",
       "frontend": "Frontend: Vue 3, TypeScript, PrimeVue",
       "testing": "Testing: Vitest, Vue Test Utils",
       "build": "Build: Vite, ESLint"
@@ -194,27 +198,54 @@
     "title": "Esploratore di dati finanziari svizzeri",
     "subtitle": "Confronta i dati finanziari di comuni, cantoni e confederazione svizzeri",
     "description": {
-      "title": "Confronta i dati finanziari tra entità svizzere",
-      "intro": "Analizza e confronta i bilanci di più entità governative svizzere affiancati. Esplora bilanci, conti economici e dati di spesa per scoprire tendenze e differenze finanziarie.",
-      "scalingFeature": "Scala i dati finanziari per popolazione, demografia o altri fattori per confronti significativi tra entità di dimensioni diverse."
+      "title": "Confrontare comuni, cantoni e Confederazione fianco a fianco",
+      "intro": "Quanto incassa e quanto spende il tuo comune? Che cosa possiede e quanti debiti ha? Metti i luoghi uno accanto all'altro e vedi le differenze.",
+      "scalingFeature": "I luoghi grandi hanno importi più alti. Passa a «per abitante» o «per posto di lavoro»: luoghi di dimensioni diverse diventano confrontabili."
     },
     "cta": {
       "title": "Pronto per iniziare?",
-      "description": "Inizia a confrontare i dati finanziari di comuni, cantoni e confederazione svizzeri.",
+      "description": "Scegli comuni, cantoni o la Confederazione e mettili uno accanto all'altro.",
       "startButtonText": "Inizia il confronto",
       "aboutButtonText": "Scopri di più"
+    },
+    "hero": {
+      "eyebrow": "Dati aperti dell'Amministrazione federale delle finanze"
+    },
+    "stats": {
+      "municipalities": "comuni con oltre 5 000 abitanti",
+      "aggregates": "dati riassuntivi: Confederazione, cantoni, assicurazioni sociali",
+      "languages": "lingue"
+    },
+    "quickStart": {
+      "title": "Iniziare subito",
+      "subtitle": "Due esempi già pronti. Basta un tocco.",
+      "datasets": "{count} colonne nel confronto",
+      "open": "Apri l'esempio"
+    },
+    "features": {
+      "compare": {
+        "title": "Confrontare fianco a fianco",
+        "text": "Bilancio, ricavi e spese di comuni, cantoni e Confederazione in un'unica tabella, fino ai singoli conti."
+      },
+      "scale": {
+        "title": "Confrontare in modo equo"
+      },
+      "share": {
+        "title": "Condividere un link",
+        "text": "Ogni selezione è salvata nel link. Copialo e condividilo."
+      }
     }
   },
   "financialDataScalingSelector": {
-    "title": "Scalatura dei dati",
-    "subtitle": "Applicare fattori di scala per un migliore confronto",
-    "scaling": "Scalatura",
-    "noScaling": "Nessuna scalatura",
+    "title": "Rendere gli importi confrontabili",
+    "subtitle": "Per esempio, converti gli importi per abitante.",
+    "scaling": "Converti",
+    "noScaling": "Non convertire",
     "loading": "Caricamento opzioni di scalatura...",
     "error": "Errore nel caricamento delle opzioni di scalatura",
-    "selectScaling": "Seleziona fattore di scala",
-    "scalingApplied": "Scalatura applicata: {name}",
-    "scalingRemoved": "Scalatura rimossa",
+    "selectScaling": "Converti per",
+    "scalingApplied": "Convertito per {name}",
+    "scalingRemoved": "Di nuovo in franchi, senza conversione",
     "scalingInfo": {
       "title": "Informazioni sulla scalatura",
       "description": "I fattori di scala aiutano a normalizzare i dati per un migliore confronto tra entità di dimensioni diverse.",
@@ -230,7 +261,17 @@
       "employees": "Dipendenti",
       "total_area": "Superficie totale",
       "workplaces": "Luoghi di lavoro",
-      "overbuilt": "Area edificata"
+      "overbuilt": "Superficie edificata",
+      "pop_0_19": "Abitanti sotto i 20 anni",
+      "pop_20_64": "Abitanti da 20 a 64 anni",
+      "pop_65plus": "Abitanti da 65 anni",
+      "pop_foreign": "Abitanti stranieri",
+      "fte": "Posti a tempo pieno",
+      "establishments": "Aziende",
+      "jobs_primary": "Posti di lavoro nell'agricoltura",
+      "jobs_secondary": "Posti di lavoro in industria ed edilizia",
+      "jobs_tertiary": "Posti di lavoro nei servizi",
+      "road_length": "Chilometri di strada"
     },
     "customFormula": {
       "title": "Formula personalizzata",
@@ -256,6 +297,12 @@
           "title": "Seleziona fattori di scala",
           "selectAll": "Seleziona tutto",
           "selectNone": "Deseleziona tutto"
+        },
+        "summary": {
+          "title": "Risultati per conto:",
+          "account": "Conto {code} ({count} entità)",
+          "improvement": "Miglioramento del coefficiente di variazione (CV): {percent}%",
+          "beforeAfter": "Prima: {before} → Dopo: {after}"
         }
       },
       "manual": {
@@ -278,10 +325,10 @@
   },
   "financialDataComparison": {
     "title": "Seleziona dati finanziari da confrontare",
-    "subtitle": "Scegli e confronta i bilanci di diverse entità governative svizzere per scoprire informazioni",
+    "subtitle": "Scegli comuni, cantoni o la Confederazione e metti le loro finanze una accanto all'altra.",
     "loading": "Caricamento dati finanziari...",
     "error": "Errore nel caricamento dei dati",
-    "noData": "Nessun dato disponibile per il confronto",
+    "noData": "Non ci sono dati per questo confronto.",
     "columns": {
       "category": "Categoria",
       "code": "Codice"
@@ -299,51 +346,52 @@
     "parseError": "Formato dataset non valido: {dataset}",
     "aggregationError": "Errore nell'aggregazione dei dati per {dataset}",
     "noValidData": "Nessun dato valido trovato nei dataset",
-    "comparisonResults": "Risultati del confronto",
-    "comparisonDescription": "Confronto di {count} dataset selezionati",
-    "demoTitle": "Confronto dimostrativo",
+    "comparisonResults": "Il tuo confronto",
+    "comparisonDescription": "{count} colonne nel confronto",
+    "demoTitle": "Esempi da provare",
     "demoResults": "Risultati dimostrativi",
-    "demoDescription": "Scegli tra queste collezioni di dataset di esempio per esplorare le funzionalità di confronto:",
+    "demoDescription": "Tocca un esempio per vedere come appare un confronto:",
     "demoDataset1": "Comune 010002",
     "demoDataset1Description": "Dati specifici del comune",
     "demoDataset2": "Comune 010009",
     "demoDataset2Description": "Altri dati specifici del comune",
     "demoDataset3": "Cantone Zurigo (gdn_zh)",
     "demoDataset3Description": "Tutti i comuni del cantone Zurigo",
-    "loadDemoData": "Carica dati dimostrativi",
+    "loadDemoData": "Apri l'esempio",
     "sampleDatasets": {
       "governmentalLevels": {
-        "name": "Confronto di tutti i livelli governativi",
-        "description": "Confronta i dati di comuni, cantoni e livello federale aggregati per livello"
+        "name": "Comuni, cantoni e Confederazione a confronto",
+        "description": "Tutti i comuni, tutti i cantoni e la Confederazione, ciascuno sommato, e i tre insieme."
       },
       "zurichMunicipalities": {
-        "name": "Confronto dei comuni zurighesi",
-        "description": "Confronta diversi comuni del cantone Zurigo con scalatura demografica"
+        "name": "Quattro comuni zurighesi a confronto",
+        "description": "Zurigo, Winterthur, Meilen e Glattfelden accanto all'intero cantone, convertito per abitante."
       }
     },
     "selectSampleDataset": "Seleziona dataset di esempio",
     "loadSelectedSample": "Carica esempio selezionato",
     "openFullView": "Apri vista completa",
-    "openFullViewTooltip": "Apre la vista di confronto attuale in modalità schermo intero dedicata"
+    "openFullViewTooltip": "Mostra il confronto a schermo intero",
+    "datasetsLoaded": "{count} set di dati caricati"
   },
   "financialDataDisplay": {
-    "title": "Visualizzazione dati finanziari",
+    "title": "Dati finanziari a confronto",
     "financialData": "Dati finanziari",
     "balanceSheet": "Bilancio",
     "incomeStatement": "Conto economico",
-    "loading": "Caricamento dati finanziari...",
+    "loading": "Caricamento dei dati …",
     "error": "Errore nel caricamento dei dati",
-    "noData": "Nessun dato finanziario disponibile",
-    "noEntities": "Nessuna entità disponibile",
+    "noData": "Nessun dato disponibile",
+    "noEntities": "Nessun luogo selezionato",
     "expandAll": "Espandi tutto",
     "collapseAll": "Comprimi tutto",
-    "showCodes": "Mostra codici",
-    "hideCodes": "Nascondi codici",
-    "codesShown": "Codici mostrati",
-    "freezeFirstColumn": "Blocca prima colonna",
-    "firstColumnFreezed": "Prima colonna bloccata",
-    "showZeroValues": "Mostra valori zero",
-    "hideZeroValues": "Nascondi valori zero",
+    "showCodes": "Mostra i numeri di conto",
+    "hideCodes": "Nascondi i numeri di conto",
+    "codesShown": "Numeri di conto visibili",
+    "freezeFirstColumn": "Fissa i nomi dei conti",
+    "firstColumnFreezed": "Nomi dei conti fissati",
+    "showZeroValues": "Mostra le righe vuote",
+    "hideZeroValues": "Nascondi le righe vuote",
     "enableScaling": "Abilita scalatura",
     "disableScaling": "Disabilita scalatura",
     "columns": {
@@ -358,7 +406,7 @@
     "scalingDisabled": "Scalatura disabilitata",
     "noScalingFactor": "Nessun fattore di scala disponibile",
     "scalingInfo": {
-      "title": "Informazioni di scalatura"
+      "title": "Come è stato convertito?"
     },
     "controls": {
       "title": "Opzioni di visualizzazione"
@@ -378,8 +426,8 @@
     },
     "comparisonModeOn": "Modalità confronto attiva",
     "comparisonModeOff": "Modalità confronto",
-    "clickToSelectBase": "Seleziona colonna base per il confronto",
-    "clickToCompareWith": "Confronta con la colonna selezionata",
+    "clickToSelectBase": "Tocca una colonna per sceglierla come base",
+    "clickToCompareWith": "Tocca un'altra colonna per confrontare",
     "comparison": {
       "title": "Confronto",
       "versus": "vs.",
@@ -387,9 +435,9 @@
       "noData": "Nessun dato disponibile",
       "tooltipDetail": "{columnName}: {columnValue}\nvs {baseName}: {baseValue}\nDifferenza: {percentage}",
       "value": "Valore",
-      "absoluteDiff": "Differenza assoluta",
-      "percentageDiff": "Differenza percentuale",
-      "entity": "Entità",
+      "absoluteDiff": "Differenza in CHF",
+      "percentageDiff": "Differenza in percentuale",
+      "entity": "Luogo",
       "directComparison": "Confronto diretto",
       "allValuesInRow": "Tutti i valori in questa riga"
     },
@@ -402,23 +450,23 @@
     }
   },
   "datasetSelector": {
-    "title": "Selezione dataset",
-    "subtitle": "Seleziona dataset per il confronto",
-    "searchPlaceholder": "Cerca dataset...",
+    "title": "Scegliere i luoghi",
+    "subtitle": "Cerca un comune, un cantone o la Confederazione e tocca «Aggiungi».",
+    "searchPlaceholder": "Cerca comune o cantone …",
     "availableDatasets": "Dataset disponibili",
-    "selectedDatasets": "Dataset selezionati",
-    "resultsCount": "{count} di {total} dataset",
+    "selectedDatasets": "La tua selezione",
+    "resultsCount": "{count} su {total} voci",
     "selectedCount": "{count} selezionati",
     "yearCount": "{count} anni",
     "latestYear": "Più recente",
-    "loading": "Caricamento catalogo dati...",
+    "loading": "Caricamento dell'elenco …",
     "selectYear": "Seleziona anno",
     "addDataset": "Aggiungi",
     "addDatasetWithYear": "Aggiungi ({year})",
     "addLatestYear": "Aggiungi più recente ({year})",
     "removeDataset": "Rimuovi {name}",
     "clearAll": "Rimuovi tutto",
-    "compareDatasets": "Confronta dataset",
+    "compareDatasets": "Confronta a schermo intero",
     "pageReportTemplate": "Mostra da {first} a {last} di {totalRecords} voci",
     "filters": {
       "dataType": "Tipo di dati",
@@ -426,23 +474,26 @@
       "all": "Tutti",
       "allYears": "Tutti gli anni",
       "gdn": "Comuni",
-      "std": "Standard"
+      "std": "Riassuntivo"
     },
     "types": {
       "gdn": "Comune",
-      "std": "Standard"
+      "std": "Riassuntivo"
     },
     "columns": {
-      "name": "Nome",
+      "name": "Luogo",
       "description": "Descrizione",
       "years": "Anni disponibili",
       "year": "Anno",
-      "actions": "Azioni"
+      "actions": "Azione"
     },
     "errors": {
-      "loadingFailed": "Caricamento del catalogo dati fallito",
-      "duplicateDataset": "Questo dataset è già selezionato"
-    }
+      "loadingFailed": "Non è stato possibile caricare l'elenco.",
+      "duplicateDataset": "Hai già selezionato questa voce."
+    },
+    "clearSearch": "Cancella la ricerca",
+    "showMore": "Mostra altri {count}",
+    "noResults": "Nessun risultato. Modifica la ricerca o l'anno."
   },
   "financialDataFullView": {
     "title": "Dati finanziari - Vista completa",
@@ -453,5 +504,275 @@
     "noDataMessage": "Seleziona i dataset nella vista di confronto principale prima di aprire la vista completa.",
     "loadingDatasets": "Caricamento dataset...",
     "datasetsLoaded": "{count} dataset caricati"
+  },
+  "footer": {
+    "sources": "Fonti: Amministrazione federale delle finanze AFF, Ufficio federale di statistica UST",
+    "about": "Informazioni"
+  },
+  "placeFacts": {
+    "title": "I luoghi in sintesi",
+    "intro": "A chi appartengono i numeri della tabella? Ecco una risposta breve.",
+    "kind": {
+      "municipality": "Comune",
+      "canton": "Cantone",
+      "cantonMunicipalities": "Tutti i comuni di un cantone",
+      "cantonAndMunicipalities": "Cantone e comuni",
+      "federal": "Confederazione",
+      "switzerland": "Tutta la Svizzera",
+      "socialInsurance": "Assicurazione sociale",
+      "other": "Altro",
+      "cantonRest": "Calcolato: altri comuni"
+    },
+    "about": {
+      "municipality": "I numeri del comune di {name} ({canton}), senza il cantone.",
+      "canton": "I numeri del cantone {canton} stesso, senza i suoi comuni.",
+      "cantonRest": "Tutti i comuni del cantone {canton} con meno di 5000 abitanti, insieme. Non pubblicato ma calcolato: il cantone meno i singoli comuni."
+    },
+    "asOf": "Stato {year}",
+    "facts": {
+      "population": "Abitanti",
+      "age65": "di cui 65 anni e più",
+      "foreign": "di cui stranieri",
+      "jobs": "Posti di lavoro",
+      "roads": "Strade (escluse le nazionali)",
+      "area": "Superficie"
+    },
+    "units": {
+      "km": "{value} km",
+      "km2": "{value} km²"
+    },
+    "note": "I valori si riferiscono all'anno del set di dati. Se manca un valore per quell'anno, viene mostrato l'anno più vicino."
+  },
+  "explain": {
+    "title": "Come leggere i numeri",
+    "hint": "In breve: bilancio, ricavi, spese e altro",
+    "rows": {
+      "title": "Che cosa significano le righe?",
+      "balance": "Bilancio: ciò che un luogo possiede (attivi) e da dove viene il denaro (passivi: debiti e capitale proprio). Le due parti sono sempre uguali.",
+      "income": "Conto economico: ciò che entra in un anno (ricavi, soprattutto imposte e tasse) e ciò che si spende (spese, per esempio per personale, scuole e sociale).",
+      "result": "Utile/perdita = ricavi meno spese. Un meno significa che si è speso più di quanto incassato.",
+      "expand": "Tocca una freccia per aprire una riga nelle sue parti."
+    },
+    "scaling": {
+      "title": "Perché «per abitante»?",
+      "text": "I luoghi grandi hanno quasi sempre importi più alti. Scegli «Popolazione» qui sotto: ogni importo viene diviso per il numero di abitanti. Così si possono confrontare luoghi di dimensioni diverse. Lo stesso vale per posto di lavoro, chilometro di strada e altro."
+    },
+    "compare": {
+      "title": "Confrontare due colonne",
+      "text": "Tocca l'intestazione di una colonna come base, poi una seconda. Vedrai di quanti punti percentuali la seconda si discosta."
+    },
+    "source": {
+      "title": "Da dove provengono i numeri?",
+      "text": "I dati finanziari provengono dall'Amministrazione federale delle finanze (AFF). I comuni sono inclusi a partire da 5000 abitanti. Gli anni più recenti possono essere ancora provvisori e cambiare in seguito. Abitanti, posti di lavoro e strade provengono dall'Ufficio federale di statistica."
+    },
+    "limits": {
+      "title": "Da tenere presente",
+      "text": "Cantoni e comuni non contabilizzano tutto allo stesso modo e i compiti sono ripartiti in modo diverso: a volte la scuola la paga il comune, a volte il cantone. Una differenza nella tabella mostra che qualcosa è diverso, ma non sempre perché."
+    }
+  },
+  "optimizer": {
+    "scenarios": {
+      "title": "Scenari",
+      "add": "Aggiungi scenario",
+      "runAll": "Ricalcola tutti",
+      "copyLink": "Copia link",
+      "linkCopied": "Link copiato",
+      "copyPrompt": "Link con gli scenari (da copiare):",
+      "maxReached": "Al massimo {max} scenari.",
+      "defaultName": "Scenario {n}",
+      "copyName": "{name} (copia)",
+      "select": "Seleziona {name}",
+      "run": "Ricalcola {name}",
+      "duplicate": "Duplica {name}",
+      "remove": "Rimuovi {name}",
+      "entities": "{n} entità",
+      "autoFactors": "fino a {max} fattori (automatico)",
+      "nFactors": "{n} fattori",
+      "status": {
+        "idle": "Non ancora calcolato",
+        "running": "Calcolo in corso …",
+        "stale": "Obsoleto, ricalcolare",
+        "error": "Non calcolabile",
+        "done": "CV {before} → {after}"
+      }
+    },
+    "editor": {
+      "name": "Nome dello scenario",
+      "accounts": "Conti",
+      "preset": {
+        "codes": "Codici propri",
+        "expense": "Spese",
+        "revenue": "Ricavi",
+        "both": "Spese + ricavi"
+      },
+      "presetHint": {
+        "expense": "Tutti i tipi di spese (30–38) insieme.",
+        "revenue": "Tutti i tipi di ricavi (40–48) insieme.",
+        "both": "Tutti i conti principali di spese e ricavi (30–38, 40–48) insieme."
+      },
+      "mode": "Metodo",
+      "modes": {
+        "ols": "Minimi quadrati",
+        "nonneg": "Non negativo",
+        "robust": "Robusto"
+      },
+      "modeHint": {
+        "ols": "I pesi possono essere negativi. Adattamento più preciso, più difficile da interpretare.",
+        "nonneg": "Tutti i pesi sono ≥ 0: ogni fattore può solo ingrandire la formula. Consigliato.",
+        "robust": "Come non negativo, ma un singolo valore anomalo (p. es. una grande città) distorce appena il risultato."
+      },
+      "autoSelect": "Scegli i fattori automaticamente",
+      "autoSelectHint": "Sceglie la combinazione di fattori più piccola con il miglior errore convalidato. Con poche entità protegge dal sovradattamento.",
+      "maxFactors": "Numero massimo di fattori",
+      "count": "{selected} di {total}",
+      "more": "Altre opzioni",
+      "intercept": "Termine costante nella formula",
+      "interceptHint": "Disattivato: la formula è proporzionale ai fattori. Attivato: una base fissa uguale per ogni entità (costa un grado di libertà).",
+      "ridge": "Regolarizzazione",
+      "ridgeOptions": {
+        "none": "Nessuna",
+        "light": "Leggera",
+        "strong": "Forte"
+      },
+      "ridgeHint": "Avvicina i pesi quando i fattori misurano quasi la stessa cosa (p. es. abitanti e stabilimenti).",
+      "blockers": {
+        "noData": "Caricare prima dei set di dati: l’ottimizzazione confronta le colonne della tabella.",
+        "noEntities": "Selezionare almeno un’entità (almeno quattro per risultati significativi).",
+        "noFactors": "Selezionare almeno un fattore."
+      }
+    },
+    "result": {
+      "title": "Risultato: {name}",
+      "stale": "Questo risultato è obsoleto (impostazioni o tabella modificate). Ricalcolare per aggiornarlo.",
+      "unitNote": "Scala: la media della formula corrisponde alla media di «{factor}». I valori scalati sono quindi «per equivalente» di questa grandezza.",
+      "quality": "Qualità",
+      "cvBefore": "CV senza scalatura",
+      "cvFit": "CV con formula (adattato)",
+      "cvCross": "CV con formula (convalidato)",
+      "cvImprovement": "Miglioramento (convalidato)",
+      "adjustedR2": "R² corretto",
+      "cvR2": "R² convalidato",
+      "overfit": "Sovradattamento",
+      "risk": {
+        "low": "basso",
+        "medium": "medio",
+        "high": "alto"
+      },
+      "basis": "{entities} entità, {accounts} conti, {parameters} parametri. Convalida incrociata: {method}.",
+      "cvMethod": {
+        "loo": "escludere ogni entità",
+        "kfold": "{folds} gruppi"
+      },
+      "cvExplain": "Convalidato significa: ogni entità viene scalata con una formula che non l’ha vista. Questo valore è più onesto di quello adattato; un grande scarto tra i due indica sovradattamento. CV = deviazione standard / media dei valori scalati (più piccolo = più confrontabile).",
+      "factorsTitle": "Quali fattori contano",
+      "intercept": "Termine costante",
+      "dropEffect": "errore senza questo fattore: {percent} in più",
+      "selectionTitle": "Selezione dei fattori in dettaglio",
+      "selectionInfo": "{tried} combinazioni di {candidates} candidati provate ({method}). Miglior errore convalidato per 1, 2, 3 … fattori:",
+      "selectionMethod": {
+        "exhaustive": "esaustiva",
+        "forward": "passo dopo passo"
+      },
+      "selectionRule": "Si sceglie la combinazione più piccola il cui errore supera al massimo del 5 % il migliore.",
+      "accountsLegend": "Per conto: CV senza scalatura → CV adattato / CV convalidato, miglioramento convalidato.",
+      "excludedTitle": "Non utilizzato ({count})"
+    },
+    "warn": {
+      "fewEntities": "Solo {count} entità: ogni cifra è incerta. Caricare più colonne prima di applicare la formula.",
+      "overfitRisk": "Rischio di sovradattamento: {risk}. La formula potrebbe adattarsi solo a queste entità.",
+      "selectionOptimism": "I fattori sono stati scelti tra {tried} combinazioni sulle stesse poche entità; l’errore convalidato è quindi probabilmente troppo ottimistico.",
+      "cvWorseThanUnscaled": "Convalidata, la formula è peggiore del non scalare affatto.",
+      "nonPositiveScale": "Per {count} entità la formula non è positiva: non possono essere scalate.",
+      "negativeCoefficient": "La formula contiene pesi negativi (metodo dei minimi quadrati). «Non negativo» è più facile da interpretare.",
+      "collinearFactors": "Saltati perché derivano esattamente da altri fattori: {factors}.",
+      "tooManyFactors": "{factors} fattori per sole {entities} entità: senza selezione automatica il sovradattamento è certo.",
+      "notConverged": "Il calcolo non è del tutto convergente; il risultato è approssimato.",
+      "noFactorEffect": "La formula migliora appena la confrontabilità."
+    },
+    "exclusion": {
+      "account": {
+        "tooFewEntities": "Conto {name}: meno di due entità con un valore.",
+        "mixedSign": "Conto {name}: valori positivi e negativi misti, non scalabile.",
+        "mostlyZero": "Conto {name}: zero per più della metà delle entità.",
+        "noVariation": "Conto {name}: identico per tutte le entità, niente da confrontare.",
+        "noData": "Conto {name}: nessun dato."
+      },
+      "factor": {
+        "missing": "Fattore {name}: mancante per {entities}.",
+        "negative": "Fattore {name}: contiene valori negativi.",
+        "noVariation": "Fattore {name}: identico per tutte le entità.",
+        "zero": "Fattore {name}: zero ovunque.",
+        "collinear": "Fattore {name}: deriva esattamente da {by}."
+      },
+      "entity": {
+        "missingFactor": "{name}: escluso, manca {factors}.",
+        "noAccountData": "{name}: escluso, nessun valore nei conti scelti."
+      }
+    },
+    "failure": {
+      "noEntities": "Nessuna entità selezionata.",
+      "tooFewEntities": "Servono almeno due entità con dati: una sola colonna non ha nulla con cui confrontarsi.",
+      "noAccounts": "Nessun codice conto indicato.",
+      "noFactors": "Nessun fattore di scala disponibile.",
+      "noUsableAccounts": "Nessuno dei conti ({codes}) può essere scalato: non trovato, troppo pochi dati, segni misti o valori costanti.",
+      "noUsableFactors": "Nessun fattore di scala ha dati utilizzabili per le entità scelte.",
+      "singular": "Con i fattori scelti non è possibile determinare una formula.",
+      "noEffect": "Nessuno dei fattori riceve un peso positivo."
+    },
+    "compare": {
+      "title": "Confronto degli scenari",
+      "hint": "Più piccolo è il CV convalidato, più le entità sono confrontabili dopo la scalatura.",
+      "scenario": "Scenario",
+      "formula": "Formula",
+      "data": "Dati",
+      "dataValue": "{entities} entità, {accounts} conti",
+      "cvBefore": "CV senza",
+      "cvAfter": "CV con formula",
+      "improvement": "Miglioramento",
+      "risk": "Sovradattamento",
+      "best": "Migliore generalizzazione",
+      "footnote": "CV con formula: convalidato (tra parentesi: adattato). Gli scenari con conti o entità diversi sono solo in parte confrontabili."
+    },
+    "sim": {
+      "title": "Simulazioni",
+      "intro": "Continuare a calcolare con la formula scelta senza riadattare nulla.",
+      "tabs": {
+        "whatIf": "E se",
+        "expected": "Atteso vs. effettivo",
+        "sensitivity": "Sensibilità"
+      },
+      "account": "Conto",
+      "allAccounts": "Tutti i conti (media)",
+      "whatIf": {
+        "intro": "Inserisci i valori dei fattori di un comune che non esiste (ancora) e vedi quali importi si aspetta la formula.",
+        "startFrom": "Partire da (facoltativo)",
+        "noReference": "Nessuna entità di riferimento",
+        "missing": "Compilare tutti i fattori.",
+        "notPositive": "Per questi valori la formula non è positiva: nessuna previsione possibile.",
+        "actual": "Effettivo",
+        "footnote": "Intervallo = importo atteso ± scostamento tipico di un’entità sconosciuta (CV convalidato del conto). Il punto indica l’importo effettivo dell’entità di riferimento."
+      },
+      "expected": {
+        "intro": "Chi spende in modo insolito molto o poco rispetto alla sua dimensione? L’importo atteso proviene da una formula che non conosceva l’entità.",
+        "actual": "Effettivo",
+        "expected": "atteso",
+        "showAll": "Mostra tutti i {count}",
+        "showLess": "Mostra solo gli estremi",
+        "footnote": "Scostamento = effettivo / atteso − 1. Rango 1 = più sopra l’atteso. Uno scostamento non è un giudizio: può riflettere anche fattori mancanti o compiti diversi."
+      },
+      "sensitivity": {
+        "intro": "Cosa succede all’atteso e al rango di un’entità se un fattore fosse del 10 % o del 25 % più piccolo o più grande?",
+        "entity": "Entità",
+        "baseline": "Punto di partenza: scostamento {deviation}, rango {rank} su {total}",
+        "allFactors": "Tutti i fattori insieme",
+        "legend": "Per cella: variazione del fattore, variazione dell’importo atteso, rango prima → dopo.",
+        "unavailable": "Non ci sono valori per questa selezione."
+      }
+    }
+  },
+  "restOfCanton": {
+    "title": "Dati calcolati: «Altri comuni»",
+    "text": "Nessuno pubblica i dati degli altri comuni di un cantone (meno di 5000 abitanti). Sono stati calcolati qui: i dati di tutti i comuni del cantone meno i singoli comuni da 5000 abitanti. È un'approssimazione.",
+    "limits": "Mancano i pagamenti tra comuni (conti 361–363 e 461–463) e i conti che non si possono sottrarre in modo pulito. I totali e l'utile/la perdita sono quindi solo in parte confrontabili con le altre colonne. Non c'è una suddivisione per ambito di compiti."
   }
 }

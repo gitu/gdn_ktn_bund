@@ -1,0 +1,18 @@
+<script setup lang="ts">
+// Three ascending bars: Gemeinde, Kanton, Bund.
+</script>
+
+<template>
+  <svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true" focusable="false">
+    <defs>
+      <linearGradient id="gk-brand-gradient" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0" stop-color="#10b981" />
+        <stop offset="1" stop-color="#0891b2" />
+      </linearGradient>
+    </defs>
+    <rect width="32" height="32" rx="9" fill="url(#gk-brand-gradient)" />
+    <rect x="7" y="17" width="5" height="8" rx="1.5" fill="#fff" opacity=".7" />
+    <rect x="13.5" y="12" width="5" height="13" rx="1.5" fill="#fff" opacity=".85" />
+    <rect x="20" y="7" width="5" height="18" rx="1.5" fill="#fff" />
+  </svg>
+</template>

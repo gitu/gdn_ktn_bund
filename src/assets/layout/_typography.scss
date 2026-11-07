@@ -7,32 +7,35 @@ h6 {
   margin: 1.5rem 0 1rem 0;
   font-family: inherit;
   font-weight: 700;
-  line-height: 1.5;
+  line-height: 1.25;
+  letter-spacing: -0.015em;
   color: var(--text-color);
+  text-wrap: balance;
 
   &:first-child {
     margin-top: 0;
   }
 }
 
+// Fluid scale: readable on a 320px phone, generous on a desktop.
 h1 {
-  font-size: 2.5rem;
+  font-size: clamp(1.625rem, 1.15rem + 2.2vw, 2.5rem);
 }
 
 h2 {
-  font-size: 2rem;
+  font-size: clamp(1.3rem, 1.05rem + 1.2vw, 1.875rem);
 }
 
 h3 {
-  font-size: 1.75rem;
+  font-size: clamp(1.125rem, 1rem + 0.7vw, 1.5rem);
 }
 
 h4 {
-  font-size: 1.5rem;
+  font-size: clamp(1.0625rem, 1rem + 0.4vw, 1.25rem);
 }
 
 h5 {
-  font-size: 1.25rem;
+  font-size: 1.0625rem;
 }
 
 h6 {
@@ -60,7 +63,7 @@ hr {
 
 p {
   margin: 0 0 1rem 0;
-  line-height: 1.5;
+  line-height: 1.55;
 
   &:last-child {
     margin-bottom: 0;

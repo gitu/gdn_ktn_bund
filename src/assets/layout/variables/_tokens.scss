@@ -1,0 +1,70 @@
+// Design tokens for the "Swiss ledger" look. Everything visual that is not a
+// PrimeVue design token lives here, so a re-theme is a one-file change.
+// Dark mode is the `app-dark` class on <html> (see layout composable).
+
+:root {
+  --font-sans:
+    'Inter Variable', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue',
+    Arial, sans-serif;
+
+  // Layout metrics
+  --topbar-h: 3.5rem;
+  --bottomnav-h: 3.75rem;
+  --gutter: clamp(0.75rem, 4vw, 2rem);
+  --content-max: 80rem;
+
+  // Shape
+  --radius-lg: 1rem;
+  --radius-md: 0.625rem;
+
+  // Brand
+  --gk-accent: #10b981;
+  --gk-accent-strong: #047857;
+  --gk-accent-2: #0891b2;
+  --gk-gradient: linear-gradient(135deg, #10b981 0%, #0891b2 100%);
+
+  // Surfaces (light)
+  --gk-bg: #f3f5f8;
+  --gk-surface: #ffffff;
+  --gk-surface-2: #f8fafc;
+  --gk-border: rgb(15 23 42 / 0.08);
+  --gk-border-strong: rgb(15 23 42 / 0.16);
+  --gk-glass: rgb(255 255 255 / 0.86);
+  --gk-ink: #0f172a;
+  --gk-muted: #526074;
+  --gk-shadow-1: 0 1px 2px rgb(15 23 42 / 0.04), 0 6px 20px -8px rgb(15 23 42 / 0.1);
+  --gk-shadow-2: 0 2px 4px rgb(15 23 42 / 0.05), 0 18px 40px -16px rgb(15 23 42 / 0.22);
+  --gk-hero-glow-1: rgb(16 185 129 / 0.2);
+  --gk-hero-glow-2: rgb(8 145 178 / 0.18);
+
+  // Semantic number colours (differences in comparison mode)
+  --gk-positive: #047857;
+  --gk-negative: #b91c1c;
+
+  --surface-ground: var(--gk-bg);
+}
+
+:root[class*='app-dark'] {
+  --gk-accent-strong: #34d399;
+  --gk-bg: #0a0f18;
+  --gk-surface: #111826;
+  --gk-surface-2: #0e1520;
+  --gk-border: rgb(255 255 255 / 0.09);
+  --gk-border-strong: rgb(255 255 255 / 0.18);
+  --gk-glass: rgb(10 15 24 / 0.84);
+  --gk-ink: #e8edf5;
+  --gk-muted: #9aa8bb;
+  --gk-shadow-1: 0 1px 2px rgb(0 0 0 / 0.4), 0 8px 24px -10px rgb(0 0 0 / 0.6);
+  --gk-shadow-2: 0 2px 4px rgb(0 0 0 / 0.4), 0 22px 48px -18px rgb(0 0 0 / 0.75);
+  --gk-hero-glow-1: rgb(16 185 129 / 0.16);
+  --gk-hero-glow-2: rgb(8 145 178 / 0.2);
+  --gk-positive: #34d399;
+  --gk-negative: #f87171;
+
+  --surface-ground: var(--gk-bg);
+  color-scheme: dark;
+}
+
+:root:not([class*='app-dark']) {
+  color-scheme: light;
+}

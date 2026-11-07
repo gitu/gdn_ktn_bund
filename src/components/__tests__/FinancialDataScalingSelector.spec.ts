@@ -4,6 +4,7 @@
 
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { mount } from '@vue/test-utils'
+import { createPinia } from 'pinia'
 import { createI18n } from 'vue-i18n'
 import type { StatsAvailabilityInfo } from '../../types/StatsData'
 import type { MultiLanguageLabels } from '../../types/DataStructures'
@@ -527,161 +528,89 @@ describe('FinancialDataScalingSelector', () => {
     expect(wrapper.emitted('error')).toBeTruthy()
   })
 
-  it('should load municipality names for GDN entities', async () => {
-    // Mock financial data with GDN entities
-    const mockFinancialData: FinancialData = {
-      balanceSheet: {
-        code: 'balance',
-        labels: { de: 'Bilanz', fr: 'Bilan', it: 'Bilancio', en: 'Balance Sheet' },
-        values: new Map(),
-        children: [],
-      },
-      incomeStatement: {
-        code: 'income',
-        labels: {
-          de: 'Erfolgsrechnung',
-          fr: 'Compte de résultat',
-          it: 'Conto economico',
-          en: 'Income Statement',
-        },
-        values: new Map(),
-        children: [],
-      },
+  // The optimiser (entity/factor selection, scenarios, simulations) moved out of the selector into
+  // src/components/optimization/. These two tests used to read the selector's internal state
+  // (selectedEntities, selectedScalingFactors, availableEntities); they now check the same
+  // behaviour through the optimiser panel that the selector mounts.
+  const twoMunicipalities = (): FinancialData => {
+    const node = (code: string, label: string) => ({
+      code,
+      labels: { de: label, fr: label, it: label, en: label },
+      values: new Map(),
+      children: [],
+    })
+    const entity = (code: string) => ({
+      code,
+      name: { de: 'Test', fr: 'Test', it: 'Test', en: 'Test' },
+      description: { de: 'Test', fr: 'Test', it: 'Test', en: 'Test' },
+      year: '2023',
+      model: 'model1',
+      source: 'gdn',
+      scalingFactor: 1000,
+      scalingInfo: { de: 'Test', fr: 'Test', it: 'Test', en: 'Test' },
+      metadata: { source: 'test', loadedAt: '2023-01-01', recordCount: 1 },
+    })
+    return {
+      balanceSheet: node('balance', 'Bilanz'),
+      incomeStatement: node('income', 'Erfolgsrechnung'),
       metadata: { source: 'test', loadedAt: '2023-01-01', recordCount: 2 },
       entities: new Map([
-        [
-          'gdn/model1/010002:2023',
-          {
-            code: 'gdn/model1/010002:2023',
-            name: { de: 'Test', fr: 'Test', it: 'Test', en: 'Test' },
-            description: { de: 'Test', fr: 'Test', it: 'Test', en: 'Test' },
-            year: '2023',
-            model: 'model1',
-            source: 'gdn',
-            scalingFactor: 1000,
-            scalingInfo: { de: 'Test', fr: 'Test', it: 'Test', en: 'Test' },
-            metadata: { source: 'test', loadedAt: '2023-01-01', recordCount: 1 },
-          },
-        ],
-        [
-          'gdn/model1/010156:2023',
-          {
-            code: 'gdn/model1/010156:2023',
-            name: { de: 'Test', fr: 'Test', it: 'Test', en: 'Test' },
-            description: { de: 'Test', fr: 'Test', it: 'Test', en: 'Test' },
-            year: '2023',
-            model: 'model1',
-            source: 'gdn',
-            scalingFactor: 1500,
-            scalingInfo: { de: 'Test', fr: 'Test', it: 'Test', en: 'Test' },
-            metadata: { source: 'test', loadedAt: '2023-01-01', recordCount: 1 },
-          },
-        ],
+        ['gdn/model1/010002:2023', entity('gdn/model1/010002:2023')],
+        ['gdn/model1/010156:2023', entity('gdn/model1/010156:2023')],
       ]),
     }
+  }
 
-    const wrapper = mount(FinancialDataScalingSelector, {
-      props: {
-        financialData: mockFinancialData,
-        selectedScaling: null,
-      },
-      global: {
-        plugins: [createTestI18n()],
-      },
+  const mountWithOptimizer = () =>
+    mount(FinancialDataScalingSelector, {
+      props: { financialData: twoMunicipalities(), selectedScaling: null },
+      global: { plugins: [createTestI18n(), createPinia()] },
     })
 
-    // Wait for component to load and municipality names to be loaded
-    await new Promise((resolve) => setTimeout(resolve, 200))
-    await wrapper.vm.$nextTick()
+  it('keeps the optimiser closed until the custom formula section is opened, then loads it', async () => {
+    const wrapper = mountWithOptimizer()
+    await new Promise((resolve) => setTimeout(resolve, 100))
+    expect(wrapper.find('[data-testid="optimizer-panel"]').exists()).toBe(false)
 
-    // Check that municipality loading function was called
-    expect(getMunicipalityByGdnId).toHaveBeenCalledWith('010002')
-    expect(getMunicipalityByGdnId).toHaveBeenCalledWith('010156')
+    await wrapper.find('.custom-formula-toggle').trigger('click')
+    await vi.waitFor(() =>
+      expect(wrapper.find('[data-testid="optimizer-panel"]').exists()).toBe(true),
+    )
 
-    // Check that entity display names are properly set
-    const vm = wrapper.vm as unknown as { availableEntities: Array<{ displayName: string }> }
-    const availableEntities = vm.availableEntities
-
-    // Should have 2 entities
-    expect(availableEntities).toHaveLength(2)
-
-    // Entity names should eventually include municipality names
-    // (Note: In tests this might still show fallback names due to async loading)
-    const entityNames = availableEntities.map((e) => e.displayName)
-    expect(
-      entityNames.some((name: string) => name.includes('010002') || name.includes('Affoltern')),
-    ).toBeTruthy()
+    // the e2e contract: the target accounts input with its default
+    const input = wrapper.find('#target-accounts-input')
+    expect(input.exists()).toBe(true)
+    expect((input.element as HTMLInputElement).value).toBe('36,46')
   })
 
-  it('should handle entity and scaling factor selection for optimization', async () => {
-    const mockFinancialData: FinancialData = {
-      balanceSheet: {
-        code: 'balance',
-        labels: { de: 'Bilanz', fr: 'Bilan', it: 'Bilancio', en: 'Balance Sheet' },
-        values: new Map(),
-        children: [],
-      },
-      incomeStatement: {
-        code: 'income',
-        labels: {
-          de: 'Erfolgsrechnung',
-          fr: 'Compte de résultat',
-          it: 'Conto economico',
-          en: 'Income Statement',
-        },
-        values: new Map(),
-        children: [],
-      },
-      metadata: { source: 'test', loadedAt: '2023-01-01', recordCount: 1 },
-      entities: new Map([
-        [
-          'gdn/model1/010002:2023',
-          {
-            code: 'gdn/model1/010002:2023',
-            name: { de: 'Test', fr: 'Test', it: 'Test', en: 'Test' },
-            description: { de: 'Test', fr: 'Test', it: 'Test', en: 'Test' },
-            year: '2023',
-            model: 'model1',
-            source: 'gdn',
-            metadata: { source: 'test', loadedAt: '2023-01-01', recordCount: 1 },
-          },
-        ],
-      ]),
-    }
+  it('loads municipality names for the entities of the table (for the optimiser)', async () => {
+    const wrapper = mountWithOptimizer()
+    await vi.waitFor(() => expect(wrapper.find('.custom-formula-toggle').exists()).toBe(true))
+    await wrapper.find('.custom-formula-toggle').trigger('click')
+    await vi.waitFor(() => expect(getMunicipalityByGdnId).toHaveBeenCalledWith('010002'))
+    expect(getMunicipalityByGdnId).toHaveBeenCalledWith('010156')
+  })
 
-    const wrapper = mount(FinancialDataScalingSelector, {
-      props: {
-        financialData: mockFinancialData,
-        selectedScaling: null,
-      },
-      global: {
-        plugins: [createTestI18n()],
-      },
-    })
-
+  it('applies a formula found by the optimiser exactly like the manual apply button', async () => {
+    const wrapper = mountWithOptimizer()
     await new Promise((resolve) => setTimeout(resolve, 100))
+    await wrapper.find('.custom-formula-toggle').trigger('click')
+    await vi.waitFor(() =>
+      expect(wrapper.find('[data-testid="optimizer-panel"]').exists()).toBe(true),
+    )
+
+    const panel = wrapper.findComponent({ name: 'OptimizerPanel' })
+    panel.vm.$emit('apply', '0.5*pop+3*area')
     await wrapper.vm.$nextTick()
 
+    expect(wrapper.emitted('scalingChanged')?.slice(-1)[0]).toEqual(['custom:0.5*pop+3*area'])
+    // the custom formula section closes and the formula is remembered in the input
+    expect(wrapper.find('[data-testid="optimizer-panel"]').exists()).toBe(false)
     const vm = wrapper.vm as unknown as {
-      selectedEntities: string[]
-      selectedScalingFactors: string[]
+      internalSelectedScaling: string
+      customFormulaInput: string
     }
-
-    // Check that entities are selected by default
-    expect(vm.selectedEntities).toContain('gdn/model1/010002:2023')
-
-    // Check that scaling factors are selected by default
-    expect(vm.selectedScalingFactors).toContain('pop')
-    expect(vm.selectedScalingFactors).toContain('area')
-
-    // Test entity selection/deselection
-    vm.selectedEntities = []
-    await wrapper.vm.$nextTick()
-    expect(vm.selectedEntities).toHaveLength(0)
-
-    // Test scaling factor selection/deselection
-    vm.selectedScalingFactors = ['pop']
-    await wrapper.vm.$nextTick()
-    expect(vm.selectedScalingFactors).toEqual(['pop'])
+    expect(vm.internalSelectedScaling).toBe('custom:0.5*pop+3*area')
+    expect(vm.customFormulaInput).toBe('0.5*pop+3*area')
   })
 })

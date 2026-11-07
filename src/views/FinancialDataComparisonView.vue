@@ -1,30 +1,24 @@
 <template>
-  <div class="max-w-7xl mx-auto">
+  <div class="compare-page">
     <!-- Header -->
-    <div class="text-center mb-8">
-      <h1 class="text-4xl font-bold text-surface-900 dark:text-surface-50 mb-2">
-        {{ $t('financialDataComparison.title') }}
-      </h1>
-      <p class="text-lg text-surface-600 dark:text-surface-300">
-        {{ $t('financialDataComparison.subtitle') }}
-      </p>
-    </div>
+    <header class="page-head">
+      <h1>{{ $t('financialDataComparison.title') }}</h1>
+      <p>{{ $t('financialDataComparison.subtitle') }}</p>
+    </header>
 
     <!-- Dataset Selection Section -->
-    <Card class="mb-12">
+    <Card class="section-card">
       <template #content>
         <DatasetSelector v-model="selectedDatasets" @error="handleSelectorError" />
       </template>
     </Card>
 
     <!-- Comparison Results Section -->
-    <div v-if="selectedDatasets.length > 0" class="mb-12">
-      <div class="flex justify-between items-center mb-6">
-        <div>
-          <h2 class="text-2xl font-semibold text-surface-900 dark:text-surface-50 mb-2">
-            {{ $t('financialDataComparison.comparisonResults') }}
-          </h2>
-          <p class="text-surface-600 dark:text-surface-300">
+    <section v-if="selectedDatasets.length > 0" class="results" data-testid="comparison-results">
+      <div class="results-head">
+        <div class="results-title">
+          <h2>{{ $t('financialDataComparison.comparisonResults') }}</h2>
+          <p>
             {{
               $t('financialDataComparison.comparisonDescription', {
                 count: selectedDatasets.length,
@@ -40,12 +34,15 @@
           icon="pi pi-external-link"
           severity="secondary"
           outlined
+          class="full-view-button"
           @click="openFullView"
-          class="shrink-0"
         />
       </div>
 
-      <Card>
+      <RestOfCantonNotice :datasets="selectedDatasets" />
+      <HowToRead />
+
+      <Card class="section-card">
         <template #content>
           <FinancialDataComparison
             :datasets="selectedDatasets"
@@ -58,87 +55,70 @@
           />
         </template>
       </Card>
-    </div>
+
+      <PlaceFacts :datasets="selectedDatasets" />
+    </section>
 
     <!-- Demo Section (shown when no datasets selected) -->
-    <Card v-else class="mb-12">
-      <template #content>
-        <div class="text-center">
-          <h2 class="text-2xl font-semibold text-surface-900 dark:text-surface-50 mb-4">
-            {{ $t('financialDataComparison.demoTitle') }}
-          </h2>
+    <section v-else class="demo">
+      <h2>{{ $t('financialDataComparison.demoTitle') }}</h2>
+      <p class="demo-intro">{{ $t('financialDataComparison.demoDescription') }}</p>
 
-          <p class="text-surface-600 dark:text-surface-300 mb-6">
-            {{ $t('financialDataComparison.demoDescription') }}
-          </p>
-
-          <div class="flex flex-col gap-4 max-w-2xl mx-auto">
-            <div
-              v-for="(sample, key) in sampleDatasets"
-              :key="key"
-              class="border border-surface-200 dark:border-surface-700 rounded-lg p-4 hover:bg-surface-50 dark:hover:bg-surface-800 transition-colors cursor-pointer"
-              @click="loadSampleDataset(key)"
-            >
-              <div class="flex justify-between items-start">
-                <div class="text-left flex-1">
-                  <h3 class="font-semibold text-surface-900 dark:text-surface-50 mb-2">
-                    {{ $t(`financialDataComparison.sampleDatasets.${key}.name`) }}
-                  </h3>
-                  <p class="text-sm text-surface-600 dark:text-surface-300 mb-3">
-                    {{ $t(`financialDataComparison.sampleDatasets.${key}.description`) }}
-                  </p>
-                  <div class="text-xs text-surface-500 dark:text-surface-400">
-                    {{ sample.datasets.length }} datasets
-                    <span v-if="sample.scaling">
-                      • {{ $t('financialDataScaling.options.' + sample.scaling) }}</span
-                    >
-                  </div>
-                </div>
-                <Button
-                  :label="$t('financialDataComparison.loadDemoData')"
-                  icon="pi pi-play"
-                  size="small"
-                  @click.stop="loadSampleDataset(key)"
-                />
-              </div>
-            </div>
-          </div>
-        </div>
-      </template>
-    </Card>
+      <div class="demo-grid">
+        <button
+          v-for="(sample, key) in SAMPLE_COMPARISONS"
+          :key="key"
+          type="button"
+          class="demo-card"
+          :data-testid="`demo-${key}`"
+          @click="loadSampleDataset(key)"
+        >
+          <span class="demo-name">{{
+            $t(`financialDataComparison.sampleDatasets.${key}.name`)
+          }}</span>
+          <span class="demo-text">{{
+            $t(`financialDataComparison.sampleDatasets.${key}.description`)
+          }}</span>
+          <span class="demo-meta">
+            {{ $t('homeView.quickStart.datasets', { count: sample.datasets.length }) }}
+            <template v-if="'scaling' in sample">
+              · {{ $t(`financialDataScalingSelector.options.${sample.scaling}`) }}
+            </template>
+          </span>
+          <span class="demo-action">
+            <i class="pi pi-play" aria-hidden="true"></i>
+            {{ $t('financialDataComparison.loadDemoData') }}
+          </span>
+        </button>
+      </div>
+    </section>
 
     <!-- Error Message -->
     <Message v-if="errorMessage" severity="error" :closable="false" class="mb-4">
       {{ errorMessage }}
     </Message>
 
-    <!-- Success Message -->
-    <Message v-if="dataLoadedCount > 0" severity="success" :closable="false" class="mb-4">
-      Successfully loaded {{ dataLoadedCount }} datasets
-    </Message>
+    <!-- Announced to screen readers; the table itself is the visible confirmation -->
+    <p v-if="dataLoadedCount > 0" class="visually-hidden" role="status" aria-live="polite">
+      {{ $t('financialDataComparison.datasetsLoaded', { count: dataLoadedCount }) }}
+    </p>
   </div>
 </template>
 
 <script setup lang="ts">
 import { ref, watch, onMounted } from 'vue'
-import { useI18n } from 'vue-i18n'
 import { useRouter, useRoute } from 'vue-router'
 import Button from 'primevue/button'
 import Card from 'primevue/card'
 import Message from 'primevue/message'
 import FinancialDataComparison from '../components/FinancialDataComparison.vue'
 import DatasetSelector from '../components/DatasetSelector.vue'
-
-// Types
-interface SampleDataset {
-  datasets: string[]
-  scaling?: string
-}
+import HowToRead from '../components/HowToRead.vue'
+import RestOfCantonNotice from '../components/RestOfCantonNotice.vue'
+import PlaceFacts from '../components/PlaceFacts.vue'
+import { SAMPLE_COMPARISONS, type SampleComparisonKey } from '@/data/sampleComparisons'
 
 // Vue composables
-// t is used in template, not in script
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-const { t } = useI18n()
 const router = useRouter()
 const route = useRoute()
 
@@ -148,28 +128,6 @@ const dataLoadedCount = ref(0)
 const selectedDatasets = ref<string[]>([])
 const selectedScaling = ref<string | null>(null)
 const comparisonPairs = ref<Record<string, string[]>>({})
-
-// Sample datasets for demonstration
-const sampleDatasets: Record<string, SampleDataset> = {
-  governmentalLevels: {
-    datasets: [
-      'std/fs/gdn:2022',
-      'std/fs/ktn:2022',
-      'std/fs/bund:2022',
-      'std/fs/bund_ktn_gdn:2022',
-    ],
-  },
-  zurichMunicipalities: {
-    datasets: [
-      'gdn/fs/010261:2022',
-      'gdn/fs/010230:2022',
-      'gdn/fs/010156:2022',
-      'gdn/fs/010058:2022',
-      'std/fs/gdn_zh:2022',
-    ],
-    scaling: 'pop',
-  },
-}
 
 // Event handlers
 const handleError = (error: string) => {
@@ -197,17 +155,11 @@ const handleComparisonChanged = (newComparisonPairs: Record<string, string[]>) =
   updateURL()
 }
 
-const loadSampleDataset = (sampleKey: string) => {
-  const sample = sampleDatasets[sampleKey as keyof typeof sampleDatasets]
-  if (sample) {
-    selectedDatasets.value = sample.datasets
-    if (sample.scaling) {
-      selectedScaling.value = sample.scaling
-    } else {
-      selectedScaling.value = null
-    }
-    updateURL()
-  }
+const loadSampleDataset = (sampleKey: SampleComparisonKey) => {
+  const sample: { datasets: readonly string[]; scaling?: string } = SAMPLE_COMPARISONS[sampleKey]
+  selectedDatasets.value = [...sample.datasets]
+  selectedScaling.value = sample.scaling ?? null
+  updateURL()
 }
 
 const openFullView = () => {
@@ -365,3 +317,138 @@ watch(
   { deep: true },
 )
 </script>
+
+<style scoped>
+.compare-page {
+  max-width: 80rem;
+  margin: 0 auto;
+}
+
+.page-head {
+  margin-bottom: clamp(1rem, 3vw, 1.75rem);
+}
+
+.page-head h1 {
+  margin: 0 0 0.4rem;
+}
+
+.page-head p {
+  margin: 0;
+  max-width: 46rem;
+  color: var(--gk-muted);
+}
+
+.section-card {
+  margin-bottom: clamp(1.25rem, 4vw, 2.5rem);
+}
+
+.results-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 0.75rem 1rem;
+  margin-bottom: 1rem;
+}
+
+.results-title {
+  min-width: 0;
+}
+
+.results-title h2 {
+  margin: 0 0 0.25rem;
+}
+
+.results-title p {
+  margin: 0;
+  color: var(--gk-muted);
+}
+
+.full-view-button {
+  flex: none;
+  min-height: 2.75rem;
+}
+
+.demo h2 {
+  margin: 0 0 0.4rem;
+}
+
+.demo-intro {
+  margin: 0 0 1rem;
+  color: var(--gk-muted);
+}
+
+.demo-grid {
+  display: grid;
+  gap: 0.875rem;
+}
+
+.demo-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.4rem;
+  padding: 1.1rem 1.2rem;
+  border: 1px solid var(--gk-border);
+  border-radius: var(--radius-lg);
+  background: var(--gk-surface);
+  box-shadow: var(--gk-shadow-1);
+  color: var(--gk-ink);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition:
+    transform 0.18s ease,
+    border-color 0.18s ease,
+    box-shadow 0.18s ease;
+}
+
+.demo-card:hover,
+.demo-card:focus-visible {
+  transform: translateY(-2px);
+  border-color: color-mix(in srgb, var(--gk-accent) 55%, var(--gk-border));
+  box-shadow: var(--gk-shadow-2);
+}
+
+.demo-name {
+  font-size: 1.1rem;
+  font-weight: 650;
+  line-height: 1.3;
+}
+
+.demo-text {
+  color: var(--gk-muted);
+  font-size: 0.9rem;
+  line-height: 1.45;
+}
+
+.demo-meta {
+  color: var(--gk-muted);
+  font-size: 0.78rem;
+}
+
+.demo-action {
+  margin-top: 0.4rem;
+  color: var(--gk-accent-strong);
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.demo-action i {
+  margin-right: 0.35rem;
+  font-size: 0.8rem;
+}
+
+/* The result table needs every pixel on a phone: tighter card padding there. */
+@media (max-width: 767px) {
+  .section-card :deep(.p-card-body) {
+    padding: 0.75rem;
+  }
+}
+
+@media (min-width: 640px) {
+  .demo-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+</style>

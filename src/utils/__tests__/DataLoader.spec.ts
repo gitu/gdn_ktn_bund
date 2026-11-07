@@ -108,10 +108,12 @@ describe('DataLoader', () => {
         statusText: 'OK',
       })
 
-      const result = await dataLoader.validateGdnData('010002', '2023', 'fs')
+      // The loader validates against the bundled catalogue, not the mocked fetch, so use a year that
+      // precedes the data (it starts in 2015) instead of one that the next data refresh will add.
+      const result = await dataLoader.validateGdnData('010002', '1900', 'fs')
 
       expect(result.isValid).toBe(false)
-      expect(result.errorMessage).toContain("Year '2023' not available")
+      expect(result.errorMessage).toContain("Year '1900' not available")
     })
   })
 

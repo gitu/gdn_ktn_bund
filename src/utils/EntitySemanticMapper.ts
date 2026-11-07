@@ -253,6 +253,17 @@ export class EntitySemanticMapper {
    * Get semantic interpretation of an entity code
    */
   static getEntityDisplayName(entityCode: string): MultiLanguageLabels {
+    // Calculated remainder of a canton, e.g. "gdn_zh_rest" (see scripts/buildRestOfCantons.js)
+    if (this.isRestOfCanton(entityCode)) {
+      const abbreviation = this.getCantonCodeFromEntity(entityCode).toUpperCase()
+      return {
+        de: `Übrige Gemeinden ${abbreviation} (berechnet)`,
+        fr: `Autres communes ${abbreviation} (calculé)`,
+        it: `Altri comuni ${abbreviation} (calcolato)`,
+        en: `Other municipalities ${abbreviation} (calculated)`,
+      }
+    }
+
     // Handle complex entity codes like "gdn_ag", "ktn_zh", "sv_ahv", etc.
     const parts = entityCode.toLowerCase().split('_')
 
@@ -288,7 +299,7 @@ export class EntitySemanticMapper {
         // Special handling for gdn_xx - all municipalities of a specific canton
         if (entityType === 'gdn') {
           return {
-            de: `Alle Gemeinden des Kantons ${cantonName.en}`,
+            de: `Alle Gemeinden des Kantons ${cantonName.de}`,
             fr: `Toutes les communes du canton ${cantonName.fr}`,
             it: `Tutti i comuni del cantone ${cantonName.it}`,
             en: `All Municipalities of Canton ${cantonName.en}`,
@@ -365,6 +376,16 @@ export class EntitySemanticMapper {
    * Get description for an entity code
    */
   static getEntityDescription(entityCode: string): MultiLanguageLabels {
+    if (this.isRestOfCanton(entityCode)) {
+      const cantonName = CANTON_CODES[this.getCantonCodeFromEntity(entityCode)]
+      return {
+        de: `Berechnet: alle Gemeinden des Kantons ${cantonName.de} zusammen, abzüglich der Gemeinden ab 5'000 Einwohnern. Näherung, siehe Hinweis.`,
+        fr: `Calculé : toutes les communes du canton ${cantonName.fr} ensemble, moins les communes de 5 000 habitants et plus. Approximation, voir la remarque.`,
+        it: `Calcolato: tutti i comuni del cantone ${cantonName.it} insieme, meno i comuni da 5000 abitanti. Approssimazione, vedi l'avviso.`,
+        en: `Calculated: all municipalities of Canton ${cantonName.en} together, minus the municipalities with 5,000 or more inhabitants. An approximation, see the note.`,
+      }
+    }
+
     const parts = entityCode.toLowerCase().split('_')
 
     // Handle special case for "gdn" - all municipalities of Switzerland
@@ -467,6 +488,7 @@ export class EntitySemanticMapper {
    * Check if a code represents a canton-specific entity
    */
   static isCantonSpecific(entityCode: string): boolean {
+    if (this.isRestOfCanton(entityCode)) return true
     const parts = entityCode.toLowerCase().split('_')
     return parts.length >= 2 && CANTON_CODES[parts[parts.length - 1]] !== undefined
   }
@@ -478,8 +500,17 @@ export class EntitySemanticMapper {
     return entityCode.toLowerCase().startsWith('sv')
   }
 
+  /** `gdn_zh_rest`: the municipalities of a canton below the 5,000-inhabitant threshold, calculated */
+  static isRestOfCanton(entityCode: string): boolean {
+    const match = /^gdn_([a-z]{2})_rest$/i.exec(entityCode)
+    return match !== null && CANTON_CODES[match[1].toLowerCase()] !== undefined
+  }
+
   static getCantonCodeFromEntity(entityId: string): string {
     const parts = entityId.toLowerCase().split('_')
+    if (this.isRestOfCanton(entityId)) {
+      return parts[1]
+    }
     if (parts.length >= 2) {
       return parts[parts.length - 1]
     }

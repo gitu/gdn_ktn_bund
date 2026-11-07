@@ -5,19 +5,17 @@
       type="button"
       icon="pi pi-globe"
       @click="toggle"
-      class="layout-topbar-action"
+      class="layout-topbar-action has-label"
       aria-haspopup="true"
       aria-controls="language_menu"
       :aria-label="ariaLabel"
       data-testid="language-selector-trigger"
     >
       <template #default>
-        <i class="pi pi-globe"></i>
-        <span
-          class="font-semibold text-xs tracking-wider md:inline hidden ml-2"
-          data-testid="language-selector-code"
-          >{{ currentLanguageCode }}</span
-        >
+        <i class="pi pi-globe" aria-hidden="true"></i>
+        <span class="font-semibold text-xs tracking-wider" data-testid="language-selector-code">{{
+          currentLanguageCode
+        }}</span>
       </template>
     </Button>
 
@@ -38,7 +36,7 @@ import { useI18n } from 'vue-i18n'
 import Button from 'primevue/button'
 import Menu from 'primevue/menu'
 import type { MenuItem } from 'primevue/menuitem'
-import i18n from '@/i18n'
+import i18n, { LOCALE_STORAGE_KEY } from '@/i18n'
 
 // Define supported languages type
 type SupportedLanguage = 'de' | 'en' | 'fr' | 'it'
@@ -85,6 +83,11 @@ const selectLanguage = (language: SupportedLanguage): void => {
     ;(i18n.global.locale as unknown as { value: string }).value = language
   }
   locale.value = language
+  try {
+    window.localStorage.setItem(LOCALE_STORAGE_KEY, language)
+  } catch {
+    // Storage unavailable: the choice applies for this visit only.
+  }
 }
 
 // Create menu items for PrimeVue Menu

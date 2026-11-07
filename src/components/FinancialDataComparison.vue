@@ -1,12 +1,11 @@
 <template>
   <div class="w-full max-w-full">
-    <!-- Loading state -->
-    <Message v-if="loading" severity="info" :closable="false" class="mb-4">
-      <template #icon>
-        <i class="pi pi-spin pi-spinner"></i>
-      </template>
-      {{ $t('financialDataComparison.loading') }}
-    </Message>
+    <!-- Loading state: skeleton rows of the table plus a placeholder for the scaling card, so the
+         layout does not jump once the data is there -->
+    <div v-if="showLoading" class="w-full flex flex-col gap-y-3">
+      <FinancialDataDisplay :financial-data="null" :loading="true" :error="null" />
+      <Skeleton class="comparison-skeleton-card" height="7.5rem" aria-hidden="true" />
+    </div>
 
     <!-- Error state -->
     <Message v-else-if="error" severity="error" :closable="false" class="mb-4">
@@ -46,8 +45,8 @@
     </div>
   </div>
   <!-- list of entities in combined data - only show on localhost-->
-  <div class="w-full flex flex-col gap-y-3" v-if="isDev">
-    <div v-if="combinedFinancialData?.entities" class="w-full flex flex-col gap-y-3">
+  <div class="w-full flex flex-col gap-y-2 dev-entity-list" v-if="isDev">
+    <div v-if="combinedFinancialData?.entities" class="w-full flex flex-col gap-y-2">
       <div
         v-for="[entityCode, entity] in combinedFinancialData.entities"
         :key="entityCode"
@@ -63,9 +62,10 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, watch } from 'vue'
+import { ref, computed, watch, onBeforeUnmount } from 'vue'
 import { useI18n } from 'vue-i18n'
 import Message from 'primevue/message'
+import Skeleton from 'primevue/skeleton'
 import FinancialDataDisplay from './FinancialDataDisplay.vue'
 import FinancialDataScalingSelector from './FinancialDataScalingSelector.vue'
 import { useFinancialDataStore } from '@/stores/financialData'
@@ -99,9 +99,13 @@ const financialDataStore = useFinancialDataStore()
 const expandedAll = ref(false)
 const showCodes = ref(false)
 const hideZeroValues = ref(true)
+// True from the moment a (debounced) load is scheduled until it has finished. Without it the
+// table of a previous visit / previous selection would be visible until the store starts loading.
+const loadPending = ref(false)
 
 // Computed properties from store
 const loading = computed(() => financialDataStore.loading)
+const showLoading = computed(() => loading.value || loadPending.value)
 const error = computed(() => financialDataStore.error)
 const combinedFinancialData = computed(() => financialDataStore.combinedFinancialData)
 const hasValidData = computed(() => financialDataStore.hasValidData)
@@ -109,7 +113,10 @@ const currentScalingId = computed(() => financialDataStore.currentScalingId)
 
 // Methods
 const loadDatasets = async () => {
-  await financialDataStore.loadDatasets()
+  // The scaling from the URL/props is handed to the store so that it is applied before the table
+  // is rendered for the first time (no flash of unscaled values). Custom formulas are handled by
+  // the store as well.
+  await financialDataStore.loadDatasets(props.selectedScaling)
 
   // Emit events based on store state
   if (financialDataStore.error) {
@@ -149,6 +156,7 @@ const handleComparisonChanged = (comparisonPairs: Record<string, string[]>) => {
 
 // Consolidated watcher to prevent redundant operations
 let loadingTimeout: ReturnType<typeof setTimeout> | null = null
+let scheduledLoads = 0
 
 // Watch for dataset changes
 watch(
@@ -158,27 +166,74 @@ watch(
     if (loadingTimeout) {
       clearTimeout(loadingTimeout)
     }
+    loadPending.value = true
+    const thisLoad = ++scheduledLoads
 
     loadingTimeout = setTimeout(async () => {
-      // Update store with new datasets
-      financialDataStore.setDatasets(newDatasets)
-      await loadDatasets()
+      loadingTimeout = null
+      try {
+        // Update store with new datasets
+        financialDataStore.setDatasets(newDatasets)
+        await loadDatasets()
+      } finally {
+        // A newer change may have been scheduled meanwhile: keep showing the placeholder for it
+        if (thisLoad === scheduledLoads) {
+          loadPending.value = false
+        }
+      }
     }, 50) // 50ms debounce
   },
   { immediate: true },
 )
 
-// Watch for selectedScaling prop changes (simplified)
+onBeforeUnmount(() => {
+  if (loadingTimeout) {
+    clearTimeout(loadingTimeout)
+    loadingTimeout = null
+  }
+})
+
+// Watch for selectedScaling prop changes
+let scalingWatcherInitialised = false
 watch(
   () => props.selectedScaling,
   async (newScaling) => {
     const scalingValue = newScaling ?? null
 
-    // Only emit if scaling actually changed
+    // Only act if scaling actually changed
     if (scalingValue !== currentScalingId.value) {
+      // Changed from outside (e.g. browser back/forward) while data is shown: bring the loaded
+      // data in line. The initial value is applied by loadDatasets, changes made through the
+      // scaling selector are already known to the store and skipped here.
+      if (
+        scalingWatcherInitialised &&
+        !financialDataStore.loading &&
+        financialDataStore.combinedFinancialData
+      ) {
+        await financialDataStore.setScaling(scalingValue)
+      }
       emit('scalingChanged', scalingValue)
     }
+    scalingWatcherInitialised = true
   },
   { immediate: true },
 )
 </script>
+
+<style scoped>
+.comparison-skeleton-card {
+  border-radius: var(--radius-lg);
+}
+
+.dev-entity-list {
+  margin-top: 1rem;
+}
+
+.entity-info {
+  font-size: 0.6875rem;
+  line-height: 1.4;
+  color: var(--gk-muted);
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+</style>

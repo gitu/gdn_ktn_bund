@@ -57,7 +57,31 @@ export const useFinancialDataStore = defineStore('financialData', () => {
     scalingFactorCache.clear()
   }
 
-  const loadDatasets = async () => {
+  /**
+   * Load all selected datasets and apply the active scaling before `loading` turns false, so the
+   * table never renders unscaled values first.
+   *
+   * @param scalingId Scaling that must already be applied when the data is first shown (e.g. the
+   *   `scaling` URL parameter). `undefined` keeps the store's current scaling, `null` loads the
+   *   datasets unscaled. Custom formula ids (`custom:...`) are supported.
+   */
+  const orderEntitiesBySelection = (data: FinancialData) => {
+    const ordered = new Map<string, FinancialDataEntity>()
+    for (const id of datasets.value) {
+      const entity = data.entities.get(id)
+      if (entity) ordered.set(id, entity)
+    }
+    for (const [id, entity] of data.entities) {
+      if (!ordered.has(id)) ordered.set(id, entity)
+    }
+    data.entities = ordered
+  }
+
+  const loadDatasets = async (scalingId?: string | null) => {
+    if (scalingId !== undefined) {
+      currentScalingId.value = scalingId
+    }
+
     if (datasets.value.length === 0) {
       clearData()
       return
@@ -122,11 +146,15 @@ export const useFinancialDataStore = defineStore('financialData', () => {
 
       loadedDatasetCount.value = results.filter((r) => r.success).length
 
-      // Apply scaling if applicable
+      // The loads run in parallel and finish in any order; keep the columns in the order the user chose
+      orderEntitiesBySelection(combinedFinancialData.value!)
+
+      // Apply the active scaling (traditional or custom formula) to the freshly loaded entities
       if (currentScalingId.value) {
-        const scalingInfo = await getScalingInfo(currentScalingId.value)
-        if (scalingInfo) {
-          await applyScalingToEntities(currentScalingId.value, scalingInfo)
+        const applied = await applyScalingById(currentScalingId.value)
+        if (!applied) {
+          // Unknown scaling id: show the data unscaled and keep the state truthful
+          currentScalingId.value = null
         }
       }
 
@@ -140,6 +168,34 @@ export const useFinancialDataStore = defineStore('financialData', () => {
     } finally {
       loading.value = false
     }
+  }
+
+  /**
+   * Which statistics record scales an entity: a municipality (BFS number), a canton (id 1-26), the
+   * country ("bund"), or the calculated rest of a canton, which is stored with the municipalities
+   * under `rest_<cantonId>`.
+   */
+  const resolveScalingTarget = async (
+    source: 'gdn' | 'std',
+    entityId: string,
+  ): Promise<{ geoId: string; source: 'gdn' | 'std' }> => {
+    if (source === 'gdn') {
+      const municipality = await getMunicipalityByGdnId(entityId)
+      return { geoId: municipality?.municipalityId || entityId, source }
+    }
+
+    if (EntitySemanticMapper.isCantonSpecific(entityId)) {
+      const cantonCode = EntitySemanticMapper.getCantonCodeFromEntity(entityId)
+      const canton = cantonCode
+        ? await getCantonByAbbreviation(cantonCode.toUpperCase())
+        : undefined
+      if (EntitySemanticMapper.isRestOfCanton(entityId)) {
+        return { geoId: canton ? `rest_${canton.cantonId}` : 'XYX', source: 'gdn' }
+      }
+      return { geoId: canton?.cantonId || 'XYX', source }
+    }
+
+    return { geoId: 'bund', source }
   }
 
   const getScalingInfo = async (scalingId: string): Promise<ScalingInfo | null> => {
@@ -159,6 +215,25 @@ export const useFinancialDataStore = defineStore('financialData', () => {
       Logger.error('Failed to get scaling info', error)
       return null
     }
+  }
+
+  /**
+   * Apply a scaling id to the currently loaded entities. Returns false when the id is unknown.
+   * Does not touch `currentScalingId`; callers own that state.
+   */
+  const applyScalingById = async (scalingId: string): Promise<boolean> => {
+    if (scalingId.startsWith(CUSTOM_SCALING_PREFIX)) {
+      await applyCustomScalingFormula(scalingId.substring(CUSTOM_SCALING_PREFIX.length))
+      return true
+    }
+
+    const scalingInfo = await getScalingInfo(scalingId)
+    if (!scalingInfo) {
+      return false
+    }
+
+    await applyScalingToEntities(scalingId, scalingInfo)
+    return true
   }
 
   const setScaling = async (scalingId: string | null) => {
@@ -251,21 +326,8 @@ export const useFinancialDataStore = defineStore('financialData', () => {
             // Load all required scaling factors for this entity
             const scalingVariables = new Map<string, ScalingVariable>()
 
-            let geoId = ''
-            if (source === 'std') {
-              if (EntitySemanticMapper.isCantonSpecific(entityId)) {
-                const cantonCode = EntitySemanticMapper.getCantonCodeFromEntity(entityId)
-                if (cantonCode) {
-                  const canton = await getCantonByAbbreviation(cantonCode.toUpperCase())
-                  geoId = canton?.cantonId || 'XYX'
-                }
-              } else {
-                geoId = 'bund'
-              }
-            } else if (source === 'gdn') {
-              const municipality = await getMunicipalityByGdnId(entityId)
-              geoId = municipality?.municipalityId || entityId
-            }
+            const target = await resolveScalingTarget(source, entityId)
+            const geoId = target.geoId
 
             // Load all scaling factors needed by the formula
             for (const factorId of validation.usedFactors || []) {
@@ -275,7 +337,7 @@ export const useFinancialDataStore = defineStore('financialData', () => {
                   factorId,
                   geoId,
                   parseInt(year),
-                  source,
+                  target.source,
                 )
                 if (factorValue !== null) {
                   scalingVariables.set(factorId, {
@@ -361,26 +423,15 @@ export const useFinancialDataStore = defineStore('financialData', () => {
 
         // Create promise for loading scaling factor
         const scalingPromise = (async () => {
-          let geoId = ''
-          if (source === 'std') {
-            // Map canton-specific entities to their canton code
-            if (EntitySemanticMapper.isCantonSpecific(entityId)) {
-              const cantonCode = EntitySemanticMapper.getCantonCodeFromEntity(entityId)
-              if (cantonCode) {
-                const canton = await getCantonByAbbreviation(cantonCode.toUpperCase())
-                geoId = canton?.cantonId || 'XYX'
-              }
-            } else {
-              // assume bund for now
-              geoId = 'bund'
-            }
-          } else if (source === 'gdn') {
-            const municipality = await getMunicipalityByGdnId(entityId)
-            geoId = municipality?.municipalityId || entityId // Use gdnId or fallback to entityId
-          }
+          const target = await resolveScalingTarget(source, entityId)
 
           // Load scaling data for this entity
-          return await loadScalingFactorForEntity(scalingId, geoId, parseInt(year), source)
+          return await loadScalingFactorForEntity(
+            scalingId,
+            target.geoId,
+            parseInt(year),
+            target.source,
+          )
         })()
 
         scalingRequests.push({
@@ -437,7 +488,7 @@ export const useFinancialDataStore = defineStore('financialData', () => {
         entity.scalingMode = 'divide' // Divide financial values by scaling factor for per-capita/per-unit values
       } else if (result.status === 'rejected') {
         Logger.error('Failed to load scaling factor for entity', result.reason, {
-          entityCode: scalingRequests[i].entityCode
+          entityCode: scalingRequests[i].entityCode,
         })
         // Continue with other entities even if one fails
       }

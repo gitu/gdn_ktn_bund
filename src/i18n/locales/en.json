@@ -25,7 +25,11 @@
     "treeExplorer": "Tree Explorer",
     "calendar": "Calendar",
     "messages": "Messages",
-    "profile": "Profile"
+    "profile": "Profile",
+    "openMenu": "Open menu",
+    "toggleTheme": "Toggle light/dark theme",
+    "main": "Main navigation",
+    "compare": "Compare"
   },
   "dataBrowser": {
     "title": "Data Browser",
@@ -133,7 +137,7 @@
   "aboutView": {
     "title": "About This Application",
     "subtitle": "Swiss Financial Data Explorer",
-    "description": "This application allows you to explore and analyze Swiss financial data in various interactive formats.",
+    "description": "This site lets you compare the finances of Swiss municipalities, cantons and the federal government.",
     "features": {
       "title": "Key Features",
       "treeNavigation": "Hierarchical tree navigation for financial data",
@@ -144,9 +148,9 @@
     },
     "dataInfo": {
       "title": "Data Information",
-      "description": "The application uses official Swiss financial data from municipalities and cantons.",
-      "sources": "Data sources: Federal Finance Administration and cantonal statistical offices",
-      "coverage": "Coverage: 2015-2023, all Swiss municipalities and cantons",
+      "description": "The figures come from the Federal Finance Administration and the Federal Statistical Office.",
+      "sources": "Data sources: Swiss Federal Finance Administration (financial statistics), Federal Statistical Office (inhabitants, employees, area)",
+      "coverage": "Coverage: {gdnCount} municipalities with 5,000+ inhabitants ({gdnFrom}–{gdnTo}) and {stdCount} aggregates for the federal level, cantons and social insurance ({stdFrom}–{stdTo})",
       "officialSources": "Official Data Sources",
       "federalFinanceAdmin": "Federal Finance Administration",
       "federalFinanceAdminUrl": "https://www.efv.admin.ch/efv/en/home/themen/finanzstatistik/daten.html",
@@ -154,7 +158,7 @@
     },
     "technology": {
       "title": "Technology",
-      "description": "Built with modern web technologies for optimal performance and user experience.",
+      "description": "A modern web app that also runs smoothly on a phone.",
       "frontend": "Frontend: Vue 3, TypeScript, PrimeVue",
       "testing": "Testing: Vitest, Vue Test Utils",
       "build": "Build: Vite, ESLint"
@@ -194,27 +198,54 @@
     "title": "Swiss Financial Data Explorer",
     "subtitle": "Compare financial data from Swiss municipalities, cantons, and federal government",
     "description": {
-      "title": "Compare Financial Data Across Swiss Entities",
-      "intro": "Analyze and compare financial statements from multiple Swiss governmental entities side by side. Explore balance sheets, income statements, and expenditure data to discover financial trends and differences.",
-      "scalingFeature": "Scale financial data by population, demographics, or other factors for meaningful comparisons between entities of different sizes."
+      "title": "Compare municipalities, cantons and the federal government side by side",
+      "intro": "What does your municipality take in and spend? How much does it own, and how much does it owe? Put places side by side and see the differences.",
+      "scalingFeature": "Big places have bigger amounts. Switch to per inhabitant or per job so places of different sizes become comparable."
     },
     "cta": {
       "title": "Ready to Start?",
-      "description": "Begin comparing financial data from Swiss municipalities, cantons, and federal government.",
+      "description": "Pick municipalities, cantons or the federal government and put them side by side.",
       "startButtonText": "Start Comparing Now",
       "aboutButtonText": "Learn More"
+    },
+    "hero": {
+      "eyebrow": "Open data from the Swiss Federal Finance Administration"
+    },
+    "stats": {
+      "municipalities": "municipalities with 5,000+ inhabitants",
+      "aggregates": "combined figures: federal, cantons, social insurance",
+      "languages": "languages"
+    },
+    "quickStart": {
+      "title": "Jump right in",
+      "subtitle": "Two ready-made examples. One tap is enough.",
+      "datasets": "{count} columns in the comparison",
+      "open": "Open example"
+    },
+    "features": {
+      "compare": {
+        "title": "Compare side by side",
+        "text": "Balance sheet, revenue and expenses of municipalities, cantons and the federal government in one table, down to single accounts."
+      },
+      "scale": {
+        "title": "Compare fairly"
+      },
+      "share": {
+        "title": "Share a link",
+        "text": "Every selection is stored in the link. Copy it and pass it on."
+      }
     }
   },
   "financialDataScalingSelector": {
-    "title": "Data Scaling",
-    "subtitle": "Apply scaling factors for better comparison",
-    "scaling": "Scaling",
-    "noScaling": "No scaling",
+    "title": "Make amounts comparable",
+    "subtitle": "For example, convert the amounts to per inhabitant.",
+    "scaling": "Convert",
+    "noScaling": "Do not convert",
     "loading": "Loading scaling options...",
     "error": "Error loading scaling options",
-    "selectScaling": "Select scaling factor",
-    "scalingApplied": "Scaling applied: {name}",
-    "scalingRemoved": "Scaling removed",
+    "selectScaling": "Convert per",
+    "scalingApplied": "Converted per {name}",
+    "scalingRemoved": "Back to francs, no conversion",
     "scalingInfo": {
       "title": "Scaling Information",
       "description": "Scaling factors help normalize data for better comparison between entities of different sizes.",
@@ -230,7 +261,17 @@
       "employees": "Employees",
       "total_area": "Total Area",
       "workplaces": "Workplaces",
-      "overbuilt": "Built-up Area"
+      "overbuilt": "Built-up area",
+      "pop_0_19": "Inhabitants under 20",
+      "pop_20_64": "Inhabitants 20–64",
+      "pop_65plus": "Inhabitants 65 and over",
+      "pop_foreign": "Foreign inhabitants",
+      "fte": "Full-time jobs",
+      "establishments": "Businesses",
+      "jobs_primary": "Jobs in agriculture",
+      "jobs_secondary": "Jobs in industry and construction",
+      "jobs_tertiary": "Jobs in services",
+      "road_length": "Kilometres of road"
     },
     "customFormula": {
       "title": "Custom Formula",
@@ -256,6 +297,12 @@
           "title": "Select Scaling Factors",
           "selectAll": "Select All",
           "selectNone": "Select None"
+        },
+        "summary": {
+          "title": "Account optimization results:",
+          "account": "Account {code} ({count} entities)",
+          "improvement": "Coefficient of variation (CV) improvement: {percent}%",
+          "beforeAfter": "Before: {before} → After: {after}"
         }
       },
       "manual": {
@@ -278,10 +325,10 @@
   },
   "financialDataComparison": {
     "title": "Select Financial Data to Compare",
-    "subtitle": "Choose and compare different Swiss governmental entities' financial statements to discover insights",
+    "subtitle": "Pick municipalities, cantons or the federal government and put their finances side by side.",
     "loading": "Loading financial data...",
     "error": "Error loading data",
-    "noData": "No data available for comparison",
+    "noData": "There is no data for this comparison.",
     "columns": {
       "category": "Category",
       "code": "Code"
@@ -299,38 +346,39 @@
     "parseError": "Invalid dataset format: {dataset}",
     "aggregationError": "Error aggregating data for {dataset}",
     "noValidData": "No valid data found in any dataset",
-    "comparisonResults": "Comparison Results",
-    "comparisonDescription": "Comparing {count} selected datasets",
-    "demoTitle": "Demo Comparison",
+    "comparisonResults": "Your comparison",
+    "comparisonDescription": "{count} columns in the comparison",
+    "demoTitle": "Examples to try",
     "demoResults": "Demo Results",
-    "demoDescription": "Choose from these sample dataset collections to explore the comparison features:",
+    "demoDescription": "Tap an example to see what a comparison looks like:",
     "demoDataset1": "Municipality 010002",
     "demoDataset1Description": "Specific municipality data",
     "demoDataset2": "Municipality 010009",
     "demoDataset2Description": "Another specific municipality data",
     "demoDataset3": "Canton Zurich (gdn_zh)",
     "demoDataset3Description": "All municipalities in Canton Zurich",
-    "loadDemoData": "Load Demo Data",
+    "loadDemoData": "Open example",
     "sampleDatasets": {
       "governmentalLevels": {
-        "name": "All Governmental Levels Comparison",
-        "description": "Compare municipalities, cantons, and federal level data aggregated by level"
+        "name": "Municipalities, cantons and federal government compared",
+        "description": "All municipalities, all cantons and the federal government, each added up, and all three together."
       },
       "zurichMunicipalities": {
-        "name": "Zurich Municipalities Comparison",
-        "description": "Compare different municipalities in Canton Zurich with population scaling"
+        "name": "Four Zurich municipalities compared",
+        "description": "Zurich, Winterthur, Meilen and Glattfelden next to the whole canton, converted to per inhabitant."
       }
     },
     "selectSampleDataset": "Select Sample Dataset",
     "loadSelectedSample": "Load Selected Sample",
     "openFullView": "Open Full View",
-    "openFullViewTooltip": "Opens the current comparison view in a dedicated full-screen mode"
+    "openFullViewTooltip": "Shows the comparison on the full screen",
+    "datasetsLoaded": "{count} datasets loaded"
   },
   "financialDataDisplay": {
     "comparisonModeOn": "Comparison mode active",
     "comparisonModeOff": "Comparison mode",
-    "clickToSelectBase": "Select base column for comparison",
-    "clickToCompareWith": "Compare with selected column",
+    "clickToSelectBase": "Tap a column to make it the base",
+    "clickToCompareWith": "Tap another column to compare",
     "comparison": {
       "title": "Comparison",
       "versus": "vs.",
@@ -338,29 +386,29 @@
       "noData": "No data available",
       "tooltipDetail": "{columnName}: {columnValue}\nvs {baseName}: {baseValue}\nDifference: {percentage}",
       "value": "Value",
-      "absoluteDiff": "Absolute Difference",
-      "percentageDiff": "Percentage Difference",
-      "entity": "Entity",
+      "absoluteDiff": "Difference in CHF",
+      "percentageDiff": "Difference in percent",
+      "entity": "Place",
       "directComparison": "Direct Comparison",
       "allValuesInRow": "All Values in This Row"
     },
-    "title": "Financial Data Display",
+    "title": "Financial figures compared",
     "financialData": "Financial Data",
     "balanceSheet": "Balance Sheet",
     "incomeStatement": "Income Statement",
-    "loading": "Loading financial data...",
+    "loading": "Loading the figures …",
     "error": "Error loading data",
-    "noData": "No financial data available",
-    "noEntities": "No entities available",
+    "noData": "No figures available",
+    "noEntities": "No places selected",
     "expandAll": "Expand All",
     "collapseAll": "Collapse All",
-    "showCodes": "Show Codes",
-    "hideCodes": "Hide Codes",
-    "codesShown": "Codes Shown",
-    "freezeFirstColumn": "Freeze First Column",
-    "firstColumnFreezed": "First Column Frozen",
-    "showZeroValues": "Show Zero Values",
-    "hideZeroValues": "Hide Zero Values",
+    "showCodes": "Show account numbers",
+    "hideCodes": "Hide account numbers",
+    "codesShown": "Account numbers shown",
+    "freezeFirstColumn": "Pin account names",
+    "firstColumnFreezed": "Account names pinned",
+    "showZeroValues": "Show empty rows",
+    "hideZeroValues": "Hide empty rows",
     "enableScaling": "Enable Scaling",
     "disableScaling": "Disable Scaling",
     "columns": {
@@ -375,7 +423,7 @@
     "scalingDisabled": "Scaling disabled",
     "noScalingFactor": "No scaling factor available",
     "scalingInfo": {
-      "title": "Scaling Information"
+      "title": "How was it converted?"
     },
     "controls": {
       "title": "Display Options"
@@ -402,23 +450,23 @@
     }
   },
   "datasetSelector": {
-    "title": "Dataset Selection",
-    "subtitle": "Select datasets for comparison",
-    "searchPlaceholder": "Search for datasets...",
+    "title": "Pick places",
+    "subtitle": "Search for a municipality, a canton or the federal government and tap \"Add\".",
+    "searchPlaceholder": "Search municipality or canton …",
     "availableDatasets": "Available Datasets",
-    "selectedDatasets": "Selected Datasets",
-    "resultsCount": "{count} of {total} datasets",
+    "selectedDatasets": "Your selection",
+    "resultsCount": "{count} of {total} entries",
     "selectedCount": "{count} selected",
     "yearCount": "{count} years",
     "latestYear": "Latest",
-    "loading": "Loading data catalog...",
+    "loading": "Loading the list …",
     "selectYear": "Select year",
     "addDataset": "Add",
     "addDatasetWithYear": "Add ({year})",
     "addLatestYear": "Add latest ({year})",
     "removeDataset": "Remove {name}",
     "clearAll": "Clear all",
-    "compareDatasets": "Compare datasets",
+    "compareDatasets": "Compare full screen",
     "pageReportTemplate": "Showing {first} to {last} of {totalRecords} entries",
     "filters": {
       "dataType": "Data type",
@@ -426,23 +474,26 @@
       "all": "All",
       "allYears": "All years",
       "gdn": "Municipalities",
-      "std": "Standard"
+      "std": "Combined"
     },
     "types": {
       "gdn": "Municipality",
-      "std": "Standard"
+      "std": "Combined"
     },
     "columns": {
-      "name": "Name",
+      "name": "Place",
       "description": "Description",
       "years": "Available Years",
       "year": "Year",
-      "actions": "Actions"
+      "actions": "Action"
     },
     "errors": {
-      "loadingFailed": "Failed to load data catalog",
-      "duplicateDataset": "This dataset is already selected"
-    }
+      "loadingFailed": "The list could not be loaded.",
+      "duplicateDataset": "You have already selected this entry."
+    },
+    "clearSearch": "Clear search",
+    "showMore": "Show {count} more",
+    "noResults": "No matches. Try another search term or year."
   },
   "financialDataFullView": {
     "title": "Financial Data - Full View",
@@ -453,5 +504,275 @@
     "noDataMessage": "Please select datasets in the main comparison view before opening the full view.",
     "loadingDatasets": "Loading datasets...",
     "datasetsLoaded": "{count} datasets loaded"
+  },
+  "footer": {
+    "sources": "Sources: Swiss Federal Finance Administration FFA, Federal Statistical Office FSO",
+    "about": "About this app"
+  },
+  "placeFacts": {
+    "title": "The places at a glance",
+    "intro": "Who do the numbers in the table belong to? Here is a short answer.",
+    "kind": {
+      "municipality": "Municipality",
+      "canton": "Canton",
+      "cantonMunicipalities": "All municipalities of a canton",
+      "cantonAndMunicipalities": "Canton and municipalities",
+      "federal": "Federal government",
+      "switzerland": "All of Switzerland",
+      "socialInsurance": "Social insurance",
+      "other": "Other",
+      "cantonRest": "Calculated: other municipalities"
+    },
+    "about": {
+      "municipality": "The figures of the municipality of {name} ({canton}), without the canton.",
+      "canton": "The figures of the canton of {canton} itself, without its municipalities.",
+      "cantonRest": "All municipalities of the canton of {canton} with fewer than 5,000 inhabitants, together. Not published but calculated: the canton minus the individual municipalities."
+    },
+    "asOf": "As of {year}",
+    "facts": {
+      "population": "Inhabitants",
+      "age65": "of them aged 65 and over",
+      "foreign": "of them foreign nationals",
+      "jobs": "Jobs",
+      "roads": "Roads (without national roads)",
+      "area": "Area"
+    },
+    "units": {
+      "km": "{value} km",
+      "km2": "{value} km²"
+    },
+    "note": "Values refer to the year of the dataset. If there is no value for that year, the closest year is shown."
+  },
+  "explain": {
+    "title": "How to read the numbers",
+    "hint": "Briefly explained: balance sheet, revenue, expenses and more",
+    "rows": {
+      "title": "What do the rows mean?",
+      "balance": "Balance sheet: what a place owns (assets) and where the money for it came from (liabilities: debt and equity). Both sides are always equal.",
+      "income": "Income statement: what comes in during a year (revenue, mostly taxes and fees) and what is spent (expenses, for example on staff, schools and social services).",
+      "result": "Profit/loss is revenue minus expenses. A minus means more was spent than received.",
+      "expand": "Tap an arrow to open a row into its parts."
+    },
+    "scaling": {
+      "title": "Why \"per inhabitant\"?",
+      "text": "Big places almost always have bigger amounts. Pick \"Population\" below and every amount is divided by the number of inhabitants. That makes places of different sizes comparable. The same works per job, per kilometre of road and more."
+    },
+    "compare": {
+      "title": "Compare two columns",
+      "text": "Tap a column heading as the base, then a second one. You will see by how many percent the second one differs."
+    },
+    "source": {
+      "title": "Where do the numbers come from?",
+      "text": "The financial figures come from the Swiss Federal Finance Administration (FFA). Municipalities are included from 5,000 inhabitants. The latest years may still be provisional and change later. Inhabitants, jobs and roads come from the Federal Statistical Office."
+    },
+    "limits": {
+      "title": "Things to keep in mind",
+      "text": "Cantons and municipalities do not book everything the same way, and tasks are shared out differently: sometimes the municipality pays for schools, sometimes the canton. A difference in the table shows that something is different, but not always why."
+    }
+  },
+  "optimizer": {
+    "scenarios": {
+      "title": "Scenarios",
+      "add": "Add scenario",
+      "runAll": "Recalculate all",
+      "copyLink": "Copy link",
+      "linkCopied": "Link copied",
+      "copyPrompt": "Link with the scenarios (copy it):",
+      "maxReached": "At most {max} scenarios.",
+      "defaultName": "Scenario {n}",
+      "copyName": "{name} (copy)",
+      "select": "Select {name}",
+      "run": "Recalculate {name}",
+      "duplicate": "Duplicate {name}",
+      "remove": "Remove {name}",
+      "entities": "{n} entities",
+      "autoFactors": "up to {max} factors (automatic)",
+      "nFactors": "{n} factors",
+      "status": {
+        "idle": "Not calculated yet",
+        "running": "Calculating …",
+        "stale": "Outdated, recalculate",
+        "error": "Could not be calculated",
+        "done": "CV {before} → {after}"
+      }
+    },
+    "editor": {
+      "name": "Scenario name",
+      "accounts": "Accounts",
+      "preset": {
+        "codes": "Own codes",
+        "expense": "Expenses",
+        "revenue": "Revenue",
+        "both": "Expenses + revenue"
+      },
+      "presetHint": {
+        "expense": "All expense types (30–38) together.",
+        "revenue": "All revenue types (40–48) together.",
+        "both": "All main accounts of expenses and revenue (30–38, 40–48) together."
+      },
+      "mode": "Method",
+      "modes": {
+        "ols": "Least squares",
+        "nonneg": "Non-negative",
+        "robust": "Robust"
+      },
+      "modeHint": {
+        "ols": "Weights may be negative. Closest fit, harder to interpret.",
+        "nonneg": "All weights are ≥ 0: every factor can only enlarge the formula. Recommended.",
+        "robust": "Like non-negative, but a single outlier (e.g. one big city) hardly distorts the result."
+      },
+      "autoSelect": "Select factors automatically",
+      "autoSelectHint": "Picks the smallest factor combination with the best cross-validated error. With few entities this protects against overfitting.",
+      "maxFactors": "Maximum number of factors",
+      "count": "{selected} of {total}",
+      "more": "More options",
+      "intercept": "Constant base term in the formula",
+      "interceptHint": "Off: the formula is proportional to the factors. On: a fixed base the same for every entity (costs one degree of freedom).",
+      "ridge": "Regularisation",
+      "ridgeOptions": {
+        "none": "None",
+        "light": "Light",
+        "strong": "Strong"
+      },
+      "ridgeHint": "Pulls the weights together when factors measure almost the same thing (e.g. inhabitants and establishments).",
+      "blockers": {
+        "noData": "Load datasets first: the optimisation compares the columns of the table.",
+        "noEntities": "Select at least one entity (at least four for meaningful results).",
+        "noFactors": "Select at least one factor."
+      }
+    },
+    "result": {
+      "title": "Result: {name}",
+      "stale": "This result is outdated (settings or table changed). Recalculate to update it.",
+      "unitNote": "Scale: the mean of the formula equals the mean of “{factor}”. Scaled values are therefore “per equivalent” of that quantity.",
+      "quality": "Quality",
+      "cvBefore": "CV unscaled",
+      "cvFit": "CV with formula (fitted)",
+      "cvCross": "CV with formula (cross-validated)",
+      "cvImprovement": "Improvement (cross-validated)",
+      "adjustedR2": "Adjusted R²",
+      "cvR2": "Cross-validated R²",
+      "overfit": "Overfitting",
+      "risk": {
+        "low": "low",
+        "medium": "medium",
+        "high": "high"
+      },
+      "basis": "{entities} entities, {accounts} accounts, {parameters} parameters. Cross-validation: {method}.",
+      "cvMethod": {
+        "loo": "leave one entity out",
+        "kfold": "{folds} folds"
+      },
+      "cvExplain": "Cross-validated means: every entity is scaled with a formula that never saw it. This number is more honest than the fitted one; a large gap between the two shows overfitting. CV = standard deviation / mean of the scaled values (smaller = more comparable).",
+      "factorsTitle": "Which factors matter",
+      "intercept": "Constant base term",
+      "dropEffect": "error without this factor: {percent} higher",
+      "selectionTitle": "Factor selection in detail",
+      "selectionInfo": "{tried} combinations of {candidates} candidates tried ({method}). Best cross-validated error for 1, 2, 3 … factors:",
+      "selectionMethod": {
+        "exhaustive": "exhaustive",
+        "forward": "stepwise"
+      },
+      "selectionRule": "The smallest combination whose error is at most 5 % above the best one is chosen.",
+      "accountsLegend": "Per account: CV unscaled → CV fitted / CV cross-validated, cross-validated improvement.",
+      "excludedTitle": "Left out ({count})"
+    },
+    "warn": {
+      "fewEntities": "Only {count} entities: every figure is uncertain. Load more columns before applying the formula.",
+      "overfitRisk": "Overfitting risk: {risk}. The formula may only fit these entities.",
+      "selectionOptimism": "The factors were chosen among {tried} combinations on the same few entities, so the cross-validated error is likely too optimistic.",
+      "cvWorseThanUnscaled": "Cross-validated, the formula is worse than not scaling at all.",
+      "nonPositiveScale": "For {count} entity(ies) the formula is not positive: they cannot be scaled.",
+      "negativeCoefficient": "The formula contains negative weights (least-squares method). “Non-negative” is easier to interpret.",
+      "collinearFactors": "Skipped because they follow exactly from other factors: {factors}.",
+      "tooManyFactors": "{factors} factors for only {entities} entities: without automatic selection overfitting is certain.",
+      "notConverged": "The calculation did not fully converge; the result is approximate.",
+      "noFactorEffect": "The formula hardly improves comparability."
+    },
+    "exclusion": {
+      "account": {
+        "tooFewEntities": "Account {name}: fewer than two entities with a value.",
+        "mixedSign": "Account {name}: mixed positive and negative values, cannot be scaled.",
+        "mostlyZero": "Account {name}: zero for more than half of the entities.",
+        "noVariation": "Account {name}: identical for all entities, nothing to compare.",
+        "noData": "Account {name}: no data."
+      },
+      "factor": {
+        "missing": "Factor {name}: missing for {entities}.",
+        "negative": "Factor {name}: contains negative values.",
+        "noVariation": "Factor {name}: identical for all entities.",
+        "zero": "Factor {name}: zero everywhere.",
+        "collinear": "Factor {name}: follows exactly from {by}."
+      },
+      "entity": {
+        "missingFactor": "{name}: left out, {factors} is missing.",
+        "noAccountData": "{name}: left out, no value in the chosen accounts."
+      }
+    },
+    "failure": {
+      "noEntities": "No entities selected.",
+      "tooFewEntities": "At least two entities with data are needed: a single column has nothing to be compared with.",
+      "noAccounts": "No account codes given.",
+      "noFactors": "No scaling factors available.",
+      "noUsableAccounts": "None of the accounts ({codes}) can be scaled: not found, or too little data, mixed signs or constant values.",
+      "noUsableFactors": "No scaling factor has usable data for the selected entities.",
+      "singular": "No formula can be determined with the chosen factors.",
+      "noEffect": "None of the factors receives a positive weight."
+    },
+    "compare": {
+      "title": "Scenarios compared",
+      "hint": "The smaller the cross-validated CV, the more comparable the entities are after scaling.",
+      "scenario": "Scenario",
+      "formula": "Formula",
+      "data": "Data",
+      "dataValue": "{entities} entities, {accounts} accounts",
+      "cvBefore": "CV unscaled",
+      "cvAfter": "CV with formula",
+      "improvement": "Improvement",
+      "risk": "Overfitting",
+      "best": "Best generalisation",
+      "footnote": "CV with formula: cross-validated (fitted in brackets). Scenarios with different accounts or entities are only partly comparable."
+    },
+    "sim": {
+      "title": "Simulations",
+      "intro": "Keep calculating with the selected formula without refitting anything.",
+      "tabs": {
+        "whatIf": "What if",
+        "expected": "Expected vs. actual",
+        "sensitivity": "Sensitivity"
+      },
+      "account": "Account",
+      "allAccounts": "All accounts (average)",
+      "whatIf": {
+        "intro": "Enter factor values of a municipality that does not (yet) exist and see which amounts the formula expects.",
+        "startFrom": "Start from (optional)",
+        "noReference": "No reference entity",
+        "missing": "Please fill in all factors.",
+        "notPositive": "For these values the formula is not positive: no prediction possible.",
+        "actual": "Actual",
+        "footnote": "Range = expected amount ± typical deviation of an unseen entity (the account’s cross-validated CV). The dot marks the actual amount of the reference entity."
+      },
+      "expected": {
+        "intro": "Who spends unusually much or little for their size? The expected amount comes from a formula that did not know the entity.",
+        "actual": "Actual",
+        "expected": "expected",
+        "showAll": "Show all {count}",
+        "showLess": "Show only the extremes",
+        "footnote": "Deviation = actual / expected − 1. Rank 1 = furthest above expectation. A deviation is not a verdict: it may also reflect missing factors or different tasks."
+      },
+      "sensitivity": {
+        "intro": "What happens to the expectation and to an entity’s rank if a factor were 10 % or 25 % smaller or larger?",
+        "entity": "Entity",
+        "baseline": "Starting point: deviation {deviation}, rank {rank} of {total}",
+        "allFactors": "All factors together",
+        "legend": "Per cell: change of the factor, change of the expected amount, rank before → after.",
+        "unavailable": "There are no values for this selection."
+      }
+    }
+  },
+  "restOfCanton": {
+    "title": "Calculated figures: \"Other municipalities\"",
+    "text": "Nobody publishes figures for the remaining municipalities of a canton (under 5,000 inhabitants). They were calculated here: the figures of all municipalities of the canton minus the individual municipalities with 5,000 or more inhabitants. This is an approximation.",
+    "limits": "Payments between municipalities (accounts 361–363 and 461–463) and accounts that cannot be subtracted cleanly are missing. Totals and profit/loss are therefore only partly comparable with other columns. There is no breakdown by area of responsibility."
   }
 }

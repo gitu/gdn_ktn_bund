@@ -1,8 +1,23 @@
 .layout-footer {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: center;
-  padding: 1rem 0 1rem 0;
-  gap: 0.5rem;
-  border-top: 1px solid var(--surface-border);
+  padding: 1.25rem 0;
+  gap: 0.25rem 1rem;
+  border-top: 1px solid var(--gk-border);
+  color: var(--gk-muted);
+  font-size: 0.8125rem;
+  text-align: center;
+
+  a {
+    color: inherit;
+    text-decoration: underline;
+    text-decoration-color: var(--gk-border-strong);
+    text-underline-offset: 3px;
+
+    &:hover {
+      color: var(--gk-accent-strong);
+    }
+  }
 }

@@ -103,6 +103,35 @@ export function getCatalogStats(catalog: AvailableDataCatalog) {
   return stats
 }
 
+export interface CatalogGroupSummary {
+  count: number
+  firstYear: string
+  lastYear: string
+}
+
+/**
+ * Entity count and covered year range per entry type (municipalities vs. standard aggregates).
+ * Drives the figures on the home page, so they follow the data after a refresh.
+ */
+export function getCatalogSummary(catalog: AvailableDataCatalog): {
+  gdn: CatalogGroupSummary
+  std: CatalogGroupSummary
+} {
+  const summarise = (entries: AvailableDataEntry[]): CatalogGroupSummary => {
+    const years = getAllAvailableYears(entries)
+    return {
+      count: entries.length,
+      firstYear: years[0] ?? '',
+      lastYear: years[years.length - 1] ?? '',
+    }
+  }
+
+  return {
+    gdn: summarise(filterByType(catalog, 'gdn')),
+    std: summarise(filterByType(catalog, 'std')),
+  }
+}
+
 /**
  * Group entries by type for easier processing
  */

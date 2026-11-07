@@ -303,6 +303,25 @@ describe('StatsDataLoader', () => {
       expect(result.cantonCount).toBe(2)
       expect(result.metadata.sourceDataType).toBe('ktn')
     })
+
+    it('adds up the 26 cantons only, not the totals and regions some files also list', async () => {
+      // The area statistic lists "CH" (Switzerland) and large regions next to the cantons
+      mockPapaParse.mockReturnValue({
+        data: [
+          { GEO_ID: 'CH', VALUE: '3000' },
+          { GEO_ID: 'RL', VALUE: '700' },
+          { GEO_ID: '1', VALUE: '1000' },
+          { GEO_ID: '26', VALUE: '2000' },
+          { GEO_ID: '27', VALUE: '999' },
+        ],
+        errors: [],
+      } as any)
+
+      const result = await loader.getBundData('pop', 2023)
+
+      expect(result.totalValue).toBe(3000) // 1000 + 2000, not 3000 + 700 + 3000 ...
+      expect(result.cantonCount).toBe(2)
+    })
   })
 
   describe('utility methods', () => {

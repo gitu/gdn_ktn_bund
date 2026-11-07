@@ -7,43 +7,39 @@
     </div>
 
     <!-- Search and Filters -->
-    <div class="flex flex-wrap items-center justify-between gap-4 p-4 bg-white rounded shadow">
-      <!-- Search Section -->
-      <div class="flex-1 min-w-[250px] max-w-xl">
-        <div class="flex items-center gap-2">
-          <IconField class="max-w-600 w-full">
-            <InputText
-              v-model="searchQuery"
-              :placeholder="$t('datasetSelector.searchPlaceholder')"
-              class="w-full"
-            />
-            <InputIcon class="pi pi-search" />
-          </IconField>
-          <Button
-            v-if="searchQuery"
-            icon="pi pi-times"
-            severity="secondary"
-            @click="clearSearch"
-            class="px-4 py-2"
+    <div class="selector-toolbar">
+      <div class="search-row">
+        <IconField class="search-field">
+          <InputText
+            v-model="searchQuery"
+            :placeholder="$t('datasetSelector.searchPlaceholder')"
+            class="w-full"
           />
-        </div>
-      </div>
-
-      <!-- Filter Section -->
-      <div class="flex flex-wrap items-center gap-4">
-        <Select
-          v-model="selectedYear"
-          :options="yearOptions"
-          option-label="label"
-          option-value="value"
-          :placeholder="$t('datasetSelector.filters.year')"
-          class="min-w-[150px]"
+          <InputIcon class="pi pi-search" />
+        </IconField>
+        <Button
+          v-if="searchQuery"
+          icon="pi pi-times"
+          severity="secondary"
+          text
+          rounded
+          :aria-label="$t('datasetSelector.clearSearch')"
+          @click="clearSearch"
         />
       </div>
+
+      <Select
+        v-model="selectedYear"
+        :options="yearOptions"
+        option-label="label"
+        option-value="value"
+        :placeholder="$t('datasetSelector.filters.year')"
+        class="year-filter"
+      />
     </div>
 
     <!-- Available Datasets -->
-    <div class="available-datasets gap-5">
+    <div class="available-datasets">
       <div class="section-header">
         <span class="results-count">
           {{
@@ -60,13 +56,61 @@
         <span>{{ $t('datasetSelector.loading') }}</span>
       </div>
 
+      <!-- Phones: one tappable card per entity instead of a five-column table -->
+      <template v-if="isPhone">
+        <ul v-if="visibleDatasets.length > 0" class="dataset-cards" data-testid="dataset-cards">
+          <li v-for="entry in visibleDatasets" :key="entry.id" class="dataset-card">
+            <div class="card-head">
+              <strong class="card-name">{{ getDisplayName(entry) }}</strong>
+              <span class="card-type">{{ $t(`datasetSelector.types.${entry.type}`) }}</span>
+            </div>
+            <p class="card-years">
+              {{ entry.availableYears[0] }}–{{
+                entry.availableYears[entry.availableYears.length - 1]
+              }}
+              <span class="card-years-count">
+                ({{ $t('datasetSelector.yearCount', { count: entry.availableYears.length }) }})
+              </span>
+            </p>
+            <div class="card-actions">
+              <Select
+                v-model="selectedYears[entry.id]"
+                :options="getYearOptions(entry)"
+                option-label="label"
+                option-value="value"
+                :placeholder="$t('datasetSelector.selectYear')"
+                class="card-year"
+              />
+              <Button
+                :label="getAddButtonLabel(entry)"
+                icon="pi pi-plus"
+                class="card-add"
+                :disabled="isAddButtonDisabled(entry.id)"
+                @click="addDatasetWithDefaultYear(entry)"
+              />
+            </div>
+          </li>
+        </ul>
+        <p v-else-if="!loading" class="no-results">{{ $t('datasetSelector.noResults') }}</p>
+
+        <Button
+          v-if="remainingCount > 0"
+          :label="$t('datasetSelector.showMore', { count: remainingCount })"
+          severity="secondary"
+          outlined
+          class="show-more"
+          @click="showMore"
+        />
+      </template>
+
       <DataTable
+        v-else
         :value="filteredDatasets"
         :paginator="true"
         :rows="5"
         :rows-per-page-options="[5, 10, 20, 50]"
         paginator-template="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown"
-        :current-page-report-template="$t('datasetSelector.pageReportTemplate')"
+        :current-page-report-template="pageReportTemplate"
         class="datasets-table"
         scrollable
       >
@@ -160,7 +204,7 @@
         </span>
       </div>
 
-      <div class="selected-actions flex justify-end gap-2 mt-4">
+      <div class="selected-actions">
         <Button
           :label="$t('datasetSelector.clearAll')"
           icon="pi pi-trash"
@@ -176,7 +220,24 @@
         />
       </div>
 
-      <div class="selected-list">
+      <ul v-if="isPhone" class="selected-chips" data-testid="selected-chips">
+        <li v-for="dataset in selectedDatasets" :key="dataset.id" class="selected-chip">
+          <span class="chip-name">{{ getDisplayName(dataset.entry) }}</span>
+          <span class="chip-year">{{ dataset.year }}</span>
+          <button
+            type="button"
+            class="chip-remove"
+            :aria-label="
+              $t('datasetSelector.removeDataset', { name: getDisplayName(dataset.entry) })
+            "
+            @click="removeDataset(dataset.id)"
+          >
+            <i class="pi pi-times" aria-hidden="true"></i>
+          </button>
+        </li>
+      </ul>
+
+      <div v-else class="selected-list">
         <DataTable
           :value="selectedDatasets"
           dataKey="id"
@@ -205,7 +266,10 @@
                 severity="danger"
                 outlined
                 size="small"
-                @click="removeDataset(sp.data)"
+                :aria-label="
+                  $t('datasetSelector.removeDataset', { name: getDisplayName(sp.data.entry) })
+                "
+                @click="removeDataset(sp.data.id)"
               />
             </template>
           </Column>
@@ -234,6 +298,7 @@ import {
   searchByName,
 } from '@/utils/AvailableDataLoader'
 import { useToast } from 'primevue/usetoast'
+import { PHONE_QUERY, useMediaQuery } from '@/composables/useMediaQuery'
 
 const datasets = defineModel<string[]>({ required: true })
 
@@ -248,6 +313,12 @@ const searchQuery = ref('')
 const selectedType = ref<'all' | 'gdn' | 'std'>('all')
 const selectedYear = ref<string | null>(null)
 const selectedYears = ref<Record<string, string>>({})
+
+const isPhone = useMediaQuery(PHONE_QUERY)
+
+// Phones show a card list that grows on demand instead of a paginated table.
+const PAGE_SIZE = 10
+const visibleCount = ref(PAGE_SIZE)
 
 // Selected datasets structure
 interface SelectedDataset {
@@ -297,7 +368,25 @@ const filteredDatasets = computed(() => {
   return filtered
 })
 
+const visibleDatasets = computed(() => filteredDatasets.value.slice(0, visibleCount.value))
+const remainingCount = computed(() =>
+  Math.max(0, filteredDatasets.value.length - visibleCount.value),
+)
+
+// PrimeVue fills {first}/{last}/{totalRecords} itself; hand them through vue-i18n untouched.
+const pageReportTemplate = computed(() =>
+  t('datasetSelector.pageReportTemplate', {
+    first: '{first}',
+    last: '{last}',
+    totalRecords: '{totalRecords}',
+  }),
+)
+
 // Methods
+const showMore = () => {
+  visibleCount.value += PAGE_SIZE
+}
+
 const getDisplayName = (entry: AvailableDataEntry): string => {
   return entry.displayName[locale.value as keyof typeof entry.displayName] || entry.displayName.de
 }
@@ -492,6 +581,11 @@ const initializeFromDatasets = (datasets: string[]) => {
   })
 }
 
+// A new search or filter starts again at the first page of cards
+watch([searchQuery, selectedYear], () => {
+  visibleCount.value = PAGE_SIZE
+})
+
 // Watch for locale changes to update display
 watch(locale, () => {
   // Force reactivity update for display names
@@ -519,3 +613,223 @@ onMounted(() => {
   loadData()
 })
 </script>
+
+<style scoped>
+.selector-header {
+  margin-bottom: 1rem;
+}
+
+.selector-header h3 {
+  margin: 0 0 0.25rem;
+}
+
+.subtitle {
+  margin: 0;
+  color: var(--gk-muted);
+}
+
+.selector-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem;
+  border: 1px solid var(--gk-border);
+  border-radius: var(--radius-lg);
+  background: var(--gk-surface-2);
+}
+
+.search-row {
+  display: flex;
+  flex: 1 1 16rem;
+  align-items: center;
+  gap: 0.25rem;
+  min-width: 0;
+}
+
+.search-field {
+  flex: 1;
+  min-width: 0;
+}
+
+.year-filter {
+  min-width: 9.5rem;
+}
+
+.section-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.25rem 0.75rem;
+  margin: 1.25rem 0 0.5rem;
+}
+
+.section-header h4 {
+  margin: 0;
+}
+
+.results-count,
+.selected-count {
+  color: var(--gk-muted);
+  font-size: 0.875rem;
+}
+
+.loading-state {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1rem 0;
+  color: var(--gk-muted);
+}
+
+.selected-datasets {
+  margin-top: 1.5rem;
+  padding-top: 0.5rem;
+  border-top: 1px solid var(--gk-border);
+}
+
+.selected-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 0.5rem;
+  margin: 0.75rem 0;
+}
+
+/* Phone card list */
+.dataset-cards,
+.selected-chips {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.dataset-cards {
+  display: grid;
+  gap: 0.625rem;
+}
+
+.dataset-card {
+  padding: 0.875rem 1rem;
+  border: 1px solid var(--gk-border);
+  border-radius: var(--radius-lg);
+  background: var(--gk-surface);
+}
+
+.card-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.card-name {
+  font-size: 1.05rem;
+  line-height: 1.3;
+  overflow-wrap: anywhere;
+}
+
+.card-type {
+  flex: none;
+  padding: 0.1rem 0.5rem;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--gk-accent) 12%, transparent);
+  color: var(--gk-accent-strong);
+  font-size: 0.72rem;
+  font-weight: 600;
+}
+
+.card-years {
+  margin: 0.25rem 0 0.75rem;
+  color: var(--gk-muted);
+  font-size: 0.85rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.card-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.card-year {
+  flex: 0 0 6.5rem;
+  min-height: 2.75rem;
+}
+
+.card-add {
+  flex: 1;
+  min-height: 2.75rem;
+}
+
+.show-more {
+  width: 100%;
+  min-height: 2.75rem;
+  margin-top: 0.75rem;
+}
+
+.no-results {
+  margin: 1rem 0;
+  color: var(--gk-muted);
+  text-align: center;
+}
+
+.selected-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.selected-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  max-width: 100%;
+  padding: 0.25rem 0.25rem 0.25rem 0.75rem;
+  border: 1px solid color-mix(in srgb, var(--gk-accent) 35%, var(--gk-border));
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--gk-accent) 9%, transparent);
+  font-size: 0.875rem;
+}
+
+.chip-name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-weight: 600;
+}
+
+.chip-year {
+  color: var(--gk-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.chip-remove {
+  display: inline-grid;
+  place-items: center;
+  flex: none;
+  width: 2.25rem;
+  height: 2.25rem;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--gk-ink);
+  cursor: pointer;
+}
+
+.chip-remove:hover,
+.chip-remove:focus-visible {
+  background: color-mix(in srgb, var(--gk-negative) 14%, transparent);
+  color: var(--gk-negative);
+}
+
+@media (max-width: 767px) {
+  .year-filter {
+    flex: 1 1 100%;
+  }
+
+  .selected-actions > * {
+    flex: 1 1 100%;
+    min-height: 2.75rem;
+  }
+}
+</style>
