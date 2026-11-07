@@ -1,0 +1,54 @@
+name: Refresh data
+
+# The EFV publishes provisional financial statistics every spring and definitive ones every summer, the BFS
+# updates population and jobs in between. Check monthly and open a pull request when anything changed.
+on:
+  schedule:
+    - cron: '0 5 3 * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+      - name: Set up Node
+        uses: actions/setup-node@v6
+        with:
+          node-version: lts/*
+          cache: 'npm'
+      - name: Install dependencies
+        run: npm ci
+      - name: Download EFV financial statistics
+        run: npm run fetch-data
+      - name: Split into per-entity files
+        run: npm run split
+      - name: Rebuild scaling statistics (BFS)
+        run: npm run fetch-stats
+      - name: Calculate the rest of every canton (municipalities under 5,000 inhabitants)
+        run: npm run build-rest
+      - name: Rebuild data catalogue
+        run: npm run build-data
+      - name: Check the refreshed data
+        run: npx vitest run scripts src/data
+      - name: Open pull request
+        uses: peter-evans/create-pull-request@v7
+        with:
+          branch: data/refresh
+          delete-branch: true
+          commit-message: 'chore(data): refresh EFV and BFS data'
+          title: 'chore(data): refresh EFV and BFS data'
+          body: |
+            Automatic refresh of `public/data` (EFV financial statistics, BFS population, jobs and roads).
+
+            Please check before merging:
+            - `src/data/available-data.json` shows the expected new years,
+            - the unit tests above passed (age groups add up, canton sums equal municipal sums),
+            - the e2e tests in the PR checks still pass. Their expected figures (e.g. `e2e/basic.spec.ts`) change when
+              the EFV revises earlier years.
