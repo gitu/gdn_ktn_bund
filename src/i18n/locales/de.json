@@ -33,22 +33,22 @@
   },
   "dataBrowser": {
     "title": "Daten-Browser",
-    "selectEntity": "Entität auswählen",
+    "selectEntity": "Ort auswählen",
     "selectYear": "Jahr auswählen",
     "selectDimension": "Dimension auswählen",
     "loadData": "Daten laden",
-    "noEntitySelected": "Keine Entität ausgewählt",
+    "noEntitySelected": "Kein Ort ausgewählt",
     "noYearSelected": "Kein Jahr ausgewählt",
     "noDimensionSelected": "Keine Dimension ausgewählt",
-    "loadingEntities": "Entitäten werden geladen...",
+    "loadingEntities": "Orte werden geladen...",
     "loadingYears": "Jahre werden geladen...",
-    "errorLoadingEntities": "Fehler beim Laden der Entitäten",
+    "errorLoadingEntities": "Fehler beim Laden der Orte",
     "errorLoadingYears": "Fehler beim Laden der Jahre",
     "availableYears": "Verfügbare Jahre",
-    "availableEntities": "Verfügbare Entitäten",
-    "entityCount": "Entitäten",
+    "availableEntities": "Verfügbare Orte",
+    "entityCount": "Orte",
     "yearCount": "Jahre",
-    "searchPlaceholder": "Suche nach Entitäten, Gemeinden oder Codes...",
+    "searchPlaceholder": "Suche nach Orten, Gemeinden oder Codes...",
     "filters": {
       "dataType": "Datentyp",
       "yearRange": "Jahresbereich",
@@ -104,8 +104,8 @@
     "tableTitle": "Tabellentitel",
     "titlePlaceholder": "Tabellentitel eingeben",
     "dataBrowser": "Datenbrowser",
-    "dataBrowserDescription": "Suchen und durchsuchen Sie verfügbare Datenentitäten:",
-    "availableEntities": "Verfügbare Datenentitäten",
+    "dataBrowserDescription": "Suchen Sie in den verfügbaren Orten:",
+    "availableEntities": "Verfügbare Orte",
     "loading": "Lade Daten...",
     "dataInformation": "Dateninformationen",
     "model": "Modell",
@@ -142,7 +142,7 @@
       "title": "Hauptfunktionen",
       "treeNavigation": "Hierarchische Baumnavigation für Finanzdaten",
       "tableView": "Interaktive Tabellenansicht mit Drill-Down-Funktionalität",
-      "dataBrowser": "Umfassender Datenbrowser für alle verfügbaren Entitäten",
+      "dataBrowser": "Umfassender Datenbrowser für alle verfügbaren Orte",
       "multiLanguage": "Mehrsprachige Unterstützung (DE, FR, IT, EN)",
       "responsive": "Responsives Design für alle Geräte"
     },
@@ -248,7 +248,7 @@
     "scalingRemoved": "Wieder in Franken, ohne Umrechnung",
     "scalingInfo": {
       "title": "Skalierungsinformationen",
-      "description": "Skalierungsfaktoren helfen dabei, Daten für bessere Vergleiche zwischen Entitäten unterschiedlicher Grösse zu normalisieren.",
+      "description": "Umrechnungsfaktoren helfen dabei, Zahlen für bessere Vergleiche zwischen Orten unterschiedlicher Grösse vergleichbar zu machen.",
       "currentScaling": "Aktuelle Skalierung: {name}",
       "unit": "Einheit: {unit}",
       "format": "{name} ({unit})"
@@ -289,7 +289,7 @@
         "targetCodes": "Ziel-Kontencodes (zB. 36,46 oder 400+401)",
         "optimize": "Für Kontencodes optimieren",
         "entitySelection": {
-          "title": "Entitäten für Optimierung auswählen",
+          "title": "Orte für die Optimierung auswählen",
           "selectAll": "Alle auswählen",
           "selectNone": "Keine auswählen"
         },
@@ -300,7 +300,7 @@
         },
         "summary": {
           "title": "Ergebnisse pro Konto:",
-          "account": "Konto {code} ({count} Entitäten)",
+          "account": "Konto {code} ({count} Orte)",
           "improvement": "Verbesserung des Variationskoeffizienten (CV): {percent}%",
           "beforeAfter": "Vorher: {before} → Nachher: {after}"
         }
@@ -415,7 +415,7 @@
       "source": "Quelle",
       "loadedAt": "Geladen am",
       "recordCount": "Anzahl Datensätze",
-      "entities": "Entitäten"
+      "entities": "Orte"
     },
     "accessibility": {
       "expandNode": "Knoten erweitern",
@@ -446,7 +446,7 @@
       "missingBalanceSheet": "Bilanz fehlt",
       "missingIncomeStatement": "Erfolgsrechnung fehlt",
       "processingError": "Fehler bei der Datenverarbeitung",
-      "noEntities": "Keine Entitäten verfügbar"
+      "noEntities": "Keine Orte verfügbar"
     }
   },
   "datasetSelector": {
@@ -585,7 +585,7 @@
       "run": "{name} neu berechnen",
       "duplicate": "{name} duplizieren",
       "remove": "{name} entfernen",
-      "entities": "{n} Entitäten",
+      "entities": "{n} Orte",
       "autoFactors": "bis {max} Faktoren (automatisch)",
       "nFactors": "{n} Faktoren",
       "status": {
@@ -622,12 +622,12 @@
         "robust": "Wie nicht-negativ, aber ein einzelner Ausreisser (z. B. eine Grossstadt) verzerrt das Ergebnis kaum."
       },
       "autoSelect": "Faktoren automatisch auswählen",
-      "autoSelectHint": "Wählt die kleinste Faktorkombination mit dem besten kreuzvalidierten Fehler. Bei wenigen Entitäten schützt das vor Überanpassung.",
+      "autoSelectHint": "Wählt die kleinste Faktorkombination mit dem besten kreuzvalidierten Fehler. Bei wenigen Orten schützt das vor Überanpassung.",
       "maxFactors": "Höchstens so viele Faktoren",
       "count": "{selected} von {total}",
       "more": "Weitere Optionen",
       "intercept": "Konstanter Grundanteil in der Formel",
-      "interceptHint": "Aus: Die Formel ist proportional zu den Faktoren. An: ein fester Sockel, der für jede Entität gleich ist (kostet einen Freiheitsgrad).",
+      "interceptHint": "Aus: Die Formel ist proportional zu den Faktoren. An: ein fester Sockel, der für jeden Ort gleich ist (kostet einen Freiheitsgrad).",
       "ridge": "Regularisierung",
       "ridgeOptions": {
         "none": "Keine",
@@ -637,7 +637,7 @@
       "ridgeHint": "Zieht die Gewichte zusammen, wenn Faktoren fast dasselbe messen (z. B. Einwohner und Arbeitsstätten).",
       "blockers": {
         "noData": "Zuerst Datensätze laden: Die Optimierung vergleicht die Spalten der Tabelle.",
-        "noEntities": "Mindestens eine Entität auswählen (für sinnvolle Ergebnisse mindestens vier).",
+        "noEntities": "Mindestens einen Ort auswählen (für sinnvolle Ergebnisse mindestens vier).",
         "noFactors": "Mindestens einen Faktor auswählen."
       }
     },
@@ -658,12 +658,12 @@
         "medium": "mittel",
         "high": "hoch"
       },
-      "basis": "{entities} Entitäten, {accounts} Konten, {parameters} Parameter. Kreuzvalidierung: {method}.",
+      "basis": "{entities} Orte, {accounts} Konten, {parameters} Parameter. Kreuzvalidierung: {method}.",
       "cvMethod": {
-        "loo": "jede Entität einzeln weglassen",
+        "loo": "jeden Ort einzeln weglassen",
         "kfold": "{folds} Gruppen"
       },
-      "cvExplain": "Kreuzvalidiert heisst: Jede Entität wird mit einer Formel skaliert, die sie nicht gesehen hat. Dieser Wert ist ehrlicher als der angepasste; ein grosser Abstand zwischen beiden zeigt Überanpassung. CV = Standardabweichung / Mittelwert der skalierten Werte (kleiner = vergleichbarer).",
+      "cvExplain": "Kreuzvalidiert heisst: Jeder Ort wird mit einer Formel umgerechnet, die ihn nicht gesehen hat. Dieser Wert ist ehrlicher als der angepasste; ein grosser Abstand zwischen beiden zeigt Überanpassung. CV = Standardabweichung / Mittelwert der skalierten Werte (kleiner = vergleichbarer).",
       "factorsTitle": "Welche Faktoren zählen",
       "intercept": "Konstanter Grundanteil",
       "dropEffect": "Fehler ohne diesen Faktor: {percent} höher",
@@ -678,29 +678,29 @@
       "excludedTitle": "Nicht verwendet ({count})"
     },
     "warn": {
-      "fewEntities": "Nur {count} Entitäten: Jede Kennzahl ist unsicher. Mehr Spalten laden, bevor die Formel angewendet wird.",
-      "overfitRisk": "Risiko der Überanpassung: {risk}. Die Formel passt vielleicht nur zu diesen Entitäten.",
-      "selectionOptimism": "Die Faktoren wurden unter {tried} Kombinationen auf denselben wenigen Entitäten ausgewählt; der kreuzvalidierte Fehler ist deshalb eher zu optimistisch.",
+      "fewEntities": "Nur {count} Orte: Jede Kennzahl ist unsicher. Mehr Spalten laden, bevor die Formel angewendet wird.",
+      "overfitRisk": "Risiko der Überanpassung: {risk}. Die Formel passt vielleicht nur zu diesen Orten.",
+      "selectionOptimism": "Die Faktoren wurden unter {tried} Kombinationen an denselben wenigen Orten ausgewählt; der kreuzvalidierte Fehler ist deshalb eher zu optimistisch.",
       "cvWorseThanUnscaled": "Kreuzvalidiert ist die Formel schlechter als gar nicht zu skalieren.",
-      "nonPositiveScale": "Für {count} Entität(en) ist die Formel nicht positiv: Sie lassen sich nicht skalieren.",
+      "nonPositiveScale": "Für {count} Ort(e) ist die Formel nicht positiv: Sie lassen sich nicht umrechnen.",
       "negativeCoefficient": "Die Formel enthält negative Gewichte (Methode «Kleinste Quadrate»). «Nicht-negativ» ist leichter zu deuten.",
       "collinearFactors": "Übersprungen, weil sie sich exakt aus anderen Faktoren ergeben: {factors}.",
-      "tooManyFactors": "{factors} Faktoren bei nur {entities} Entitäten: Ohne automatische Auswahl ist Überanpassung sicher.",
+      "tooManyFactors": "{factors} Faktoren bei nur {entities} Orten: Ohne automatische Auswahl ist Überanpassung sicher.",
       "notConverged": "Die Berechnung ist nicht ganz konvergiert; das Ergebnis ist näherungsweise.",
       "noFactorEffect": "Die Formel verbessert die Vergleichbarkeit kaum."
     },
     "exclusion": {
       "account": {
-        "tooFewEntities": "Konto {name}: weniger als zwei Entitäten mit Wert.",
+        "tooFewEntities": "Konto {name}: weniger als zwei Orte mit Wert.",
         "mixedSign": "Konto {name}: positive und negative Werte gemischt, lässt sich nicht skalieren.",
-        "mostlyZero": "Konto {name}: bei über der Hälfte der Entitäten null.",
-        "noVariation": "Konto {name}: bei allen Entitäten gleich, nichts zu vergleichen.",
+        "mostlyZero": "Konto {name}: bei über der Hälfte der Orte null.",
+        "noVariation": "Konto {name}: bei allen Orten gleich, nichts zu vergleichen.",
         "noData": "Konto {name}: keine Daten."
       },
       "factor": {
         "missing": "Faktor {name}: fehlt für {entities}.",
         "negative": "Faktor {name}: enthält negative Werte.",
-        "noVariation": "Faktor {name}: bei allen Entitäten gleich.",
+        "noVariation": "Faktor {name}: bei allen Orten gleich.",
         "zero": "Faktor {name}: überall null.",
         "collinear": "Faktor {name}: ergibt sich exakt aus {by}."
       },
@@ -710,28 +710,28 @@
       }
     },
     "failure": {
-      "noEntities": "Keine Entitäten ausgewählt.",
-      "tooFewEntities": "Mindestens zwei Entitäten mit Daten nötig: Eine einzelne Spalte hat nichts, womit sie verglichen werden könnte.",
+      "noEntities": "Keine Orte ausgewählt.",
+      "tooFewEntities": "Mindestens zwei Orte mit Daten nötig: Eine einzelne Spalte hat nichts, womit sie verglichen werden könnte.",
       "noAccounts": "Keine Kontencodes angegeben.",
       "noFactors": "Keine Skalierungsfaktoren verfügbar.",
       "noUsableAccounts": "Keines der Konten ({codes}) kann skaliert werden: nicht gefunden oder zu wenig, gemischte oder konstante Werte.",
-      "noUsableFactors": "Kein Skalierungsfaktor hat brauchbare Daten für die gewählten Entitäten.",
+      "noUsableFactors": "Kein Skalierungsfaktor hat brauchbare Daten für die gewählten Orte.",
       "singular": "Mit den gewählten Faktoren lässt sich keine Formel bestimmen.",
       "noEffect": "Keiner der Faktoren erhält ein positives Gewicht."
     },
     "compare": {
       "title": "Szenarien im Vergleich",
-      "hint": "Je kleiner der kreuzvalidierte CV, desto besser vergleichbar sind die Entitäten nach der Skalierung.",
+      "hint": "Je kleiner der kreuzvalidierte CV, desto besser vergleichbar sind die Orte nach dem Umrechnen.",
       "scenario": "Szenario",
       "formula": "Formel",
       "data": "Daten",
-      "dataValue": "{entities} Entitäten, {accounts} Konten",
+      "dataValue": "{entities} Orte, {accounts} Konten",
       "cvBefore": "CV ohne",
       "cvAfter": "CV mit Formel",
       "improvement": "Verbesserung",
       "risk": "Überanpassung",
       "best": "Beste Verallgemeinerung",
-      "footnote": "CV mit Formel: kreuzvalidiert (in Klammern: angepasst). Szenarien mit anderen Konten oder Entitäten sind nur bedingt vergleichbar."
+      "footnote": "CV mit Formel: kreuzvalidiert (in Klammern: angepasst). Szenarien mit anderen Konten oder Orten sind nur bedingt vergleichbar."
     },
     "sim": {
       "title": "Simulationen",
@@ -746,14 +746,14 @@
       "whatIf": {
         "intro": "Geben Sie Faktorwerte einer Gemeinde ein, die es (noch) nicht gibt, und sehen Sie, welche Beträge die Formel erwartet.",
         "startFrom": "Ausgehen von (optional)",
-        "noReference": "Keine Vergleichsentität",
+        "noReference": "Kein Vergleichsort",
         "missing": "Bitte alle Faktoren ausfüllen.",
         "notPositive": "Für diese Werte ist die Formel nicht positiv: keine Prognose möglich.",
         "actual": "Tatsächlich",
-        "footnote": "Spanne = erwarteter Betrag ± typische Abweichung einer unbekannten Entität (kreuzvalidierter CV des Kontos). Der Punkt zeigt den tatsächlichen Betrag der Vergleichsentität."
+        "footnote": "Spanne = erwarteter Betrag ± typische Abweichung eines unbekannten Orts (kreuzvalidierter CV des Kontos). Der Punkt zeigt den tatsächlichen Betrag des Vergleichsorts."
       },
       "expected": {
-        "intro": "Wer gibt auffallend viel oder wenig aus, gemessen an der Grösse? Der erwartete Betrag stammt aus einer Formel, die die jeweilige Entität nicht kannte.",
+        "intro": "Wer gibt auffallend viel oder wenig aus, gemessen an der Grösse? Der erwartete Betrag stammt aus einer Formel, die den jeweiligen Ort nicht kannte.",
         "actual": "Tatsächlich",
         "expected": "erwartet",
         "showAll": "Alle {count} anzeigen",
@@ -761,8 +761,8 @@
         "footnote": "Abweichung = tatsächlich / erwartet − 1. Rang 1 = am stärksten über der Erwartung. Eine Abweichung ist kein Urteil: Sie kann auch fehlende Faktoren oder andere Aufgaben widerspiegeln."
       },
       "sensitivity": {
-        "intro": "Was passiert mit der Erwartung und mit dem Rang einer Entität, wenn ein Faktor um 10 % oder 25 % kleiner oder grösser wäre?",
-        "entity": "Entität",
+        "intro": "Was passiert mit der Erwartung und mit dem Rang eines Orts, wenn ein Faktor um 10 % oder 25 % kleiner oder grösser wäre?",
+        "entity": "Ort",
         "baseline": "Ausgangslage: Abweichung {deviation}, Rang {rank} von {total}",
         "allFactors": "Alle Faktoren zusammen",
         "legend": "Pro Zelle: Änderung des Faktors, Änderung des erwarteten Betrags, Rang vorher → nachher.",

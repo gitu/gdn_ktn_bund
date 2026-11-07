@@ -33,22 +33,22 @@
   },
   "dataBrowser": {
     "title": "Data Browser",
-    "selectEntity": "Select Entity",
+    "selectEntity": "Select Place",
     "selectYear": "Select Year",
     "selectDimension": "Select Dimension",
     "loadData": "Load Data",
-    "noEntitySelected": "No entity selected",
+    "noEntitySelected": "No place selected",
     "noYearSelected": "No year selected",
     "noDimensionSelected": "No dimension selected",
-    "loadingEntities": "Loading entities...",
+    "loadingEntities": "Loading places...",
     "loadingYears": "Loading years...",
-    "errorLoadingEntities": "Error loading entities",
+    "errorLoadingEntities": "Error loading places",
     "errorLoadingYears": "Error loading years",
     "availableYears": "Available Years",
-    "availableEntities": "Available Entities",
-    "entityCount": "entities",
+    "availableEntities": "Available Places",
+    "entityCount": "places",
     "yearCount": "years",
-    "searchPlaceholder": "Search for entities, municipalities or codes...",
+    "searchPlaceholder": "Search for places, municipalities or codes...",
     "filters": {
       "dataType": "Data Type",
       "yearRange": "Year Range",
@@ -99,13 +99,13 @@
   },
   "treeTableView": {
     "title": "Hierarchical Tree Table",
-    "description": "Compare different Swiss governmental entities' financial statements with each other",
+    "description": "Compare different Swiss governmental places' financial statements with each other",
     "dimension": "Dimension",
     "tableTitle": "Table Title",
     "titlePlaceholder": "Enter table title",
     "dataBrowser": "Data Browser",
-    "dataBrowserDescription": "Search and browse available data entities:",
-    "availableEntities": "Available Data Entities",
+    "dataBrowserDescription": "Search and browse available data places:",
+    "availableEntities": "Available Data Places",
     "loading": "Loading data...",
     "dataInformation": "Data Information",
     "model": "Model",
@@ -142,7 +142,7 @@
       "title": "Key Features",
       "treeNavigation": "Hierarchical tree navigation for financial data",
       "tableView": "Interactive table view with drill-down functionality",
-      "dataBrowser": "Comprehensive data browser for all available entities",
+      "dataBrowser": "Comprehensive data browser for all available places",
       "multiLanguage": "Multi-language support (DE, FR, IT, EN)",
       "responsive": "Responsive design for all devices"
     },
@@ -248,7 +248,7 @@
     "scalingRemoved": "Back to francs, no conversion",
     "scalingInfo": {
       "title": "Scaling Information",
-      "description": "Scaling factors help normalize data for better comparison between entities of different sizes.",
+      "description": "Scaling factors help normalize data for better comparison between places of different sizes.",
       "currentScaling": "Current scaling: {name}",
       "unit": "Unit: {unit}",
       "format": "{name} ({unit})"
@@ -289,7 +289,7 @@
         "targetCodes": "Target Account Codes (comma-separated)",
         "optimize": "Optimize for Account Codes",
         "entitySelection": {
-          "title": "Select Entities for Optimization",
+          "title": "Select Places for Optimization",
           "selectAll": "Select All",
           "selectNone": "Select None"
         },
@@ -300,7 +300,7 @@
         },
         "summary": {
           "title": "Account optimization results:",
-          "account": "Account {code} ({count} entities)",
+          "account": "Account {code} ({count} places)",
           "improvement": "Coefficient of variation (CV) improvement: {percent}%",
           "beforeAfter": "Before: {before} → After: {after}"
         }
@@ -432,12 +432,12 @@
       "source": "Source",
       "loadedAt": "Loaded at",
       "recordCount": "Record count",
-      "entities": "Entities"
+      "entities": "Places"
     },
     "accessibility": {
       "expandNode": "Expand node",
       "collapseNode": "Collapse node",
-      "financialValue": "Financial value for {entity}",
+      "financialValue": "Financial value for {place}",
       "scalingToggle": "Toggle scaling for better comparability",
       "noValue": "No value available"
     },
@@ -446,7 +446,7 @@
       "missingBalanceSheet": "Balance sheet missing",
       "missingIncomeStatement": "Income statement missing",
       "processingError": "Error processing data",
-      "noEntities": "No entities available"
+      "noEntities": "No places available"
     }
   },
   "datasetSelector": {
@@ -585,7 +585,7 @@
       "run": "Recalculate {name}",
       "duplicate": "Duplicate {name}",
       "remove": "Remove {name}",
-      "entities": "{n} entities",
+      "entities": "{n} places",
       "autoFactors": "up to {max} factors (automatic)",
       "nFactors": "{n} factors",
       "status": {
@@ -622,12 +622,12 @@
         "robust": "Like non-negative, but a single outlier (e.g. one big city) hardly distorts the result."
       },
       "autoSelect": "Select factors automatically",
-      "autoSelectHint": "Picks the smallest factor combination with the best cross-validated error. With few entities this protects against overfitting.",
+      "autoSelectHint": "Picks the smallest factor combination with the best cross-validated error. With few places this protects against overfitting.",
       "maxFactors": "Maximum number of factors",
       "count": "{selected} of {total}",
       "more": "More options",
       "intercept": "Constant base term in the formula",
-      "interceptHint": "Off: the formula is proportional to the factors. On: a fixed base the same for every entity (costs one degree of freedom).",
+      "interceptHint": "Off: the formula is proportional to the factors. On: a fixed base the same for every place (costs one degree of freedom).",
       "ridge": "Regularisation",
       "ridgeOptions": {
         "none": "None",
@@ -637,7 +637,7 @@
       "ridgeHint": "Pulls the weights together when factors measure almost the same thing (e.g. inhabitants and establishments).",
       "blockers": {
         "noData": "Load datasets first: the optimisation compares the columns of the table.",
-        "noEntities": "Select at least one entity (at least four for meaningful results).",
+        "noEntities": "Select at least one place (at least four for meaningful results).",
         "noFactors": "Select at least one factor."
       }
     },
@@ -658,12 +658,12 @@
         "medium": "medium",
         "high": "high"
       },
-      "basis": "{entities} entities, {accounts} accounts, {parameters} parameters. Cross-validation: {method}.",
+      "basis": "{places} places, {accounts} accounts, {parameters} parameters. Cross-validation: {method}.",
       "cvMethod": {
-        "loo": "leave one entity out",
+        "loo": "leave one place out",
         "kfold": "{folds} folds"
       },
-      "cvExplain": "Cross-validated means: every entity is scaled with a formula that never saw it. This number is more honest than the fitted one; a large gap between the two shows overfitting. CV = standard deviation / mean of the scaled values (smaller = more comparable).",
+      "cvExplain": "Cross-validated means: every place is scaled with a formula that never saw it. This number is more honest than the fitted one; a large gap between the two shows overfitting. CV = standard deviation / mean of the scaled values (smaller = more comparable).",
       "factorsTitle": "Which factors matter",
       "intercept": "Constant base term",
       "dropEffect": "error without this factor: {percent} higher",
@@ -678,29 +678,29 @@
       "excludedTitle": "Left out ({count})"
     },
     "warn": {
-      "fewEntities": "Only {count} entities: every figure is uncertain. Load more columns before applying the formula.",
-      "overfitRisk": "Overfitting risk: {risk}. The formula may only fit these entities.",
-      "selectionOptimism": "The factors were chosen among {tried} combinations on the same few entities, so the cross-validated error is likely too optimistic.",
+      "fewEntities": "Only {count} places: every figure is uncertain. Load more columns before applying the formula.",
+      "overfitRisk": "Overfitting risk: {risk}. The formula may only fit these places.",
+      "selectionOptimism": "The factors were chosen among {tried} combinations on the same few places, so the cross-validated error is likely too optimistic.",
       "cvWorseThanUnscaled": "Cross-validated, the formula is worse than not scaling at all.",
-      "nonPositiveScale": "For {count} entity(ies) the formula is not positive: they cannot be scaled.",
+      "nonPositiveScale": "For {count} place(ies) the formula is not positive: they cannot be scaled.",
       "negativeCoefficient": "The formula contains negative weights (least-squares method). “Non-negative” is easier to interpret.",
       "collinearFactors": "Skipped because they follow exactly from other factors: {factors}.",
-      "tooManyFactors": "{factors} factors for only {entities} entities: without automatic selection overfitting is certain.",
+      "tooManyFactors": "{factors} factors for only {places} places: without automatic selection overfitting is certain.",
       "notConverged": "The calculation did not fully converge; the result is approximate.",
       "noFactorEffect": "The formula hardly improves comparability."
     },
     "exclusion": {
       "account": {
-        "tooFewEntities": "Account {name}: fewer than two entities with a value.",
+        "tooFewEntities": "Account {name}: fewer than two places with a value.",
         "mixedSign": "Account {name}: mixed positive and negative values, cannot be scaled.",
-        "mostlyZero": "Account {name}: zero for more than half of the entities.",
-        "noVariation": "Account {name}: identical for all entities, nothing to compare.",
+        "mostlyZero": "Account {name}: zero for more than half of the places.",
+        "noVariation": "Account {name}: identical for all places, nothing to compare.",
         "noData": "Account {name}: no data."
       },
       "factor": {
-        "missing": "Factor {name}: missing for {entities}.",
+        "missing": "Factor {name}: missing for {places}.",
         "negative": "Factor {name}: contains negative values.",
-        "noVariation": "Factor {name}: identical for all entities.",
+        "noVariation": "Factor {name}: identical for all places.",
         "zero": "Factor {name}: zero everywhere.",
         "collinear": "Factor {name}: follows exactly from {by}."
       },
@@ -710,28 +710,28 @@
       }
     },
     "failure": {
-      "noEntities": "No entities selected.",
-      "tooFewEntities": "At least two entities with data are needed: a single column has nothing to be compared with.",
+      "noEntities": "No places selected.",
+      "tooFewEntities": "At least two places with data are needed: a single column has nothing to be compared with.",
       "noAccounts": "No account codes given.",
       "noFactors": "No scaling factors available.",
       "noUsableAccounts": "None of the accounts ({codes}) can be scaled: not found, or too little data, mixed signs or constant values.",
-      "noUsableFactors": "No scaling factor has usable data for the selected entities.",
+      "noUsableFactors": "No scaling factor has usable data for the selected places.",
       "singular": "No formula can be determined with the chosen factors.",
       "noEffect": "None of the factors receives a positive weight."
     },
     "compare": {
       "title": "Scenarios compared",
-      "hint": "The smaller the cross-validated CV, the more comparable the entities are after scaling.",
+      "hint": "The smaller the cross-validated CV, the more comparable the places are after scaling.",
       "scenario": "Scenario",
       "formula": "Formula",
       "data": "Data",
-      "dataValue": "{entities} entities, {accounts} accounts",
+      "dataValue": "{places} places, {accounts} accounts",
       "cvBefore": "CV unscaled",
       "cvAfter": "CV with formula",
       "improvement": "Improvement",
       "risk": "Overfitting",
       "best": "Best generalisation",
-      "footnote": "CV with formula: cross-validated (fitted in brackets). Scenarios with different accounts or entities are only partly comparable."
+      "footnote": "CV with formula: cross-validated (fitted in brackets). Scenarios with different accounts or places are only partly comparable."
     },
     "sim": {
       "title": "Simulations",
@@ -746,14 +746,14 @@
       "whatIf": {
         "intro": "Enter factor values of a municipality that does not (yet) exist and see which amounts the formula expects.",
         "startFrom": "Start from (optional)",
-        "noReference": "No reference entity",
+        "noReference": "No reference place",
         "missing": "Please fill in all factors.",
         "notPositive": "For these values the formula is not positive: no prediction possible.",
         "actual": "Actual",
-        "footnote": "Range = expected amount ± typical deviation of an unseen entity (the account’s cross-validated CV). The dot marks the actual amount of the reference entity."
+        "footnote": "Range = expected amount ± typical deviation of an unseen place (the account’s cross-validated CV). The dot marks the actual amount of the reference place."
       },
       "expected": {
-        "intro": "Who spends unusually much or little for their size? The expected amount comes from a formula that did not know the entity.",
+        "intro": "Who spends unusually much or little for their size? The expected amount comes from a formula that did not know the place.",
         "actual": "Actual",
         "expected": "expected",
         "showAll": "Show all {count}",
@@ -761,8 +761,8 @@
         "footnote": "Deviation = actual / expected − 1. Rank 1 = furthest above expectation. A deviation is not a verdict: it may also reflect missing factors or different tasks."
       },
       "sensitivity": {
-        "intro": "What happens to the expectation and to an entity’s rank if a factor were 10 % or 25 % smaller or larger?",
-        "entity": "Entity",
+        "intro": "What happens to the expectation and to a place’s rank if a factor were 10 % or 25 % smaller or larger?",
+        "entity": "Place",
         "baseline": "Starting point: deviation {deviation}, rank {rank} of {total}",
         "allFactors": "All factors together",
         "legend": "Per cell: change of the factor, change of the expected amount, rank before → after.",
