@@ -6,7 +6,7 @@ import BarChart from '../BarChart.vue'
 import ShareBarChart from '../ShareBarChart.vue'
 import LineChart from '../LineChart.vue'
 import ChartCard from '../ChartCard.vue'
-import { seriesColor } from '../chartTypes'
+import { seriesColor, tooltipStyle } from '../chartTypes'
 
 const i18n = createI18n({ legacy: false, locale: 'en', messages: { en } })
 const global = { plugins: [i18n] }
@@ -194,5 +194,34 @@ describe('ChartCard', () => {
       global,
     })
     expect(wrapper.find('.chart-legend').exists()).toBe(false)
+  })
+})
+
+describe('tooltipStyle', () => {
+  const base = { y: 40, width: 400, title: '2024', rows: [] }
+
+  it('anchors a tooltip near the right edge to that edge, so it is never squeezed', () => {
+    const style = tooltipStyle({ ...base, x: 395, side: 'end' })
+    expect(style.right).toBe('0px')
+    expect(style.left).toBeUndefined()
+    expect(style.maxWidth).toBe('min(18rem, 400px)')
+  })
+
+  it('anchors a tooltip near the left edge to the left', () => {
+    const style = tooltipStyle({ ...base, x: 5, side: 'start' })
+    expect(style.left).toBe('0px')
+    expect(style.right).toBeUndefined()
+  })
+
+  it('puts a line chart tooltip beside the crosshair, on the side with more room', () => {
+    const right = tooltipStyle({ ...base, x: 380, side: 'end', beside: true })
+    expect(right.right).toBe('32px')
+    expect(right.maxWidth).toBe('min(18rem, 368px)')
+    expect(right.transform).toBeUndefined()
+
+    const left = tooltipStyle({ ...base, x: 20, side: 'start', beside: true, valign: 'bottom' })
+    expect(left.left).toBe('32px')
+    // grows upwards from the bottom of the plot
+    expect(left.transform).toBe('translateY(-100%)')
   })
 })

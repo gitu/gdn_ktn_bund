@@ -131,6 +131,30 @@ test.describe('comparison wizard', () => {
     await expect(trend.getByTestId('chart-tooltip')).toContainText('2024')
   })
 
+  test('the trend tooltip of the last year is complete and inside the chart', async ({ page }) => {
+    const D = ['gdn/fs/010261', 'gdn/fs/010230', 'std/fs/gdn_zh']
+      .flatMap((place) => ['2022', '2023', '2024'].map((year) => `${place}:${year}`))
+      .join(',')
+    await page.goto(`/financial-comparison?datasets=${D}&scaling=pop`)
+    const chart = page.getByTestId('chart-trend').getByTestId('line-chart')
+    await expect(chart).toBeVisible({ timeout: 60000 })
+    await chart.scrollIntoViewIfNeeded()
+    const box = (await chart.boundingBox())!
+    await page.mouse.move(box.x + box.width - 4, box.y + box.height / 2)
+
+    const tooltip = chart.getByTestId('chart-tooltip')
+    await expect(tooltip.locator('.tooltip-title')).toHaveText('2024')
+    await expect(tooltip.locator('li')).toHaveCount(3)
+    await expect(tooltip).toContainText('Alle Gemeinden des Kantons Zürich')
+    const tip = (await tooltip.boundingBox())!
+    expect(tip.x).toBeGreaterThanOrEqual(box.x)
+    expect(tip.x + tip.width).toBeLessThanOrEqual(box.x + box.width + 1)
+    // nothing inside is cut off
+    expect(
+      await tooltip.evaluate((element) => element.scrollWidth <= element.clientWidth + 1),
+    ).toBe(true)
+  })
+
   test('the browser back button returns to the previous step', async ({ page }) => {
     await page.goto(`/financial-comparison?datasets=${ZURICH_2024}&step=years`)
     await page.getByTestId('step-next').click()

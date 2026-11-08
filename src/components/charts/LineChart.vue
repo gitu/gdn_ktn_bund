@@ -217,10 +217,20 @@ const tooltip = computed<TooltipState | null>(() => {
       shape: 'line' as const,
     }))
   const x = xOf(index)
+  // Beside the crosshair, inside the plot, in the half away from the points being read
+  const ys = props.series
+    .map((item) => item.values[index])
+    .filter((v): v is number => v !== undefined)
+    .map(yOf)
+  const pointsHigh =
+    ys.length > 0 && ys.reduce((a, b) => a + b, 0) / ys.length < PAD.top + plotHeight / 2
   return {
     x,
-    y: PAD.top + 8,
+    y: pointsHigh ? HEIGHT - PAD.bottom : PAD.top,
+    valign: pointsHigh ? ('bottom' as const) : ('top' as const),
+    width: width.value,
     side: tooltipSide(x, width.value),
+    beside: true,
     title: props.x[index],
     rows: rows.length > 0 ? rows : [{ label: '', value: t('charts.noValue') }],
   }

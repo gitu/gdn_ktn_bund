@@ -2,8 +2,7 @@
   <div
     v-if="tooltip"
     class="chart-tooltip"
-    :class="`side-${tooltip.side}`"
-    :style="{ left: `${tooltip.x}px`, top: `${tooltip.y}px` }"
+    :style="tooltipStyle(tooltip)"
     role="status"
     aria-live="polite"
     data-testid="chart-tooltip"
@@ -27,16 +26,18 @@
 </template>
 
 <script setup lang="ts">
-import type { TooltipState } from './chartTypes'
+import { tooltipStyle, type TooltipState } from './chartTypes'
 
 defineProps<{ tooltip: TooltipState | null }>()
 </script>
 
 <style scoped>
+/* Position and maximum width come from tooltipStyle(); the width follows the content */
 .chart-tooltip {
   position: absolute;
   z-index: 3;
-  max-width: min(18rem, calc(100% - 1rem));
+  box-sizing: border-box;
+  width: max-content;
   padding: 0.5rem 0.65rem;
   border: 1px solid var(--gk-border-strong);
   border-radius: var(--radius-md);
@@ -46,15 +47,6 @@ defineProps<{ tooltip: TooltipState | null }>()
   font-size: 0.8125rem;
   line-height: 1.35;
   pointer-events: none;
-  transform: translate(-50%, calc(-100% - 0.5rem));
-}
-
-.chart-tooltip.side-start {
-  transform: translate(-0.75rem, calc(-100% - 0.5rem));
-}
-
-.chart-tooltip.side-end {
-  transform: translate(calc(-100% + 0.75rem), calc(-100% - 0.5rem));
 }
 
 .tooltip-title {
@@ -73,14 +65,15 @@ defineProps<{ tooltip: TooltipState | null }>()
 }
 
 .tooltip-rows li {
-  display: flex;
-  align-items: center;
-  gap: 0.4rem;
+  display: grid;
+  grid-template-columns: auto auto minmax(0, 1fr);
+  align-items: baseline;
+  column-gap: 0.4rem;
   min-width: 0;
 }
 
 .tooltip-key {
-  flex: none;
+  align-self: center;
 }
 
 .key-rect {
@@ -101,11 +94,10 @@ defineProps<{ tooltip: TooltipState | null }>()
   white-space: nowrap;
 }
 
+/* Long place names wrap instead of being cut off */
 .tooltip-label {
   min-width: 0;
-  overflow: hidden;
   color: var(--gk-muted);
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  overflow-wrap: anywhere;
 }
 </style>

@@ -92,6 +92,7 @@ const showTooltip = (event: Event, category: ChartCategory, part: GroupShare) =>
   tooltip.value = {
     x,
     y: rect.top - box.top,
+    width: box.width,
     side: tooltipSide(x, box.width),
     title: [category.label, category.sublabel].filter(Boolean).join(' · '),
     rows: [
