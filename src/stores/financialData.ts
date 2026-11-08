@@ -2,18 +2,11 @@ import { ref, computed } from 'vue'
 import { defineStore } from 'pinia'
 import { DataLoader } from '@/utils/DataLoader'
 import { StatsDataLoader } from '@/utils/StatsDataLoader'
-import {
-  CustomScalingFormula,
-  CUSTOM_SCALING_PREFIX,
-  type ScalingVariable,
-} from '@/utils/CustomScalingFormula'
+import { ScalingCalculator } from '@/utils/ScalingCalculator'
 import { createEmptyFinancialDataStructure } from '@/data/emptyFinancialDataStructure'
-import { EntitySemanticMapper } from '@/utils/EntitySemanticMapper'
-import { getCantonByAbbreviation, getMunicipalityByGdnId } from '@/utils/GeographicalDataLoader'
 import { Logger } from '@/utils/Logger'
 import type { FinancialData, FinancialDataEntity } from '@/types/FinancialDataStructure'
 import type { MultiLanguageLabels } from '@/types/DataStructures.ts'
-import { i18n } from '@/i18n'
 
 interface ScalingInfo {
   id: string
@@ -35,8 +28,8 @@ export const useFinancialDataStore = defineStore('financialData', () => {
   // Dependencies
   const statsDataLoader = StatsDataLoader.getInstance()
 
-  // Cache for scaling factors to avoid redundant API calls
-  const scalingFactorCache = new Map<string, number | null>()
+  // Divisors per column (statistics or a custom formula); caches the statistics it loads
+  const scalingCalculator = new ScalingCalculator()
 
   // Computed
   const hasValidData = computed(() => {
@@ -54,7 +47,7 @@ export const useFinancialDataStore = defineStore('financialData', () => {
     error.value = null
     currentScalingId.value = null
     isApplyingScaling.value = false
-    scalingFactorCache.clear()
+    scalingCalculator.clear()
   }
 
   /**
@@ -170,34 +163,6 @@ export const useFinancialDataStore = defineStore('financialData', () => {
     }
   }
 
-  /**
-   * Which statistics record scales an entity: a municipality (BFS number), a canton (id 1-26), the
-   * country ("bund"), or the calculated rest of a canton, which is stored with the municipalities
-   * under `rest_<cantonId>`.
-   */
-  const resolveScalingTarget = async (
-    source: 'gdn' | 'std',
-    entityId: string,
-  ): Promise<{ geoId: string; source: 'gdn' | 'std' }> => {
-    if (source === 'gdn') {
-      const municipality = await getMunicipalityByGdnId(entityId)
-      return { geoId: municipality?.municipalityId || entityId, source }
-    }
-
-    if (EntitySemanticMapper.isCantonSpecific(entityId)) {
-      const cantonCode = EntitySemanticMapper.getCantonCodeFromEntity(entityId)
-      const canton = cantonCode
-        ? await getCantonByAbbreviation(cantonCode.toUpperCase())
-        : undefined
-      if (EntitySemanticMapper.isRestOfCanton(entityId)) {
-        return { geoId: canton ? `rest_${canton.cantonId}` : 'XYX', source: 'gdn' }
-      }
-      return { geoId: canton?.cantonId || 'XYX', source }
-    }
-
-    return { geoId: 'bund', source }
-  }
-
   const getScalingInfo = async (scalingId: string): Promise<ScalingInfo | null> => {
     try {
       const statsEntry = await statsDataLoader.getStatsEntry(scalingId)
@@ -218,22 +183,43 @@ export const useFinancialDataStore = defineStore('financialData', () => {
   }
 
   /**
-   * Apply a scaling id to the currently loaded entities. Returns false when the id is unknown.
-   * Does not touch `currentScalingId`; callers own that state.
+   * Apply a scaling id (a statistic or `custom:<formula>`) to the loaded entities. Returns false when
+   * the id is unknown. Does not touch `currentScalingId`; callers own that state.
    */
   const applyScalingById = async (scalingId: string): Promise<boolean> => {
-    if (scalingId.startsWith(CUSTOM_SCALING_PREFIX)) {
-      await applyCustomScalingFormula(scalingId.substring(CUSTOM_SCALING_PREFIX.length))
+    const data = combinedFinancialData.value
+    if (!data) return true
+
+    const calculation = await scalingCalculator.calculate(scalingId, [...data.entities.keys()])
+    if (!calculation.ok) {
+      if (calculation.unknown) {
+        Logger.warn('Statistics entry not found for scaling ID', { scalingId })
+        return false
+      }
+      error.value = `Invalid custom formula: ${calculation.error}`
       return true
     }
 
-    const scalingInfo = await getScalingInfo(scalingId)
-    if (!scalingInfo) {
-      return false
+    for (const [entityCode, entity] of data.entities) {
+      const outcome = calculation.outcomes.get(entityCode)
+      if (outcome?.factor) {
+        entity.scalingFactor = outcome.factor
+        entity.scalingInfo = calculation.label
+        entity.scalingMode = 'divide' // per-capita / per-unit values
+        entity.scalingInputs = outcome.inputs
+      } else {
+        // No statistic for this column (or a formula result that is not positive): show francs
+        removeScaling(entity)
+      }
     }
-
-    await applyScalingToEntities(scalingId, scalingInfo)
     return true
+  }
+
+  const removeScaling = (entity: FinancialDataEntity) => {
+    entity.scalingFactor = undefined
+    entity.scalingInfo = undefined
+    entity.scalingMode = undefined
+    entity.scalingInputs = undefined
   }
 
   const setScaling = async (scalingId: string | null) => {
@@ -254,295 +240,19 @@ export const useFinancialDataStore = defineStore('financialData', () => {
       if (!combinedFinancialData.value) return
 
       if (!scalingId) {
-        // Remove scaling from all entities
-        for (const [, entity] of combinedFinancialData.value.entities) {
-          entity.scalingFactor = undefined
-          entity.scalingInfo = undefined
-          entity.scalingMode = undefined
-        }
+        for (const [, entity] of combinedFinancialData.value.entities) removeScaling(entity)
         return
       }
 
-      // Check if this is a custom formula (starts with the custom prefix)
-      if (scalingId.startsWith(CUSTOM_SCALING_PREFIX)) {
-        const formula = scalingId.substring(CUSTOM_SCALING_PREFIX.length) // Remove custom prefix
-        await applyCustomScalingFormula(formula)
-        return
-      }
-
-      // Get scaling information from the scaling ID (traditional scaling)
-      const scalingInfo = await getScalingInfo(scalingId)
-      if (!scalingInfo) {
+      if (!(await applyScalingById(scalingId))) {
         Logger.error('Failed to get scaling info', undefined, { scalingId })
         error.value = 'Invalid scaling selection'
-        return
       }
-
-      // Apply scaling to all entities
-      await applyScalingToEntities(scalingId, scalingInfo)
     } catch (scalingError) {
       Logger.error('Failed to set scaling', scalingError)
       error.value = 'Error applying scaling to datasets'
     } finally {
       isApplyingScaling.value = false
-    }
-  }
-
-  const applyCustomScalingFormula = async (formula: string) => {
-    if (!combinedFinancialData.value) return
-
-    try {
-      // Get available stats for validation
-      const availableStats = await statsDataLoader.getAvailableStats()
-
-      // Validate the formula
-      const validation = CustomScalingFormula.validateFormula(formula, availableStats)
-      if (!validation.isValid) {
-        error.value = `Invalid custom formula: ${validation.error}`
-        return
-      }
-
-      // Prepare scaling requests for all entities
-      const entityScalingPromises: Array<{
-        entityCode: string
-        entity: FinancialDataEntity
-        promise: Promise<number | null>
-      }> = []
-
-      for (const [entityCode, entity] of combinedFinancialData.value.entities) {
-        try {
-          // Extract entity information from the entity code
-          const parts = entityCode.split('/')
-          if (parts.length !== 3) continue
-
-          const source = parts[0] as 'gdn' | 'std'
-          const entityAndYear = parts[2]
-          const [entityId, year] = entityAndYear.split(':')
-
-          if (!entityId || !year) continue
-
-          // Create promise for calculating custom scaling
-          const customScalingPromise = (async () => {
-            // Load all required scaling factors for this entity
-            const scalingVariables = new Map<string, ScalingVariable>()
-
-            const target = await resolveScalingTarget(source, entityId)
-            const geoId = target.geoId
-
-            // Load all scaling factors needed by the formula
-            for (const factorId of validation.usedFactors || []) {
-              const stat = availableStats.find((s) => s.id === factorId)
-              if (stat) {
-                const factorValue = await loadScalingFactorForEntity(
-                  factorId,
-                  geoId,
-                  parseInt(year),
-                  target.source,
-                )
-                if (factorValue !== null) {
-                  scalingVariables.set(factorId, {
-                    id: factorId,
-                    name: stat.name,
-                    value: factorValue,
-                    unit: stat.unit,
-                  })
-                }
-              }
-            }
-
-            // Evaluate the formula with the loaded variables
-            const result = CustomScalingFormula.evaluateFormula(formula, scalingVariables)
-            if (result.isValid && result.result !== undefined) {
-              return result.result
-            }
-
-            return null
-          })()
-
-          entityScalingPromises.push({
-            entityCode,
-            entity,
-            promise: customScalingPromise,
-          })
-        } catch (error) {
-          Logger.error('Failed to prepare custom scaling for entity', error, { entityCode })
-        }
-      }
-
-      // Execute all scaling calculations in parallel
-      const results = await Promise.allSettled(entityScalingPromises.map((req) => req.promise))
-
-      // Apply results to entities
-      for (let i = 0; i < entityScalingPromises.length; i++) {
-        const { entity } = entityScalingPromises[i]
-        const result = results[i]
-
-        if (result.status === 'fulfilled' && result.value !== null && result.value > 0) {
-          entity.scalingFactor = result.value
-          entity.scalingInfo = {
-            de: `Benutzerdefinierte Formel: ${CustomScalingFormula.getFormulaDisplayName(formula, availableStats, 'de')}`,
-            fr: `Formule personnalisée: ${CustomScalingFormula.getFormulaDisplayName(formula, availableStats, 'fr')}`,
-            it: `Formula personalizzata: ${CustomScalingFormula.getFormulaDisplayName(formula, availableStats, 'it')}`,
-            en: `Custom formula: ${CustomScalingFormula.getFormulaDisplayName(formula, availableStats, 'en')}`,
-          }
-          entity.scalingMode = 'divide'
-        } else {
-          // Clear scaling if calculation failed
-          entity.scalingFactor = undefined
-          entity.scalingInfo = undefined
-          entity.scalingMode = undefined
-        }
-      }
-    } catch (scalingError) {
-      Logger.error('Failed to apply custom scaling formula', scalingError)
-      error.value = 'Error applying custom scaling formula'
-    }
-  }
-
-  const applyScalingToEntities = async (scalingId: string, scalingInfo: ScalingInfo) => {
-    if (!combinedFinancialData.value) return
-
-    // Prepare all scaling requests first
-    const scalingRequests: Array<{
-      entityCode: string
-      entity: FinancialDataEntity
-      promise: Promise<number | null>
-    }> = []
-
-    for (const [entityCode, entity] of combinedFinancialData.value.entities) {
-      try {
-        // Extract entity information from the entity code
-        const parts = entityCode.split('/')
-        if (parts.length !== 3) continue
-
-        const source = parts[0] as 'gdn' | 'std'
-        const entityAndYear = parts[2]
-        const [entityId, year] = entityAndYear.split(':')
-
-        if (!entityId || !year) continue
-
-        // Create promise for loading scaling factor
-        const scalingPromise = (async () => {
-          const target = await resolveScalingTarget(source, entityId)
-
-          // Load scaling data for this entity
-          return await loadScalingFactorForEntity(
-            scalingId,
-            target.geoId,
-            parseInt(year),
-            target.source,
-          )
-        })()
-
-        scalingRequests.push({
-          entityCode,
-          entity,
-          promise: scalingPromise,
-        })
-      } catch (error) {
-        Logger.error('Failed to prepare scaling request for entity', error, { entityCode })
-      }
-    }
-
-    // Execute all scaling requests in parallel
-    const results = await Promise.allSettled(scalingRequests.map((req) => req.promise))
-
-    // Apply results to entities
-    for (let i = 0; i < scalingRequests.length; i++) {
-      const { entity } = scalingRequests[i]
-      const result = results[i]
-
-      if (result.status === 'fulfilled' && result.value !== null && result.value > 0) {
-        const scalingFactor = result.value
-        entity.scalingFactor = scalingFactor
-        entity.scalingInfo = {
-          de: (i18n.global as { t: (key: string, params?: Record<string, unknown>) => string }).t(
-            'financialDataScalingSelector.scalingInfo.format',
-            {
-              name: scalingInfo.name.de,
-              unit: scalingInfo.unit.de,
-            },
-          ),
-          fr: (i18n.global as { t: (key: string, params?: Record<string, unknown>) => string }).t(
-            'financialDataScalingSelector.scalingInfo.format',
-            {
-              name: scalingInfo.name.fr,
-              unit: scalingInfo.unit.fr,
-            },
-          ),
-          it: (i18n.global as { t: (key: string, params?: Record<string, unknown>) => string }).t(
-            'financialDataScalingSelector.scalingInfo.format',
-            {
-              name: scalingInfo.name.it,
-              unit: scalingInfo.unit.it,
-            },
-          ),
-          en: (i18n.global as { t: (key: string, params?: Record<string, unknown>) => string }).t(
-            'financialDataScalingSelector.scalingInfo.format',
-            {
-              name: scalingInfo.name.en,
-              unit: scalingInfo.unit.en,
-            },
-          ),
-        }
-        entity.scalingMode = 'divide' // Divide financial values by scaling factor for per-capita/per-unit values
-      } else if (result.status === 'rejected') {
-        Logger.error('Failed to load scaling factor for entity', result.reason, {
-          entityCode: scalingRequests[i].entityCode,
-        })
-        // Continue with other entities even if one fails
-      }
-    }
-  }
-
-  const loadScalingFactorForEntity = async (
-    scalingId: string,
-    entityId: string,
-    year: number,
-    source: 'gdn' | 'std',
-  ): Promise<number | null> => {
-    // Create cache key
-    const cacheKey = `${scalingId}:${entityId}:${year}:${source}`
-
-    // Check cache first
-    if (scalingFactorCache.has(cacheKey)) {
-      return scalingFactorCache.get(cacheKey)!
-    }
-
-    try {
-      let value: number | null = null
-
-      if (source === 'gdn') {
-        // For municipalities, load GDN data
-        const result = await statsDataLoader.loadGdnData(scalingId, year, {
-          geoIds: [entityId],
-        })
-
-        const record = result.data.find((r: { key: string; value: number }) => r.key === entityId)
-        value = record ? record.value : null
-      } else {
-        if (entityId === 'bund') {
-          const bundResult = await statsDataLoader.getBundData(scalingId, year)
-          value = bundResult.totalValue
-        } else {
-          // For standard entities, load KTN data if applicable
-          const result = await statsDataLoader.loadKtnData(scalingId, year, {
-            geoIds: [entityId],
-          })
-
-          const record = result.data.find((r: { key: string; value: number }) => r.key === entityId)
-          value = record ? record.value : null
-        }
-      }
-
-      // Cache the result
-      scalingFactorCache.set(cacheKey, value)
-      return value
-    } catch (loadError) {
-      Logger.error('Failed to load scaling factor for entity', loadError, { entityId })
-      // Cache null result to avoid repeated failed requests
-      scalingFactorCache.set(cacheKey, null)
-      return null
     }
   }
 

@@ -27,6 +27,13 @@ export const SAMPLE_COMPARISONS = {
     ],
     scaling: 'pop',
   },
+  // Several years: the development of Zürich and Winterthur, per inhabitant of each year
+  zurichWinterthurTrend: {
+    datasets: ['gdn/fs/010261', 'gdn/fs/010230'].flatMap((place) =>
+      ['2018', '2019', '2020', '2021', '2022', '2023', '2024'].map((year) => `${place}:${year}`),
+    ),
+    scaling: 'pop',
+  },
 } as const satisfies Record<string, SampleComparison>
 
 export type SampleComparisonKey = keyof typeof SAMPLE_COMPARISONS

@@ -4,7 +4,12 @@
          layout does not jump once the data is there -->
     <div v-if="showLoading" class="w-full flex flex-col gap-y-3">
       <FinancialDataDisplay :financial-data="null" :loading="true" :error="null" />
-      <Skeleton class="comparison-skeleton-card" height="7.5rem" aria-hidden="true" />
+      <Skeleton
+        v-if="showScaling"
+        class="comparison-skeleton-card"
+        height="7.5rem"
+        aria-hidden="true"
+      />
     </div>
 
     <!-- Error state -->
@@ -33,8 +38,8 @@
           @comparison-changed="handleComparisonChanged"
         />
       </div>
-      <!-- Scaling selector -->
-      <div class="mb-6">
+      <!-- Scaling selector (the comparison wizard has its own step for it) -->
+      <div v-if="showScaling" class="mb-6">
         <FinancialDataScalingSelector
           :financial-data="combinedFinancialData"
           :selected-scaling="props.selectedScaling"
@@ -45,7 +50,7 @@
     </div>
   </div>
   <!-- list of entities in combined data - only show on localhost-->
-  <div class="w-full flex flex-col gap-y-2 dev-entity-list" v-if="isDev">
+  <div class="w-full flex flex-col gap-y-2 dev-entity-list" v-if="isDev && showDevInfo">
     <div v-if="combinedFinancialData?.entities" class="w-full flex flex-col gap-y-2">
       <div
         v-for="[entityCode, entity] in combinedFinancialData.entities"
@@ -76,10 +81,18 @@ interface Props {
   datasets: string[]
   selectedScaling?: string | null
   comparisonPairs?: Record<string, string[]>
+  /** Show the scaling selector under the table */
+  showScaling?: boolean
+  /** Show the list of loaded entities in development (off where the table is not the main view) */
+  showDevInfo?: boolean
 }
 
 const isDev = import.meta.env.MODE === 'development'
-const props = defineProps<Props>()
+const props = withDefaults(defineProps<Props>(), {
+  comparisonPairs: () => ({}),
+  showScaling: true,
+  showDevInfo: true,
+})
 
 // Emits
 interface Emits {

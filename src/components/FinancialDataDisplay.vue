@@ -172,7 +172,14 @@
             :frozen="freezeFirstColumn"
           >
             <template #body="{ node }">
-              <div class="account-cell">
+              <!-- The whole name expands and collapses, not only the small caret before it. The caret
+                   stays the keyboard control, so this is a pointer shortcut only. -->
+              <div
+                class="account-cell"
+                :class="{ 'is-expandable': node.children?.length > 0 }"
+                data-testid="account-cell"
+                @click="toggleNode(node)"
+              >
                 <span class="account-label">{{ getNodeLabel(node.data || node) }}</span>
                 <span v-if="showCodes && (node.data?.code || node.code)" class="account-code"
                   >({{ node.data?.code || node.code }})</span
@@ -1001,6 +1008,15 @@ const onNodeCollapse = (node: TreeTableNode | { key: string }) => {
   delete expandedKeys.value[node.key]
 }
 
+const toggleNode = (node: TreeTableNode) => {
+  if (!node.children?.length) return
+  if (expandedKeys.value[node.key]) {
+    onNodeCollapse(node)
+  } else {
+    onNodeExpand(node)
+  }
+}
+
 const expandAll = () => {
   expandedAll.value = !expandedAll.value
 
@@ -1507,6 +1523,15 @@ onBeforeUnmount(() => {
   align-items: baseline;
   column-gap: 0.375rem;
   min-width: 0;
+}
+
+.account-cell.is-expandable {
+  cursor: pointer;
+  user-select: none;
+}
+
+.account-cell.is-expandable:hover .account-label {
+  color: var(--gk-accent-strong);
 }
 
 .account-label {

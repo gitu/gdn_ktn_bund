@@ -41,6 +41,33 @@
   --gk-positive: #047857;
   --gk-negative: #b91c1c;
 
+  // Charts. Categorical slots are used in this fixed order and follow the place or account group,
+  // never its rank. Checked for colour-vision deficiency (adjacent pairs) and contrast against the
+  // surfaces with the dataviz palette validator; slots 3-5 are below 3:1 on white, so every chart
+  // also has a table view. `-ink` is the text colour on top of the fill.
+  --gk-series-1: #2a78d6;
+  --gk-series-2: #eb6834;
+  --gk-series-3: #1baf7a;
+  --gk-series-4: #eda100;
+  --gk-series-5: #e87ba4;
+  --gk-series-6: #008300;
+  --gk-series-7: #6250d6;
+  --gk-series-8: #e34948;
+  --gk-series-1-ink: #ffffff;
+  --gk-series-2-ink: #0b1220;
+  --gk-series-3-ink: #0b1220;
+  --gk-series-4-ink: #0b1220;
+  --gk-series-5-ink: #0b1220;
+  --gk-series-6-ink: #ffffff;
+  --gk-series-7-ink: #ffffff;
+  --gk-series-8-ink: #0b1220;
+  // Diverging pair (surplus / deficit, net assets / net debt) and chart chrome
+  --gk-chart-pos: #2a78d6;
+  --gk-chart-neg: #e34948;
+  --gk-chart-grid: #e5e8ee;
+  --gk-chart-axis: #b8c0cc;
+  --gk-chart-track: #eef1f5;
+
   --surface-ground: var(--gk-bg);
 }
 
@@ -60,6 +87,22 @@
   --gk-hero-glow-2: rgb(8 145 178 / 0.2);
   --gk-positive: #34d399;
   --gk-negative: #f87171;
+
+  --gk-series-1: #3987e5;
+  --gk-series-2: #d95926;
+  --gk-series-3: #199e70;
+  --gk-series-4: #c98500;
+  --gk-series-5: #d55181;
+  --gk-series-6: #008300;
+  --gk-series-7: #9085e9;
+  --gk-series-8: #e66767;
+  --gk-series-1-ink: #0b1220;
+  --gk-series-7-ink: #0b1220;
+  --gk-chart-pos: #3987e5;
+  --gk-chart-neg: #e66767;
+  --gk-chart-grid: #243044;
+  --gk-chart-axis: #3b4a61;
+  --gk-chart-track: #1a2333;
 
   --surface-ground: var(--gk-bg);
   color-scheme: dark;

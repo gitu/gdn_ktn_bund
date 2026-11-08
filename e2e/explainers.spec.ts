@@ -48,7 +48,7 @@ test.describe('plain-language explainers', () => {
     page,
   }) => {
     await page.goto(
-      '/financial-comparison?datasets=std/fs/gdn_zh_rest:2024,gdn/fs/010261:2024&scaling=pop',
+      '/financial-comparison?datasets=std/fs/gdn_zh_rest:2024,gdn/fs/010261:2024&scaling=pop&view=table',
     )
 
     const notice = page.getByTestId('rest-notice')

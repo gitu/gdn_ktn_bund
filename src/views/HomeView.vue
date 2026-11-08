@@ -7,15 +7,25 @@ import {
   type CatalogGroupSummary,
 } from '@/utils/AvailableDataLoader'
 import { SAMPLE_COMPARISONS, sampleComparisonQuery } from '@/data/sampleComparisons'
+import { selectionFromDatasets } from '@/utils/ComparisonSelection'
 
 const summary = ref<{ gdn: CatalogGroupSummary; std: CatalogGroupSummary } | null>(null)
 
 const yearRange = (group: CatalogGroupSummary) => `${group.firstYear}–${group.lastYear}`
 
+/** "4 places, 2024" or "2 places, 2018–2024" for a sample card */
+const placesAndYears = (datasets: readonly string[]) => {
+  const { places, years } = selectionFromDatasets(datasets)
+  return {
+    placeCount: places.length,
+    years: years.length > 1 ? `${years[0]}–${years[years.length - 1]}` : (years[0] ?? ''),
+  }
+}
+
 const sampleCards = computed(() =>
   Object.entries(SAMPLE_COMPARISONS).map(([key, sample]) => ({
     key,
-    count: sample.datasets.length,
+    ...placesAndYears(sample.datasets),
     scaling: 'scaling' in sample ? sample.scaling : undefined,
     to: { name: 'financial-comparison', query: sampleComparisonQuery(sample) },
   })),
@@ -96,7 +106,12 @@ onMounted(async () => {
             $t(`financialDataComparison.sampleDatasets.${card.key}.description`)
           }}</span>
           <span class="quick-meta">
-            <span>{{ $t('homeView.quickStart.datasets', { count: card.count }) }}</span>
+            <span>{{
+              $t('homeView.quickStart.meta', {
+                places: $t('wizard.summary.places', card.placeCount),
+                years: card.years,
+              })
+            }}</span>
             <span v-if="card.scaling">
               · {{ $t(`financialDataScalingSelector.options.${card.scaling}`) }}
             </span>

@@ -1,22 +1,35 @@
 import {test, expect} from '@playwright/test';
 
-test.describe('Select Element from Dataset Selector', () => {
-  test('select element from dataset selector and open full view', async ({page}) => {
+test.describe('Comparison wizard', () => {
+  test('choose places, keep the newest year, no conversion, and read the table', async ({page}) => {
     await page.goto('/financial-comparison');
-    await expect(page.locator('h1')).toContainText('Finanzdaten zum Vergleich auswählen');
-    await page.getByRole('textbox', {name: 'Gemeinde oder Kanton suchen'}).click();
-    await page.getByRole('textbox', {name: 'Gemeinde oder Kanton suchen'}).fill('aargau');
-    await expect(page.locator('tbody')).toContainText('Alle Gemeinden des Kantons Aargau');
-    await expect(page.getByRole('cell', {name: 'Kanton Aargau', exact: true})).toBeVisible();
-    await page.getByRole('row', {name: /^Alle Gemeinden des Kantons Aargau/}).getByLabel(/Hinzufügen \(\d{4}\)/).click();
-    await expect(page.locator('#app')).toContainText('Alle Gemeinden des Kantons Aargau');
-    await page.getByRole('row', {name: 'Kanton Aargau inklusive allen'}).getByLabel(/Hinzufügen \(\d{4}\)/).click();
-    await expect(page.locator('#app')).toContainText('Kanton Aargau inklusive allen Gemeinden');
-    await expect(page.locator('#app')).toContainText(/Alle Gemeinden des Kantons Aargau\s*\d{4}/);
-    await expect(page.locator('#app')).toContainText(/Kanton Aargau inklusive allen Gemeinden\s*\d{4}/);
+    await expect(page.locator('h1')).toContainText('Finanzen vergleichen');
+
+    // Step 1: places
+    await page.getByTestId('place-search').fill('aargau');
+    await expect(page.getByTestId('place-picker')).toContainText('Alle Gemeinden des Kantons Aargau');
+    await page.getByRole('button', {name: 'Alle Gemeinden des Kantons Aargau hinzufügen'}).click();
+    await page.getByRole('button', {name: 'Kanton Aargau inklusive allen Gemeinden hinzufügen'}).click();
+    await expect(page.getByTestId('selected-places').locator('li')).toHaveCount(2);
+
+    // Step 2: years (the newest year both have is preselected)
+    await page.getByTestId('step-next').click();
+    await expect(page.getByTestId('year-2024')).toHaveAttribute('aria-pressed', 'true');
+
+    // Step 3: no conversion
+    await page.getByTestId('step-next').click();
+    await expect(page.getByTestId('scaling-choice-none')).toHaveClass(/is-active/);
+
+    // Step 4: the result, charts first, then the table
+    await page.getByTestId('step-next').click();
+    await expect(page.getByTestId('financial-charts')).toBeVisible({timeout: 60000});
+    await page.getByTestId('view-table').click();
+    await expect(page.locator('[data-testid="tree-table"] thead')).toContainText('Alle Gemeinden des Kantons Aargau');
+    await expect(page.locator('[data-testid="tree-table"] thead')).toContainText('Kanton Aargau inklusive allen Gemeinden');
 
     // Total assets of all Aargau municipalities in the newest year (gdn_ag 2024, EFV release of 2026)
     await expect(page.locator('#app')).toContainText('14.886.062.686 CHF');
+    expect(new URL(page.url()).searchParams.get('datasets')).toBe('std/fs/gdn_ag:2024,std/fs/ktn_gdn_ag:2024');
   });
 
 

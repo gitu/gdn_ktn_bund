@@ -13,6 +13,7 @@ const horizontalOverflow = (page: Page) =>
 const PHONE_WIDTHS = [320, 360, 390, 430]
 const STATIC_ROUTES = ['/', '/about', '/financial-comparison']
 const WITH_DATA = '/financial-comparison?datasets=gdn/fs/010261:2022'
+const ZURICH = 'gdn/fs/010261:2023,gdn/fs/010261:2024,gdn/fs/010230:2023,gdn/fs/010230:2024'
 
 for (const width of PHONE_WIDTHS) {
   test.describe(`phone ${width}px`, () => {
@@ -26,11 +27,26 @@ for (const width of PHONE_WIDTHS) {
       })
     }
 
-    test('a loaded comparison does not scroll sideways', async ({ page }) => {
-      await page.goto(WITH_DATA)
+    test('a loaded comparison does not scroll sideways, as table or as charts', async ({
+      page,
+    }) => {
+      await page.goto(`${WITH_DATA}&view=table`)
       await expect(page.locator('[data-testid="tree-table"]')).toBeVisible({ timeout: 60000 })
       expect(await horizontalOverflow(page)).toBe(0)
+
+      await page.goto(`/financial-comparison?datasets=${ZURICH}&scaling=pop`)
+      await expect(page.getByTestId('chart-trend')).toBeVisible({ timeout: 60000 })
+      expect(await horizontalOverflow(page)).toBe(0)
     })
+
+    for (const step of ['years', 'scaling']) {
+      test(`the ${step} step does not scroll sideways`, async ({ page }) => {
+        await page.goto(`/financial-comparison?datasets=${ZURICH}&step=${step}`)
+        await expect(page.getByTestId(`step-panel-${step}`)).toBeVisible()
+        await settle(page)
+        expect(await horizontalOverflow(page)).toBe(0)
+      })
+    }
   })
 }
 
@@ -48,34 +64,43 @@ test.describe('phone navigation', () => {
     await expect(nav.locator('a[aria-current="page"]')).toHaveCount(1)
   })
 
-  test('lists datasets as cards, not as a table', async ({ page }) => {
-    await page.goto('/financial-comparison')
-    await expect(page.getByTestId('dataset-cards')).toBeVisible()
-    await expect(page.locator('.datasets-table')).toHaveCount(0)
-  })
-
-  test('an added dataset can be removed again from its chip', async ({ page }) => {
+  test('adds a place and removes it again from the selection', async ({ page }) => {
     await page.goto('/financial-comparison')
     await page
-      .locator('.dataset-card')
+      .locator('.result-item')
       .first()
-      .getByRole('button', { name: /Hinzufügen/ })
+      .getByRole('button', { name: /hinzufügen/ })
       .click()
-    const chips = page.getByTestId('selected-chips').locator('.selected-chip')
-    await expect(chips).toHaveCount(1)
-    await chips.first().getByRole('button').click()
-    await expect(chips).toHaveCount(0)
+    const selected = page.getByTestId('selected-places').locator('li')
+    await expect(selected).toHaveCount(1)
+    await page.getByTestId('remove-place').click()
+    await expect(selected).toHaveCount(0)
+  })
+
+  test('keeps the next button in reach above the bottom bar', async ({ page }) => {
+    await page.goto('/financial-comparison')
+    await page
+      .locator('.result-item')
+      .first()
+      .getByRole('button', { name: /hinzufügen/ })
+      .click()
+    const next = page.getByTestId('step-next')
+    await expect(next).toBeEnabled()
+    await expect(next).toBeInViewport()
+    const nextBox = await next.boundingBox()
+    const navBox = await page.getByTestId('bottom-nav').boundingBox()
+    expect(nextBox!.y + nextBox!.height).toBeLessThanOrEqual(navBox!.y)
   })
 })
 
 test.describe('desktop navigation', () => {
   test.use({ viewport: { width: 1280, height: 800 } })
 
-  test('has no bottom bar and keeps the drawer button and table', async ({ page }) => {
+  test('has no bottom bar and keeps the drawer button and the place picker', async ({ page }) => {
     await page.goto('/financial-comparison')
     await expect(page.getByTestId('bottom-nav')).toBeHidden()
     await expect(page.locator('.layout-menu-button')).toBeVisible()
-    await expect(page.locator('.datasets-table')).toBeVisible()
+    await expect(page.getByTestId('place-picker')).toBeVisible()
     expect(await horizontalOverflow(page)).toBe(0)
   })
 })

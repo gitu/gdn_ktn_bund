@@ -126,6 +126,8 @@ Cached in browser for performance.
 - PrimeFlex classes (`flex-column`, `align-items-center`, `surface-50`, `border-round`) do not exist here; use Tailwind 4 utilities or scoped CSS.
 - Ready-made comparisons are defined once in `src/data/sampleComparisons.ts` (home page and empty comparison page); a unit test checks they exist in the catalogue.
 - Vite may serve stale CSS after editing a Sass partial in `src/assets/layout/`; restart the dev server.
+- The comparison page is a wizard (places → years → convert → result) in `src/components/wizard/`; places and years are converted to dataset ids by `src/utils/ComparisonSelection.ts`, the divisors of a scaling or custom formula are calculated by `src/utils/ScalingCalculator.ts` (used by the store and the preview in the convert step).
+- Charts live in `src/components/charts/` (HTML/SVG, no chart library). Use the `--gk-series-1..8` tokens in fixed order (colour follows the place or account group, not its rank), `--gk-chart-pos/neg` for surplus/deficit, and give every chart a table twin through `ChartCard`'s `table` prop. Figures for charts come from `src/utils/charts/financialFigures.ts`.
 - Design rationale and backlog: `docs/ui-proposal.md`.
 
 ### File Organization

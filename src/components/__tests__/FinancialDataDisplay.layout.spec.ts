@@ -238,6 +238,34 @@ describe('FinancialDataDisplay layout', () => {
       expect(Object.keys(vm.expandedKeys)).toHaveLength(0)
     })
 
+    it('expands and collapses a row by clicking its name, not only the small caret', async () => {
+      const wrapper = mount(FinancialDataDisplay, {
+        global: { plugins: [i18n], stubs: { TreeTable: false, Column: false } },
+        props: { financialData: createData() },
+      })
+      const vm = wrapper.vm as unknown as Vm
+      const assets = () =>
+        wrapper
+          .findAll('[data-testid="account-cell"]')
+          .find((cell) => cell.text() === 'Assets (DE)')!
+
+      expect(assets().classes()).toContain('is-expandable')
+      await assets().trigger('click')
+      expect(vm.expandedKeys['1']).toBe(true)
+      expect(wrapper.text()).toContain('Current (DE)')
+
+      await assets().trigger('click')
+      expect(vm.expandedKeys['1']).toBeUndefined()
+
+      // A row without children has nothing to expand
+      const liabilities = wrapper
+        .findAll('[data-testid="account-cell"]')
+        .find((cell) => cell.text() === 'L (DE)')!
+      expect(liabilities.classes()).not.toContain('is-expandable')
+      await liabilities.trigger('click')
+      expect(vm.expandedKeys['2']).toBeUndefined()
+    })
+
     it('toggles the codes via the toolbar button', async () => {
       const wrapper = mountDisplay()
       const toggle = wrapper.find('button[aria-label="Codes anzeigen"]')
