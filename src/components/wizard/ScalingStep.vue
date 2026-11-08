@@ -191,6 +191,8 @@ import Select from 'primevue/select'
 import { CustomScalingFormula, CUSTOM_SCALING_PREFIX } from '@/utils/CustomScalingFormula'
 import {
   ScalingCalculator,
+  describeFormula,
+  statisticName,
   formulaOf,
   isCustomScaling,
   type ScalingOutcome,
@@ -444,7 +446,9 @@ const previewIntro = computed(() => {
   if (!id) return ''
   if (isCustomScaling(id)) {
     return t('scalingStep.preview.introFormula', {
-      formula: CustomScalingFormula.getFormulaDisplayName(formulaOf(id), props.stats, locale.value),
+      formula: describeFormula(formulaOf(id), (statId) =>
+        statisticName(statId, props.stats, locale.value),
+      ),
     })
   }
   const stat = props.stats.find((s) => s.id === id)

@@ -24,6 +24,10 @@ export const useFinancialDataStore = defineStore('financialData', () => {
   const currentScalingId = ref<string | null>(null)
   const datasets = ref<string[]>([])
   const isApplyingScaling = ref(false)
+  /** The scaling the loaded numbers are actually divided by (lags `currentScalingId` while it is calculated) */
+  const appliedScalingId = ref<string | null>(null)
+  // A newer load replaces an older one that is still running
+  let loadRun = 0
 
   // Dependencies
   const statsDataLoader = StatsDataLoader.getInstance()
@@ -46,6 +50,7 @@ export const useFinancialDataStore = defineStore('financialData', () => {
     loadedDatasetCount.value = 0
     error.value = null
     currentScalingId.value = null
+    appliedScalingId.value = null
     isApplyingScaling.value = false
     scalingCalculator.clear()
   }
@@ -80,6 +85,8 @@ export const useFinancialDataStore = defineStore('financialData', () => {
       return
     }
 
+    const run = ++loadRun
+    const isCurrentLoad = () => run === loadRun
     loading.value = true
     error.value = null
     loadedDatasetCount.value = 0
@@ -87,6 +94,8 @@ export const useFinancialDataStore = defineStore('financialData', () => {
     try {
       // Start with empty financial data structure
       combinedFinancialData.value = createEmptyFinancialDataStructure()
+      appliedScalingId.value = null
+      const target = combinedFinancialData.value
       const dataLoader = new DataLoader()
 
       // Parse all datasets first to validate them
@@ -115,7 +124,7 @@ export const useFinancialDataStore = defineStore('financialData', () => {
             entity,
             model,
             year,
-            combinedFinancialData.value!,
+            target,
             source,
           )
           return { success: true, dataset }
@@ -129,6 +138,8 @@ export const useFinancialDataStore = defineStore('financialData', () => {
 
       // Wait for all datasets to load
       const results = await Promise.all(loadPromises)
+      // Datasets changed meanwhile: the newer load owns the state
+      if (!isCurrentLoad()) return
 
       // Check for any errors and count successful loads
       const errors = results.filter((r) => !r.success)
@@ -140,11 +151,13 @@ export const useFinancialDataStore = defineStore('financialData', () => {
       loadedDatasetCount.value = results.filter((r) => r.success).length
 
       // The loads run in parallel and finish in any order; keep the columns in the order the user chose
-      orderEntitiesBySelection(combinedFinancialData.value!)
+      orderEntitiesBySelection(target)
 
-      // Apply the active scaling (traditional or custom formula) to the freshly loaded entities
+      // Apply the active scaling (traditional or custom formula) to the freshly loaded entities. A
+      // scaling chosen while loading is the current one by now and is applied here.
       if (currentScalingId.value) {
-        const applied = await applyScalingById(currentScalingId.value)
+        const applied = await applyCurrentScaling(isCurrentLoad)
+        if (!isCurrentLoad()) return
         if (!applied) {
           // Unknown scaling id: show the data unscaled and keep the state truthful
           currentScalingId.value = null
@@ -156,10 +169,11 @@ export const useFinancialDataStore = defineStore('financialData', () => {
         combinedFinancialData.value = null
       }
     } catch (loadError) {
+      if (!isCurrentLoad()) return
       error.value = loadError instanceof Error ? loadError.message : 'Error loading datasets'
       combinedFinancialData.value = null
     } finally {
-      loading.value = false
+      if (isCurrentLoad()) loading.value = false
     }
   }
 
@@ -184,13 +198,15 @@ export const useFinancialDataStore = defineStore('financialData', () => {
 
   /**
    * Apply a scaling id (a statistic or `custom:<formula>`) to the loaded entities. Returns false when
-   * the id is unknown. Does not touch `currentScalingId`; callers own that state.
+   * the id is unknown. Writes nothing when `isCurrent` says the result is no longer wanted (another
+   * scaling or other data was chosen while the divisors were calculated).
    */
-  const applyScalingById = async (scalingId: string): Promise<boolean> => {
+  const applyScalingById = async (scalingId: string, isCurrent: () => boolean): Promise<boolean> => {
     const data = combinedFinancialData.value
     if (!data) return true
 
     const calculation = await scalingCalculator.calculate(scalingId, [...data.entities.keys()])
+    if (!isCurrent() || data !== combinedFinancialData.value) return true
     if (!calculation.ok) {
       if (calculation.unknown) {
         Logger.warn('Statistics entry not found for scaling ID', { scalingId })
@@ -212,7 +228,28 @@ export const useFinancialDataStore = defineStore('financialData', () => {
         removeScaling(entity)
       }
     }
+    appliedScalingId.value = scalingId
     return true
+  }
+
+  /**
+   * Apply `currentScalingId` to the loaded entities, again and again until it no longer changes while
+   * it is being calculated, so the last choice always wins. False when the id is unknown.
+   */
+  const applyCurrentScaling = async (stillWanted: () => boolean = () => true) => {
+    for (;;) {
+      const scalingId = currentScalingId.value
+      if (!scalingId) {
+        for (const [, entity] of combinedFinancialData.value?.entities ?? []) removeScaling(entity)
+        appliedScalingId.value = null
+        return true
+      }
+      const applied = await applyScalingById(
+        scalingId,
+        () => stillWanted() && currentScalingId.value === scalingId,
+      )
+      if (!stillWanted() || currentScalingId.value === scalingId) return applied
+    }
   }
 
   const removeScaling = (entity: FinancialDataEntity) => {
@@ -223,29 +260,20 @@ export const useFinancialDataStore = defineStore('financialData', () => {
   }
 
   const setScaling = async (scalingId: string | null) => {
-    // Prevent concurrent scaling operations
-    if (isApplyingScaling.value) {
-      return
-    }
-
     // Skip if scaling hasn't actually changed
     if (scalingId === currentScalingId.value) {
       return
     }
+    currentScalingId.value = scalingId
+
+    // A running load applies the current scaling when its data is complete, and a running
+    // application picks up the new id when it is done: neither must be interrupted here
+    if (!combinedFinancialData.value || loading.value || isApplyingScaling.value) return
 
     try {
       isApplyingScaling.value = true
-      currentScalingId.value = scalingId
-
-      if (!combinedFinancialData.value) return
-
-      if (!scalingId) {
-        for (const [, entity] of combinedFinancialData.value.entities) removeScaling(entity)
-        return
-      }
-
-      if (!(await applyScalingById(scalingId))) {
-        Logger.error('Failed to get scaling info', undefined, { scalingId })
+      if (!(await applyCurrentScaling())) {
+        Logger.error('Failed to get scaling info', undefined, { scalingId: currentScalingId.value })
         error.value = 'Invalid scaling selection'
       }
     } catch (scalingError) {
@@ -263,6 +291,7 @@ export const useFinancialDataStore = defineStore('financialData', () => {
     error,
     loadedDatasetCount,
     currentScalingId,
+    appliedScalingId,
     datasets,
     isApplyingScaling,
 

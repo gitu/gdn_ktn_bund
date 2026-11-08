@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest'
-import { ScalingCalculator } from '../ScalingCalculator'
+import { ScalingCalculator, describeFormula } from '../ScalingCalculator'
 import type { StatsAvailabilityInfo } from '@/types/StatsData'
 
 const statsLoaderMock = vi.hoisted(() => ({
@@ -123,5 +123,28 @@ describe('ScalingCalculator', () => {
     calculator.clear()
     await calculator.calculate('pop', ['gdn/fs/010261:2024'])
     expect(statsLoaderMock.loadGdnData).toHaveBeenCalledTimes(2)
+  })
+})
+
+describe('describeFormula', () => {
+  const names: Record<string, string> = {
+    pop: 'Einwohner/innen',
+    workplaces: 'Arbeitsplätze',
+    pop_65plus: 'Einwohner ab 65',
+  }
+  const nameOf = (id: string) => names[id] ?? id
+
+  it('names the statistics and typesets the operators', () => {
+    expect(describeFormula('pop+workplaces/2', nameOf)).toBe('Einwohner/innen + Arbeitsplätze ÷ 2')
+    expect(describeFormula('1.5*pop_65plus - pop', nameOf)).toBe(
+      '1.5 × Einwohner ab 65 − Einwohner/innen',
+    )
+    expect(describeFormula('(pop+workplaces)*0.5', nameOf)).toBe(
+      '(Einwohner/innen + Arbeitsplätze) × 0.5',
+    )
+  })
+
+  it('keeps a leading minus as a sign', () => {
+    expect(describeFormula('-pop+workplaces', nameOf)).toBe('−Einwohner/innen + Arbeitsplätze')
   })
 })

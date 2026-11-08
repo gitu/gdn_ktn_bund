@@ -672,5 +672,113 @@ describe('financialData store', () => {
         expect(scalingFactorsOf(store)['gdn/fs/010230:2022']).toBe(100000)
       })
     })
+
+    describe('changes that overlap with loading or calculating', () => {
+      const JOBS: Record<string, number> = { '010261': 500000, '010230': 80000 }
+
+      beforeEach(() => {
+        statsLoaderMock.getStatsEntry.mockImplementation(async (id: string) =>
+          ['pop', 'workplaces'].includes(id)
+            ? { id, name: popStat.name, unit: popStat.unit }
+            : null,
+        )
+        statsLoaderMock.loadGdnData.mockImplementation(
+          async (id: string, _year: number, options: { geoIds: string[] }) => ({
+            data: options.geoIds.map((key) => ({
+              key,
+              value: (id === 'workplaces' ? JOBS : POPULATION)[key] ?? 5000,
+            })),
+          }),
+        )
+      })
+
+      /** A DataLoader whose loads finish only when `release()` is called */
+      const mockSlowLoader = () => {
+        const gates: (() => void)[] = []
+        const loader = {
+          loadAndIntegrateFinancialData: vi.fn(
+            async (
+              entity: string,
+              model: string,
+              year: string,
+              data: FinancialData,
+              source: string,
+            ) => {
+              await new Promise<void>((resolve) => gates.push(resolve))
+              data.entities.set(
+                `${source}/${model}/${entity}:${year}`,
+                createEntity(source, model, entity, year),
+              )
+            },
+          ),
+        }
+        MockedDataLoader.mockImplementation(() => loader as unknown as DataLoader)
+        const settle = () => new Promise((resolve) => setTimeout(resolve, 0))
+        return {
+          /** Finish the loads started so far (or only the first `count` of them) */
+          release: async (count?: number) => {
+            gates.splice(0, count ?? gates.length).forEach((open) => open())
+            await settle()
+          },
+        }
+      }
+
+      it('applies a scaling chosen while the data is still loading', async () => {
+        const { release } = mockSlowLoader()
+        const store = useFinancialDataStore()
+        store.setDatasets(FIRST_DATASETS)
+        const loading = store.loadDatasets('workplaces')
+        await new Promise((resolve) => setTimeout(resolve, 0))
+        expect(store.loading).toBe(true)
+
+        await store.setScaling('pop')
+        await release()
+        await loading
+
+        expect(store.currentScalingId).toBe('pop')
+        expect(store.appliedScalingId).toBe('pop')
+        expect(scalingFactorsOf(store)['gdn/fs/010261:2022']).toBe(400000)
+      })
+
+      it('lets the last of two quick changes win', async () => {
+        const store = useFinancialDataStore()
+        store.setDatasets(FIRST_DATASETS)
+        await store.loadDatasets(null)
+
+        // Both need statistics; the second is chosen before the first is calculated
+        const first = store.setScaling('workplaces')
+        const second = store.setScaling('pop')
+        await Promise.all([first, second])
+
+        expect(store.currentScalingId).toBe('pop')
+        expect(store.appliedScalingId).toBe('pop')
+        expect(scalingFactorsOf(store)['gdn/fs/010261:2022']).toBe(400000)
+        expect(store.isApplyingScaling).toBe(false)
+      })
+
+      it('ignores an older load that finishes after a newer one has started', async () => {
+        const { release } = mockSlowLoader()
+        const store = useFinancialDataStore()
+        store.setDatasets(FIRST_DATASETS)
+        const older = store.loadDatasets('pop')
+        await new Promise((resolve) => setTimeout(resolve, 0))
+
+        store.setDatasets(['gdn/fs/010156:2022'])
+        const newer = store.loadDatasets()
+        await new Promise((resolve) => setTimeout(resolve, 0))
+
+        // The two datasets of the older load arrive first: still loading, nothing of them shown
+        await release(2)
+        await older
+        expect(store.loading).toBe(true)
+        expect(store.combinedFinancialData!.entities.has('gdn/fs/010261:2022')).toBe(false)
+
+        await release()
+        await newer
+        expect(store.loading).toBe(false)
+        expect([...store.combinedFinancialData!.entities.keys()]).toEqual(['gdn/fs/010156:2022'])
+        expect(scalingFactorsOf(store)).toEqual({ 'gdn/fs/010156:2022': 5000 })
+      })
+    })
   })
 })

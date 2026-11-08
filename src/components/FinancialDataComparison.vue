@@ -215,14 +215,11 @@ watch(
 
     // Only act if scaling actually changed
     if (scalingValue !== currentScalingId.value) {
-      // Changed from outside (e.g. browser back/forward) while data is shown: bring the loaded
-      // data in line. The initial value is applied by loadDatasets, changes made through the
-      // scaling selector are already known to the store and skipped here.
-      if (
-        scalingWatcherInitialised &&
-        !financialDataStore.loading &&
-        financialDataStore.combinedFinancialData
-      ) {
+      // Changed from outside (the wizard, browser back/forward): hand it to the store, also while
+      // it is loading; the load then applies it when the data is complete. The initial value is
+      // applied by loadDatasets, changes made through the scaling selector are already known to
+      // the store and skipped here.
+      if (scalingWatcherInitialised) {
         await financialDataStore.setScaling(scalingValue)
       }
       emit('scalingChanged', scalingValue)

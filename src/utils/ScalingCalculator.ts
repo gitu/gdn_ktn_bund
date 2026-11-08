@@ -58,6 +58,41 @@ const translate = (key: string, params: Record<string, unknown>, locale: string)
     locale,
   )
 
+/**
+ * A formula for people: statistic ids replaced by their names and the operators typeset,
+ * e.g. `pop+workplaces/2` → "Bevölkerung + Arbeitsplätze ÷ 2".
+ */
+export function describeFormula(formula: string, nameOf: (statId: string) => string): string {
+  const OPERATORS: Record<string, string> = { '+': ' + ', '-': ' − ', '*': ' × ', '/': ' ÷ ' }
+  // Token by token, so that a name containing "/" or "-" is never typeset as an operator
+  const tokens = formula.replace(/\s+/g, '').match(/[A-Za-z_]\w*|\d+(?:\.\d+)?|[-+*/()]/g) ?? []
+  return tokens
+    .map((token, index) => {
+      if (/^[A-Za-z_]/.test(token)) return nameOf(token)
+      if (!(token in OPERATORS)) return token
+      // A leading minus is a sign, not a subtraction
+      const previous = tokens[index - 1]
+      const isSign =
+        token === '-' && (previous === undefined || previous === '(' || previous in OPERATORS)
+      return isSign ? '−' : OPERATORS[token]
+    })
+    .join('')
+    .trim()
+}
+
+/** Short name of a statistic in a language (the scaling selector's labels), else its full name. */
+export function statisticName(
+  statId: string,
+  stats: readonly { id: string; name: MultiLanguageLabels }[],
+  locale: string,
+): string {
+  const key = `financialDataScalingSelector.options.${statId}`
+  const short = translate(key, {}, locale)
+  if (short && short !== key) return short
+  const stat = stats.find((s) => s.id === statId)
+  return stat?.name[locale as keyof MultiLanguageLabels] || stat?.name.de || statId
+}
+
 export class ScalingCalculator {
   private readonly stats = StatsDataLoader.getInstance()
   // Shared between columns and repeated calculations: every column of a place-and-year loads once
@@ -191,10 +226,8 @@ export class ScalingCalculator {
           translate(
             'financialDataScalingSelector.scalingInfo.customFormat',
             {
-              formula: CustomScalingFormula.getFormulaDisplayName(
-                formula,
-                availableStats,
-                language,
+              formula: describeFormula(formula, (id) =>
+                statisticName(id, availableStats, language),
               ),
             },
             language,

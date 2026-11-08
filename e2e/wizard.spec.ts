@@ -74,6 +74,29 @@ test.describe('comparison wizard', () => {
     await expect.poll(() => datasetsParam(page.url())).toBe(ZURICH_2024)
   })
 
+  test('a conversion chosen while the next year is still loading is the one applied', async ({
+    page,
+  }) => {
+    const D = 'gdn/fs/010261:2024,gdn/fs/010230:2024'
+    await page.goto(`/financial-comparison?datasets=${D}&scaling=workplaces`)
+    const bar = page.getByTestId('chart-revenue-expenses').getByTestId('bar').first()
+    await expect(bar).toHaveAttribute('aria-label', /Zürich, Ertrag/, { timeout: 60000 })
+
+    // From now on the financial data takes a while to arrive
+    await page.route(/\/data\/(gdn|std)\/fs\/.*\.csv/, async (route) => {
+      await new Promise((resolve) => setTimeout(resolve, 2000))
+      await route.continue()
+    })
+    await page.getByTestId('year-previous').click()
+    await page.getByTestId('scaling-dropdown').click()
+    await page.getByRole('option', { name: 'Bevölkerung', exact: true }).click()
+
+    const chart = page.getByTestId('chart-revenue-expenses')
+    await expect(chart).toContainText('2023, in Franken pro Einwohner', { timeout: 30000 })
+    // Zürich 2023: revenue 6,108,040,720 CHF / 433,989 inhabitants, not / its 546,000 jobs
+    await expect(bar).toHaveAttribute('aria-label', /^Zürich, Ertrag, 14\.074\sCHF$/)
+  })
+
   test('several years show the development, calculated with the same formula each year', async ({
     page,
   }) => {

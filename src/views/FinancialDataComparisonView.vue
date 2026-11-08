@@ -169,8 +169,10 @@
         <FinancialCharts
           v-if="dataReady && store.combinedFinancialData"
           :data="store.combinedFinancialData"
-          :unit-label="unitLabel"
-          :scaled="!!scaling"
+          :unit-label="chartUnitLabel"
+          :scaled="!!store.appliedScalingId"
+          :class="{ 'is-recalculating': store.isApplyingScaling }"
+          :aria-busy="store.isApplyingScaling"
         />
         <div v-else-if="!store.error" class="charts-loading" role="status">
           <span class="visually-hidden">{{ $t('financialDataComparison.loading') }}</span>
@@ -228,8 +230,12 @@ import { SAMPLE_COMPARISONS, type SampleComparisonKey } from '@/data/sampleCompa
 import { useFinancialDataStore } from '@/stores/financialData'
 import { loadAvailableDataCatalog } from '@/utils/AvailableDataLoader'
 import { StatsDataLoader } from '@/utils/StatsDataLoader'
-import { CustomScalingFormula } from '@/utils/CustomScalingFormula'
-import { formulaOf, isCustomScaling } from '@/utils/ScalingCalculator'
+import {
+  describeFormula,
+  formulaOf,
+  isCustomScaling,
+  statisticName,
+} from '@/utils/ScalingCalculator'
 import {
   buildDatasets,
   catalogAvailability,
@@ -290,26 +296,21 @@ const allYears = computed(() =>
   sortYears(yearCoverage(places.value, availability.value).map((c) => c.year)),
 )
 
-const statLabel = (id: string) => {
-  const key = `financialDataScalingSelector.options.${id}`
-  const translated = t(key)
-  if (translated !== key) return translated
-  return stats.value.find((stat) => stat.id === id)?.name[lang.value] ?? id
+const statLabel = (id: string) => statisticName(id, stats.value, locale.value)
+
+const labelOf = (id: string | null) => {
+  if (!id) return t('financialDataScalingSelector.noScaling')
+  return isCustomScaling(id) ? describeFormula(formulaOf(id), statLabel) : statLabel(id)
 }
 
-const scalingLabel = computed(() => {
-  const id = scaling.value
-  if (!id) return t('financialDataScalingSelector.noScaling')
-  if (isCustomScaling(id)) {
-    return CustomScalingFormula.getFormulaDisplayName(formulaOf(id), stats.value, locale.value)
-  }
-  return statLabel(id)
-})
+const scalingLabel = computed(() => labelOf(scaling.value))
 
-const unitLabel = computed(() => {
-  const id = scaling.value
+// The charts name the scaling their numbers are divided by right now: while a new one is being
+// calculated they still show (dimmed) the old numbers, with the old unit
+const chartUnitLabel = computed(() => {
+  const id = store.appliedScalingId
   if (!id) return t('charts.unit.francs')
-  if (isCustomScaling(id)) return t('charts.unit.perFormula', { formula: scalingLabel.value })
+  if (isCustomScaling(id)) return t('charts.unit.perFormula', { formula: labelOf(id) })
   const unit = stats.value.find((stat) => stat.id === id)?.unit[lang.value]
   return t('charts.unit.per', { unit: unit ?? statLabel(id) })
 })
@@ -776,6 +777,12 @@ onMounted(async () => {
 
 .full-view-button {
   min-height: 2.75rem;
+}
+
+/* Hold the previous charts, dimmed, while a new conversion is calculated (no layout jump) */
+.charts-panel :deep(.is-recalculating) {
+  opacity: 0.5;
+  transition: opacity 0.2s ease;
 }
 
 .charts-loading {
