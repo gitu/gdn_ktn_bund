@@ -1,4 +1,4 @@
-import { describe, expect, it } from 'vitest'
+import { describe, expect, it, vi } from 'vitest'
 import { suggestComparisons, type SuggestionContext } from '../PlaceSuggestions'
 import type { AvailableDataEntry } from '@/types/DataStructures'
 
@@ -121,5 +121,38 @@ describe('suggestComparisons', () => {
     const groups = suggestComparisons('gdn/fs/999999', context)
     expect(groups.map((g) => g.key)).toEqual(['national'])
     expect(suggestComparisons('nonsense', context)).toEqual([])
+  })
+})
+
+describe('loadSuggestionContext', () => {
+  it('loads the inhabitants of each year separately and only once', async () => {
+    vi.resetModules()
+    const stats = {
+      loadGdnData: vi.fn(async (_id: string, year: number) => ({
+        data: [{ key: '261', value: year }],
+      })),
+      loadKtnData: vi.fn(async () => ({ data: [{ key: '1', value: 1600000 }] })),
+    }
+    vi.doMock('@/utils/StatsDataLoader', () => ({
+      StatsDataLoader: { getInstance: () => stats },
+    }))
+    vi.doMock('@/utils/GeographicalDataLoader', () => ({
+      getAllMunicipalities: async () => [
+        { gdnId: '010261', municipalityId: '261', cantonAbbreviation: 'ZH' },
+      ],
+      getAllCantons: async () => [{ cantonId: '1', cantonAbbreviation: 'ZH' }],
+    }))
+    const { loadSuggestionContext } = await import('../PlaceSuggestions')
+
+    const first = await loadSuggestionContext([], 2023)
+    const again = await loadSuggestionContext([], 2023)
+    const later = await loadSuggestionContext([], 2024)
+
+    expect(first.municipalities.get('010261')?.population).toBe(2023)
+    expect(again.municipalities.get('010261')?.population).toBe(2023)
+    expect(later.municipalities.get('010261')?.population).toBe(2024)
+    expect(stats.loadGdnData).toHaveBeenCalledTimes(2)
+    vi.doUnmock('@/utils/StatsDataLoader')
+    vi.doUnmock('@/utils/GeographicalDataLoader')
   })
 })

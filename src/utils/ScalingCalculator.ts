@@ -121,10 +121,13 @@ export class ScalingCalculator {
       const canton = cantonCode
         ? await getCantonByAbbreviation(cantonCode.toUpperCase())
         : undefined
+      // An unknown canton gets an id of its own that no statistic has: no divisor, and no cache
+      // entry shared with another unknown place
+      const unknown = `unknown:${entityId}`
       if (EntitySemanticMapper.isRestOfCanton(entityId)) {
-        return { geoId: canton ? `rest_${canton.cantonId}` : 'XYX', source: 'gdn' }
+        return { geoId: canton ? `rest_${canton.cantonId}` : unknown, source: 'gdn' }
       }
-      return { geoId: canton?.cantonId || 'XYX', source }
+      return { geoId: canton?.cantonId || unknown, source }
     }
 
     return { geoId: 'bund', source }

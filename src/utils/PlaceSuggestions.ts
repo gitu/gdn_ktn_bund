@@ -208,13 +208,15 @@ export function suggestComparisons(
   return groups
 }
 
-let pending: Promise<Omit<SuggestionContext, 'catalog'>> | null = null
+// Inhabitants per year, each loaded once
+const contexts = new Map<number, Promise<Omit<SuggestionContext, 'catalog'>>>()
 
-/** Inhabitants of every municipality, canton and canton rest, loaded once. */
+/** Inhabitants of every municipality, canton and canton rest in `year`. */
 export async function loadSuggestionContext(
   catalog: readonly AvailableDataEntry[],
   year: number,
 ): Promise<SuggestionContext> {
+  let pending = contexts.get(year)
   pending ??= (async () => {
     const stats = StatsDataLoader.getInstance()
     const [municipalities, cantons, municipalPopulation, cantonPopulation] = await Promise.all([
@@ -246,10 +248,12 @@ export async function loadSuggestionContext(
       ),
     }
   })()
+  contexts.set(year, pending)
   try {
     return { catalog, ...(await pending) }
   } catch (error) {
-    pending = null
+    // Try again next time instead of keeping the failure
+    contexts.delete(year)
     throw error
   }
 }

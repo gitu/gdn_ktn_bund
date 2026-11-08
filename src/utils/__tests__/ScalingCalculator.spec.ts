@@ -115,6 +115,21 @@ describe('ScalingCalculator', () => {
     expect(invalid.ok ? '' : invalid.error).toBeTruthy()
   })
 
+  it('keeps unknown cantons apart instead of sharing one placeholder record', async () => {
+    const { getCantonByAbbreviation } = await import('@/utils/GeographicalDataLoader')
+    vi.mocked(getCantonByAbbreviation).mockResolvedValueOnce(undefined)
+    vi.mocked(getCantonByAbbreviation).mockResolvedValueOnce(undefined)
+    const calculator = new ScalingCalculator()
+    expect(await calculator.resolveTarget('std', 'ktn_zh')).toEqual({
+      geoId: 'unknown:ktn_zh',
+      source: 'std',
+    })
+    expect(await calculator.resolveTarget('std', 'gdn_zh_rest')).toEqual({
+      geoId: 'unknown:gdn_zh_rest',
+      source: 'gdn',
+    })
+  })
+
   it('loads every statistic for a place and year only once', async () => {
     const calculator = new ScalingCalculator()
     await calculator.calculate('pop', ['gdn/fs/010261:2024'])
