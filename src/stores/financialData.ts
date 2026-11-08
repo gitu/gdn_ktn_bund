@@ -87,6 +87,10 @@ export const useFinancialDataStore = defineStore('financialData', () => {
 
     const run = ++loadRun
     const isCurrentLoad = () => run === loadRun
+    // New data replaces the old: a scaling choice still being calculated for it is void, and the
+    // load applies the current scaling itself
+    choiceRun++
+    isApplyingScaling.value = false
     loading.value = true
     error.value = null
     loadedDatasetCount.value = 0
@@ -237,6 +241,9 @@ export const useFinancialDataStore = defineStore('financialData', () => {
   // Every application of a scaling gets a number; only the newest one may write its results, so a
   // calculation that is slow (or never answers) never holds up a later choice
   let scalingRun = 0
+  // Separate count for the "recalculating" state: only the newest scaling choice may end it (a
+  // load applies the scaling too, but has its own loading state)
+  let choiceRun = 0
 
   /**
    * Apply `currentScalingId` to the loaded entities. A newer call supersedes this one: its results
@@ -273,11 +280,11 @@ export const useFinancialDataStore = defineStore('financialData', () => {
     if (!combinedFinancialData.value || loading.value) return
 
     // Starts at once, even while an earlier choice is still being calculated
-    const run = scalingRun + 1
+    const choice = ++choiceRun
     try {
       isApplyingScaling.value = true
       const applied = await applyCurrentScaling()
-      if (!applied && run === scalingRun) {
+      if (!applied && choice === choiceRun && currentScalingId.value === scalingId) {
         Logger.error('Failed to get scaling info', undefined, { scalingId })
         error.value = 'Invalid scaling selection'
       }
@@ -286,7 +293,7 @@ export const useFinancialDataStore = defineStore('financialData', () => {
       error.value = 'Error applying scaling to datasets'
     } finally {
       // Only the newest choice ends the "recalculating" state
-      if (run === scalingRun) isApplyingScaling.value = false
+      if (choice === choiceRun) isApplyingScaling.value = false
     }
   }
 
