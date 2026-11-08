@@ -5,11 +5,14 @@ test.describe('Comparison wizard', () => {
     await page.goto('/financial-comparison');
     await expect(page.locator('h1')).toContainText('Finanzen vergleichen');
 
-    // Step 1: places
+    // Step 1: places. Start with one, then add a suggestion for it
     await page.getByTestId('place-search').fill('aargau');
     await expect(page.getByTestId('place-picker')).toContainText('Alle Gemeinden des Kantons Aargau');
-    await page.getByRole('button', {name: 'Alle Gemeinden des Kantons Aargau hinzufügen'}).click();
-    await page.getByRole('button', {name: 'Kanton Aargau inklusive allen Gemeinden hinzufügen'}).click();
+    await page.getByRole('button', {name: 'Mit Alle Gemeinden des Kantons Aargau beginnen'}).click();
+    await page
+      .getByTestId('suggestions-sameCanton')
+      .getByRole('button', {name: 'Kanton Aargau inklusive allen Gemeinden'})
+      .click();
     await expect(page.getByTestId('selected-places').locator('li')).toHaveCount(2);
 
     // Step 2: years (the newest year both have is preselected)

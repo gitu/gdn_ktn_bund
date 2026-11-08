@@ -110,9 +110,14 @@ Calm, editorial, data-forward. The numbers are the hero; chrome stays quiet.
 The comparison page is now a four-step wizard; each step is one question, and the step bar above it shows what was
 chosen and lets the user jump back.
 
-1. **Places** (`PlacePicker`): search plus type chips (municipalities, cantons, Switzerland and federal, social
-   insurance). Places are chosen without a year; their order is the order of chart rows and table columns. On phones
-   the selection sits above the result list.
+1. **Places** (`PlaceStep`): first a starting place (search plus type chips), then either **suggestions** for it or a
+   free **search**. Suggestions (`src/utils/PlaceSuggestions.ts`, by inhabitants, "similar" = smallest size ratio):
+   for a municipality, similar-sized municipalities in its canton and in other cantons, its canton (canton,
+   all municipalities, both, calculated rest) and all municipalities of Switzerland; for a canton figure, cantons of a
+   similar size with the same kind of figure, the rest of its family, its largest municipalities and the national
+   total; for country-wide figures the other levels; for a social insurance the other insurances. The selection
+   (first = starting place) stays visible and can be reordered; its order is the order of chart rows and table
+   columns. On phones the selection sits above the lists.
 2. **Years** (`YearPicker`): one year (places side by side) or several (development over time), with "last 3 / 5 /
    all" presets. Each year shows how many of the places have data. A link that lists its own mix of places and years
    still works as is; the step says so before a change turns it into "every place in every year".

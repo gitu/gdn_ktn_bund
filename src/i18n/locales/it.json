@@ -799,7 +799,7 @@
     },
     "places": {
       "title": "Quali luoghi vuole confrontare?",
-      "help": "Cerchi comuni, cantoni, la Confederazione o un’assicurazione sociale e li aggiunga. L’ordine scelto qui è quello dei grafici e della tabella.",
+      "help": "Cominci con un luogo, per esempio il suo comune. Poi proponiamo confronti sensati, oppure compone tutto lei.",
       "none": "Nessun luogo scelto"
     },
     "years": {
@@ -1028,6 +1028,63 @@
       "francs": "in franchi",
       "per": "in franchi per {unit}",
       "perFormula": "in franchi per valore della formula ({formula})"
+    }
+  },
+  "placeStep": {
+    "startTitle": "Da dove vuole partire?",
+    "startHelp": "Scelga un luogo di partenza: un comune, un cantone, la Confederazione o un’assicurazione sociale.",
+    "startHere": "Partire da qui",
+    "startHereNamed": "Partire da {name}",
+    "customInstead": "Preferisco scegliere tutto io",
+    "backToComparison": "Torna alla scelta",
+    "startLabel": "Luogo di partenza:",
+    "changeStart": "Cambiare",
+    "startTag": "Partenza",
+    "modesLabel": "Come aggiungere luoghi?",
+    "modes": {
+      "suggestions": "Proposte",
+      "custom": "Cercare io"
+    },
+    "suggestionsLoading": "Calcolo delle proposte …",
+    "noSuggestions": "Nessuna proposta per questo luogo. Cerchi i luoghi lei stesso.",
+    "noStart": "Per le proposte serve un luogo di partenza.",
+    "chooseStart": "Scegliere il luogo di partenza",
+    "addAll": "Aggiungere tutti",
+    "removeAll": "Rimuovere tutti",
+    "inhabitants": "{value} ab.",
+    "groups": {
+      "similarInCanton": {
+        "title": "Comuni di dimensioni simili – {canton}",
+        "description": "Comuni con circa tanti abitanti quanti {name}."
+      },
+      "similarElsewhere": {
+        "title": "Comuni di dimensioni simili in altri cantoni",
+        "description": "Come si colloca {name} rispetto a comuni di dimensioni simili nel resto della Svizzera?"
+      },
+      "sameCanton": {
+        "title": "{canton} nel suo insieme",
+        "description": "Il cantone stesso, tutti i suoi comuni insieme ed entrambi insieme."
+      },
+      "largestInCanton": {
+        "title": "I comuni più grandi – {canton}",
+        "description": "Le città e i grandi comuni del cantone."
+      },
+      "similarCantons": {
+        "title": "Cantoni di dimensioni simili",
+        "description": "Cantoni con circa tanti abitanti, con lo stesso tipo di cifre di {name}."
+      },
+      "national": {
+        "title": "Tutta la Svizzera",
+        "description": "Per il confronto con la media nazionale, meglio per abitante."
+      },
+      "levels": {
+        "title": "Altri livelli",
+        "description": "Comuni, cantoni e Confederazione, ciascuno sommato."
+      },
+      "otherInsurances": {
+        "title": "Altre assicurazioni sociali",
+        "description": "AVS, AI, IPG e le altre assicurazioni sociali."
+      }
     }
   }
 }

@@ -25,6 +25,10 @@ describe('EntitySemanticMapper display names', () => {
         german.endsWith(canton.replace(/^Kanton /, '')),
         `${code}: ${german} / ${canton}`,
       ).toBe(true)
+      // "Kanton Zürich inklusive allen Gemeinden", not "Kanton Zurich …"
+      expect(EntitySemanticMapper.getEntityDisplayName(`ktn_gdn_${code}`).de).toBe(
+        `${canton} inklusive allen Gemeinden`,
+      )
     }
   })
 

@@ -91,26 +91,21 @@ test.describe('phone navigation', () => {
     await expect(nav.locator('a[aria-current="page"]')).toHaveCount(1)
   })
 
-  test('adds a place and removes it again from the selection', async ({ page }) => {
+  test('starts with a place and removes it again from the selection', async ({ page }) => {
     await page.goto('/financial-comparison')
-    await page
-      .locator('.result-item')
-      .first()
-      .getByRole('button', { name: /hinzufügen/ })
-      .click()
+    await page.locator('.result-item').first().getByTestId('start-here').click()
     const selected = page.getByTestId('selected-places').locator('li')
     await expect(selected).toHaveCount(1)
+    // the selection is above the suggestions on a phone
+    await expect(page.getByTestId('selected-places')).toBeInViewport()
+    expect(await horizontalOverflow(page)).toBe(0)
     await page.getByTestId('remove-place').click()
-    await expect(selected).toHaveCount(0)
+    await expect(page.getByText('Womit möchten Sie beginnen?')).toBeVisible()
   })
 
   test('keeps the next button in reach above the bottom bar', async ({ page }) => {
     await page.goto('/financial-comparison')
-    await page
-      .locator('.result-item')
-      .first()
-      .getByRole('button', { name: /hinzufügen/ })
-      .click()
+    await page.locator('.result-item').first().getByTestId('start-here').click()
     const next = page.getByTestId('step-next')
     await expect(next).toBeEnabled()
     await expect(next).toBeInViewport()

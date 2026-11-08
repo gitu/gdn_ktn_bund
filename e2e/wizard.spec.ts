@@ -7,6 +7,40 @@ const scalingParam = (url: string) =>
   decodeURIComponent(new URL(url).searchParams.get('scaling') ?? '')
 
 test.describe('comparison wizard', () => {
+  test('starts from one place and suggests similar-sized municipalities in its canton', async ({
+    page,
+  }) => {
+    await page.goto('/financial-comparison')
+    await expect(page.getByText('Womit möchten Sie beginnen?')).toBeVisible()
+    await page.getByTestId('place-search').fill('Winterthur')
+    await page.getByRole('button', { name: 'Mit Winterthur beginnen' }).click()
+
+    const similar = page.getByTestId('suggestions-similarInCanton')
+    await expect(similar).toContainText('Ähnlich grosse Gemeinden im Kanton Zürich', {
+      timeout: 15000,
+    })
+    await expect(similar.locator('.suggestion')).toHaveCount(5)
+    await expect(similar).toContainText('Einw.')
+    await expect(page.getByTestId('suggestions-similarElsewhere')).toBeVisible()
+    await expect(page.getByTestId('suggestions-sameCanton')).toContainText('Kanton Zürich')
+
+    await page.getByTestId('suggestions-similarInCanton-all').click()
+    await expect(page.getByTestId('selected-places').locator('li')).toHaveCount(6)
+    await expect(page.getByTestId('selected-places').locator('li').first()).toContainText(
+      'Winterthur',
+    )
+
+    // or search freely, keeping what is chosen
+    await page.getByTestId('place-mode-custom').click()
+    await page.getByTestId('place-search').fill('Basel-Stadt')
+    await page.getByRole('button', { name: 'Kanton Basel-Stadt hinzufügen', exact: true }).click()
+    await expect(page.getByTestId('selected-places').locator('li')).toHaveCount(7)
+
+    await page.getByTestId('step-next').click()
+    await expect(page.getByTestId('step-panel-years')).toBeVisible()
+    expect(datasetsParam(page.url()).split(',')[0]).toBe('gdn/fs/010230:2024')
+  })
+
   test('a link with data opens the result as charts', async ({ page }) => {
     await page.goto(`/financial-comparison?datasets=${ZURICH_2024}&scaling=pop`)
     await expect(page.getByTestId('step-result')).toHaveAttribute('aria-current', 'step')

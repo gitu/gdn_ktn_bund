@@ -799,7 +799,7 @@
     },
     "places": {
       "title": "Which places do you want to compare?",
-      "help": "Search for municipalities, cantons, the federal government or a social insurance and add them. The order here is the order in the charts and the table.",
+      "help": "Start with one place, for example your municipality. Then we suggest sensible comparisons, or you put everything together yourself.",
       "none": "No place chosen yet"
     },
     "years": {
@@ -1028,6 +1028,63 @@
       "francs": "in francs",
       "per": "in francs per {unit}",
       "perFormula": "in francs per formula value ({formula})"
+    }
+  },
+  "placeStep": {
+    "startTitle": "Where do you want to start?",
+    "startHelp": "Choose a starting place: a municipality, a canton, the federal government or a social insurance.",
+    "startHere": "Start here",
+    "startHereNamed": "Start with {name}",
+    "customInstead": "I’d rather choose everything myself",
+    "backToComparison": "Back to the selection",
+    "startLabel": "Starting place:",
+    "changeStart": "Change",
+    "startTag": "Start",
+    "modesLabel": "How do you want to add places?",
+    "modes": {
+      "suggestions": "Suggestions",
+      "custom": "Search myself"
+    },
+    "suggestionsLoading": "Working out suggestions …",
+    "noSuggestions": "No suggestions for this place. Search for the places yourself.",
+    "noStart": "Suggestions need a starting place.",
+    "chooseStart": "Choose a starting place",
+    "addAll": "Add all",
+    "removeAll": "Remove all",
+    "inhabitants": "{value} inhabitants",
+    "groups": {
+      "similarInCanton": {
+        "title": "Similar-sized municipalities – {canton}",
+        "description": "Municipalities with about as many inhabitants as {name}."
+      },
+      "similarElsewhere": {
+        "title": "Similar-sized municipalities in other cantons",
+        "description": "How does {name} compare with municipalities of a similar size elsewhere in Switzerland?"
+      },
+      "sameCanton": {
+        "title": "{canton} as a whole",
+        "description": "The canton itself, all its municipalities together, and both together."
+      },
+      "largestInCanton": {
+        "title": "The largest municipalities – {canton}",
+        "description": "The cities and large municipalities of the canton."
+      },
+      "similarCantons": {
+        "title": "Similar-sized cantons",
+        "description": "Cantons with about as many inhabitants, with the same kind of figures as {name}."
+      },
+      "national": {
+        "title": "All of Switzerland",
+        "description": "To compare with the national average, best per inhabitant."
+      },
+      "levels": {
+        "title": "Other levels",
+        "description": "Municipalities, cantons and the federal government, each added up."
+      },
+      "otherInsurances": {
+        "title": "Other social insurances",
+        "description": "Old-age, disability, income compensation and the other social insurances."
+      }
     }
   }
 }

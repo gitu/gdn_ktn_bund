@@ -83,24 +83,12 @@ describe('PlacePicker', () => {
     expect(model()).toEqual([])
   })
 
-  it('keeps the chosen order and lets the user change it', async () => {
-    const { wrapper, model } = mountPicker(['gdn/fs/010261', 'std/fs/ktn_zh', 'std/fs/bund'])
-    const selected = () =>
-      wrapper.findAll('[data-testid="selected-places"] .selection-name').map((n) => n.text())
-    expect(selected()).toEqual(['Zürich', 'Canton of Zurich', 'Federal government'])
-
-    await wrapper.find('button[aria-label="Move Federal government up"]').trigger('click')
-    expect(model()).toEqual(['gdn/fs/010261', 'std/fs/bund', 'std/fs/ktn_zh'])
-
-    await wrapper.findAll('[data-testid="remove-place"]')[0].trigger('click')
-    expect(model()).toEqual(['std/fs/bund', 'std/fs/ktn_zh'])
-  })
-
-  it('first and last places cannot move further', () => {
-    const { wrapper } = mountPicker(['gdn/fs/010261', 'std/fs/ktn_zh'])
-    expect(wrapper.find('button[aria-label="Move Zürich up"]').attributes('disabled')).toBeDefined()
-    expect(
-      wrapper.find('button[aria-label="Move Canton of Zurich down"]').attributes('disabled'),
-    ).toBeDefined()
+  it('chooses a starting place instead of adding in start mode', async () => {
+    const { wrapper } = mountPicker()
+    await wrapper.setProps({ startMode: true })
+    await wrapper.find('button[aria-label="Start with Winterthur"]').trigger('click')
+    expect(wrapper.emitted('start')).toEqual([['gdn/fs/010230']])
+    // No add / remove toggles in the result list
+    expect(wrapper.find('.result-list button[aria-pressed]').exists()).toBe(false)
   })
 })

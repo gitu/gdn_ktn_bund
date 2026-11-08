@@ -13,7 +13,7 @@
         <h2>{{ $t('wizard.places.title') }}</h2>
         <p>{{ $t('wizard.places.help') }}</p>
       </div>
-      <PlacePicker
+      <PlaceStep
         :model-value="places"
         :catalog="catalog"
         :loading="catalogLoading"
@@ -220,7 +220,7 @@ import RestOfCantonNotice from '@/components/RestOfCantonNotice.vue'
 import PlaceFacts from '@/components/PlaceFacts.vue'
 import FinancialCharts from '@/components/charts/FinancialCharts.vue'
 import ComparisonStepper, { type WizardStep } from '@/components/wizard/ComparisonStepper.vue'
-import PlacePicker from '@/components/wizard/PlacePicker.vue'
+import PlaceStep from '@/components/wizard/PlaceStep.vue'
 import YearPicker, { type YearMode } from '@/components/wizard/YearPicker.vue'
 import ScalingStep from '@/components/wizard/ScalingStep.vue'
 import ResultBar from '@/components/wizard/ResultBar.vue'

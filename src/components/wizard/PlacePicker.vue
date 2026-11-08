@@ -25,132 +25,77 @@
       </div>
     </div>
 
-    <div class="picker-columns">
-      <!-- Search results -->
-      <section class="results" :aria-label="$t('placePicker.resultsLabel')">
-        <p class="results-count" aria-live="polite">
-          {{ $t('placePicker.resultsCount', filtered.length) }}
-        </p>
+    <section class="results" :aria-label="$t('placePicker.resultsLabel')">
+      <p class="results-count" aria-live="polite">
+        {{ $t('placePicker.resultsCount', filtered.length) }}
+      </p>
 
-        <div v-if="loading" class="loading-state">
-          <i class="pi pi-spin pi-spinner" aria-hidden="true"></i>
-          {{ $t('placePicker.loading') }}
-        </div>
+      <div v-if="loading" class="loading-state">
+        <i class="pi pi-spin pi-spinner" aria-hidden="true"></i>
+        {{ $t('placePicker.loading') }}
+      </div>
 
-        <ul v-else-if="visible.length > 0" class="result-list">
-          <li
-            v-for="entry in visible"
-            :key="entry.id"
-            class="result-item"
-            :class="{ 'is-selected': isSelected(entry) }"
-            :data-testid="`place-option-${entry.id}`"
-          >
-            <div class="result-text">
-              <span class="result-name">{{ nameOf(entry) }}</span>
-              <span class="result-meta">
-                <span class="kind-tag" :class="`kind-${kindOf(entry)}`">
-                  {{ $t(`placeFacts.kind.${kindOf(entry)}`) }}
-                </span>
-                <span class="result-years">
-                  {{ entry.availableYears[0] }}–{{
-                    entry.availableYears[entry.availableYears.length - 1]
-                  }}
-                </span>
+      <ul v-else-if="visible.length > 0" class="result-list">
+        <li
+          v-for="entry in visible"
+          :key="entry.id"
+          class="result-item"
+          :class="{ 'is-selected': !startMode && isSelected(entry) }"
+          :data-testid="`place-option-${entry.id}`"
+        >
+          <div class="result-text">
+            <span class="result-name">{{ nameOf(entry) }}</span>
+            <span class="result-meta">
+              <span class="kind-tag" :class="`kind-${kindOf(entry)}`">
+                {{ $t(`placeFacts.kind.${kindOf(entry)}`) }}
               </span>
-            </div>
-            <Button
-              :label="isSelected(entry) ? $t('placePicker.added') : $t('placePicker.add')"
-              :icon="isSelected(entry) ? 'pi pi-check' : 'pi pi-plus'"
-              :severity="isSelected(entry) ? 'secondary' : undefined"
-              :outlined="isSelected(entry)"
-              :aria-pressed="isSelected(entry)"
-              :aria-label="
-                isSelected(entry)
-                  ? $t('placePicker.removeNamed', { name: nameOf(entry) })
-                  : $t('placePicker.addNamed', { name: nameOf(entry) })
-              "
-              size="small"
-              class="add-button"
-              @click="toggle(entry)"
-            />
-          </li>
-        </ul>
-        <p v-else class="no-results">{{ $t('placePicker.noResults') }}</p>
-
-        <Button
-          v-if="filtered.length > visible.length"
-          :label="$t('placePicker.showMore', { count: filtered.length - visible.length })"
-          severity="secondary"
-          outlined
-          class="show-more"
-          @click="visibleCount += PAGE_SIZE"
-        />
-      </section>
-
-      <!-- The selection, in the order of the columns and chart rows -->
-      <section
-        class="selection"
-        :class="{ 'is-empty': places.length === 0 }"
-        :aria-label="$t('placePicker.selectionLabel')"
-      >
-        <div class="selection-head">
-          <h3>{{ $t('placePicker.selectionTitle') }}</h3>
-          <Button
-            v-if="places.length > 0"
-            :label="$t('placePicker.clearAll')"
-            icon="pi pi-trash"
-            severity="danger"
-            text
-            size="small"
-            @click="places = []"
-          />
-        </div>
-        <p v-if="places.length === 0" class="selection-empty">
-          {{ $t('placePicker.selectionEmpty') }}
-        </p>
-        <ol v-else class="selection-list" data-testid="selected-places">
-          <li v-for="(place, index) in places" :key="place" class="selection-item">
-            <span class="selection-index" aria-hidden="true">{{ index + 1 }}</span>
-            <span class="selection-name">{{ placeName(place) }}</span>
-            <span class="selection-actions">
-              <Button
-                icon="pi pi-arrow-up"
-                text
-                rounded
-                severity="secondary"
-                size="small"
-                :disabled="index === 0"
-                :aria-label="$t('placePicker.moveUp', { name: placeName(place) })"
-                @click="move(index, -1)"
-              />
-              <Button
-                icon="pi pi-arrow-down"
-                text
-                rounded
-                severity="secondary"
-                size="small"
-                :disabled="index === places.length - 1"
-                :aria-label="$t('placePicker.moveDown', { name: placeName(place) })"
-                @click="move(index, 1)"
-              />
-              <Button
-                icon="pi pi-times"
-                text
-                rounded
-                severity="secondary"
-                size="small"
-                :aria-label="$t('placePicker.removeNamed', { name: placeName(place) })"
-                data-testid="remove-place"
-                @click="remove(place)"
-              />
+              <span class="result-years">
+                {{ entry.availableYears[0] }}–{{
+                  entry.availableYears[entry.availableYears.length - 1]
+                }}
+              </span>
             </span>
-          </li>
-        </ol>
-        <p v-if="places.length > MANY_PLACES" class="selection-hint">
-          {{ $t('placePicker.manyPlaces', { count: MANY_PLACES }) }}
-        </p>
-      </section>
-    </div>
+          </div>
+          <!-- Either choose the starting place, or add and remove places -->
+          <Button
+            v-if="startMode"
+            :label="$t('placeStep.startHere')"
+            icon="pi pi-flag"
+            :aria-label="$t('placeStep.startHereNamed', { name: nameOf(entry) })"
+            size="small"
+            class="add-button"
+            data-testid="start-here"
+            @click="emit('start', placeKeyOfEntry(entry))"
+          />
+          <Button
+            v-else
+            :label="isSelected(entry) ? $t('placePicker.added') : $t('placePicker.add')"
+            :icon="isSelected(entry) ? 'pi pi-check' : 'pi pi-plus'"
+            :severity="isSelected(entry) ? 'secondary' : undefined"
+            :outlined="isSelected(entry)"
+            :aria-pressed="isSelected(entry)"
+            :aria-label="
+              isSelected(entry)
+                ? $t('placePicker.removeNamed', { name: nameOf(entry) })
+                : $t('placePicker.addNamed', { name: nameOf(entry) })
+            "
+            size="small"
+            class="add-button"
+            @click="toggle(entry)"
+          />
+        </li>
+      </ul>
+      <p v-else class="no-results">{{ $t('placePicker.noResults') }}</p>
+
+      <Button
+        v-if="filtered.length > visible.length"
+        :label="$t('placePicker.showMore', { count: filtered.length - visible.length })"
+        severity="secondary"
+        outlined
+        class="show-more"
+        @click="visibleCount += PAGE_SIZE"
+      />
+    </section>
   </div>
 </template>
 
@@ -169,16 +114,18 @@ import type { AvailableDataEntry, MultiLanguageLabels } from '@/types/DataStruct
 const props = defineProps<{
   catalog: AvailableDataEntry[]
   loading?: boolean
+  /** Choose one starting place instead of adding and removing places */
+  startMode?: boolean
 }>()
 
+const emit = defineEmits<{ start: [place: string] }>()
+
 /** Place keys (`gdn/fs/010261`) in the chosen order */
-const places = defineModel<string[]>({ required: true })
+const places = defineModel<string[]>({ default: () => [] })
 
 const KIND_GROUPS = ['all', 'municipalities', 'cantons', 'switzerland', 'socialInsurance'] as const
 type KindGroup = (typeof KIND_GROUPS)[number]
 const PAGE_SIZE = 12
-/** Beyond this the charts run out of distinguishable colours (the table still works) */
-const MANY_PLACES = 8
 
 const { locale } = useI18n()
 const searchQuery = ref('')
@@ -197,12 +144,6 @@ const groupOf = (kind: PlaceKind): KindGroup => {
 
 const nameOf = (entry: AvailableDataEntry) =>
   entry.displayName[locale.value as keyof MultiLanguageLabels] || entry.displayName.de
-
-const byKey = computed(() => new Map(props.catalog.map((entry) => [placeKeyOfEntry(entry), entry])))
-const placeName = (place: string) => {
-  const entry = byKey.value.get(place)
-  return entry ? nameOf(entry) : place
-}
 
 const filtered = computed(() => {
   let list = props.catalog
@@ -228,17 +169,6 @@ const toggle = (entry: AvailableDataEntry) => {
   places.value = isSelected(entry)
     ? places.value.filter((place) => place !== key)
     : [...places.value, key]
-}
-
-const remove = (place: string) => {
-  places.value = places.value.filter((p) => p !== place)
-}
-
-const move = (index: number, step: number) => {
-  const next = [...places.value]
-  const [item] = next.splice(index, 1)
-  next.splice(index + step, 0, item)
-  places.value = next
 }
 </script>
 
@@ -292,36 +222,6 @@ const move = (index: number, step: number) => {
 .kind-chip:focus-visible {
   outline: 2px solid var(--gk-accent);
   outline-offset: 2px;
-}
-
-.picker-columns {
-  display: grid;
-  gap: 1rem;
-  min-width: 0;
-}
-
-/* Narrow screens: the selection comes first, so it is visible above the long result list; while it
-   is empty the sticky bar below says so instead */
-@media (max-width: 959px) {
-  .selection {
-    order: -1;
-  }
-
-  .selection.is-empty {
-    display: none;
-  }
-}
-
-@media (min-width: 960px) {
-  .picker-columns {
-    grid-template-columns: minmax(0, 3fr) minmax(16rem, 2fr);
-    align-items: start;
-  }
-
-  .selection {
-    position: sticky;
-    top: calc(var(--topbar-h) + 1rem);
-  }
 }
 
 .results-count {
@@ -409,82 +309,5 @@ const move = (index: number, step: number) => {
   width: 100%;
   min-height: 2.75rem;
   margin-top: 0.5rem;
-}
-
-.selection {
-  padding: 0.85rem;
-  border: 1px solid var(--gk-border);
-  border-radius: var(--radius-lg);
-  background: var(--gk-surface-2);
-}
-
-.selection-head {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 0.5rem;
-  min-height: 2.5rem;
-}
-
-.selection-head h3 {
-  margin: 0;
-  font-size: 1rem;
-  font-weight: 650;
-}
-
-.selection-empty,
-.selection-hint {
-  margin: 0.25rem 0 0;
-  color: var(--gk-muted);
-  font-size: 0.8125rem;
-  line-height: 1.45;
-}
-
-.selection-list {
-  display: flex;
-  flex-direction: column;
-  gap: 0.25rem;
-  margin: 0.25rem 0 0;
-  padding: 0;
-  list-style: none;
-}
-
-.selection-item {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  min-width: 0;
-  padding: 0.2rem 0.2rem 0.2rem 0.5rem;
-  border-radius: var(--radius-md);
-  background: var(--gk-surface);
-  border: 1px solid var(--gk-border);
-}
-
-.selection-index {
-  flex: none;
-  width: 1.25rem;
-  color: var(--gk-muted);
-  font-size: 0.75rem;
-  font-variant-numeric: tabular-nums;
-  text-align: center;
-}
-
-.selection-name {
-  flex: 1;
-  min-width: 0;
-  font-size: 0.875rem;
-  font-weight: 550;
-  line-height: 1.3;
-  overflow-wrap: anywhere;
-}
-
-.selection-actions {
-  display: flex;
-  flex: none;
-}
-
-.selection-actions :deep(.p-button) {
-  width: 2.5rem;
-  height: 2.5rem;
 }
 </style>

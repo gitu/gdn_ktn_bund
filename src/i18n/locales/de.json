@@ -799,7 +799,7 @@
     },
     "places": {
       "title": "Welche Orte möchten Sie vergleichen?",
-      "help": "Suchen Sie Gemeinden, Kantone, den Bund oder eine Sozialversicherung und fügen Sie sie hinzu. Die Reihenfolge hier ist die Reihenfolge in Grafiken und Tabelle.",
+      "help": "Beginnen Sie mit einem Ort, zum Beispiel Ihrer Gemeinde. Danach schlagen wir passende Vergleiche vor, oder Sie stellen alles selbst zusammen.",
       "none": "Noch kein Ort gewählt"
     },
     "years": {
@@ -1028,6 +1028,63 @@
       "francs": "in Franken",
       "per": "in Franken pro {unit}",
       "perFormula": "in Franken pro Formelwert ({formula})"
+    }
+  },
+  "placeStep": {
+    "startTitle": "Womit möchten Sie beginnen?",
+    "startHelp": "Wählen Sie einen Ort als Ausgangspunkt: eine Gemeinde, einen Kanton, den Bund oder eine Sozialversicherung.",
+    "startHere": "Hier beginnen",
+    "startHereNamed": "Mit {name} beginnen",
+    "customInstead": "Lieber alles selbst auswählen",
+    "backToComparison": "Zurück zur Auswahl",
+    "startLabel": "Ausgangsort:",
+    "changeStart": "Ändern",
+    "startTag": "Ausgangsort",
+    "modesLabel": "Wie möchten Sie Orte hinzufügen?",
+    "modes": {
+      "suggestions": "Vorschläge",
+      "custom": "Selbst suchen"
+    },
+    "suggestionsLoading": "Vorschläge werden berechnet …",
+    "noSuggestions": "Für diesen Ort gibt es keine Vorschläge. Suchen Sie die Orte selbst.",
+    "noStart": "Für Vorschläge braucht es einen Ausgangsort.",
+    "chooseStart": "Ausgangsort wählen",
+    "addAll": "Alle hinzufügen",
+    "removeAll": "Alle entfernen",
+    "inhabitants": "{value} Einw.",
+    "groups": {
+      "similarInCanton": {
+        "title": "Ähnlich grosse Gemeinden im {canton}",
+        "description": "Gemeinden mit ähnlich vielen Einwohnern wie {name}."
+      },
+      "similarElsewhere": {
+        "title": "Ähnlich grosse Gemeinden in anderen Kantonen",
+        "description": "Wie steht {name} neben Gemeinden ähnlicher Grösse in der übrigen Schweiz da?"
+      },
+      "sameCanton": {
+        "title": "Der {canton} im Ganzen",
+        "description": "Der Kanton selbst, alle seine Gemeinden zusammen und beides zusammen."
+      },
+      "largestInCanton": {
+        "title": "Die grössten Gemeinden im {canton}",
+        "description": "Die Städte und grossen Gemeinden des Kantons."
+      },
+      "similarCantons": {
+        "title": "Ähnlich grosse Kantone",
+        "description": "Kantone mit ähnlich vielen Einwohnern, mit derselben Art von Zahlen wie {name}."
+      },
+      "national": {
+        "title": "Die ganze Schweiz",
+        "description": "Zum Vergleich mit dem Landesdurchschnitt, am besten pro Einwohner umgerechnet."
+      },
+      "levels": {
+        "title": "Andere Ebenen",
+        "description": "Gemeinden, Kantone und Bund, jeweils zusammengezählt."
+      },
+      "otherInsurances": {
+        "title": "Andere Sozialversicherungen",
+        "description": "AHV, IV, EO und die weiteren Sozialversicherungen."
+      }
     }
   }
 }
