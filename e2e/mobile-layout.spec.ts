@@ -10,6 +10,27 @@ async function settle(page: Page) {
 const horizontalOverflow = (page: Page) =>
   page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth)
 
+/**
+ * Top bar buttons (menu, language, theme) whose content is clipped or that stick out of the screen.
+ * Returns their labels; empty when all of them are fully visible.
+ */
+const clippedTopbarButtons = (page: Page) =>
+  page.evaluate(() =>
+    [...document.querySelectorAll<HTMLElement>('.layout-topbar .layout-topbar-action')]
+      .filter((button) => button.offsetParent !== null)
+      .filter((button) => {
+        const box = button.getBoundingClientRect()
+        return (
+          button.scrollWidth > button.clientWidth + 1 ||
+          box.left < 0 ||
+          box.right > document.documentElement.clientWidth ||
+          box.width < 44 ||
+          box.height < 44
+        )
+      })
+      .map((button) => button.getAttribute('aria-label')),
+  )
+
 const PHONE_WIDTHS = [320, 360, 390, 430]
 const STATIC_ROUTES = ['/', '/about', '/financial-comparison']
 const WITH_DATA = '/financial-comparison?datasets=gdn/fs/010261:2022'
@@ -26,6 +47,12 @@ for (const width of PHONE_WIDTHS) {
         expect(await horizontalOverflow(page)).toBe(0)
       })
     }
+
+    test('the top bar buttons are whole, on screen and big enough to tap', async ({ page }) => {
+      await page.goto('/')
+      await settle(page)
+      expect(await clippedTopbarButtons(page)).toEqual([])
+    })
 
     test('a loaded comparison does not scroll sideways, as table or as charts', async ({
       page,
@@ -102,6 +129,7 @@ test.describe('desktop navigation', () => {
     await expect(page.locator('.layout-menu-button')).toBeVisible()
     await expect(page.getByTestId('place-picker')).toBeVisible()
     expect(await horizontalOverflow(page)).toBe(0)
+    expect(await clippedTopbarButtons(page)).toEqual([])
   })
 })
 
