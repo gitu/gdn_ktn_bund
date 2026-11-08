@@ -93,6 +93,25 @@ export function statisticName(
   return stat?.name[locale as keyof MultiLanguageLabels] || stat?.name.de || statId
 }
 
+/** How long a statistics request may take before the column is shown without its divisor */
+export const STAT_TIMEOUT_MS = 15_000
+
+function withTimeout<T>(promise: Promise<T>, ms: number): Promise<T> {
+  return new Promise<T>((resolve, reject) => {
+    const timer = setTimeout(() => reject(new Error(`No answer after ${ms} ms`)), ms)
+    promise.then(
+      (value) => {
+        clearTimeout(timer)
+        resolve(value)
+      },
+      (error) => {
+        clearTimeout(timer)
+        reject(error)
+      },
+    )
+  })
+}
+
 export class ScalingCalculator {
   private readonly stats = StatsDataLoader.getInstance()
   // Shared between columns and repeated calculations: every column of a place-and-year loads once
@@ -138,7 +157,11 @@ export class ScalingCalculator {
     const key = `${statId}:${geoId}:${year}:${source}`
     let pending = this.cache.get(key)
     if (!pending) {
-      pending = this.fetchStat(statId, geoId, year, source)
+      pending = this.fetchStat(statId, geoId, year, source).then((result) => {
+        // A failed or timed-out request is tried again next time instead of staying missing
+        if (result.failed) this.cache.delete(key)
+        return { value: result.value, year: result.year }
+      })
       this.cache.set(key, pending)
     }
     return pending
@@ -149,22 +172,32 @@ export class ScalingCalculator {
     geoId: string,
     year: number,
     source: Source,
-  ): Promise<{ value: number | null; year?: number }> {
+  ): Promise<{ value: number | null; year?: number; failed?: boolean }> {
     try {
-      if (source === 'std' && geoId === 'bund') {
-        const result = await this.stats.getBundData(statId, year)
-        return { value: result.totalValue ?? null, year: result.year }
-      }
-      const result =
-        source === 'gdn'
-          ? await this.stats.loadGdnData(statId, year, { geoIds: [geoId] })
-          : await this.stats.loadKtnData(statId, year, { geoIds: [geoId] })
-      const record = result.data.find((r: { key: string; value: number }) => r.key === geoId)
-      return { value: record ? record.value : null, year: result.metadata?.year }
+      // A request that never answers (a stalled connection) must not hold the page: give up
+      return await withTimeout(this.fetchStatValue(statId, geoId, year, source), STAT_TIMEOUT_MS)
     } catch (error) {
       Logger.error('Failed to load scaling factor for entity', error, { geoId, statId })
-      return { value: null }
+      return { value: null, failed: true }
     }
+  }
+
+  private async fetchStatValue(
+    statId: string,
+    geoId: string,
+    year: number,
+    source: Source,
+  ): Promise<{ value: number | null; year?: number }> {
+    if (source === 'std' && geoId === 'bund') {
+      const result = await this.stats.getBundData(statId, year)
+      return { value: result.totalValue ?? null, year: result.year }
+    }
+    const result =
+      source === 'gdn'
+        ? await this.stats.loadGdnData(statId, year, { geoIds: [geoId] })
+        : await this.stats.loadKtnData(statId, year, { geoIds: [geoId] })
+    const record = result.data.find((r: { key: string; value: number }) => r.key === geoId)
+    return { value: record ? record.value : null, year: result.metadata?.year }
   }
 
   /** Divisor for one column; `statIds` are the statistics the formula uses. */

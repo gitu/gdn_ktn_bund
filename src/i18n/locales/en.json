@@ -967,7 +967,7 @@
     "focusYear": "Year of the charts below",
     "previousYear": "Previous year",
     "nextYear": "Next year",
-    "skippedUnscaled": "No statistic for the conversion, so not in the charts: {names}. In the table these columns are in francs.",
+    "skippedUnscaled": "No statistic for the conversion (missing or could not be loaded), so not in the charts: {names}. In the table these columns are in francs.",
     "snapshotSubtitle": "{year}, {unit}",
     "structureSubtitle": "{year}, shares of the total",
     "trend": {

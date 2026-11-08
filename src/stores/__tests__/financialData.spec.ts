@@ -756,6 +756,34 @@ describe('financialData store', () => {
         expect(store.isApplyingScaling).toBe(false)
       })
 
+      it('a calculation that never finishes does not hold up the next choice', async () => {
+        const store = useFinancialDataStore()
+        store.setDatasets(FIRST_DATASETS)
+        await store.loadDatasets(null)
+        // The jobs statistic never answers (a stalled connection)
+        statsLoaderMock.loadGdnData.mockImplementation(
+          (id: string, _year: number, options: { geoIds: string[] }) =>
+            id === 'workplaces'
+              ? new Promise(() => {})
+              : Promise.resolve({
+                  data: options.geoIds.map((key) => ({ key, value: POPULATION[key] ?? 5000 })),
+                }),
+        )
+
+        void store.setScaling('workplaces')
+        await new Promise((resolve) => setTimeout(resolve, 0))
+        expect(store.isApplyingScaling).toBe(true)
+
+        await store.setScaling('pop')
+        expect(store.appliedScalingId).toBe('pop')
+        expect(scalingFactorsOf(store)['gdn/fs/010261:2022']).toBe(400000)
+        expect(store.isApplyingScaling).toBe(false)
+
+        await store.setScaling(null)
+        expect(store.appliedScalingId).toBeNull()
+        expect(scalingFactorsOf(store)['gdn/fs/010261:2022']).toBeUndefined()
+      })
+
       it('ignores an older load that finishes after a newer one has started', async () => {
         const { release } = mockSlowLoader()
         const store = useFinancialDataStore()
