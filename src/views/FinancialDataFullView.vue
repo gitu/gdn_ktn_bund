@@ -12,6 +12,8 @@
         class="back-button"
       />
 
+      <AmountUnitSelect />
+
       <!-- Dataset count indicator -->
       <div v-if="hasValidData" class="dataset-count">
         <i class="pi pi-database" aria-hidden="true"></i>
@@ -85,6 +87,7 @@ import Skeleton from 'primevue/skeleton'
 import Toast from 'primevue/toast'
 import FinancialDataComparison from '@/components/FinancialDataComparison.vue'
 import RestOfCantonNotice from '@/components/RestOfCantonNotice.vue'
+import AmountUnitSelect from '@/components/AmountUnitSelect.vue'
 
 // Composables
 const route = useRoute()

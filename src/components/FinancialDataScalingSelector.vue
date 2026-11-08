@@ -154,7 +154,7 @@
                 <div class="entity-scaling-factor">
                   {{
                     $t('financialDataDisplay.scalingFactor', {
-                      factor: entity.scalingFactor.toLocaleString(),
+                      factor: formatNumber(entity.scalingFactor, locale, 2),
                     })
                   }}
                 </div>
@@ -185,6 +185,7 @@ import { StatsDataLoader } from '@/utils/StatsDataLoader'
 import { GeographicalDataLoader } from '@/utils/GeographicalDataLoader'
 import { CustomScalingFormula, CUSTOM_SCALING_PREFIX } from '@/utils/CustomScalingFormula'
 import { Logger } from '@/utils/Logger'
+import { formatNumber } from '@/utils/numberFormat'
 import type { StatsAvailabilityInfo } from '@/types/StatsData'
 import type { FinancialData } from '@/types/FinancialDataStructure'
 import type { MultiLanguageLabels } from '@/types/DataStructures'

@@ -44,7 +44,7 @@
             ></i>
             <span class="suggestion-name">{{ placeName(item.place) }}</span>
             <span v-if="item.population" class="suggestion-meta">
-              {{ $t('placeStep.inhabitants', { value: formatNumber(item.population) }) }}
+              {{ $t('placeStep.inhabitants', { value: formatInhabitants(item.population) }) }}
             </span>
           </button>
         </li>
@@ -57,6 +57,7 @@
 import { useI18n } from 'vue-i18n'
 import Button from 'primevue/button'
 import type { SuggestionGroup } from '@/utils/PlaceSuggestions'
+import { formatNumber } from '@/utils/numberFormat'
 
 const props = defineProps<{
   groups: SuggestionGroup[]
@@ -72,8 +73,7 @@ const places = defineModel<string[]>({ required: true })
 
 const { locale } = useI18n()
 
-const formatNumber = (value: number) =>
-  new Intl.NumberFormat(locale.value, { maximumFractionDigits: 0 }).format(value)
+const formatInhabitants = (value: number) => formatNumber(value, locale.value)
 
 const groupParams = (group: SuggestionGroup) => ({
   name: props.placeName(props.start),

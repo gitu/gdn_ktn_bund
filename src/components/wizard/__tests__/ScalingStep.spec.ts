@@ -84,7 +84,8 @@ describe('ScalingStep', () => {
     const preview = wrapper.find('[data-testid="scaling-preview"]')
     const rows = preview.findAll('tbody tr').map((row) => row.text())
     expect(rows[0]).toContain('Zürich')
-    expect(rows[0]).toContain('440,000')
+    // Swiss grouping in every language
+    expect(rows[0]).toMatch(/440['’]000/)
     // The statistics year is marked where it differs from the year of the finances
     expect(preview.find('.year-mark').text()).toBe('2024')
     expect(rows[1]).toContain('missing')

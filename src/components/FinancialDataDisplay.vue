@@ -476,6 +476,7 @@ import type {
   FinancialDataNode,
 } from '@/types/FinancialDataStructure'
 import type { MultiLanguageLabels } from '@/types/DataStructures'
+import { useAmountFormat } from '@/composables/useAmountFormat'
 
 // Props
 interface Props {
@@ -804,20 +805,15 @@ const getValue = (node: FinancialDataNode, entityCode: string): number => {
   return baseValue
 }
 
-const formatCurrency = (value: number): string => {
-  return new Intl.NumberFormat(locale.value, {
-    style: 'currency',
-    currency: 'CHF',
-    minimumFractionDigits: 0,
-    maximumFractionDigits: 0,
-  }).format(value)
-}
+// Swiss style and the amount unit chosen for the comparison (francs, thousands, millions);
+// centimes only for small converted amounts (per inhabitant etc.)
+const numbers = useAmountFormat()
+const anyScaled = computed(() =>
+  [...(props.financialData?.entities?.values() ?? [])].some((e) => e.scalingFactor !== undefined),
+)
+const formatCurrency = (value: number): string => numbers.amount(value, anyScaled.value)
 
-const formatPercentage = (value: number | null): string => {
-  if (value === null || isNaN(value)) return '-'
-  const sign = value > 0 ? '+' : ''
-  return `${sign}${value.toFixed(1)}%`
-}
+const formatPercentage = (value: number | null): string => numbers.change(value)
 
 // Format comparison tag
 // Get comparison difference for styling

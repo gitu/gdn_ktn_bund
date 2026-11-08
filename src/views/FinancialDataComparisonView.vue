@@ -150,6 +150,7 @@
             {{ $t(`wizard.result.views.${option}`) }}
           </button>
         </div>
+        <AmountUnitSelect />
         <Button
           v-if="view === 'table' && dataLoadedCount > 0"
           :label="$t('financialDataComparison.openFullView')"
@@ -221,6 +222,7 @@ import HowToRead from '@/components/HowToRead.vue'
 import RestOfCantonNotice from '@/components/RestOfCantonNotice.vue'
 import PlaceFacts from '@/components/PlaceFacts.vue'
 import FinancialCharts from '@/components/charts/FinancialCharts.vue'
+import AmountUnitSelect from '@/components/AmountUnitSelect.vue'
 import ComparisonStepper, { type WizardStep } from '@/components/wizard/ComparisonStepper.vue'
 import PlaceStep from '@/components/wizard/PlaceStep.vue'
 import YearPicker, { type YearMode } from '@/components/wizard/YearPicker.vue'

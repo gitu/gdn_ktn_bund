@@ -198,6 +198,7 @@ import {
   type ScalingOutcome,
 } from '@/utils/ScalingCalculator'
 import { datasetIdOf, selectionFromDatasets } from '@/utils/ComparisonSelection'
+import { formatNumber } from '@/utils/numberFormat'
 import type { StatsAvailabilityInfo } from '@/types/StatsData'
 import type { FinancialData } from '@/types/FinancialDataStructure'
 import type { MultiLanguageLabels } from '@/types/DataStructures'
@@ -436,10 +437,7 @@ const hasMissing = computed(() =>
   [...outcomes.value.values()].some((outcome) => outcome.factor === null),
 )
 
-const formatFactor = (value: number) =>
-  new Intl.NumberFormat(locale.value, {
-    maximumFractionDigits: value >= 100 ? 0 : 2,
-  }).format(value)
+const formatFactor = (value: number) => formatNumber(value, locale.value, value >= 100 ? 0 : 2)
 
 const previewIntro = computed(() => {
   const id = scaling.value

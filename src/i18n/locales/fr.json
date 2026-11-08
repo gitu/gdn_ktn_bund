@@ -1086,5 +1086,23 @@
         "description": "AVS, AI, APG et les autres assurances sociales."
       }
     }
+  },
+  "amountUnit": {
+    "label": "Montants",
+    "options": {
+      "chf": "CHF",
+      "thousand": "milliers",
+      "million": "mio"
+    },
+    "suffix": {
+      "chf": "CHF",
+      "thousand": "kCHF",
+      "million": "mio CHF"
+    },
+    "hint": {
+      "chf": "Exacts, en francs",
+      "thousand": "Arrondis au millier de francs",
+      "million": "Arrondis au million de francs"
+    }
   }
 }

@@ -94,7 +94,7 @@ test.describe('comparison wizard', () => {
     const chart = page.getByTestId('chart-revenue-expenses')
     await expect(chart).toContainText('2023, in Franken pro Einwohner', { timeout: 30000 })
     // Zürich 2023: revenue 6,108,040,720 CHF / 433,989 inhabitants, not / its 546,000 jobs
-    await expect(bar).toHaveAttribute('aria-label', /^Zürich, Ertrag, 14\.074\sCHF$/)
+    await expect(bar).toHaveAttribute('aria-label', /^Zürich, Ertrag, 14'074\sCHF$/)
   })
 
   test('several years show the development, calculated with the same formula each year', async ({
@@ -153,6 +153,28 @@ test.describe('comparison wizard', () => {
     expect(
       await tooltip.evaluate((element) => element.scrollWidth <= element.clientWidth + 1),
     ).toBe(true)
+  })
+
+  test('shows amounts the Swiss way and rounds them to thousands or millions on request', async ({
+    page,
+  }) => {
+    await page.goto('/financial-comparison?datasets=gdn/fs/010261:2024&view=table')
+    const cell = page.getByRole('cell', { name: /Finanzieller Wert für Zürich/ }).first()
+    await expect(cell).toContainText(/^\s*\d{1,3}('\d{3})+\sCHF\s*$/, { timeout: 60000 })
+    // no conversion is named, not left blank
+    await expect(page.getByTestId('scaling-dropdown')).toContainText('Nicht umrechnen')
+
+    await page.getByTestId('amount-unit-thousand').click()
+    await expect(cell).toContainText(/^\s*\d{1,3}('\d{3})*\sTsd\. CHF\s*$/)
+    await page.getByTestId('amount-unit-million').click()
+    await expect(cell).toContainText(/^\s*[\d'.]+\sMio\. CHF\s*$/)
+
+    // the charts round alike, and the choice is kept
+    await page.getByTestId('view-charts').click()
+    const bar = page.getByTestId('chart-revenue-expenses').getByTestId('bar').first()
+    await expect(bar).toHaveAttribute('aria-label', /Mio\. CHF$/)
+    await page.reload()
+    await expect(page.getByTestId('amount-unit-million')).toHaveAttribute('aria-pressed', 'true')
   })
 
   test('the browser back button returns to the previous step', async ({ page }) => {

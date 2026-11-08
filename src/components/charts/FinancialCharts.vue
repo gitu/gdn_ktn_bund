@@ -199,7 +199,7 @@ import {
   type AccountGroup,
   type GroupShare,
 } from '@/utils/charts/financialFigures'
-import { formatAmount, formatCompact, formatShare } from '@/utils/charts/scale'
+import { useAmountFormat } from '@/composables/useAmountFormat'
 import { datasetIdOf, sortYears, stepYear } from '@/utils/ComparisonSelection'
 import type { FinancialData } from '@/types/FinancialDataStructure'
 import type { MultiLanguageLabels } from '@/types/DataStructures'
@@ -273,11 +273,11 @@ const valueAt = (code: string, placeKey: string, year: string) => {
   return columnIds.value.has(id) ? accountValue(props.data, code, id) : undefined
 }
 
-// ---- Formats
-const formatTick = (value: number) => formatCompact(value, locale.value)
-const formatValue = (value: number) =>
-  formatAmount(value, locale.value, props.scaled && Math.abs(value) < 100 ? 2 : 0)
-const formatPercent = (share: number) => formatShare(share, locale.value)
+// ---- Formats: Swiss style, amounts in the unit chosen for the whole comparison
+const numbers = useAmountFormat()
+const formatTick = numbers.compact
+const formatValue = (value: number) => numbers.amount(value, props.scaled)
+const formatPercent = numbers.share
 
 const snapshotSubtitle = computed(() =>
   t('charts.snapshotSubtitle', { year: focusYear.value, unit: props.unitLabel }),

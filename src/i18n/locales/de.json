@@ -1086,5 +1086,23 @@
         "description": "AHV, IV, EO und die weiteren Sozialversicherungen."
       }
     }
+  },
+  "amountUnit": {
+    "label": "Beträge",
+    "options": {
+      "chf": "CHF",
+      "thousand": "Tsd.",
+      "million": "Mio."
+    },
+    "suffix": {
+      "chf": "CHF",
+      "thousand": "Tsd. CHF",
+      "million": "Mio. CHF"
+    },
+    "hint": {
+      "chf": "Genau, in Franken",
+      "thousand": "Gerundet auf tausend Franken",
+      "million": "Gerundet auf Millionen Franken"
+    }
   }
 }

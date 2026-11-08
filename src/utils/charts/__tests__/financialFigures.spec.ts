@@ -9,7 +9,7 @@ import {
   findAccount,
   groupShares,
 } from '../financialFigures'
-import { formatCompact, linearScale } from '../scale'
+import { linearScale } from '../scale'
 import type {
   FinancialData,
   FinancialDataEntity,
@@ -130,13 +130,5 @@ describe('scales and formats', () => {
     expect(mixed.ticks).toContain(0)
     expect(mixed.position(0)).toBeGreaterThan(0)
     expect(linearScale([]).ticks).toEqual([0, 0.25, 0.5, 0.75, 1])
-  })
-
-  it('shortens large amounts and keeps small ones exact', () => {
-    // Intl puts a non-breaking space before the unit
-    expect(formatCompact(1_234_000_000, 'de')).toMatch(/^1,2\sMrd\.$/)
-    expect(formatCompact(4500, 'de')).toBe('4.500')
-    expect(formatCompact(12.34, 'de')).toBe('12,3')
-    expect(formatCompact(NaN, 'de')).toBe('–')
   })
 })

@@ -1086,5 +1086,23 @@
         "description": "AVS, AI, IPG e le altre assicurazioni sociali."
       }
     }
+  },
+  "amountUnit": {
+    "label": "Importi",
+    "options": {
+      "chf": "CHF",
+      "thousand": "migliaia",
+      "million": "mio."
+    },
+    "suffix": {
+      "chf": "CHF",
+      "thousand": "kCHF",
+      "million": "mio. CHF"
+    },
+    "hint": {
+      "chf": "Esatti, in franchi",
+      "thousand": "Arrotondati alle migliaia di franchi",
+      "million": "Arrotondati ai milioni di franchi"
+    }
   }
 }

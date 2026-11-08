@@ -9,6 +9,7 @@ export {}
 declare module 'vue' {
   export interface GlobalComponents {
     AccountCodePicker: typeof import('./src/components/optimization/AccountCodePicker.vue')['default']
+    AmountUnitSelect: typeof import('./src/components/AmountUnitSelect.vue')['default']
     BarChart: typeof import('./src/components/charts/BarChart.vue')['default']
     BrandMark: typeof import('./src/components/BrandMark.vue')['default']
     ChartCard: typeof import('./src/components/charts/ChartCard.vue')['default']

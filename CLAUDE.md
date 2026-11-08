@@ -128,6 +128,7 @@ Cached in browser for performance.
 - Vite may serve stale CSS after editing a Sass partial in `src/assets/layout/`; restart the dev server.
 - The comparison page is a wizard (places → years → convert → result) in `src/components/wizard/`; places and years are converted to dataset ids by `src/utils/ComparisonSelection.ts`, the divisors of a scaling or custom formula are calculated by `src/utils/ScalingCalculator.ts` (used by the store and the preview in the convert step).
 - Charts live in `src/components/charts/` (HTML/SVG, no chart library). Use the `--gk-series-1..8` tokens in fixed order (colour follows the place or account group, not its rank), `--gk-chart-pos/neg` for surplus/deficit, and give every chart a table twin through `ChartCard`'s `table` prop. Figures for charts come from `src/utils/charts/financialFigures.ts`.
+- Numbers are formatted Swiss style (`1'234'567`, the `<lang>-CH` locale) through `src/utils/numberFormat.ts`; amounts in tables and charts go through `useAmountFormat()`, which applies the reader's choice of exact francs, thousands or millions (`AmountUnitSelect`, kept in localStorage `gk-amount-unit`). Don't call `Intl.NumberFormat` with the bare language.
 - Design rationale and backlog: `docs/ui-proposal.md`.
 
 ### File Organization

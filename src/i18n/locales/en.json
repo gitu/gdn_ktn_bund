@@ -1086,5 +1086,23 @@
         "description": "Old-age, disability, income compensation and the other social insurances."
       }
     }
+  },
+  "amountUnit": {
+    "label": "Amounts",
+    "options": {
+      "chf": "CHF",
+      "thousand": "thousands",
+      "million": "millions"
+    },
+    "suffix": {
+      "chf": "CHF",
+      "thousand": "kCHF",
+      "million": "m CHF"
+    },
+    "hint": {
+      "chf": "Exact, in francs",
+      "thousand": "Rounded to thousands of francs",
+      "million": "Rounded to millions of francs"
+    }
   }
 }

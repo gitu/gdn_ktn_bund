@@ -74,14 +74,16 @@
       <span class="item-label">{{ $t('resultBar.scaling') }}</span>
       <div class="scaling-row">
         <Select
-          :model-value="scaling"
-          :options="scalingOptions"
+          :model-value="scaling ?? NO_SCALING"
+          :options="selectOptions"
           option-label="label"
           option-value="value"
           class="scaling-select"
           :aria-label="$t('resultBar.scaling')"
           data-testid="scaling-dropdown"
-          @update:model-value="(value: string | null) => emit('scaling', value)"
+          @update:model-value="
+            (value: string) => emit('scaling', value === NO_SCALING ? null : value)
+          "
         />
         <Button
           icon="pi pi-calculator"
@@ -117,6 +119,12 @@ const emit = defineEmits<{
   year: [year: string]
   scaling: [scaling: string | null]
 }>()
+
+// The select shows nothing for a null value, so "no conversion" gets a value of its own
+const NO_SCALING = '__none__'
+const selectOptions = computed(() =>
+  props.scalingOptions.map((option) => ({ ...option, value: option.value ?? NO_SCALING })),
+)
 
 const placesText = computed(() => {
   const [first, second, ...rest] = props.placeNames

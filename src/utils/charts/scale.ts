@@ -1,4 +1,4 @@
-/** Axis scales and number formats shared by the charts. */
+/** Axis scales shared by the charts (number formats: `@/utils/numberFormat`). */
 
 /** A "nice" step (1, 2, 2.5 or 5 times a power of ten) for about `count` intervals over `span`. */
 function niceStep(span: number, count: number): number {
@@ -46,30 +46,4 @@ export function linearScale(values: readonly number[], count = 4, includeZero = 
     ticks,
     position: (value) => (value - low) / (high - low),
   }
-}
-
-/** A short number for axis ticks and bar labels: 1,2 Mrd., 350 Mio., 4500. */
-export function formatCompact(value: number, locale: string): string {
-  if (!Number.isFinite(value)) return '–'
-  const abs = Math.abs(value)
-  return new Intl.NumberFormat(locale, {
-    notation: abs >= 100_000 ? 'compact' : 'standard',
-    compactDisplay: 'short',
-    maximumFractionDigits: abs >= 100_000 ? 1 : abs >= 100 ? 0 : abs >= 1 ? 1 : 2,
-  }).format(value)
-}
-
-/** The full amount, as in the table: 1.234.567 CHF. */
-export function formatAmount(value: number, locale: string, fractionDigits = 0): string {
-  if (!Number.isFinite(value)) return '–'
-  return new Intl.NumberFormat(locale, {
-    style: 'currency',
-    currency: 'CHF',
-    minimumFractionDigits: fractionDigits,
-    maximumFractionDigits: fractionDigits,
-  }).format(value)
-}
-
-export function formatShare(share: number, locale: string): string {
-  return new Intl.NumberFormat(locale, { style: 'percent', maximumFractionDigits: 0 }).format(share)
 }
