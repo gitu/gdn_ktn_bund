@@ -98,13 +98,59 @@ Calm, editorial, data-forward. The numbers are the hero; chrome stays quiet.
   `home-*` test IDs) are kept.
 
 ### Phase 4: backlog (not in this change)
-- Charts: a per-capita bar chart above the table for the selected top-level account (chart.js is already a dependency
-  and unused).
+- ~~Charts~~: done in phase 5 below.
 - Saved comparisons / share sheet using the Web Share API on phones.
 - Virtualised table rows for 10+ datasets; move the dataset load into a worker (the 3.7 s main-thread stall).
 - PWA shell (offline catalogue, installable).
 - Replace the 1,200-line `FinancialDataScalingSelector` with a bottom-sheet on phones.
 - Visual regression baselines in CI (Playwright screenshots at 390 and 1440).
+
+### Phase 5: comparison wizard, charts and years (2026-11-08)
+
+The comparison page is now a four-step wizard; each step is one question, and the step bar above it shows what was
+chosen and lets the user jump back.
+
+1. **Places** (`PlaceStep`): first a starting place (search plus type chips), then either **suggestions** for it or a
+   free **search**. Suggestions (`src/utils/PlaceSuggestions.ts`, by inhabitants, "similar" = smallest size ratio):
+   for a municipality, similar-sized municipalities in its canton and in other cantons, its canton (canton,
+   all municipalities, both, calculated rest) and all municipalities of Switzerland; for a canton figure, cantons of a
+   similar size with the same kind of figure, the rest of its family, its largest municipalities and the national
+   total; for country-wide figures the other levels; for a social insurance the other insurances. The selection
+   (first = starting place) stays visible and can be reordered; its order is the order of chart rows and table
+   columns. On phones the selection sits above the lists.
+2. **Years** (`YearPicker`): one year (places side by side) or several (development over time), with "last 3 / 5 /
+   all" presets. Each year shows how many of the places have data. A link that lists its own mix of places and years
+   still works as is; the step says so before a change turns it into "every place in every year".
+3. **Convert** (`ScalingStep`): francs, per inhabitant, per job, per hectare, another statistic, an own formula
+   (built from buttons for statistics and operators, applied with a button), or "let it find a formula" (the
+   optimiser, now with an account picker instead of typed codes). The step shows **what each column is divided by**,
+   for every place and year, before any account is loaded, and marks when a statistic comes from another year (area is
+   only available for 2018). This calculation lives in `src/utils/ScalingCalculator.ts`, separate from the store; the
+   store applies the same numbers to the loaded columns.
+4. **Result** (`ResultBar` + charts or table): places, year and conversion stay visible and editable. With one year,
+   ‹ › steps to the previous/next year and keeps places and conversion; with several years a "year of the charts
+   below" control does the same for the snapshot charts. The conversion is recalculated with each year's own
+   statistics.
+
+The URL keeps `datasets`, `scaling`, `comparisons` and `opt` as before (old links open the result) and adds `step`
+and `view=table`. Step changes are history entries, so the browser's back button goes back one step.
+
+**Charts** (`src/components/charts/`, hand-written HTML/SVG rather than chart.js, so they use the colour tokens,
+switch with dark mode without re-rendering, and can be unit tested):
+- Ertrag und Aufwand: grouped horizontal bars per place (labels above the bars, so long names never squeeze the plot).
+- Ergebnis: diverging bars, blue surplus / red deficit, from a real zero line.
+- Woher kommt das Geld? / Wofür wird das Geld ausgegeben?: 100 % stacked bars of the HRM2 groups (taxes, fees,
+  transfers …; personnel, goods, transfers, depreciation …), small groups combined into "Übrige", fixed colours per group.
+- Entwicklung (several years): one line per place for revenue, expenses, result, net debt (liabilities minus
+  financial assets) or any account; gaps where a year is missing; crosshair tooltip and arrow-key readout.
+- Im Vergleich (one year): the same figure picker as bars.
+
+Every chart has a table twin, a legend from two series up, tooltips on hover, tap and keyboard focus, and leaves out
+(and names) columns that have no divisor, instead of mixing francs with francs per inhabitant. The categorical palette
+was checked for colour-vision deficiency and contrast against both surfaces with the dataviz palette validator; three
+light-mode slots are below 3:1 on white, which is why values are labelled and the table view exists.
+
+Also: an account row in the table now expands or collapses when its name is clicked, not only on the small caret.
 
 ## 5. Data
 

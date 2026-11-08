@@ -218,9 +218,9 @@
     },
     "quickStart": {
       "title": "Direkt loslegen",
-      "subtitle": "Zwei fertige Beispiele. Ein Tipp genügt.",
-      "datasets": "{count} Spalten im Vergleich",
-      "open": "Beispiel öffnen"
+      "subtitle": "Drei fertige Beispiele, eines davon über mehrere Jahre. Ein Tipp genügt.",
+      "open": "Beispiel öffnen",
+      "meta": "{places}, {years}"
     },
     "features": {
       "compare": {
@@ -251,7 +251,8 @@
       "description": "Umrechnungsfaktoren helfen dabei, Zahlen für bessere Vergleiche zwischen Orten unterschiedlicher Grösse vergleichbar zu machen.",
       "currentScaling": "Aktuelle Skalierung: {name}",
       "unit": "Einheit: {unit}",
-      "format": "{name} ({unit})"
+      "format": "{name} ({unit})",
+      "customFormat": "Eigene Formel: {formula}"
     },
     "options": {
       "pop": "Bevölkerung",
@@ -324,7 +325,7 @@
     }
   },
   "financialDataComparison": {
-    "title": "Finanzdaten zum Vergleich auswählen",
+    "title": "Finanzen vergleichen",
     "subtitle": "Wählen Sie Gemeinden, Kantone oder den Bund aus und legen Sie ihre Finanzzahlen nebeneinander.",
     "loading": "Lade Finanzdaten...",
     "error": "Fehler beim Laden der Daten",
@@ -366,6 +367,10 @@
       "zurichMunicipalities": {
         "name": "Vier Zürcher Gemeinden im Vergleich",
         "description": "Zürich, Winterthur, Meilen und Glattfelden neben dem ganzen Kanton, umgerechnet pro Einwohner."
+      },
+      "zurichWinterthurTrend": {
+        "name": "Zürich und Winterthur über die Jahre",
+        "description": "Wie sich Ertrag, Aufwand und Ergebnis der beiden grössten Zürcher Städte seit 2018 entwickelt haben, pro Einwohner."
       }
     },
     "selectSampleDataset": "Beispiel-Datensatz auswählen",
@@ -768,11 +773,336 @@
         "legend": "Pro Zelle: Änderung des Faktors, Änderung des erwarteten Betrags, Rang vorher → nachher.",
         "unavailable": "Für diese Auswahl liegen keine Werte vor."
       }
+    },
+    "accountPicker": {
+      "remove": "{account} entfernen",
+      "empty": "Noch kein Konto gewählt.",
+      "search": "Konto oder Nummer suchen",
+      "add": "Konto hinzufügen …",
+      "quick": "Häufige Konten",
+      "quickLabel": "{code} {name}"
     }
   },
   "restOfCanton": {
     "title": "Berechnete Werte: «Übrige Gemeinden»",
     "text": "Die Zahlen für die übrigen Gemeinden eines Kantons (unter 5'000 Einwohner) veröffentlicht niemand. Sie wurden hier errechnet: Zahlen aller Gemeinden des Kantons minus die einzelnen Gemeinden ab 5'000 Einwohnern. Das ist eine Näherung.",
     "limits": "Es fehlen die Zahlungen zwischen Gemeinden (Konten 361–363 und 461–463) und Konten, die sich nicht sauber abziehen lassen. Totale und Gewinn/Verlust sind deshalb nur eingeschränkt mit anderen Spalten vergleichbar. Eine Aufteilung nach Aufgabenbereichen gibt es nicht."
+  },
+  "wizard": {
+    "intro": "In vier Schritten zum Vergleich: Orte wählen, Jahre wählen, festlegen, wie umgerechnet wird, und das Ergebnis als Grafik oder Tabelle ansehen.",
+    "stepsLabel": "Schritte des Vergleichs",
+    "steps": {
+      "places": "Orte",
+      "years": "Jahre",
+      "scaling": "Umrechnen",
+      "result": "Ergebnis"
+    },
+    "places": {
+      "title": "Welche Orte möchten Sie vergleichen?",
+      "help": "Beginnen Sie mit einem Ort, zum Beispiel Ihrer Gemeinde. Danach schlagen wir passende Vergleiche vor, oder Sie stellen alles selbst zusammen.",
+      "none": "Noch kein Ort gewählt"
+    },
+    "years": {
+      "title": "Welche Jahre?",
+      "help": "Ein Jahr zeigt die Orte nebeneinander. Mehrere Jahre zeigen zusätzlich, wie sich die Zahlen entwickelt haben. Die Umrechnung gilt für jedes Jahr mit den Kennzahlen dieses Jahres.",
+      "customCombination": "Der Link enthält eine eigene Kombination von Orten und Jahren. Sobald Sie hier ein Jahr wählen, gilt es für alle Orte."
+    },
+    "scaling": {
+      "title": "Wie sollen die Beträge umgerechnet werden?",
+      "help": "Grosse Orte haben grosse Beträge. Teilt man durch die Einwohnerzahl oder eine andere Kennzahl, werden Orte unterschiedlicher Grösse vergleichbar. Unten sehen Sie, durch welche Zahl jede Spalte geteilt wird."
+    },
+    "summary": {
+      "places": "1 Ort | {count} Orte",
+      "columns": "1 Spalte | {count} Spalten"
+    },
+    "next": "Weiter: {step}",
+    "showResult": "Ergebnis anzeigen",
+    "result": {
+      "missingPlaces": "Für die gewählten Jahre fehlen Zahlen von: {names}.",
+      "viewLabel": "Ansicht",
+      "views": {
+        "charts": "Grafiken",
+        "table": "Tabelle"
+      }
+    }
+  },
+  "placePicker": {
+    "searchPlaceholder": "Gemeinde, Kanton oder Bund suchen …",
+    "filterLabel": "Nach Art filtern",
+    "groups": {
+      "all": "Alle",
+      "municipalities": "Gemeinden",
+      "cantons": "Kantone",
+      "switzerland": "Schweiz und Bund",
+      "socialInsurance": "Sozialversicherungen"
+    },
+    "resultsLabel": "Suchergebnisse",
+    "resultsCount": "1 Treffer | {count} Treffer",
+    "loading": "Die Liste wird geladen …",
+    "add": "Hinzufügen",
+    "added": "Gewählt",
+    "addNamed": "{name} hinzufügen",
+    "removeNamed": "{name} entfernen",
+    "noResults": "Keine Treffer. Versuchen Sie einen anderen Suchbegriff oder «Alle».",
+    "showMore": "{count} weitere anzeigen",
+    "selectionLabel": "Ihre Auswahl",
+    "selectionTitle": "Ihre Auswahl",
+    "selectionEmpty": "Noch nichts gewählt. Fügen Sie links mindestens einen Ort hinzu.",
+    "clearAll": "Alle entfernen",
+    "moveUp": "{name} nach oben",
+    "moveDown": "{name} nach unten",
+    "manyPlaces": "Mehr als {count} Orte: Die Tabelle zeigt alle, die Entwicklungsgrafik nur die ersten {count}."
+  },
+  "yearPicker": {
+    "modeLabel": "Ein Jahr oder mehrere",
+    "modes": {
+      "single": {
+        "title": "Ein Jahr",
+        "description": "Die Orte im selben Jahr vergleichen. Später können Sie Jahr für Jahr weiterblättern."
+      },
+      "multi": {
+        "title": "Mehrere Jahre",
+        "description": "Die Entwicklung über die Jahre sehen, mit derselben Umrechnung für jedes Jahr."
+      }
+    },
+    "noYears": "Für die gewählten Orte gibt es keine Jahre.",
+    "yearsLabel": "Verfügbare Jahre",
+    "allPlaces": "alle Orte",
+    "somePlaces": "{count} von {total}",
+    "lastYears": "Letzte {count} Jahre",
+    "allYears": "Alle ({from}–{to})",
+    "pickOne": "Wählen Sie mindestens ein Jahr.",
+    "summary": "{years} gewählt, zusammen {columns} Spalten.",
+    "manyColumns": "{count} Spalten: Die Grafiken bleiben übersichtlich, die Tabelle wird sehr breit."
+  },
+  "scalingStep": {
+    "choiceLabel": "Umrechnung",
+    "choices": {
+      "none": {
+        "title": "Nicht umrechnen",
+        "description": "Die Beträge in Franken, so wie sie in der Rechnung stehen."
+      },
+      "pop": {
+        "title": "Pro Einwohner/in",
+        "description": "Am häufigsten: macht grosse und kleine Orte vergleichbar."
+      },
+      "workplaces": {
+        "title": "Pro Arbeitsplatz",
+        "description": "Sinnvoll für Orte, in denen viel mehr Leute arbeiten als wohnen."
+      },
+      "total_area": {
+        "title": "Pro Hektare Fläche",
+        "description": "Für Ausgaben, die mit der Fläche wachsen, etwa Strassen oder Wald."
+      },
+      "other": {
+        "title": "Andere Kennzahl",
+        "description": "Zum Beispiel pro Kind und Jugendlichem oder pro Person ab 65."
+      },
+      "custom": {
+        "title": "Eigene Formel",
+        "description": "Kennzahlen kombinieren, zum Beispiel Einwohner plus halbe Arbeitsplätze."
+      },
+      "optimize": {
+        "title": "Formel finden lassen",
+        "description": "Wählen Sie Konten; das Werkzeug sucht die Kennzahlen, mit denen die Orte dort am besten vergleichbar werden."
+      }
+    },
+    "otherLabel": "Kennzahl",
+    "otherPlaceholder": "Kennzahl wählen",
+    "formula": {
+      "label": "Formel",
+      "placeholder": "z. B. pop+workplaces/2",
+      "operators": "Rechenzeichen einfügen",
+      "statistics": "Kennzahl einfügen",
+      "operator": {
+        "plus": "plus",
+        "minus": "minus",
+        "times": "mal",
+        "divide": "geteilt durch",
+        "open": "Klammer auf",
+        "close": "Klammer zu"
+      },
+      "valid": "Gültige Formel mit: {statistics}",
+      "invalid": "So geht die Formel nicht: {error}",
+      "apply": "Formel übernehmen",
+      "examplesTitle": "Beispiele",
+      "examples": {
+        "mixed": "Einwohner plus die Hälfte der Arbeitsplätze",
+        "adults": "nur Einwohner im Erwerbsalter",
+        "weighted": "ältere Einwohner zählen mehr"
+      }
+    },
+    "optimizer": {
+      "title": "Formel automatisch finden",
+      "intro": "Für Fortgeschrittene: Das Werkzeug sucht Gewichte für die Kennzahlen, mit denen sich die gewählten Orte bei bestimmten Konten möglichst ähnlich werden.",
+      "waiting": "Die Finanzdaten werden geladen …"
+    },
+    "preview": {
+      "title": "So wird umgerechnet",
+      "introStat": "Jede Spalte wird durch «{name}» ({unit}) des Ortes und Jahres geteilt:",
+      "introFormula": "Jede Spalte wird durch das Ergebnis der Formel «{formula}» für den Ort und das Jahr geteilt:",
+      "missing": "fehlt",
+      "fromYear": "Wert von {year}",
+      "otherYears": "Eine kleine Jahreszahl heisst: Für dieses Jahr gibt es die Kennzahl nicht, verwendet wird das nächstgelegene Jahr.",
+      "missingNote": "Wo die Kennzahl fehlt, bleibt die Spalte in Franken und erscheint nicht in den Grafiken.",
+      "unknown": "Diese Kennzahl gibt es nicht."
+    }
+  },
+  "resultBar": {
+    "places": "Orte",
+    "edit": "ändern",
+    "year": "Jahr",
+    "years": "Jahre",
+    "toYear": "Zu {year} wechseln",
+    "scaling": "Umrechnung",
+    "formula": "Formel"
+  },
+  "charts": {
+    "showChart": "Grafik",
+    "showTable": "Tabelle",
+    "noValue": "keine Zahl",
+    "empty": "Für diese Auswahl gibt es nichts zu zeigen.",
+    "lineKeyboardHint": "Mit den Pfeiltasten von Jahr zu Jahr gehen.",
+    "place": "Ort",
+    "focusYear": "Jahr der Grafiken unten",
+    "previousYear": "Vorheriges Jahr",
+    "nextYear": "Nächstes Jahr",
+    "skippedUnscaled": "Ohne Kennzahl für die Umrechnung und darum nicht in den Grafiken: {names}. In der Tabelle stehen diese Spalten in Franken.",
+    "snapshotSubtitle": "{year}, {unit}",
+    "structureSubtitle": "{year}, Anteile am Total",
+    "trend": {
+      "title": "Entwicklung: {measure}",
+      "subtitle": "{from} bis {to}, {unit}",
+      "capped": "Die Grafik zeigt die ersten {count} von {total} Orten; alle stehen in der Tabelle."
+    },
+    "revenueExpenses": {
+      "title": "Ertrag und Aufwand"
+    },
+    "result": {
+      "title": "Ergebnis: Überschuss oder Defizit",
+      "surplus": "Überschuss",
+      "deficit": "Defizit",
+      "note": "Ertrag minus Aufwand. Blau heisst mehr eingenommen als ausgegeben, rot weniger."
+    },
+    "revenueStructure": {
+      "title": "Woher kommt das Geld?",
+      "note": "Steuern sind Einkommens-, Vermögens- und Gewinnsteuern. Transfers sind Beiträge von Bund, Kanton oder anderen Gemeinden. Entgelte sind Gebühren, etwa für Abfall oder Wasser."
+    },
+    "expenseStructure": {
+      "title": "Wofür wird das Geld ausgegeben?",
+      "note": "Transfers sind Beiträge an andere, etwa an Schulen, Spitäler, Sozialhilfe oder den Finanzausgleich. Sachaufwand ist alles, was eingekauft wird."
+    },
+    "measure": {
+      "title": "Im Vergleich: {measure}",
+      "pick": "Kennzahl wählen",
+      "search": "Konto suchen",
+      "otherAccount": "Anderes Konto …"
+    },
+    "figures": {
+      "revenue": "Ertrag",
+      "expenses": "Aufwand",
+      "result": "Ergebnis",
+      "netDebt": "Nettoschulden"
+    },
+    "groups": {
+      "revenue": {
+        "taxes": "Steuern",
+        "fees": "Entgelte und Gebühren",
+        "transfers": "Transfers",
+        "financial": "Finanzertrag",
+        "other": "Übrige"
+      },
+      "expenses": {
+        "personnel": "Personal",
+        "goods": "Sachaufwand",
+        "transfers": "Transfers",
+        "depreciation": "Abschreibungen",
+        "financial": "Finanzaufwand",
+        "other": "Übrige"
+      }
+    },
+    "netDebt": "Nettoschulden",
+    "netAssets": "Nettovermögen",
+    "netDebtNote": "Nettoschulden = Fremdkapital minus Finanzvermögen. Ein negativer Wert heisst: Das Finanzvermögen ist grösser als die Schulden (Nettovermögen).",
+    "unit": {
+      "francs": "in Franken",
+      "per": "in Franken pro {unit}",
+      "perFormula": "in Franken pro Formelwert ({formula})"
+    }
+  },
+  "placeStep": {
+    "startTitle": "Womit möchten Sie beginnen?",
+    "startHelp": "Wählen Sie einen Ort als Ausgangspunkt: eine Gemeinde, einen Kanton, den Bund oder eine Sozialversicherung.",
+    "startHere": "Hier beginnen",
+    "startHereNamed": "Mit {name} beginnen",
+    "customInstead": "Lieber alles selbst auswählen",
+    "backToComparison": "Zurück zur Auswahl",
+    "startLabel": "Ausgangsort:",
+    "changeStart": "Ändern",
+    "startTag": "Ausgangsort",
+    "modesLabel": "Wie möchten Sie Orte hinzufügen?",
+    "modes": {
+      "suggestions": "Vorschläge",
+      "custom": "Selbst suchen"
+    },
+    "suggestionsLoading": "Vorschläge werden berechnet …",
+    "noSuggestions": "Für diesen Ort gibt es keine Vorschläge. Suchen Sie die Orte selbst.",
+    "noStart": "Für Vorschläge braucht es einen Ausgangsort.",
+    "chooseStart": "Ausgangsort wählen",
+    "addAll": "Alle hinzufügen",
+    "removeAll": "Alle entfernen",
+    "inhabitants": "{value} Einw.",
+    "groups": {
+      "similarInCanton": {
+        "title": "Ähnlich grosse Gemeinden im {canton}",
+        "description": "Gemeinden mit ähnlich vielen Einwohnern wie {name}."
+      },
+      "similarElsewhere": {
+        "title": "Ähnlich grosse Gemeinden in anderen Kantonen",
+        "description": "Wie steht {name} neben Gemeinden ähnlicher Grösse in der übrigen Schweiz da?"
+      },
+      "sameCanton": {
+        "title": "Der {canton} im Ganzen",
+        "description": "Der Kanton selbst, alle seine Gemeinden zusammen und beides zusammen."
+      },
+      "largestInCanton": {
+        "title": "Die grössten Gemeinden im {canton}",
+        "description": "Die Städte und grossen Gemeinden des Kantons."
+      },
+      "similarCantons": {
+        "title": "Ähnlich grosse Kantone",
+        "description": "Kantone mit ähnlich vielen Einwohnern, mit derselben Art von Zahlen wie {name}."
+      },
+      "national": {
+        "title": "Die ganze Schweiz",
+        "description": "Zum Vergleich mit dem Landesdurchschnitt, am besten pro Einwohner umgerechnet."
+      },
+      "levels": {
+        "title": "Andere Ebenen",
+        "description": "Gemeinden, Kantone und Bund, jeweils zusammengezählt."
+      },
+      "otherInsurances": {
+        "title": "Andere Sozialversicherungen",
+        "description": "AHV, IV, EO und die weiteren Sozialversicherungen."
+      }
+    }
+  },
+  "amountUnit": {
+    "label": "Beträge",
+    "options": {
+      "chf": "CHF",
+      "thousand": "Tsd.",
+      "million": "Mio."
+    },
+    "suffix": {
+      "chf": "CHF",
+      "thousand": "Tsd. CHF",
+      "million": "Mio. CHF"
+    },
+    "hint": {
+      "chf": "Genau, in Franken",
+      "thousand": "Gerundet auf tausend Franken",
+      "million": "Gerundet auf Millionen Franken"
+    }
   }
 }

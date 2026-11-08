@@ -8,7 +8,9 @@
   left: 0;
   top: 0;
   width: 100%;
-  padding: env(safe-area-inset-top, 0) var(--gutter) 0;
+  // The page uses viewport-fit=cover: keep the buttons clear of rounded corners and the notch
+  padding: env(safe-area-inset-top, 0) max(var(--gutter), env(safe-area-inset-right, 0px)) 0
+    max(var(--gutter), env(safe-area-inset-left, 0px));
   background-color: var(--gk-glass);
   -webkit-backdrop-filter: saturate(180%) blur(14px);
   backdrop-filter: saturate(180%) blur(14px);
@@ -59,8 +61,10 @@
     justify-content: center;
     align-items: center;
     gap: 0.4rem;
-    min-width: 2.75rem;
-    height: 2.75rem;
+    // px, not rem: the root font is 14px and 2.75rem would be a 38.5px touch target
+    flex: none;
+    min-width: 44px;
+    height: 44px;
     padding: 0;
     border: 0;
     border-radius: 999px;
@@ -102,7 +106,10 @@
 
 // Language trigger shows the code next to the globe once there is room.
 .layout-topbar .layout-topbar-action.has-label {
+  // Wide enough for the globe and the language code (PrimeVue's icon-only button is a fixed square)
+  width: auto;
   padding: 0 0.75rem;
+  overflow: visible;
   background-color: var(--gk-surface-2);
   border: 1px solid var(--gk-border);
 

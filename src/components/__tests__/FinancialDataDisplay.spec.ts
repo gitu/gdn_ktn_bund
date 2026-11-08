@@ -99,6 +99,7 @@ const i18n = createI18n({
   locale: 'de',
   messages: {
     de: {
+      amountUnit: { suffix: { chf: 'CHF', thousand: 'Tsd. CHF', million: 'Mio. CHF' } },
       financialDataDisplay: {
         title: 'Finanzdaten-Anzeige',
         financialData: 'Finanzdaten',
@@ -156,6 +157,7 @@ const i18n = createI18n({
       },
     },
     en: {
+      amountUnit: { suffix: { chf: 'CHF', thousand: 'Tsd. CHF', million: 'Mio. CHF' } },
       financialDataDisplay: {
         title: 'Financial Data Display',
         financialData: 'Financial Data',
@@ -637,7 +639,8 @@ describe('FinancialDataDisplay', () => {
       const vm = wrapper.vm as unknown as { formatCurrency: (value: number) => string }
       const formattedValue = vm.formatCurrency(1234.56)
       expect(formattedValue).toMatch(/CHF/)
-      expect(formattedValue).toMatch(/1[\s,.]?235/) // Allow for different locale formatting including spaces
+      // Swiss grouping: 1'235 (apostrophe or typographic apostrophe)
+      expect(formattedValue).toMatch(/^1['’]235\sCHF$/)
     })
 
     it('handles zero values correctly', () => {

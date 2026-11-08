@@ -48,7 +48,7 @@ test.describe('plain-language explainers', () => {
     page,
   }) => {
     await page.goto(
-      '/financial-comparison?datasets=std/fs/gdn_zh_rest:2024,gdn/fs/010261:2024&scaling=pop',
+      '/financial-comparison?datasets=std/fs/gdn_zh_rest:2024,gdn/fs/010261:2024&scaling=pop&view=table',
     )
 
     const notice = page.getByTestId('rest-notice')
@@ -62,7 +62,7 @@ test.describe('plain-language explainers', () => {
     // scaled with the population of the rest itself, not of the whole country: CHF per inhabitant, not billions
     await expect(
       page.getByRole('cell', { name: /Finanzieller Wert für Übrige Gemeinden/ }).first(),
-    ).toContainText(/^\s*\d{1,3}\.\d{3}\sCHF/)
+    ).toContainText(/^\s*\d{1,3}'\d{3}\sCHF/)
 
     const place = page.getByTestId('place-std/fs/gdn_zh_rest:2024')
     await expect(place).toContainText('Berechnet')

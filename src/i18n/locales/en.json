@@ -218,9 +218,9 @@
     },
     "quickStart": {
       "title": "Jump right in",
-      "subtitle": "Two ready-made examples. One tap is enough.",
-      "datasets": "{count} columns in the comparison",
-      "open": "Open example"
+      "subtitle": "Three ready-made examples, one of them over several years. One tap is enough.",
+      "open": "Open example",
+      "meta": "{places}, {years}"
     },
     "features": {
       "compare": {
@@ -251,7 +251,8 @@
       "description": "Scaling factors help normalize data for better comparison between places of different sizes.",
       "currentScaling": "Current scaling: {name}",
       "unit": "Unit: {unit}",
-      "format": "{name} ({unit})"
+      "format": "{name} ({unit})",
+      "customFormat": "Custom formula: {formula}"
     },
     "options": {
       "pop": "Population",
@@ -324,7 +325,7 @@
     }
   },
   "financialDataComparison": {
-    "title": "Select Financial Data to Compare",
+    "title": "Compare finances",
     "subtitle": "Pick municipalities, cantons or the federal government and put their finances side by side.",
     "loading": "Loading financial data...",
     "error": "Error loading data",
@@ -366,6 +367,10 @@
       "zurichMunicipalities": {
         "name": "Four Zurich municipalities compared",
         "description": "Zurich, Winterthur, Meilen and Glattfelden next to the whole canton, converted to per inhabitant."
+      },
+      "zurichWinterthurTrend": {
+        "name": "Zürich and Winterthur over the years",
+        "description": "How revenue, expenses and the result of the two largest cities in the canton of Zurich have developed since 2018, per inhabitant."
       }
     },
     "selectSampleDataset": "Select Sample Dataset",
@@ -768,11 +773,336 @@
         "legend": "Per cell: change of the factor, change of the expected amount, rank before → after.",
         "unavailable": "There are no values for this selection."
       }
+    },
+    "accountPicker": {
+      "remove": "Remove {account}",
+      "empty": "No account chosen yet.",
+      "search": "Search an account or number",
+      "add": "Add an account …",
+      "quick": "Common accounts",
+      "quickLabel": "{code} {name}"
     }
   },
   "restOfCanton": {
     "title": "Calculated figures: \"Other municipalities\"",
     "text": "Nobody publishes figures for the remaining municipalities of a canton (under 5,000 inhabitants). They were calculated here: the figures of all municipalities of the canton minus the individual municipalities with 5,000 or more inhabitants. This is an approximation.",
     "limits": "Payments between municipalities (accounts 361–363 and 461–463) and accounts that cannot be subtracted cleanly are missing. Totals and profit/loss are therefore only partly comparable with other columns. There is no breakdown by area of responsibility."
+  },
+  "wizard": {
+    "intro": "Four steps: choose places, choose years, decide how to convert the amounts, then see the result as charts or a table.",
+    "stepsLabel": "Comparison steps",
+    "steps": {
+      "places": "Places",
+      "years": "Years",
+      "scaling": "Convert",
+      "result": "Result"
+    },
+    "places": {
+      "title": "Which places do you want to compare?",
+      "help": "Start with one place, for example your municipality. Then we suggest sensible comparisons, or you put everything together yourself.",
+      "none": "No place chosen yet"
+    },
+    "years": {
+      "title": "Which years?",
+      "help": "One year shows the places side by side. Several years also show how the numbers developed. The conversion uses each year’s own statistics.",
+      "customCombination": "The link has its own mix of places and years. As soon as you pick a year here, it applies to all places."
+    },
+    "scaling": {
+      "title": "How should the amounts be converted?",
+      "help": "Big places have big amounts. Dividing by the number of inhabitants or another statistic makes places of different size comparable. Below you see what each column is divided by."
+    },
+    "summary": {
+      "places": "1 place | {count} places",
+      "columns": "1 column | {count} columns"
+    },
+    "next": "Next: {step}",
+    "showResult": "Show the result",
+    "result": {
+      "missingPlaces": "No figures for the chosen years: {names}.",
+      "viewLabel": "View",
+      "views": {
+        "charts": "Charts",
+        "table": "Table"
+      }
+    }
+  },
+  "placePicker": {
+    "searchPlaceholder": "Search a municipality, canton or the federal level …",
+    "filterLabel": "Filter by type",
+    "groups": {
+      "all": "All",
+      "municipalities": "Municipalities",
+      "cantons": "Cantons",
+      "switzerland": "Switzerland and federal",
+      "socialInsurance": "Social insurance"
+    },
+    "resultsLabel": "Search results",
+    "resultsCount": "1 result | {count} results",
+    "loading": "Loading the list …",
+    "add": "Add",
+    "added": "Added",
+    "addNamed": "Add {name}",
+    "removeNamed": "Remove {name}",
+    "noResults": "Nothing found. Try another search or “All”.",
+    "showMore": "Show {count} more",
+    "selectionLabel": "Your choice",
+    "selectionTitle": "Your choice",
+    "selectionEmpty": "Nothing chosen yet. Add at least one place.",
+    "clearAll": "Remove all",
+    "moveUp": "Move {name} up",
+    "moveDown": "Move {name} down",
+    "manyPlaces": "More than {count} places: the table shows all of them, the trend chart only the first {count}."
+  },
+  "yearPicker": {
+    "modeLabel": "One year or several",
+    "modes": {
+      "single": {
+        "title": "One year",
+        "description": "Compare the places in the same year. Later you can step from year to year."
+      },
+      "multi": {
+        "title": "Several years",
+        "description": "See the development over the years, with the same conversion for every year."
+      }
+    },
+    "noYears": "There are no years for the chosen places.",
+    "yearsLabel": "Available years",
+    "allPlaces": "all places",
+    "somePlaces": "{count} of {total}",
+    "lastYears": "Last {count} years",
+    "allYears": "All ({from}–{to})",
+    "pickOne": "Pick at least one year.",
+    "summary": "{years} chosen, {columns} columns in all.",
+    "manyColumns": "{count} columns: the charts stay readable, the table gets very wide."
+  },
+  "scalingStep": {
+    "choiceLabel": "Conversion",
+    "choices": {
+      "none": {
+        "title": "Don’t convert",
+        "description": "The amounts in francs, as they are in the accounts."
+      },
+      "pop": {
+        "title": "Per inhabitant",
+        "description": "The most common: makes big and small places comparable."
+      },
+      "workplaces": {
+        "title": "Per job",
+        "description": "Useful where far more people work than live."
+      },
+      "total_area": {
+        "title": "Per hectare",
+        "description": "For spending that grows with the area, such as roads or forests."
+      },
+      "other": {
+        "title": "Another statistic",
+        "description": "For example per child and young person, or per person aged 65 and over."
+      },
+      "custom": {
+        "title": "Own formula",
+        "description": "Combine statistics, for example inhabitants plus half the jobs."
+      },
+      "optimize": {
+        "title": "Let it find a formula",
+        "description": "Choose accounts; the tool looks for the statistics that make the places most comparable for them."
+      }
+    },
+    "otherLabel": "Statistic",
+    "otherPlaceholder": "Choose a statistic",
+    "formula": {
+      "label": "Formula",
+      "placeholder": "e.g. pop+workplaces/2",
+      "operators": "Insert an operator",
+      "statistics": "Insert a statistic",
+      "operator": {
+        "plus": "plus",
+        "minus": "minus",
+        "times": "times",
+        "divide": "divided by",
+        "open": "opening bracket",
+        "close": "closing bracket"
+      },
+      "valid": "Valid formula with: {statistics}",
+      "invalid": "The formula does not work like this: {error}",
+      "apply": "Use the formula",
+      "examplesTitle": "Examples",
+      "examples": {
+        "mixed": "inhabitants plus half the jobs",
+        "adults": "only inhabitants of working age",
+        "weighted": "older inhabitants count more"
+      }
+    },
+    "optimizer": {
+      "title": "Find a formula automatically",
+      "intro": "For advanced users: the tool looks for weights that make the chosen places as similar as possible for selected accounts.",
+      "waiting": "Loading the financial data …"
+    },
+    "preview": {
+      "title": "How the amounts are converted",
+      "introStat": "Each column is divided by “{name}” ({unit}) of its place and year:",
+      "introFormula": "Each column is divided by the result of the formula “{formula}” for its place and year:",
+      "missing": "missing",
+      "fromYear": "value from {year}",
+      "otherYears": "A small year means the statistic does not exist for that year; the nearest year is used.",
+      "missingNote": "Where the statistic is missing, the column stays in francs and is left out of the charts.",
+      "unknown": "This statistic does not exist."
+    }
+  },
+  "resultBar": {
+    "places": "Places",
+    "edit": "change",
+    "year": "Year",
+    "years": "Years",
+    "toYear": "Go to {year}",
+    "scaling": "Conversion",
+    "formula": "Formula"
+  },
+  "charts": {
+    "showChart": "Chart",
+    "showTable": "Table",
+    "noValue": "no figure",
+    "empty": "Nothing to show for this choice.",
+    "lineKeyboardHint": "Use the arrow keys to go from year to year.",
+    "place": "Place",
+    "focusYear": "Year of the charts below",
+    "previousYear": "Previous year",
+    "nextYear": "Next year",
+    "skippedUnscaled": "No statistic for the conversion, so not in the charts: {names}. In the table these columns are in francs.",
+    "snapshotSubtitle": "{year}, {unit}",
+    "structureSubtitle": "{year}, shares of the total",
+    "trend": {
+      "title": "Development: {measure}",
+      "subtitle": "{from} to {to}, {unit}",
+      "capped": "The chart shows the first {count} of {total} places; the table has all of them."
+    },
+    "revenueExpenses": {
+      "title": "Revenue and expenses"
+    },
+    "result": {
+      "title": "Result: surplus or deficit",
+      "surplus": "Surplus",
+      "deficit": "Deficit",
+      "note": "Revenue minus expenses. Blue means more came in than went out, red less."
+    },
+    "revenueStructure": {
+      "title": "Where does the money come from?",
+      "note": "Taxes are income, wealth and profit taxes. Transfers are contributions from the federal government, the canton or other municipalities. Fees pay for things like waste or water."
+    },
+    "expenseStructure": {
+      "title": "What is the money spent on?",
+      "note": "Transfers are contributions to others, for example to schools, hospitals, social assistance or fiscal equalisation. Goods and services is everything that is bought in."
+    },
+    "measure": {
+      "title": "Compared: {measure}",
+      "pick": "Choose a figure",
+      "search": "Search an account",
+      "otherAccount": "Another account …"
+    },
+    "figures": {
+      "revenue": "Revenue",
+      "expenses": "Expenses",
+      "result": "Result",
+      "netDebt": "Net debt"
+    },
+    "groups": {
+      "revenue": {
+        "taxes": "Taxes",
+        "fees": "Fees and charges",
+        "transfers": "Transfers",
+        "financial": "Financial income",
+        "other": "Other"
+      },
+      "expenses": {
+        "personnel": "Personnel",
+        "goods": "Goods and services",
+        "transfers": "Transfers",
+        "depreciation": "Depreciation",
+        "financial": "Financial expenses",
+        "other": "Other"
+      }
+    },
+    "netDebt": "Net debt",
+    "netAssets": "Net assets",
+    "netDebtNote": "Net debt = liabilities minus financial assets. A negative value means the financial assets exceed the debt (net assets).",
+    "unit": {
+      "francs": "in francs",
+      "per": "in francs per {unit}",
+      "perFormula": "in francs per formula value ({formula})"
+    }
+  },
+  "placeStep": {
+    "startTitle": "Where do you want to start?",
+    "startHelp": "Choose a starting place: a municipality, a canton, the federal government or a social insurance.",
+    "startHere": "Start here",
+    "startHereNamed": "Start with {name}",
+    "customInstead": "I’d rather choose everything myself",
+    "backToComparison": "Back to the selection",
+    "startLabel": "Starting place:",
+    "changeStart": "Change",
+    "startTag": "Start",
+    "modesLabel": "How do you want to add places?",
+    "modes": {
+      "suggestions": "Suggestions",
+      "custom": "Search myself"
+    },
+    "suggestionsLoading": "Working out suggestions …",
+    "noSuggestions": "No suggestions for this place. Search for the places yourself.",
+    "noStart": "Suggestions need a starting place.",
+    "chooseStart": "Choose a starting place",
+    "addAll": "Add all",
+    "removeAll": "Remove all",
+    "inhabitants": "{value} inhabitants",
+    "groups": {
+      "similarInCanton": {
+        "title": "Similar-sized municipalities – {canton}",
+        "description": "Municipalities with about as many inhabitants as {name}."
+      },
+      "similarElsewhere": {
+        "title": "Similar-sized municipalities in other cantons",
+        "description": "How does {name} compare with municipalities of a similar size elsewhere in Switzerland?"
+      },
+      "sameCanton": {
+        "title": "{canton} as a whole",
+        "description": "The canton itself, all its municipalities together, and both together."
+      },
+      "largestInCanton": {
+        "title": "The largest municipalities – {canton}",
+        "description": "The cities and large municipalities of the canton."
+      },
+      "similarCantons": {
+        "title": "Similar-sized cantons",
+        "description": "Cantons with about as many inhabitants, with the same kind of figures as {name}."
+      },
+      "national": {
+        "title": "All of Switzerland",
+        "description": "To compare with the national average, best per inhabitant."
+      },
+      "levels": {
+        "title": "Other levels",
+        "description": "Municipalities, cantons and the federal government, each added up."
+      },
+      "otherInsurances": {
+        "title": "Other social insurances",
+        "description": "Old-age, disability, income compensation and the other social insurances."
+      }
+    }
+  },
+  "amountUnit": {
+    "label": "Amounts",
+    "options": {
+      "chf": "CHF",
+      "thousand": "thousands",
+      "million": "millions"
+    },
+    "suffix": {
+      "chf": "CHF",
+      "thousand": "kCHF",
+      "million": "m CHF"
+    },
+    "hint": {
+      "chf": "Exact, in francs",
+      "thousand": "Rounded to thousands of francs",
+      "million": "Rounded to millions of francs"
+    }
   }
 }

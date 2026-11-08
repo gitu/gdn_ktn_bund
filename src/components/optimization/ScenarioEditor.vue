@@ -25,6 +25,14 @@
         @update:model-value="setPreset"
       />
       <template v-if="presetKey === 'codes' && scenario.accounts.kind === 'codes'">
+        <!-- Pick accounts from the list; the text field below takes the same codes typed in,
+             including sums like 400+401 -->
+        <AccountCodePicker
+          v-if="accounts && accounts.length > 0"
+          :model-value="scenario.accounts.input"
+          :accounts="accounts"
+          @update:model-value="setCodes"
+        />
         <FloatLabel class="w-full" variant="on">
           <InputText
             id="target-accounts-input"
@@ -228,6 +236,7 @@ import ToggleSwitch from 'primevue/toggleswitch'
 import { parseAccountCodeInput } from '@/utils/optimization/accountTargets'
 import type { Constellation } from '@/utils/optimization/constellation'
 import DisclosureBox from './DisclosureBox.vue'
+import AccountCodePicker, { type AccountChoice } from './AccountCodePicker.vue'
 import type { EntityOption } from './useOptimizerLabels'
 
 interface FactorOption {
@@ -241,6 +250,8 @@ const props = defineProps<{
   entities: EntityOption[]
   factors: FactorOption[]
   running: boolean
+  /** Accounts of the loaded data, for picking target codes from a list */
+  accounts?: AccountChoice[]
 }>()
 
 const emit = defineEmits<{

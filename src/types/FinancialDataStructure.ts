@@ -1,4 +1,5 @@
 import type { MultiLanguageLabels } from '@/types/DataStructures.ts'
+import type { ScalingInput } from '@/utils/ScalingCalculator'
 
 export interface FinancialData {
   balanceSheet: FinancialDataNode
@@ -13,6 +14,7 @@ export interface FinancialDataEntity {
   scalingFactor?: number // Scaling factor for the entity (e.g. population or area, etc.)
   scalingInfo?: MultiLanguageLabels // Description of the scaling factor (e.g. "1000 persons")
   scalingMode?: string // Mode of the scaling factor ("multiply" or "divide")
+  scalingInputs?: ScalingInput[] // Statistics the factor was calculated from (value and year used)
   metadata: FinancialDataMetadata
   year: string // Year of the data
   model: string // Model of the data

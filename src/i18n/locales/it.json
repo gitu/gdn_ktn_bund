@@ -218,9 +218,9 @@
     },
     "quickStart": {
       "title": "Iniziare subito",
-      "subtitle": "Due esempi già pronti. Basta un tocco.",
-      "datasets": "{count} colonne nel confronto",
-      "open": "Apri l'esempio"
+      "subtitle": "Tre esempi già pronti, uno su più anni. Basta un tocco.",
+      "open": "Apri l'esempio",
+      "meta": "{places}, {years}"
     },
     "features": {
       "compare": {
@@ -251,7 +251,8 @@
       "description": "I fattori di scala aiutano a normalizzare i dati per un migliore confronto tra entità di dimensioni diverse.",
       "currentScaling": "Scalatura attuale: {name}",
       "unit": "Unità: {unit}",
-      "format": "{name} ({unit})"
+      "format": "{name} ({unit})",
+      "customFormat": "Formula personalizzata: {formula}"
     },
     "options": {
       "pop": "Popolazione",
@@ -324,7 +325,7 @@
     }
   },
   "financialDataComparison": {
-    "title": "Seleziona dati finanziari da confrontare",
+    "title": "Confrontare le finanze",
     "subtitle": "Scegli comuni, cantoni o la Confederazione e metti le loro finanze una accanto all'altra.",
     "loading": "Caricamento dati finanziari...",
     "error": "Errore nel caricamento dei dati",
@@ -366,6 +367,10 @@
       "zurichMunicipalities": {
         "name": "Quattro comuni zurighesi a confronto",
         "description": "Zurigo, Winterthur, Meilen e Glattfelden accanto all'intero cantone, convertito per abitante."
+      },
+      "zurichWinterthurTrend": {
+        "name": "Zurigo e Winterthur negli anni",
+        "description": "Come si sono evoluti dal 2018 ricavi, spese e risultato delle due maggiori città zurighesi, per abitante."
       }
     },
     "selectSampleDataset": "Seleziona dataset di esempio",
@@ -768,11 +773,336 @@
         "legend": "Per cella: variazione del fattore, variazione dell’importo atteso, rango prima → dopo.",
         "unavailable": "Non ci sono valori per questa selezione."
       }
+    },
+    "accountPicker": {
+      "remove": "Rimuovere {account}",
+      "empty": "Nessun conto scelto.",
+      "search": "Cercare un conto o un numero",
+      "add": "Aggiungere un conto …",
+      "quick": "Conti frequenti",
+      "quickLabel": "{code} {name}"
     }
   },
   "restOfCanton": {
     "title": "Dati calcolati: «Altri comuni»",
     "text": "Nessuno pubblica i dati degli altri comuni di un cantone (meno di 5000 abitanti). Sono stati calcolati qui: i dati di tutti i comuni del cantone meno i singoli comuni da 5000 abitanti. È un'approssimazione.",
     "limits": "Mancano i pagamenti tra comuni (conti 361–363 e 461–463) e i conti che non si possono sottrarre in modo pulito. I totali e l'utile/la perdita sono quindi solo in parte confrontabili con le altre colonne. Non c'è una suddivisione per ambito di compiti."
+  },
+  "wizard": {
+    "intro": "Quattro passi: scegliere i luoghi, scegliere gli anni, decidere la conversione e vedere il risultato in grafici o in tabella.",
+    "stepsLabel": "Passi del confronto",
+    "steps": {
+      "places": "Luoghi",
+      "years": "Anni",
+      "scaling": "Conversione",
+      "result": "Risultato"
+    },
+    "places": {
+      "title": "Quali luoghi vuole confrontare?",
+      "help": "Cominci con un luogo, per esempio il suo comune. Poi proponiamo confronti sensati, oppure compone tutto lei.",
+      "none": "Nessun luogo scelto"
+    },
+    "years": {
+      "title": "Quali anni?",
+      "help": "Un anno mostra i luoghi uno accanto all’altro. Più anni mostrano anche l’evoluzione. La conversione usa per ogni anno le cifre di quell’anno.",
+      "customCombination": "Il link contiene una combinazione propria di luoghi e anni. Appena sceglie un anno qui, vale per tutti i luoghi."
+    },
+    "scaling": {
+      "title": "Come convertire gli importi?",
+      "help": "I luoghi grandi hanno importi grandi. Dividendo per il numero di abitanti o un altro indicatore, luoghi di dimensioni diverse diventano confrontabili. In basso vede per quale numero viene divisa ogni colonna."
+    },
+    "summary": {
+      "places": "1 luogo | {count} luoghi",
+      "columns": "1 colonna | {count} colonne"
+    },
+    "next": "Avanti: {step}",
+    "showResult": "Mostra il risultato",
+    "result": {
+      "missingPlaces": "Mancano cifre per gli anni scelti: {names}.",
+      "viewLabel": "Vista",
+      "views": {
+        "charts": "Grafici",
+        "table": "Tabella"
+      }
+    }
+  },
+  "placePicker": {
+    "searchPlaceholder": "Cercare un comune, un cantone o la Confederazione …",
+    "filterLabel": "Filtrare per tipo",
+    "groups": {
+      "all": "Tutti",
+      "municipalities": "Comuni",
+      "cantons": "Cantoni",
+      "switzerland": "Svizzera e Confederazione",
+      "socialInsurance": "Assicurazioni sociali"
+    },
+    "resultsLabel": "Risultati della ricerca",
+    "resultsCount": "1 risultato | {count} risultati",
+    "loading": "Caricamento dell’elenco …",
+    "add": "Aggiungere",
+    "added": "Scelto",
+    "addNamed": "Aggiungere {name}",
+    "removeNamed": "Rimuovere {name}",
+    "noResults": "Nessun risultato. Provi un altro termine o «Tutti».",
+    "showMore": "Mostrare altri {count}",
+    "selectionLabel": "La sua scelta",
+    "selectionTitle": "La sua scelta",
+    "selectionEmpty": "Ancora niente di scelto. Aggiunga almeno un luogo.",
+    "clearAll": "Rimuovere tutti",
+    "moveUp": "Spostare {name} in alto",
+    "moveDown": "Spostare {name} in basso",
+    "manyPlaces": "Più di {count} luoghi: la tabella li mostra tutti, il grafico dell’evoluzione solo i primi {count}."
+  },
+  "yearPicker": {
+    "modeLabel": "Uno o più anni",
+    "modes": {
+      "single": {
+        "title": "Un anno",
+        "description": "Confrontare i luoghi nello stesso anno. Poi potrà passare da un anno all’altro."
+      },
+      "multi": {
+        "title": "Più anni",
+        "description": "Vedere l’evoluzione, con la stessa conversione per ogni anno."
+      }
+    },
+    "noYears": "Nessun anno per i luoghi scelti.",
+    "yearsLabel": "Anni disponibili",
+    "allPlaces": "tutti i luoghi",
+    "somePlaces": "{count} su {total}",
+    "lastYears": "Ultimi {count} anni",
+    "allYears": "Tutti ({from}–{to})",
+    "pickOne": "Scelga almeno un anno.",
+    "summary": "{years} scelto, in tutto {columns} colonne.",
+    "manyColumns": "{count} colonne: i grafici restano leggibili, la tabella diventa molto larga."
+  },
+  "scalingStep": {
+    "choiceLabel": "Conversione",
+    "choices": {
+      "none": {
+        "title": "Senza conversione",
+        "description": "Gli importi in franchi, così come figurano nei conti."
+      },
+      "pop": {
+        "title": "Per abitante",
+        "description": "Il più usato: rende confrontabili luoghi grandi e piccoli."
+      },
+      "workplaces": {
+        "title": "Per posto di lavoro",
+        "description": "Utile dove lavora molta più gente di quella che ci abita."
+      },
+      "total_area": {
+        "title": "Per ettaro",
+        "description": "Per spese che crescono con la superficie, come strade o boschi."
+      },
+      "other": {
+        "title": "Altro indicatore",
+        "description": "Per esempio per bambino e giovane o per persona dai 65 anni."
+      },
+      "custom": {
+        "title": "Formula propria",
+        "description": "Combinare indicatori, per esempio abitanti più la metà dei posti di lavoro."
+      },
+      "optimize": {
+        "title": "Far trovare una formula",
+        "description": "Scelga dei conti; lo strumento cerca gli indicatori che rendono i luoghi più confrontabili per quei conti."
+      }
+    },
+    "otherLabel": "Indicatore",
+    "otherPlaceholder": "Scegliere un indicatore",
+    "formula": {
+      "label": "Formula",
+      "placeholder": "p. es. pop+workplaces/2",
+      "operators": "Inserire un operatore",
+      "statistics": "Inserire un indicatore",
+      "operator": {
+        "plus": "più",
+        "minus": "meno",
+        "times": "per",
+        "divide": "diviso",
+        "open": "parentesi aperta",
+        "close": "parentesi chiusa"
+      },
+      "valid": "Formula valida con: {statistics}",
+      "invalid": "La formula non funziona così: {error}",
+      "apply": "Usare la formula",
+      "examplesTitle": "Esempi",
+      "examples": {
+        "mixed": "abitanti più la metà dei posti di lavoro",
+        "adults": "solo gli abitanti in età lavorativa",
+        "weighted": "gli abitanti anziani contano di più"
+      }
+    },
+    "optimizer": {
+      "title": "Trovare una formula automaticamente",
+      "intro": "Per utenti esperti: lo strumento cerca pesi che rendono i luoghi scelti il più possibile simili per determinati conti.",
+      "waiting": "Caricamento dei dati finanziari …"
+    },
+    "preview": {
+      "title": "Ecco la conversione",
+      "introStat": "Ogni colonna è divisa per «{name}» ({unit}) del luogo e dell’anno:",
+      "introFormula": "Ogni colonna è divisa per il risultato della formula «{formula}» per il luogo e l’anno:",
+      "missing": "manca",
+      "fromYear": "valore del {year}",
+      "otherYears": "Un anno piccolo significa: l’indicatore non esiste per quell’anno, si usa l’anno più vicino.",
+      "missingNote": "Dove l’indicatore manca, la colonna resta in franchi e non compare nei grafici.",
+      "unknown": "Questo indicatore non esiste."
+    }
+  },
+  "resultBar": {
+    "places": "Luoghi",
+    "edit": "modificare",
+    "year": "Anno",
+    "years": "Anni",
+    "toYear": "Passare al {year}",
+    "scaling": "Conversione",
+    "formula": "Formula"
+  },
+  "charts": {
+    "showChart": "Grafico",
+    "showTable": "Tabella",
+    "noValue": "nessuna cifra",
+    "empty": "Niente da mostrare per questa scelta.",
+    "lineKeyboardHint": "Con i tasti freccia si passa da un anno all’altro.",
+    "place": "Luogo",
+    "focusYear": "Anno dei grafici sotto",
+    "previousYear": "Anno precedente",
+    "nextYear": "Anno successivo",
+    "skippedUnscaled": "Senza indicatore per la conversione e quindi assenti dai grafici: {names}. Nella tabella queste colonne sono in franchi.",
+    "snapshotSubtitle": "{year}, {unit}",
+    "structureSubtitle": "{year}, quote del totale",
+    "trend": {
+      "title": "Evoluzione: {measure}",
+      "subtitle": "dal {from} al {to}, {unit}",
+      "capped": "Il grafico mostra i primi {count} di {total} luoghi; tutti figurano nella tabella."
+    },
+    "revenueExpenses": {
+      "title": "Ricavi e spese"
+    },
+    "result": {
+      "title": "Risultato: avanzo o disavanzo",
+      "surplus": "Avanzo",
+      "deficit": "Disavanzo",
+      "note": "Ricavi meno spese. Blu: più entrate che uscite, rosso: meno."
+    },
+    "revenueStructure": {
+      "title": "Da dove vengono i soldi?",
+      "note": "Le imposte sono quelle sul reddito, sulla sostanza e sull’utile. I trasferimenti sono contributi della Confederazione, del cantone o di altri comuni. Le tasse pagano per esempio i rifiuti o l’acqua."
+    },
+    "expenseStructure": {
+      "title": "Per cosa si spendono i soldi?",
+      "note": "I trasferimenti sono contributi ad altri, per esempio a scuole, ospedali, assistenza sociale o perequazione. Le spese per beni e servizi sono tutto ciò che si compra."
+    },
+    "measure": {
+      "title": "A confronto: {measure}",
+      "pick": "Scegliere un indicatore",
+      "search": "Cercare un conto",
+      "otherAccount": "Altro conto …"
+    },
+    "figures": {
+      "revenue": "Ricavi",
+      "expenses": "Spese",
+      "result": "Risultato",
+      "netDebt": "Debito netto"
+    },
+    "groups": {
+      "revenue": {
+        "taxes": "Imposte",
+        "fees": "Tasse ed emolumenti",
+        "transfers": "Trasferimenti",
+        "financial": "Ricavi finanziari",
+        "other": "Altro"
+      },
+      "expenses": {
+        "personnel": "Personale",
+        "goods": "Beni e servizi",
+        "transfers": "Trasferimenti",
+        "depreciation": "Ammortamenti",
+        "financial": "Spese finanziarie",
+        "other": "Altro"
+      }
+    },
+    "netDebt": "Debito netto",
+    "netAssets": "Patrimonio netto",
+    "netDebtNote": "Debito netto = capitale di terzi meno beni patrimoniali. Un valore negativo significa che i beni patrimoniali superano i debiti (patrimonio netto).",
+    "unit": {
+      "francs": "in franchi",
+      "per": "in franchi per {unit}",
+      "perFormula": "in franchi per valore della formula ({formula})"
+    }
+  },
+  "placeStep": {
+    "startTitle": "Da dove vuole partire?",
+    "startHelp": "Scelga un luogo di partenza: un comune, un cantone, la Confederazione o un’assicurazione sociale.",
+    "startHere": "Partire da qui",
+    "startHereNamed": "Partire da {name}",
+    "customInstead": "Preferisco scegliere tutto io",
+    "backToComparison": "Torna alla scelta",
+    "startLabel": "Luogo di partenza:",
+    "changeStart": "Cambiare",
+    "startTag": "Partenza",
+    "modesLabel": "Come aggiungere luoghi?",
+    "modes": {
+      "suggestions": "Proposte",
+      "custom": "Cercare io"
+    },
+    "suggestionsLoading": "Calcolo delle proposte …",
+    "noSuggestions": "Nessuna proposta per questo luogo. Cerchi i luoghi lei stesso.",
+    "noStart": "Per le proposte serve un luogo di partenza.",
+    "chooseStart": "Scegliere il luogo di partenza",
+    "addAll": "Aggiungere tutti",
+    "removeAll": "Rimuovere tutti",
+    "inhabitants": "{value} ab.",
+    "groups": {
+      "similarInCanton": {
+        "title": "Comuni di dimensioni simili – {canton}",
+        "description": "Comuni con circa tanti abitanti quanti {name}."
+      },
+      "similarElsewhere": {
+        "title": "Comuni di dimensioni simili in altri cantoni",
+        "description": "Come si colloca {name} rispetto a comuni di dimensioni simili nel resto della Svizzera?"
+      },
+      "sameCanton": {
+        "title": "{canton} nel suo insieme",
+        "description": "Il cantone stesso, tutti i suoi comuni insieme ed entrambi insieme."
+      },
+      "largestInCanton": {
+        "title": "I comuni più grandi – {canton}",
+        "description": "Le città e i grandi comuni del cantone."
+      },
+      "similarCantons": {
+        "title": "Cantoni di dimensioni simili",
+        "description": "Cantoni con circa tanti abitanti, con lo stesso tipo di cifre di {name}."
+      },
+      "national": {
+        "title": "Tutta la Svizzera",
+        "description": "Per il confronto con la media nazionale, meglio per abitante."
+      },
+      "levels": {
+        "title": "Altri livelli",
+        "description": "Comuni, cantoni e Confederazione, ciascuno sommato."
+      },
+      "otherInsurances": {
+        "title": "Altre assicurazioni sociali",
+        "description": "AVS, AI, IPG e le altre assicurazioni sociali."
+      }
+    }
+  },
+  "amountUnit": {
+    "label": "Importi",
+    "options": {
+      "chf": "CHF",
+      "thousand": "migliaia",
+      "million": "mio."
+    },
+    "suffix": {
+      "chf": "CHF",
+      "thousand": "kCHF",
+      "million": "mio. CHF"
+    },
+    "hint": {
+      "chf": "Esatti, in franchi",
+      "thousand": "Arrotondati alle migliaia di franchi",
+      "million": "Arrotondati ai milioni di franchi"
+    }
   }
 }

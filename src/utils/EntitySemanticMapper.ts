@@ -342,7 +342,7 @@ export class EntitySemanticMapper {
       if (level1 === 'ktn' && level2 === 'gdn' && CANTON_CODES[level3]) {
         const cantonName = CANTON_CODES[level3]
         return {
-          de: `Kanton ${cantonName.en} inklusive allen Gemeinden`,
+          de: `Kanton ${cantonName.de} inklusive allen Gemeinden`,
           fr: `Canton ${cantonName.fr} incluant toutes les communes`,
           it: `Cantone ${cantonName.it} inclusi tutti i comuni`,
           en: `Canton ${cantonName.en} including all municipalities`,

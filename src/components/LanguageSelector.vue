@@ -3,7 +3,6 @@
     <Button
       ref="triggerButton"
       type="button"
-      icon="pi pi-globe"
       @click="toggle"
       class="layout-topbar-action has-label"
       aria-haspopup="true"

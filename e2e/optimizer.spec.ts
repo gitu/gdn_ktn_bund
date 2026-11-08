@@ -9,10 +9,10 @@ const DATASETS = [
 ].join(',')
 
 async function openOptimizer(page) {
-  await page.goto(`/financial-comparison?datasets=${DATASETS}`)
-  await expect(page.locator('[data-testid="scaling-dropdown"]')).toBeVisible({ timeout: 30000 })
-  await page.getByText('Benutzerdefinierte Formel').click()
-  await expect(page.locator('#target-accounts-input')).toBeVisible({ timeout: 15000 })
+  // The optimiser is its own choice in the conversion step of the wizard
+  await page.goto(`/financial-comparison?datasets=${DATASETS}&step=scaling`)
+  await page.getByTestId('scaling-choice-optimize').click()
+  await expect(page.locator('#target-accounts-input')).toBeVisible({ timeout: 20000 })
 }
 
 test.describe('Scaling optimiser: scenarios and simulations', () => {

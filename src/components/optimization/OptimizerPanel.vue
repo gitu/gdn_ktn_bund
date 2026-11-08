@@ -29,6 +29,7 @@
       :scenario="store.selected.constellation"
       :entities="entities"
       :factors="factorOptions"
+      :accounts="accountChoices"
       :running="store.selected.status === 'running'"
       @update="(patch) => store.update(store.selected.constellation.id, patch)"
       @run="runScenario(store.selected.constellation.id)"
@@ -76,6 +77,9 @@ import { formatCv } from './format'
 import OptimizationResult from './OptimizationResult.vue'
 import ScenarioComparison from './ScenarioComparison.vue'
 import ScenarioEditor from './ScenarioEditor.vue'
+import type { AccountChoice } from './AccountCodePicker.vue'
+import { accountOptions } from '@/utils/charts/financialFigures'
+import type { MultiLanguageLabels } from '@/types/DataStructures'
 import ScenarioList, { type ScenarioItem } from './ScenarioList.vue'
 import SimulationPanel from './SimulationPanel.vue'
 import { useOptimizerLabels } from './useOptimizerLabels'
@@ -102,6 +106,22 @@ const factorOptions = computed(() =>
     label: labels.value.factor(s.id),
     unit: labels.value.factorUnit(s.id),
   })),
+)
+
+// Income statement accounts only: the optimiser compares flows (expenses, revenue) per place
+const accountChoices = computed<AccountChoice[]>(() =>
+  props.financialData
+    ? accountOptions(props.financialData)
+        .filter((option) => option.code.startsWith('3') || option.code.startsWith('4'))
+        .map((option) => ({
+          code: option.code,
+          name:
+            option.labels[locale.value as keyof MultiLanguageLabels] ||
+            option.labels.de ||
+            option.code,
+          depth: option.depth,
+        }))
+    : [],
 )
 
 const ctx = computed(() =>
