@@ -97,6 +97,28 @@ test.describe('comparison wizard', () => {
     await expect(bar).toHaveAttribute('aria-label', /^Zürich, Ertrag, 14'074\sCHF$/)
   })
 
+  test('a statistic that never arrives does not block switching to another conversion', async ({
+    page,
+  }) => {
+    await page.goto(
+      '/financial-comparison?datasets=gdn/fs/010261:2024,gdn/fs/010230:2024&scaling=pop',
+    )
+    const chart = page.getByTestId('chart-revenue-expenses')
+    await expect(chart.getByTestId('bar').first()).toBeVisible({ timeout: 60000 })
+
+    // The jobs statistic never answers (a stalled connection)
+    await page.route(/\/data\/stats\/workplaces\//, () => {})
+    await page.getByTestId('scaling-dropdown').click()
+    await page.getByRole('option', { name: 'Arbeitsplätze', exact: true }).click()
+    await expect(page.getByTestId('financial-charts')).toHaveClass(/is-recalculating/)
+
+    // The next choice applies at once instead of waiting behind the stalled one
+    await page.getByTestId('scaling-dropdown').click()
+    await page.getByRole('option', { name: 'Nicht umrechnen', exact: true }).click()
+    await expect(chart.locator('.chart-subtitle')).toHaveText('2024, in Franken')
+    await expect(page.getByTestId('financial-charts')).not.toHaveClass(/is-recalculating/)
+  })
+
   test('several years show the development, calculated with the same formula each year', async ({
     page,
   }) => {

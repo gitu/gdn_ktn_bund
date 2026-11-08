@@ -967,7 +967,7 @@
     "focusYear": "Anno dei grafici sotto",
     "previousYear": "Anno precedente",
     "nextYear": "Anno successivo",
-    "skippedUnscaled": "Senza indicatore per la conversione e quindi assenti dai grafici: {names}. Nella tabella queste colonne sono in franchi.",
+    "skippedUnscaled": "Senza indicatore per la conversione (mancante o non caricabile), quindi assenti dai grafici: {names}. Nella tabella queste colonne sono in franchi.",
     "snapshotSubtitle": "{year}, {unit}",
     "structureSubtitle": "{year}, quote del totale",
     "trend": {

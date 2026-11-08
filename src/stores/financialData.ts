@@ -87,6 +87,10 @@ export const useFinancialDataStore = defineStore('financialData', () => {
 
     const run = ++loadRun
     const isCurrentLoad = () => run === loadRun
+    // New data replaces the old: a scaling choice still being calculated for it is void, and the
+    // load applies the current scaling itself
+    choiceRun++
+    isApplyingScaling.value = false
     loading.value = true
     error.value = null
     loadedDatasetCount.value = 0
@@ -120,13 +124,7 @@ export const useFinancialDataStore = defineStore('financialData', () => {
       // Load all datasets in parallel
       const loadPromises = parsedDatasets.map(async ({ dataset, source, model, entity, year }) => {
         try {
-          await dataLoader.loadAndIntegrateFinancialData(
-            entity,
-            model,
-            year,
-            target,
-            source,
-          )
+          await dataLoader.loadAndIntegrateFinancialData(entity, model, year, target, source)
           return { success: true, dataset }
         } catch (datasetError) {
           Logger.error('Failed to load dataset', datasetError, { dataset })
@@ -156,7 +154,12 @@ export const useFinancialDataStore = defineStore('financialData', () => {
       // Apply the active scaling (traditional or custom formula) to the freshly loaded entities. A
       // scaling chosen while loading is the current one by now and is applied here.
       if (currentScalingId.value) {
-        const applied = await applyCurrentScaling(isCurrentLoad)
+        let applied = true
+        // A scaling chosen while this ran is the current one now: apply that one too
+        for (let scalingId = currentScalingId.value; ; scalingId = currentScalingId.value) {
+          applied = await applyCurrentScaling(isCurrentLoad)
+          if (!isCurrentLoad() || currentScalingId.value === scalingId) break
+        }
         if (!isCurrentLoad()) return
         if (!applied) {
           // Unknown scaling id: show the data unscaled and keep the state truthful
@@ -201,7 +204,10 @@ export const useFinancialDataStore = defineStore('financialData', () => {
    * the id is unknown. Writes nothing when `isCurrent` says the result is no longer wanted (another
    * scaling or other data was chosen while the divisors were calculated).
    */
-  const applyScalingById = async (scalingId: string, isCurrent: () => boolean): Promise<boolean> => {
+  const applyScalingById = async (
+    scalingId: string,
+    isCurrent: () => boolean,
+  ): Promise<boolean> => {
     const data = combinedFinancialData.value
     if (!data) return true
 
@@ -232,24 +238,28 @@ export const useFinancialDataStore = defineStore('financialData', () => {
     return true
   }
 
+  // Every application of a scaling gets a number; only the newest one may write its results, so a
+  // calculation that is slow (or never answers) never holds up a later choice
+  let scalingRun = 0
+  // Separate count for the "recalculating" state: only the newest scaling choice may end it (a
+  // load applies the scaling too, but has its own loading state)
+  let choiceRun = 0
+
   /**
-   * Apply `currentScalingId` to the loaded entities, again and again until it no longer changes while
-   * it is being calculated, so the last choice always wins. False when the id is unknown.
+   * Apply `currentScalingId` to the loaded entities. A newer call supersedes this one: its results
+   * are then thrown away. False when the id is unknown.
    */
   const applyCurrentScaling = async (stillWanted: () => boolean = () => true) => {
-    for (;;) {
-      const scalingId = currentScalingId.value
-      if (!scalingId) {
-        for (const [, entity] of combinedFinancialData.value?.entities ?? []) removeScaling(entity)
-        appliedScalingId.value = null
-        return true
-      }
-      const applied = await applyScalingById(
-        scalingId,
-        () => stillWanted() && currentScalingId.value === scalingId,
-      )
-      if (!stillWanted() || currentScalingId.value === scalingId) return applied
+    const run = ++scalingRun
+    const scalingId = currentScalingId.value
+    const isLatest = () =>
+      run === scalingRun && stillWanted() && currentScalingId.value === scalingId
+    if (!scalingId) {
+      for (const [, entity] of combinedFinancialData.value?.entities ?? []) removeScaling(entity)
+      appliedScalingId.value = null
+      return true
     }
+    return applyScalingById(scalingId, isLatest)
   }
 
   const removeScaling = (entity: FinancialDataEntity) => {
@@ -266,21 +276,24 @@ export const useFinancialDataStore = defineStore('financialData', () => {
     }
     currentScalingId.value = scalingId
 
-    // A running load applies the current scaling when its data is complete, and a running
-    // application picks up the new id when it is done: neither must be interrupted here
-    if (!combinedFinancialData.value || loading.value || isApplyingScaling.value) return
+    // A running load applies the current scaling when its data is complete
+    if (!combinedFinancialData.value || loading.value) return
 
+    // Starts at once, even while an earlier choice is still being calculated
+    const choice = ++choiceRun
     try {
       isApplyingScaling.value = true
-      if (!(await applyCurrentScaling())) {
-        Logger.error('Failed to get scaling info', undefined, { scalingId: currentScalingId.value })
+      const applied = await applyCurrentScaling()
+      if (!applied && choice === choiceRun && currentScalingId.value === scalingId) {
+        Logger.error('Failed to get scaling info', undefined, { scalingId })
         error.value = 'Invalid scaling selection'
       }
     } catch (scalingError) {
       Logger.error('Failed to set scaling', scalingError)
       error.value = 'Error applying scaling to datasets'
     } finally {
-      isApplyingScaling.value = false
+      // Only the newest choice ends the "recalculating" state
+      if (choice === choiceRun) isApplyingScaling.value = false
     }
   }
 

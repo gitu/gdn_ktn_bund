@@ -501,6 +501,11 @@ describe('fitScalingModel: data hygiene (nothing is dropped silently)', () => {
 })
 
 describe('fitScalingModel: speed', () => {
+  // CI runs the unit tests with coverage instrumentation on a shared runner, which took up to 7 s
+  // for what takes about 1 s locally; the limit there only catches a real slowdown (e.g. a step that
+  // turns quadratic), not runner noise
+  const limit = process.env.CI ? 15000 : 4000
+
   it('fits and cross-validates 2,000 municipalities x 5 factors x 12 accounts in well under 4 s', () => {
     const accounts: Record<string, number> = {}
     for (let i = 0; i < 12; i++) accounts[String(30 + i)] = 150 * (i + 1)
@@ -515,8 +520,8 @@ describe('fitScalingModel: speed', () => {
     const t0 = performance.now()
     const r = valid(fitScalingModel(input, { selection: { enabled: true, maxFactors: 4 } }))
     const elapsed = performance.now() - t0
-    expect(elapsed).toBeLessThan(4000)
+    expect(elapsed).toBeLessThan(limit)
     expect(r.metrics.cvMethod).toBe('kfold')
     expect(r.model.factorIds).toEqual(expect.arrayContaining(['pop', 'workplaces', 'total_area']))
-  }, 20000)
+  }, 30000)
 })

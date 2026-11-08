@@ -967,7 +967,7 @@
     "focusYear": "Jahr der Grafiken unten",
     "previousYear": "Vorheriges Jahr",
     "nextYear": "Nächstes Jahr",
-    "skippedUnscaled": "Ohne Kennzahl für die Umrechnung und darum nicht in den Grafiken: {names}. In der Tabelle stehen diese Spalten in Franken.",
+    "skippedUnscaled": "Ohne Kennzahl für die Umrechnung (fehlt oder konnte nicht geladen werden) und darum nicht in den Grafiken: {names}. In der Tabelle stehen diese Spalten in Franken.",
     "snapshotSubtitle": "{year}, {unit}",
     "structureSubtitle": "{year}, Anteile am Total",
     "trend": {

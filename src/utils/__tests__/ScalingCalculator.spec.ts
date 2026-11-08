@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest'
-import { ScalingCalculator, describeFormula } from '../ScalingCalculator'
+import { STAT_TIMEOUT_MS, ScalingCalculator, describeFormula } from '../ScalingCalculator'
 import type { StatsAvailabilityInfo } from '@/types/StatsData'
 
 const statsLoaderMock = vi.hoisted(() => ({
@@ -128,6 +128,26 @@ describe('ScalingCalculator', () => {
       geoId: 'unknown:gdn_zh_rest',
       source: 'gdn',
     })
+  })
+
+  it('gives up on a statistic that does not answer, and asks again next time', async () => {
+    vi.useFakeTimers()
+    try {
+      statsLoaderMock.loadGdnData.mockImplementationOnce(() => new Promise(() => {}))
+      const calculator = new ScalingCalculator()
+      const pending = calculator.calculate('pop', ['gdn/fs/010261:2024'])
+      await vi.advanceTimersByTimeAsync(STAT_TIMEOUT_MS + 1)
+      const calculation = await pending
+      if (!calculation.ok) throw new Error('expected a known statistic')
+      expect(calculation.outcomes.get('gdn/fs/010261:2024')?.factor).toBeNull()
+
+      // Not remembered as missing: the next calculation loads it again
+      const retry = await calculator.calculate('pop', ['gdn/fs/010261:2024'])
+      if (!retry.ok) throw new Error('expected a known statistic')
+      expect(retry.outcomes.get('gdn/fs/010261:2024')?.factor).toBe(440000)
+    } finally {
+      vi.useRealTimers()
+    }
   })
 
   it('loads every statistic for a place and year only once', async () => {

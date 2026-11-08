@@ -756,6 +756,65 @@ describe('financialData store', () => {
         expect(store.isApplyingScaling).toBe(false)
       })
 
+      it('a calculation that never finishes does not hold up the next choice', async () => {
+        const store = useFinancialDataStore()
+        store.setDatasets(FIRST_DATASETS)
+        await store.loadDatasets(null)
+        // The jobs statistic never answers (a stalled connection)
+        statsLoaderMock.loadGdnData.mockImplementation(
+          (id: string, _year: number, options: { geoIds: string[] }) =>
+            id === 'workplaces'
+              ? new Promise(() => {})
+              : Promise.resolve({
+                  data: options.geoIds.map((key) => ({ key, value: POPULATION[key] ?? 5000 })),
+                }),
+        )
+
+        void store.setScaling('workplaces')
+        await new Promise((resolve) => setTimeout(resolve, 0))
+        expect(store.isApplyingScaling).toBe(true)
+
+        await store.setScaling('pop')
+        expect(store.appliedScalingId).toBe('pop')
+        expect(scalingFactorsOf(store)['gdn/fs/010261:2022']).toBe(400000)
+        expect(store.isApplyingScaling).toBe(false)
+
+        await store.setScaling(null)
+        expect(store.appliedScalingId).toBeNull()
+        expect(scalingFactorsOf(store)['gdn/fs/010261:2022']).toBeUndefined()
+      })
+
+      it('ends the "recalculating" state when new data is loaded during a scaling change', async () => {
+        const store = useFinancialDataStore()
+        store.setDatasets(FIRST_DATASETS)
+        await store.loadDatasets(null)
+        // Jobs take a while; a year change (new data) comes in meanwhile
+        const waiting: (() => void)[] = []
+        const answerJobs = () => waiting.splice(0).forEach((answer) => answer())
+        statsLoaderMock.loadGdnData.mockImplementation(
+          async (id: string, _year: number, options: { geoIds: string[] }) => {
+            if (id === 'workplaces') await new Promise<void>((resolve) => waiting.push(resolve))
+            return { data: options.geoIds.map((key) => ({ key, value: POPULATION[key] ?? 5000 })) }
+          },
+        )
+
+        const change = store.setScaling('workplaces')
+        await new Promise((resolve) => setTimeout(resolve, 0))
+        expect(store.isApplyingScaling).toBe(true)
+
+        store.setDatasets(OTHER_DATASETS)
+        const load = store.loadDatasets()
+        await new Promise((resolve) => setTimeout(resolve, 0))
+        // Answer the requests of the earlier choice and those of the load as they come
+        const answering = setInterval(answerJobs, 1)
+        await Promise.all([change, load])
+        clearInterval(answering)
+
+        expect(store.isApplyingScaling).toBe(false)
+        expect(store.loading).toBe(false)
+        expect(store.appliedScalingId).toBe('workplaces')
+      })
+
       it('ignores an older load that finishes after a newer one has started', async () => {
         const { release } = mockSlowLoader()
         const store = useFinancialDataStore()
